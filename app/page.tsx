@@ -1,4 +1,4 @@
-import Intro from "./components/intro";
+import Intro from "./components/intro.component";
 
 export default function Home() {
   return (
