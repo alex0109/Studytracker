@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-interface CustomButtonInterface {
+interface CustomButtonProps {
   onClick?: () => void;
   title: string;
   disabled?: boolean;
@@ -12,7 +12,7 @@ function CustomButton({
   title,
   disabled = false,
   type,
-}: CustomButtonInterface) {
+}: CustomButtonProps) {
   return (
     <button
       onClick={onClick}

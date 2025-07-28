@@ -3,8 +3,8 @@
 import React from "react";
 import TypeText from "./type-text.component";
 import { TypeTextType } from "../types/type-text.types";
-import { useForm } from "react-hook-form";
-import Block from "./block";
+import BlockColumn from "../../shared/components/block-column";
+import Title from "@/shared/components/title";
 
 const config: TypeTextType = {
   text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione nulla a quod aliquid provident modi maxime eius autem ad quo veniam laudantium ipsa similique odit dicta, impedit est aperiam molestias.",
@@ -12,23 +12,15 @@ const config: TypeTextType = {
 };
 
 function Intro() {
-  const { watch } = useForm();
-  const promts = watch("promt");
   return (
-    <Block>
+    <BlockColumn>
       <div className="w-[800px]">
-        <h1 className="text-gray-950 dark:text-white text-2xl font-bold text-center">
-          Studytracker
-        </h1>
+        <Title text="Studytracker" />
         <div>
-          {!promts ? (
-            <TypeText text={config.text} typeSpeed={config.typeSpeed} />
-          ) : (
-            promts
-          )}
+          <TypeText text={config.text} typeSpeed={config.typeSpeed} />
         </div>
       </div>
-    </Block>
+    </BlockColumn>
   );
 }
 
