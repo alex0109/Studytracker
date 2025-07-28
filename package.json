@@ -1,14 +1,14 @@
 {
-  "name": "synaesthetic",
+  "name": "studytracker",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/alex0109/Synaesthetic#readme",
+  "homepage": "https://github.com/alex0109/Studytracker#readme",
   "bugs": {
-    "url": "https://github.com/alex0109/Synaesthetic/issues"
+    "url": "https://github.com/alex0109/Studytracker/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alex0109/Synaesthetic.git"
+    "url": "git+https://github.com/alex0109/Studytracker.git"
   },
   "license": "ISC",
   "author": "Reybey",
