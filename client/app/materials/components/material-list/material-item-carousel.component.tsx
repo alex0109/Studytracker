@@ -1,0 +1,34 @@
+import React, { FC } from "react";
+
+import { CarouselProps } from "./types";
+import EmptyMaterialItem from "./empty-material-list.component";
+import MaterialItem from "./material-item.component";
+import Link from "next/link";
+
+const Carousel: FC<CarouselProps> = ({ materials }) => {
+  return (
+    <>
+      {materials.length < 1 ? (
+        <div className="w-full rounded-4xl">
+          <EmptyMaterialItem />
+        </div>
+      ) : (
+        <div className="w-full overflow-x-scroll scroll-smooth whitespace-nowrap rounded-4xl">
+          {materials.map((item) => (
+            <Link key={item.id} href={`/materials/${item.id}`}>
+              <MaterialItem
+                title={item.title}
+                type={item.type}
+                tag={item.tag}
+                status={item.status}
+                id={item.id}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Carousel;

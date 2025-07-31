@@ -7,6 +7,7 @@ import CustomButton from "../../shared/components/button";
 import Title from "@/shared/components/title";
 import { useState } from "react";
 import Modal from "@/shared/components/modal";
+import { createMaterial } from "../services/materials/material.service";
 
 enum MaterialStatus {
   tolearn = "tolearn",
@@ -32,7 +33,7 @@ const Dashboard = () => {
   const [open, setOpen] = useState(false);
 
   const onFormSubmit = (values: CustomFormInterface) => {
-    console.log(values);
+    createMaterial(values);
   };
 
   return (

@@ -19,7 +19,7 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       <input
         {...inputProps}
         ref={ref}
-        className="bg-gray-50 dark:bg-neutral-700 p-2 mt-2 mb-3 rounded-2xl"
+        className="bg-gray-100 dark:bg-neutral-700 p-2 mt-2 mb-3 rounded-2xl"
         placeholder={placeholder}
       />
       {error && <p>Error: {error}</p>}
