@@ -12,7 +12,7 @@ export const getOneMaterial = async (id: number) => {
 
   console.log(res.data);
 
-  return res.data[0];
+  return res.data;
 };
 
 export const createMaterial = async (body: Material) => {
