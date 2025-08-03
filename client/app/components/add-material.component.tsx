@@ -7,6 +7,7 @@ import CustomButton from "../../shared/components/button";
 import Title from "@/shared/components/title";
 import { useState } from "react";
 import Modal from "@/shared/components/modal";
+import useMaterials from "../materials/hooks/useMaterials.hook";
 
 enum MaterialStatus {
   tolearn = "tolearn",
@@ -22,17 +23,20 @@ interface CustomFormInterface {
   status: MaterialStatus;
 }
 
-const Dashboard = () => {
+const AddMaterial = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<CustomFormInterface>();
 
+  const { createMaterial } = useMaterials();
+
   const [open, setOpen] = useState(false);
 
   const onFormSubmit = (values: CustomFormInterface) => {
-    console.log(values);
+    createMaterial(values);
+    setOpen(false);
   };
 
   return (
@@ -54,25 +58,25 @@ const Dashboard = () => {
             <CustomInput
               label="Title"
               placeholder="Title..."
-              {...register<"title">("title", {})}
+              {...register<"title">("title", { required: "Required" })}
               error={errors.title?.message}
             />
             <CustomInput
               label="Type"
               placeholder="Type..."
-              {...register<"type">("type", {})}
+              {...register<"type">("type", { required: "Required" })}
               error={errors.type?.message}
             />
             <CustomInput
               label="Link"
               placeholder="Link..."
-              {...register<"link">("link", {})}
+              {...register<"link">("link", { required: "Required" })}
               error={errors.link?.message}
             />
             <CustomInput
               label="Tag"
               placeholder="Tag..."
-              {...register<"tag">("tag", {})}
+              {...register<"tag">("tag", { required: "Required" })}
               error={errors.tag?.message}
             />
             <div className="flex gap-2 flex-col justify-center">
@@ -101,4 +105,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AddMaterial;

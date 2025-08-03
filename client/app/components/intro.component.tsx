@@ -14,7 +14,7 @@ const config: TypeTextType = {
 function Intro() {
   return (
     <BlockColumn>
-      <div className="w-[800px]">
+      <div className="w-[800px] h-[150px]">
         <Title text="Studytracker" />
         <div>
           <TypeText text={config.text} typeSpeed={config.typeSpeed} />
