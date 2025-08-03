@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from fastapi import HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
@@ -47,3 +48,15 @@ async def get_byid_material(body: schemas.MaterialCreate, db: Session = Depends(
     db.refresh(db_material)
 
     return db_material
+
+@app.delete("/materials/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_material(item_id: int, db: Session = Depends(get_db)):
+    material_to_delete = db.query(material.Material).filter(material.Material.id == item_id).first()
+
+    if not material_to_delete:
+        raise HTTPException(status_code=404, detail="Material not found")
+    
+    db.delete(material_to_delete)
+    db.commit()
+    
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
