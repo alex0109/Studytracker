@@ -12,8 +12,9 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <div className="flex gap-2 flex-col">
       {label && (
-        <label className="border-l-1 border-black dark:border-white px-2">
-          {label}
+        <label className="flex border-l-1 border-black dark:border-white px-2">
+          {label}&ensp;
+          {error && <p className="text-red-400">{error}</p>}
         </label>
       )}
       <input
@@ -22,7 +23,6 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         className="bg-gray-100 dark:bg-neutral-700 p-2 mt-2 mb-3 rounded-2xl"
         placeholder={placeholder}
       />
-      {error && <p>Error: {error}</p>}
     </div>
   );
 });

@@ -2,8 +2,9 @@ import React, { FC } from "react";
 
 import { CarouselProps } from "./types";
 import EmptyMaterialItem from "./empty-material-list.component";
-import MaterialItem from "./material-item.component";
+import MaterialItem from "./material-carousel-item.component";
 import Link from "next/link";
+import { routes } from "@/shared/lib/data";
 
 const Carousel: FC<CarouselProps> = ({ materials }) => {
   return (
@@ -15,12 +16,13 @@ const Carousel: FC<CarouselProps> = ({ materials }) => {
       ) : (
         <div className="w-full overflow-x-scroll scroll-smooth whitespace-nowrap rounded-4xl">
           {materials.map((item) => (
-            <Link key={item.id} href={`/materials/${item.id}`}>
+            <Link key={item.id} href={`${routes.materials}/${item.id}`}>
               <MaterialItem
                 title={item.title}
                 type={item.type}
                 tag={item.tag}
                 status={item.status}
+                link={item.link}
                 id={item.id}
               />
             </Link>
