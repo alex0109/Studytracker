@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 interface StatusBarProps {
   status: "tolearn" | "inprocess" | "finished";
-  size: "normal" | "mini";
+  size?: "normal" | "mini";
 }
 
 const StatusBadge: FC<StatusBarProps> = ({ status, size = "normal" }) => {
@@ -18,9 +18,9 @@ const StatusBadge: FC<StatusBarProps> = ({ status, size = "normal" }) => {
           : "text-neutral-500"
       }`}
     >
-      {status == "tolearn" && <p>Want to learn</p>}
-      {status == "inprocess" && <p>In process</p>}
-      {status == "finished" && <p>Finished</p>}
+      {status == "tolearn" && "Want to learn"}
+      {status == "inprocess" && "In process"}
+      {status == "finished" && "Finished"}
     </p>
   ) : (
     <div
