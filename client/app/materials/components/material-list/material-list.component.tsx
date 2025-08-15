@@ -16,7 +16,9 @@ const MaterialList = () => {
   const [search, setSearch] = useState("");
   const { materialsData } = useMaterials();
 
-  console.log(search);
+  console.log("ENViroment");
+  // console.log("ENV: ", process.env);
+  console.log("ENV: ", process.env.NEXT_PUBLIC_API_HTTP);
 
   return (
     <BlockColumn blockStyles="align-center justify-center">

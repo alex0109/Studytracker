@@ -1,7 +1,7 @@
 export interface Material {
-  title: string;
+  title?: string;
   type?: string;
   tag?: string;
   link?: string;
-  status: "tolearn" | "inprocess" | "finished";
+  status?: "tolearn" | "inprocess" | "finished";
 }

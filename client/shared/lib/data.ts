@@ -7,9 +7,14 @@ export const links = [
     name: "Materials",
     hash: "/materials",
   },
+  {
+    name: "Auth",
+    hash: "/sign-in",
+  },
 ];
 
 export const routes = {
   home: "/",
   materials: "/materials",
+  auth: "/sign-in",
 };

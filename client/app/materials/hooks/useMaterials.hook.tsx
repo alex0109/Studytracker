@@ -4,6 +4,7 @@ import {
   deleteMaterialService,
   getAllMaterialsService,
   getOneMaterialService,
+  updateMaterialService,
 } from "../services/material.service";
 import { MaterialType } from "../components/material-carousel/types";
 
@@ -35,6 +36,14 @@ const useMaterials = (id?: number) => {
     },
   });
 
+  const updateMaterialMutation = useMutation({
+    mutationFn: updateMaterialService,
+    onSuccess: (updated) => {
+      queryClient.invalidateQueries({ queryKey: ["material", updated.id] });
+      queryClient.invalidateQueries({ queryKey: ["materials"] });
+    },
+  });
+
   return {
     materialsData: materials.data,
     materialsLoading: materials.isLoading,
@@ -44,6 +53,7 @@ const useMaterials = (id?: number) => {
     exactMaterialError: exactMaterial.error,
     createMaterial: createMaterialMutation.mutate,
     deleteMaterial: deleteMaterialMutation.mutate,
+    updateMaterial: updateMaterialMutation.mutate,
   };
 };
 

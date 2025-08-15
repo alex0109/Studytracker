@@ -10,6 +10,7 @@ interface InputProps {
   onBlur?: (...event: ChangeEvent<HTMLInputElement>[]) => void;
   name?: string;
   ref?: Ref<HTMLInputElement>;
+  defaultValue?: string;
 }
 
 const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -20,6 +21,7 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     inputBlockStyles,
     inputStyles,
     onChange,
+    defaultValue,
     ...inputProps
   } = props;
 
@@ -39,10 +41,11 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         onChange={onChange ? onChange : () => {}}
         {...inputProps}
         ref={ref}
-        className={`bg-gray-100 dark:bg-neutral-700 p-2 mt-2 mb-3 rounded-2xl ${
+        className={`text-[15px] bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl ${
           inputStyles ? inputStyles : ""
         }`}
         placeholder={placeholder}
+        defaultValue={defaultValue}
       />
     </div>
   );
