@@ -9,6 +9,13 @@ import Title from "@/shared/components/title";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { startTransition, useActionState } from "react";
+import { MagicLinkState, signInWithMagicLink } from "./actions";
+import Text from "@/shared/components/text";
+
+interface AuthForm {
+  email: string;
+}
 
 export default function Auth({
   mode = "signin",
@@ -17,40 +24,66 @@ export default function Auth({
 }) {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
-  const priceId = searchParams.get("priceId");
-  const discountCode = searchParams.get("discountCode");
+
+  const [magicLinkState, magicLinkAction, pending] = useActionState<
+    MagicLinkState,
+    FormData
+  >(signInWithMagicLink, {});
 
   return (
     <ContainerColumn blockStyles="h-[450px]">
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-      >
+      {magicLinkState.success ? (
+        <motion.div
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          <ContainerColumn>
+            <Title text="Check your email!" />
+            <Subtitle text="✅We have sent you a magic link to sign in to your account" />
+          </ContainerColumn>
+        </motion.div>
+      ) : (
+        <>
+          <motion.div
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+          >
+            <ContainerColumn>
+              <Title
+                text={
+                  mode === "signin" ? "Welcome back!" : "Create your account"
+                }
+              />
+              <Subtitle
+                text={
+                  mode === "signin"
+                    ? "Sign in to continue to your account."
+                    : "Get started with your new account!"
+                }
+              />
+            </ContainerColumn>
+          </motion.div>
+          <form action={magicLinkAction}>
+            <CustomInput name="email" placeholder="Email..." required={true} />
+            <CustomButton type="submit" title="Continue with email" />
+            <ContainerRow>
+              <div className="border-t-1 border-neutral-400 w-[150px]" />
+              <div>
+                <p className="text-neutral-500">or</p>
+              </div>
+              <div className="border-t-1 border-neutral-400 w-[150px]" />
+            </ContainerRow>
+            <CustomButton type="button" title="Continue with Google" />
+          </form>
+        </>
+      )}
+
+      {magicLinkState.error && (
         <ContainerColumn>
-          <Title
-            text={mode === "signin" ? "Welcome back!" : "Create your account"}
-          />
-          <Subtitle
-            text={
-              mode === "signin"
-                ? "Sign in to continue to your account."
-                : "Get started with your new account!"
-            }
-          />
+          <Text text={magicLinkState.error} />
         </ContainerColumn>
-      </motion.div>
-      <form>
-        <CustomInput placeholder="Email..." />
-        <CustomButton title="Continue with email" />
-        <ContainerRow>
-          <div className="border-t-1 border-neutral-400 w-[150px]" />
-          <div>
-            <p className="text-neutral-500">or</p>
-          </div>
-          <div className="border-t-1 border-neutral-400 w-[150px]" />
-        </ContainerRow>
-        <CustomButton title="Continue with Google" />
-      </form>
+      )}
+
       <div className="my-3">
         <p className="text-xs">
           {mode === "signin"
@@ -60,7 +93,6 @@ export default function Auth({
             href={`
               ${mode === "signin" ? "/sign-up" : "/sign-in"}
               ${redirect ? `?redirect=${redirect}` : ""}
-              ${priceId ? `&priceId=${priceId}` : ""}
             `}
             className="font-medium text-blue-600 hover:text-blue-500"
           >

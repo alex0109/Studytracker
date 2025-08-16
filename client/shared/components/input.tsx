@@ -1,4 +1,5 @@
 import React, { ChangeEvent, forwardRef, Ref } from "react";
+import ContainerRow from "./container-row";
 
 interface InputProps {
   label?: string;
@@ -11,6 +12,7 @@ interface InputProps {
   name?: string;
   ref?: Ref<HTMLInputElement>;
   defaultValue?: string;
+  required?: boolean;
 }
 
 const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -22,6 +24,7 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     inputStyles,
     onChange,
     defaultValue,
+    required,
     ...inputProps
   } = props;
 
@@ -31,12 +34,14 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         inputBlockStyles ? inputBlockStyles : ""
       }`}
     >
-      {label && (
-        <label className="flex border-l-1 border-black dark:border-white px-2">
-          {label}&ensp;
-          {error && <p className="text-red-400">{error}</p>}
-        </label>
-      )}
+      <ContainerRow>
+        {label && (
+          <label className="flex border-l-1 border-black dark:border-white px-2">
+            {label}&ensp;
+          </label>
+        )}
+        {error && <p className="text-red-400">{error}</p>}
+      </ContainerRow>
       <input
         onChange={onChange ? onChange : () => {}}
         {...inputProps}
@@ -46,6 +51,7 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         }`}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        required={required}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import BlockRow from "@/shared/components/block-row";
-import Intro from "./components/intro.component";
+import Intro from "./(components)/intro.component";
 import CustomButton from "@/shared/components/button";
 import Link from "next/link";
 import { routes } from "@/shared/lib/data";
