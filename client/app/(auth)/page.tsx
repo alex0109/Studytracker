@@ -9,19 +9,17 @@ import Title from "@/shared/components/title";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { startTransition, useActionState } from "react";
+import { useActionState, useState } from "react";
 import { MagicLinkState, signInWithMagicLink } from "./actions";
 import Text from "@/shared/components/text";
-
-interface AuthForm {
-  email: string;
-}
+import { createClient } from "@/shared/supabase/client";
 
 export default function Auth({
   mode = "signin",
 }: {
   mode?: "signin" | "signup";
 }) {
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
 
@@ -29,6 +27,21 @@ export default function Auth({
     MagicLinkState,
     FormData
   >(signInWithMagicLink, {});
+
+  const handleGoogleSignIn = () => {
+    const redirectTo = `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`;
+    setLoading(true);
+    const supabase = createClient();
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${redirectTo}?redirect=${encodeURIComponent(
+          "/materials"
+        )}`,
+      },
+    });
+    setLoading(false);
+  };
 
   return (
     <ContainerColumn blockStyles="h-[450px]">
@@ -64,7 +77,12 @@ export default function Auth({
             </ContainerColumn>
           </motion.div>
           <form action={magicLinkAction}>
-            <CustomInput name="email" placeholder="Email..." required={true} />
+            <CustomInput
+              disabled={pending ? true : false}
+              name="email"
+              placeholder="Email..."
+              required={true}
+            />
             <CustomButton type="submit" title="Continue with email" />
             <ContainerRow>
               <div className="border-t-1 border-neutral-400 w-[150px]" />
@@ -73,7 +91,12 @@ export default function Auth({
               </div>
               <div className="border-t-1 border-neutral-400 w-[150px]" />
             </ContainerRow>
-            <CustomButton type="button" title="Continue with Google" />
+            <CustomButton
+              type="button"
+              onClick={handleGoogleSignIn}
+              title="Continue with Google"
+              disabled={loading}
+            />
           </form>
         </>
       )}

@@ -13,6 +13,7 @@ interface InputProps {
   ref?: Ref<HTMLInputElement>;
   defaultValue?: string;
   required?: boolean;
+  disabled?: boolean;
 }
 
 const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -25,6 +26,7 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     onChange,
     defaultValue,
     required,
+    disabled,
     ...inputProps
   } = props;
 
@@ -46,12 +48,15 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         onChange={onChange ? onChange : () => {}}
         {...inputProps}
         ref={ref}
-        className={`text-[15px] bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl ${
-          inputStyles ? inputStyles : ""
-        }`}
+        className={`text-[15px] ${
+          disabled
+            ? "bg-gray-200 dark:bg-neutral-500"
+            : "bg-gray-100 dark:bg-neutral-700"
+        } px-4 py-2 my-2 rounded-2xl ${inputStyles ? inputStyles : ""}`}
         placeholder={placeholder}
         defaultValue={defaultValue}
         required={required}
+        disabled={disabled}
       />
     </div>
   );

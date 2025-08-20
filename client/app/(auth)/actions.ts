@@ -17,11 +17,13 @@ export const signInWithMagicLink = validatedAction(
     priceId: z.string().optional(),
   }),
   async (data) => {
-    console.log("DATA wewew: ", data);
-    console.log("Email from data:", data.email);
     const supabase = await createClient();
     const { email } = data;
-    const redirectTo = `${process.env.NEXT_PUBLIC_API_HTTP}/api/auth/callback`;
+    const redirectTo = `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`;
+    console.log(
+      "REDIRECT ROUTE: ",
+      `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`
+    );
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -39,28 +41,6 @@ export const signInWithMagicLink = validatedAction(
     return { success: "Magic link sent to your email." };
   }
 );
-
-// export const signInWithGoogle = async (
-//   event: React.FormEvent<HTMLFormElement>
-// ) => {
-//   event.preventDefault();
-//   const supabase = await createClient();
-
-//   try {
-//     const redirectTo = `${process.env.NEXT_PUBLIC_API_HTTP}/api/auth/callback`;
-//     const { error: signInError } = await supabase.auth.signInWithOAuth({
-//       provider: "google",
-//       options: {
-//         redirectTo: `${redirectTo}?redirect=/test`,
-//       },
-//     });
-//     if (signInError) {
-//       return { error: "Failed to sign in with Google. Please try again." };
-//     }
-//   } catch (error) {
-//     return { error: "Failed to sign in with Google. Please try again." };
-//   }
-// };
 
 export const signOut = async () => {
   const supabase = await createClient();

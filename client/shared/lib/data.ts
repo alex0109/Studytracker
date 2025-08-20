@@ -4,12 +4,19 @@ export const links = [
     hash: "/",
   },
   {
-    name: "Materials",
-    hash: "/materials",
-  },
-  {
     name: "Auth",
     hash: "/sign-in",
+  },
+];
+
+export const authorizedLinks = [
+  {
+    name: "Home",
+    hash: "/",
+  },
+  {
+    name: "Materials",
+    hash: "/materials",
   },
 ];
 
