@@ -8,7 +8,7 @@ interface SubtitleProps {
 
 const Subtitle: FC<SubtitleProps> = ({ text, blockStyles, textStyles }) => {
   return (
-    <div className={`my-5 ${blockStyles || ""}`}>
+    <div className={`my-2 ${blockStyles || ""}`}>
       <h1
         className={`text-black dark:text-white text-center text-lg ${
           textStyles || ""

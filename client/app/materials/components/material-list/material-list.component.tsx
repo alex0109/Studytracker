@@ -16,8 +16,6 @@ const MaterialList = () => {
   const [search, setSearch] = useState("");
   const { materialsData } = useMaterials();
 
-  console.log(search);
-
   return (
     <BlockColumn blockStyles="align-center justify-center">
       {!materialsData || materialsData.length == 0 ? (

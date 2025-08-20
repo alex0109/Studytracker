@@ -11,7 +11,7 @@ const ContainerColumn: FC<ContainerColumnProps> = ({
 }) => {
   return (
     <div
-      className={`p-8 my-3 w-full h-full flex flex-col gap-2 flex-wrap items-center ${
+      className={`my-3 flex flex-col gap-2 flex-wrap items-center justify-center ${
         blockStyles || ""
       }`}
     >

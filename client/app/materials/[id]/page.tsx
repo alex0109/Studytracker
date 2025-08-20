@@ -7,12 +7,18 @@ import { useParams, useRouter } from "next/navigation";
 import CustomButton from "@/shared/components/button";
 import StatusBadge from "@/shared/components/status-badge";
 import useMaterials from "../hooks/useMaterials.hook";
+import CustomInput from "@/shared/components/input";
+import StatusBadgeSelect from "@/shared/components/status-select";
+import { useState } from "react";
 
 const MaterialPage = () => {
   const params = useParams();
   const router = useRouter();
 
   const { exactMaterial, deleteMaterial } = useMaterials(Number(params.id));
+  const [status, setStatus] = useState<
+    "tolearn" | "inprocess" | "finished" | undefined
+  >(exactMaterial?.status);
 
   const handleDeleteMaterial = async (id: number) => {
     deleteMaterial(id);
@@ -42,7 +48,10 @@ const MaterialPage = () => {
             />
           </div>
         </div>
-        <Title text={exactMaterial.title} blockStyles="my-0" />
+        <CustomInput
+          defaultValue={exactMaterial.title}
+          inputStyles="text-2xl font-bold text-center outline-none"
+        />
         <Text text="Type" />
         <Text text={`ID ${exactMaterial.id}`} />
       </BlockColumn>
@@ -55,9 +64,19 @@ const MaterialPage = () => {
           <span className="italic">Link</span>
           <Text text={exactMaterial.link ?? ""} textStyles="pl-5" />
         </div>
-        <div>
+        {/* <div>
           <span className="italic">Status</span>
           <StatusBadge status={exactMaterial.status} />
+        </div> */}
+        <div>
+          <span className="italic">Status</span>
+          <StatusBadgeSelect status={status}>
+            <select className="text-white outline-none cursor-pointer">
+              <option value="tolearn">Want to learn</option>
+              <option value="inprocess">In process</option>
+              <option value="finished">Finished</option>
+            </select>
+          </StatusBadgeSelect>
         </div>
       </BlockColumn>
     </>

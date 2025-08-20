@@ -1,4 +1,5 @@
 import React, { ChangeEvent, forwardRef, Ref } from "react";
+import ContainerRow from "./container-row";
 
 interface InputProps {
   label?: string;
@@ -10,6 +11,9 @@ interface InputProps {
   onBlur?: (...event: ChangeEvent<HTMLInputElement>[]) => void;
   name?: string;
   ref?: Ref<HTMLInputElement>;
+  defaultValue?: string;
+  required?: boolean;
+  disabled?: boolean;
 }
 
 const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
@@ -20,6 +24,9 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     inputBlockStyles,
     inputStyles,
     onChange,
+    defaultValue,
+    required,
+    disabled,
     ...inputProps
   } = props;
 
@@ -29,20 +36,27 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         inputBlockStyles ? inputBlockStyles : ""
       }`}
     >
-      {label && (
-        <label className="flex border-l-1 border-black dark:border-white px-2">
-          {label}&ensp;
-          {error && <p className="text-red-400">{error}</p>}
-        </label>
-      )}
+      <ContainerRow>
+        {label && (
+          <label className="flex border-l-1 border-black dark:border-white px-2">
+            {label}&ensp;
+          </label>
+        )}
+        {error && <p className="text-red-400">{error}</p>}
+      </ContainerRow>
       <input
         onChange={onChange ? onChange : () => {}}
         {...inputProps}
         ref={ref}
-        className={`bg-gray-100 dark:bg-neutral-700 p-2 mt-2 mb-3 rounded-2xl ${
-          inputStyles ? inputStyles : ""
-        }`}
+        className={`text-[15px] ${
+          disabled
+            ? "bg-gray-200 dark:bg-neutral-500"
+            : "bg-gray-100 dark:bg-neutral-700"
+        } px-4 py-2 my-2 rounded-2xl ${inputStyles ? inputStyles : ""}`}
         placeholder={placeholder}
+        defaultValue={defaultValue}
+        required={required}
+        disabled={disabled}
       />
     </div>
   );

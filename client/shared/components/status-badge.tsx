@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
-interface StatusBarProps {
+interface StatusBadgeProps {
   status: "tolearn" | "inprocess" | "finished";
   size?: "normal" | "mini";
 }
 
-const StatusBadge: FC<StatusBarProps> = ({ status, size = "normal" }) => {
+const StatusBadge: FC<StatusBadgeProps> = ({ status, size = "normal" }) => {
   return size == "mini" ? (
     <p
       className={`${
