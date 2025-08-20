@@ -14,11 +14,7 @@ import { MagicLinkState, signInWithMagicLink } from "./actions";
 import Text from "@/shared/components/text";
 import { createClient } from "@/shared/supabase/client";
 
-export default function Auth({
-  mode = "signin",
-}: {
-  mode?: "signin" | "signup";
-}) {
+const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
@@ -125,4 +121,6 @@ export default function Auth({
       </div>
     </ContainerColumn>
   );
-}
+};
+
+export default Auth;

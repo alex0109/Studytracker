@@ -1,6 +1,4 @@
-import Auth from "../page";
-// import { redirect } from "next/navigation";
-// import { getUser } from "@/queries/user";
+import Auth from "../login";
 
 export default async function SignInPage() {
   return <Auth mode="signin" />;
