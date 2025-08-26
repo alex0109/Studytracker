@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class MaterialBase(BaseModel):
     title: str
@@ -9,6 +10,13 @@ class MaterialBase(BaseModel):
 
 class MaterialCreate(MaterialBase):
     pass
+
+class MaterialUpdate(BaseModel):
+    title: Optional[str] = None
+    type: Optional[str] = None
+    tag: Optional[int] = None
+    link: Optional[str] = None
+    status: Optional[str] = None
 
 class MaterialRead(MaterialBase):
     id: int

@@ -37,6 +37,8 @@ async def get_materials(db: Session = Depends(get_db)):
 @app.get("/materials/{item_id}", response_model=schemas.MaterialRead)
 async def get_byid_material(item_id: int, db: Session = Depends(get_db)):
     res = db.query(material.Material).get(item_id)
+    if not res:
+        raise HTTPException(status_code=404, detail="Material not found")
 
     return res
 
@@ -60,3 +62,17 @@ def delete_material(item_id: int, db: Session = Depends(get_db)):
     db.commit()
     
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+@app.patch("/materials/{item_id}", response_model=schemas.MaterialRead)
+def update_material(item_id: int, material_update: schemas.MaterialUpdate, db: Session = Depends(get_db)):
+    res = db.query(material.Material).filter(material.Material.id == item_id).first()
+
+    if not res:
+        raise HTTPException(status_code=404, detail="Material not found")
+    
+    for field, value in material_update.model_dump(exclude_unset=True).items():
+        setattr(res, field, value)
+
+    db.commit()
+    db.refresh(res)
+    return res
