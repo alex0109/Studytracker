@@ -45,5 +45,7 @@ export const updateMaterialService = async ({
     dataToUpdate
   );
 
+  console.log(res);
+
   return res.data;
 };

@@ -5,18 +5,25 @@ import Text from "@/shared/components/text";
 import Title from "@/shared/components/title";
 import { useParams, useRouter } from "next/navigation";
 import CustomButton from "@/shared/components/button";
-import StatusBadge from "@/shared/components/status-badge";
 import useMaterials from "../hooks/useMaterials.hook";
-import CustomInput from "@/shared/components/input";
 import StatusBadgeSelect from "@/shared/components/status-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import EditableField from "@/shared/components/editable-field";
+import Modal from "@/shared/components/modal";
+import Subtitle from "@/shared/components/subtitle";
+import EditableLink from "@/shared/components/editable-link";
+import debounce from "lodash.debounce";
 
 const MaterialPage = () => {
   const params = useParams();
   const router = useRouter();
 
-  const { exactMaterial, deleteMaterial } = useMaterials(Number(params.id));
-  const [status, setStatus] = useState<
+  const [open, setOpen] = useState(false);
+
+  const { exactMaterial, deleteMaterial, updateMaterial } = useMaterials(
+    Number(params.id)
+  );
+  const [selectStatus, setSelectStatus] = useState<
     "tolearn" | "inprocess" | "finished" | undefined
   >(exactMaterial?.status);
 
@@ -25,6 +32,10 @@ const MaterialPage = () => {
     router.back();
   };
 
+  useEffect(() => {
+    setSelectStatus(exactMaterial?.status);
+  }, [exactMaterial]);
+
   if (!exactMaterial) {
     return (
       <BlockColumn>
@@ -32,6 +43,14 @@ const MaterialPage = () => {
       </BlockColumn>
     );
   }
+
+  const handleUpdateStatus = debounce(
+    (val: "tolearn" | "inprocess" | "finished" | undefined) => {
+      setSelectStatus(val);
+      updateMaterial({ id: exactMaterial?.id, dataToUpdate: { status: val } });
+    },
+    800
+  );
 
   return (
     <>
@@ -43,35 +62,48 @@ const MaterialPage = () => {
           <div>
             <CustomButton
               buttonStyles="bg-rose-600 border-rose-500"
-              onClick={() => handleDeleteMaterial(exactMaterial.id)}
+              onClick={() => setOpen(true)}
               title="Delete"
             />
           </div>
         </div>
-        <CustomInput
-          defaultValue={exactMaterial.title}
-          inputStyles="text-2xl font-bold text-center outline-none"
+        <EditableField
+          id={exactMaterial.id}
+          field="title"
+          initialValue={exactMaterial.title}
+          titleHeading
         />
-        <Text text="Type" />
-        <Text text={`ID ${exactMaterial.id}`} />
+
+        <EditableField
+          id={exactMaterial.id}
+          field="type"
+          initialValue={exactMaterial.type}
+          subtitleHeading
+        />
       </BlockColumn>
       <BlockColumn blockStyles="p-[70px] items-start">
+        <div className="flex items-center w-full gap-2 border-b-1 border-b-neutral-200">
+          <Subtitle text="Link:" />
+          <EditableLink
+            id={exactMaterial.id}
+            initialValue={exactMaterial.link}
+          />
+        </div>
         <div>
           <span className="italic">Tag</span>
           <Text text={exactMaterial.tag ?? ""} textStyles="pl-5" />
         </div>
         <div>
-          <span className="italic">Link</span>
-          <Text text={exactMaterial.link ?? ""} textStyles="pl-5" />
-        </div>
-        {/* <div>
           <span className="italic">Status</span>
-          <StatusBadge status={exactMaterial.status} />
-        </div> */}
-        <div>
-          <span className="italic">Status</span>
-          <StatusBadgeSelect status={status}>
-            <select className="text-white outline-none cursor-pointer">
+          <StatusBadgeSelect status={selectStatus}>
+            <select
+              className="text-white outline-none cursor-pointer"
+              onChange={(e) =>
+                handleUpdateStatus(
+                  e.target.value as "tolearn" | "inprocess" | "finished"
+                )
+              }
+            >
               <option value="tolearn">Want to learn</option>
               <option value="inprocess">In process</option>
               <option value="finished">Finished</option>
@@ -79,6 +111,15 @@ const MaterialPage = () => {
           </StatusBadgeSelect>
         </div>
       </BlockColumn>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
+          <Title text="Are you sure?" />
+          <CustomButton
+            title="Delete"
+            onClick={() => handleDeleteMaterial(exactMaterial.id)}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
