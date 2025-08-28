@@ -10,3 +10,5 @@ class Material(Base):
     tag = Column(String)
     link = Column(String)
     status = Column(String)
+    description = Column(String)
+    user_id = Column(String, index=True, nullable=False)

@@ -7,6 +7,7 @@ class MaterialBase(BaseModel):
     tag: str
     link: str
     status: str
+    description: str
 
 class MaterialCreate(MaterialBase):
     pass
@@ -17,9 +18,11 @@ class MaterialUpdate(BaseModel):
     tag: Optional[int] = None
     link: Optional[str] = None
     status: Optional[str] = None
+    description: Optional[str] = None
 
 class MaterialRead(MaterialBase):
     id: int
+    user_id: str
 
     class Config:
         orm_mode = True
