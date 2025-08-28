@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
@@ -20,12 +20,25 @@ import {
 import Underline from "@tiptap/extension-underline";
 import CustomButton from "./button";
 
-const TextEditor = () => {
-  const [headingLevel, setHeadingLevel] = useState(1);
+const TextEditor = ({ initialContent }: { initialContent: string }) => {
+  const [HTMLcontent, setHTMLcontent] = useState("");
 
   const editor = useEditor({
     extensions: [StarterKit, Underline],
-    content: "<p>Hello World! 🌎️</p>",
+    content: initialContent,
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      const jsonContent = editor.getJSON();
+      setHTMLcontent(html);
+      console.log("Current content:", jsonContent);
+
+      // 👇 тут можеш відправляти на сервер
+      // fetch("/api/materials/123", {
+      //   method: "PATCH",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ content: html }),
+      // });
+    },
     immediatelyRender: false,
     editorProps: {
       attributes: {
@@ -34,6 +47,12 @@ const TextEditor = () => {
       },
     },
   });
+
+  //   useEffect(() => {
+  //     if (editor && initialContent) {
+  //       editor.commands.setContent(initialContent);
+  //     }
+  //   }, [initialContent, editor]);
 
   if (!editor) {
     return null;
@@ -46,7 +65,7 @@ const TextEditor = () => {
   };
 
   return (
-    <div className="flex flex-col w-full rounded-xl bg-neutral-900 my-2">
+    <div className="flex flex-col w-full rounded-xl bg-neutral-200 dark:bg-neutral-900 my-2">
       <div className="w-full p-2">
         <div className="flex space-x-2 mb-2">
           <button
@@ -150,7 +169,11 @@ const TextEditor = () => {
             <LuListOrdered />
           </button>
         </div>
-        <EditorContent editor={editor} className="p-2 bg-[#1c1c1c]" />
+        <EditorContent
+          editor={editor}
+          className="p-2 rounded-2xl bg-neutral-100 dark:bg-[#1c1c1c]"
+          onChange={(e) => console.log(e.target)}
+        />
         <div className="w-[100px] my-5">
           <CustomButton title="Save" onClick={saveContent} />
         </div>

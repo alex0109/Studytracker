@@ -3,7 +3,9 @@ import { Material } from "./type";
 import { MaterialType } from "../components/material-carousel/types";
 
 export const getAllMaterialsService = async (): Promise<MaterialType[]> => {
-  const res = await axios.get("http://192.168.1.149:8000/materials");
+  const res = await axios.get("http://192.168.1.149:8000/materials", {
+    headers: { Authorization: "Bearer" },
+  });
 
   return res.data;
 };

@@ -17,6 +17,8 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await getUser();
 
+  console.log(user);
+
   return (
     <ReactQueryClientProvider>
       <html lang="en">

@@ -90,7 +90,7 @@ const MaterialPage = () => {
             initialValue={exactMaterial.link}
           />
         </div>
-        <TextEditor />
+        <TextEditor initialContent="Helle world!" />
         <div>
           <span className="italic">Tag</span>
           <Text text={exactMaterial.tag ?? ""} textStyles="pl-5" />
