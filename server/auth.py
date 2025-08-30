@@ -10,7 +10,7 @@ JWT_ALGORITHM = project_settings.jwt_algorithm
 
 def get_current_user(token: HTTPAuthorizationCredentials = Depends(security)):
     try:
-        payload = jwt.decode(token.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(token.credentials, JWT_SECRET, algorithms=[JWT_ALGORITHM], audience="authenticated")
         user_id: str = payload.get("sub")
 
         if not user_id:

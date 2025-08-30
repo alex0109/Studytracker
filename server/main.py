@@ -25,10 +25,6 @@ def get_db():
     finally:
         db.close()
 
-# @app.get("/")
-# async def __app__():
-#     return "Just string"
-
 @app.get("/materials", response_model=list[schemas.MaterialRead])
 async def get_materials(db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     return db.query(material.Material).filter(material.Material.user_id == user_id).all()

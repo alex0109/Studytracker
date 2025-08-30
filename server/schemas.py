@@ -3,11 +3,11 @@ from typing import Optional
 
 class MaterialBase(BaseModel):
     title: str
-    type: str
-    tag: str
-    link: str
-    status: str
-    description: str
+    type: Optional[str] = None
+    tag: Optional[str] = None
+    link: Optional[str] = None
+    status: Optional[str] = None
+    description: Optional[str] = None
 
 class MaterialCreate(MaterialBase):
     pass
@@ -15,7 +15,7 @@ class MaterialCreate(MaterialBase):
 class MaterialUpdate(BaseModel):
     title: Optional[str] = None
     type: Optional[str] = None
-    tag: Optional[int] = None
+    tag: Optional[str] = None
     link: Optional[str] = None
     status: Optional[str] = None
     description: Optional[str] = None
