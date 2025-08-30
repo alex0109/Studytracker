@@ -4,6 +4,7 @@ export interface MaterialType {
   type: string;
   tag: string;
   link: string;
+  description?: string;
   status: "tolearn" | "inprocess" | "finished";
 }
 

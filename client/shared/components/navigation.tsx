@@ -19,7 +19,7 @@ const Navigation = () => {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
-  const user = useSession();
+  const { user } = useSession();
 
   const [open, setOpen] = useState(false);
 

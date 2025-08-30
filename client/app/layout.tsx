@@ -15,9 +15,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const user = await getUser();
-
-  console.log(user);
+  const { user, token } = await getUser();
 
   return (
     <ReactQueryClientProvider>
@@ -34,7 +32,7 @@ export default async function RootLayout({
           blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] 
           lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#676394]"
           ></div>
-          <SessionProvider user={user}>
+          <SessionProvider user={user} token={token}>
             <ActiveSectionContextProvider>
               <Navigation />
               {children}

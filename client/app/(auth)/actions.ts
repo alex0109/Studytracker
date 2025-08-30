@@ -20,10 +20,6 @@ export const signInWithMagicLink = validatedAction(
     const supabase = await createClient();
     const { email } = data;
     const redirectTo = `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`;
-    console.log(
-      "REDIRECT ROUTE: ",
-      `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`
-    );
 
     const { error } = await supabase.auth.signInWithOtp({
       email,

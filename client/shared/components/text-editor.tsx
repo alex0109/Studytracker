@@ -30,7 +30,6 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
       const html = editor.getHTML();
       const jsonContent = editor.getJSON();
       setHTMLcontent(html);
-      console.log("Current content:", jsonContent);
 
       // 👇 тут можеш відправляти на сервер
       // fetch("/api/materials/123", {
