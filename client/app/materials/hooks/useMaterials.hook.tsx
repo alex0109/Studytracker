@@ -14,6 +14,8 @@ const useMaterials = (id?: number) => {
   const queryClient = useQueryClient();
   const { token } = useSession();
 
+  console.log("TOKEN: ", token);
+
   const materials = useQuery<MaterialType[]>({
     queryKey: ["materials"],
     queryFn: () => getAllMaterialsService(token),
@@ -50,7 +52,7 @@ const useMaterials = (id?: number) => {
       dataToUpdate: Partial<Material>;
     }) => updateMaterialService(token, id, dataToUpdate),
     onSuccess: (updated) => {
-      queryClient.invalidateQueries({ queryKey: ["material", updated.id] });
+      queryClient.invalidateQueries({ queryKey: ["materials", updated.id] });
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
   });
