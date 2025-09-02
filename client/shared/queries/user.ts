@@ -17,8 +17,8 @@ export const getUser = async (): Promise<{
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session?.access_token) {
-    throw new Error("No access token found");
+  if (!session?.access_token && !user) {
+    return { user: null, token: undefined };
   }
 
   return { user: user, token: session?.access_token };

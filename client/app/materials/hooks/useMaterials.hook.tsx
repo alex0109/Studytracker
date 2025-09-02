@@ -17,13 +17,14 @@ const useMaterials = (id?: number) => {
   const materials = useQuery<MaterialType[]>({
     queryKey: ["materials"],
     queryFn: () => getAllMaterialsService(token),
+    enabled: !!token,
   });
 
   const exactMaterial = useQuery<MaterialType, Error>({
     queryKey: ["exact-material", id],
     queryFn: ({ queryKey }) =>
       getOneMaterialService(token, queryKey[1] as number),
-    enabled: !!id,
+    enabled: !!id && !!token,
   });
 
   const createMaterialMutation = useMutation({
