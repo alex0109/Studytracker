@@ -1,5 +1,17 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Union, Dict, List
+
+class Node(BaseModel):
+    type: str
+    text: Optional[str] = None
+    attrs: Optional[Dict[str, Union[str, int]]] = None
+    content: Optional[List["Node"]] = None
+
+Node.model_rebuild()
+
+class Document(BaseModel):
+    type: str
+    content: List[Node]
 
 class MaterialBase(BaseModel):
     title: str
@@ -7,7 +19,7 @@ class MaterialBase(BaseModel):
     tag: Optional[str] = None
     link: Optional[str] = None
     status: Optional[str] = None
-    description: Optional[str] = None
+    description: Optional[Document] = None
 
 class MaterialCreate(MaterialBase):
     pass
@@ -18,7 +30,7 @@ class MaterialUpdate(BaseModel):
     tag: Optional[str] = None
     link: Optional[str] = None
     status: Optional[str] = None
-    description: Optional[str] = None
+    description: Optional[Document] = None
 
 class MaterialRead(MaterialBase):
     id: int
