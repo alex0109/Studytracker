@@ -7,39 +7,50 @@ import {
   updateMaterialService,
 } from "../services/material.service";
 import { MaterialType } from "../components/material-carousel/types";
+import { useSession } from "@/shared/context/session-provider.context";
+import { Material } from "../services/type";
 
 const useMaterials = (id?: number) => {
   const queryClient = useQueryClient();
+  const { token } = useSession();
 
   const materials = useQuery<MaterialType[]>({
     queryKey: ["materials"],
-    queryFn: getAllMaterialsService,
+    queryFn: () => getAllMaterialsService(token),
+    enabled: !!token,
   });
 
   const exactMaterial = useQuery<MaterialType, Error>({
     queryKey: ["exact-material", id],
-    queryFn: ({ queryKey }) => getOneMaterialService(queryKey[1] as number),
-    enabled: !!id,
+    queryFn: ({ queryKey }) =>
+      getOneMaterialService(token, queryKey[1] as number),
+    enabled: !!id && !!token,
   });
 
   const createMaterialMutation = useMutation({
-    mutationFn: createMaterialService,
+    mutationFn: (body: Material) => createMaterialService(token, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
   });
 
   const deleteMaterialMutation = useMutation({
-    mutationFn: deleteMaterialService,
+    mutationFn: (id: number) => deleteMaterialService(token, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
   });
 
   const updateMaterialMutation = useMutation({
-    mutationFn: updateMaterialService,
+    mutationFn: ({
+      id,
+      dataToUpdate,
+    }: {
+      id: number;
+      dataToUpdate: Partial<Material>;
+    }) => updateMaterialService(token, id, dataToUpdate),
     onSuccess: (updated) => {
-      queryClient.invalidateQueries({ queryKey: ["material", updated.id] });
+      queryClient.invalidateQueries({ queryKey: ["materials", updated.id] });
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
   });

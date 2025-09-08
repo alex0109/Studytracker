@@ -19,7 +19,7 @@ const Navigation = () => {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
-  const user = useSession();
+  const { user } = useSession();
 
   const [open, setOpen] = useState(false);
 
@@ -108,11 +108,7 @@ const Navigation = () => {
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
           <Title text="Are you sure?" />
-          <CustomButton
-            title="Sign out"
-            onClick={handleLogOut}
-            buttonStyles="text-red-500"
-          />
+          <CustomButton title="Sign out" onClick={handleLogOut} />
         </div>
       </Modal>
     </header>

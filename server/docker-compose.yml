@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  api:
+    image: reybey/studytracker-api:latest
+    container_name: "studytracker-api"
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - sqlite_data:/server/db
+    restart: always
+
+volumes:
+  sqlite_data:

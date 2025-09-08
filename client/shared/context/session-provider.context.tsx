@@ -5,14 +5,24 @@ import { createContext, ReactNode, useContext } from "react";
 
 interface SessionProviderProps {
   user: User | null;
+  token: string | undefined;
   children: ReactNode;
 }
 
-const SessionContext = createContext<User | null>(null);
+const SessionContext = createContext<{
+  user: User | null;
+  token: string | undefined;
+}>({ user: null, token: undefined });
 
-export function SessionProvider({ user, children }: SessionProviderProps) {
+export function SessionProvider({
+  user,
+  token,
+  children,
+}: SessionProviderProps) {
   return (
-    <SessionContext.Provider value={user}>{children}</SessionContext.Provider>
+    <SessionContext.Provider value={{ user: user, token: token }}>
+      {children}
+    </SessionContext.Provider>
   );
 }
 

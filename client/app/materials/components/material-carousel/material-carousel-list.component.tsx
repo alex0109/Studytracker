@@ -8,12 +8,15 @@ import Carousel from "./material-carousel.component";
 import useMaterials from "../../hooks/useMaterials.hook";
 
 const MaterialCarousel = () => {
-  const { materialsData } = useMaterials();
+  const { materialsData, materialsLoading } = useMaterials();
 
   return (
     <BlockColumn>
       <Title text="List" />
-      <Carousel materials={materialsData ?? []} />
+      <Carousel
+        materials={materialsData ?? []}
+        materialsLoading={materialsLoading}
+      />
     </BlockColumn>
   );
 };

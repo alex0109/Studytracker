@@ -8,6 +8,7 @@ import Title from "@/shared/components/title";
 import { useState } from "react";
 import Modal from "@/shared/components/modal";
 import useMaterials from "../materials/hooks/useMaterials.hook";
+import { RichTextDocument } from "../materials/services/type";
 
 enum MaterialStatus {
   tolearn = "tolearn",
@@ -21,6 +22,7 @@ interface CustomFormInterface {
   link: string;
   tag: string;
   status: MaterialStatus;
+  description: RichTextDocument;
 }
 
 const AddMaterial = () => {
@@ -77,6 +79,12 @@ const AddMaterial = () => {
               label="Tag"
               placeholder="Tag..."
               {...register<"tag">("tag", { required: "Required" })}
+              error={errors.tag?.message}
+            />
+            <CustomInput
+              label="Description"
+              placeholder="Description..."
+              {...register<"description">("description")}
               error={errors.tag?.message}
             />
             <div className="flex gap-2 flex-col justify-center">
