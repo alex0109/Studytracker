@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, JSON
 from base import Base
 
 class Material(Base):
@@ -10,5 +10,5 @@ class Material(Base):
     tag = Column(String, nullable=True)
     link = Column(String, nullable=True)
     status = Column(String, nullable=True)
-    description = Column(String, nullable=True)
+    description = Column(JSON, nullable=True)
     user_id = Column(String, index=True, nullable=False)
