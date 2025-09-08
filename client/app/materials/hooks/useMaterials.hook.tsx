@@ -14,8 +14,6 @@ const useMaterials = (id?: number) => {
   const queryClient = useQueryClient();
   const { token } = useSession();
 
-  console.log("TOKEN: ", token);
-
   const materials = useQuery<MaterialType[]>({
     queryKey: ["materials"],
     queryFn: () => getAllMaterialsService(token),

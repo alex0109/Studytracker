@@ -13,7 +13,7 @@ import Modal from "@/shared/components/modal";
 import Subtitle from "@/shared/components/subtitle";
 import EditableLink from "@/shared/components/editable-link";
 import debounce from "lodash.debounce";
-import TextEditor from "@/shared/components/text-editor";
+import TextEditor from "@/app/materials/components/text-editor/text-editor";
 
 const MaterialPage = () => {
   const params = useParams();
@@ -90,7 +90,10 @@ const MaterialPage = () => {
             initialValue={exactMaterial.link}
           />
         </div>
-        <TextEditor initialContent="Helle world!" />
+        <TextEditor
+          initialContent={exactMaterial.description ?? undefined}
+          id={exactMaterial.id}
+        />
         <div>
           <span className="italic">Tag</span>
           <Text text={exactMaterial.tag ?? ""} textStyles="pl-5" />

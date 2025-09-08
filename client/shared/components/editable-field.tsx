@@ -1,7 +1,7 @@
-import { useState } from "react";
-import debounce from "lodash.debounce";
+import { useEffect, useState } from "react";
 import useMaterials from "@/app/materials/hooks/useMaterials.hook";
 import { Material } from "@/app/materials/services/type";
+import useDebounce from "../hooks/use-debounce.hook";
 
 interface EditableFieldProps<K extends keyof Material> {
   id: number;
@@ -23,15 +23,13 @@ function EditableField<K extends keyof Material>({
   const [value, setValue] = useState(initialValue);
   const { updateMaterial } = useMaterials();
 
-  const saveDebounced = debounce((val: Material[K]) => {
-    updateMaterial({ id, dataToUpdate: { [field]: val } });
-  }, 800);
+  const debouncedText = useDebounce(value, 2000);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value as Material[K];
-    setValue(val);
-    saveDebounced(val);
-  };
+  useEffect(() => {
+    if (debouncedText) {
+      updateMaterial({ id, dataToUpdate: { [field]: debouncedText } });
+    }
+  }, [debouncedText]);
 
   return (
     <input
@@ -41,8 +39,8 @@ function EditableField<K extends keyof Material>({
       } ${subtitleHeading && "border-none text-center text-xl font-medium"} ${
         textHeading && "w-full border-none font-medium"
       }`}
-      value={value}
-      onChange={handleChange}
+      value={String(value)}
+      onChange={(e) => setValue(e.target.value as Material[K])}
     />
   );
 }

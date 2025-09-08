@@ -9,7 +9,6 @@ import {
   LuUnderline,
   LuListOrdered,
   LuList,
-  LuHeading,
   LuHeading1,
   LuHeading2,
   LuHeading3,
@@ -18,25 +17,31 @@ import {
   LuHeading6,
 } from "react-icons/lu";
 import Underline from "@tiptap/extension-underline";
-import CustomButton from "./button";
+import useMaterials from "../../hooks/useMaterials.hook";
+import { RichTextDocument } from "../../services/type";
+import useDebounce from "@/shared/hooks/use-debounce.hook";
 
-const TextEditor = ({ initialContent }: { initialContent: string }) => {
-  const [HTMLcontent, setHTMLcontent] = useState("");
+const TextEditor = ({
+  initialContent,
+  id,
+}: {
+  initialContent?: RichTextDocument;
+  id: number;
+}) => {
+  const { updateMaterial } = useMaterials();
+
+  const [HTMLcontent, setHTMLcontent] = useState<RichTextDocument | undefined>(
+    undefined
+  );
+
+  const debouncedText = useDebounce(HTMLcontent, 2000);
 
   const editor = useEditor({
     extensions: [StarterKit, Underline],
     content: initialContent,
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
       const jsonContent = editor.getJSON();
-      setHTMLcontent(html);
-
-      // 👇 тут можеш відправляти на сервер
-      // fetch("/api/materials/123", {
-      //   method: "PATCH",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ content: html }),
-      // });
+      setHTMLcontent(jsonContent);
     },
     immediatelyRender: false,
     editorProps: {
@@ -47,21 +52,15 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
     },
   });
 
-  //   useEffect(() => {
-  //     if (editor && initialContent) {
-  //       editor.commands.setContent(initialContent);
-  //     }
-  //   }, [initialContent, editor]);
+  useEffect(() => {
+    if (debouncedText) {
+      updateMaterial({ id, dataToUpdate: { description: debouncedText } });
+    }
+  }, [debouncedText]);
 
   if (!editor) {
     return null;
   }
-
-  const saveContent = () => {
-    if (editor) {
-      console.log(editor.getJSON());
-    }
-  };
 
   return (
     <div className="flex flex-col w-full rounded-xl bg-neutral-200 dark:bg-neutral-900 my-2">
@@ -71,9 +70,7 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
             }
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuHeading1 />
           </button>
@@ -81,9 +78,7 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 2 }).run()
             }
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuHeading2 />
           </button>
@@ -91,9 +86,7 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 3 }).run()
             }
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuHeading3 />
           </button>
@@ -101,9 +94,7 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 4 }).run()
             }
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuHeading4 />
           </button>
@@ -111,9 +102,7 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 5 }).run()
             }
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuHeading5 />
           </button>
@@ -121,49 +110,37 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 6 }).run()
             }
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuHeading6 />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bold") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuBold />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("italic") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuItalic />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleUnderline().run()}
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("underline") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuUnderline />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("bulletList") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuList />
           </button>
           <button
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={`p-2 cursor-pointer hover:opacity-50 ${
-              editor.isActive("orderedList") ? "bg-gray-300" : ""
-            }`}
+            className={`p-2 cursor-pointer hover:opacity-50`}
           >
             <LuListOrdered />
           </button>
@@ -171,11 +148,7 @@ const TextEditor = ({ initialContent }: { initialContent: string }) => {
         <EditorContent
           editor={editor}
           className="p-2 rounded-2xl bg-neutral-100 dark:bg-[#1c1c1c]"
-          onChange={(e) => console.log(e.target)}
         />
-        <div className="w-[100px] my-5">
-          <CustomButton title="Save" onClick={saveContent} />
-        </div>
       </div>
     </div>
   );
