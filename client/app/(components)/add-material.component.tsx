@@ -16,11 +16,19 @@ enum MaterialStatus {
   finished = "finished",
 }
 
+enum MaterialType {
+  article = "article",
+  video = "video",
+  summary = "summary",
+  practice = "practice",
+  test = "test",
+}
+
 interface CustomFormInterface {
   title: string;
   type: string;
   link: string;
-  tag: string;
+  tag: MaterialType;
   status: MaterialStatus;
   description: RichTextDocument;
 }
@@ -59,38 +67,29 @@ const AddMaterial = () => {
           >
             <CustomInput
               label="Title"
-              placeholder="Title..."
+              placeholder="*Title..."
               {...register<"title">("title", { required: "Required" })}
               error={errors.title?.message}
             />
-            <CustomInput
-              label="Type"
-              placeholder="Type..."
-              {...register<"type">("type", { required: "Required" })}
-              error={errors.type?.message}
-            />
-            <CustomInput
-              label="Link"
-              placeholder="Link..."
-              {...register<"link">("link", { required: "Required" })}
-              error={errors.link?.message}
-            />
-            <CustomInput
-              label="Tag"
-              placeholder="Tag..."
-              {...register<"tag">("tag", { required: "Required" })}
-              error={errors.tag?.message}
-            />
-            <CustomInput
-              label="Description"
-              placeholder="Description..."
-              {...register<"description">("description")}
-              error={errors.tag?.message}
-            />
             <div className="flex gap-2 flex-col justify-center">
-              <label className="border-l-1 border-black dark:border-white px-2">
+              {/* <label className="border-l-1 border-black dark:border-white px-2">
+                Type
+              </label> */}
+              <select
+                {...register("type")}
+                className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
+              >
+                <option value="article">Article</option>
+                <option value="video">Video</option>
+                <option value="summary">Summary</option>
+                <option value="practice">Practice</option>
+                <option value="test">Test</option>
+              </select>
+            </div>
+            <div className="flex gap-2 flex-col justify-center">
+              {/* <label className="border-l-1 border-black dark:border-white px-2">
                 Status
-              </label>
+              </label> */}
               <select
                 {...register("status")}
                 className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
@@ -100,6 +99,24 @@ const AddMaterial = () => {
                 <option value="finished">Finished</option>
               </select>
             </div>
+            <CustomInput
+              label="Link"
+              placeholder="Link..."
+              {...register<"link">("link")}
+              error={errors.link?.message}
+            />
+            <CustomInput
+              label="Tag"
+              placeholder="Tag..."
+              {...register<"tag">("tag")}
+              error={errors.tag?.message}
+            />
+            <CustomInput
+              label="Description"
+              placeholder="Description..."
+              {...register<"description">("description")}
+              error={errors.description?.message}
+            />
 
             <CustomButton
               title="Submit"
