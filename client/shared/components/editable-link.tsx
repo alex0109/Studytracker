@@ -1,5 +1,6 @@
 import useMaterials from "@/app/materials/hooks/useMaterials.hook";
 import { useState } from "react";
+import { LuSquarePen } from "react-icons/lu";
 
 type Props = {
   id: number;
@@ -40,10 +41,11 @@ function EditableLink({ id, initialValue }: Props) {
         href={value}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline cursor-pointer"
+        className="underline cursor-pointer pr-2"
       >
         Source link
       </a>
+      <LuSquarePen />
     </div>
   );
 }

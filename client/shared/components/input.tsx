@@ -37,11 +37,11 @@ const CustomInput = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       }`}
     >
       <ContainerRow>
-        {label && (
+        {/* {label && (
           <label className="flex border-l-1 border-black dark:border-white px-2">
             {label}&ensp;
           </label>
-        )}
+        )} */}
         {error && <p className="text-red-400">{error}</p>}
       </ContainerRow>
       <input

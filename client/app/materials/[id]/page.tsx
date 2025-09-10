@@ -12,8 +12,8 @@ import EditableField from "@/shared/components/editable-field";
 import Modal from "@/shared/components/modal";
 import Subtitle from "@/shared/components/subtitle";
 import EditableLink from "@/shared/components/editable-link";
-import debounce from "lodash.debounce";
 import TextEditor from "@/app/materials/components/text-editor/text-editor";
+import useDebounce from "@/shared/hooks/use-debounce.hook";
 
 const MaterialPage = () => {
   const params = useParams();
@@ -24,9 +24,17 @@ const MaterialPage = () => {
   const { exactMaterial, deleteMaterial, updateMaterial } = useMaterials(
     Number(params.id)
   );
+
   const [selectStatus, setSelectStatus] = useState<
     "tolearn" | "inprocess" | "finished" | undefined
   >(exactMaterial?.status);
+
+  const [selectType, setSelectType] = useState<
+    "article" | "video" | "summary" | "practice" | "test" | undefined
+  >(exactMaterial?.type);
+
+  const debouncedType = useDebounce(selectType, 2000);
+  const debouncedStatus = useDebounce(selectStatus, 2000);
 
   const handleDeleteMaterial = async (id: number) => {
     deleteMaterial(id);
@@ -34,8 +42,22 @@ const MaterialPage = () => {
   };
 
   useEffect(() => {
+    console.log("Type", selectType);
+    console.log("Status", selectStatus);
     setSelectStatus(exactMaterial?.status);
-  }, [exactMaterial]);
+    if (debouncedType) {
+      updateMaterial({
+        id: exactMaterial!.id!,
+        dataToUpdate: { type: debouncedType },
+      });
+    }
+    if (debouncedStatus) {
+      updateMaterial({
+        id: exactMaterial!.id!,
+        dataToUpdate: { status: debouncedStatus },
+      });
+    }
+  }, [exactMaterial, debouncedType, debouncedStatus]);
 
   if (!exactMaterial) {
     return (
@@ -45,13 +67,13 @@ const MaterialPage = () => {
     );
   }
 
-  const handleUpdateStatus = debounce(
-    (val: "tolearn" | "inprocess" | "finished" | undefined) => {
-      setSelectStatus(val);
-      updateMaterial({ id: exactMaterial?.id, dataToUpdate: { status: val } });
-    },
-    800
-  );
+  // const handleUpdateStatus = debounce(
+  //   (val: "tolearn" | "inprocess" | "finished" | undefined) => {
+  //     setSelectStatus(val);
+  //     updateMaterial({ id: exactMaterial?.id, dataToUpdate: { status: val } });
+  //   },
+  //   800
+  // );
 
   return (
     <>
@@ -75,12 +97,32 @@ const MaterialPage = () => {
           titleHeading
         />
 
-        <EditableField
+        <select
+          className="outline-none cursor-pointer text-black dark:text-white"
+          defaultValue={selectType}
+          onChange={(e) =>
+            setSelectType(
+              e.target.value as
+                | "article"
+                | "video"
+                | "summary"
+                | "practice"
+                | "test"
+            )
+          }
+        >
+          <option value="article">Article</option>
+          <option value="video">Video</option>
+          <option value="summary">Summary</option>
+          <option value="practice">Practice</option>
+          <option value="test">Test</option>
+        </select>
+        {/* <EditableField
           id={exactMaterial.id}
           field="type"
           initialValue={exactMaterial.type}
           subtitleHeading
-        />
+        /> */}
       </BlockColumn>
       <BlockColumn blockStyles="p-[70px] items-start">
         <div className="flex items-center w-full gap-2 border-b-1 border-b-neutral-200">
@@ -104,7 +146,7 @@ const MaterialPage = () => {
             <select
               className="text-white outline-none cursor-pointer"
               onChange={(e) =>
-                handleUpdateStatus(
+                setSelectStatus(
                   e.target.value as "tolearn" | "inprocess" | "finished"
                 )
               }
