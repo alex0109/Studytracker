@@ -129,7 +129,7 @@ const MaterialPage = () => {
           <Subtitle text="Link:" />
           <EditableLink
             id={exactMaterial.id}
-            initialValue={exactMaterial.link}
+            initialValue={exactMaterial.link ?? ""}
           />
         </div>
         <TextEditor

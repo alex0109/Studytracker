@@ -7,7 +7,7 @@ type Props = {
   initialValue: string;
 };
 
-function EditableLink({ id, initialValue }: Props) {
+function EditableLink({ id, initialValue = "" }: Props) {
   const [value, setValue] = useState(initialValue);
   const [editing, setEditing] = useState(false);
 
