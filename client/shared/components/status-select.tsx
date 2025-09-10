@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useEffect } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface StatusBadgeSelectProps {
   status: "tolearn" | "inprocess" | "finished" | undefined;

@@ -15,7 +15,7 @@ const MaterialItem: FC<MaterialType> = ({ title, tag, status }) => {
         </div>
         <div className="flex">
           <span className="text-neutral-300">Status:&ensp;</span>
-          <StatusBadge status={status} size="mini" />
+          <StatusBadge status={status ? status : "finished"} size="mini" />
         </div>
       </div>
     </div>
