@@ -37,8 +37,16 @@ jobs:
         run: npm ci
         working-directory: client
 
+      - name: Clean Next.js cache
+        run: rm -rf .next/cache
+        working-directory: client
+
       - name: Build app
         run: npm run build
+        working-directory: client
+
+      - name: Analyze bundle size
+        run: npx next build --analyze
         working-directory: client
 
       - name: Deploy Frontend
