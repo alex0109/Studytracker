@@ -19,7 +19,7 @@ class MaterialBase(BaseModel):
     tag: Optional[str] = None
     link: Optional[str] = None
     status: Optional[str] = None
-    description: Optional[Document] = None
+    description: Optional[Union[str, Document]] = None
 
 class MaterialCreate(MaterialBase):
     pass
@@ -30,11 +30,11 @@ class MaterialUpdate(BaseModel):
     tag: Optional[str] = None
     link: Optional[str] = None
     status: Optional[str] = None
-    description: Optional[Document] = None
+    description: Optional[Union[str, Document]] = None
 
 class MaterialRead(MaterialBase):
     id: int
     user_id: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

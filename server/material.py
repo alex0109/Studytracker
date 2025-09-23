@@ -10,5 +10,5 @@ class Material(Base):
     tag = Column(String, nullable=True)
     link = Column(String, nullable=True)
     status = Column(String, nullable=True)
-    description = Column(JSON, nullable=True)
+    description = Column(JSON or String, nullable=True)
     user_id = Column(String, index=True, nullable=False)
