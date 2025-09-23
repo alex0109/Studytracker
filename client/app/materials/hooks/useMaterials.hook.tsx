@@ -4,11 +4,13 @@ import {
   deleteMaterialService,
   getAllMaterialsService,
   getOneMaterialService,
+  getStatsService,
   updateMaterialService,
 } from "../services/material.service";
-import { MaterialType } from "../components/material-carousel/types";
+
 import { useSession } from "@/shared/context/session-provider.context";
 import { Material } from "../services/type";
+import { MaterialType, ServerStatsDataType } from "@/app/types/types";
 
 const useMaterials = (id?: number) => {
   const queryClient = useQueryClient();
@@ -55,6 +57,12 @@ const useMaterials = (id?: number) => {
     },
   });
 
+  const stats = useQuery<ServerStatsDataType>({
+    queryKey: ["stats"],
+    queryFn: () => getStatsService(token),
+    enabled: !!token,
+  });
+
   return {
     materialsData: materials.data,
     materialsLoading: materials.isLoading,
@@ -62,6 +70,9 @@ const useMaterials = (id?: number) => {
     exactMaterial: exactMaterial.data,
     exactMaterialLoading: exactMaterial.isLoading,
     exactMaterialError: exactMaterial.error,
+    statsData: stats.data,
+    statsLoading: stats.isLoading,
+    statsError: stats.error,
     createMaterial: createMaterialMutation.mutate,
     deleteMaterial: deleteMaterialMutation.mutate,
     updateMaterial: updateMaterialMutation.mutate,

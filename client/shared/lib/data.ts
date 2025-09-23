@@ -18,10 +18,15 @@ export const authorizedLinks = [
     name: "Materials",
     hash: "/materials",
   },
+  {
+    name: "Stats",
+    hash: "/stats",
+  },
 ];
 
 export const routes = {
   home: "/",
   materials: "/materials",
+  stats: "/stats",
   auth: "/sign-in",
 };

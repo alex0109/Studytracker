@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Material } from "./type";
-import { MaterialType } from "../components/material-carousel/types";
+import { MaterialType, ServerStatsDataType } from "@/app/types/types";
 
 export const getAllMaterialsService = async (
   token: string | undefined
@@ -72,6 +72,16 @@ export const updateMaterialService = async (
       headers: { Authorization: `Bearer ${token}` },
     }
   );
+
+  return res.data;
+};
+
+export const getStatsService = async (
+  token: string | undefined
+): Promise<ServerStatsDataType> => {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_HTTP}/stats`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   return res.data;
 };

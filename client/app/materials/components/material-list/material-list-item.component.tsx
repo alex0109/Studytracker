@@ -1,8 +1,8 @@
+import { MaterialType } from "@/app/types/types";
 import StatusBadge from "@/shared/components/status-badge";
 import Subtitle from "@/shared/components/subtitle";
 import Title from "@/shared/components/title";
 import React, { FC } from "react";
-import { MaterialType } from "../material-carousel/types";
 
 const MaterialListItem: FC<MaterialType> = ({ title, type, status }) => {
   return (

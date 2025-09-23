@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 
-import { CarouselProps } from "./types";
 import EmptyMaterialItem from "./empty-material-list.component";
 import MaterialItem from "./material-carousel-item.component";
 import Link from "next/link";
 import { routes } from "@/shared/lib/data";
+import { CarouselProps } from "@/app/types/types";
 
 const Carousel: FC<CarouselProps> = ({ materials }) => {
   if (materials == undefined || materials.length === 0) {

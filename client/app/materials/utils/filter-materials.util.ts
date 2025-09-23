@@ -1,4 +1,4 @@
-import { MaterialType } from "../components/material-carousel/types";
+import { MaterialType } from "@/app/types/types";
 
 export const filteredMaterials = (
   data: MaterialType[],

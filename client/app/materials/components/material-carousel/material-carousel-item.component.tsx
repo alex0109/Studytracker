@@ -1,8 +1,9 @@
 import Subtitle from "@/shared/components/subtitle";
 import Text from "@/shared/components/text";
 import React, { FC } from "react";
-import { MaterialType } from "./types";
+
 import StatusBadge from "@/shared/components/status-badge";
+import { MaterialType } from "@/app/types/types";
 
 const MaterialItem: FC<MaterialType> = ({ title, tag, status }) => {
   return (

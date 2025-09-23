@@ -67,14 +67,6 @@ const MaterialPage = () => {
     );
   }
 
-  // const handleUpdateStatus = debounce(
-  //   (val: "tolearn" | "inprocess" | "finished" | undefined) => {
-  //     setSelectStatus(val);
-  //     updateMaterial({ id: exactMaterial?.id, dataToUpdate: { status: val } });
-  //   },
-  //   800
-  // );
-
   return (
     <>
       <BlockColumn>
@@ -125,7 +117,7 @@ const MaterialPage = () => {
         /> */}
       </BlockColumn>
       <BlockColumn blockStyles="p-[70px] items-start">
-        <div className="flex items-center w-full gap-2 border-b-1 border-b-neutral-200">
+        <div className="flex items-center w-full gap-2 border-b-1 border-b-neutral-700">
           <Subtitle text="Link:" />
           <EditableLink
             id={exactMaterial.id}

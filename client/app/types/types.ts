@@ -1,4 +1,4 @@
-import { RichTextDocument } from "../../services/type";
+import { RichTextDocument } from "../materials/services/type";
 
 export interface MaterialType {
   id: number;
@@ -13,4 +13,16 @@ export interface MaterialType {
 export interface CarouselProps {
   materials: MaterialType[];
   materialsLoading: boolean;
+}
+
+export interface ServerStatsDataType {
+  count: number;
+  types: {
+    summary?: number;
+    video?: number;
+    article?: number;
+    practice?: number;
+    test?: number;
+  };
+  statuses: { tolearn?: number; inprocess?: number; finished?: number };
 }
