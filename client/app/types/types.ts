@@ -4,7 +4,7 @@ export interface MaterialType {
   id: number;
   title: string;
   type?: "article" | "video" | "summary" | "practice" | "test";
-  tag?: string;
+  tags?: string[];
   link?: string;
   description?: RichTextDocument | undefined;
   status?: "tolearn" | "inprocess" | "finished";

@@ -22,7 +22,7 @@ const Carousel: FC<CarouselProps> = ({ materials }) => {
           <MaterialItem
             title={item.title}
             type={item.type}
-            tag={item.tag}
+            tags={item.tags}
             status={item.status}
             link={item.link}
             id={item.id}

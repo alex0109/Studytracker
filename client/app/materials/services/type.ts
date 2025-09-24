@@ -13,7 +13,7 @@ export interface RichTextDocument {
 export interface Material {
   title: string;
   type?: "article" | "video" | "summary" | "practice" | "test";
-  tag?: string;
+  tags?: string[];
   link?: string;
   status?: "tolearn" | "inprocess" | "finished";
   description: RichTextDocument;

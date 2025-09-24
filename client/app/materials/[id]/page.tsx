@@ -42,8 +42,6 @@ const MaterialPage = () => {
   };
 
   useEffect(() => {
-    console.log("Type", selectType);
-    console.log("Status", selectStatus);
     setSelectStatus(exactMaterial?.status);
     if (debouncedType) {
       updateMaterial({
@@ -57,7 +55,10 @@ const MaterialPage = () => {
         dataToUpdate: { status: debouncedStatus },
       });
     }
-  }, [exactMaterial, debouncedType, debouncedStatus]);
+    setTimeout(() => {
+      setSelectType(exactMaterial?.type);
+    }, 50);
+  }, [exactMaterial, debouncedType, debouncedStatus, updateMaterial]);
 
   if (!exactMaterial) {
     return (
@@ -91,7 +92,7 @@ const MaterialPage = () => {
 
         <select
           className="outline-none cursor-pointer text-black dark:text-white"
-          defaultValue={selectType}
+          value={selectType}
           onChange={(e) =>
             setSelectType(
               e.target.value as
@@ -129,8 +130,17 @@ const MaterialPage = () => {
           id={exactMaterial.id}
         />
         <div>
-          <span className="italic">Tag</span>
-          <Text text={exactMaterial.tag ?? ""} textStyles="pl-5" />
+          <span className="italic">Tags</span>
+          <div className="flex flex-wrap gap-2">
+            {exactMaterial.tags?.map((tag, i) => (
+              <span
+                key={i}
+                className="bg-blue-200 text-blue-800 px-2 py-1 rounded"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
         <div>
           <span className="italic">Status</span>

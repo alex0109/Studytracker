@@ -10,13 +10,13 @@ const Modal: FC<ModalProps> = ({ open, onClose, children }) => {
   return (
     <div
       onClick={onClose}
-      className={`fixed inset-0 flex justify-center items-center transition-colors ${
+      className={`z-50 fixed inset-0 flex justify-center items-center transition-colors ${
         open ? "visible bg-black/50" : "invisible"
       }`}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-gray-50 dark:bg-neutral-900 rounded-2xl shadow p-6 transition-all ${
+        className={`z-50 bg-gray-50 dark:bg-neutral-900 rounded-2xl shadow p-6 transition-all ${
           open ? "scale-100 opacity-100" : "scale-125 opacity-0"
         }`}
       >

@@ -41,7 +41,7 @@ const MaterialList = () => {
                 key={item.id}
                 id={item.id}
                 title={item.title}
-                tag={item.tag}
+                tags={item.tags}
                 link={item.link}
                 status={item.status}
                 type={item.type}

@@ -1,11 +1,11 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import BlockColumn from "../../shared/components/block-column";
 import CustomInput from "../../shared/components/input";
 import CustomButton from "../../shared/components/button";
 import Title from "@/shared/components/title";
-import { useState } from "react";
+import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
 import useMaterials from "../materials/hooks/useMaterials.hook";
 import { RichTextDocument } from "../materials/services/type";
@@ -28,17 +28,56 @@ interface CustomFormInterface {
   title: string;
   type: string;
   link: string;
-  tag: MaterialType;
+  tags: MaterialType[];
   status: MaterialStatus;
   description: RichTextDocument;
 }
 
-const AddMaterial = () => {
+const AddMaterial: FC = () => {
+  //////////////////
+  const [value, setValue] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  // const ENTER = 13;
+  // const BACKSPACE = 188;
+  // const COMMA = 8;
+
+  // const [tags, setTags] = useState<string[]>([]);
+  // const [value, setValue] = useState("");
+
+  // const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   const key = e.keyCode;
+  //   if (key === ENTER || key === COMMA) {
+  //     addTag();
+  //   }
+  // };
+
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   const key = e.keyCode;
+  //   if (key === BACKSPACE && !value) {
+  //     editTag();
+  //   }
+  // };
+
+  // const addTag = () => {
+  //   const tag = value.trim().replace(/./g, "");
+  //   if (!tag) return;
+  //   setTags([...tags, tag]);
+  //   setValue("");
+  // };
+
+  // const editTag = () => setValue(tags.pop());
+
+  //////////////////
   const {
     register,
+    control,
     formState: { errors },
     handleSubmit,
-  } = useForm<CustomFormInterface>();
+  } = useForm<CustomFormInterface>({
+    defaultValues: {
+      tags: [],
+    },
+  });
 
   const { createMaterial } = useMaterials();
 
@@ -72,9 +111,6 @@ const AddMaterial = () => {
               error={errors.title?.message}
             />
             <div className="flex gap-2 flex-col justify-center">
-              {/* <label className="border-l-1 border-black dark:border-white px-2">
-                Type
-              </label> */}
               <select
                 {...register("type")}
                 className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
@@ -87,9 +123,6 @@ const AddMaterial = () => {
               </select>
             </div>
             <div className="flex gap-2 flex-col justify-center">
-              {/* <label className="border-l-1 border-black dark:border-white px-2">
-                Status
-              </label> */}
               <select
                 {...register("status")}
                 className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
@@ -105,12 +138,82 @@ const AddMaterial = () => {
               {...register<"link">("link")}
               error={errors.link?.message}
             />
-            <CustomInput
-              label="Tag"
-              placeholder="Tag..."
-              {...register<"tag">("tag")}
-              error={errors.tag?.message}
+            {/* <CustomInput
+              label="Tags"
+              placeholder="Tags..."
+              {...register<"tags">("tags")}
+              error={errors.tags?.message}
+            /> */}
+
+            <Controller
+              control={control}
+              name="tags"
+              render={({ field }) => {
+                const ENTER = "Enter";
+                const BACKSPACE = "Backspace";
+                const COMMA = ",";
+
+                const addTag = () => {
+                  const tag = value.trim().slice(0, -1);
+                  if (!tag) return;
+                  const newTags = [...tags, tag];
+                  setTags(newTags);
+                  field.onChange(newTags);
+                  setValue("");
+                };
+
+                const editTag = () => {
+                  const last = tags[tags.length - 1];
+                  setValue(last || "");
+                  const newTags = tags.slice(0, -1);
+                  setTags(newTags);
+                  field.onChange(newTags);
+                };
+
+                const handleKeyUp = (
+                  e: React.KeyboardEvent<HTMLInputElement>
+                ) => {
+                  const key = e.key;
+                  if (key === ENTER || key === COMMA) {
+                    addTag();
+                  }
+                };
+
+                const handleKeyDown = (
+                  e: React.KeyboardEvent<HTMLInputElement>
+                ) => {
+                  const key = e.key;
+                  if (key === BACKSPACE && !value) {
+                    editTag();
+                  }
+                };
+
+                return (
+                  <div className="flex flex-col gap-2">
+                    <input
+                      type="text"
+                      value={value}
+                      placeholder="Tag..."
+                      onChange={(e) => setValue(e.target.value)}
+                      onKeyUp={handleKeyUp}
+                      onKeyDown={handleKeyDown}
+                      className="text-[15px]bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl"
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      {tags.map((tag, i) => (
+                        <span
+                          key={i}
+                          className="bg-blue-200 text-blue-800 px-2 py-1 rounded"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }}
             />
+
             <CustomInput
               label="Description"
               placeholder="Description..."

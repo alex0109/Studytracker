@@ -31,10 +31,10 @@ const Navigation = () => {
   const mappedLinkList = !user ? links : authorizedLinks;
 
   return (
-    <header className="z-[997] relative">
+    <header className="z-40 relative">
       <motion.div
         className="
-      z-[998] fixed top-0 left-1/2 
+      z-40 fixed top-0 left-1/2 
       h-[4.5rem] w-full rounded-none 
       border-white bg-white shadow-lg 
       shadow-black/[0.03] backdrop-blur-[0.5rem] 
@@ -43,7 +43,7 @@ const Navigation = () => {
         initial={{ y: -100, x: "-50%", opacity: 0 }}
         animate={{ y: 0, x: "-50%", opacity: 1 }}
       ></motion.div>
-      <nav className="z-[999] flex fixed top-[0.15rem] left-1/2 h-12 -translate-x-1/2 sm:top-[1.7rem] sm:h-[initial] sm:py-0 w-[22rem] sm:w-[36rem] justify-center items-center">
+      <nav className="z-40 flex fixed top-[0.15rem] left-1/2 h-12 -translate-x-1/2 sm:top-[1.7rem] sm:h-[initial] sm:py-0 w-[22rem] sm:w-[36rem] justify-center items-center">
         <ul className="flex w-[22rem] flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium sm:w-[initial] sm:flex-nowrap sm:gap-5">
           {mappedLinkList.map((link) => (
             <motion.li
@@ -96,7 +96,7 @@ const Navigation = () => {
       </nav>
       {user && (
         <motion.div
-          className="z-[996] fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem] h-10 sm:w-[26rem] justify-end items-center pt-2"
+          className="z-40 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem] h-10 sm:w-[26rem] justify-end items-center pt-2"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
