@@ -16,7 +16,7 @@ class Document(BaseModel):
 class MaterialBase(BaseModel):
     title: str
     type: Optional[str] = None
-    tag: Optional[str] = None
+    tags: Optional[List[str]] = None
     link: Optional[str] = None
     status: Optional[str] = None
     description: Optional[Union[str, Document]] = None
@@ -27,7 +27,7 @@ class MaterialCreate(MaterialBase):
 class MaterialUpdate(BaseModel):
     title: Optional[str] = None
     type: Optional[str] = None
-    tag: Optional[str] = None
+    tags: Optional[List[str]] = None
     link: Optional[str] = None
     status: Optional[str] = None
     description: Optional[Union[str, Document]] = None
