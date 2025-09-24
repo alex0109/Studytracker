@@ -26,48 +26,17 @@ enum MaterialType {
 
 interface CustomFormInterface {
   title: string;
-  type: string;
+  type: MaterialType;
   link: string;
-  tags: MaterialType[];
+  tags: string[];
   status: MaterialStatus;
   description: RichTextDocument;
 }
 
 const AddMaterial: FC = () => {
-  //////////////////
   const [value, setValue] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  // const ENTER = 13;
-  // const BACKSPACE = 188;
-  // const COMMA = 8;
 
-  // const [tags, setTags] = useState<string[]>([]);
-  // const [value, setValue] = useState("");
-
-  // const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   const key = e.keyCode;
-  //   if (key === ENTER || key === COMMA) {
-  //     addTag();
-  //   }
-  // };
-
-  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   const key = e.keyCode;
-  //   if (key === BACKSPACE && !value) {
-  //     editTag();
-  //   }
-  // };
-
-  // const addTag = () => {
-  //   const tag = value.trim().replace(/./g, "");
-  //   if (!tag) return;
-  //   setTags([...tags, tag]);
-  //   setValue("");
-  // };
-
-  // const editTag = () => setValue(tags.pop());
-
-  //////////////////
   const {
     register,
     control,
