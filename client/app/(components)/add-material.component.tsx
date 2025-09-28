@@ -10,13 +10,13 @@ import Modal from "@/shared/components/modal";
 import useMaterials from "../materials/hooks/useMaterials.hook";
 import { RichTextDocument } from "../materials/services/type";
 
-enum MaterialStatus {
+enum MaterialStatusEnum {
   tolearn = "tolearn",
   inprocess = "inprocess",
   finished = "finished",
 }
 
-enum MaterialType {
+enum MaterialTypeEnum {
   article = "article",
   video = "video",
   summary = "summary",
@@ -26,10 +26,10 @@ enum MaterialType {
 
 interface CustomFormInterface {
   title: string;
-  type: MaterialType;
+  type: MaterialTypeEnum;
   link: string;
   tags: string[];
-  status: MaterialStatus;
+  status: MaterialStatusEnum;
   description: RichTextDocument;
 }
 
@@ -42,6 +42,7 @@ const AddMaterial: FC = () => {
     control,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<CustomFormInterface>({
     defaultValues: {
       tags: [],
@@ -55,6 +56,8 @@ const AddMaterial: FC = () => {
   const onFormSubmit = (values: CustomFormInterface) => {
     createMaterial(values);
     setOpen(false);
+    setTags([]);
+    reset();
   };
 
   return (

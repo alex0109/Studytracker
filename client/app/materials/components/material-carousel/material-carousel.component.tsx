@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import EmptyMaterialItem from "./empty-material-list.component";
 import MaterialItem from "./material-carousel-item.component";
 import Link from "next/link";
-import { routes } from "@/shared/lib/data";
+import { routes } from "@/shared/lib/routes";
 import { CarouselProps } from "@/app/types/types";
 
 const Carousel: FC<CarouselProps> = ({ materials }) => {

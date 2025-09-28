@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   description: "Error",
 };
 
-export default function ErrorLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+const ErrorLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return <div className="flex flex-col items-center pt-10">{children}</div>;
-}
+};
+
+export default ErrorLayout;

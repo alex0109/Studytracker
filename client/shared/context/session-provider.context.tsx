@@ -1,7 +1,7 @@
 "use client";
 
-import { User } from "@supabase/supabase-js";
 import { createContext, ReactNode, useContext } from "react";
+import { User } from "@supabase/supabase-js";
 
 interface SessionProviderProps {
   user: User | null;
@@ -14,18 +14,18 @@ const SessionContext = createContext<{
   token: string | undefined;
 }>({ user: null, token: undefined });
 
-export function SessionProvider({
+export const SessionProvider = ({
   user,
   token,
   children,
-}: SessionProviderProps) {
+}: SessionProviderProps) => {
   return (
     <SessionContext.Provider value={{ user: user, token: token }}>
       {children}
     </SessionContext.Provider>
   );
-}
+};
 
-export function useSession() {
+export const useSession = () => {
   return useContext(SessionContext);
-}
+};

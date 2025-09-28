@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
@@ -21,13 +21,10 @@ import useMaterials from "../../hooks/useMaterials.hook";
 import { RichTextDocument } from "../../services/type";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
 
-const TextEditor = ({
-  initialContent,
-  id,
-}: {
+const TextEditor: FC<{
   initialContent?: RichTextDocument;
   id: number;
-}) => {
+}> = ({ initialContent, id }) => {
   const { updateMaterial } = useMaterials();
 
   const [HTMLcontent, setHTMLcontent] = useState<RichTextDocument | undefined>(
@@ -56,6 +53,7 @@ const TextEditor = ({
     if (debouncedText) {
       updateMaterial({ id, dataToUpdate: { description: debouncedText } });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedText]);
 
   if (!editor) {

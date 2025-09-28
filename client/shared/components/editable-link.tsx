@@ -1,13 +1,13 @@
+import { FC, useState } from "react";
 import useMaterials from "@/app/materials/hooks/useMaterials.hook";
-import { useState } from "react";
 import { LuSquarePen } from "react-icons/lu";
 
-type Props = {
+type EditableLinkProps = {
   id: number;
   initialValue: string;
 };
 
-function EditableLink({ id, initialValue = "" }: Props) {
+const EditableLink: FC<EditableLinkProps> = ({ id, initialValue = "" }) => {
   const [value, setValue] = useState(initialValue);
   const [editing, setEditing] = useState(false);
 
@@ -48,6 +48,6 @@ function EditableLink({ id, initialValue = "" }: Props) {
       <LuSquarePen />
     </div>
   );
-}
+};
 
 export default EditableLink;

@@ -5,8 +5,10 @@ export const metadata: Metadata = {
   description: "Cool app",
 };
 
-export default function MaterialLayout({
+const MaterialLayout = ({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) => {
   return <div className="flex flex-col items-center pt-10">{children}</div>;
-}
+};
+
+export default MaterialLayout;

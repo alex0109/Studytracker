@@ -1,10 +1,6 @@
 import { MaterialType } from "@/app/types/types";
 
-export const filteredMaterials = (
-  data: MaterialType[],
-  title: string,
-  status?: "tolearn" | "inprocess" | "finished"
-) => {
+export const filteredMaterials = (data: MaterialType[], title: string) => {
   return data.filter((material) => {
     return title.toLowerCase() === ""
       ? material

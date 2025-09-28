@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 interface CustomButtonProps {
   onClick?: () => void;
@@ -8,13 +8,13 @@ interface CustomButtonProps {
   buttonStyles?: string;
 }
 
-function CustomButton({
+const CustomButton: FC<CustomButtonProps> = ({
   onClick,
   title,
   disabled = false,
   type = "button",
   buttonStyles,
-}: CustomButtonProps) {
+}) => {
   return (
     <button
       onClick={onClick}
@@ -27,6 +27,6 @@ function CustomButton({
       {title}
     </button>
   );
-}
+};
 
 export default CustomButton;

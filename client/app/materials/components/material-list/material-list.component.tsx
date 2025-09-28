@@ -1,10 +1,10 @@
 "use client";
 
+import React, { FC, useState } from "react";
 import BlockColumn from "@/shared/components/block-column";
-import React, { useState } from "react";
 import MaterialListItem from "./material-list-item.component";
 import useMaterials from "../../hooks/useMaterials.hook";
-import { routes } from "@/shared/lib/data";
+import { routes } from "@/shared/lib/routes";
 import Link from "next/link";
 import EmptyMaterialItem from "../material-carousel/empty-material-list.component";
 import ContainerColumn from "@/shared/components/container-column";
@@ -12,7 +12,7 @@ import CustomInput from "@/shared/components/input";
 import Subtitle from "@/shared/components/subtitle";
 import { filteredMaterials } from "../../utils/filter-materials.util";
 
-const MaterialList = () => {
+const MaterialList: FC = () => {
   const [search, setSearch] = useState("");
   const { materialsData } = useMaterials();
 

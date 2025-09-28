@@ -1,5 +1,7 @@
 import Auth from "../login";
 
-export default async function SignUpPage() {
+const SignUpPage = async () => {
   return <Auth mode="signup" />;
-}
+};
+
+export default SignUpPage;

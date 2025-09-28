@@ -5,7 +5,7 @@ import { createClient } from "@/shared/supabase/server";
 import { redirect } from "next/navigation";
 import z from "zod";
 
-export type MagicLinkState =
+export type MagicLinkStateType =
   | { error: string; success?: undefined }
   | { success: string; error?: undefined }
   | { error?: undefined; success?: undefined };

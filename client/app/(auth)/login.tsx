@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { useActionState, useState } from "react";
-import { MagicLinkState, signInWithMagicLink } from "./actions";
+import { MagicLinkStateType, signInWithMagicLink } from "./actions";
 import Text from "@/shared/components/text";
 import { createClient } from "@/shared/supabase/client";
 
@@ -20,7 +20,7 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const redirect = searchParams.get("redirect");
 
   const [magicLinkState, magicLinkAction, pending] = useActionState<
-    MagicLinkState,
+    MagicLinkStateType,
     FormData
   >(signInWithMagicLink, {});
 

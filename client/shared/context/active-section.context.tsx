@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
-import { createContext } from "react";
+import React, { useContext, useState, createContext } from "react";
 import { SectionName } from "../lib/types";
 
 interface ActiveSectionContextProvider {

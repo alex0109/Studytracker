@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import TypeText from "./type-text.component";
 import { TypeTextType } from "../types/type-text.types";
 import BlockColumn from "../../shared/components/block-column";
@@ -11,7 +11,7 @@ const config: TypeTextType = {
   typeSpeed: 60,
 };
 
-function Intro() {
+const Intro: FC = () => {
   return (
     <BlockColumn>
       <div className="w-[800px] h-[150px]">
@@ -22,6 +22,6 @@ function Intro() {
       </div>
     </BlockColumn>
   );
-}
+};
 
 export default Intro;

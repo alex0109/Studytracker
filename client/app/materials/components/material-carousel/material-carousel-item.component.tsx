@@ -1,5 +1,4 @@
 import Subtitle from "@/shared/components/subtitle";
-import Text from "@/shared/components/text";
 import React, { FC } from "react";
 
 import StatusBadge from "@/shared/components/status-badge";

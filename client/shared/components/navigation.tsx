@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { motion } from "framer-motion";
 
 import Link from "next/link";
@@ -15,7 +15,7 @@ import CustomButton from "./button";
 import Title from "./title";
 import { signOut } from "@/app/(auth)/actions";
 
-const Navigation = () => {
+const Navigation: FC = () => {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 

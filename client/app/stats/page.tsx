@@ -1,18 +1,18 @@
 "use client";
 
+import { FC, useEffect, useState } from "react";
 import BlockColumn from "@/shared/components/block-column";
 import ContainerColumn from "@/shared/components/container-column";
 import PieChart from "@/shared/components/pie";
 import Subtitle from "@/shared/components/subtitle";
 import Title from "@/shared/components/title";
-import { useEffect, useState } from "react";
 import useMaterials from "../materials/hooks/useMaterials.hook";
 import {
   validateStatusesData,
   validateTypesData,
 } from "./utils/data-validate.util";
 
-export default function Stats() {
+const Stats: FC = () => {
   const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);
   const [pieStatusData, setPieStatusData] = useState([{ x: "No data", y: 0 }]);
   const { statsData } = useMaterials();
@@ -37,4 +37,6 @@ export default function Stats() {
       </ContainerColumn>
     </BlockColumn>
   );
-}
+};
+
+export default Stats;

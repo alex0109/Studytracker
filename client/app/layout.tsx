@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   description: "Cool app",
 };
 
-export default async function RootLayout({
+const RootLayout = async ({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) => {
   const { user, token } = await getUser();
   console.log(token);
   return (
@@ -43,4 +43,6 @@ export default async function RootLayout({
       </html>
     </ReactQueryClientProvider>
   );
-}
+};
+
+export default RootLayout;
