@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useMaterials from "@/app/materials/hooks/useMaterials.hook";
-import { Material } from "@/app/materials/services/type";
+import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
+import { Material } from "@/app/(client)/materials/services/type";
 import useDebounce from "../hooks/use-debounce.hook";
 
 interface EditableFieldProps<K extends keyof Material> {

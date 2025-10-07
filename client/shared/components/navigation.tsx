@@ -13,7 +13,7 @@ import { useSession } from "../context/session-provider.context";
 import Modal from "./modal";
 import CustomButton from "./button";
 import Title from "./title";
-import { signOut } from "@/app/(auth)/actions";
+import { signOut } from "@/app/(client)/(auth)/actions";
 
 const Navigation: FC = () => {
   const { activeSection, setActiveSection, setTimeOfLastClick } =

@@ -1,13 +1,17 @@
 import { FC } from "react";
 import Intro from "./(components)/intro.component";
-import MaterialCarousel from "./materials/components/material-carousel/material-carousel-list.component";
+import MaterialCarousel from "./(client)/materials/components/material-carousel/material-carousel-list.component";
+import Navigation from "@/shared/components/navigation";
 
 const Home: FC = () => {
   return (
-    <main className="flex flex-col items-center">
-      <Intro />
-      <MaterialCarousel />
-    </main>
+    <>
+      <Navigation />
+      <main className="flex flex-col items-center pt-30">
+        <Intro />
+        <MaterialCarousel />
+      </main>
+    </>
   );
 };
 

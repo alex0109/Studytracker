@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const ErrorLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  return <div className="flex flex-col items-center pt-10">{children}</div>;
+  return <div className="flex flex-col items-center">{children}</div>;
 };
 
 export default ErrorLayout;

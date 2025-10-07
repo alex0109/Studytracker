@@ -12,7 +12,7 @@ import EditableField from "@/shared/components/editable-field";
 import Modal from "@/shared/components/modal";
 import Subtitle from "@/shared/components/subtitle";
 import EditableLink from "@/shared/components/editable-link";
-import TextEditor from "@/app/materials/components/text-editor/text-editor";
+import TextEditor from "@/app/(client)/materials/components/text-editor/text-editor";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
 
 const MaterialPage: FC = () => {

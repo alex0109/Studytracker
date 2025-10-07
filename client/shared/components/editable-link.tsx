@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import useMaterials from "@/app/materials/hooks/useMaterials.hook";
+import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
 import { LuSquarePen } from "react-icons/lu";
 
 type EditableLinkProps = {

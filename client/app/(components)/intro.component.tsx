@@ -2,7 +2,7 @@
 
 import React, { FC } from "react";
 import TypeText from "./type-text.component";
-import { TypeTextType } from "../types/type-text.types";
+import { TypeTextType } from "./types";
 import BlockColumn from "../../shared/components/block-column";
 import Title from "@/shared/components/title";
 

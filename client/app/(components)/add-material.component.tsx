@@ -7,8 +7,8 @@ import CustomButton from "../../shared/components/button";
 import Title from "@/shared/components/title";
 import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
-import useMaterials from "../materials/hooks/useMaterials.hook";
-import { RichTextDocument } from "../materials/services/type";
+import useMaterials from "../(client)/materials/hooks/useMaterials.hook";
+import { RichTextDocument } from "../(client)/materials/services/type";
 
 enum MaterialStatusEnum {
   tolearn = "tolearn",

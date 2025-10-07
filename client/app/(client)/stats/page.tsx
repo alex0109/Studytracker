@@ -6,7 +6,7 @@ import ContainerColumn from "@/shared/components/container-column";
 import PieChart from "@/shared/components/pie";
 import Subtitle from "@/shared/components/subtitle";
 import Title from "@/shared/components/title";
-import useMaterials from "../materials/hooks/useMaterials.hook";
+import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
 import {
   validateStatusesData,
   validateTypesData,

@@ -1,4 +1,4 @@
-import { RichTextDocument } from "../materials/services/type";
+import { RichTextDocument } from "../(client)/materials/services/type";
 
 export interface MaterialType {
   id: number;

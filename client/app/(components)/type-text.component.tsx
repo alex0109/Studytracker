@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-import { TypeTextType } from "../types/type-text.types";
+import { TypeTextType } from "./types";
 
 let timer: string | number | NodeJS.Timeout | undefined;
 

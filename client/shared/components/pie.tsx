@@ -10,6 +10,7 @@ const PieChart: FC<PieChartProps> = ({ chartData }) => {
     <VictoryPie
       width={900}
       data={chartData}
+      labels={({ datum }) => `${datum.x} (${datum.y})`}
       colorScale={[
         "#7a2bab",
         "#9c2bab",
