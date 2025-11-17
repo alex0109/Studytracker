@@ -1,11 +1,13 @@
-import React, { FC } from "react";
+import React, { memo, ReactNode } from "react";
 import { VictoryPie } from "victory";
 
 interface PieChartProps {
   chartData: { x: string; y: number }[];
 }
 
-const PieChart: FC<PieChartProps> = ({ chartData }) => {
+const PieChart = memo(function PieChart({
+  chartData,
+}: PieChartProps): ReactNode {
   return (
     <VictoryPie
       width={900}
@@ -62,6 +64,6 @@ const PieChart: FC<PieChartProps> = ({ chartData }) => {
       ]}
     />
   );
-};
+});
 
 export default PieChart;

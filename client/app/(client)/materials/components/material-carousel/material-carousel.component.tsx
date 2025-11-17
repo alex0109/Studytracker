@@ -7,8 +7,7 @@ import { routes } from "@/shared/lib/routes";
 import { CarouselProps } from "@/app/types/types";
 
 const Carousel: FC<CarouselProps> = ({ materials }) => {
-  if (materials == undefined || materials.length === 0) {
-    materials = [];
+  if (!materials || materials.length === 0) {
     return (
       <div className="w-full rounded-4xl">
         <EmptyMaterialItem />

@@ -169,7 +169,7 @@ const AddMaterial: FC = () => {
                       onChange={(e) => setValue(e.target.value)}
                       onKeyUp={handleKeyUp}
                       onKeyDown={handleKeyDown}
-                      className="text-[15px]bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl"
+                      className="text-[15px] bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl"
                     />
                     <div className="flex flex-wrap gap-2">
                       {tags.map((tag, i) => (
