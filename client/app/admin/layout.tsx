@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarProvider } from "@/shared/components/ui/sidebar";
-import { AppSidebar } from "./components/sidebar/sidebar.component";
+import { AppSidebar } from "./(components)/sidebar/sidebar.component";
 import { useSession } from "@/shared/context/session-provider.context";
 import { redirect } from "next/navigation";
 

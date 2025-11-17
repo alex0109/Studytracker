@@ -10,18 +10,19 @@ import {
   useSidebar,
 } from "@/shared/components/ui/sidebar";
 import Title from "@/shared/components/title";
+import Link from "next/link";
 
 export function NavHeader() {
   const { open } = useSidebar();
-
-  // if (!open) return null;
 
   return (
     <SidebarMenu>
       <SidebarMenuItem className="flex flex-col justify-center items-center">
         <SidebarTrigger />
         <SidebarSeparator />
-        <Title text={open ? "Studytracker" : "ST"} />
+        <Link href="/admin" className="hover:opacity-65 duration-200">
+          <Title text={open ? "Studytracker" : "ST"} />
+        </Link>
         <SidebarSeparator />
       </SidebarMenuItem>
     </SidebarMenu>

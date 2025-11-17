@@ -11,10 +11,12 @@ import {
 import { useSession } from "@/shared/context/session-provider.context";
 import { Material } from "../services/type";
 import { MaterialType, ServerStatsDataType } from "@/app/types/types";
+import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
+import { useEffect } from "react";
 
 const useMaterials = (id?: number) => {
   const queryClient = useQueryClient();
-  const { token } = useSession();
+  const { token, user } = useSession();
 
   const materials = useQuery<MaterialType[]>({
     queryKey: ["materials"],
@@ -34,12 +36,18 @@ const useMaterials = (id?: number) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
+    onError: (error) => {
+      logExceptionError(error, { section: "", userID: user?.id });
+    },
   });
 
   const deleteMaterialMutation = useMutation({
     mutationFn: (id: number) => deleteMaterialService(token, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["materials"] });
+    },
+    onError: (error) => {
+      logExceptionError(error, { section: "", userID: user?.id });
     },
   });
 
@@ -55,6 +63,9 @@ const useMaterials = (id?: number) => {
       queryClient.invalidateQueries({ queryKey: ["materials", updated.id] });
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
+    onError: (error) => {
+      logExceptionError(error, { section: "", userID: user?.id });
+    },
   });
 
   const stats = useQuery<ServerStatsDataType>({
@@ -62,6 +73,27 @@ const useMaterials = (id?: number) => {
     queryFn: () => getStatsService(token),
     enabled: !!token,
   });
+
+  useEffect(() => {
+    if (materials.error) {
+      logExceptionError(materials.error, {
+        section: "materials",
+        userID: user?.id,
+      });
+    }
+    if (exactMaterial.error) {
+      logExceptionError(exactMaterial.error, {
+        section: "exactMaterial",
+        userID: user?.id,
+      });
+    }
+    if (stats.error) {
+      logExceptionError(stats.error, {
+        section: "stats",
+        userID: user?.id,
+      });
+    }
+  }, [materials.error, exactMaterial.error, stats.error]);
 
   return {
     materialsData: materials.data,
