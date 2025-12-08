@@ -24,7 +24,7 @@ const MaterialList: FC = () => {
         <>
           <ContainerColumn>
             <CustomInput
-              inputBlockStyles="w-[400px]"
+              inputBlockStyles="min-w-[250px] lg:w-[400px] md:w-[350px] sm:w-[300px]"
               inputStyles="bg-neutral-200"
               placeholder="Search for material"
               onChange={(e) => setSearch(e.target.value)}
@@ -45,6 +45,7 @@ const MaterialList: FC = () => {
                 link={item.link}
                 status={item.status}
                 type={item.type}
+                created_at={item.created_at}
               />
             </Link>
           ))}

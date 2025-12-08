@@ -35,7 +35,7 @@ const UsersPanel: FC = () => {
         <Title text="Users" />
         <ContainerColumn blockStyles="w-full justify-center">
           <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>A list of users.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">User</TableHead>

@@ -17,4 +17,5 @@ export interface Material {
   link?: string;
   status?: "tolearn" | "inprocess" | "finished";
   description: RichTextDocument;
+  created_at: Date;
 }

@@ -30,11 +30,14 @@ export const createMaterialService = async (
   token: string | undefined,
   body: Material
 ): Promise<MaterialType> => {
+  const date = new Date();
+
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials`,
     {
       id: 0,
       ...body,
+      created_at: date.toISOString(),
     },
     {
       headers: {

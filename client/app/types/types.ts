@@ -8,6 +8,7 @@ export interface MaterialType {
   link?: string;
   description?: RichTextDocument | undefined;
   status?: "tolearn" | "inprocess" | "finished";
+  created_at: Date;
 }
 
 export interface CarouselProps {

@@ -10,7 +10,7 @@ import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
 import {
   validateStatusesData,
   validateTypesData,
-} from "./utils/data-validate.util";
+} from "../../../shared/lib/utils/data-validate.util";
 
 const Stats: FC = () => {
   const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);
