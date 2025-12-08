@@ -53,16 +53,16 @@ export const adminNavLinks = [
     icon: BookOpen,
     items: [
       {
-        title: "Introduction",
-        url: "#",
+        title: "Documentation",
+        url: "/admin/docs",
       },
       {
         title: "Plans",
-        url: "#",
+        url: "/admin/plans",
       },
       {
         title: "Changelog",
-        url: "#",
+        url: "/admin/changelog",
       },
     ],
   },

@@ -1,10 +1,17 @@
 import Subtitle from "@/shared/components/subtitle";
 import React, { FC } from "react";
+import moment from "moment";
 
 import StatusBadge from "@/shared/components/status-badge";
 import { MaterialType } from "@/app/types/types";
+import Text from "@/shared/components/text";
 
-const MaterialItem: FC<MaterialType> = ({ title, tags, status }) => {
+const MaterialItem: FC<MaterialType> = ({
+  title,
+  tags,
+  status,
+  created_at,
+}) => {
   return (
     <div className="bg-neutral-900 h-[200px] w-[250px] rounded-2xl p-2 m-2 inline-block cursor-pointer hover:scale-105 ease-in-out duration-300 overflow-hidden">
       <Subtitle text={title} textStyles="text-white" />
@@ -22,6 +29,12 @@ const MaterialItem: FC<MaterialType> = ({ title, tags, status }) => {
             </span>
           ))}
         </div>
+      </div>
+      <div>
+        <Text
+          textStyles="text-neutral-400"
+          text={moment(created_at).format("DD MMMM yy")}
+        />
       </div>
     </div>
   );

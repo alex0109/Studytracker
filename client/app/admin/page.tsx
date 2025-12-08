@@ -1,12 +1,16 @@
 import { FC } from "react";
 import BlockColumn from "@/shared/components/block-column";
-import ContainerColumn from "@/shared/components/container-column";
 import Title from "@/shared/components/title";
-import Text from "@/shared/components/text";
 import { Button } from "@/shared/components/ui/button";
 import Link from "next/link";
-import { LuSquarePen } from "react-icons/lu";
+import {
+  LuChartSpline,
+  LuSquareArrowOutUpRight,
+  LuUsers,
+  LuActivity,
+} from "react-icons/lu";
 import { Separator } from "@/shared/components/ui/separator";
+import ContainerRow from "@/shared/components/container-row";
 
 const AdminPanel: FC = () => {
   return (
@@ -14,13 +18,28 @@ const AdminPanel: FC = () => {
       <BlockColumn>
         <Title text="Admin Panel" />
         <Separator />
-        <ContainerColumn blockStyles="justify-center">
+        <ContainerRow blockStyles="flex justify-center">
           <Link target="_blank" href="https://reybey-org.sentry.io/issues/">
-            <Button>
-              Check logs (Sentry) <LuSquarePen />
+            <Button className="w-[400px] h-[200px] text-2xl">
+              Check logs (Sentry) <LuSquareArrowOutUpRight />
             </Button>
           </Link>
-        </ContainerColumn>
+          <Link href="/admin/materials">
+            <Button className="w-[400px] h-[200px] text-2xl">
+              Check Materials <LuChartSpline />
+            </Button>
+          </Link>
+          <Link href="/admin/users">
+            <Button className="w-[400px] h-[200px] text-2xl">
+              Check Users <LuUsers />
+            </Button>
+          </Link>
+          <Link href="/admin/traffic">
+            <Button className="w-[400px] h-[200px] text-2xl">
+              Check Traffic <LuActivity />
+            </Button>
+          </Link>
+        </ContainerRow>
         <Separator />
       </BlockColumn>
     </div>

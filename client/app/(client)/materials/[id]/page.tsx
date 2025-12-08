@@ -16,6 +16,7 @@ import TextEditor from "@/app/(client)/materials/components/text-editor/text-edi
 import useDebounce from "@/shared/hooks/use-debounce.hook";
 import { Button } from "@/shared/components/ui/button";
 import { LuX } from "react-icons/lu";
+import moment from "moment";
 
 const MaterialPage: FC = () => {
   const params = useParams();
@@ -163,6 +164,12 @@ const MaterialPage: FC = () => {
           <option value="practice">Practice</option>
           <option value="test">Test</option>
         </select>
+        <div>
+          <Text
+            textStyles="text-neutral-400"
+            text={moment(exactMaterial.created_at).format("DD MMMM yy")}
+          />
+        </div>
       </BlockColumn>
       <BlockColumn blockStyles="p-[70px] items-start">
         <div className="flex items-center w-full gap-2 border-b-1 border-b-neutral-700">

@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/shared/components/ui/table";
+import moment from "moment";
 
 const UsersPanel: FC = () => {
   const [users, setUsers] = useState([]);
@@ -35,7 +36,7 @@ const UsersPanel: FC = () => {
         <Title text="Users" />
         <ContainerColumn blockStyles="w-full justify-center">
           <Table>
-            <TableCaption>A list of users.</TableCaption>
+            <TableCaption>A list of users from Supabase.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">User</TableHead>
@@ -46,7 +47,9 @@ const UsersPanel: FC = () => {
               {users.map((item) => (
                 <TableRow key={item.confirmed_at}>
                   <TableCell className="font-medium">{item.email}</TableCell>
-                  <TableCell>{item.created_at}</TableCell>
+                  <TableCell>
+                    {moment(item.created_at).format("DD - MM - YY | HH:mm:ss")}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

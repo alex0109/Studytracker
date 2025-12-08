@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Studytracker | Admin - Traffic",
+  title: "Studytracker | Admin - Docs",
   description: "Cool app",
 };
 
-const TrafficPanelLayout = ({
+const DocsPanelLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   return <div className="flex flex-col items-center">{children}</div>;
 };
 
-export default TrafficPanelLayout;
+export default DocsPanelLayout;

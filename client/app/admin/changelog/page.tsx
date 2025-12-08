@@ -3,17 +3,15 @@
 import { FC } from "react";
 import BlockColumn from "@/shared/components/block-column";
 import Title from "@/shared/components/title";
-import Subtitle from "@/shared/components/subtitle";
 
-const TrafficPanel: FC = () => {
+const ChangelogPanel: FC = () => {
   return (
     <div className="flex justify-center items-center w-full h-full py-10">
       <BlockColumn>
-        <Title text="Traffic" />
-        <Subtitle text="Place for Google Analytics" />
+        <Title text="Changelog" />
       </BlockColumn>
     </div>
   );
 };
 
-export default TrafficPanel;
+export default ChangelogPanel;
