@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, Union, Dict, List
+from datetime import datetime
 
 class Node(BaseModel):
     type: str
@@ -20,6 +21,7 @@ class MaterialBase(BaseModel):
     link: Optional[str] = None
     status: Optional[str] = None
     description: Optional[Union[str, Document]] = None
+    created_at: datetime
 
 class MaterialCreate(MaterialBase):
     pass
