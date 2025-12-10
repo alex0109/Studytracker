@@ -1,27 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import TypeText from "./type-text.component";
-import { TypeTextType } from "../types/type-text.types";
+import { TypeTextType } from "./types";
 import BlockColumn from "../../shared/components/block-column";
 import Title from "@/shared/components/title";
+import ContainerColumn from "@/shared/components/container-column";
 
 const config: TypeTextType = {
   text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione nulla a quod aliquid provident modi maxime eius autem ad quo veniam laudantium ipsa similique odit dicta, impedit est aperiam molestias.",
   typeSpeed: 60,
 };
 
-function Intro() {
+const Intro: FC = () => {
   return (
     <BlockColumn>
-      <div className="w-[800px] h-[150px]">
+      <ContainerColumn>
         <Title text="Studytracker" />
         <div>
           <TypeText text={config.text} typeSpeed={config.typeSpeed} />
         </div>
-      </div>
+      </ContainerColumn>
     </BlockColumn>
   );
-}
+};
 
 export default Intro;

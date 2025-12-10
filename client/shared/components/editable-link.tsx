@@ -1,12 +1,13 @@
-import useMaterials from "@/app/materials/hooks/useMaterials.hook";
-import { useState } from "react";
+import { FC, useState } from "react";
+import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
+import { LuSquarePen } from "react-icons/lu";
 
-type Props = {
+type EditableLinkProps = {
   id: number;
   initialValue: string;
 };
 
-function EditableLink({ id, initialValue }: Props) {
+const EditableLink: FC<EditableLinkProps> = ({ id, initialValue = "" }) => {
   const [value, setValue] = useState(initialValue);
   const [editing, setEditing] = useState(false);
 
@@ -40,12 +41,13 @@ function EditableLink({ id, initialValue }: Props) {
         href={value}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline cursor-pointer"
+        className="underline cursor-pointer pr-2"
       >
         Source link
       </a>
+      <LuSquarePen />
     </div>
   );
-}
+};
 
 export default EditableLink;
