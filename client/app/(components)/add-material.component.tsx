@@ -31,6 +31,7 @@ interface CustomFormInterface {
   tags: string[];
   status: MaterialStatusEnum;
   description: RichTextDocument;
+  created_at: Date;
 }
 
 const AddMaterial: FC = () => {
