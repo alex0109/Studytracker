@@ -22,8 +22,6 @@ const UsersPanel: FC = () => {
   const handler = async () => {
     const { data } = await getUsers();
     setUsers(data);
-
-    console.log("DATA", data);
   };
 
   useEffect(() => {
