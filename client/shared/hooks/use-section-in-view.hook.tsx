@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { SectionName } from "../lib/types";
+import { SectionName } from "../lib/types/section-name.type";
 import { useActiveSectionContext } from "../context/active-section.context";
 
 export default function useSectionInView(sectionName: SectionName) {

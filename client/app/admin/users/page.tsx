@@ -15,9 +15,10 @@ import {
   TableRow,
 } from "@/shared/components/ui/table";
 import moment from "moment";
+import { UserSupabase } from "@/shared/lib/types/user-supabase.type";
 
 const UsersPanel: FC = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserSupabase[]>([]);
 
   const handler = async () => {
     const { data } = await getUsers();
