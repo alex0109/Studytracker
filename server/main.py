@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Depends, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import select
+import collections
 
 from base import SessionLocal, engine
 import material, schemas
@@ -42,11 +44,12 @@ async def get_byid_material(body: schemas.MaterialCreate, db: Session = Depends(
     db_material = material.Material(
         title=body.title, 
         type=body.type, 
-        tag=body.tag, 
+        tags=body.tags, 
         link=body.link, 
         status=body.status, 
         description=body.description, 
-        user_id=user_id
+        user_id=user_id,
+        created_at=body.created_at
     )
     db.add(db_material)
     db.commit()
@@ -79,3 +82,27 @@ def update_material(item_id: int, material_update: schemas.MaterialUpdate, db: S
     db.commit()
     db.refresh(res)
     return res
+
+@app.get("/stats")
+async def get_stats(db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
+    stmt = select(material.Material).where(material.Material.user_id == user_id)
+    res = db.execute(stmt).scalars().all()
+    types = []
+    statuses = []
+    for row in res:
+        types.append(row.type)
+        statuses.append(row.status)
+
+    return {"count": len(res), "types": collections.Counter(types), "statuses": collections.Counter(statuses)}
+
+@app.get("/admin/stats")
+async def get_stats(db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
+    stmt = select(material.Material)
+    res = db.execute(stmt).scalars().all()
+    types = []
+    statuses = []
+    for row in res:
+        types.append(row.type)
+        statuses.append(row.status)
+
+    return {"count": len(res), "types": collections.Counter(types), "statuses": collections.Counter(statuses)}
