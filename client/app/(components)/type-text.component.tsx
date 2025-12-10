@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { TypeTextType } from "../types/type-text.types";
+import React, { useState, useEffect, FC } from "react";
+import { TypeTextType } from "./types";
 
 let timer: string | number | NodeJS.Timeout | undefined;
 
-function TypeText({ text, typeSpeed }: TypeTextType) {
+const TypeText: FC<TypeTextType> = ({ text, typeSpeed }) => {
   const [state, setState] = useState({
     typedText: "",
     currentIndex: 0,
@@ -34,6 +34,6 @@ function TypeText({ text, typeSpeed }: TypeTextType) {
       <span className="cursor border-l-1 border-black dark:border-white" />
     </p>
   );
-}
+};
 
 export default TypeText;

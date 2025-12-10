@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useMaterials from "@/app/materials/hooks/useMaterials.hook";
-import { Material } from "@/app/materials/services/type";
+import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
+import { Material } from "@/app/(client)/materials/services/type";
 import useDebounce from "../hooks/use-debounce.hook";
 
 interface EditableFieldProps<K extends keyof Material> {
@@ -34,8 +34,7 @@ function EditableField<K extends keyof Material>({
   return (
     <input
       className={`bg-transparent focus:outline-none ${
-        titleHeading &&
-        "border-b-1 border-b-neutral-300 text-center text-2xl font-bold"
+        titleHeading && " text-center text-2xl font-bold"
       } ${subtitleHeading && "border-none text-center text-xl font-medium"} ${
         textHeading && "w-full border-none font-medium"
       }`}

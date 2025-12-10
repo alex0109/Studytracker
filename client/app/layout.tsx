@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ActiveSectionContextProvider from "@/shared/context/active-section.context";
-import Navigation from "@/shared/components/navigation";
 import Footer from "@/shared/components/footer";
 import ReactQueryClientProvider from "@/shared/context/query-client-provider.context";
 import { getUser } from "@/shared/queries/user";
@@ -12,15 +11,15 @@ export const metadata: Metadata = {
   description: "Cool app",
 };
 
-export default async function RootLayout({
+const RootLayout = async ({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) => {
   const { user, token } = await getUser();
   console.log(token);
   return (
     <ReactQueryClientProvider>
       <html lang="en">
-        <body className="relative bg-gray-50 pt-30">
+        <body className="relative bg-gray-50">
           <div
             className="bg-[#cde7ff] absolute top-[-6rem] 
           -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] 
@@ -34,7 +33,6 @@ export default async function RootLayout({
           ></div>
           <SessionProvider user={user} token={token}>
             <ActiveSectionContextProvider>
-              <Navigation />
               {children}
               <Footer />
             </ActiveSectionContextProvider>
@@ -43,4 +41,6 @@ export default async function RootLayout({
       </html>
     </ReactQueryClientProvider>
   );
-}
+};
+
+export default RootLayout;
