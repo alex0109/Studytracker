@@ -5,6 +5,7 @@ import Footer from "@/shared/components/footer";
 import ReactQueryClientProvider from "@/shared/context/query-client-provider.context";
 import { getUser } from "@/shared/queries/user";
 import { SessionProvider } from "@/shared/context/session-provider.context";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "Studytracker",

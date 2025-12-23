@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { cn } from "@/shared/lib/utils";
 
 interface CustomButtonProps {
   onClick?: () => void;
@@ -20,9 +21,10 @@ const CustomButton: FC<CustomButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={`w-full bg-neutral-800 border-2 border-neutral-700 p-2 rounded-xl text-white hover:opacity-90 cursor-pointer duration-200 ${
-        buttonStyles || ""
-      }`}
+      className={cn(
+        "w-full bg-neutral-800 border-2 border-neutral-700 p-2 rounded-xl text-white hover:opacity-90 cursor-pointer duration-200",
+        buttonStyles
+      )}
     >
       {title}
     </button>

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, forwardRef, Ref } from "react";
 import ContainerRow from "./container-row";
+import { cn } from "@/shared/lib/utils";
 
 interface CustomInputProps {
   label?: string;
@@ -31,11 +32,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
     } = props;
 
     return (
-      <div
-        className={`flex gap-2 flex-col ${
-          inputBlockStyles ? inputBlockStyles : ""
-        }`}
-      >
+      <div className={cn(`flex gap-2 flex-col`, inputBlockStyles)}>
         <ContainerRow>
           {error && <p className="text-red-400">{error}</p>}
         </ContainerRow>
@@ -43,11 +40,14 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           onChange={onChange ? onChange : () => {}}
           {...inputProps}
           ref={ref}
-          className={`text-[15px] ${
-            disabled
-              ? "bg-gray-200 dark:bg-neutral-500"
-              : "bg-gray-100 dark:bg-neutral-700"
-          } px-4 py-2 my-2 rounded-2xl ${inputStyles ? inputStyles : ""}`}
+          className={cn(
+            `text-[15px] ${
+              disabled
+                ? "bg-gray-200 dark:bg-neutral-500"
+                : "bg-gray-100 dark:bg-neutral-700"
+            } px-4 py-2 my-2 rounded-2xl`,
+            inputStyles
+          )}
           placeholder={placeholder}
           defaultValue={defaultValue}
           required={required}

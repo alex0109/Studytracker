@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { cn } from "@/shared/lib/utils";
 
 interface SubtitleProps {
   text: string;
@@ -8,10 +9,8 @@ interface SubtitleProps {
 
 const Subtitle: FC<SubtitleProps> = ({ text, blockStyles, textStyles }) => {
   return (
-    <div className={`my-2 ${blockStyles || ""}`}>
-      <h3
-        className={`text-black dark:text-white text-center ${textStyles || ""}`}
-      >
+    <div className={cn(`my-2`, blockStyles)}>
+      <h3 className={cn(`text-black dark:text-white text-center`, textStyles)}>
         {text}
       </h3>
     </div>

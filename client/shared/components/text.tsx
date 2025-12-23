@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { cn } from "@/shared/lib/utils";
 
 interface TextProps {
   text: string;
@@ -6,9 +7,7 @@ interface TextProps {
 }
 
 const Text: FC<TextProps> = ({ text, textStyles }) => {
-  return (
-    <p className={`text-black dark:text-white ${textStyles || ""}`}>{text}</p>
-  );
+  return <p className={cn(`text-black dark:text-white`, textStyles)}>{text}</p>;
 };
 
 export default Text;

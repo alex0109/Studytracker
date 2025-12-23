@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { cn } from "@/shared/lib/utils";
 
 interface ContainerRowProps {
   children: ReactNode;
@@ -8,9 +9,7 @@ interface ContainerRowProps {
 const ContainerRow: FC<ContainerRowProps> = ({ children, blockStyles }) => {
   return (
     <div
-      className={`flex flex-row gap-2 flex-wrap items-center ${
-        blockStyles || ""
-      }`}
+      className={cn(`flex flex-row gap-2 flex-wrap items-center`, blockStyles)}
     >
       {children}
     </div>
