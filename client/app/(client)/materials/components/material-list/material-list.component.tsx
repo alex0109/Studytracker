@@ -11,10 +11,13 @@ import ContainerColumn from "@/shared/components/container-column";
 import CustomInput from "@/shared/components/input";
 import Subtitle from "@/shared/components/subtitle";
 import { filteredMaterials } from "../../utils/filter-materials.util";
+import useLastOpened from "@/shared/hooks/use-last-opened.hook";
 
 const MaterialList: FC = () => {
   const [search, setSearch] = useState("");
   const { materialsData } = useMaterials();
+
+  const { saveLastOpenedId } = useLastOpened();
 
   return (
     <BlockColumn blockStyles="align-center justify-center">
@@ -36,7 +39,11 @@ const MaterialList: FC = () => {
             />
           </ContainerColumn>
           {filteredMaterials(materialsData, search).map((item) => (
-            <Link key={item.id} href={`${routes.materials}/${item.id}`}>
+            <Link
+              key={item.id}
+              href={`${routes.materials}/${item.id}`}
+              onClick={() => saveLastOpenedId(item.id)}
+            >
               <MaterialListItem
                 key={item.id}
                 id={item.id}

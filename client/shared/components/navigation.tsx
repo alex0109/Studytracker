@@ -35,11 +35,10 @@ const Navigation: FC = () => {
       <motion.div
         className="
       z-40 fixed top-0 left-1/2 
-      h-[4.5rem] w-full rounded-none 
-      border-white bg-white shadow-lg 
+      h-[4.5rem] w-full border-white bg-white shadow-lg 
       shadow-black/[0.03] backdrop-blur-[0.5rem] 
       sm:top-6 sm:h-[3.25rem] sm:w-[36rem] 
-      sm:rounded-full dark:bg-neutral-900"
+      sm:rounded-tl-[160px] sm:rounded-br-[160px] sm:rounded-bl-[16px] sm:rounded-tr-[16px] dark:bg-neutral-900"
         initial={{ y: -100, x: "-50%", opacity: 0 }}
         animate={{ y: 0, x: "-50%", opacity: 1 }}
       ></motion.div>
@@ -85,7 +84,7 @@ const Navigation: FC = () => {
         </ul>
         {user && (
           <motion.div
-            className="absolute right-0 flex justify-center items-center h-12 px-5 cursor-pointer text-[0.9rem] font-medium sm:rounded-full text-red-500"
+            className="absolute right-0 bottom-1 flex justify-center items-center h-12 px-5 cursor-pointer text-[0.9rem] font-medium sm:rounded-full text-red-500"
             onClick={() => setOpen(true)}
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

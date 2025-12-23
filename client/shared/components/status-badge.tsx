@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 interface StatusBadgeProps {
-  status: "tolearn" | "inprocess" | "finished";
+  status: "tolearn" | "inprocess" | "finished" | undefined;
   size?: "normal" | "mini";
 }
 
@@ -21,6 +21,7 @@ const StatusBadge: FC<StatusBadgeProps> = ({ status, size = "normal" }) => {
       {status == "tolearn" && "Want to learn"}
       {status == "inprocess" && "In process"}
       {status == "finished" && "Finished"}
+      {!status && "Error"}
     </p>
   ) : (
     <div
@@ -37,6 +38,7 @@ const StatusBadge: FC<StatusBadgeProps> = ({ status, size = "normal" }) => {
       {status == "tolearn" && <p>Want to learn</p>}
       {status == "inprocess" && <p>In process</p>}
       {status == "finished" && <p>Finished</p>}
+      {!status && <p>Error</p>}
     </div>
   );
 };

@@ -142,6 +142,7 @@ const MaterialPage: FC = () => {
           field="title"
           initialValue={exactMaterial.title}
           titleHeading
+          maxLength={20}
         />
 
         <select

@@ -15,7 +15,7 @@ const MaterialListItem: FC<MaterialType> = ({
   return (
     <div className="bg-neutral-900 h-[200px] min-w-[300px] lg:w-[630px] md:w-[420px] sm:w-[300px] flex flex-col items-center rounded-2xl p-2 m-2 cursor-pointer hover:scale-105 ease-in-out duration-300 overflow-hidden">
       <Title text={title} textStyles="text-white" />
-      <StatusBadge status={status ? status : "finished"} />
+      <StatusBadge status={status} />
       <Subtitle text={type ? type : "article"} textStyles="text-white" />
       <div className="w-full">
         <Text

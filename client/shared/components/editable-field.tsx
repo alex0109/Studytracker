@@ -10,6 +10,7 @@ interface EditableFieldProps<K extends keyof Material> {
   titleHeading?: boolean;
   subtitleHeading?: boolean;
   textHeading?: boolean;
+  maxLength?: number;
 }
 
 function EditableField<K extends keyof Material>({
@@ -19,6 +20,7 @@ function EditableField<K extends keyof Material>({
   titleHeading,
   subtitleHeading,
   textHeading,
+  maxLength,
 }: EditableFieldProps<K>) {
   const [value, setValue] = useState(initialValue);
   const { updateMaterial } = useMaterials();
@@ -40,6 +42,7 @@ function EditableField<K extends keyof Material>({
       }`}
       value={String(value)}
       onChange={(e) => setValue(e.target.value as Material[K])}
+      maxLength={maxLength ? maxLength : undefined}
     />
   );
 }

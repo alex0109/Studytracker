@@ -8,14 +8,14 @@ function useLastOpened() {
     if (storedId) {
       setLastOpened(storedId);
     }
-  }, []);
+  }, [lastOpened]);
 
-  const saveLastOpenedId = (materialId: string) => {
-    setLastOpened(materialId);
-    localStorage.setItem("materialId", materialId);
+  const saveLastOpenedId = (materialId: number) => {
+    setLastOpened(String(materialId));
+    localStorage.setItem("materialId", String(materialId));
   };
 
-  return { lastOpened, saveLastOpenedId };
+  return { lastOpened: Number(lastOpened), saveLastOpenedId };
 }
 
 export default useLastOpened;
