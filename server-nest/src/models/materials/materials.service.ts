@@ -1,26 +1,62 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMaterialDto } from './dto/create-material.dto';
-import { UpdateMaterialDto } from './dto/update-material.dto';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { CreateMaterialDto } from './dto/create-materials.dto';
+import { UpdateMaterialDto } from './dto/update-materials.dto';
+import { IMaterials } from './interfaces/materials.interface';
 
 @Injectable()
 export class MaterialsService {
+  constructor(
+    @Inject('MATERIALS_MODEL')
+    private materialsModel: Model<IMaterials>,
+  ) {}
+
   create(createMaterialDto: CreateMaterialDto) {
-    return 'This action adds a new material';
+    const createdMaterial = new this.materialsModel(createMaterialDto);
+    return createdMaterial.save();
   }
 
   findAll() {
-    return `This action returns all materials`;
+    return this.materialsModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} material`;
+  async findOne(id: string) {
+    const getOneMaterial = await this.materialsModel.findById(id);
+
+    if (!getOneMaterial) {
+      throw new HttpException(
+        `There is no such material with id ${id}`,
+        HttpStatus.NOT_FOUND,
+      );
+    } else {
+      return getOneMaterial;
+    }
   }
 
-  update(id: number, updateMaterialDto: UpdateMaterialDto) {
-    return `This action updates a #${id} material`;
+  async update(id: string, updateMaterialDto: UpdateMaterialDto) {
+    const updatedMaterial = await this.materialsModel.findByIdAndUpdate(
+      id,
+      updateMaterialDto,
+      { new: true },
+    );
+
+    return updatedMaterial;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} material`;
+  async remove(id: string) {
+    const deleteMaterial = await this.materialsModel
+      .findByIdAndDelete(id)
+      .exec();
+
+    console.log(deleteMaterial);
+
+    if (!deleteMaterial) {
+      throw new HttpException(
+        'Error occured while deleting material',
+        HttpStatus.BAD_REQUEST,
+      );
+    } else {
+      return { message: `Material with id ${id} was successfully deleted!` };
+    }
   }
 }
