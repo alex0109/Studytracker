@@ -10,7 +10,9 @@ interface TitleProps {
 const Title: FC<TitleProps> = ({ text, blockStyles, textStyles }) => {
   return (
     <div className={cn(`my-3`, blockStyles)}>
-      <h2 className={cn(`text-center font-bold`, textStyles)}>{text}</h2>
+      <h2 className={cn(`text-center font-bold text-[30px]`, textStyles)}>
+        {text}
+      </h2>
     </div>
   );
 };

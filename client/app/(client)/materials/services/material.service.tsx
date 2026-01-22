@@ -9,12 +9,14 @@ export const getAllMaterialsService = async (
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  return res.data;
+  return res.data.map((item: any) => {
+    return { ...item, id: item._id };
+  });
 };
 
 export const getOneMaterialService = async (
   token: string | undefined,
-  id: number
+  id: string
 ): Promise<MaterialType> => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${id}`,
@@ -23,7 +25,7 @@ export const getOneMaterialService = async (
     }
   );
 
-  return res.data;
+  return { ...res.data, id: res.data._id };
 };
 
 export const createMaterialService = async (
@@ -51,7 +53,7 @@ export const createMaterialService = async (
 
 export const deleteMaterialService = async (
   token: string | undefined,
-  id: number
+  id: string
 ): Promise<void> => {
   const res = await axios.delete(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${id}`,
@@ -65,7 +67,7 @@ export const deleteMaterialService = async (
 
 export const updateMaterialService = async (
   token: string | undefined,
-  id: number,
+  id: string,
   dataToUpdate: Partial<Material>
 ): Promise<MaterialType> => {
   const res = await axios.patch(
@@ -82,9 +84,12 @@ export const updateMaterialService = async (
 export const getStatsService = async (
   token: string | undefined
 ): Promise<ServerStatsDataType> => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_HTTP}/stats`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/stats/data`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
 
   return res.data;
 };

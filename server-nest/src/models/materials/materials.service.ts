@@ -2,7 +2,8 @@ import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateMaterialDto } from './dto/create-materials.dto';
 import { UpdateMaterialDto } from './dto/update-materials.dto';
-import { IMaterials } from './interfaces/materials.interface';
+import { IMaterials, IStatistics } from './interfaces/materials.interface';
+import { MaterialsSchema } from './entities/materials.entity';
 
 @Injectable()
 export class MaterialsService {
@@ -58,5 +59,27 @@ export class MaterialsService {
     } else {
       return { message: `Material with id ${id} was successfully deleted!` };
     }
+  }
+
+  async stats(): Promise<IStatistics> {
+    const allMaterials = await this.materialsModel.find();
+    const types = {};
+    const statuses = {};
+
+    for (let i = 0; i < allMaterials.length; i++) {
+      if (!Object.keys(types).includes(allMaterials[i].type)) {
+        types[allMaterials[i].type] = 1;
+      } else {
+        types[allMaterials[i].type] += 1;
+      }
+
+      if (!Object.keys(statuses).includes(allMaterials[i].status)) {
+        statuses[allMaterials[i].status] = 1;
+      } else {
+        statuses[allMaterials[i].status] += 1;
+      }
+    }
+
+    return { count: allMaterials.length, types, statuses };
   }
 }

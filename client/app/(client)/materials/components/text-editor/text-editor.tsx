@@ -23,7 +23,7 @@ import useDebounce from "@/shared/hooks/use-debounce.hook";
 
 const TextEditor: FC<{
   initialContent?: RichTextDocument;
-  id: number;
+  id: string;
 }> = ({ initialContent, id }) => {
   const { updateMaterial } = useMaterials();
 

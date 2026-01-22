@@ -1,19 +1,19 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import Intro from "./(components)/intro.component";
-import MaterialCarousel from "./(client)/materials/components/material-carousel/material-carousel-list.component";
+import Intro from "./(client)/(home)/intro.component";
 import Navigation from "@/shared/components/navigation";
-import LastOpened from "./(components)/last-opened.component";
+import LastOpened from "./(client)/(home)/components/last-opened.component";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
 import useMaterials from "./(client)/materials/hooks/useMaterials.hook";
 import { Material } from "./(client)/materials/services/type";
+import Advantages from "./(client)/(home)/components/advantages.component";
 
 const Home: FC = () => {
   const [lastOpenedMaterial, setLastOpenedMaterial] =
     useState<Partial<Material>>();
 
-  const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<number>();
+  const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>();
 
   const { lastOpened } = useLastOpened();
 
@@ -43,7 +43,7 @@ const Home: FC = () => {
           />
         )}
         <Intro />
-        <MaterialCarousel />
+        <Advantages />
       </main>
     </>
   );

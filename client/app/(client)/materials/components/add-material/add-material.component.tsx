@@ -1,14 +1,15 @@
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
-import BlockColumn from "../../shared/components/block-column";
-import CustomInput from "../../shared/components/input";
-import CustomButton from "../../shared/components/button";
+
 import Title from "@/shared/components/title";
 import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
-import useMaterials from "../(client)/materials/hooks/useMaterials.hook";
-import { RichTextDocument } from "../(client)/materials/services/type";
+import { RichTextDocument } from "../../services/type";
+import useMaterials from "../../hooks/useMaterials.hook";
+import BlockColumn from "@/shared/components/block-column";
+import CustomInput from "@/shared/components/input";
+import CustomButton from "@/shared/components/button";
 
 enum MaterialStatusEnum {
   tolearn = "tolearn",
@@ -111,13 +112,6 @@ const AddMaterial: FC = () => {
               {...register<"link">("link")}
               error={errors.link?.message}
             />
-            {/* <CustomInput
-              label="Tags"
-              placeholder="Tags..."
-              {...register<"tags">("tags")}
-              error={errors.tags?.message}
-            /> */}
-
             <Controller
               control={control}
               name="tags"
@@ -144,7 +138,7 @@ const AddMaterial: FC = () => {
                 };
 
                 const handleKeyUp = (
-                  e: React.KeyboardEvent<HTMLInputElement>
+                  e: React.KeyboardEvent<HTMLInputElement>,
                 ) => {
                   const key = e.key;
                   if (key === ENTER || key === COMMA) {
@@ -153,7 +147,7 @@ const AddMaterial: FC = () => {
                 };
 
                 const handleKeyDown = (
-                  e: React.KeyboardEvent<HTMLInputElement>
+                  e: React.KeyboardEvent<HTMLInputElement>,
                 ) => {
                   const key = e.key;
                   if (key === BACKSPACE && !value) {

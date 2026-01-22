@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC } from "react";
-import { TypeTextType } from "./types";
+import { TypeTextType } from "../types";
 
 let timer: string | number | NodeJS.Timeout | undefined;
 
@@ -29,9 +29,9 @@ const TypeText: FC<TypeTextType> = ({ text, typeSpeed }) => {
   }, [state.currentIndex]);
 
   return (
-    <p>
+    <p className="text-xl">
       {state.typedText}{" "}
-      <span className="cursor border-l-1 border-black dark:border-white" />
+      <span className="cursor border-black dark:border-white" />
     </p>
   );
 };

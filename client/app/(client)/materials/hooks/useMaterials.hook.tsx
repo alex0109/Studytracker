@@ -14,7 +14,7 @@ import { MaterialType, ServerStatsDataType } from "@/app/types/types";
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { useEffect } from "react";
 
-const useMaterials = (id?: number) => {
+const useMaterials = (id?: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -26,8 +26,10 @@ const useMaterials = (id?: number) => {
 
   const exactMaterial = useQuery<MaterialType, Error>({
     queryKey: ["exact-material", id],
-    queryFn: ({ queryKey }) =>
-      getOneMaterialService(token, queryKey[1] as number),
+    queryFn: ({ queryKey }) => {
+      console.log("Log1", queryKey);
+      return getOneMaterialService(token, queryKey[1] as string);
+    },
     enabled: !!id && !!token,
   });
 
@@ -42,7 +44,7 @@ const useMaterials = (id?: number) => {
   });
 
   const deleteMaterialMutation = useMutation({
-    mutationFn: (id: number) => deleteMaterialService(token, id),
+    mutationFn: (id: string) => deleteMaterialService(token, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
@@ -56,7 +58,7 @@ const useMaterials = (id?: number) => {
       id,
       dataToUpdate,
     }: {
-      id: number;
+      id: string;
       dataToUpdate: Partial<Material>;
     }) => updateMaterialService(token, id, dataToUpdate),
     onSuccess: (updated) => {

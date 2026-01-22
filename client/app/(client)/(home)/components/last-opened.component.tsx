@@ -9,7 +9,7 @@ import StatusBadge from "@/shared/components/status-badge";
 import { redirect } from "next/navigation";
 
 interface LastOpenedProps {
-  id: number;
+  id: string;
   title: string;
   status: "tolearn" | "inprocess" | "finished" | undefined;
 }

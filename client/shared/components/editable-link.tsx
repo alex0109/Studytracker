@@ -3,7 +3,7 @@ import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
 import { LuSquarePen } from "react-icons/lu";
 
 type EditableLinkProps = {
-  id: number;
+  id: string;
   initialValue: string;
 };
 

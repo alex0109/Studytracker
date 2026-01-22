@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { CustomTypeRichTextDocument } from '../interfaces/materials.interface';
+// import { CustomTypeRichTextDocument } from '../interfaces/materials.interface';
 
 export const MaterialsSchema = new mongoose.Schema({
   title: String,
@@ -7,6 +7,6 @@ export const MaterialsSchema = new mongoose.Schema({
   tags: Array<String>,
   link: String,
   status: String,
-  description: CustomTypeRichTextDocument,
+  description: mongoose.Schema.Types.Mixed,
   created_at: Date,
 });

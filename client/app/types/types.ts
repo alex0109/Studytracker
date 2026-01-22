@@ -1,7 +1,7 @@
 import { RichTextDocument } from "../(client)/materials/services/type";
 
 export interface MaterialType {
-  id: number;
+  id: string;
   title: string;
   type?: "article" | "video" | "summary" | "practice" | "test";
   tags?: string[];

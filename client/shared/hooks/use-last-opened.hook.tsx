@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 function useLastOpened() {
-  const [lastOpened, setLastOpened] = useState<string | null>(null);
+  const [lastOpened, setLastOpened] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const storedId = localStorage.getItem("materialId");
@@ -10,12 +10,12 @@ function useLastOpened() {
     }
   }, [lastOpened]);
 
-  const saveLastOpenedId = (materialId: number) => {
+  const saveLastOpenedId = (materialId: string) => {
     setLastOpened(String(materialId));
     localStorage.setItem("materialId", String(materialId));
   };
 
-  return { lastOpened: Number(lastOpened), saveLastOpenedId };
+  return { lastOpened: lastOpened, saveLastOpenedId };
 }
 
 export default useLastOpened;

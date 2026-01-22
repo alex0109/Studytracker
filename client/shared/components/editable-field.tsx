@@ -4,7 +4,7 @@ import { Material } from "@/app/(client)/materials/services/type";
 import useDebounce from "../hooks/use-debounce.hook";
 
 interface EditableFieldProps<K extends keyof Material> {
-  id: number;
+  id: string;
   field: K;
   initialValue: Material[K];
   titleHeading?: boolean;

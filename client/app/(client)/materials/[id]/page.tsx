@@ -29,7 +29,7 @@ const MaterialPage: FC = () => {
     exactMaterialLoading,
     deleteMaterial,
     updateMaterial,
-  } = useMaterials(Number(params.id));
+  } = useMaterials(params.id as string);
 
   const [tags, setTags] = useState<string[] | undefined>(undefined);
   const [value, setValue] = useState("");
@@ -45,12 +45,12 @@ const MaterialPage: FC = () => {
   const debouncedType = useDebounce(selectType, 2000);
   const debouncedStatus = useDebounce(selectStatus, 2000);
 
-  const handleDeleteMaterial = (id: number) => {
+  const handleDeleteMaterial = (id: string) => {
     deleteMaterial(id);
     router.back();
   };
 
-  const handleDeleteTag = (id: number, tag: string) => {
+  const handleDeleteTag = (id: string, tag: string) => {
     setTags((tags) => tags?.filter((item) => item !== tag));
     updateMaterial({
       id: id,

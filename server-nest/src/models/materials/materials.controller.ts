@@ -44,4 +44,9 @@ export class MaterialsController {
   remove(@Param('id') id: string) {
     return this.materialsService.remove(id);
   }
+
+  @Get('stats/data')
+  statistics() {
+    return this.materialsService.stats();
+  }
 }
