@@ -12,12 +12,12 @@ export class MaterialsService {
     private materialsModel: Model<IMaterials>,
   ) {}
 
-  create(createMaterialDto: CreateMaterialDto) {
+  async create(createMaterialDto: CreateMaterialDto) {
     const createdMaterial = new this.materialsModel(createMaterialDto);
     return createdMaterial.save();
   }
 
-  findAll() {
+  async findAll() {
     return this.materialsModel.find().exec();
   }
 
