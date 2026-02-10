@@ -9,8 +9,11 @@ import {
 } from "../services/material.service";
 
 import { useSession } from "@/shared/context/session-provider.context";
-import { Material } from "../services/type";
-import { MaterialType, ServerStatsDataType } from "@/app/types/types";
+import {
+  IMaterial,
+  ServerStatsDataType,
+  TUpdateMaterial,
+} from "@/app/types/types";
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { useEffect } from "react";
 
@@ -18,13 +21,13 @@ const useMaterials = (id?: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
-  const materials = useQuery<MaterialType[]>({
+  const materials = useQuery<TUpdateMaterial[]>({
     queryKey: ["materials"],
     queryFn: () => getAllMaterialsService(token),
     enabled: !!token,
   });
 
-  const exactMaterial = useQuery<MaterialType, Error>({
+  const exactMaterial = useQuery<TUpdateMaterial, Error>({
     queryKey: ["exact-material", id],
     queryFn: ({ queryKey }) => {
       console.log("Log1", queryKey);
@@ -34,7 +37,7 @@ const useMaterials = (id?: string) => {
   });
 
   const createMaterialMutation = useMutation({
-    mutationFn: (body: Material) => createMaterialService(token, body),
+    mutationFn: (body: IMaterial) => createMaterialService(token, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["materials"] });
     },
@@ -59,7 +62,7 @@ const useMaterials = (id?: string) => {
       dataToUpdate,
     }: {
       id: string;
-      dataToUpdate: Partial<Material>;
+      dataToUpdate: Partial<IMaterial>;
     }) => updateMaterialService(token, id, dataToUpdate),
     onSuccess: (updated) => {
       queryClient.invalidateQueries({ queryKey: ["materials", updated.id] });
@@ -95,7 +98,7 @@ const useMaterials = (id?: string) => {
         userID: user?.id,
       });
     }
-  }, [materials.error, exactMaterial.error, stats.error]);
+  }, [materials, materials.error, exactMaterial.error, stats.error]);
 
   return {
     materialsData: materials.data,

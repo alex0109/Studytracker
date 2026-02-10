@@ -5,35 +5,11 @@ import { useForm, Controller } from "react-hook-form";
 import Title from "@/shared/components/title";
 import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
-import { RichTextDocument } from "../../services/type";
 import useMaterials from "../../hooks/useMaterials.hook";
 import BlockColumn from "@/shared/components/block-column";
 import CustomInput from "@/shared/components/input";
 import CustomButton from "@/shared/components/button";
-
-enum MaterialStatusEnum {
-  tolearn = "tolearn",
-  inprocess = "inprocess",
-  finished = "finished",
-}
-
-enum MaterialTypeEnum {
-  article = "article",
-  video = "video",
-  summary = "summary",
-  practice = "practice",
-  test = "test",
-}
-
-interface CustomFormInterface {
-  title: string;
-  type: MaterialTypeEnum;
-  link: string;
-  tags: string[];
-  status: MaterialStatusEnum;
-  description: RichTextDocument;
-  created_at: Date;
-}
+import { IMaterial } from "@/app/types/types";
 
 const AddMaterial: FC = () => {
   const [value, setValue] = useState("");
@@ -45,7 +21,7 @@ const AddMaterial: FC = () => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<CustomFormInterface>({
+  } = useForm<IMaterial>({
     defaultValues: {
       tags: [],
     },
@@ -55,7 +31,7 @@ const AddMaterial: FC = () => {
 
   const [open, setOpen] = useState(false);
 
-  const onFormSubmit = (values: CustomFormInterface) => {
+  const onFormSubmit = (values: IMaterial) => {
     createMaterial(values);
     setOpen(false);
     setTags([]);

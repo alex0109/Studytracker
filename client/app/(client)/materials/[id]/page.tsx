@@ -17,6 +17,7 @@ import useDebounce from "@/shared/hooks/use-debounce.hook";
 import { Button } from "@/shared/components/ui/button";
 import { LuX } from "react-icons/lu";
 import moment from "moment";
+import { MaterialStatusEnum, MaterialTypeEnum } from "@/app/types/types";
 
 const MaterialPage: FC = () => {
   const params = useParams();
@@ -42,8 +43,8 @@ const MaterialPage: FC = () => {
     "article" | "video" | "summary" | "practice" | "test" | undefined
   >(undefined);
 
-  const debouncedType = useDebounce(selectType, 2000);
-  const debouncedStatus = useDebounce(selectStatus, 2000);
+  const debouncedType = useDebounce(selectType, 2000) as MaterialTypeEnum;
+  const debouncedStatus = useDebounce(selectStatus, 2000) as MaterialStatusEnum;
 
   const handleDeleteMaterial = (id: string) => {
     deleteMaterial(id);
@@ -155,7 +156,7 @@ const MaterialPage: FC = () => {
                 | "video"
                 | "summary"
                 | "practice"
-                | "test"
+                | "test",
             )
           }
         >
@@ -222,7 +223,7 @@ const MaterialPage: FC = () => {
               className="text-white outline-none cursor-pointer"
               onChange={(e) =>
                 setSelectStatus(
-                  e.target.value as "tolearn" | "inprocess" | "finished"
+                  e.target.value as "tolearn" | "inprocess" | "finished",
                 )
               }
             >

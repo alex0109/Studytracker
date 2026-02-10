@@ -18,8 +18,9 @@ import {
 } from "react-icons/lu";
 import Underline from "@tiptap/extension-underline";
 import useMaterials from "../../hooks/useMaterials.hook";
-import { RichTextDocument } from "../../services/type";
+
 import useDebounce from "@/shared/hooks/use-debounce.hook";
+import { RichTextDocument } from "@/app/types/types";
 
 const TextEditor: FC<{
   initialContent?: RichTextDocument;
@@ -28,7 +29,7 @@ const TextEditor: FC<{
   const { updateMaterial } = useMaterials();
 
   const [HTMLcontent, setHTMLcontent] = useState<RichTextDocument | undefined>(
-    undefined
+    undefined,
   );
 
   const debouncedText = useDebounce(HTMLcontent, 2000);

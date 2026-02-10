@@ -1,4 +1,4 @@
-import { MaterialType } from "@/app/types/types";
+import { IMaterial } from "@/app/types/types";
 import StatusBadge from "@/shared/components/status-badge";
 import Subtitle from "@/shared/components/subtitle";
 import Text from "@/shared/components/text";
@@ -6,7 +6,7 @@ import Title from "@/shared/components/title";
 import moment from "moment";
 import React, { FC } from "react";
 
-const MaterialListItem: FC<MaterialType> = ({
+const MaterialListItem: FC<IMaterial> = ({
   title,
   type,
   status,

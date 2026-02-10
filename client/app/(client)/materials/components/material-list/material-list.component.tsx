@@ -19,6 +19,8 @@ const MaterialList: FC = () => {
 
   const { saveLastOpenedId } = useLastOpened();
 
+  console.log(materialsData);
+
   return (
     <BlockColumn blockStyles="align-center justify-center">
       {!materialsData || materialsData.length == 0 ? (
@@ -47,12 +49,13 @@ const MaterialList: FC = () => {
               <MaterialListItem
                 key={item.id}
                 id={item.id}
-                title={item.title}
+                title={item.title!}
                 tags={item.tags}
                 link={item.link}
                 status={item.status}
                 type={item.type}
-                created_at={item.created_at}
+                created_at={item.created_at!}
+                updated_at={item.updated_at!}
               />
             </Link>
           ))}

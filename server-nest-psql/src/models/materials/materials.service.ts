@@ -13,30 +13,34 @@ export class MaterialsService {
   }
 
   async findOneMaterial(id: string) {
-    return await this.prisma.material.findUnique({
+    const data = await this.prisma.material.findUnique({
       where: {
         id,
       },
     });
+
+    console.log(data?.id);
+
+    return data;
   }
 
-  async createMaterial(dto: CreateMaterialsDto) {
+  createMaterial(dto: CreateMaterialsDto) {
     console.log(dto);
-    return await this.prisma.material.create({ data: dto });
+    return this.prisma.material.create({ data: dto });
   }
 
-  async deleteMaterial(id: string) {
-    return await this.prisma.material.delete({ where: { id } });
+  deleteMaterial(id: string) {
+    return this.prisma.material.delete({ where: { id } });
   }
 
-  async updateMaterial(dto: TUpdateMaterialsDto) {
-    return await this.prisma.material.update({
-      data: dto,
-      where: { id: dto.id },
+  updateMaterial(user: TUpdateMaterialsDto) {
+    return this.prisma.material.update({
+      data: user,
+      where: { id: user.id },
     });
   }
 
-  async collectStatistics(): Promise<IStatistics> {
+  async collectStatistics() {
     const allMaterials = await this.prisma.material.findMany();
     const types = {};
     const statuses = {};
