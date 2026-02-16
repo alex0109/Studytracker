@@ -8,12 +8,11 @@ import {
   Patch,
   Post,
   UseGuards,
-  ParseUUIDPipe,
 } from '@nestjs/common';
 import { MaterialsService } from './materials.service';
 import { CreateMaterialsDto } from './dto/materials.dto';
 import type { TUpdateMaterialsDto } from './dto/materials.dto';
-import { MaterialsGuard } from 'src/common/guards/auth.guard';
+import { MaterialsGuard } from '../../common/guards/auth.guard';
 
 @Controller('materials')
 export class MaterialsController {

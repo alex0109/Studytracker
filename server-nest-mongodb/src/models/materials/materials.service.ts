@@ -3,7 +3,6 @@ import { Model } from 'mongoose';
 import { CreateMaterialDto } from './dto/create-materials.dto';
 import { UpdateMaterialDto } from './dto/update-materials.dto';
 import { IMaterials, IStatistics } from './interfaces/materials.interface';
-import { MaterialsSchema } from './entities/materials.entity';
 
 @Injectable()
 export class MaterialsService {
@@ -22,7 +21,7 @@ export class MaterialsService {
   }
 
   async findOne(id: string) {
-    const getOneMaterial = await this.materialsModel.findById(id);
+    const getOneMaterial = await this.materialsModel.findById({ _id: id });
 
     if (!getOneMaterial) {
       throw new HttpException(
@@ -38,7 +37,7 @@ export class MaterialsService {
     const updatedMaterial = await this.materialsModel.findByIdAndUpdate(
       id,
       updateMaterialDto,
-      { new: true },
+      { returnDocument: 'after' },
     );
 
     return updatedMaterial;
@@ -48,8 +47,6 @@ export class MaterialsService {
     const deleteMaterial = await this.materialsModel
       .findByIdAndDelete(id)
       .exec();
-
-    console.log(deleteMaterial);
 
     if (!deleteMaterial) {
       throw new HttpException(

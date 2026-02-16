@@ -19,7 +19,7 @@ const MaterialList: FC = () => {
 
   const { saveLastOpenedId } = useLastOpened();
 
-  console.log(materialsData);
+  console.log("materialsData: ", materialsData);
 
   return (
     <BlockColumn blockStyles="align-center justify-center">

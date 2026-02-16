@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MaterialsService } from './materials.service';
 import { MaterialsController } from './materials.controller';
 import { materialsProvider } from './materials.provider';
-import { DatabaseModule } from 'src/providers/database/mongodb.module';
+import { DatabaseModule } from '../../providers/database/mongodb.module';
 
 @Module({
   imports: [DatabaseModule],

@@ -1,5 +1,5 @@
 import { IsString, IsArray, IsJSON, IsOptional } from 'class-validator';
-import { Prisma } from 'src/generated/prisma/client';
+import { Prisma } from '../../../generated/prisma/client';
 
 export class CreateMaterialsDto {
   @IsString()

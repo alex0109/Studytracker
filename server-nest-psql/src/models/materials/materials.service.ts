@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Material } from 'src/generated/prisma/client';
-import { PrismaService } from 'src/providers/database/prisma.service';
 import { CreateMaterialsDto, TUpdateMaterialsDto } from './dto/materials.dto';
-import { IStatistics } from './interfaces/stats.interface';
+import { PrismaService } from '../../providers/database/prisma.service';
 
 @Injectable()
 export class MaterialsService {
@@ -19,13 +17,10 @@ export class MaterialsService {
       },
     });
 
-    console.log(data?.id);
-
     return data;
   }
 
   createMaterial(dto: CreateMaterialsDto) {
-    console.log(dto);
     return this.prisma.material.create({ data: dto });
   }
 

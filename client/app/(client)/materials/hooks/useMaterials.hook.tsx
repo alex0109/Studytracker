@@ -30,7 +30,6 @@ const useMaterials = (id?: string) => {
   const exactMaterial = useQuery<TUpdateMaterial, Error>({
     queryKey: ["exact-material", id],
     queryFn: ({ queryKey }) => {
-      console.log("Log1", queryKey);
       return getOneMaterialService(token, queryKey[1] as string);
     },
     enabled: !!id && !!token,

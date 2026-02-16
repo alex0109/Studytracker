@@ -16,7 +16,7 @@ const RootLayout = async ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const { user, token } = await getUser();
-  console.log(token);
+  console.log("TOKEN: \n", token);
   return (
     <ReactQueryClientProvider>
       <html lang="en">

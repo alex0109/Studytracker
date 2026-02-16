@@ -21,8 +21,6 @@ const MaterialsPanel: FC = () => {
     setPieStatusData(validateStatusesData(statsData));
   }, [statsData]);
 
-  console.log("DATA: ", pieStatusData);
-
   return (
     <div className="flex justify-center items-center w-full h-full py-10">
       <BlockColumn>
