@@ -20,8 +20,9 @@ class MaterialBase(BaseModel):
     tags: Optional[List[str]] = None
     link: Optional[str] = None
     status: Optional[str] = None
-    description: Optional[Union[str, Document]] = None
-    created_at: datetime
+    description: Optional[Document] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
 
 class MaterialCreate(MaterialBase):
     pass
@@ -32,7 +33,7 @@ class MaterialUpdate(BaseModel):
     tags: Optional[List[str]] = None
     link: Optional[str] = None
     status: Optional[str] = None
-    description: Optional[Union[str, Document]] = None
+    description: Optional[Document] = None
 
 class MaterialRead(MaterialBase):
     id: int

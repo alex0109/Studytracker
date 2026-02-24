@@ -27,11 +27,15 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/materials", response_model=list[schemas.MaterialRead])
+@app.get("/api/materials", response_model=list[schemas.MaterialRead])
 async def get_materials(db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
-    return db.query(material.Material).filter(material.Material.user_id == user_id).all()
+    res = db.query(material.Material).filter(material.Material.user_id == user_id).all()
+    if not res:
+        raise HTTPException(status_code=404, detail="Materials not found")
 
-@app.get("/materials/{item_id}", response_model=schemas.MaterialRead)
+    return res 
+
+@app.get("/api/materials/{item_id}", response_model=schemas.MaterialRead)
 async def get_byid_material(item_id: int, db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     res = db.query(material.Material).filter(material.Material.id == item_id, material.Material.user_id == user_id).first()
     if not res:
@@ -39,7 +43,7 @@ async def get_byid_material(item_id: int, db: Session = Depends(get_db), user_id
 
     return res
 
-@app.post("/materials", response_model=schemas.MaterialRead)
+@app.post("/api/materials", response_model=schemas.MaterialRead)
 async def get_byid_material(body: schemas.MaterialCreate, db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     db_material = material.Material(
         title=body.title, 
@@ -49,7 +53,8 @@ async def get_byid_material(body: schemas.MaterialCreate, db: Session = Depends(
         status=body.status, 
         description=body.description, 
         user_id=user_id,
-        created_at=body.created_at
+        created_at=body.created_at,
+        updated_at=body.updated_at
     )
     db.add(db_material)
     db.commit()
@@ -57,7 +62,7 @@ async def get_byid_material(body: schemas.MaterialCreate, db: Session = Depends(
 
     return db_material
 
-@app.delete("/materials/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/api/materials/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_material(item_id: int, db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     material_to_delete = db.query(material.Material).filter(material.Material.id == item_id, material.Material.user_id == user_id).first()
 
@@ -69,7 +74,7 @@ def delete_material(item_id: int, db: Session = Depends(get_db), user_id: str = 
     
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-@app.patch("/materials/{item_id}", response_model=schemas.MaterialRead)
+@app.patch("/api/materials/{item_id}", response_model=schemas.MaterialRead)
 def update_material(item_id: int, material_update: schemas.MaterialUpdate, db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     res = db.query(material.Material).filter(material.Material.id == item_id, material.Material.user_id == user_id).first()
 
@@ -83,7 +88,7 @@ def update_material(item_id: int, material_update: schemas.MaterialUpdate, db: S
     db.refresh(res)
     return res
 
-@app.get("/stats")
+@app.get("/api/materials/stats/data")
 async def get_stats(db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     stmt = select(material.Material).where(material.Material.user_id == user_id)
     res = db.execute(stmt).scalars().all()
@@ -95,7 +100,7 @@ async def get_stats(db: Session = Depends(get_db), user_id: str = Depends(get_cu
 
     return {"count": len(res), "types": collections.Counter(types), "statuses": collections.Counter(statuses)}
 
-@app.get("/admin/stats")
+@app.get("/api/materials/admin/stats")
 async def get_stats(db: Session = Depends(get_db), user_id: str = Depends(get_current_user)):
     stmt = select(material.Material)
     res = db.execute(stmt).scalars().all()

@@ -9,6 +9,7 @@ export const MaterialsSchema = new mongoose.Schema(
     status: String,
     description: mongoose.Schema.Types.Mixed,
     created_at: Date,
+    updated_at: Date,
   },
   {
     toJSON: { virtuals: true },
