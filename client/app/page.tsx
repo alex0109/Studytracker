@@ -6,12 +6,14 @@ import Navigation from "@/shared/components/navigation";
 import LastOpened from "./(client)/(home)/components/last-opened.component";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
 import useMaterials from "./(client)/materials/hooks/useMaterials.hook";
-import { Material } from "./(client)/materials/services/type";
+
 import Advantages from "./(client)/(home)/components/advantages.component";
+import Bulletpoints from "./(client)/(home)/components/bulletpoints.component";
+import { IMaterial } from "./types/types";
 
 const Home: FC = () => {
   const [lastOpenedMaterial, setLastOpenedMaterial] =
-    useState<Partial<Material>>();
+    useState<Partial<IMaterial>>();
 
   const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>();
 
@@ -44,6 +46,7 @@ const Home: FC = () => {
         )}
         <Intro />
         <Advantages />
+        <Bulletpoints />
       </main>
     </>
   );

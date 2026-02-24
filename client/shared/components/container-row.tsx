@@ -9,7 +9,10 @@ interface ContainerRowProps {
 const ContainerRow: FC<ContainerRowProps> = ({ children, blockStyles }) => {
   return (
     <div
-      className={cn(`flex flex-row gap-2 flex-wrap items-center`, blockStyles)}
+      className={cn(
+        `flex flex-row gap-2 flex-wrap items-center my-5`,
+        blockStyles,
+      )}
     >
       {children}
     </div>
