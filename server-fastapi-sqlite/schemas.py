@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, Union, Dict, List
 from datetime import datetime
+from uuid import UUID
 
 class Node(BaseModel):
     type: str
@@ -21,6 +22,8 @@ class MaterialBase(BaseModel):
     link: Optional[str] = None
     status: Optional[str] = None
     description: Optional[Document] = None
+    user_id: str
+    # user_id: UUID
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 

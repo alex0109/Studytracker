@@ -1,7 +1,6 @@
 import ContainerColumn from "@/shared/components/container-column";
 import React from "react";
 import Bullet from "./bullet.component";
-import Title from "@/shared/components/title";
 import ContainerRow from "@/shared/components/container-row";
 
 const Bulletpoints = () => {

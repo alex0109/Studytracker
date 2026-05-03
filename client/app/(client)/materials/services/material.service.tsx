@@ -39,7 +39,7 @@ export const createMaterialService = async (
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials`,
     {
       ...body,
-      created_at: date.toISOString(),
+      description: null,
     },
     {
       headers: {

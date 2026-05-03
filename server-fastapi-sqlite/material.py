@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, JSON, DateTime
+from sqlalchemy import Column, Integer, String, JSON, DateTime, UUID
 from sqlalchemy.sql import func
 from base import Base
 
@@ -13,5 +13,6 @@ class Material(Base):
     status = Column(String, nullable=True)
     description = Column(JSON, nullable=True)
     user_id = Column(String, index=True, nullable=False)
+    # user_id = Column(UUID, index=True, nullable=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())

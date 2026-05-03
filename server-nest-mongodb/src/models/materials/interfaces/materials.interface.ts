@@ -24,6 +24,7 @@ export interface IMaterials {
   link?: string;
   status: 'tolearn' | 'inprocess' | 'finished';
   description?: RichTextDocument;
+  // user_id: mongoose.Schema.Types.UUID;
   created_at: Date;
 }
 

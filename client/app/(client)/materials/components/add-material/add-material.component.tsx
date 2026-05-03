@@ -157,12 +157,12 @@ const AddMaterial: FC = () => {
               }}
             />
 
-            <CustomInput
+            {/* <CustomInput
               label="Description"
               placeholder="Description..."
               {...register<"description">("description")}
               error={errors.description?.message}
-            />
+            /> */}
 
             <CustomButton
               title="Submit"

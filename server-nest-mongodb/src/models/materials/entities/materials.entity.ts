@@ -8,6 +8,7 @@ export const MaterialsSchema = new mongoose.Schema(
     link: String,
     status: String,
     description: mongoose.Schema.Types.Mixed,
+    // user_id: mongoose.Schema.Types.UUID,
     created_at: Date,
     updated_at: Date,
   },
