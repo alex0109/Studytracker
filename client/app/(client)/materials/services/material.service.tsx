@@ -7,7 +7,7 @@ import {
 
 export const getAllMaterialsService = async (
   token: string | undefined,
-): Promise<TUpdateMaterial[]> => {
+): Promise<IMaterial[]> => {
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_HTTP}/materials`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -18,7 +18,7 @@ export const getAllMaterialsService = async (
 export const getOneMaterialService = async (
   token: string | undefined,
   id: string,
-): Promise<TUpdateMaterial> => {
+): Promise<IMaterial> => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${id}`,
     {

@@ -5,9 +5,8 @@ import Text from "@/shared/components/text";
 import Title from "@/shared/components/title";
 import { useParams, useRouter } from "next/navigation";
 import CustomButton from "@/shared/components/button";
-import useMaterials from "../hooks/useMaterials.hook";
 import StatusBadgeSelect from "@/shared/components/status-select";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import EditableField from "@/shared/components/editable-field";
 import Modal from "@/shared/components/modal";
 import Subtitle from "@/shared/components/subtitle";
@@ -17,7 +16,9 @@ import useDebounce from "@/shared/hooks/use-debounce.hook";
 import { Button } from "@/shared/components/ui/button";
 import { LuX } from "react-icons/lu";
 import moment from "moment";
-import { MaterialStatusEnum, MaterialTypeEnum } from "@/app/types/types";
+import useMaterialExact from "../hooks/useMaterialExact.hook";
+import useMaterialDelete from "../hooks/useMaterialDelete.hook";
+import useMaterialUpdate from "../hooks/useMaterialUpdate.hook";
 
 const MaterialPage: FC = () => {
   const params = useParams();
@@ -25,26 +26,25 @@ const MaterialPage: FC = () => {
 
   const [open, setOpen] = useState(false);
 
-  const {
-    exactMaterial,
-    exactMaterialLoading,
-    deleteMaterial,
-    updateMaterial,
-  } = useMaterials(params.id as string);
+  const { exactMaterial } = useMaterialExact(params.id as string);
+  const { deleteMaterial } = useMaterialDelete(params.id as string);
+  const { updateMaterial } = useMaterialUpdate(params.id as string);
 
-  const [tags, setTags] = useState<string[] | undefined>(undefined);
-  const [value, setValue] = useState("");
+  const [titleValue, setTitleValue] = useState(exactMaterial?.title);
+
+  const [tags, setTags] = useState<string[] | undefined>(exactMaterial?.tags);
+  const [tagValue, setTagValue] = useState("");
 
   const [selectStatus, setSelectStatus] = useState<
     "tolearn" | "inprocess" | "finished" | undefined
-  >(undefined);
+  >(exactMaterial?.status);
 
   const [selectType, setSelectType] = useState<
     "article" | "video" | "summary" | "practice" | "test" | undefined
-  >(undefined);
+  >(exactMaterial?.type);
 
-  const debouncedType = useDebounce(selectType, 2000) as MaterialTypeEnum;
-  const debouncedStatus = useDebounce(selectStatus, 2000) as MaterialStatusEnum;
+  // const debouncedType = useDebounce(selectType, 2000) as MaterialTypeEnum;
+  // const debouncedStatus = useDebounce(selectStatus, 2000) as MaterialStatusEnum;
 
   const handleDeleteMaterial = (id: string) => {
     deleteMaterial(id);
@@ -65,21 +65,21 @@ const MaterialPage: FC = () => {
   const COMMA = ",";
 
   const addTagEnter = () => {
-    const tag = value.trim();
+    const tag = tagValue.trim();
     if (!tag) return;
     const newTags = [...(tags ?? []), tag];
     updateMaterial({ id: exactMaterial!.id, dataToUpdate: { tags: newTags } });
     setTags(newTags);
-    setValue("");
+    setTagValue("");
   };
 
   const addTagComma = () => {
-    const tag = value.trim().slice(0, -1);
+    const tag = tagValue.trim().slice(0, -1);
     if (!tag) return;
     const newTags = [...(tags ?? []), tag];
     updateMaterial({ id: exactMaterial!.id, dataToUpdate: { tags: newTags } });
     setTags(newTags);
-    setValue("");
+    setTagValue("");
   };
 
   const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -92,30 +92,42 @@ const MaterialPage: FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (debouncedType && exactMaterial) {
-      updateMaterial({
-        id: exactMaterial!.id!,
-        dataToUpdate: { type: debouncedType },
-      });
-    }
-    if (debouncedStatus && exactMaterial) {
-      updateMaterial({
-        id: exactMaterial!.id!,
-        dataToUpdate: { status: debouncedStatus },
-      });
-    }
-  }, [debouncedType, debouncedStatus]);
+  const onUpdateTitle = (newTitle: string) => {
+    setTitleValue(newTitle);
+    return useDebounce(
+      () =>
+        updateMaterial({
+          id: exactMaterial!.id,
+          dataToUpdate: { title: titleValue },
+        }),
+      500,
+    );
+  };
 
-  useEffect(() => {
-    if (exactMaterial) {
-      setTags(exactMaterial.tags);
-      setSelectStatus(exactMaterial.status);
-      setSelectType(exactMaterial.type);
-    }
-  }, [exactMaterial]);
+  // useEffect(() => {
+  //   if (debouncedType && exactMaterial) {
+  //     updateMaterial({
+  //       id: exactMaterial!.id!,
+  //       dataToUpdate: { type: debouncedType },
+  //     });
+  //   }
+  //   if (debouncedStatus && exactMaterial) {
+  //     updateMaterial({
+  //       id: exactMaterial!.id!,
+  //       dataToUpdate: { status: debouncedStatus },
+  //     });
+  //   }
+  // }, [debouncedType, debouncedStatus]);
 
-  if (!exactMaterial || !exactMaterial.tags || exactMaterialLoading) {
+  // useEffect(() => {
+  //   if (exactMaterial) {
+  //     setTags(exactMaterial.tags);
+  //     setSelectStatus(exactMaterial.status);
+  //     setSelectType(exactMaterial.type);
+  //   }
+  // }, [exactMaterial]);
+
+  if (!exactMaterial) {
     return (
       <BlockColumn>
         <Text text="Loading..." />
@@ -139,11 +151,10 @@ const MaterialPage: FC = () => {
           </div>
         </div>
         <EditableField
-          id={exactMaterial.id}
-          field="title"
-          initialValue={exactMaterial.title}
+          initialValue={titleValue}
           titleHeading
           maxLength={20}
+          onInput={() => onUpdateTitle}
         />
 
         <select
@@ -176,10 +187,7 @@ const MaterialPage: FC = () => {
       <BlockColumn blockStyles="p-[70px] items-start">
         <div className="flex items-center w-full gap-2 border-b-1 border-b-neutral-700">
           <Subtitle text="Link:" />
-          <EditableLink
-            id={exactMaterial.id}
-            initialValue={exactMaterial.link ?? ""}
-          />
+          <EditableLink initialValue={exactMaterial.link ?? ""} />
         </div>
         <TextEditor
           initialContent={exactMaterial.description ?? undefined}
@@ -191,9 +199,9 @@ const MaterialPage: FC = () => {
             <div>
               <input
                 type="text"
-                value={value}
+                value={tagValue}
                 placeholder="Tag..."
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => setTagValue(e.target.value)}
                 onKeyUp={handleKeyUp}
                 className="text-[15px] px-4 py-2 my-2 rounded-2xl bg-neutral-200 dark:bg-neutral-700"
               />

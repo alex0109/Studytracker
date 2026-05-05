@@ -5,11 +5,11 @@ import Intro from "./(client)/(home)/intro.component";
 import Navigation from "@/shared/components/navigation";
 import LastOpened from "./(client)/(home)/components/last-opened.component";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
-import useMaterials from "./(client)/materials/hooks/useMaterials.hook";
 
 import Advantages from "./(client)/(home)/components/advantages.component";
 import Bulletpoints from "./(client)/(home)/components/bulletpoints.component";
 import { IMaterial } from "./types/types";
+import useMaterialExact from "./(client)/materials/hooks/useMaterialExact.hook";
 
 const Home: FC = () => {
   const [lastOpenedMaterial, setLastOpenedMaterial] =
@@ -19,7 +19,7 @@ const Home: FC = () => {
 
   const { lastOpened } = useLastOpened();
 
-  const { exactMaterial, exactMaterialError } = useMaterials(lastOpened);
+  const { exactMaterial, exactMaterialError } = useMaterialExact(lastOpened);
 
   useEffect(() => {
     if (lastOpened) {

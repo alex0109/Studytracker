@@ -1,24 +1,22 @@
 import { FC, useState } from "react";
-import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
 import { LuSquarePen } from "react-icons/lu";
 
 type EditableLinkProps = {
-  id: string;
   initialValue: string;
 };
 
-const EditableLink: FC<EditableLinkProps> = ({ id, initialValue = "" }) => {
+const EditableLink: FC<EditableLinkProps> = ({ initialValue = "" }) => {
   const [value, setValue] = useState(initialValue);
   const [editing, setEditing] = useState(false);
 
-  const { updateMaterial } = useMaterials();
+  // const { updateMaterial } = useMaterialUpdate();
 
-  const handleBlur = () => {
-    setEditing(false);
-    if (value !== initialValue) {
-      updateMaterial({ id, dataToUpdate: { link: value } });
-    }
-  };
+  // const handleBlur = () => {
+  //   setEditing(false);
+  //   if (value !== initialValue) {
+  //     updateMaterial({ id, dataToUpdate: { link: value } });
+  //   }
+  // };
 
   if (editing) {
     return (
@@ -26,7 +24,6 @@ const EditableLink: FC<EditableLinkProps> = ({ id, initialValue = "" }) => {
         className="bg-neutral-200 dark:bg-neutral-700 rounded border-none w-full px-2 focus:outline-none"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onBlur={handleBlur}
         autoFocus
       />
     );

@@ -6,21 +6,21 @@ import ContainerColumn from "@/shared/components/container-column";
 import PieChart from "@/shared/components/pie";
 import Subtitle from "@/shared/components/subtitle";
 import Title from "@/shared/components/title";
-import useMaterials from "@/app/(client)/materials/hooks/useMaterials.hook";
 import {
   validateStatusesData,
   validateTypesData,
 } from "../../../shared/lib/utils/data-validate.util";
+import useMaterialStats from "../materials/hooks/useMaterialStats.hook";
 
 const Stats: FC = () => {
   const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);
   const [pieStatusData, setPieStatusData] = useState([{ x: "No data", y: 0 }]);
-  const { statsData } = useMaterials();
+  const { statsData } = useMaterialStats();
 
   useEffect(() => {
     setPieTypeData(validateTypesData(statsData));
     setPieStatusData(validateStatusesData(statsData));
-  }, [statsData]);
+  }, []);
 
   return (
     <BlockColumn>

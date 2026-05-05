@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import {
@@ -17,22 +17,21 @@ import {
   LuHeading6,
 } from "react-icons/lu";
 import Underline from "@tiptap/extension-underline";
-import useMaterials from "../../hooks/useMaterials.hook";
 
-import useDebounce from "@/shared/hooks/use-debounce.hook";
 import { RichTextDocument } from "@/app/types/types";
+import useMaterialUpdate from "../../hooks/useMaterialUpdate.hook";
 
 const TextEditor: FC<{
   initialContent?: RichTextDocument;
   id: string;
 }> = ({ initialContent, id }) => {
-  const { updateMaterial } = useMaterials();
+  const { updateMaterial } = useMaterialUpdate(id);
 
   const [HTMLcontent, setHTMLcontent] = useState<RichTextDocument | undefined>(
     undefined,
   );
 
-  const debouncedText = useDebounce(HTMLcontent, 2000);
+  // const debouncedText = useDebounce(HTMLcontent, 2000);
 
   const editor = useEditor({
     extensions: [StarterKit, Underline],
@@ -50,12 +49,16 @@ const TextEditor: FC<{
     },
   });
 
-  useEffect(() => {
-    if (debouncedText) {
-      updateMaterial({ id, dataToUpdate: { description: debouncedText } });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedText]);
+  // useEffect(() => {
+  //   if (debouncedText) {
+  //     updateMaterial({ id, dataToUpdate: { description: debouncedText } });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [debouncedText]);
+
+  // if (!editor) {
+  //   return null;
+  // }
 
   if (!editor) {
     return null;

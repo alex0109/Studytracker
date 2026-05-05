@@ -3,7 +3,6 @@
 import React, { FC, useState } from "react";
 import BlockColumn from "@/shared/components/block-column";
 import MaterialListItem from "./material-list-item.component";
-import useMaterials from "../../hooks/useMaterials.hook";
 import { routes } from "@/shared/lib/routes";
 import Link from "next/link";
 import EmptyMaterialItem from "../material-carousel/empty-material-list.component";
@@ -12,14 +11,13 @@ import CustomInput from "@/shared/components/input";
 import Subtitle from "@/shared/components/subtitle";
 import { filteredMaterials } from "../../utils/filter-materials.util";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
+import useMaterialAll from "../../hooks/useMaterialAll.hook";
 
 const MaterialList: FC = () => {
   const [search, setSearch] = useState("");
-  const { materialsData } = useMaterials();
+  const { materialsData } = useMaterialAll();
 
   const { saveLastOpenedId } = useLastOpened();
-
-  console.log("materialsData: ", materialsData);
 
   return (
     <BlockColumn blockStyles="align-center justify-center">

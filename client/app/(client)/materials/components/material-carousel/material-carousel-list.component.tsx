@@ -5,10 +5,10 @@ import BlockColumn from "@/shared/components/block-column";
 import Title from "@/shared/components/title";
 import React, { FC } from "react";
 import Carousel from "./material-carousel.component";
-import useMaterials from "../../hooks/useMaterials.hook";
+import useMaterialAll from "../../hooks/useMaterialAll.hook";
 
 const MaterialCarousel: FC = () => {
-  const { materialsData, materialsLoading } = useMaterials();
+  const { materialsData, materialsLoading } = useMaterialAll();
 
   return (
     <BlockColumn>

@@ -5,11 +5,11 @@ import { useForm, Controller } from "react-hook-form";
 import Title from "@/shared/components/title";
 import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
-import useMaterials from "../../hooks/useMaterials.hook";
 import BlockColumn from "@/shared/components/block-column";
 import CustomInput from "@/shared/components/input";
 import CustomButton from "@/shared/components/button";
 import { IMaterial } from "@/app/types/types";
+import useMaterialCreate from "../../hooks/useMaterialCreate.hook";
 
 const AddMaterial: FC = () => {
   const [value, setValue] = useState("");
@@ -27,7 +27,7 @@ const AddMaterial: FC = () => {
     },
   });
 
-  const { createMaterial } = useMaterials();
+  const { createMaterial } = useMaterialCreate();
 
   const [open, setOpen] = useState(false);
 
