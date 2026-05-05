@@ -26,11 +26,11 @@ export enum MaterialTypeEnum {
 export interface IMaterial {
   id: string;
   title: string;
-  type?: MaterialTypeEnum;
+  type: MaterialTypeEnum;
   tags?: string[];
   link?: string;
   description?: RichTextDocument | undefined;
-  status?: MaterialStatusEnum;
+  status: MaterialStatusEnum;
   created_at: Date;
   updated_at: Date;
 }

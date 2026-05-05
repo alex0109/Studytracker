@@ -3,10 +3,14 @@ import { LuSquarePen } from "react-icons/lu";
 
 type EditableLinkProps = {
   initialValue: string;
+  onChange: (...args: any[]) => void;
 };
 
-const EditableLink: FC<EditableLinkProps> = ({ initialValue = "" }) => {
-  const [value, setValue] = useState(initialValue);
+const EditableLink: FC<EditableLinkProps> = ({
+  initialValue = "",
+  onChange,
+}) => {
+  // const [value, setValue] = useState(initialValue);
   const [editing, setEditing] = useState(false);
 
   // const { updateMaterial } = useMaterialUpdate();
@@ -22,8 +26,8 @@ const EditableLink: FC<EditableLinkProps> = ({ initialValue = "" }) => {
     return (
       <input
         className="bg-neutral-200 dark:bg-neutral-700 rounded border-none w-full px-2 focus:outline-none"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={initialValue}
+        onChange={onChange}
         autoFocus
       />
     );
@@ -35,7 +39,7 @@ const EditableLink: FC<EditableLinkProps> = ({ initialValue = "" }) => {
       onClick={() => setEditing(true)}
     >
       <a
-        href={value}
+        href={initialValue}
         target="_blank"
         rel="noopener noreferrer"
         className="underline cursor-pointer pr-2"

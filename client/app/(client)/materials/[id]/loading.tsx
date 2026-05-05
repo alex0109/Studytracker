@@ -1,0 +1,20 @@
+"use client";
+
+import BlockColumn from "@/shared/components/block-column";
+import ContainerColumn from "@/shared/components/container-column";
+import Subtitle from "@/shared/components/subtitle";
+import { Skeleton } from "@/shared/components/ui/skeleton";
+import React from "react";
+
+const MaterialLoading = () => {
+  return (
+    <>
+      <BlockColumn blockStyles="bg-none">
+        <Skeleton className="w-full h-screen " />
+        <Subtitle text="Loading content..." />
+      </BlockColumn>
+    </>
+  );
+};
+
+export default MaterialLoading;
