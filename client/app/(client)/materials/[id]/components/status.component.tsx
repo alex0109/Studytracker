@@ -1,6 +1,7 @@
 import { MaterialStatusEnum } from "@/app/types/types";
 import StatusBadgeSelect from "@/shared/components/status-select";
-import React, { FC, useState } from "react";
+import useDebounce from "@/shared/hooks/use-debounce.hook";
+import React, { FC, useEffect, useState } from "react";
 
 interface MaterialStatusType {
   id: string;
@@ -13,18 +14,25 @@ const MaterialStatus: FC<MaterialStatusType> = ({
   materialStatus,
   updateStatusHandler,
 }) => {
-  const [selectStatus, setSelectStatus] =
+  const [statusValue, setStatusValue] =
     useState<MaterialStatusEnum>(materialStatus);
 
+  const debouncedStatusValue = useDebounce(statusValue, 1000);
+
+  useEffect(() => {
+    if (materialStatus !== debouncedStatusValue) {
+      updateStatusHandler(id, debouncedStatusValue);
+    }
+  }, [id, materialStatus, debouncedStatusValue]);
+
   const onUpdateStatus = (id: string, newStatus: MaterialStatusEnum) => {
-    setSelectStatus(newStatus);
-    updateStatusHandler(id, newStatus);
+    setStatusValue(newStatus);
   };
 
   return (
     <div>
       <span className="italic">Status</span>
-      <StatusBadgeSelect status={selectStatus}>
+      <StatusBadgeSelect status={statusValue}>
         <select
           className="text-white outline-none cursor-pointer"
           onChange={(e) =>

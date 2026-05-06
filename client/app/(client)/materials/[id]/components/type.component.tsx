@@ -1,5 +1,6 @@
 import { MaterialTypeEnum } from "@/app/types/types";
-import React, { FC, useState } from "react";
+import useDebounce from "@/shared/hooks/use-debounce.hook";
+import React, { FC, useEffect, useState } from "react";
 
 interface MaterialTypeType {
   id: string;
@@ -14,9 +15,16 @@ const MaterialType: FC<MaterialTypeType> = ({
 }) => {
   const [selectType, setSelectType] = useState<MaterialTypeEnum>(type);
 
+  const debouncedTypeValue = useDebounce(selectType, 1000);
+
+  useEffect(() => {
+    if (type !== debouncedTypeValue) {
+      updateTypeHandler(id, debouncedTypeValue);
+    }
+  }, [id, type, debouncedTypeValue]);
+
   const onTypeUpdate = (id: string, newType: MaterialTypeEnum) => {
     setSelectType(newType);
-    updateTypeHandler(id, type);
   };
 
   return (

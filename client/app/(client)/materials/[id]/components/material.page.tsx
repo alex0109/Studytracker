@@ -5,7 +5,7 @@ import Text from "@/shared/components/text";
 import Title from "@/shared/components/title";
 import { useParams, useRouter } from "next/navigation";
 import CustomButton from "@/shared/components/button";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Modal from "@/shared/components/modal";
 import MaterialTitle from "./title.component";
 import MaterialDate from "./date.component";
@@ -21,6 +21,7 @@ import {
   IMaterial,
   MaterialStatusEnum,
   MaterialTypeEnum,
+  RichTextDocument,
 } from "@/app/types/types";
 import { Skeleton } from "@/shared/components/ui/skeleton";
 
@@ -57,7 +58,15 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
   };
 
   const updateLinkHandler = (id: string, link: string): void => {
+    console.log("NNEWEWN", link);
     updateMaterial({ id, dataToUpdate: { link } });
+  };
+
+  const updateDescriptionHandler = (
+    id: string,
+    description: RichTextDocument,
+  ): void => {
+    updateMaterial({ id, dataToUpdate: { description } });
   };
 
   const handleDeleteMaterial = (id: string) => {
@@ -109,6 +118,7 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
         <MaterialDescription
           id={exactMaterial.id}
           description={exactMaterial.description}
+          updateDescriptionHandler={updateDescriptionHandler}
         />
         <MaterialTags
           id={exactMaterial.id}

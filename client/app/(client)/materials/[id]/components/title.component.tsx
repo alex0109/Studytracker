@@ -1,6 +1,6 @@
-import EditableField from "@/shared/components/editable-field";
+import { Input } from "@/shared/components/ui/input";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 interface MaterialTitleType {
   id: string;
@@ -15,17 +15,24 @@ const MaterialTitle: FC<MaterialTitleType> = ({
 }) => {
   const [titleValue, setTitleValue] = useState(title);
 
+  const debouncedTitleValue = useDebounce(titleValue, 1000);
+
+  useEffect(() => {
+    if (title !== debouncedTitleValue) {
+      updateTitleHandler(id, debouncedTitleValue);
+    }
+  }, [id, title, debouncedTitleValue]);
+
   const onUpdateTitle = (newTitle: string) => {
     setTitleValue(newTitle);
-    return useDebounce(() => updateTitleHandler(id, titleValue), 500);
   };
 
   return (
-    <EditableField
-      initialValue={titleValue}
-      titleHeading
-      maxLength={20}
-      onInput={() => onUpdateTitle}
+    <Input
+      className="focus:outline-none text-center text-2xl font-bold border-0"
+      value={titleValue}
+      onChange={(e) => onUpdateTitle(e.target.value)}
+      maxLength={30}
     />
   );
 };

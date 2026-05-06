@@ -1,6 +1,7 @@
-import EditableLink from "@/shared/components/editable-link";
 import Subtitle from "@/shared/components/subtitle";
-import React, { FC, useState } from "react";
+import { Input } from "@/shared/components/ui/input";
+import useDebounce from "@/shared/hooks/use-debounce.hook";
+import React, { FC, useEffect, useState } from "react";
 
 interface MaterialLinkType {
   id: string;
@@ -13,17 +14,24 @@ const MaterialLink: FC<MaterialLinkType> = ({
   link,
   updateLinkHandler,
 }) => {
-  const [linkValue, setLinkValue] = useState(link);
+  const [linkValue, setLinkValue] = useState(link || "");
 
-  const onLinkUpdate = (id: string, newLink: string) => {
+  const debouncedLinkValue = useDebounce(linkValue, 1000);
+
+  useEffect(() => {
+    if (link !== debouncedLinkValue) {
+      updateLinkHandler(id, debouncedLinkValue);
+    }
+  }, [id, link, debouncedLinkValue]);
+
+  const onLinkUpdate = (newLink: string) => {
     setLinkValue(newLink);
-    updateLinkHandler(id, newLink);
   };
 
   return (
     <div className="flex items-center w-full gap-2 border-b border-b-neutral-700">
       <Subtitle text="Link:" />
-      <EditableLink initialValue={linkValue ?? ""} onChange={onLinkUpdate} />
+      <Input value={linkValue} onChange={(e) => onLinkUpdate(e.target.value)} />
     </div>
   );
 };
