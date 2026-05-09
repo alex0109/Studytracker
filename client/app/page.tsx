@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
 import Intro from "./(client)/(home)/intro.component";
 import Navigation from "@/shared/components/navigation";
 import LastOpened from "./(client)/(home)/components/last-opened.component";
@@ -12,14 +12,14 @@ import { IMaterial } from "./types/types";
 import useMaterialExact from "./(client)/materials/hooks/useMaterialExact.hook";
 
 const Home: FC = () => {
-  const [lastOpenedMaterial, setLastOpenedMaterial] =
-    useState<Partial<IMaterial>>();
+  const [lastOpenedMaterial, setLastOpenedMaterial] = useState<IMaterial>();
 
-  const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>();
+  const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>("");
 
   const { lastOpened } = useLastOpened();
 
-  const { exactMaterial, exactMaterialError } = useMaterialExact(lastOpened);
+  const { exactMaterial, exactMaterialError } =
+    useMaterialExact(lastOpenedMaterialID);
 
   useEffect(() => {
     if (lastOpened) {
@@ -35,12 +35,10 @@ const Home: FC = () => {
     <>
       <Navigation />
       <main className="flex flex-col items-center pt-30">
-        {!lastOpenedMaterialID ||
-        !lastOpenedMaterial ||
-        exactMaterialError ? null : (
+        {lastOpenedMaterial && (
           <LastOpened
             id={lastOpenedMaterialID}
-            title={lastOpenedMaterial.title!}
+            title={lastOpenedMaterial.title}
             status={lastOpenedMaterial.status}
           />
         )}

@@ -7,11 +7,12 @@ import CustomButton from "@/shared/components/button";
 import BlockColumn from "@/shared/components/block-column";
 import StatusBadge from "@/shared/components/status-badge";
 import { redirect } from "next/navigation";
+import { MaterialStatusEnum } from "@/app/types/types";
 
 interface LastOpenedProps {
   id: string;
   title: string;
-  status: "tolearn" | "inprocess" | "finished" | undefined;
+  status: MaterialStatusEnum;
 }
 
 const LastOpened: FC<LastOpenedProps> = ({ id, title, status }) => {

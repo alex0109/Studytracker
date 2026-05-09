@@ -1,7 +1,8 @@
+import { MaterialStatusEnum } from "@/app/types/types";
 import React, { FC } from "react";
 
 interface StatusBadgeProps {
-  status: "tolearn" | "inprocess" | "finished" | undefined;
+  status: MaterialStatusEnum | undefined;
   size?: "normal" | "mini";
 }
 
@@ -12,10 +13,10 @@ const StatusBadge: FC<StatusBadgeProps> = ({ status, size = "normal" }) => {
         status == "tolearn"
           ? "text-sky-500"
           : status == "inprocess"
-          ? "text-purple-500"
-          : status == "finished"
-          ? "text-emerald-500"
-          : "text-neutral-500"
+            ? "text-purple-500"
+            : status == "finished"
+              ? "text-emerald-500"
+              : "text-neutral-500"
       }`}
     >
       {status == "tolearn" && "Want to learn"}
@@ -29,10 +30,10 @@ const StatusBadge: FC<StatusBadgeProps> = ({ status, size = "normal" }) => {
         status == "tolearn"
           ? "bg-sky-500"
           : status == "inprocess"
-          ? "bg-purple-500"
-          : status == "finished"
-          ? "bg-emerald-500"
-          : "bg-neutral-500"
+            ? "bg-purple-500"
+            : status == "finished"
+              ? "bg-emerald-500"
+              : "bg-neutral-500"
       }`}
     >
       {status == "tolearn" && <p>Want to learn</p>}

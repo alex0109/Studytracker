@@ -47,13 +47,13 @@ const MaterialList: FC = () => {
               <MaterialListItem
                 key={item.id}
                 id={item.id}
-                title={item.title!}
+                title={item.title}
                 tags={item.tags}
                 link={item.link}
                 status={item.status}
                 type={item.type}
-                created_at={item.created_at!}
-                updated_at={item.updated_at!}
+                created_at={item.created_at}
+                updated_at={item.updated_at}
               />
             </Link>
           ))}

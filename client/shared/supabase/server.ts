@@ -12,10 +12,18 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: any) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+            cookiesToSet.forEach(
+              ({
+                name,
+                value,
+                options,
+              }: {
+                name: any;
+                value: any;
+                options: any;
+              }) => cookieStore.set(name, value, options),
             );
           } catch {}
         },
@@ -25,6 +33,6 @@ export async function createClient() {
         persistSession: true,
         detectSessionInUrl: true,
       },
-    }
+    },
   );
 }

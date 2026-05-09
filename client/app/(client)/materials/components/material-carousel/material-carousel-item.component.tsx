@@ -11,7 +11,7 @@ const MaterialItem: FC<IMaterial> = ({ title, tags, status, created_at }) => {
     <div className="bg-neutral-900 h-[200px] w-[250px] rounded-2xl p-2 m-2 inline-block cursor-pointer hover:scale-105 ease-in-out duration-300 overflow-hidden">
       <Subtitle text={title} textStyles="text-white" />
       <div className="w-full flex justify-center">
-        <StatusBadge status={status ? status : "finished"} size="mini" />
+        <StatusBadge status={status} size="mini" />
       </div>
       <div className="flex flex-col justify-between h-[70px] my-3">
         <div className="flex flex-wrap gap-2">

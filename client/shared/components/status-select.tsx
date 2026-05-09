@@ -1,7 +1,8 @@
+import { MaterialStatusEnum } from "@/app/types/types";
 import React, { FC, ReactNode } from "react";
 
 interface StatusBadgeSelectProps {
-  status: "tolearn" | "inprocess" | "finished" | undefined;
+  status: MaterialStatusEnum | undefined;
   children: ReactNode;
 }
 
@@ -19,10 +20,10 @@ const StatusBadgeSelect: FC<StatusBadgeSelectProps> = ({
         status == "tolearn"
           ? "bg-sky-500"
           : status == "inprocess"
-          ? "bg-purple-500"
-          : status == "finished"
-          ? "bg-emerald-500"
-          : "bg-neutral-500"
+            ? "bg-purple-500"
+            : status == "finished"
+              ? "bg-emerald-500"
+              : "bg-neutral-500"
       }`}
     >
       {children}
