@@ -1,6 +1,4 @@
-"use client";
-
-import React, { FC } from "react";
+import { FC } from "react";
 
 import { TypeTextType } from "./types";
 import BlockColumn from "../../../shared/components/block-column";

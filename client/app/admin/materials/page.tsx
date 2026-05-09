@@ -19,7 +19,7 @@ const MaterialsPanel: FC = () => {
   useEffect(() => {
     setPieTypeData(validateTypesData(statsData));
     setPieStatusData(validateStatusesData(statsData));
-  }, []);
+  }, [statsData]);
 
   return (
     <div className="flex justify-center items-center w-full h-full py-10">

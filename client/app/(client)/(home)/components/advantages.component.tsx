@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import ContainerRow from "@/shared/components/container-row";
 import { motion } from "framer-motion";

@@ -1,40 +1,13 @@
-"use client";
-
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import BlockColumn from "@/shared/components/block-column";
-import ContainerColumn from "@/shared/components/container-column";
-import PieChart from "@/shared/components/pie";
-import Subtitle from "@/shared/components/subtitle";
 import Title from "@/shared/components/title";
-import {
-  validateStatusesData,
-  validateTypesData,
-} from "../../../shared/lib/utils/data-validate.util";
-import useMaterialStats from "../materials/hooks/useMaterialStats.hook";
+import Chart from "./components/chart.component";
 
 const Stats: FC = () => {
-  const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);
-  const [pieStatusData, setPieStatusData] = useState([{ x: "No data", y: 0 }]);
-  const { statsData } = useMaterialStats();
-
-  useEffect(() => {
-    setPieTypeData(validateTypesData(statsData));
-    setPieStatusData(validateStatusesData(statsData));
-  }, []);
-
   return (
     <BlockColumn>
       <Title text="Statistics" />
-      <ContainerColumn blockStyles="justify-center">
-        <Subtitle text="Status" />
-        <div className="w-full border-b-1 border-b-neutral-700">
-          <PieChart chartData={pieTypeData} />
-        </div>
-        <Subtitle text="Type" />
-        <div className="w-full">
-          <PieChart chartData={pieStatusData} />
-        </div>
-      </ContainerColumn>
+      <Chart />
     </BlockColumn>
   );
 };

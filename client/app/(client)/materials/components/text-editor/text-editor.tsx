@@ -16,7 +16,6 @@ import {
   LuHeading5,
   LuHeading6,
 } from "react-icons/lu";
-import Underline from "@tiptap/extension-underline";
 
 import { RichTextDocument } from "@/app/types/types";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
@@ -49,7 +48,7 @@ const TextEditor: FC<TextEditorType> = ({
   }, [id, initialContent, debouncedHTMLcontent]);
 
   const editor = useEditor({
-    extensions: [StarterKit, Underline],
+    extensions: [StarterKit],
     content: initialContent,
     onUpdate: ({ editor }) => {
       const jsonContent = editor.getJSON();

@@ -3,7 +3,6 @@
 import BlockColumn from "@/shared/components/block-column";
 import Subtitle from "@/shared/components/subtitle";
 import { Skeleton } from "@/shared/components/ui/skeleton";
-import React from "react";
 
 const MaterialLoading = () => {
   return (

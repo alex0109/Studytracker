@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import EmptyMaterialItem from "./empty-material-list.component";
 import MaterialItem from "./material-carousel-item.component";

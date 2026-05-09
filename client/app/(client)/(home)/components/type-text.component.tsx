@@ -1,4 +1,6 @@
-import React, { useState, useEffect, FC } from "react";
+"use client";
+
+import { useState, useEffect, FC } from "react";
 import { TypeTextType } from "../types";
 
 let timer: string | number | NodeJS.Timeout | undefined;

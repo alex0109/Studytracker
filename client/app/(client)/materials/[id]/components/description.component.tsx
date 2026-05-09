@@ -1,6 +1,13 @@
-import React, { FC } from "react";
-import TextEditor from "../../components/text-editor/text-editor";
+import { FC } from "react";
 import { RichTextDocument } from "@/app/types/types";
+import dynamic from "next/dynamic";
+
+const TextEditor = dynamic(
+  () => import("../../components/text-editor/text-editor"),
+  {
+    ssr: false,
+  },
+);
 
 interface MaterialDescriptionType {
   id: string;
