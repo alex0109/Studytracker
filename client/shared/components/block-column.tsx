@@ -14,7 +14,7 @@ const BlockColumn: FC<BlockColumnProps> = ({ children, blockStyles }) => {
                     rounded-xl min-w-[360px] lg:w-[1000px] md:w-[600px] sm:w-full  h-full border-3 
                     border-gray-50 dark:border-neutral-700 
                     flex flex-col gap-1 flex-wrap items-center`,
-        blockStyles
+        blockStyles,
       )}
     >
       {children}

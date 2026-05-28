@@ -1,3 +1,5 @@
+import { materialInterface } from "@/app/(client)/materials/[id]/lib/data/data";
 import { links } from "../data";
 
-export type SectionName = (typeof links)[number]["name"];
+export type NavSectionName = (typeof links)[number]["name"];
+export type MaterialSectionName = (typeof materialInterface)[number]["name"];

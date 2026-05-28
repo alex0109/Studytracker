@@ -1,14 +1,11 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { motion } from "framer-motion";
 
 import Link from "next/link";
 
-import clsx from "clsx";
-
 import { authorizedLinks, links } from "../lib/data";
-import { useActiveSectionContext } from "../context/active-section.context";
 import { useSession } from "../context/session-provider.context";
 import Modal from "./modal";
 import CustomButton from "./button";
@@ -16,9 +13,6 @@ import Title from "./title";
 import { signOut } from "@/app/(client)/(auth)/actions";
 
 const Navigation: FC = () => {
-  const { activeSection, setActiveSection, setTimeOfLastClick } =
-    useActiveSectionContext();
-
   const { user } = useSession();
 
   const [open, setOpen] = useState(false);
@@ -52,32 +46,12 @@ const Navigation: FC = () => {
               animate={{ y: 0, opacity: 1 }}
             >
               <Link
-                className={clsx(
-                  "flex w-full items-center justify-center px-3 py-3 hover:text-gray-950 transition dark:text-gray-300 dark:hover:text-gray-200",
-                  {
-                    "text-gray-950 dark:text-gray-200":
-                      activeSection === link.name,
-                  }
-                )}
+                className={
+                  "flex w-full items-center justify-center px-3 py-3 hover:text-gray-950 transition dark:text-gray-300 dark:hover:text-gray-200"
+                }
                 href={link.hash}
-                onClick={() => {
-                  setActiveSection(link.name);
-                  setTimeOfLastClick(Date.now());
-                }}
               >
                 {link.name}
-                {link.name === activeSection && (
-                  <motion.span
-                    className="bg-gray-100 rounded-full 
-                    absolute inset-0 -z-10 dark:bg-neutral-950"
-                    layoutId="activeSection"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  ></motion.span>
-                )}
               </Link>
             </motion.li>
           ))}

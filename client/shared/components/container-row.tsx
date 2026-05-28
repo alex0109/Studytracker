@@ -10,7 +10,7 @@ const ContainerRow: FC<ContainerRowProps> = ({ children, blockStyles }) => {
   return (
     <div
       className={cn(
-        `flex flex-row gap-2 flex-wrap items-center my-5`,
+        `flex flex-row gap-2 flex-wrap items-center my-5 min-w-[360px] lg:w-[1000px] md:w-[600px] sm:w-full rounded-xl h-full`,
         blockStyles,
       )}
     >

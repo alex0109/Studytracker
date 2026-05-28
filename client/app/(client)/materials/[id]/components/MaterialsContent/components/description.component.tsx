@@ -3,7 +3,7 @@ import { RichTextDocument } from "@/app/types/types";
 import dynamic from "next/dynamic";
 
 const TextEditor = dynamic(
-  () => import("../../components/text-editor/text-editor"),
+  () => import("../../../../components/text-editor/text-editor"),
   {
     ssr: false,
   },

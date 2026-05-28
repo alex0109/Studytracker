@@ -4,26 +4,28 @@ import BlockColumn from "@/shared/components/block-column";
 import Text from "@/shared/components/text";
 import Title from "@/shared/components/title";
 import { useParams, useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
 import CustomButton from "@/shared/components/button";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
-import MaterialTitle from "./title.component";
-import MaterialDate from "./date.component";
-import MaterialLink from "./link.component";
-import MaterialDescription from "./description.component";
-import MaterialTags from "./tags.component";
-import MaterialStatus from "./status.component";
+import MaterialTitle from "./MaterialsContent/components/title.component";
+import MaterialDate from "./MaterialsContent/components/date.component";
 import useMaterialUpdate from "../../hooks/useMaterialUpdate.hook";
-import useMaterialExact from "../../hooks/useMaterialExact.hook";
 import useMaterialDelete from "../../hooks/useMaterialDelete.hook";
-import MaterialType from "./type.component";
+import MaterialType from "./MaterialsContent/components/type.component";
 import {
   IMaterial,
   MaterialStatusEnum,
   MaterialTypeEnum,
   RichTextDocument,
 } from "@/app/types/types";
-import { Skeleton } from "@/shared/components/ui/skeleton";
+import ContainerRow from "@/shared/components/container-row";
+import { Button } from "@/shared/components/ui/button";
+import MaterialsContent from "./MaterialsContent/materials.component";
+import Assessment from "./Assessment/assessment.component";
+import { materialInterface } from "../lib/data/data";
+import { useActiveSectionContext } from "@/shared/context/active-section.context";
+import { motion } from "framer-motion";
 
 interface MaterialPagetype {
   exactMaterial: IMaterial;
@@ -33,6 +35,9 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
   const params = useParams();
   const router = useRouter();
 
+  const { activeSection, setActiveSection, setTimeOfLastClick } =
+    useActiveSectionContext();
+
   const [open, setOpen] = useState(false);
 
   const { deleteMaterial } = useMaterialDelete(params.id as string);
@@ -40,6 +45,10 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
 
   const updateTitleHandler = (id: string, title: string): void => {
     updateMaterial({ id, dataToUpdate: { title } });
+  };
+
+  const updateTypeHandler = (id: string, type: MaterialTypeEnum): void => {
+    updateMaterial({ id, dataToUpdate: { type } });
   };
 
   const updateTagsHandler = (id: string, tags: string[]): void => {
@@ -51,10 +60,6 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
     status: MaterialStatusEnum,
   ): void => {
     updateMaterial({ id, dataToUpdate: { status } });
-  };
-
-  const updateTypeHandler = (id: string, type: MaterialTypeEnum): void => {
-    updateMaterial({ id, dataToUpdate: { type } });
   };
 
   const updateLinkHandler = (id: string, link: string): void => {
@@ -109,28 +114,54 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
         />
         <MaterialDate created_at={exactMaterial.created_at} />
       </BlockColumn>
-      <BlockColumn blockStyles="p-[70px] items-start">
-        <MaterialLink
+      <ContainerRow blockStyles="flex w-full items-start justify-center gap-5">
+        {materialInterface.map((item) => (
+          <motion.div
+            key={item.key}
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+          >
+            <Button
+              className="text-lg hover:bg-transparent relative"
+              variant="ghost"
+              onClick={() => {
+                setActiveSection(item.name);
+                setTimeOfLastClick(Date.now());
+              }}
+            >
+              {item.icon} {item.name}
+              {item.name === activeSection && (
+                <motion.span
+                  className=" bg-gray-100 rounded-full 
+                    absolute inset-0 -z-10 dark:bg-neutral-950"
+                  layoutId="activeSection"
+                  transition={{
+                    type: "spring",
+                    stiffness: 380,
+                    damping: 30,
+                  }}
+                ></motion.span>
+              )}
+            </Button>
+          </motion.div>
+        ))}
+      </ContainerRow>
+      {activeSection == "Assessment" ? (
+        <Assessment />
+      ) : (
+        <MaterialsContent
           id={exactMaterial.id}
           link={exactMaterial.link}
-          updateLinkHandler={updateLinkHandler}
-        />
-        <MaterialDescription
-          id={exactMaterial.id}
           description={exactMaterial.description}
+          tags={exactMaterial.tags}
+          status={exactMaterial.status}
           updateDescriptionHandler={updateDescriptionHandler}
-        />
-        <MaterialTags
-          id={exactMaterial.id}
-          materialTags={exactMaterial.tags}
+          updateLinkHandler={updateLinkHandler}
+          updateStatusHandler={updateStatusHandler}
           updateTagsHandler={updateTagsHandler}
         />
-        <MaterialStatus
-          id={exactMaterial.id}
-          materialStatus={exactMaterial.status}
-          updateStatusHandler={updateStatusHandler}
-        />
-      </BlockColumn>
+      )}
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
           <Title text="Are you sure?" />
