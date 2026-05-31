@@ -4,7 +4,7 @@ import ContainerColumn from "@/shared/components/container-column";
 import PieChart from "@/shared/components/pie";
 import Subtitle from "@/shared/components/subtitle";
 import { useEffect, useState } from "react";
-import useMaterialStats from "../../materials/hooks/useMaterialStats.hook";
+import useMaterialStats from "../../materials/hooks/material/useMaterialStats.hook";
 import {
   validateStatusesData,
   validateTypesData,

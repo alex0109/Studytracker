@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createMaterialService } from "../services/material.service";
-
+import { createMaterialService } from "../../services/material.service";
 import { useSession } from "@/shared/context/session-provider.context";
-import { IMaterial } from "@/app/types/types";
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
+import { IMaterial } from "@/app/types/material/material.type";
+import { materialKeys } from "../querykeys/material.query.keys";
 
 const useMaterialCreate = () => {
   const queryClient = useQueryClient();
@@ -12,11 +12,11 @@ const useMaterialCreate = () => {
   const createMaterialMutation = useMutation({
     mutationFn: (body: IMaterial) => createMaterialService(token, body),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["materials"] });
+      queryClient.invalidateQueries({ queryKey: materialKeys.all });
     },
     onError: (error) => {
       logExceptionError(error, {
-        section: "materials/create",
+        section: "materials/ (create)",
         userID: user?.id,
       });
     },

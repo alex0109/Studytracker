@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { RichTextDocument } from "@/app/types/types";
 import dynamic from "next/dynamic";
+import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
 
 const TextEditor = dynamic(
   () => import("../../../../components/text-editor/text-editor"),

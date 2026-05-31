@@ -4,7 +4,8 @@ import MaterialLink from "./components/link.component";
 import MaterialDescription from "./components/description.component";
 import MaterialTags from "./components/tags.component";
 import MaterialStatus from "./components/status.component";
-import { MaterialStatusEnum, RichTextDocument } from "@/app/types/types";
+import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
+import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
 
 interface MaterialsContentType {
   id: string;

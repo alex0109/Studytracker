@@ -10,28 +10,31 @@ import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
 import MaterialTitle from "./MaterialsContent/components/title.component";
 import MaterialDate from "./MaterialsContent/components/date.component";
-import useMaterialUpdate from "../../hooks/useMaterialUpdate.hook";
-import useMaterialDelete from "../../hooks/useMaterialDelete.hook";
+import useMaterialUpdate from "../../hooks/material/useMaterialUpdate.hook";
+import useMaterialDelete from "../../hooks/material/useMaterialDelete.hook";
 import MaterialType from "./MaterialsContent/components/type.component";
-import {
-  IMaterial,
-  MaterialStatusEnum,
-  MaterialTypeEnum,
-  RichTextDocument,
-} from "@/app/types/types";
 import ContainerRow from "@/shared/components/container-row";
 import { Button } from "@/shared/components/ui/button";
 import MaterialsContent from "./MaterialsContent/materials.component";
-import Assessment from "./Assessment/assessment.component";
+import Assessment from "./Assessments/assessments.component";
 import { materialInterface } from "../lib/data/data";
 import { useActiveSectionContext } from "@/shared/context/active-section.context";
 import { motion } from "framer-motion";
+import { IMaterial } from "@/app/types/material/material.type";
+import { MaterialTypeEnum } from "@/app/types/material/material.type.type";
+import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
+import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
+import { IAssessment } from "@/app/types/assessment/assessment.type";
+import useAssessmentCreate from "../../hooks/assessment/useAssessmentCreate.hook";
+import { getAllAssessmentsService } from "../../services/assessment.service";
+import useAssessmentAll from "../../hooks/assessment/useAssessmentAll.hook";
 
 interface MaterialPagetype {
+  token: string;
   exactMaterial: IMaterial;
 }
 
-const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
+const MaterialPage: FC<MaterialPagetype> = ({ token, exactMaterial }) => {
   const params = useParams();
   const router = useRouter();
 
@@ -42,6 +45,9 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
 
   const { deleteMaterial } = useMaterialDelete(params.id as string);
   const { updateMaterial } = useMaterialUpdate(params.id as string);
+
+  const { assessmentsData } = useAssessmentAll(exactMaterial.id);
+  const { createAssessment } = useAssessmentCreate(exactMaterial.id);
 
   const updateTitleHandler = (id: string, title: string): void => {
     updateMaterial({ id, dataToUpdate: { title } });
@@ -74,8 +80,8 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
     updateMaterial({ id, dataToUpdate: { description } });
   };
 
-  const handleDeleteMaterial = (id: string) => {
-    deleteMaterial(id);
+  const handleDeleteMaterial = () => {
+    deleteMaterial();
     router.back();
   };
 
@@ -147,7 +153,10 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
         ))}
       </ContainerRow>
       {activeSection == "Assessment" ? (
-        <Assessment />
+        <Assessment
+          assessments={assessmentsData}
+          createAssessment={createAssessment}
+        />
       ) : (
         <MaterialsContent
           id={exactMaterial.id}
@@ -165,10 +174,7 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
           <Title text="Are you sure?" />
-          <CustomButton
-            title="Delete"
-            onClick={() => handleDeleteMaterial(exactMaterial.id)}
-          />
+          <CustomButton title="Delete" onClick={() => handleDeleteMaterial()} />
         </div>
       </Modal>
     </>

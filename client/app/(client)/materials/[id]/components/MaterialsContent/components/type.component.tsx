@@ -1,4 +1,4 @@
-import { MaterialTypeEnum } from "@/app/types/types";
+import { MaterialTypeEnum } from "@/app/types/material/material.type.type";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
 import React, { FC, useEffect, useState } from "react";
 

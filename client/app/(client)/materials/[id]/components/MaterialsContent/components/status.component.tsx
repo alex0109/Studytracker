@@ -1,4 +1,4 @@
-import { MaterialStatusEnum } from "@/app/types/types";
+import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
 import StatusBadgeSelect from "@/shared/components/status-select";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
 import React, { FC, useEffect, useState } from "react";

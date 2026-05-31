@@ -1,6 +1,7 @@
 import React, { ChangeEvent, forwardRef, Ref } from "react";
 import ContainerRow from "./container-row";
 import { cn } from "@/shared/lib/utils";
+import { maxLength } from "zod";
 
 interface CustomInputProps {
   label?: string;
@@ -15,6 +16,7 @@ interface CustomInputProps {
   defaultValue?: string;
   required?: boolean;
   disabled?: boolean;
+  maxLength?: number;
 }
 
 const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
@@ -28,6 +30,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
       defaultValue,
       required,
       disabled,
+      maxLength,
       ...inputProps
     } = props;
 
@@ -46,16 +49,17 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
                 ? "bg-gray-200 dark:bg-neutral-500"
                 : "bg-gray-100 dark:bg-neutral-700"
             } px-4 py-2 my-2 rounded-2xl`,
-            inputStyles
+            inputStyles,
           )}
           placeholder={placeholder}
           defaultValue={defaultValue}
           required={required}
           disabled={disabled}
+          maxLength={maxLength}
         />
       </div>
     );
-  }
+  },
 );
 
 CustomInput.displayName = "CustomInput";

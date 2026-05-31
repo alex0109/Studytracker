@@ -1,7 +1,7 @@
-import { ServerStatsDataType } from "@/app/types/types";
+import { ServerStatsDataType } from "@/app/types/stats/statistics.type";
 
 export const validateTypesData = (
-  data: ServerStatsDataType | undefined
+  data: ServerStatsDataType | undefined,
 ): { x: string; y: number }[] => {
   const validatedData = [];
 
@@ -22,7 +22,7 @@ export const validateTypesData = (
 };
 
 export const validateStatusesData = (
-  data: ServerStatsDataType | undefined
+  data: ServerStatsDataType | undefined,
 ): { x: string; y: number }[] => {
   const validatedData = [];
 

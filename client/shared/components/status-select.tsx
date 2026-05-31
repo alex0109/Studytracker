@@ -1,5 +1,5 @@
-import { MaterialStatusEnum } from "@/app/types/types";
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
+import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
 
 interface StatusBadgeSelectProps {
   status: MaterialStatusEnum | undefined;

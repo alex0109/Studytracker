@@ -1,16 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllMaterialsService } from "../services/material.service";
+import { getAllMaterialsService } from "../../services/material.service";
 
 import { useSession } from "@/shared/context/session-provider.context";
-import { IMaterial } from "@/app/types/types";
+
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { useEffect } from "react";
+import { IMaterial } from "@/app/types/material/material.type";
+import { materialKeys } from "../querykeys/material.query.keys";
 
 const useMaterialAll = () => {
   const { token, user } = useSession();
 
   const materials = useQuery<IMaterial[]>({
-    queryKey: ["materials"],
+    queryKey: materialKeys.all,
     queryFn: () => getAllMaterialsService(token),
     enabled: !!token,
     staleTime: 5000,

@@ -3,8 +3,9 @@ import React, { FC } from "react";
 import moment from "moment";
 
 import StatusBadge from "@/shared/components/status-badge";
-import { IMaterial } from "@/app/types/types";
+
 import Text from "@/shared/components/text";
+import { IMaterial } from "@/app/types/material/material.type";
 
 const MaterialItem: FC<IMaterial> = ({ title, tags, status, created_at }) => {
   return (

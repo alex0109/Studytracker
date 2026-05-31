@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { getOneMaterialService } from "../services/material.service";
+import { getOneMaterialService } from "../../services/material.service";
 
 import { useSession } from "@/shared/context/session-provider.context";
-import { IMaterial } from "@/app/types/types";
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { useEffect } from "react";
+import { IMaterial } from "@/app/types/material/material.type";
+import { materialKeys } from "../querykeys/material.query.keys";
 
 const useMaterialExact = (id: string) => {
   const { token, user } = useSession();
 
   const exactMaterial = useQuery<IMaterial, Error>({
-    queryKey: ["exact-material", id],
+    queryKey: materialKeys.detail(id),
     queryFn: ({ queryKey }) => {
       return getOneMaterialService(token, queryKey[1] as string);
     },
@@ -21,7 +22,7 @@ const useMaterialExact = (id: string) => {
   useEffect(() => {
     if (exactMaterial.error) {
       logExceptionError(exactMaterial.error, {
-        section: "materials/id",
+        section: `materials/${id}`,
         userID: user?.id,
       });
     }

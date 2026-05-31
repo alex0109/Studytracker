@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getStatsService } from "../services/material.service";
+import { getStatsService } from "../../services/material.service";
 
 import { useSession } from "@/shared/context/session-provider.context";
-import { ServerStatsDataType } from "@/app/types/types";
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { useEffect } from "react";
+import { ServerStatsDataType } from "@/app/types/stats/statistics.type";
 
 const useMaterialStats = () => {
   const { token, user } = useSession();

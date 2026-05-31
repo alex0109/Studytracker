@@ -5,7 +5,7 @@ export interface materialInterfaceType {
 }
 
 export interface assessmentInterfaceType {
-  key: number;
+  key: "open-modal" | "generate" | "start";
   title: string;
   icon: React.ReactNode;
   styles?: string;

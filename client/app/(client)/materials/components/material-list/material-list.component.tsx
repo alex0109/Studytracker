@@ -11,7 +11,7 @@ import CustomInput from "@/shared/components/input";
 import Subtitle from "@/shared/components/subtitle";
 import { filteredMaterials } from "../../utils/filter-materials.util";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
-import useMaterialAll from "../../hooks/useMaterialAll.hook";
+import useMaterialAll from "../../hooks/material/useMaterialAll.hook";
 import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
 

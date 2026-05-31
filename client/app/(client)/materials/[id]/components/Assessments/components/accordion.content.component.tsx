@@ -10,7 +10,7 @@ const AccordionContent = forwardRef(
       {...props}
       ref={forwardedRef}
     >
-      <div className={styles.ContentText}>{children}</div>
+      <div className="px-[20px] py-[20px] wrap-break-word">{children}</div>
     </Accordion.Content>
   ),
 );

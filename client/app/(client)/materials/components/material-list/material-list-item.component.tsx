@@ -1,4 +1,4 @@
-import { IMaterial } from "@/app/types/types";
+import { IMaterial } from "@/app/types/material/material.type";
 import StatusBadge from "@/shared/components/status-badge";
 import Subtitle from "@/shared/components/subtitle";
 import Text from "@/shared/components/text";

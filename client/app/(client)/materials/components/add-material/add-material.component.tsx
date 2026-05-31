@@ -8,8 +8,8 @@ import Modal from "@/shared/components/modal";
 import BlockColumn from "@/shared/components/block-column";
 import CustomInput from "@/shared/components/input";
 import CustomButton from "@/shared/components/button";
-import { IMaterial } from "@/app/types/types";
-import useMaterialCreate from "../../hooks/useMaterialCreate.hook";
+import useMaterialCreate from "../../hooks/material/useMaterialCreate.hook";
+import { IMaterial } from "@/app/types/material/material.type";
 
 const AddMaterial: FC = () => {
   const [value, setValue] = useState("");

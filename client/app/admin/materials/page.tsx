@@ -9,7 +9,7 @@ import {
 } from "@/shared/lib/utils/data-validate.util";
 import PieChart from "@/shared/components/pie";
 import Subtitle from "@/shared/components/subtitle";
-import useMaterialStats from "@/app/(client)/materials/hooks/useMaterialStats.hook";
+import useMaterialStats from "@/app/(client)/materials/hooks/material/useMaterialStats.hook";
 
 const MaterialsPanel: FC = () => {
   const { statsData } = useMaterialStats();

@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateMaterialService } from "../services/material.service";
+import { updateMaterialService } from "../../services/material.service";
 
 import { useSession } from "@/shared/context/session-provider.context";
-import { IMaterial } from "@/app/types/types";
+
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
+import { IMaterial } from "@/app/types/material/material.type";
+import { materialKeys } from "../querykeys/material.query.keys";
 
 const useMaterialUpdate = (id: string) => {
   const queryClient = useQueryClient();
@@ -18,12 +20,12 @@ const useMaterialUpdate = (id: string) => {
       dataToUpdate: Partial<IMaterial>;
     }) => updateMaterialService(token, id, dataToUpdate),
     onSuccess: (updated) => {
-      queryClient.invalidateQueries({ queryKey: ["materials", updated.id] });
-      queryClient.invalidateQueries({ queryKey: ["materials"] });
+      queryClient.invalidateQueries({ queryKey: materialKeys.detail(id) });
+      queryClient.invalidateQueries({ queryKey: materialKeys.all });
     },
     onError: (error) => {
       logExceptionError(error, {
-        section: "materials/update",
+        section: `materials/${id} (update)`,
         userID: user?.id,
       });
     },

@@ -8,7 +8,7 @@ import BlockColumn from "@/shared/components/block-column";
 import StatusBadge from "@/shared/components/status-badge";
 import { redirect } from "next/navigation";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
-import useMaterialExact from "../../materials/hooks/useMaterialExact.hook";
+import useMaterialExact from "../../materials/hooks/material/useMaterialExact.hook";
 
 const LastOpened: FC = () => {
   const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>("");
