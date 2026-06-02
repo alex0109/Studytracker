@@ -13,17 +13,22 @@ import { Separator } from "@/shared/components/ui/separator";
 import Modal from "@/shared/components/modal";
 import CustomInput from "@/shared/components/input";
 import Title from "@/shared/components/title";
-import { TUpdateAssessment } from "@/app/types/assessment/assessment.update.type";
+
 import TextArea from "@/shared/components/text-area";
+import { Input } from "@/shared/components/ui/input";
 
 interface AssessmentsType {
   assessments: IAssessment[] | undefined;
-  createAssessment: (body: TUpdateAssessment) => void;
+  createAssessment: (body: Partial<IAssessment>) => void;
+  editAssessment: (id: string, dataToUpdate: Partial<IAssessment>) => void;
+  deleteAssessment: (id: string) => void;
 }
 
 const Assessments: FC<AssessmentsType> = ({
   assessments,
   createAssessment,
+  editAssessment,
+  deleteAssessment,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -73,8 +78,25 @@ const Assessments: FC<AssessmentsType> = ({
               className={styles.Item}
               value={item.id}
             >
-              <AccordionTrigger>{item.title}</AccordionTrigger>
-              <AccordionContent>{item.answer}</AccordionContent>
+              <AccordionTrigger>
+                {/* <Input
+                  value={item.title}
+                  className=" bg-amber-300 focus:outline-none text-2xl font-bold border-0 w-full wrap-break-word"
+                  onChange={() => console.log("")}
+                /> */}
+                <textarea
+                  value={item.title}
+                  className="text-2xl font-bold border-0 w-full resize-none 
+                  wrap-break-word overflow-hidden outline-none leading-8"
+                  onChange={() => console.log("")}
+                />
+              </AccordionTrigger>
+              <AccordionContent
+                deleteAssessment={() => deleteAssessment(item.id)}
+                editAssessment={() => console.log("")}
+              >
+                {item.answer}
+              </AccordionContent>
             </Accordion.Item>
           ))}
         </Accordion.Root>
@@ -82,6 +104,7 @@ const Assessments: FC<AssessmentsType> = ({
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-dvh h-[600px]">
           <Title text="Add new Assessment" />
+          <Separator />
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="justify-center items-center"
@@ -90,7 +113,7 @@ const Assessments: FC<AssessmentsType> = ({
               label="Title"
               inputBlockStyles="text-center"
               placeholder="*Title..."
-              maxLength={100}
+              maxLength={50}
               {...register<"title">("title", {
                 required: "Required",
               })}
@@ -101,7 +124,9 @@ const Assessments: FC<AssessmentsType> = ({
               inputStyles="h-[300px]"
               placeholder="*Type your answer to assessment here but remember 1000 symbols max..."
               maxLength={1000}
-              {...register<"answer">("answer")}
+              {...register<"answer">("answer", {
+                required: "Required",
+              })}
               error={errors.answer?.message}
             />
             <Button type="submit" onClick={() => setOpen(true)}>

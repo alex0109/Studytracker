@@ -36,9 +36,6 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
     return (
       <div className={cn(`flex gap-2 flex-col`, inputBlockStyles)}>
-        <ContainerRow>
-          {error && <p className="text-red-400">{error}</p>}
-        </ContainerRow>
         <input
           onChange={onChange ? onChange : () => {}}
           {...inputProps}
@@ -57,6 +54,9 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           disabled={disabled}
           maxLength={maxLength}
         />
+        <div className="flex px-5 mb-5">
+          {error && <p className="text-red-400">{error}</p>}
+        </div>
       </div>
     );
   },

@@ -23,11 +23,12 @@
 .Trigger {
   all: unset;
   font-family: inherit;
-  padding: 0 20px;
-  height: 60px;
+  padding: 5px 20px;
+  min-height: 40px;
+  height: auto;
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   font-size: 20px;
   font-weight: 600;

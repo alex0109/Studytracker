@@ -1,5 +1,4 @@
 import { IMaterial } from "@/app/types/material/material.type";
-import { TUpdateMaterial } from "@/app/types/material/material.update.type";
 import { ServerStatsDataType } from "@/app/types/stats/statistics.type";
 import axios from "axios";
 
@@ -30,7 +29,7 @@ export const getOneMaterialService = async (
 export const createMaterialService = async (
   token: string | undefined,
   body: IMaterial,
-): Promise<TUpdateMaterial> => {
+): Promise<Partial<IMaterial>> => {
   const date = new Date();
 
   const res = await axios.post(
@@ -66,8 +65,8 @@ export const deleteMaterialService = async (
 export const updateMaterialService = async (
   token: string | undefined,
   id: string,
-  dataToUpdate: TUpdateMaterial,
-): Promise<TUpdateMaterial> => {
+  dataToUpdate: Partial<IMaterial>,
+): Promise<Partial<IMaterial>> => {
   const res = await axios.patch(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${id}`,
     dataToUpdate,

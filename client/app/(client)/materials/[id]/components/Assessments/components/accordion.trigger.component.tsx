@@ -13,7 +13,9 @@ const AccordionTrigger = forwardRef(
         ref={forwardedRef}
       >
         {children}
-        <LuChevronsDown className={styles.Chevron} aria-hidden />
+        <div className="flex justify-center items-start h-full pt-2">
+          <LuChevronsDown className={styles.Chevron} aria-hidden />
+        </div>
       </Accordion.Trigger>
     </Accordion.Header>
   ),

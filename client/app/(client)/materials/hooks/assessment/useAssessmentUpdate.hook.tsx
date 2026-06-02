@@ -1,21 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session-provider.context";
 import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
-import { IMaterial } from "@/app/types/material/material.type";
 import { updateAssessmentService } from "../../services/assessment.service";
 import { assessmentKeys } from "../querykeys/assessment.query.keys";
+import { IAssessment } from "@/app/types/assessment/assessment.type";
 
 const useAssessmentUpdate = (materialId: string, id: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const updateAssessmentMutation = useMutation({
-    mutationFn: ({
-      dataToUpdate,
-    }: {
-      id: string;
-      dataToUpdate: Partial<IMaterial>;
-    }) => updateAssessmentService(token, materialId, id, dataToUpdate),
+    mutationFn: ({ dataToUpdate }: { dataToUpdate: Partial<IAssessment> }) =>
+      updateAssessmentService(token, materialId, id, dataToUpdate),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: assessmentKeys.detail(materialId, id),

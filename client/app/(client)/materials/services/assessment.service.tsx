@@ -1,6 +1,5 @@
 import axios from "axios";
 import { IAssessment } from "@/app/types/assessment/assessment.type";
-import { TUpdateAssessment } from "@/app/types/assessment/assessment.update.type";
 
 export const getAllAssessmentsService = async (
   token: string | undefined,
@@ -34,8 +33,8 @@ export const getOneAssessmentService = async (
 export const createAssessmentService = async (
   token: string | undefined,
   materialId: string,
-  body: TUpdateAssessment,
-): Promise<TUpdateAssessment> => {
+  body: Partial<IAssessment>,
+): Promise<Partial<IAssessment>> => {
   const date = new Date();
 
   const res = await axios.post(
@@ -59,7 +58,7 @@ export const updateAssessmentService = async (
   materialId: string,
   id: string,
   dataToUpdate: Partial<IAssessment>,
-): Promise<TUpdateAssessment> => {
+): Promise<Partial<IAssessment>> => {
   const res = await axios.patch(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments${id}`,
     dataToUpdate,

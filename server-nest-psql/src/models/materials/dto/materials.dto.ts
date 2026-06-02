@@ -23,7 +23,3 @@ export class CreateMaterialsDto {
   @IsString()
   status!: string;
 }
-
-export type TUpdateMaterialsDto = Partial<CreateMaterialsDto> & {
-  id: string;
-};

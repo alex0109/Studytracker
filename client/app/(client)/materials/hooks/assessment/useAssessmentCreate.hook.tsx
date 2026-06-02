@@ -4,14 +4,13 @@ import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { assessmentKeys } from "../querykeys/assessment.query.keys";
 import { createAssessmentService } from "../../services/assessment.service";
 import { IAssessment } from "@/app/types/assessment/assessment.type";
-import { TUpdateAssessment } from "@/app/types/assessment/assessment.update.type";
 
 const useAssessmentCreate = (materialId: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const createAssessmentMutation = useMutation({
-    mutationFn: (body: TUpdateAssessment) => {
+    mutationFn: (body: Partial<IAssessment>) => {
       console.log("fetch");
       return createAssessmentService(token, materialId, body);
     },

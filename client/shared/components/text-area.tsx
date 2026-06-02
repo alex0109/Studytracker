@@ -6,8 +6,6 @@ import {
   useState,
 } from "react";
 
-import ContainerRow from "./container-row";
-
 import { cn } from "@/shared/lib/utils";
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -46,11 +44,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     };
 
     return (
-      <div className={cn("flex flex-col gap-2", inputBlockStyles)}>
-        <ContainerRow>
-          {error && <p className="text-red-400">{error}</p>}
-        </ContainerRow>
-
+      <div className={cn("flex flex-col gap-1", inputBlockStyles)}>
         <textarea
           {...textareaProps}
           ref={ref}
@@ -67,13 +61,18 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             inputStyles,
           )}
         />
-        {maxLength && (
-          <div className="flex justify-end">
-            <p className="text-sm text-gray-500">
-              {textLength}/{maxLength}
-            </p>
+        <div className="flex justify-between mb-5">
+          <div className="px-5">
+            {error && <p className="text-red-400">{error}</p>}
           </div>
-        )}
+          {maxLength && (
+            <div className="flex justify-end">
+              <p className="text-sm text-gray-500">
+                {textLength}/{maxLength}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     );
   },

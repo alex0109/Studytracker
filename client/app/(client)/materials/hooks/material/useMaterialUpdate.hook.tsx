@@ -19,7 +19,7 @@ const useMaterialUpdate = (id: string) => {
       id: string;
       dataToUpdate: Partial<IMaterial>;
     }) => updateMaterialService(token, id, dataToUpdate),
-    onSuccess: (updated) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: materialKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: materialKeys.all });
     },

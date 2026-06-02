@@ -6,12 +6,12 @@ import { logExceptionError } from "@/shared/lib/utils/exeption.sentry";
 import { deleteAssessmentService } from "../../services/assessment.service";
 import { assessmentKeys } from "../querykeys/assessment.query.keys";
 
-const useAssessmentDelete = (materialId: string, id: string) => {
+const useAssessmentDelete = (materialId: string, id?: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const deleteAssessmentMutation = useMutation({
-    mutationFn: () => deleteAssessmentService(token, materialId, id),
+    mutationFn: (id: string) => deleteAssessmentService(token, materialId, id),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: assessmentKeys.list(materialId),
