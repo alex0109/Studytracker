@@ -35,6 +35,9 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
   const params = useParams();
   const router = useRouter();
 
+  console.log("COMPONENT DATA: ", exactMaterial);
+  console.log("TYPEOF: ", typeof exactMaterial.createdAt);
+
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
@@ -115,7 +118,7 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
           type={exactMaterial.type}
           updateTypeHandler={updateTypeHandler}
         />
-        <MaterialDate created_at={exactMaterial.created_at} />
+        <MaterialDate createdAt={exactMaterial.createdAt} />
       </BlockColumn>
       <ContainerRow blockStyles="flex w-full items-start justify-center gap-5">
         {materialInterface.map((item) => (

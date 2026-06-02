@@ -55,8 +55,8 @@ const MaterialList: FC = () => {
                   link={item.link}
                   status={item.status}
                   type={item.type}
-                  created_at={item.created_at}
-                  updated_at={item.updated_at}
+                  createdAt={item.createdAt}
+                  updatedAt={item.updatedAt}
                 />
               </Link>
             ))}

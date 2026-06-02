@@ -12,9 +12,7 @@ const useMaterialExact = (id: string) => {
 
   const exactMaterial = useQuery<IMaterial, Error>({
     queryKey: materialKeys.detail(id),
-    queryFn: ({ queryKey }) => {
-      return getOneMaterialService(token, queryKey[1] as string);
-    },
+    queryFn: () => getOneMaterialService(token, id),
     enabled: !!id && !!token,
     staleTime: 5000,
   });

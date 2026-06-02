@@ -7,7 +7,7 @@ import StatusBadge from "@/shared/components/status-badge";
 import Text from "@/shared/components/text";
 import { IMaterial } from "@/app/types/material/material.type";
 
-const MaterialItem: FC<IMaterial> = ({ title, tags, status, created_at }) => {
+const MaterialItem: FC<IMaterial> = ({ title, tags, status, createdAt }) => {
   return (
     <div className="bg-neutral-900 h-[200px] w-[250px] rounded-2xl p-2 m-2 inline-block cursor-pointer hover:scale-105 ease-in-out duration-300 overflow-hidden">
       <Subtitle text={title} textStyles="text-white" />
@@ -29,7 +29,7 @@ const MaterialItem: FC<IMaterial> = ({ title, tags, status, created_at }) => {
       <div>
         <Text
           textStyles="text-neutral-400"
-          text={moment(created_at).format("DD MMMM yy")}
+          text={moment(createdAt).format("DD MMMM yy")}
         />
       </div>
     </div>

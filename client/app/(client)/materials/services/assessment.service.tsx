@@ -35,8 +35,6 @@ export const createAssessmentService = async (
   materialId: string,
   body: Partial<IAssessment>,
 ): Promise<Partial<IAssessment>> => {
-  const date = new Date();
-
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments`,
     {

@@ -3,15 +3,19 @@ import React, { FC } from "react";
 import Text from "@/shared/components/text";
 
 interface MaterialDateType {
-  created_at: Date;
+  createdAt: string;
 }
 
-const MaterialDate: FC<MaterialDateType> = ({ created_at }) => {
+const MaterialDate: FC<MaterialDateType> = ({ createdAt }) => {
+  if (!createdAt) {
+    return null;
+  }
+
   return (
     <div>
       <Text
         textStyles="text-neutral-400"
-        text={moment(created_at).format("DD MMMM yy")}
+        text={moment(createdAt).format("DD MMMM yy")}
       />
     </div>
   );

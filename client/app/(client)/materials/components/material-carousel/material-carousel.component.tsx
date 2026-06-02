@@ -32,8 +32,8 @@ const Carousel: FC<CarouselProps> = ({ materials }) => {
             status={item.status}
             link={item.link}
             id={item.id}
-            created_at={item.created_at}
-            updated_at={item.updated_at}
+            createdAt={item.createdAt}
+            updatedAt={item.updatedAt}
           />
         </Link>
       ))}

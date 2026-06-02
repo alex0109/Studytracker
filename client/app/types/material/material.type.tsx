@@ -10,6 +10,6 @@ export interface IMaterial {
   link?: string;
   description?: RichTextDocument | undefined;
   status: MaterialStatusEnum;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: string;
+  updatedAt: string;
 }

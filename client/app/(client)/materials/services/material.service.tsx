@@ -23,6 +23,8 @@ export const getOneMaterialService = async (
     },
   );
 
+  console.log("SERVICE DATA: ", res.data);
+
   return res.data;
 };
 
@@ -30,8 +32,6 @@ export const createMaterialService = async (
   token: string | undefined,
   body: IMaterial,
 ): Promise<Partial<IMaterial>> => {
-  const date = new Date();
-
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials`,
     {

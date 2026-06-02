@@ -33,7 +33,7 @@ const AssessmentTitle: FC<AssessmentTitleProps> = ({
     <AccordionTrigger>
       <textarea
         value={titleValue}
-        className="text-2xl font-bold border-0 w-full resize-none 
+        className="text-xl font-bold border-0 w-full resize-none 
                   wrap-break-word overflow-hidden outline-none"
         onChange={(e) => onUpdateTitle(e.target.value)}
         maxLength={70}
