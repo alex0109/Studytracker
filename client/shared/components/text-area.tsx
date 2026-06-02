@@ -54,7 +54,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           maxLength={maxLength}
           disabled={disabled}
           className={cn(
-            `text-[15px] min-h-[150px] resize-none px-4 py-3 my-2 rounded-2xl outline-none`,
+            `text-[15px] min-h-[50px] resize-none rounded-2xl outline-none`,
             disabled
               ? "bg-gray-200 dark:bg-neutral-500"
               : "bg-gray-100 dark:bg-neutral-700",

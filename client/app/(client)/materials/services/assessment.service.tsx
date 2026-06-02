@@ -60,7 +60,7 @@ export const updateAssessmentService = async (
   dataToUpdate: Partial<IAssessment>,
 ): Promise<Partial<IAssessment>> => {
   const res = await axios.patch(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments/${id}`,
     dataToUpdate,
     {
       headers: { Authorization: `Bearer ${token}` },

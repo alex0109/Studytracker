@@ -15,7 +15,7 @@ const MaterialTitle: FC<MaterialTitleType> = ({
 }) => {
   const [titleValue, setTitleValue] = useState(title);
 
-  const debouncedTitleValue = useDebounce(titleValue, 1000);
+  const debouncedTitleValue = useDebounce(titleValue, 1500);
 
   useEffect(() => {
     if (title !== debouncedTitleValue) {

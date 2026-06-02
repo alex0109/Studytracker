@@ -16,7 +16,7 @@ const MaterialLink: FC<MaterialLinkType> = ({
 }) => {
   const [linkValue, setLinkValue] = useState(link || "");
 
-  const debouncedLinkValue = useDebounce(linkValue, 1000);
+  const debouncedLinkValue = useDebounce(linkValue, 1500);
 
   useEffect(() => {
     if (link !== debouncedLinkValue) {

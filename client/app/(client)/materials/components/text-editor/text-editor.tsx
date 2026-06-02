@@ -35,7 +35,7 @@ const TextEditor: FC<TextEditorType> = ({
     undefined,
   );
 
-  const debouncedHTMLcontent = useDebounce(HTMLcontent, 1000);
+  const debouncedHTMLcontent = useDebounce(HTMLcontent, 1500);
 
   useEffect(() => {
     if (!debouncedHTMLcontent) return;

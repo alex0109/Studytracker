@@ -1,9 +1,8 @@
 "use client";
 
-import { useForm, Controller } from "react-hook-form";
-
-import Title from "@/shared/components/title";
 import { FC, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import Title from "@/shared/components/title";
 import Modal from "@/shared/components/modal";
 import BlockColumn from "@/shared/components/block-column";
 import CustomInput from "@/shared/components/input";
@@ -156,14 +155,6 @@ const AddMaterial: FC = () => {
                 );
               }}
             />
-
-            {/* <CustomInput
-              label="Description"
-              placeholder="Description..."
-              {...register<"description">("description")}
-              error={errors.description?.message}
-            /> */}
-
             <CustomButton
               title="Submit"
               type="submit"

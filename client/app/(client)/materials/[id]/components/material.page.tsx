@@ -25,10 +25,7 @@ import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
 import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
 import useAssessmentCreate from "../../hooks/assessment/useAssessmentCreate.hook";
 import useAssessmentAll from "../../hooks/assessment/useAssessmentAll.hook";
-
 import useAssessmentDelete from "../../hooks/assessment/useAssessmentDelete.hook";
-import { IAssessment } from "@/app/types/assessment/assessment.type";
-import useAssessmentUpdate from "../../hooks/assessment/useAssessmentUpdate.hook";
 
 interface MaterialPagetype {
   exactMaterial: IMaterial;
@@ -83,14 +80,6 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
   const handleDeleteMaterial = () => {
     deleteMaterial();
     router.back();
-  };
-
-  const editAssessmentHandler = (
-    id: string,
-    dataToUpdate: Partial<IAssessment>,
-  ): void => {
-    const { updateAssessment } = useAssessmentUpdate(exactMaterial.id, id);
-    updateAssessment({ dataToUpdate });
   };
 
   if (!exactMaterial) {
@@ -164,7 +153,6 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
         <Assessment
           assessments={assessmentsData}
           createAssessment={createAssessment}
-          editAssessment={editAssessmentHandler}
           deleteAssessment={deleteAssessment}
         />
       ) : (

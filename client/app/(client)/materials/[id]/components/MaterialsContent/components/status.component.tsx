@@ -17,7 +17,7 @@ const MaterialStatus: FC<MaterialStatusType> = ({
   const [statusValue, setStatusValue] =
     useState<MaterialStatusEnum>(materialStatus);
 
-  const debouncedStatusValue = useDebounce(statusValue, 1000);
+  const debouncedStatusValue = useDebounce(statusValue, 1500);
 
   useEffect(() => {
     if (materialStatus !== debouncedStatusValue) {

@@ -15,7 +15,7 @@ const MaterialType: FC<MaterialTypeType> = ({
 }) => {
   const [selectType, setSelectType] = useState<MaterialTypeEnum>(type);
 
-  const debouncedTypeValue = useDebounce(selectType, 1000);
+  const debouncedTypeValue = useDebounce(selectType, 1500);
 
   useEffect(() => {
     if (type !== debouncedTypeValue) {
