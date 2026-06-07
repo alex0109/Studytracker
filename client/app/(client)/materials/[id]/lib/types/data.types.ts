@@ -4,7 +4,7 @@ export interface materialInterfaceType {
   icon: React.ReactNode;
 }
 
-export interface assessmentInterfaceType {
+export interface questionInterfaceType {
   key: "open-modal" | "generate" | "start";
   title: string;
   icon: React.ReactNode;

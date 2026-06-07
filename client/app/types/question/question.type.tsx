@@ -1,4 +1,4 @@
-export interface IAssessment {
+export interface IQuestion {
   id: string;
   materialId: string;
   title: string;

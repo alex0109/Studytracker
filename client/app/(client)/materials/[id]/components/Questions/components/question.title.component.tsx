@@ -1,27 +1,23 @@
 import { FC, useEffect, useState } from "react";
 import AccordionTrigger from "./accordion.trigger.component";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
-import useAssessmentUpdate from "@/app/(client)/materials/hooks/assessment/useAssessmentUpdate.hook";
+import useQuestionUpdate from "@/app/(client)/materials/hooks/question/useQuestionUpdate.hook";
 
-interface AssessmentTitleProps {
+interface QuestionTitleProps {
   materialId: string;
   id: string;
   title: string;
 }
 
-const AssessmentTitle: FC<AssessmentTitleProps> = ({
-  materialId,
-  id,
-  title,
-}) => {
+const QuestionTitle: FC<QuestionTitleProps> = ({ materialId, id, title }) => {
   const [titleValue, setTitleValue] = useState(title);
-  const { updateAssessment } = useAssessmentUpdate(materialId, id);
+  const { updateQuestion } = useQuestionUpdate(materialId, id);
 
   const debouncedTitleValue = useDebounce(titleValue, 1500);
 
   useEffect(() => {
     if (title !== debouncedTitleValue) {
-      updateAssessment({ dataToUpdate: { title: debouncedTitleValue } });
+      updateQuestion({ dataToUpdate: { title: debouncedTitleValue } });
     }
   }, [id, title, debouncedTitleValue]);
 
@@ -42,4 +38,4 @@ const AssessmentTitle: FC<AssessmentTitleProps> = ({
   );
 };
 
-export default AssessmentTitle;
+export default QuestionTitle;

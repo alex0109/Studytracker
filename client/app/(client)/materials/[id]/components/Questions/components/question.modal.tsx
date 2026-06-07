@@ -1,33 +1,33 @@
-import { IAssessment } from "@/app/types/assessment/assessment.type";
+import { IQuestion } from "@/app/types/question/question.type";
 import CustomInput from "@/shared/components/input";
 import Modal from "@/shared/components/modal";
 import TextArea from "@/shared/components/text-area";
 import Title from "@/shared/components/title";
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
-import React, { FC } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 
-interface AssessmentModalProps {
+interface QuestionModalProps {
   open: boolean;
   setOpen: (isOpen: boolean) => void;
-  createAssessment: (body: Partial<IAssessment>) => void;
+  createQuestion: (body: Partial<IQuestion>) => void;
 }
 
-const AssessmentModal: FC<AssessmentModalProps> = ({
+const QuestionModal: FC<QuestionModalProps> = ({
   open,
   setOpen,
-  createAssessment,
+  createQuestion,
 }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IAssessment>();
+  } = useForm<IQuestion>();
 
-  const onFormSubmit = (values: IAssessment) => {
-    createAssessment(values);
+  const onFormSubmit = (values: IQuestion) => {
+    createQuestion(values);
     setOpen(false);
     reset();
   };
@@ -35,7 +35,7 @@ const AssessmentModal: FC<AssessmentModalProps> = ({
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="w-dvh h-[600px]">
-        <Title text="Add new Assessment" />
+        <Title text="Add new Question" />
         <Separator />
         <form
           onSubmit={handleSubmit(onFormSubmit)}
@@ -54,7 +54,7 @@ const AssessmentModal: FC<AssessmentModalProps> = ({
           <TextArea
             label="Answer"
             inputStyles="h-[300px] p-5"
-            placeholder="*Type your answer to assessment here but remember 1000 symbols max..."
+            placeholder="*Type your answer to Question here but remember 1000 symbols max..."
             maxLength={1000}
             {...register<"answer">("answer", {
               required: "Required",
@@ -70,4 +70,4 @@ const AssessmentModal: FC<AssessmentModalProps> = ({
   );
 };
 
-export default AssessmentModal;
+export default QuestionModal;

@@ -7,10 +7,7 @@ import { LuTrash2 } from "react-icons/lu";
 import { Separator } from "@/shared/components/ui/separator";
 
 const AccordionContent = forwardRef(
-  (
-    { children, className, deleteAssessment, editAssessment, ...props }: any,
-    forwardedRef,
-  ) => (
+  ({ children, className, deleteQuestion, ...props }: any, forwardedRef) => (
     <Accordion.Content
       className={cn(styles.Content, className)}
       {...props}
@@ -18,7 +15,7 @@ const AccordionContent = forwardRef(
     >
       <div className="px-5 py-5 wrap-break-word">{children}</div>
       <div className="flex justify-end items-center p-2 pr-10">
-        <Button variant="destructive" onClick={deleteAssessment}>
+        <Button variant="destructive" onClick={deleteQuestion}>
           <LuTrash2 />
         </Button>
       </div>

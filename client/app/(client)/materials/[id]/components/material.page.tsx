@@ -15,7 +15,6 @@ import MaterialType from "./MaterialsContent/components/type.component";
 import ContainerRow from "@/shared/components/container-row";
 import { Button } from "@/shared/components/ui/button";
 import MaterialsContent from "./MaterialsContent/materials.component";
-import Assessment from "./Assessments/assessments.component";
 import { materialInterface } from "../lib/data/data";
 import { useActiveSectionContext } from "@/shared/context/active-section.context";
 import { motion } from "framer-motion";
@@ -23,9 +22,10 @@ import { IMaterial } from "@/app/types/material/material.type";
 import { MaterialTypeEnum } from "@/app/types/material/material.type.type";
 import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
 import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
-import useAssessmentCreate from "../../hooks/assessment/useAssessmentCreate.hook";
-import useAssessmentAll from "../../hooks/assessment/useAssessmentAll.hook";
-import useAssessmentDelete from "../../hooks/assessment/useAssessmentDelete.hook";
+import useQuestionCreate from "../../hooks/question/useQuestionCreate.hook";
+import useQuestionAll from "../../hooks/question/useQuestionAll.hook";
+import useQuestionDelete from "../../hooks/question/useQuestionDelete.hook";
+import Questions from "./Questions/questions.component";
 
 interface MaterialPagetype {
   exactMaterial: IMaterial;
@@ -35,9 +35,6 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
   const params = useParams();
   const router = useRouter();
 
-  console.log("COMPONENT DATA: ", exactMaterial);
-  console.log("TYPEOF: ", typeof exactMaterial.createdAt);
-
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
@@ -46,9 +43,9 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
   const { deleteMaterial } = useMaterialDelete(params.id as string);
   const { updateMaterial } = useMaterialUpdate(params.id as string);
 
-  const { assessmentsData } = useAssessmentAll(exactMaterial.id);
-  const { createAssessment } = useAssessmentCreate(exactMaterial.id);
-  const { deleteAssessment } = useAssessmentDelete(exactMaterial.id);
+  const { questionsData } = useQuestionAll(exactMaterial.id);
+  const { createQuestion } = useQuestionCreate(exactMaterial.id);
+  const { deleteQuestion } = useQuestionDelete(exactMaterial.id);
 
   const updateTitleHandler = (id: string, title: string): void => {
     updateMaterial({ id, dataToUpdate: { title } });
@@ -152,11 +149,11 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
           </motion.div>
         ))}
       </ContainerRow>
-      {activeSection == "Assessment" ? (
-        <Assessment
-          assessments={assessmentsData}
-          createAssessment={createAssessment}
-          deleteAssessment={deleteAssessment}
+      {activeSection == "Questions" ? (
+        <Questions
+          questions={questionsData}
+          createQuestion={createQuestion}
+          deleteQuestion={deleteQuestion}
         />
       ) : (
         <MaterialsContent

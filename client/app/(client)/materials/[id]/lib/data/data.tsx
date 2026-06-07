@@ -6,17 +6,17 @@ import {
   LuPlus,
 } from "react-icons/lu";
 import {
-  assessmentInterfaceType,
+  questionInterfaceType,
   materialInterfaceType,
 } from "../types/data.types";
 
 export const materialInterface: materialInterfaceType[] = [
   { key: 943, name: "Materials", icon: <LuNotebookPen /> },
-  { key: 142, name: "Assessment", icon: <LuBookCheck /> },
+  { key: 142, name: "Questions", icon: <LuBookCheck /> },
 ];
 
-export const assessmentInterface: assessmentInterfaceType[] = [
-  { key: "open-modal", title: "Add Assessment", icon: <LuPlus /> },
+export const questionInterface: questionInterfaceType[] = [
+  { key: "open-modal", title: "Add Question", icon: <LuPlus /> },
   {
     key: "generate",
     title: "Generate it",

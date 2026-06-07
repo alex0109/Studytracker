@@ -1,12 +1,12 @@
 import axios from "axios";
-import { IAssessment } from "@/app/types/assessment/assessment.type";
+import { IQuestion } from "@/app/types/question/question.type";
 
-export const getAllAssessmentsService = async (
+export const getAllQuestionsService = async (
   token: string | undefined,
   materialId: string,
-): Promise<IAssessment[]> => {
+): Promise<IQuestion[]> => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -15,13 +15,13 @@ export const getAllAssessmentsService = async (
   return res.data;
 };
 
-export const getOneAssessmentService = async (
+export const getOneQuestionService = async (
   token: string | undefined,
   materialId: string,
   id: string,
-): Promise<IAssessment> => {
+): Promise<IQuestion> => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/${id}`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -30,13 +30,13 @@ export const getOneAssessmentService = async (
   return res.data;
 };
 
-export const createAssessmentService = async (
+export const createQuestionService = async (
   token: string | undefined,
   materialId: string,
-  body: Partial<IAssessment>,
-): Promise<Partial<IAssessment>> => {
+  body: Partial<IQuestion>,
+): Promise<Partial<IQuestion>> => {
   const res = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions`,
     {
       ...body,
       description: null,
@@ -51,14 +51,14 @@ export const createAssessmentService = async (
   return res.data;
 };
 
-export const updateAssessmentService = async (
+export const updateQuestionService = async (
   token: string | undefined,
   materialId: string,
   id: string,
-  dataToUpdate: Partial<IAssessment>,
-): Promise<Partial<IAssessment>> => {
+  dataToUpdate: Partial<IQuestion>,
+): Promise<Partial<IQuestion>> => {
   const res = await axios.patch(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/${id}`,
     dataToUpdate,
     {
       headers: { Authorization: `Bearer ${token}` },
@@ -68,13 +68,13 @@ export const updateAssessmentService = async (
   return res.data;
 };
 
-export const deleteAssessmentService = async (
+export const deleteQuestionService = async (
   token: string | undefined,
   materialId: string,
   id: string,
 ): Promise<void> => {
   const res = await axios.delete(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/assessments/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/${id}`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },

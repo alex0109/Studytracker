@@ -1,29 +1,29 @@
 import { FC, useEffect, useState } from "react";
 import AccordionContent from "./accordion.content.component";
-import useAssessmentUpdate from "@/app/(client)/materials/hooks/assessment/useAssessmentUpdate.hook";
 import useDebounce from "@/shared/hooks/use-debounce.hook";
+import useQuestionUpdate from "@/app/(client)/materials/hooks/question/useQuestionUpdate.hook";
 
-interface AssessmentAnswerProps {
+interface QuestionAnswerProps {
   materialId: string;
   id: string;
   answer: string;
-  deleteAssessment: (id: string) => void;
+  deleteQuestion: (id: string) => void;
 }
 
-const AssessmentAnswer: FC<AssessmentAnswerProps> = ({
+const QuestionAnswer: FC<QuestionAnswerProps> = ({
   materialId,
   id,
   answer,
-  deleteAssessment,
+  deleteQuestion,
 }) => {
   const [answerValue, setAnswerValue] = useState(answer);
-  const { updateAssessment } = useAssessmentUpdate(materialId, id);
+  const { updateQuestion } = useQuestionUpdate(materialId, id);
 
   const debouncedAnswerValue = useDebounce(answerValue, 1500);
 
   useEffect(() => {
     if (answer !== debouncedAnswerValue) {
-      updateAssessment({ dataToUpdate: { answer: debouncedAnswerValue } });
+      updateQuestion({ dataToUpdate: { answer: debouncedAnswerValue } });
     }
   }, [id, answer, debouncedAnswerValue]);
 
@@ -31,7 +31,7 @@ const AssessmentAnswer: FC<AssessmentAnswerProps> = ({
     setAnswerValue(newAnswer);
   };
   return (
-    <AccordionContent deleteAssessment={() => deleteAssessment(id)}>
+    <AccordionContent deleteQuestion={() => deleteQuestion(id)}>
       <textarea
         value={answerValue}
         className="border-0 w-full resize-none pr-3
@@ -43,4 +43,4 @@ const AssessmentAnswer: FC<AssessmentAnswerProps> = ({
   );
 };
 
-export default AssessmentAnswer;
+export default QuestionAnswer;

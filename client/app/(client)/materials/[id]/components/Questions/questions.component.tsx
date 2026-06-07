@@ -3,24 +3,24 @@ import * as Accordion from "@radix-ui/react-accordion";
 import BlockColumn from "@/shared/components/block-column";
 import styles from "./styles.module.css";
 import { Button } from "@/shared/components/ui/button";
-import { assessmentInterface } from "../../lib/data/data";
+import { questionInterface } from "../../lib/data/data";
 import { cn } from "@/shared/lib/utils";
-import { IAssessment } from "@/app/types/assessment/assessment.type";
+import { IQuestion } from "@/app/types/question/question.type";
 import { Separator } from "@/shared/components/ui/separator";
-import AssessmentTitle from "./components/assessment.title.component";
-import AssessmentAnswer from "./components/assessment.answer.component";
-import AssessmentModal from "./components/assessment.modal";
+import QuestionTitle from "./components/question.title.component";
+import QuestionAnswer from "./components/question.answer.component";
+import QuestionModal from "./components/question.modal";
 
-interface AssessmentsType {
-  assessments: IAssessment[] | undefined;
-  createAssessment: (body: Partial<IAssessment>) => void;
-  deleteAssessment: (id: string) => void;
+interface QuestionsType {
+  questions: IQuestion[] | undefined;
+  createQuestion: (body: Partial<IQuestion>) => void;
+  deleteQuestion: (id: string) => void;
 }
 
-const Assessments: FC<AssessmentsType> = ({
-  assessments,
-  createAssessment,
-  deleteAssessment,
+const Questions: FC<QuestionsType> = ({
+  questions,
+  createQuestion,
+  deleteQuestion,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -33,7 +33,7 @@ const Assessments: FC<AssessmentsType> = ({
   return (
     <BlockColumn blockStyles="p-[70px] items-start">
       <div className="w-full flex justify-between items-center mb-5">
-        {assessmentInterface.map((item) => (
+        {questionInterface.map((item) => (
           <Button
             key={item.key}
             onClick={handlers[item.key]}
@@ -44,41 +44,41 @@ const Assessments: FC<AssessmentsType> = ({
         ))}
       </div>
       <Separator />
-      {assessments ? (
+      {questions ? (
         <Accordion.Root
           className={styles.Root}
           type="single"
           defaultValue="item-1"
           collapsible
         >
-          {assessments.map((item) => (
+          {questions.map((item) => (
             <Accordion.Item
               key={item.id}
               className={styles.Item}
               value={item.id}
             >
-              <AssessmentTitle
+              <QuestionTitle
                 materialId={item.materialId}
                 id={item.id}
                 title={item.title}
               />
-              <AssessmentAnswer
+              <QuestionAnswer
                 materialId={item.materialId}
                 id={item.id}
                 answer={item.answer}
-                deleteAssessment={deleteAssessment}
+                deleteQuestion={deleteQuestion}
               />
             </Accordion.Item>
           ))}
         </Accordion.Root>
       ) : null}
-      <AssessmentModal
+      <QuestionModal
         open={open}
         setOpen={setOpen}
-        createAssessment={createAssessment}
+        createQuestion={createQuestion}
       />
     </BlockColumn>
   );
 };
 
-export default Assessments;
+export default Questions;
