@@ -11,11 +11,12 @@ const useQuestionCreate = (materialId: string) => {
 
   const createQuestionMutation = useMutation({
     mutationFn: (body: Partial<IQuestion>) => {
-      console.log("fetch");
+      // console.log("fetch body: ", body);
+      // console.log("fetch materialId: ", materialId);
       return createQuestionService(token, materialId, body);
     },
     onSuccess: () => {
-      console.log("invalidate");
+      // console.log("invalidate");
       queryClient.refetchQueries({
         queryKey: questionKeys.list(materialId),
       });

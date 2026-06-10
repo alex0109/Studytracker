@@ -1,8 +1,6 @@
 "use client";
 
 import CustomButton from "@/shared/components/button";
-import ContainerColumn from "@/shared/components/container-column";
-import ContainerRow from "@/shared/components/container-row";
 import CustomInput from "@/shared/components/input";
 import Subtitle from "@/shared/components/subtitle";
 import Title from "@/shared/components/title";
@@ -32,7 +30,7 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       provider: "google",
       options: {
         redirectTo: `${redirectTo}?redirect=${encodeURIComponent(
-          "/materials"
+          "/materials",
         )}`,
       },
     });
@@ -40,16 +38,16 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   };
 
   return (
-    <ContainerColumn blockStyles="h-[450px]">
+    <div className="flex flex-col justify-center items-center h-[450px] w-[300px]">
       {magicLinkState.success ? (
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
-          <ContainerColumn>
+          <div className="flex flex-col justify-center items-center h-[450px] w-[300px]">
             <Title text="Check your email!" />
             <Subtitle text="✅We have sent you a magic link to sign in to your account" />
-          </ContainerColumn>
+          </div>
         </motion.div>
       ) : (
         <>
@@ -57,7 +55,7 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
           >
-            <ContainerColumn>
+            <div className="flex flex-col justify-center items-center w-[400px]">
               <Title
                 text={
                   mode === "signin" ? "Welcome back!" : "Create your account"
@@ -70,7 +68,7 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
                     : "Get started with your new account!"
                 }
               />
-            </ContainerColumn>
+            </div>
           </motion.div>
           <form action={magicLinkAction}>
             <CustomInput
@@ -80,13 +78,13 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
               required={true}
             />
             <CustomButton type="submit" title="Continue with email" />
-            <ContainerRow>
-              <div className="border-t-1 border-neutral-400 w-[150px]" />
+            <div className="flex flex-row items-center gap-3 my-3">
+              <div className="border-t border-neutral-400 w-[150px]" />
               <div>
                 <p className="text-neutral-500">or</p>
               </div>
-              <div className="border-t-1 border-neutral-400 w-[150px]" />
-            </ContainerRow>
+              <div className="border-t border-neutral-400 w-[150px]" />
+            </div>
             <CustomButton
               type="button"
               onClick={handleGoogleSignIn}
@@ -98,12 +96,12 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       )}
 
       {magicLinkState.error && (
-        <ContainerColumn>
-          <Text text={magicLinkState.error} />
-        </ContainerColumn>
+        <div className="flex flex-col justify-center items-center w-[400px] my-10">
+          <Text textStyles="text-rose-700" text={magicLinkState.error} />
+        </div>
       )}
 
-      <div className="my-3">
+      <div className="flex flex-row my-5">
         <p className="text-xs">
           {mode === "signin"
             ? "New to our platform? "
@@ -119,7 +117,7 @@ const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
           </Link>
         </p>
       </div>
-    </ContainerColumn>
+    </div>
   );
 };
 

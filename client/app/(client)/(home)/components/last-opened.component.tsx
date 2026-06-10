@@ -1,16 +1,18 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Title from "@/shared/components/title";
 import ContainerColumn from "@/shared/components/container-column";
 import CustomButton from "@/shared/components/button";
 import BlockColumn from "@/shared/components/block-column";
 import StatusBadge from "@/shared/components/status-badge";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import useLastOpened from "@/shared/hooks/use-last-opened.hook";
 import useMaterialExact from "../../materials/hooks/material/useMaterialExact.hook";
 
 const LastOpened: FC = () => {
+  const router = useRouter();
+
   const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>("");
 
   const { lastOpened } = useLastOpened();
@@ -29,7 +31,7 @@ const LastOpened: FC = () => {
   }
 
   return (
-    <ContainerColumn>
+    <ContainerColumn blockStyles="justify-center items-center">
       <Title text="Last Opened" />
       <BlockColumn blockStyles="gap-6 mt-0 bg-neutral-800 min-w-[300px] lg:w-[500px] md:w-[600px] h-[300px] border-neutral-700">
         <Title
@@ -42,7 +44,7 @@ const LastOpened: FC = () => {
         <CustomButton
           title="Continue"
           buttonStyles="w-[250px] bg-neutral-100 text-black font-semibold"
-          onClick={() => redirect(`/materials/${exactMaterial.id}`)}
+          onClick={() => router.push(`/materials/${exactMaterial.id}`)}
         />
       </BlockColumn>
     </ContainerColumn>

@@ -13,8 +13,8 @@ const ContainerColumn: FC<ContainerColumnProps> = ({
   return (
     <div
       className={cn(
-        `my-3 flex flex-col gap-2 flex-wrap items-center justify-center`,
-        blockStyles
+        `flex flex-col gap-2 flex-wrap my-5 min-w-[360px] lg:w-[900px] md:w-[600px] sm:w-full rounded-xl h-full`,
+        blockStyles,
       )}
     >
       {children}

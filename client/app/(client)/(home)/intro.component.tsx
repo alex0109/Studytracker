@@ -13,7 +13,7 @@ const config: TypeTextType = {
 const Intro: FC = () => {
   return (
     <BlockColumn>
-      <ContainerColumn>
+      <ContainerColumn blockStyles="justify-center items-center">
         <h1>Studytracker</h1>
 
         <div>

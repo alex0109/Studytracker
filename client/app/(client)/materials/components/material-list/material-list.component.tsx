@@ -28,7 +28,7 @@ const MaterialList: FC = () => {
           <EmptyMaterialItem />
         ) : (
           <>
-            <ContainerColumn>
+            <ContainerColumn blockStyles="justify-center items-center">
               <CustomInput
                 inputBlockStyles="min-w-[250px] lg:w-[400px] md:w-[350px] sm:w-[300px]"
                 inputStyles="bg-neutral-200"

@@ -1,5 +1,8 @@
 import axios from "axios";
-import { IQuestion } from "@/app/types/question/question.type";
+import {
+  IQuestion,
+  IQuestionReduced,
+} from "@/app/types/question/question.type";
 
 export const getAllQuestionsService = async (
   token: string | undefined,
@@ -7,6 +10,20 @@ export const getAllQuestionsService = async (
 ): Promise<IQuestion[]> => {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  return res.data;
+};
+
+export const getReducedQuestionsService = async (
+  token: string | undefined,
+  materialId: string,
+): Promise<IQuestionReduced[]> => {
+  const res = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/assessment`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -37,10 +54,7 @@ export const createQuestionService = async (
 ): Promise<Partial<IQuestion>> => {
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions`,
-    {
-      ...body,
-      description: null,
-    },
+    { ...body },
     {
       headers: {
         Authorization: `Bearer ${token}`,

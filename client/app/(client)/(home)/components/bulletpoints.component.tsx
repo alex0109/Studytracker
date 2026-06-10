@@ -6,7 +6,7 @@ import ContainerRow from "@/shared/components/container-row";
 const Bulletpoints = () => {
   return (
     <div className="flex justify-center items-center w-full h-full bg-neutral-100 dark:bg-neutral-800">
-      <ContainerColumn blockStyles="flex w-[80%]">
+      <ContainerColumn blockStyles="flex w-[80%] justify-center items-center">
         <h1>ST Advantages</h1>
         <ContainerRow blockStyles="justify-between">
           <div className="flex w-full h-full flex-1 justify-center items-center">

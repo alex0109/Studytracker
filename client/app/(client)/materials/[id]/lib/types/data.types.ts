@@ -9,4 +9,5 @@ export interface questionInterfaceType {
   title: string;
   icon: React.ReactNode;
   styles?: string;
+  disabled?: boolean;
 }

@@ -6,3 +6,8 @@ export interface IQuestion {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IQuestionReduced {
+  id: string;
+  title: string;
+}

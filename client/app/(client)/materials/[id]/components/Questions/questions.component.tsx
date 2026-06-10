@@ -10,6 +10,8 @@ import { Separator } from "@/shared/components/ui/separator";
 import QuestionTitle from "./components/question.title.component";
 import QuestionAnswer from "./components/question.answer.component";
 import QuestionModal from "./components/question.modal";
+import { useRouter, usePathname } from "next/navigation";
+import ContainerRow from "@/shared/components/container-row";
 
 interface QuestionsType {
   questions: IQuestion[] | undefined;
@@ -23,11 +25,19 @@ const Questions: FC<QuestionsType> = ({
   deleteQuestion,
 }) => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const path = usePathname();
 
-  const handlers = {
+  const onClickhandlers = {
     "open-modal": () => setOpen(true),
     generate: () => alert("Not working"),
-    start: () => alert("Not working"),
+    start: () => router.push(`${path}/assessment`),
+  };
+
+  const disabledHandlers = {
+    "open-modal": false,
+    generate: false,
+    start: questions && questions.length > 0 ? false : true,
   };
 
   return (
@@ -36,7 +46,8 @@ const Questions: FC<QuestionsType> = ({
         {questionInterface.map((item) => (
           <Button
             key={item.key}
-            onClick={handlers[item.key]}
+            onClick={onClickhandlers[item.key]}
+            disabled={disabledHandlers[item.key]}
             className={`w-[200px] ${cn(item.styles)}`}
           >
             {item.icon} {item.title}
@@ -44,7 +55,7 @@ const Questions: FC<QuestionsType> = ({
         ))}
       </div>
       <Separator />
-      {questions ? (
+      {questions && questions.length > 0 ? (
         <Accordion.Root
           className={styles.Root}
           type="single"
@@ -71,7 +82,13 @@ const Questions: FC<QuestionsType> = ({
             </Accordion.Item>
           ))}
         </Accordion.Root>
-      ) : null}
+      ) : (
+        <ContainerRow blockStyles="justify-center items-center">
+          <p className="text-neutral-500 text-lg">
+            There is no questions yet...
+          </p>
+        </ContainerRow>
+      )}
       <QuestionModal
         open={open}
         setOpen={setOpen}

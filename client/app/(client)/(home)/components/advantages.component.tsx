@@ -7,7 +7,7 @@ import { LuLeaf, LuChartSpline, LuLock } from "react-icons/lu";
 
 const Advantages: FC = () => {
   return (
-    <ContainerRow blockStyles="gap-10 my-20">
+    <ContainerRow blockStyles="gap-10 my-20 justify-center items-center">
       <motion.div
         className="flex w-65 h-65 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
         initial={{ y: -120, x: 0, opacity: 0 }}
