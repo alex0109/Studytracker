@@ -7,15 +7,28 @@ import Subtitle from "@/shared/components/subtitle";
 import TextArea from "@/shared/components/text-area";
 import { Button } from "@/shared/components/ui/button";
 import { motion } from "framer-motion";
+import { IResult } from "@/app/types/result/result.type";
 
 interface QuestionItemProps {
-  id: string;
+  questionId: string;
+  assessmentId: string;
   index: number;
   title: string;
+  submitAnswer: (body: Partial<IResult>) => void;
 }
 
-const QuestionItem: FC<QuestionItemProps> = ({ id, index, title }) => {
-  const [textAreaVlaue, setTextAreaValue] = useState<string>();
+const QuestionItem: FC<QuestionItemProps> = ({
+  questionId,
+  assessmentId,
+  index,
+  title,
+  submitAnswer,
+}) => {
+  const [textAreaVlaue, setTextAreaValue] = useState<string>("");
+
+  const handleSubmitAnswer = () => {
+    submitAnswer({ assessmentId, questionId, userAnswer: textAreaVlaue });
+  };
 
   return (
     <motion.div
@@ -36,7 +49,12 @@ const QuestionItem: FC<QuestionItemProps> = ({ id, index, title }) => {
             onChange={(e) => setTextAreaValue(e.target.value)}
           />
         </div>
-        <Button className="self-end w-[150px]">Answer</Button>
+        <Button
+          className="self-end w-[150px]"
+          onClick={() => handleSubmitAnswer()}
+        >
+          Answer
+        </Button>
       </ContainerColumn>
     </motion.div>
   );

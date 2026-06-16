@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import Text from "@/shared/components/text";
 
 interface MaterialDateType {
-  createdAt: string;
+  createdAt: Date;
 }
 
 const MaterialDate: FC<MaterialDateType> = ({ createdAt }) => {

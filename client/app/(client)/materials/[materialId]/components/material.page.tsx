@@ -3,18 +3,18 @@
 import BlockColumn from "@/shared/components/block-column";
 import Text from "@/shared/components/text";
 import Title from "@/shared/components/title";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import CustomButton from "@/shared/components/button";
 import { FC, useState } from "react";
 import Modal from "@/shared/components/modal";
-import MaterialTitle from "./MaterialsContent/components/title.component";
-import MaterialDate from "./MaterialsContent/components/date.component";
+import MaterialTitle from "./materials-content/components/title.component";
+import MaterialDate from "./materials-content/components/date.component";
 import useMaterialUpdate from "../../hooks/material/useMaterialUpdate.hook";
 import useMaterialDelete from "../../hooks/material/useMaterialDelete.hook";
-import MaterialType from "./MaterialsContent/components/type.component";
+import MaterialType from "./materials-content/components/type.component";
 import ContainerRow from "@/shared/components/container-row";
 import { Button } from "@/shared/components/ui/button";
-import MaterialsContent from "./MaterialsContent/materials.component";
+import MaterialsContent from "./materials-content/materials.component";
 import { materialInterface } from "../lib/data/data";
 import { useActiveSectionContext } from "@/shared/context/active-section.context";
 import { motion } from "framer-motion";
@@ -25,14 +25,15 @@ import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
 import useQuestionCreate from "../../hooks/question/useQuestionCreate.hook";
 import useQuestionAll from "../../hooks/question/useQuestionAll.hook";
 import useQuestionDelete from "../../hooks/question/useQuestionDelete.hook";
-import Questions from "./Questions/questions.component";
+import Questions from "./questions/questions.component";
+import useAssessmentStart from "../../hooks/assessment/useAssessmentStart.hook";
 
 interface MaterialPagetype {
+  materialId: string;
   exactMaterial: IMaterial;
 }
 
-const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
-  const params = useParams();
+const MaterialPage: FC<MaterialPagetype> = ({ materialId, exactMaterial }) => {
   const router = useRouter();
 
   const { activeSection, setActiveSection, setTimeOfLastClick } =
@@ -40,41 +41,48 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
 
   const [open, setOpen] = useState(false);
 
-  const { deleteMaterial } = useMaterialDelete(params.id as string);
-  const { updateMaterial } = useMaterialUpdate(params.id as string);
+  const { deleteMaterial } = useMaterialDelete(materialId);
+  const { updateMaterial } = useMaterialUpdate(materialId);
 
   const { questionsData } = useQuestionAll(exactMaterial.id);
   const { createQuestion } = useQuestionCreate(exactMaterial.id);
   const { deleteQuestion } = useQuestionDelete(exactMaterial.id);
 
-  const updateTitleHandler = (id: string, title: string): void => {
-    updateMaterial({ id, dataToUpdate: { title } });
+  const { startAssessment, startAssessmentPending } = useAssessmentStart(
+    exactMaterial.id,
+  );
+
+  const updateTitleHandler = (materialId: string, title: string): void => {
+    updateMaterial({ id: materialId, dataToUpdate: { title } });
   };
 
-  const updateTypeHandler = (id: string, type: MaterialTypeEnum): void => {
-    updateMaterial({ id, dataToUpdate: { type } });
+  const updateTypeHandler = (
+    materialId: string,
+    type: MaterialTypeEnum,
+  ): void => {
+    updateMaterial({ id: materialId, dataToUpdate: { type } });
   };
 
-  const updateTagsHandler = (id: string, tags: string[]): void => {
-    updateMaterial({ id, dataToUpdate: { tags } });
+  const updateTagsHandler = (materialId: string, tags: string[]): void => {
+    updateMaterial({ id: materialId, dataToUpdate: { tags } });
   };
 
   const updateStatusHandler = (
-    id: string,
+    materialId: string,
     status: MaterialStatusEnum,
   ): void => {
-    updateMaterial({ id, dataToUpdate: { status } });
+    updateMaterial({ id: materialId, dataToUpdate: { status } });
   };
 
-  const updateLinkHandler = (id: string, link: string): void => {
-    updateMaterial({ id, dataToUpdate: { link } });
+  const updateLinkHandler = (materialId: string, link: string): void => {
+    updateMaterial({ id: materialId, dataToUpdate: { link } });
   };
 
   const updateDescriptionHandler = (
-    id: string,
+    materialId: string,
     description: RichTextDocument,
   ): void => {
-    updateMaterial({ id, dataToUpdate: { description } });
+    updateMaterial({ id: materialId, dataToUpdate: { description } });
   };
 
   const handleDeleteMaterial = () => {
@@ -154,6 +162,8 @@ const MaterialPage: FC<MaterialPagetype> = ({ exactMaterial }) => {
           questions={questionsData}
           createQuestion={createQuestion}
           deleteQuestion={deleteQuestion}
+          startAssessment={startAssessment}
+          startAssessmentIsPending={startAssessmentPending}
         />
       ) : (
         <MaterialsContent

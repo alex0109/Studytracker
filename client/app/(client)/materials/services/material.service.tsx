@@ -23,8 +23,6 @@ export const getOneMaterialService = async (
     },
   );
 
-  console.log("SERVICE DATA: ", res.data);
-
   return res.data;
 };
 

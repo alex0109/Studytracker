@@ -7,10 +7,14 @@ import Title from "@/shared/components/title";
 import Subtitle from "@/shared/components/subtitle";
 
 interface AssessmentHeaderProps {
-  id: string;
+  materialId: string;
+  assessmentId: string;
 }
 
-const AssessmentHeader: FC<AssessmentHeaderProps> = ({ id }) => {
+const AssessmentHeader: FC<AssessmentHeaderProps> = ({
+  materialId,
+  assessmentId,
+}) => {
   const router = useRouter();
   return (
     <div className="flex flex-col justify-center w-full">
@@ -18,7 +22,8 @@ const AssessmentHeader: FC<AssessmentHeaderProps> = ({ id }) => {
         Go Back
       </Button>
       <Title text="Assessment" />
-      <Subtitle text={`ID: ${id}`} />
+      <Subtitle text={`Material ID: ${materialId}`} />
+      <Subtitle text={`Assessment ID: ${assessmentId}`} />
     </div>
   );
 };

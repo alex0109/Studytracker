@@ -7,37 +7,50 @@ import { questionInterface } from "../../lib/data/data";
 import { cn } from "@/shared/lib/utils";
 import { IQuestion } from "@/app/types/question/question.type";
 import { Separator } from "@/shared/components/ui/separator";
-import QuestionTitle from "./components/question.title.component";
-import QuestionAnswer from "./components/question.answer.component";
-import QuestionModal from "./components/question.modal";
 import { useRouter, usePathname } from "next/navigation";
 import ContainerRow from "@/shared/components/container-row";
+import QuestionTitle from "./components/question.title.component";
+import QuestionModal from "./components/question.modal";
+import QuestionAnswer from "./components/question.answer.component";
 
 interface QuestionsType {
   questions: IQuestion[] | undefined;
   createQuestion: (body: Partial<IQuestion>) => void;
   deleteQuestion: (id: string) => void;
+  startAssessment: () => Promise<{ id: string }>;
+  startAssessmentIsPending: boolean;
 }
 
 const Questions: FC<QuestionsType> = ({
   questions,
   createQuestion,
   deleteQuestion,
+  startAssessment,
+  startAssessmentIsPending,
 }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const path = usePathname();
 
+  const startAssessmentHandler = async () => {
+    const assessment = await startAssessment();
+
+    router.push(`${path}/assessment/${assessment}`);
+  };
+
   const onClickhandlers = {
     "open-modal": () => setOpen(true),
     generate: () => alert("Not working"),
-    start: () => router.push(`${path}/assessment`),
+    start: () => startAssessmentHandler(),
   };
 
   const disabledHandlers = {
     "open-modal": false,
     generate: false,
-    start: questions && questions.length > 0 ? false : true,
+    start:
+      questions && questions.length > 0 && !startAssessmentIsPending
+        ? false
+        : true,
   };
 
   return (

@@ -1,14 +1,14 @@
+import axios from "axios";
 import { IAssessment } from "@/app/types/assessment/assessment.type";
 import { IResult } from "@/app/types/result/result.type";
-import axios from "axios";
 
 export const startAssessmentService = async (
   token: string | undefined,
-  id: string,
+  materialId: string,
 ): Promise<{ id: string }> => {
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/start`,
-    { id },
+    { materialId },
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -28,21 +28,18 @@ export const getAssessmentService = async (
     },
   );
 
-  console.log("SERVICE DATA: ", res.data);
-
   return res.data;
 };
 
 export const submitAnswerService = async (
   token: string | undefined,
-  id: string,
-  body: IResult,
+  assessmentId: string,
+  body: Partial<IResult>,
 ): Promise<void> => {
   const res = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/${assessmentId}/answer`,
     {
       ...body,
-      description: null,
     },
     {
       headers: {
@@ -56,10 +53,11 @@ export const submitAnswerService = async (
 
 export const finishAssessmentService = async (
   token: string | undefined,
-  id: string,
+  assessmentId: string,
 ): Promise<void> => {
   const res = await axios.patch(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/${assessmentId}/finish`,
+    {},
     {
       headers: { Authorization: `Bearer ${token}` },
     },
@@ -70,10 +68,10 @@ export const finishAssessmentService = async (
 
 export const getAssessmentResultsService = async (
   token: string | undefined,
-  id: string,
+  assessmentId: string,
 ): Promise<IResult[]> => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/${id}`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/assessments/${assessmentId}/results`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
