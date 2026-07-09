@@ -6,8 +6,8 @@ import {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-} from "@/shared/components/ui/sidebar";
-import Title from "@/shared/components/title";
+} from "@/shared/radix-ui/Sidebar/sidebar";
+import { Title } from "@/shared/ui";
 import Link from "next/link";
 
 export function NavHeader() {

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Title from "@/shared/components/title";
+import { Title } from "@/shared/ui";
 
 const ErrorPage: FC = () => {
   return (

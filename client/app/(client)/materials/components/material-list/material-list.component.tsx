@@ -1,17 +1,19 @@
 "use client";
 
-import React, { FC, useState } from "react";
-import BlockColumn from "@/shared/components/block-column";
+import { FC, useState } from "react";
+import {
+  BlockColumn,
+  ContainerColumn,
+  CustomInput,
+  Subtitle,
+} from "@/shared/ui";
 import MaterialListItem from "./material-list-item.component";
-import { routes } from "@/shared/lib/routes";
+import { routes } from "@/shared/config/routes";
 import Link from "next/link";
 import EmptyMaterialItem from "../material-carousel/empty-material-list.component";
-import ContainerColumn from "@/shared/components/container-column";
-import CustomInput from "@/shared/components/input";
-import Subtitle from "@/shared/components/subtitle";
 import { filteredMaterials } from "../../utils/filter-materials.util";
-import useLastOpened from "@/shared/hooks/use-last-opened.hook";
-import useMaterialAll from "../../hooks/material/useMaterialAll.hook";
+import { useLastOpened } from "@/shared/hooks";
+import useMaterialAll from "../../../../../entities/material/hooks/useMaterialAll";
 import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
 

@@ -1,7 +1,5 @@
-import ContainerColumn from "@/shared/components/container-column";
-import React from "react";
+import { ContainerColumn, ContainerRow } from "@/shared/ui";
 import Bullet from "./bullet.component";
-import ContainerRow from "@/shared/components/container-row";
 
 const Bulletpoints = () => {
   return (

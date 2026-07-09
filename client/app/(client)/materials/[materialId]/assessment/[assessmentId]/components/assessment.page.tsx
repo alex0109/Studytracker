@@ -1,15 +1,13 @@
 "use client";
 
 import { FC } from "react";
-import BlockColumn from "@/shared/components/block-column";
+import { BlockColumn } from "@/shared/ui";
 import AssessmentHeader from "./assessment-header.component";
-import { Separator } from "@/shared/components/ui/separator";
+import { Separator } from "@/shared/radix-ui/Separator/separator";
+import { Button } from "@/shared/radix-ui/Button/button";
 import { shuffleInPlace } from "@/app/(client)/materials/utils/shuffle.util";
 import QuestionItem from "./question.component";
-import { Button } from "@/shared/components/ui/button";
-import { IQuestionReduced } from "@/app/types/question/question.type";
-import useAssessmentSubmitAnswer from "@/app/(client)/materials/hooks/assessment/useAssessmentSubmitAnswer.hook";
-import useAssessmentFinish from "@/app/(client)/materials/hooks/assessment/useAssessmentFinish.hook";
+import { IQuestionReduced } from "@/entities/question/model/question-options.type";
 import { useRouter } from "next/navigation";
 
 interface AssessmentPageProps {
@@ -25,11 +23,11 @@ const AssessmentPage: FC<AssessmentPageProps> = ({
 }) => {
   const router = useRouter();
 
-  const { submitAnswer } = useAssessmentSubmitAnswer(assessmentId);
-  const { finishAssessment } = useAssessmentFinish(assessmentId);
+  // const { submitAnswer } = useAssessmentSubmitAnswer(assessmentId);
+  // const { finishAssessment } = useAssessmentFinish(assessmentId);
 
   const handleFinishAssessment = () => {
-    finishAssessment();
+    // finishAssessment();
     // router.back();
   };
 

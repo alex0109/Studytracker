@@ -1,5 +1,5 @@
-import { getUser } from "@/shared/queries/user";
-import { getReducedQuestionsService } from "../../../services/question.service";
+import { getUser } from "@/shared/api";
+import { getReducedQuestionsService } from "../../../../../../entities/question/api/question.service";
 import AssessmentPage from "./components/assessment.page";
 
 const Assessment = async ({

@@ -4,7 +4,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/shared/components/ui/collapsible";
+} from "@/shared/radix-ui/Collapsible/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -14,7 +14,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/shared/components/ui/sidebar";
+} from "@/shared/radix-ui/Sidebar/sidebar";
 import Link from "next/link";
 
 export function NavMain({

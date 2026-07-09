@@ -1,6 +1,6 @@
+import { FC } from "react";
 import moment from "moment";
-import React, { FC } from "react";
-import Text from "@/shared/components/text";
+import { Text } from "@/shared/ui";
 
 interface MaterialDateType {
   createdAt: Date;

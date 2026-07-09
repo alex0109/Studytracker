@@ -1,21 +1,19 @@
+// FEATURE
+
 "use client";
 
-import CustomButton from "@/shared/components/button";
-import CustomInput from "@/shared/components/input";
-import Subtitle from "@/shared/components/subtitle";
-import Title from "@/shared/components/title";
+import { useActionState, useState } from "react";
+import { CustomButton, CustomInput, Subtitle, Title, Text } from "@/shared/ui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { useActionState, useState } from "react";
 import { MagicLinkStateType, signInWithMagicLink } from "./actions";
-import Text from "@/shared/components/text";
-import { createClient } from "@/shared/supabase/client";
+import { createClient } from "@/shared/api";
 
 const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect");
+  const redirect = searchParams!.get("redirect");
 
   const [magicLinkState, magicLinkAction, pending] = useActionState<
     MagicLinkStateType,

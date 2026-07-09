@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function useLastOpened() {
+export function useLastOpened() {
   const [lastOpened, setLastOpened] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -17,5 +17,3 @@ function useLastOpened() {
 
   return { lastOpened: lastOpened, saveLastOpenedId };
 }
-
-export default useLastOpened;

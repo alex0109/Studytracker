@@ -2,9 +2,8 @@
 
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/shared/components/ui/button";
-import Title from "@/shared/components/title";
-import Subtitle from "@/shared/components/subtitle";
+import { Button } from "@/shared/radix-ui/Button/button";
+import { Title, Subtitle } from "@/shared/ui";
 
 interface AssessmentHeaderProps {
   materialId: string;

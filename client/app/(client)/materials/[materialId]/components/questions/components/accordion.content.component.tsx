@@ -1,10 +1,10 @@
 import { forwardRef } from "react";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib/cn.util";
 import * as Accordion from "@radix-ui/react-accordion";
 import styles from "./../styles.module.css";
-import { Button } from "@/shared/components/ui/button";
+import { Button } from "@/shared/radix-ui/Button/button";
 import { LuTrash2 } from "react-icons/lu";
-import { Separator } from "@/shared/components/ui/separator";
+import { Separator } from "@/shared/radix-ui/Separator/separator";
 
 const AccordionContent = forwardRef(
   ({ children, className, deleteQuestion, ...props }: any, forwardedRef) => (

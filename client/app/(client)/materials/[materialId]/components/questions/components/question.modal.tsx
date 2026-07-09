@@ -1,10 +1,7 @@
-import { IQuestion } from "@/app/types/question/question.type";
-import CustomInput from "@/shared/components/input";
-import Modal from "@/shared/components/modal";
-import TextArea from "@/shared/components/text-area";
-import Title from "@/shared/components/title";
-import { Button } from "@/shared/components/ui/button";
-import { Separator } from "@/shared/components/ui/separator";
+import { IQuestion } from "@/entities/question/model/question-options.type";
+import { CustomInput, Modal, TextArea, Title } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui/Button/button";
+import { Separator } from "@/shared/radix-ui/Separator/separator";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 

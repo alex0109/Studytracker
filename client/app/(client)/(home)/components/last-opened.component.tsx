@@ -1,14 +1,18 @@
+// ENTITY
+
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import Title from "@/shared/components/title";
-import ContainerColumn from "@/shared/components/container-column";
-import CustomButton from "@/shared/components/button";
-import BlockColumn from "@/shared/components/block-column";
-import StatusBadge from "@/shared/components/status-badge";
+import {
+  Title,
+  ContainerColumn,
+  CustomButton,
+  BlockColumn,
+  StatusBadge,
+} from "@/shared/ui";
 import { useRouter } from "next/navigation";
-import useLastOpened from "@/shared/hooks/use-last-opened.hook";
-import useMaterialExact from "../../materials/hooks/material/useMaterialExact.hook";
+import { useLastOpened } from "@/shared/hooks";
+import useMaterialExact from "../../../../entities/material/hooks/useMaterialExact";
 
 const LastOpened: FC = () => {
   const router = useRouter();

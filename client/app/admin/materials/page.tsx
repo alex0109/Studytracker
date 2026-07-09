@@ -1,15 +1,9 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import BlockColumn from "@/shared/components/block-column";
-import Title from "@/shared/components/title";
-import {
-  validateStatusesData,
-  validateTypesData,
-} from "@/shared/lib/utils/data-validate.util";
-import PieChart from "@/shared/components/pie";
-import Subtitle from "@/shared/components/subtitle";
-import useMaterialStats from "@/app/(client)/materials/hooks/material/useMaterialStats.hook";
+import { BlockColumn, Title, PieChart, Subtitle } from "@/shared/ui";
+import { validateStatusesData, validateTypesData } from "@/shared/lib";
+import useMaterialStats from "@/entities/material/hooks/useMaterialStats";
 
 const MaterialsPanel: FC = () => {
   const { statsData } = useMaterialStats();

@@ -1,8 +1,8 @@
 "use client";
 
-import { SidebarProvider } from "@/shared/components/ui/sidebar";
+import { SidebarProvider } from "@/shared/radix-ui/Sidebar/sidebar";
 import { AppSidebar } from "./(components)/sidebar/sidebar.component";
-import { useSession } from "@/shared/context/session-provider.context";
+import { useSession } from "@/shared/context/session.provider";
 import { redirect } from "next/navigation";
 
 const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {

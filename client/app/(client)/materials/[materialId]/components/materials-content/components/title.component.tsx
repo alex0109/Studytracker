@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import { Input } from "@/shared/components/ui/input";
-import useDebounce from "@/shared/hooks/use-debounce.hook";
+import { Input } from "@/shared/radix-ui/Input/input";
+import { useDebounce } from "@/shared/hooks";
 
 interface MaterialTitleType {
   id: string;

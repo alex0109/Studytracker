@@ -1,6 +1,6 @@
-import { MaterialTypeEnum } from "@/app/types/material/material.type.type";
-import useDebounce from "@/shared/hooks/use-debounce.hook";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { MaterialTypeEnum } from "@/entities/material/model/material.type.type";
+import { useDebounce } from "@/shared/hooks";
 
 interface MaterialTypeType {
   id: string;

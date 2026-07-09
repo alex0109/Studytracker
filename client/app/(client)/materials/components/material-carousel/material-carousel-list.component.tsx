@@ -1,11 +1,9 @@
 "use client";
 
-import BlockColumn from "@/shared/components/block-column";
-
-import Title from "@/shared/components/title";
-import React, { FC } from "react";
+import { FC } from "react";
+import { BlockColumn, Title } from "@/shared/ui";
 import Carousel from "./material-carousel.component";
-import useMaterialAll from "../../hooks/material/useMaterialAll.hook";
+import useMaterialAll from "../../../../../entities/material/hooks/useMaterialAll";
 
 const MaterialCarousel: FC = () => {
   const { materialsData, materialsLoading } = useMaterialAll();

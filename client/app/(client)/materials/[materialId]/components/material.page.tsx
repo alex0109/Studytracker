@@ -1,32 +1,34 @@
 "use client";
 
-import BlockColumn from "@/shared/components/block-column";
-import Text from "@/shared/components/text";
-import Title from "@/shared/components/title";
-import { useRouter } from "next/navigation";
-import CustomButton from "@/shared/components/button";
 import { FC, useState } from "react";
-import Modal from "@/shared/components/modal";
+import {
+  BlockColumn,
+  Text,
+  Title,
+  CustomButton,
+  Modal,
+  ContainerRow,
+} from "@/shared/ui";
+import { useRouter } from "next/navigation";
 import MaterialTitle from "./materials-content/components/title.component";
 import MaterialDate from "./materials-content/components/date.component";
-import useMaterialUpdate from "../../hooks/material/useMaterialUpdate.hook";
-import useMaterialDelete from "../../hooks/material/useMaterialDelete.hook";
+import useMaterialUpdate from "../../../../../features/material/update-material/hooks/useMaterialUpdate";
+import useMaterialDelete from "../../../../../features/material/delete-material/hooks/useMaterialDelete";
 import MaterialType from "./materials-content/components/type.component";
-import ContainerRow from "@/shared/components/container-row";
-import { Button } from "@/shared/components/ui/button";
+import { Button } from "@/shared/radix-ui/Button/button";
 import MaterialsContent from "./materials-content/materials.component";
 import { materialInterface } from "../lib/data/data";
-import { useActiveSectionContext } from "@/shared/context/active-section.context";
+import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { motion } from "framer-motion";
-import { IMaterial } from "@/app/types/material/material.type";
-import { MaterialTypeEnum } from "@/app/types/material/material.type.type";
-import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
-import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
-import useQuestionCreate from "../../hooks/question/useQuestionCreate.hook";
-import useQuestionAll from "../../hooks/question/useQuestionAll.hook";
-import useQuestionDelete from "../../hooks/question/useQuestionDelete.hook";
+import { IMaterial } from "@/entities/material/model/material.type";
+import { MaterialTypeEnum } from "@/entities/material/model/material.type.type";
+import { MaterialStatusEnum } from "@/entities/material/model/material.status.type";
+import { RichTextDocument } from "@/entities/material/model/rich.text.document.type";
+import useQuestionCreate from "../../../../../features/question/create-question/hooks/useOpenQuestionCreate";
+import useQuestionDelete from "../../../../../features/question/delete-question/hooks/useQuestionDelete";
 import Questions from "./questions/questions.component";
-import useAssessmentStart from "../../hooks/assessment/useAssessmentStart.hook";
+import useAssessmentStart from "../../../../../features/attempt/start-attempt/hooks/useAttemptStart";
+import { useQuestionAll } from "@/entities/question";
 
 interface MaterialPagetype {
   materialId: string;

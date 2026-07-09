@@ -1,11 +1,7 @@
-import Subtitle from "@/shared/components/subtitle";
-import React, { FC } from "react";
+import { FC } from "react";
 import moment from "moment";
-
-import StatusBadge from "@/shared/components/status-badge";
-
-import Text from "@/shared/components/text";
-import { IMaterial } from "@/app/types/material/material.type";
+import { Subtitle, StatusBadge, Text } from "@/shared/ui";
+import { IMaterial } from "@/entities/material/model/material.type";
 
 const MaterialItem: FC<IMaterial> = ({ title, tags, status, createdAt }) => {
   return (

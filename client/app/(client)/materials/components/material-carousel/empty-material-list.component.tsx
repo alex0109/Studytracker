@@ -1,6 +1,6 @@
-import React, { FC } from "react";
-import Subtitle from "@/shared/components/subtitle";
-import { useSession } from "@/shared/context/session-provider.context";
+import { FC } from "react";
+import { Subtitle } from "@/shared/ui";
+import { useSession } from "@/shared/context/session.provider";
 
 const EmptyMaterialItem: FC = () => {
   const { user } = useSession();

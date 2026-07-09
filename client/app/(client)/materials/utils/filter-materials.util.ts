@@ -1,4 +1,4 @@
-import { IMaterial } from "@/app/types/material/material.type";
+import { IMaterial } from "@/entities/material/model/material.type";
 
 export const filteredMaterials = (data: IMaterial[], title: string) => {
   return data.filter((material) => {

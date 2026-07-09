@@ -1,7 +1,7 @@
-import Subtitle from "@/shared/components/subtitle";
-import { Input } from "@/shared/components/ui/input";
-import useDebounce from "@/shared/hooks/use-debounce.hook";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { Subtitle } from "@/shared/ui";
+import { Input } from "@/shared/radix-ui/Input/input";
+import { useDebounce } from "@/shared/hooks";
 
 interface MaterialLinkType {
   id: string;

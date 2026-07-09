@@ -1,14 +1,9 @@
 "use client";
 
-import ContainerColumn from "@/shared/components/container-column";
-import PieChart from "@/shared/components/pie";
-import Subtitle from "@/shared/components/subtitle";
 import { useEffect, useState } from "react";
-import useMaterialStats from "../../materials/hooks/material/useMaterialStats.hook";
-import {
-  validateStatusesData,
-  validateTypesData,
-} from "@/shared/lib/utils/data-validate.util";
+import { ContainerColumn, PieChart, Subtitle } from "@/shared/ui";
+import useMaterialStats from "../../../../entities/material/hooks/useMaterialStats";
+import { validateStatusesData, validateTypesData } from "@/shared/lib";
 
 const Chart = () => {
   const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);

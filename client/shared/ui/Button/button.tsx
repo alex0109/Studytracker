@@ -1,0 +1,34 @@
+// SHARED-UI
+
+import { FC } from "react";
+import { cn } from "@/shared/lib/cn.util";
+
+interface CustomButtonProps {
+  onClick?: () => void;
+  title: string;
+  disabled?: boolean;
+  type?: "button" | "reset" | "submit";
+  buttonStyles?: string;
+}
+
+export const CustomButton: FC<CustomButtonProps> = ({
+  onClick,
+  title,
+  disabled = false,
+  type = "button",
+  buttonStyles,
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+      className={cn(
+        "w-full bg-neutral-800 border-2 border-neutral-700 p-2 rounded-xl text-white hover:opacity-90 cursor-pointer duration-200",
+        buttonStyles,
+      )}
+    >
+      {title}
+    </button>
+  );
+};

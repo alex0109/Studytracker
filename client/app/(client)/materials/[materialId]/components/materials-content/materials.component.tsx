@@ -1,11 +1,11 @@
-import BlockColumn from "@/shared/components/block-column";
 import { FC } from "react";
+import { BlockColumn } from "@/shared/ui";
 import MaterialLink from "./components/link.component";
 import MaterialDescription from "./components/description.component";
 import MaterialTags from "./components/tags.component";
 import MaterialStatus from "./components/status.component";
-import { RichTextDocument } from "@/app/types/material/rich.text.document.type";
-import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
+import { RichTextDocument } from "@/entities/material/model/rich.text.document.type";
+import { MaterialStatusEnum } from "@/entities/material/model/material.status.type";
 
 interface MaterialsContentType {
   id: string;

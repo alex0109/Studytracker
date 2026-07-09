@@ -1,7 +1,5 @@
 import { FC } from "react";
-import BlockColumn from "@/shared/components/block-column";
-import Title from "@/shared/components/title";
-import Subtitle from "@/shared/components/subtitle";
+import { BlockColumn, Title, Subtitle } from "@/shared/ui";
 
 const TrafficPanel: FC = () => {
   return (

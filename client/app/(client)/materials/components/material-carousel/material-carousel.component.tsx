@@ -1,11 +1,10 @@
 import { FC } from "react";
-
 import EmptyMaterialItem from "./empty-material-list.component";
 import MaterialItem from "./material-carousel-item.component";
 import Link from "next/link";
-import { routes } from "@/shared/lib/routes";
-import useLastOpened from "@/shared/hooks/use-last-opened.hook";
-import { CarouselProps } from "@/app/types/material/material.carousel.type";
+import { routes } from "@/shared/config/routes";
+import { useLastOpened } from "@/shared/hooks";
+import { CarouselProps } from "@/entities/material/model/material.carousel.type";
 
 const Carousel: FC<CarouselProps> = ({ materials }) => {
   const { saveLastOpenedId } = useLastOpened();

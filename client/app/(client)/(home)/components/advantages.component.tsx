@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import ContainerRow from "@/shared/components/container-row";
+import { ContainerRow } from "@/shared/ui";
 import { motion } from "framer-motion";
 import { LuLeaf, LuChartSpline, LuLock } from "react-icons/lu";
 

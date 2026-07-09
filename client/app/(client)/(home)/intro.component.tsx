@@ -1,8 +1,7 @@
 import { FC } from "react";
 
 import { TypeTextType } from "./types";
-import BlockColumn from "../../../shared/components/block-column";
-import ContainerColumn from "@/shared/components/container-column";
+import { BlockColumn, ContainerColumn } from "@/shared/ui";
 import TypeText from "./components/type-text.component";
 
 const config: TypeTextType = {

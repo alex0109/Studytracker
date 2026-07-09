@@ -1,8 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import Title from "@/shared/components/title";
-import CustomButton from "@/shared/components/button";
+import { Title, CustomButton } from "@/shared/ui";
 import { redirect } from "next/navigation";
 
 const NotFound: FC = () => {

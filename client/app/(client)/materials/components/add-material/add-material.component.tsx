@@ -2,13 +2,15 @@
 
 import { FC, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import Title from "@/shared/components/title";
-import Modal from "@/shared/components/modal";
-import BlockColumn from "@/shared/components/block-column";
-import CustomInput from "@/shared/components/input";
-import CustomButton from "@/shared/components/button";
-import useMaterialCreate from "../../hooks/material/useMaterialCreate.hook";
-import { IMaterial } from "@/app/types/material/material.type";
+import {
+  Title,
+  Modal,
+  BlockColumn,
+  CustomInput,
+  CustomButton,
+} from "@/shared/ui";
+import useMaterialCreate from "../../../../../features/material/create-material/hooks/useMaterialCreate";
+import { IMaterial } from "@/entities/material/model/material.type";
 
 const AddMaterial: FC = () => {
   const [value, setValue] = useState("");

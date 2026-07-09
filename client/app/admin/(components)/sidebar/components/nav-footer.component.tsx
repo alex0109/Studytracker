@@ -1,11 +1,12 @@
 "use client";
+
 import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarSeparator,
   useSidebar,
-} from "@/shared/components/ui/sidebar";
-import Title from "@/shared/components/title";
+} from "@/shared/radix-ui/Sidebar/sidebar";
+import { Title } from "@/shared/ui";
 import Link from "next/link";
 import { LuHouse } from "react-icons/lu";
 

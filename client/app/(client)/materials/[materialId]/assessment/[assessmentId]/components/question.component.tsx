@@ -1,13 +1,10 @@
 "use client";
 
 import { FC, useState } from "react";
-import ContainerColumn from "@/shared/components/container-column";
-import ContainerRow from "@/shared/components/container-row";
-import Subtitle from "@/shared/components/subtitle";
-import TextArea from "@/shared/components/text-area";
-import { Button } from "@/shared/components/ui/button";
+import { ContainerColumn, ContainerRow, Subtitle, TextArea } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui/Button/button";
 import { motion } from "framer-motion";
-import { IResult } from "@/app/types/result/result.type";
+import { IResult } from "@/entities/attempt/model/result-request.type";
 
 interface QuestionItemProps {
   questionId: string;

@@ -1,10 +1,8 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import BlockColumn from "@/shared/components/block-column";
-import ContainerColumn from "@/shared/components/container-column";
-import Title from "@/shared/components/title";
-import { getUsers } from "@/shared/queries/supa";
+import { BlockColumn, ContainerColumn, Title } from "@/shared/ui";
+import { getUsers } from "@/shared/api";
 import {
   Table,
   TableBody,
@@ -13,9 +11,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/shared/components/ui/table";
+} from "@/shared/radix-ui/Table/table";
 import moment from "moment";
-import { UserSupabase } from "@/shared/lib/types/user-supabase.type";
+import { UserSupabase } from "@/shared/types/user-supabase.type";
 
 const UsersPanel: FC = () => {
   const [users, setUsers] = useState<UserSupabase[]>([]);

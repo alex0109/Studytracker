@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import AccordionContent from "./accordion.content.component";
-import useDebounce from "@/shared/hooks/use-debounce.hook";
-import useQuestionUpdate from "@/app/(client)/materials/hooks/question/useQuestionUpdate.hook";
+import { useDebounce } from "@/shared/hooks";
+import useQuestionUpdate from "@/features/question/update-question/hooks/useQuestionUpdate";
 
 interface QuestionAnswerProps {
   materialId: string;

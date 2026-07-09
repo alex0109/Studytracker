@@ -1,7 +1,7 @@
 "use server";
 
-import { validatedAction } from "@/shared/lib/auth/middleware";
-import { createClient } from "@/shared/supabase/server";
+import { validatedAction } from "@/shared/api/supabase/middleware.supabase";
+import { createClientOnServer } from "@/shared/api/supabase";
 import { redirect } from "next/navigation";
 import z from "zod";
 
@@ -17,7 +17,7 @@ export const signInWithMagicLink = validatedAction(
     priceId: z.string().optional(),
   }),
   async (data) => {
-    const supabase = await createClient();
+    const supabase = await createClientOnServer();
     const { email } = data;
     const redirectTo = `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`;
 
@@ -25,7 +25,7 @@ export const signInWithMagicLink = validatedAction(
       email,
       options: {
         emailRedirectTo: `${redirectTo}?redirect=${encodeURIComponent(
-          "/materials"
+          "/materials",
         )}`,
       },
     });
@@ -35,11 +35,11 @@ export const signInWithMagicLink = validatedAction(
     }
 
     return { success: "Magic link sent to your email." };
-  }
+  },
 );
 
 export const signOut = async () => {
-  const supabase = await createClient();
+  const supabase = await createClientOnServer();
   await supabase.auth.signOut();
   redirect("/sign-in");
 };

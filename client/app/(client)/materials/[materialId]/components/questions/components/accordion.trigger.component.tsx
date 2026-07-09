@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import styles from "./../styles.module.css";
 import { LuChevronsDown } from "react-icons/lu";
 import * as Accordion from "@radix-ui/react-accordion";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib/cn.util";
 
 const AccordionTrigger = forwardRef(
   ({ children, className, ...props }: any, forwardedRef) => (

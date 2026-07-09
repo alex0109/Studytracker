@@ -1,4 +1,4 @@
-import { ServerStatsDataType } from "@/app/types/stats/statistics.type";
+import { ServerStatsDataType } from "@/entities/material/model/statistics.type";
 import axios from "axios";
 
 export const getAdminStatsService = async (

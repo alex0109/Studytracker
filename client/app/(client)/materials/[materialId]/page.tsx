@@ -1,6 +1,6 @@
 import MaterialPage from "./components/material.page";
-import { getOneMaterialService } from "../services/material.service";
-import { getUser } from "@/shared/queries/user";
+import { getOneMaterialService } from "../../../../entities/material/api/material.service";
+import { getUser } from "@/shared/api";
 
 const Page = async ({
   params,

@@ -1,7 +1,7 @@
-import { MaterialStatusEnum } from "@/app/types/material/material.status.type";
-import StatusBadgeSelect from "@/shared/components/status-select";
-import useDebounce from "@/shared/hooks/use-debounce.hook";
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { MaterialStatusEnum } from "@/entities/material/model/material.status.type";
+import { StatusBadgeSelect } from "@/shared/ui";
+import { useDebounce } from "@/shared/hooks";
 
 interface MaterialStatusType {
   id: string;

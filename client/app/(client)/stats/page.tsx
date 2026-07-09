@@ -1,6 +1,5 @@
 import { FC } from "react";
-import BlockColumn from "@/shared/components/block-column";
-import Title from "@/shared/components/title";
+import { BlockColumn, Title } from "@/shared/ui";
 import Chart from "./components/chart.component";
 
 const Stats: FC = () => {

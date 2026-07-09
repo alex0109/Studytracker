@@ -1,8 +1,7 @@
 "use client";
 
-import BlockColumn from "@/shared/components/block-column";
-import Subtitle from "@/shared/components/subtitle";
-import { Skeleton } from "@/shared/components/ui/skeleton";
+import { BlockColumn, Subtitle } from "@/shared/ui";
+import { Skeleton } from "@/shared/radix-ui/Skeleton/skeleton";
 
 const MaterialLoading = () => {
   return (

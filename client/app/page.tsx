@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Intro from "./(client)/(home)/intro.component";
-import Navigation from "@/shared/components/navigation";
+import { Navigation } from "@/shared/ui/Navigation";
 import LastOpened from "./(client)/(home)/components/last-opened.component";
 
 import Advantages from "./(client)/(home)/components/advantages.component";

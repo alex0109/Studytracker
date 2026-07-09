@@ -1,7 +1,6 @@
 import { FC } from "react";
-import BlockColumn from "@/shared/components/block-column";
-import Title from "@/shared/components/title";
-import { Button } from "@/shared/components/ui/button";
+import { BlockColumn, Title, ContainerRow } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui/Button/button";
 import Link from "next/link";
 import {
   LuChartSpline,
@@ -9,8 +8,7 @@ import {
   LuUsers,
   LuActivity,
 } from "react-icons/lu";
-import { Separator } from "@/shared/components/ui/separator";
-import ContainerRow from "@/shared/components/container-row";
+import { Separator } from "@/shared/radix-ui/Separator/separator";
 
 const AdminPanel: FC = () => {
   return (
