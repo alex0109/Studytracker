@@ -1,11 +1,12 @@
 import { IOption } from "./option.type";
+import { QuestionTypeEnum } from "./question-type.type";
 
 export interface IQuestionResponse {
   id: string;
   materialId: string;
   title: string;
-  asnwer?: string;
-  questionType: string;
+  answer?: string;
+  questionType: QuestionTypeEnum;
   correctOptionId?: string;
   options: IOption[];
   questionDifficulty: string;

@@ -11,7 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/shared/radix-ui/Table/table";
+} from "@/shared/radix-ui";
 import moment from "moment";
 import { UserSupabase } from "@/shared/types/user-supabase.type";
 

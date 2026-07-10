@@ -6,7 +6,7 @@ import {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-} from "@/shared/radix-ui/Sidebar/sidebar";
+} from "@/shared/radix-ui";
 import { Title } from "@/shared/ui";
 import Link from "next/link";
 

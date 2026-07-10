@@ -3,12 +3,12 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { attemptKeys, startAttempt } from "@/entities/attempt";
 
-export const useAttemptStart = () => {
+export const useAttemptStart = (materialId: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const startAttemptMutation = useMutation({
-    mutationFn: () => startAttempt(token),
+    mutationFn: () => startAttempt(token, materialId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: attemptKeys.all });
     },

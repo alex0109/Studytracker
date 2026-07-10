@@ -6,7 +6,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-} from "@/shared/radix-ui/Sidebar/sidebar";
+} from "@/shared/radix-ui";
 import { NavHeader } from "./components/nav-header.component";
 import { NavMain } from "./components/nav-main.component";
 import { NavFooter } from "./components/nav-footer.component";

@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/shared/radix-ui/Button/button";
+import { Button } from "@/shared/radix-ui";
 import { Title, Subtitle } from "@/shared/ui";
 
 interface AssessmentHeaderProps {

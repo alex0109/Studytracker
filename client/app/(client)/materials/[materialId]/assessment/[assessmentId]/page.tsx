@@ -1,5 +1,5 @@
 import { getUser } from "@/shared/api";
-import { getReducedQuestionsService } from "../../../../../../entities/question/api/question.service";
+import { getReducedQuestions } from "@/entities/question";
 import AssessmentPage from "./components/assessment.page";
 
 const Assessment = async ({
@@ -10,7 +10,7 @@ const Assessment = async ({
   const { materialId, assessmentId } = await params;
   const { token } = await getUser();
 
-  const questionsReduced = await getReducedQuestionsService(token, materialId);
+  const questionsReduced = await getReducedQuestions(token, materialId);
   return (
     <AssessmentPage
       questionsReduced={questionsReduced}

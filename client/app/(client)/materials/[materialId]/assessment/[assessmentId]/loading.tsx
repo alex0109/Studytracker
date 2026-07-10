@@ -1,7 +1,7 @@
 "use client";
 
 import { BlockColumn, Subtitle } from "@/shared/ui";
-import { Skeleton } from "@/shared/radix-ui/Skeleton/skeleton";
+import { Skeleton } from "@/shared/radix-ui";
 
 const AssessmentLoading = () => {
   return (

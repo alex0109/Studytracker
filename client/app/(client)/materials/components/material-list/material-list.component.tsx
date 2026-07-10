@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
+import Link from "next/link";
 import {
   BlockColumn,
   ContainerColumn,
@@ -9,11 +10,10 @@ import {
 } from "@/shared/ui";
 import MaterialListItem from "./material-list-item.component";
 import { routes } from "@/shared/config/routes";
-import Link from "next/link";
 import EmptyMaterialItem from "../material-carousel/empty-material-list.component";
 import { filteredMaterials } from "../../utils/filter-materials.util";
 import { useLastOpened } from "@/shared/hooks";
-import useMaterialAll from "../../../../../entities/material/hooks/useMaterialAll";
+import { useMaterialAll } from "@/entities/material";
 import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
 

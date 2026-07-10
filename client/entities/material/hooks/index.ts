@@ -1,3 +1,3 @@
 export { useMaterialAll } from "./useMaterialAll";
 export { useMaterialExact } from "./useMaterialExact";
-export { useMaterialStats } from "./useMaterialStats";
+export { useStatistics } from "./useStatistics";

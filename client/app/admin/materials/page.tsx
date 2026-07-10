@@ -3,10 +3,10 @@
 import { FC, useEffect, useState } from "react";
 import { BlockColumn, Title, PieChart, Subtitle } from "@/shared/ui";
 import { validateStatusesData, validateTypesData } from "@/shared/lib";
-import useMaterialStats from "@/entities/material/hooks/useMaterialStats";
+import { useStatistics } from "@/entities/material";
 
 const MaterialsPanel: FC = () => {
-  const { statsData } = useMaterialStats();
+  const { statsData } = useStatistics();
   const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);
   const [pieStatusData, setPieStatusData] = useState([{ x: "No data", y: 0 }]);
 

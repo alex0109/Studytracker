@@ -1,7 +1,7 @@
 "use server";
 
 import { validatedAction } from "@/shared/api/supabase/middleware.supabase";
-import { createClientOnServer } from "@/shared/api/supabase";
+import { createClientOnServer } from "@/shared/api";
 import { redirect } from "next/navigation";
 import z from "zod";
 

@@ -1,6 +1,6 @@
-import { IMaterial } from "@/entities/material/model/material.type";
+import { IMaterialResponse } from "@/entities/material";
 
-export const filteredMaterials = (data: IMaterial[], title: string) => {
+export const filteredMaterials = (data: IMaterialResponse[], title: string) => {
   return data.filter((material) => {
     return title.toLowerCase() === ""
       ? material

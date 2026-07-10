@@ -3,11 +3,10 @@
 import { FC } from "react";
 import { BlockColumn } from "@/shared/ui";
 import AssessmentHeader from "./assessment-header.component";
-import { Separator } from "@/shared/radix-ui/Separator/separator";
-import { Button } from "@/shared/radix-ui/Button/button";
+import { Separator, Button } from "@/shared/radix-ui";
 import { shuffleInPlace } from "@/app/(client)/materials/utils/shuffle.util";
 import QuestionItem from "./question.component";
-import { IQuestionReduced } from "@/entities/question/model/question-options.type";
+import { IQuestionReduced } from "@/entities/question";
 import { useRouter } from "next/navigation";
 
 interface AssessmentPageProps {

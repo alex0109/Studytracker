@@ -17,7 +17,7 @@ import {
   LuHeading6,
 } from "react-icons/lu";
 import { useDebounce } from "@/shared/hooks";
-import { RichTextDocument } from "@/entities/material/model/rich.text.document.type";
+import { RichTextDocument } from "@/entities/material";
 
 interface TextEditorType {
   id: string;

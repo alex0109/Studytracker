@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { ContainerColumn, PieChart, Subtitle } from "@/shared/ui";
-import useMaterialStats from "../../../../entities/material/hooks/useMaterialStats";
+import { useStatistics } from "@/entities/material";
 import { validateStatusesData, validateTypesData } from "@/shared/lib";
 
 const Chart = () => {
   const [pieTypeData, setPieTypeData] = useState([{ x: "No data", y: 0 }]);
   const [pieStatusData, setPieStatusData] = useState([{ x: "No data", y: 0 }]);
-  const { statsData } = useMaterialStats();
+  const { statsData } = useStatistics();
 
   useEffect(() => {
     setPieTypeData(validateTypesData(statsData));

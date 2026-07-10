@@ -5,7 +5,7 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
   useSidebar,
-} from "@/shared/radix-ui/Sidebar/sidebar";
+} from "@/shared/radix-ui";
 import { Title } from "@/shared/ui";
 import Link from "next/link";
 import { LuHouse } from "react-icons/lu";

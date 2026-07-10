@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarProvider } from "@/shared/radix-ui/Sidebar/sidebar";
+import { SidebarProvider } from "@/shared/radix-ui";
 import { AppSidebar } from "./(components)/sidebar/sidebar.component";
 import { useSession } from "@/shared/context/session.provider";
 import { redirect } from "next/navigation";

@@ -4,14 +4,14 @@ import { FC, useState } from "react";
 import { ContainerColumn, ContainerRow, Subtitle, TextArea } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui/Button/button";
 import { motion } from "framer-motion";
-import { IResult } from "@/entities/attempt/model/result-request.type";
+import { IResultRequest } from "@/entities/attempt";
 
 interface QuestionItemProps {
   questionId: string;
   assessmentId: string;
   index: number;
   title: string;
-  submitAnswer: (body: Partial<IResult>) => void;
+  submitAnswer: (body: IResultRequest) => void;
 }
 
 const QuestionItem: FC<QuestionItemProps> = ({

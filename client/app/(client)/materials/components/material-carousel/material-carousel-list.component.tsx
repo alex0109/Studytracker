@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { BlockColumn, Title } from "@/shared/ui";
 import Carousel from "./material-carousel.component";
-import useMaterialAll from "../../../../../entities/material/hooks/useMaterialAll";
+import { useMaterialAll } from "@/entities/material";
 
 const MaterialCarousel: FC = () => {
   const { materialsData, materialsLoading } = useMaterialAll();

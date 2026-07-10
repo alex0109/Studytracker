@@ -1,8 +1,8 @@
-export type { CarouselProps } from "./material.carousel.type";
-export type { MaterialStatusEnum } from "./material.status.type";
-export type { MaterialTypeEnum } from "./material.type.type";
-export type { Node } from "./rich.text.document.type";
-export type { RichTextDocument } from "./rich.text.document.type";
+export type { CarouselProps } from "./material-carousel.type";
+export type { MaterialStatusEnum } from "./material-status.type";
+export type { MaterialTypeEnum } from "./material-type.type";
+export type { Node } from "./rich-text-document.type";
+export type { RichTextDocument } from "./rich-text-document.type";
 export type { IMaterialCreate } from "./material-create.type";
 export type { IMaterialResponse } from "./material-response.type";
 export type { IMaterialUpdate } from "./material-update.type";

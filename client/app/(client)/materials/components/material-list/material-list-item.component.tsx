@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { IMaterial } from "@/entities/material/model/material.type";
+import { IMaterialResponse } from "@/entities/material";
 import { StatusBadge, Subtitle, Text, Title } from "@/shared/ui";
 import moment from "moment";
 
-const MaterialListItem: FC<IMaterial> = ({
+const MaterialListItem: FC<IMaterialResponse> = ({
   title,
   type,
   status,

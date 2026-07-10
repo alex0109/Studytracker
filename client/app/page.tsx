@@ -1,10 +1,7 @@
 import { FC } from "react";
-import Intro from "./(client)/(home)/intro.component";
+import { Introduction, Advantages, Bulletpoints } from "./(client)/(home)";
 import { Navigation } from "@/shared/ui/Navigation";
-import LastOpened from "./(client)/(home)/components/last-opened.component";
-
-import Advantages from "./(client)/(home)/components/advantages.component";
-import Bulletpoints from "./(client)/(home)/components/bulletpoints.component";
+import { LastOpened } from "@/entities/material/ui";
 
 const Home: FC = () => {
   return (
@@ -12,7 +9,7 @@ const Home: FC = () => {
       <Navigation />
       <main className=" flex flex-col items-center pt-30">
         <LastOpened />
-        <Intro />
+        <Introduction />
         <Advantages />
         <Bulletpoints />
       </main>

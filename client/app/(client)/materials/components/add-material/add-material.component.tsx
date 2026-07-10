@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Title,
   Modal,
@@ -9,33 +9,24 @@ import {
   CustomInput,
   CustomButton,
 } from "@/shared/ui";
-import useMaterialCreate from "../../../../../features/material/create-material/hooks/useMaterialCreate";
-import { IMaterial } from "@/entities/material/model/material.type";
+import { useMaterialCreate } from "@/features/material/create-material";
+import { IMaterialCreate } from "@/entities/material";
 
 const AddMaterial: FC = () => {
-  const [value, setValue] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
-
   const {
     register,
-    control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IMaterial>({
-    defaultValues: {
-      tags: [],
-    },
-  });
+  } = useForm<IMaterialCreate>();
 
   const { createMaterial } = useMaterialCreate();
 
   const [open, setOpen] = useState(false);
 
-  const onFormSubmit = (values: IMaterial) => {
+  const onFormSubmit = (values: IMaterialCreate) => {
     createMaterial(values);
     setOpen(false);
-    setTags([]);
     reset();
   };
 
@@ -83,80 +74,6 @@ const AddMaterial: FC = () => {
                 <option value="finished">Finished</option>
               </select>
             </div>
-            <CustomInput
-              label="Link"
-              placeholder="Link..."
-              {...register<"link">("link")}
-              error={errors.link?.message}
-            />
-            <Controller
-              control={control}
-              name="tags"
-              render={({ field }) => {
-                const ENTER = "Enter";
-                const BACKSPACE = "Backspace";
-                const COMMA = ",";
-
-                const addTag = () => {
-                  const tag = value.trim().slice(0, -1);
-                  if (!tag) return;
-                  const newTags = [...tags, tag];
-                  setTags(newTags);
-                  field.onChange(newTags);
-                  setValue("");
-                };
-
-                const editTag = () => {
-                  const last = tags[tags.length - 1];
-                  setValue(last || "");
-                  const newTags = tags.slice(0, -1);
-                  setTags(newTags);
-                  field.onChange(newTags);
-                };
-
-                const handleKeyUp = (
-                  e: React.KeyboardEvent<HTMLInputElement>,
-                ) => {
-                  const key = e.key;
-                  if (key === ENTER || key === COMMA) {
-                    addTag();
-                  }
-                };
-
-                const handleKeyDown = (
-                  e: React.KeyboardEvent<HTMLInputElement>,
-                ) => {
-                  const key = e.key;
-                  if (key === BACKSPACE && !value) {
-                    editTag();
-                  }
-                };
-
-                return (
-                  <div className="flex flex-col gap-2">
-                    <input
-                      type="text"
-                      value={value}
-                      placeholder="Tag..."
-                      onChange={(e) => setValue(e.target.value)}
-                      onKeyUp={handleKeyUp}
-                      onKeyDown={handleKeyDown}
-                      className="text-[15px] bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl"
-                    />
-                    <div className="flex flex-wrap gap-2">
-                      {tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="bg-blue-200 text-blue-800 px-2 py-1 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                );
-              }}
-            />
             <CustomButton
               title="Submit"
               type="submit"
