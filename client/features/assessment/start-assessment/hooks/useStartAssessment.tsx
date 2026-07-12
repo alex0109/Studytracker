@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { startAssessment } from "@/entities/assessment";
-import { assessmentKeys } from "@/entities/assessment/model/assessment-query-keys";
+import { assessmentKeys } from "@/entities/assessment/lib/assessment-query-keys";
 
 export const useStartAssessment = (id: string) => {
   const queryClient = useQueryClient();

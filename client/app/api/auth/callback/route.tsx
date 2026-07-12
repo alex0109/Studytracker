@@ -1,6 +1,6 @@
-import { createClientOnServer } from "@/shared/api/supabase";
+import { getUser } from "@/entities/auth";
+import { createClientOnServer } from "@/entities/auth/api/server";
 import { NextResponse } from "next/server";
-import { getUser } from "@/shared/api/supabase/get-current-user.supabase";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);

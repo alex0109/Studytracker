@@ -1,16 +1,10 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import {
-  Title,
-  ContainerColumn,
-  CustomButton,
-  BlockColumn,
-  StatusBadge,
-} from "@/shared/ui";
+import { Title, ContainerColumn, CustomButton, BlockColumn } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 import { useLastOpened } from "@/shared/hooks";
-import { useMaterialExact } from "@/entities/material";
+import { StatusBadge, useMaterialExact } from "@/entities/material";
 
 export const LastOpened: FC = () => {
   const router = useRouter();

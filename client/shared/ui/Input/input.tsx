@@ -1,7 +1,7 @@
 // SHARED-UI
 
 import { ChangeEvent, forwardRef, Ref } from "react";
-import { cn } from "@/shared/lib/cn.util";
+import { cn } from "@/shared/lib/cn";
 
 interface CustomInputProps {
   label?: string;

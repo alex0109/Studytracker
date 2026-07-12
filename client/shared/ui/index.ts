@@ -7,7 +7,6 @@ export * from "./EditableLink";
 export * from "./Footer";
 export * from "./Input";
 export * from "./Modal";
-export * from "./Navigation";
 export * from "./Pie";
 export * from "./Subtitle";
 export * from "./Text";

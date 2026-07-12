@@ -1,0 +1,58 @@
+"use client";
+
+import { FC, useState } from "react";
+import { ContainerColumn, ContainerRow, Subtitle, TextArea } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui/Button/button";
+import { motion } from "framer-motion";
+import { useAttemptSubmitAnswer } from "@/entities/attempt";
+
+interface AttemptQuestionProps {
+  questionId: string;
+  attemptId: string;
+  index: number;
+  title: string;
+}
+
+export const AttemptQuestion: FC<AttemptQuestionProps> = ({
+  questionId,
+  attemptId,
+  index,
+  title,
+}) => {
+  const { submitAnswer } = useAttemptSubmitAnswer(attemptId);
+
+  const [textAreaVlaue, setTextAreaValue] = useState<string>("");
+
+  const handleSubmitAnswer = () => {
+    submitAnswer({ questionId, userAnswer: textAreaVlaue });
+  };
+
+  return (
+    <motion.div
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+    >
+      <ContainerColumn>
+        <ContainerRow blockStyles="items-center">
+          <span className="text-xl font-bold">{index}.</span>
+          <Subtitle text={title} />
+        </ContainerRow>
+        <div>
+          <TextArea
+            placeholder="Write down what you remember about this question..."
+            inputStyles="w-full h-[300px] p-5 bg-neutral-200"
+            value={textAreaVlaue}
+            maxLength={1000}
+            onChange={(e) => setTextAreaValue(e.target.value)}
+          />
+        </div>
+        <Button
+          className="self-end w-[150px]"
+          onClick={() => handleSubmitAnswer()}
+        >
+          Answer
+        </Button>
+      </ContainerColumn>
+    </motion.div>
+  );
+};

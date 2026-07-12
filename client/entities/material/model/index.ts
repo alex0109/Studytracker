@@ -7,4 +7,3 @@ export type { IMaterialCreate } from "./material-create.type";
 export type { IMaterialResponse } from "./material-response.type";
 export type { IMaterialUpdate } from "./material-update.type";
 export type { IStatistics } from "./statistics.type";
-export { materialKeys } from "./material-query-keys";

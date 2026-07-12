@@ -1,4 +1,3 @@
-export { questionKeys } from "./question-query-keys";
 export type { IQuestionReduced } from "./question-reduced.type";
 export type { IOpenQuestionRequest } from "./question-open.type";
 export type { IOptionsQuestionRequest } from "./question-options.type";

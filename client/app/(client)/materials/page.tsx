@@ -1,5 +1,5 @@
-import MaterialList from "./components/material-list/material-list.component";
-import AddMaterial from "./components/add-material/add-material.component";
+import { MaterialList } from "@/widgets/MaterialList/ui/MaterialList/material-list";
+import { AddMaterial } from "@/features/material/create-material/ui";
 
 const Materials = () => {
   return (

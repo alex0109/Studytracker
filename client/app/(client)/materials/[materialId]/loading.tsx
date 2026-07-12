@@ -3,7 +3,7 @@
 import { BlockColumn, Subtitle } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const MaterialLoading = () => {
+export const MaterialLoading = () => {
   return (
     <BlockColumn blockStyles="bg-none">
       <Skeleton className="w-full h-screen " />
@@ -11,5 +11,3 @@ const MaterialLoading = () => {
     </BlockColumn>
   );
 };
-
-export default MaterialLoading;

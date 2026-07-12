@@ -1,23 +1,24 @@
-import { getUser } from "@/shared/api";
+import { getUser } from "@/entities/auth";
 import { getReducedQuestions } from "@/entities/question";
-import AssessmentPage from "./components/assessment.page";
+import { Attempt } from "@/widgets/Attempt/ui";
 
-const Assessment = async ({
+const AttemptPage = async ({
   params,
 }: {
-  params: Promise<{ materialId: string; assessmentId: string }>;
+  params: Promise<{ materialId: string; attemptId: string }>;
 }) => {
-  const { materialId, assessmentId } = await params;
+  const { materialId, attemptId } = await params;
   const { token } = await getUser();
 
   const questionsReduced = await getReducedQuestions(token, materialId);
+
   return (
-    <AssessmentPage
+    <Attempt
       questionsReduced={questionsReduced}
       materialId={materialId}
-      assessmentId={assessmentId}
+      attemptId={attemptId}
     />
   );
 };
 
-export default Assessment;
+export default AttemptPage;

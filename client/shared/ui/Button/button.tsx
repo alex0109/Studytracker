@@ -1,7 +1,7 @@
 // SHARED-UI
 
 import { FC } from "react";
-import { cn } from "@/shared/lib/cn.util";
+import { cn } from "@/shared/lib/cn";
 
 interface CustomButtonProps {
   onClick?: () => void;

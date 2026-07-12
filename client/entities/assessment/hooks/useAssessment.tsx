@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib";
 import { getAssessment } from "../api";
-import { assessmentKeys } from "../model/assessment-query-keys";
+import { assessmentKeys } from "../lib/assessment-query-keys";
 
 export const useAssessment = (id: string) => {
   const { token, user } = useSession();

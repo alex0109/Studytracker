@@ -39,21 +39,10 @@ export const MaterialContent: FC<MaterialContentType> = ({
     updateMaterial({ id: materialId, dataToUpdate: { link } });
   };
 
-  const updateContentHandler = (
-    materialId: string,
-    content: RichTextDocument,
-  ): void => {
-    updateMaterial({ id: materialId, dataToUpdate: { content } });
-  };
-
   return (
     <BlockColumn blockStyles="p-[70px] items-start">
       <MaterialLink id={id} link={link} updateLinkHandler={updateLinkHandler} />
-      <MaterialTextContent
-        id={id}
-        content={content}
-        updateDescriptionHandler={updateContentHandler}
-      />
+      <MaterialTextContent id={id} content={content} />
       <MaterialTags
         id={id}
         materialTags={tags}

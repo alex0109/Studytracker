@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useState } from "react";
 import { BlockColumn, ContainerColumn, Title } from "@/shared/ui";
-import { getUsers } from "@/shared/api";
 import {
   Table,
   TableBody,
@@ -14,6 +13,7 @@ import {
 } from "@/shared/radix-ui";
 import moment from "moment";
 import { UserSupabase } from "@/shared/types/user-supabase.type";
+import { getUsers } from "@/entities/auth";
 
 const UsersPanel: FC = () => {
   const [users, setUsers] = useState<UserSupabase[]>([]);

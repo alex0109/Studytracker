@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { getMaterial } from "@/entities/material";
-import { getUser } from "@/shared/api";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { BlockColumn, Text } from "@/shared/ui";
 import { MaterialContent } from "@/widgets/MaterialContent/ui";
@@ -8,8 +7,9 @@ import { MaterialHeader } from "@/widgets/MaterialHeader/ui";
 import { MaterialInterface } from "@/widgets/MaterialInterface/ui";
 import { QuestionsContent } from "@/widgets/QuestionsContent/ui";
 import { MaterialDeleteModal } from "@/features/material/delete-material/ui";
+import { getUser } from "@/entities/auth";
 
-const Page = async ({
+const MaterialPage = async ({
   params,
 }: {
   params: Promise<{ materialId: string }>;
@@ -58,4 +58,4 @@ const Page = async ({
   );
 };
 
-export default Page;
+export default MaterialPage;

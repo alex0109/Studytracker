@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   description: "Cool app",
 };
 
-const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+export const AuthLayout = ({
+  children,
+}: Readonly<{ children: React.ReactNode }>) => {
   return <div className="flex flex-col items-center">{children}</div>;
 };
-
-export default AuthLayout;

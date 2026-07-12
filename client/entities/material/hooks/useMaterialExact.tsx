@@ -1,9 +1,12 @@
+"use client";
+
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMaterial } from "../api";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { IMaterialResponse, materialKeys } from "../model";
+import { IMaterialResponse } from "../model";
+import { materialKeys } from "../lib";
 
 export const useMaterialExact = (id: string) => {
   const { token, user } = useSession();

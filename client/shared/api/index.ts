@@ -1,1 +1,1 @@
-export * from "./supabase";
+export { dynamic, GET } from "./sentry-example";

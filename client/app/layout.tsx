@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ActiveSectionContextProvider from "@/shared/context/active-section.provider";
-import { Footer, BackgroundBlobs } from "@/shared/ui";
+import { Footer } from "@/shared/ui";
 import ReactQueryClientProvider from "@/shared/context/query-client.provider";
-import { getUser } from "@/shared/api";
 import { SessionProvider } from "@/shared/context/session.provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { BackgroundBlobs } from "./(client)/(home)";
+import { getUser } from "@/entities/auth";
 
 export const metadata: Metadata = {
   title: "Studytracker",

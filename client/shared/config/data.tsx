@@ -22,7 +22,7 @@ export const authorizedLinks = [
   },
   {
     name: "Stats",
-    hash: "/stats",
+    hash: "/statistics",
   },
 ];
 

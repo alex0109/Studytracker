@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { AccordionTrigger } from "@/features/question/delete-question/ui";
 import { useDebounce } from "@/shared/hooks";
-import { useQuestionUpdate } from "@/features/question/update-question";
+import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
+import { AccordionTrigger } from "@/entities/question";
 
 interface QuestionTitleProps {
   materialId: string;

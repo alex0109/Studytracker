@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Introduction, Advantages, Bulletpoints } from "./(client)/(home)";
-import { Navigation } from "@/shared/ui/Navigation";
 import { LastOpened } from "@/entities/material/ui";
+import { Navigation } from "@/widgets/Navigation";
 
-const Home: FC = () => {
+const Page: FC = () => {
   return (
     <>
       <Navigation />
@@ -17,4 +17,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default Page;

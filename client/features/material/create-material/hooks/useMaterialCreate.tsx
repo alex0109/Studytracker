@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import {
+  createMaterial,
   IMaterialCreate,
   materialKeys,
-  createMaterial,
 } from "@/entities/material";
 
 export const useMaterialCreate = () => {

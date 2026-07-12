@@ -1,7 +1,7 @@
-// PAGE
+import { Auth } from "@/widgets/Auth/ui/Auth/auth";
 
-import Auth from "../login";
-
-export const SignUpPage = async () => {
+const SignUpPage = async () => {
   return <Auth mode="signup" />;
 };
+
+export default SignUpPage;
