@@ -1,1 +1,1 @@
-export { QuestionCreateModal } from "./QuestionCreateModal/question-create-modal";
+export { OpenQuestionCreateModal } from "./OpenQuestionCreateModal/open-question-create-modal";

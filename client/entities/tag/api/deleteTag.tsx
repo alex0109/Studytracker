@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ITag } from "../model";
 
 export const deleteTag = async (
   token: string | undefined,

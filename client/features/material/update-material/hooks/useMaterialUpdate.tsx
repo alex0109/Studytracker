@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
@@ -35,5 +37,3 @@ export const useMaterialUpdate = (id: string) => {
     updateMaterial: updateMaterialMutation.mutate,
   };
 };
-
-export default useMaterialUpdate;

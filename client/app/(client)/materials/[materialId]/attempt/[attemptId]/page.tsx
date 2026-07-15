@@ -1,4 +1,4 @@
-import { getUser } from "@/entities/auth";
+import { getUser } from "@/entities/auth/model/get-current-user.supabase";
 import { getReducedQuestions } from "@/entities/question";
 import { Attempt } from "@/widgets/Attempt/ui";
 

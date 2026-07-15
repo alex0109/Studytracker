@@ -1,9 +1,12 @@
+"use client";
+
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { attemptKeys, IAttempt } from "../model";
+import { IAttempt } from "../model";
 import { getAttempt } from "../api/getAttempt";
+import { attemptKeys } from "../lib/attempt-query-keys";
 
 export const useAttemptExact = (attemptId: string) => {
   const { token, user } = useSession();

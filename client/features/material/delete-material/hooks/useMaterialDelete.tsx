@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteMaterial, materialKeys } from "@/entities/material";
 import { useSession } from "@/shared/context/session.provider";

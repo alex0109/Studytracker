@@ -1,7 +1,9 @@
+"use client";
+
 import { FC, useEffect, useState } from "react";
 import { Input } from "@/shared/radix-ui";
 import { useDebounce } from "@/shared/hooks";
-import useMaterialUpdate from "../../hooks/useMaterialUpdate";
+import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
 interface MaterialTitleType {
   id: string;

@@ -4,16 +4,17 @@ import { RichTextDocument, MaterialStatusEnum } from "@/entities/material";
 import {
   MaterialLink,
   MaterialTextContent,
-  MaterialTags,
   MaterialStatus,
 } from "@/features/material/update-material/ui";
 import { useMaterialUpdate } from "@/features/material/update-material";
+import { ITagResponse } from "@/entities/tag";
+import { MaterialTags } from "@/widgets/MaterialTags";
 
 interface MaterialContentType {
   id: string;
   link: string | undefined;
   content: RichTextDocument | undefined;
-  tags: string[] | undefined;
+  tags: ITagResponse[] | undefined;
   status: MaterialStatusEnum;
 }
 
@@ -25,8 +26,6 @@ export const MaterialContent: FC<MaterialContentType> = ({
   status,
 }) => {
   const { updateMaterial } = useMaterialUpdate(id);
-
-  const updateTagsHandler = (materialId: string, tags: string[]): void => {};
 
   const updateStatusHandler = (
     materialId: string,
@@ -43,11 +42,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
     <BlockColumn blockStyles="p-[70px] items-start">
       <MaterialLink id={id} link={link} updateLinkHandler={updateLinkHandler} />
       <MaterialTextContent id={id} content={content} />
-      <MaterialTags
-        id={id}
-        materialTags={tags}
-        updateTagsHandler={updateTagsHandler}
-      />
+      <MaterialTags materialId={id} materialTags={tags} />
       <MaterialStatus
         id={id}
         materialStatus={status}

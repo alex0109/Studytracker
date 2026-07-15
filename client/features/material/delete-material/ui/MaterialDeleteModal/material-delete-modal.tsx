@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { CustomButton, Modal, Title } from "@/shared/ui";

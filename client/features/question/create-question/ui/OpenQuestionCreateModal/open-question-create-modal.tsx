@@ -1,9 +1,6 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import {
-  IOpenQuestionRequest,
-  IOptionsQuestionRequest,
-} from "@/entities/question";
+import { IOpenQuestionRequest } from "@/entities/question";
 import { CustomInput, Modal, TextArea, Title } from "@/shared/ui";
 import { Button, Separator } from "@/shared/radix-ui";
 
@@ -11,14 +8,12 @@ interface QuestionCreateModalProps {
   open: boolean;
   setOpen: (isOpen: boolean) => void;
   createOpenQuestion: (body: IOpenQuestionRequest) => void;
-  createOptionsQuestion: (body: IOptionsQuestionRequest) => void;
 }
 
-export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
+export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
   open,
   setOpen,
   createOpenQuestion,
-  createOptionsQuestion,
 }) => {
   const {
     register,
@@ -28,7 +23,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
   } = useForm<IOpenQuestionRequest>();
 
   const onFormSubmit = (values: IOpenQuestionRequest) => {
-    // createOpenQuestion(values);
+    createOpenQuestion(values);
     setOpen(false);
     reset();
   };
@@ -50,6 +45,16 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
               })}
               error={errors.title?.message}
             />
+            <div className="flex flex-col justify-center">
+              <select
+                {...register("questionDifficulty")}
+                className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
+              >
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
             <TextArea
               label="Answer"
               inputStyles="h-[300px] p-5"

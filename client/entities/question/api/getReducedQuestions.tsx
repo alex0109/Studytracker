@@ -6,7 +6,7 @@ export const getReducedQuestions = async (
   materialId: string,
 ): Promise<IQuestionReduced[]> => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/assessment`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/attempt`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },

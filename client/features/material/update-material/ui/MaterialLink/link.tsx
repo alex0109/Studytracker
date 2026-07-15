@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useEffect, useState } from "react";
 import { Subtitle } from "@/shared/ui";
 import { Input } from "@/shared/radix-ui";

@@ -2,15 +2,9 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Title,
-  Modal,
-  BlockColumn,
-  CustomInput,
-  CustomButton,
-} from "@/shared/ui";
-import { useMaterialCreate } from "@/features/material/create-material";
+import { Title, Modal, CustomInput, CustomButton } from "@/shared/ui";
 import { IMaterialCreate } from "@/entities/material";
+import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 
 export const AddMaterial: FC = () => {
   const {
@@ -31,13 +25,12 @@ export const AddMaterial: FC = () => {
   };
 
   return (
-    <BlockColumn>
-      <Title text="Add new material" />
+    <>
       <div
         onClick={() => setOpen(true)}
-        className="w-full h-[100px] border-3 border-neutral-600 border-dashed rounded-xl flex justify-center items-center cursor-pointer"
+        className="relative w-10 h-10 rounded-4xl bg-neutral-900 hover:bg-neutral-700 text-neutral-600 text-2xl text-center cursor-pointer"
       >
-        <p className="text-neutral-600 text-2xl text-center">+</p>
+        <span className="absolute top-0.5 left-[33%] text-white">+</span>
       </div>
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-[400px]">
@@ -82,6 +75,6 @@ export const AddMaterial: FC = () => {
           </form>
         </div>
       </Modal>
-    </BlockColumn>
+    </>
   );
 };

@@ -28,7 +28,7 @@ export const useMaterialExact = (id: string) => {
   }, [exactMaterial.error]);
 
   return {
-    exactMaterial: exactMaterial.data,
+    exactMaterialData: exactMaterial.data,
     exactMaterialLoading: exactMaterial.isLoading,
     exactMaterialError: exactMaterial.error,
   };

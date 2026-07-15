@@ -1,7 +1,9 @@
+"use client";
+
 import { FC, useEffect, useState } from "react";
-import { MaterialStatusEnum } from "@/entities/material";
-import { StatusBadgeSelect } from "@/shared/ui";
+import { MaterialStatusEnum, StatusBadgeSelect } from "@/entities/material";
 import { useDebounce } from "@/shared/hooks";
+import { Subtitle } from "@/shared/ui";
 
 interface MaterialStatusType {
   id: string;
@@ -30,8 +32,8 @@ export const MaterialStatus: FC<MaterialStatusType> = ({
   };
 
   return (
-    <div>
-      <span className="italic">Status</span>
+    <div className="flex justify-center items-center gap-2 mt-7">
+      <Subtitle text="Status: " />
       <StatusBadgeSelect status={statusValue}>
         <select
           className="text-white outline-none cursor-pointer"

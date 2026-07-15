@@ -1,7 +1,9 @@
+"use client";
+
 import { FC, useEffect, useState } from "react";
 import { MaterialTypeEnum } from "@/entities/material";
 import { useDebounce } from "@/shared/hooks";
-import useMaterialUpdate from "../../hooks/useMaterialUpdate";
+import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
 interface MaterialTypeType {
   id: string;

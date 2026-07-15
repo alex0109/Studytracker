@@ -1,10 +1,10 @@
 import axios from "axios";
-import { ITag, ITagCreate } from "../model";
+import { ITagResponse, ITagCreate } from "../model";
 
 export const createTag = async (
   token: string | undefined,
   body: ITagCreate,
-): Promise<ITag> => {
+): Promise<ITagResponse> => {
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/tags`,
     body,

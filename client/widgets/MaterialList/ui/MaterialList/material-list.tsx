@@ -52,6 +52,7 @@ export const MaterialList: FC = () => {
                 <MaterialListItem
                   key={item.id}
                   id={item.id}
+                  assessmentId={item.assessmentId}
                   title={item.title}
                   materialTags={item.materialTags}
                   link={item.link}

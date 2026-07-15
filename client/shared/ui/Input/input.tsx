@@ -1,5 +1,3 @@
-// SHARED-UI
-
 import { ChangeEvent, forwardRef, Ref } from "react";
 import { cn } from "@/shared/lib/cn";
 
@@ -54,9 +52,11 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           disabled={disabled}
           maxLength={maxLength}
         />
-        <div className="flex px-5 mb-5">
-          {error && <p className="text-red-400">{error}</p>}
-        </div>
+        {error && (
+          <div className="flex px-5 mb-5">
+            <p className="text-red-400">{error}</p>
+          </div>
+        )}
       </div>
     );
   },

@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { BlockColumn, ContainerRow } from "@/shared/ui";
@@ -6,45 +8,45 @@ import { Button, Separator } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { useRouter, usePathname } from "next/navigation";
-import { QuestionCreateModal } from "@/features/question/create-question/ui";
+import { OpenQuestionCreateModal } from "@/features/question/create-question/ui";
 import {
   QuestionAnswer,
   QuestionTitle,
 } from "@/features/question/update-question/ui";
-import {
-  useOpenQuestionCreate,
-  useOptionsQuestionCreate,
-} from "@/features/question/create-question";
+import { useOpenQuestionCreate } from "@/features/question/create-question";
 import { useQuestionDelete } from "@/features/question/delete-question";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
 
 interface QuestionsType {
-  id: string;
+  materialId: string;
+  assessmentId: string;
 }
 
-export const QuestionsContent: FC<QuestionsType> = ({ id }) => {
+export const QuestionsContent: FC<QuestionsType> = ({
+  materialId,
+  assessmentId,
+}) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const path = usePathname();
 
-  const { questionsData } = useQuestionAll(id);
-  const { createOpenQuestion } = useOpenQuestionCreate(id);
-  const { createOptionsQuestion } = useOptionsQuestionCreate(id);
-  const { deleteQuestion } = useQuestionDelete(id);
+  const { questionsData } = useQuestionAll(materialId);
+  const { createOpenQuestion } = useOpenQuestionCreate(materialId);
+  const { deleteQuestion } = useQuestionDelete(materialId);
 
-  const { startAttempt, startAttemptPending } = useAttemptStart(id);
+  const { attemptStart, startAttemptPending } = useAttemptStart(assessmentId);
 
-  const startAssessmentHandler = async () => {
-    const assessment = await startAttempt();
+  const startAttemptHandler = async () => {
+    const attempt = await attemptStart();
 
-    router.push(`${path}/assessment/${assessment}`);
+    router.push(`${path}/attempt/${attempt}`);
   };
 
   const onClickhandlers = {
     "open-modal": () => setOpen(true),
     generate: () => alert("Not working"),
-    start: () => startAssessmentHandler(),
+    start: () => startAttemptHandler(),
   };
 
   const disabledHandlers = {
@@ -89,16 +91,12 @@ export const QuestionsContent: FC<QuestionsType> = ({ id }) => {
                 id={item.id}
                 title={item.title}
               />
-              {item.questionType === "open" ? (
-                <QuestionAnswer
-                  materialId={item.materialId}
-                  id={item.id}
-                  answer={item.answer!}
-                  deleteQuestion={deleteQuestion}
-                />
-              ) : (
-                <></>
-              )}
+              <QuestionAnswer
+                materialId={item.materialId}
+                id={item.id}
+                answer={item.answer!}
+                deleteQuestion={deleteQuestion}
+              />
             </Accordion.Item>
           ))}
         </Accordion.Root>
@@ -109,11 +107,10 @@ export const QuestionsContent: FC<QuestionsType> = ({ id }) => {
           </p>
         </ContainerRow>
       )}
-      <QuestionCreateModal
+      <OpenQuestionCreateModal
         open={open}
         setOpen={setOpen}
         createOpenQuestion={createOpenQuestion}
-        createOptionsQuestion={createOptionsQuestion}
       />
     </BlockColumn>
   );

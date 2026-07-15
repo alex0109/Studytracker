@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";

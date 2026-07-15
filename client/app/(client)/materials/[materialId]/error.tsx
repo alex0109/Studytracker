@@ -3,10 +3,12 @@
 import { BlockColumn } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-export const MaterialError = () => {
+const MaterialError = () => {
   return (
     <BlockColumn>
       <Skeleton className="w-full h-[90px]" />
     </BlockColumn>
   );
 };
+
+export default MaterialError;

@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { cn } from "@/shared/lib";
 import * as Accordion from "@radix-ui/react-accordion";
-import styles from "./../styles.module.css";
+import styles from "./styles.module.css";
 import { Button, Separator } from "@/shared/radix-ui";
 import { LuTrash2 } from "react-icons/lu";
 

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import dynamic from "next/dynamic";
 import { RichTextDocument } from "@/entities/material";
-import useMaterialUpdate from "../../hooks/useMaterialUpdate";
+import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
 const TextEditor = dynamic(
   () => import("../MaterialContentEditor/content-editor"),
