@@ -3,7 +3,7 @@
 import { BlockColumn } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const AssessmentNotFound = () => {
+const AttemptNotFound = () => {
   return (
     <BlockColumn>
       <Skeleton className="w-full h-[90px]" />
@@ -11,4 +11,4 @@ const AssessmentNotFound = () => {
   );
 };
 
-export default AssessmentNotFound;
+export default AttemptNotFound;

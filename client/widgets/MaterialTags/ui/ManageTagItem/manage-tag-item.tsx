@@ -1,6 +1,5 @@
 import { Check, Plus, X } from "lucide-react";
 import { FC, useState } from "react";
-import clsx from "clsx";
 import { getTextColor } from "@/shared/lib/get-text-color";
 
 interface SyncTagProps {
@@ -38,6 +37,7 @@ export const ManageTagItem: FC<SyncTagProps> = ({
       onClick={() => (selected ? onRemove(id) : onAdd(id))}
     >
       <span
+        className="transition-transform duration-200 hover:scale-150"
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >

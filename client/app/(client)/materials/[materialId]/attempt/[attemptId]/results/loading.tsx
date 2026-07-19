@@ -3,7 +3,7 @@
 import { BlockColumn, Subtitle } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const AttemptLoading = () => {
+const ResultsLoading = () => {
   return (
     <BlockColumn blockStyles="bg-none">
       <Skeleton className="w-full h-screen " />
@@ -12,4 +12,4 @@ const AttemptLoading = () => {
   );
 };
 
-export default AttemptLoading;
+export default ResultsLoading;

@@ -3,7 +3,7 @@
 import { BlockColumn } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const AttemptError = () => {
+const ResultsError = () => {
   return (
     <BlockColumn>
       <Skeleton className="w-full h-[90px]" />
@@ -11,4 +11,4 @@ const AttemptError = () => {
   );
 };
 
-export default AttemptError;
+export default ResultsError;

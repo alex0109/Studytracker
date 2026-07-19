@@ -3,9 +3,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { IResultRequest } from "../model";
-import { submitAnswer } from "../api";
-import { attemptKeys } from "../lib/attempt-query-keys";
+import { IResultRequest } from "@/entities/attempt/model";
+import { submitAnswer } from "@/entities/attempt/api";
+import { attemptKeys } from "@/entities/attempt/lib/attempt-query-keys";
 
 export const useAttemptSubmitAnswer = (attemptId: string) => {
   const queryClient = useQueryClient();

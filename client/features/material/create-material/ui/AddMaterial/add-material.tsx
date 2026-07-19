@@ -67,11 +67,7 @@ export const AddMaterial: FC = () => {
                 <option value="finished">Finished</option>
               </select>
             </div>
-            <CustomButton
-              title="Submit"
-              type="submit"
-              onClick={() => setOpen(true)}
-            />
+            <CustomButton title="Submit" type="submit" />
           </form>
         </div>
       </Modal>

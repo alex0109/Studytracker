@@ -1,5 +1,3 @@
-// SHARED-UI
-
 "use client";
 
 import {
