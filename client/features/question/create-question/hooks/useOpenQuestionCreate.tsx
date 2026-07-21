@@ -32,5 +32,6 @@ export const useOpenQuestionCreate = (materialId: string) => {
 
   return {
     createOpenQuestion: createOpenQuestionMutation.mutate,
+    createOpenQuestionIsPending: createOpenQuestionMutation.isPending,
   };
 };

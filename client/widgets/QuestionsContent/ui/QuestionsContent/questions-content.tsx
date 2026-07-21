@@ -13,7 +13,6 @@ import {
   QuestionAnswer,
   QuestionTitle,
 } from "@/features/question/update-question/ui";
-import { useOpenQuestionCreate } from "@/features/question/create-question";
 import { useQuestionDelete } from "@/features/question/delete-question";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
@@ -32,7 +31,6 @@ export const QuestionsContent: FC<QuestionsType> = ({
   const path = usePathname();
 
   const { questionsData } = useQuestionAll(materialId);
-  const { createOpenQuestion } = useOpenQuestionCreate(materialId);
   const { deleteQuestion } = useQuestionDelete(materialId);
 
   const { attemptStart, startAttemptPending } = useAttemptStart(assessmentId);
@@ -63,6 +61,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
       <div className="w-full flex justify-between items-center mb-5">
         {questionInterface.map((item) => (
           <Button
+            size="lg"
             key={item.key}
             onClick={onClickhandlers[item.key]}
             disabled={disabledHandlers[item.key]}
@@ -108,9 +107,9 @@ export const QuestionsContent: FC<QuestionsType> = ({
         </ContainerRow>
       )}
       <OpenQuestionCreateModal
+        materialId={materialId}
         open={open}
         setOpen={setOpen}
-        createOpenQuestion={createOpenQuestion}
       />
     </BlockColumn>
   );

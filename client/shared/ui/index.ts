@@ -1,6 +1,5 @@
 export * from "./BlockColumn";
 export * from "./BlockRow";
-export * from "./Button";
 export * from "./ContainerColumn";
 export * from "./ContainerRow";
 export * from "./EditableLink";
@@ -13,3 +12,4 @@ export * from "./Text";
 export * from "./TextArea";
 export * from "./Title";
 export * from "./TypeText";
+export * from "./IsPendingLoader";

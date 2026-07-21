@@ -4,19 +4,21 @@ import { FC, useEffect, useState } from "react";
 import { Subtitle } from "@/shared/ui";
 import { Input } from "@/shared/radix-ui";
 import { useDebounce } from "@/shared/hooks";
+import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
 interface MaterialLinkType {
   id: string;
   link: string | undefined;
-  updateLinkHandler: (id: string, link: string) => void;
 }
 
-export const MaterialLink: FC<MaterialLinkType> = ({
-  id,
-  link,
-  updateLinkHandler,
-}) => {
+export const MaterialLink: FC<MaterialLinkType> = ({ id, link }) => {
   const [linkValue, setLinkValue] = useState(link || "");
+
+  const { updateMaterial } = useMaterialUpdate(id);
+
+  const updateLinkHandler = (materialId: string, link: string): void => {
+    updateMaterial({ id: materialId, dataToUpdate: { link } });
+  };
 
   const debouncedLinkValue = useDebounce(linkValue, 1500);
 

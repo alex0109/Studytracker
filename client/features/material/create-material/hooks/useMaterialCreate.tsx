@@ -28,6 +28,6 @@ export const useMaterialCreate = () => {
 
   return {
     createMaterial: createMaterialMutation.mutate,
-    createMaterialData: createMaterialMutation.data,
+    createMaterialIsPending: createMaterialMutation.isPending,
   };
 };

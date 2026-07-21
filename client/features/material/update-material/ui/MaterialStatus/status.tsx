@@ -3,21 +3,29 @@
 import { FC, useEffect, useState } from "react";
 import { MaterialStatusEnum, StatusBadgeSelect } from "@/entities/material";
 import { useDebounce } from "@/shared/hooks";
-import { Subtitle } from "@/shared/ui";
+import { IsPendingLoader, Subtitle } from "@/shared/ui";
+import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
 interface MaterialStatusType {
   id: string;
   materialStatus: MaterialStatusEnum;
-  updateStatusHandler: (id: string, status: MaterialStatusEnum) => void;
 }
 
 export const MaterialStatus: FC<MaterialStatusType> = ({
   id,
   materialStatus,
-  updateStatusHandler,
 }) => {
   const [statusValue, setStatusValue] =
     useState<MaterialStatusEnum>(materialStatus);
+
+  const { updateMaterial, updateMaterialIsPending } = useMaterialUpdate(id);
+
+  const updateStatusHandler = (
+    materialId: string,
+    status: MaterialStatusEnum,
+  ): void => {
+    updateMaterial({ id: materialId, dataToUpdate: { status } });
+  };
 
   const debouncedStatusValue = useDebounce(statusValue, 1500);
 
@@ -46,6 +54,9 @@ export const MaterialStatus: FC<MaterialStatusType> = ({
           <option value="finished">Finished</option>
         </select>
       </StatusBadgeSelect>
+      <div className="flex-1 h-10">
+        <IsPendingLoader isPending={updateMaterialIsPending} />
+      </div>
     </div>
   );
 };

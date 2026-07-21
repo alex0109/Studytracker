@@ -35,5 +35,6 @@ export const useMaterialUpdate = (id: string) => {
 
   return {
     updateMaterial: updateMaterialMutation.mutate,
+    updateMaterialIsPending: updateMaterialMutation.isPending,
   };
 };

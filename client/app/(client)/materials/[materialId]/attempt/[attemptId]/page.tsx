@@ -1,5 +1,7 @@
 import { getUser } from "@/entities/auth/model/get-current-user.supabase";
 import { getReducedQuestions } from "@/entities/question";
+import { Separator, Skeleton } from "@/shared/radix-ui";
+import { BlockColumn } from "@/shared/ui";
 import { Attempt } from "@/widgets/Attempt/ui";
 
 const AttemptPage = async ({

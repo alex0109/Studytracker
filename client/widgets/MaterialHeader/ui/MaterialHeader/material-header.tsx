@@ -6,9 +6,10 @@ import {
   MaterialTitle,
   MaterialType,
 } from "@/features/material/update-material/ui";
-import { BlockColumn, CustomButton } from "@/shared/ui";
+import { BlockColumn } from "@/shared/ui";
 import { MaterialTypeEnum } from "@/entities/material";
 import { FC } from "react";
+import { Button } from "@/shared/radix-ui";
 
 interface MaterialHeaderType {
   id: string;
@@ -31,14 +32,14 @@ export const MaterialHeader: FC<MaterialHeaderType> = ({
     <BlockColumn>
       <div className="flex w-full justify-between">
         <div>
-          <CustomButton onClick={() => router.back()} title="Go back" />
+          <Button size="lg" onClick={() => router.back()}>
+            Go back
+          </Button>
         </div>
         <div>
-          <CustomButton
-            buttonStyles="bg-rose-600 border-rose-500"
-            onClick={() => setOpen(true)}
-            title="Delete"
-          />
+          <Button size="lg" variant="destructive" onClick={() => setOpen(true)}>
+            Delete
+          </Button>
         </div>
       </div>
       <MaterialTitle id={id} title={title} />

@@ -41,7 +41,7 @@ export const ManageTagsList: FC<SelectTagProps> = ({
 
   return (
     <>
-      <Button className="rounded-2xl" onClick={() => setOpen(true)}>
+      <Button size="lg" className="rounded-2xl" onClick={() => setOpen(true)}>
         Manage Tags +
       </Button>
 

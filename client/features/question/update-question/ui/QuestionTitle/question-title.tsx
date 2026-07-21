@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
 import { AccordionTrigger } from "@/entities/question";
+import { IsPendingLoader } from "@/shared/ui";
 
 interface QuestionTitleProps {
   materialId: string;
@@ -17,7 +18,10 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
   title,
 }) => {
   const [titleValue, setTitleValue] = useState(title);
-  const { updateQuestion } = useQuestionUpdate(materialId, id);
+  const { updateQuestion, updateQuestionIsPending } = useQuestionUpdate(
+    materialId,
+    id,
+  );
 
   const debouncedTitleValue = useDebounce(titleValue, 1500);
 
@@ -33,13 +37,20 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
 
   return (
     <AccordionTrigger>
-      <textarea
-        value={titleValue}
-        className="text-xl font-bold border-0 w-full resize-none 
+      <div className="flex w-full justify-start items-center">
+        <div className="flex-8 w-full">
+          <textarea
+            value={titleValue}
+            className="text-xl font-bold border-0 w-full resize-none 
                   wrap-break-word overflow-hidden outline-none"
-        onChange={(e) => onUpdateTitle(e.target.value)}
-        maxLength={70}
-      />
+            onChange={(e) => onUpdateTitle(e.target.value)}
+            maxLength={70}
+          />
+        </div>
+        <div className="flex flex-1 justify-end">
+          <IsPendingLoader isPending={updateQuestionIsPending} />
+        </div>
+      </div>
     </AccordionTrigger>
   );
 };

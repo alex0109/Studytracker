@@ -20,5 +20,6 @@ export const useAttemptFinish = (attemptId: string) => {
 
   return {
     finishAttempt: finishAttemptMutation.mutateAsync,
+    finishAttemptIsPending: finishAttemptMutation.isPending,
   };
 };

@@ -1,19 +1,26 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { IOpenQuestionRequest } from "@/entities/question";
-import { CustomInput, Modal, TextArea, Title } from "@/shared/ui";
+import {
+  CustomInput,
+  IsPendingLoader,
+  Modal,
+  TextArea,
+  Title,
+} from "@/shared/ui";
 import { Button, Separator } from "@/shared/radix-ui";
+import { useOpenQuestionCreate } from "../../hooks/useOpenQuestionCreate";
 
 interface QuestionCreateModalProps {
+  materialId: string;
   open: boolean;
   setOpen: (isOpen: boolean) => void;
-  createOpenQuestion: (body: IOpenQuestionRequest) => void;
 }
 
 export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
+  materialId,
   open,
   setOpen,
-  createOpenQuestion,
 }) => {
   const {
     register,
@@ -21,6 +28,9 @@ export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
     handleSubmit,
     reset,
   } = useForm<IOpenQuestionRequest>();
+
+  const { createOpenQuestion, createOpenQuestionIsPending } =
+    useOpenQuestionCreate(materialId);
 
   const onFormSubmit = (values: IOpenQuestionRequest) => {
     createOpenQuestion(values);
@@ -65,13 +75,22 @@ export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
               })}
               error={errors.answer?.message}
             />
-            <Button
-              className="self-end"
-              type="submit"
-              onClick={() => setOpen(true)}
-            >
-              Create
-            </Button>
+            <div className="flex w-full justify-center items-center">
+              <div className="flex-1" />
+              <div className="flex flex-1 justify-center items-center">
+                <Button
+                  size="lg"
+                  className="w-50"
+                  type="submit"
+                  onClick={() => setOpen(true)}
+                >
+                  Create
+                </Button>
+              </div>
+              <div className="flex-1">
+                <IsPendingLoader isPending={createOpenQuestionIsPending} />
+              </div>
+            </div>
           </form>
         </div>
       </div>

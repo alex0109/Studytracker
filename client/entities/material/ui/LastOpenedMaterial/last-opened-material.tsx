@@ -2,10 +2,11 @@
 
 import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Title, ContainerColumn, CustomButton, BlockColumn } from "@/shared/ui";
+import { Title, ContainerColumn, BlockColumn } from "@/shared/ui";
 import { useRouter } from "next/navigation";
 import { useLastOpened } from "@/shared/hooks";
 import { StatusBadge, useMaterialExact } from "@/entities/material";
+import { Button } from "@/shared/radix-ui";
 
 export const LastOpened: FC = () => {
   const router = useRouter();
@@ -42,11 +43,14 @@ export const LastOpened: FC = () => {
           />
           <div className="border-b-2 rounded-8xl border-neutral-600 w-full" />
           <StatusBadge status={exactMaterialData.status!} />
-          <CustomButton
-            title="Continue"
-            buttonStyles="w-[250px] bg-neutral-100 text-black font-semibold"
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-[250px] text-black font-semibold"
             onClick={() => router.push(`/materials/${exactMaterialData.id}`)}
-          />
+          >
+            Continue
+          </Button>
         </BlockColumn>
       </ContainerColumn>
     </motion.div>

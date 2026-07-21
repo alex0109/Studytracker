@@ -17,6 +17,7 @@ export const MaterialInterface = () => {
           animate={{ y: 0, opacity: 1 }}
         >
           <Button
+            size="lg"
             className="text-lg hover:bg-transparent relative"
             variant="ghost"
             onClick={() => {

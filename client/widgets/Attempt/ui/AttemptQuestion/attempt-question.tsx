@@ -6,6 +6,7 @@ import { Button } from "@/shared/radix-ui/Button/button";
 import { motion } from "framer-motion";
 import { IResultRequest, useAttemptSubmitAnswer } from "@/entities/attempt";
 import { useForm } from "react-hook-form";
+import { Separator } from "@/shared";
 
 interface AttemptQuestionProps {
   questionId: string;
@@ -56,12 +57,12 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
           <Subtitle text={title} />
         </ContainerRow>
         {answers && answers.length > 0 && (
-          <div className="mb-3 rounded bg-emerald-100 p-3">
-            <p className="font-semibold">Saved answers:</p>
+          <div className="mb-3 rounded-2xl bg-emerald-100 p-3">
+            <p className="font-semibold">Saved answers</p>
 
             {answers.map((answer, index) => (
-              <p key={index} className="mt-1">
-                {index + 1}. {answer}
+              <p key={index} className="mt-1 pl-3">
+                * {answer}
               </p>
             ))}
           </div>
@@ -80,7 +81,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
               error={errors.userAnswer?.message}
             />
           </div>
-          <Button type="submit" className="self-end w-[150px]">
+          <Button size="lg" type="submit" className="self-end w-[150px]">
             Answer
           </Button>
         </form>

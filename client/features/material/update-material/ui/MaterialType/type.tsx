@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { MaterialTypeEnum } from "@/entities/material";
 import { useDebounce } from "@/shared/hooks";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
+import { IsPendingLoader } from "@/shared/ui";
 
 interface MaterialTypeType {
   id: string;
@@ -13,7 +14,7 @@ interface MaterialTypeType {
 export const MaterialType: FC<MaterialTypeType> = ({ id, type }) => {
   const [selectType, setSelectType] = useState<MaterialTypeEnum>(type);
 
-  const { updateMaterial } = useMaterialUpdate(id);
+  const { updateMaterial, updateMaterialIsPending } = useMaterialUpdate(id);
 
   const updateTypeHandler = (
     materialId: string,
@@ -35,16 +36,24 @@ export const MaterialType: FC<MaterialTypeType> = ({ id, type }) => {
   };
 
   return (
-    <select
-      className="outline-none cursor-pointer text-black dark:text-white"
-      value={selectType}
-      onChange={(e) => onTypeUpdate(id, e.target.value as MaterialTypeEnum)}
-    >
-      <option value="article">Article</option>
-      <option value="video">Video</option>
-      <option value="summary">Summary</option>
-      <option value="practice">Practice</option>
-      <option value="test">Test</option>
-    </select>
+    <div className="flex w-full gap-2">
+      <div className="flex-1" />
+      <div className="flex flex-1 w-full justify-center items-center">
+        <select
+          className="outline-none cursor-pointer text-black dark:text-white"
+          value={selectType}
+          onChange={(e) => onTypeUpdate(id, e.target.value as MaterialTypeEnum)}
+        >
+          <option value="article">Article</option>
+          <option value="video">Video</option>
+          <option value="summary">Summary</option>
+          <option value="practice">Practice</option>
+          <option value="test">Test</option>
+        </select>
+      </div>
+      <div className="flex-1 h-10">
+        <IsPendingLoader isPending={updateMaterialIsPending} />
+      </div>
+    </div>
   );
 };

@@ -14,7 +14,7 @@ export const AccordionContent = forwardRef(
     >
       <div className="px-5 py-5 wrap-break-word">{children}</div>
       <div className="flex justify-end items-center p-2 pr-10">
-        <Button variant="destructive" onClick={deleteQuestion}>
+        <Button size="lg" variant="destructive" onClick={deleteQuestion}>
           <LuTrash2 />
         </Button>
       </div>

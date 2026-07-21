@@ -21,7 +21,7 @@ export const authorizedLinks = [
     hash: "/materials",
   },
   {
-    name: "Stats",
+    name: "Statistics",
     hash: "/statistics",
   },
 ];

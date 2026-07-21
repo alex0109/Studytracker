@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Title, Modal, CustomInput, CustomButton } from "@/shared/ui";
+import { Title, Modal, CustomInput } from "@/shared/ui";
 import { ITagCreate } from "@/entities/tag";
 import { useTagCreate } from "../../hooks/useTagCreate";
 import { ColorPicker } from "../ColorPicker/color-picker";
@@ -52,6 +52,7 @@ export const AddTag: FC = () => {
             />
             <ColorPicker onChange={setColor} />
             <Button
+              size="lg"
               className="w-full"
               type="submit"
               onClick={() => setOpen(true)}

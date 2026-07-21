@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { CustomButton, CustomInput, Subtitle, Title, Text } from "@/shared/ui";
+import { CustomInput, Subtitle, Title, Text } from "@/shared/ui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
@@ -10,6 +10,7 @@ import {
   MagicLinkStateType,
   signInWithMagicLink,
 } from "@/entities/auth";
+import { Button } from "@/shared/radix-ui";
 
 export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const [loading, setLoading] = useState(false);
@@ -69,14 +70,18 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
               />
             </div>
           </motion.div>
-          <form action={magicLinkAction}>
-            <CustomInput
-              disabled={pending ? true : false}
-              name="email"
-              placeholder="Email..."
-              required={true}
-            />
-            <CustomButton type="submit" title="Continue with email" />
+          <form action={magicLinkAction} className="flex flex-col w-full">
+            <div className="w-full">
+              <CustomInput
+                disabled={pending ? true : false}
+                name="email"
+                placeholder="Email..."
+                required={true}
+              />
+            </div>
+            <Button size="lg" type="submit">
+              Continue with email
+            </Button>
             <div className="flex flex-row items-center gap-3 my-3">
               <div className="border-t border-neutral-400 w-[150px]" />
               <div>
@@ -84,12 +89,14 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
               </div>
               <div className="border-t border-neutral-400 w-[150px]" />
             </div>
-            <CustomButton
+            <Button
+              size="lg"
               type="button"
               onClick={handleGoogleSignIn}
-              title="Continue with Google"
               disabled={loading}
-            />
+            >
+              Continue with Google
+            </Button>
           </form>
         </>
       )}

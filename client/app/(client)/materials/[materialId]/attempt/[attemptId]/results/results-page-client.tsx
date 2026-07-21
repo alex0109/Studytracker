@@ -39,6 +39,7 @@ export const ResultsPageClient = ({
         <ResultQuestionList
           questions={questionsReducedData}
           results={attemptResults.results}
+          materialId={materialId}
         />
       </BlockColumn>
     </ContainerColumn>

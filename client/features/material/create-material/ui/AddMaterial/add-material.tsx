@@ -2,9 +2,10 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Title, Modal, CustomInput, CustomButton } from "@/shared/ui";
+import { Title, Modal, CustomInput, IsPendingLoader } from "@/shared/ui";
 import { IMaterialCreate } from "@/entities/material";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
+import { Button } from "@/shared/radix-ui";
 
 export const AddMaterial: FC = () => {
   const {
@@ -14,7 +15,7 @@ export const AddMaterial: FC = () => {
     reset,
   } = useForm<IMaterialCreate>();
 
-  const { createMaterial } = useMaterialCreate();
+  const { createMaterial, createMaterialIsPending } = useMaterialCreate();
 
   const [open, setOpen] = useState(false);
 
@@ -37,14 +38,16 @@ export const AddMaterial: FC = () => {
           <Title text="Add new material" />
           <form
             onSubmit={handleSubmit(onFormSubmit)}
-            className="justify-center items-center"
+            className="flex flex-col w-full justify-center items-center"
           >
-            <CustomInput
-              label="Title"
-              placeholder="*Title..."
-              {...register<"title">("title", { required: "Required" })}
-              error={errors.title?.message}
-            />
+            <div className="w-full">
+              <CustomInput
+                label="Title"
+                placeholder="*Title..."
+                {...register<"title">("title", { required: "Required" })}
+                error={errors.title?.message}
+              />
+            </div>
             <div className="flex gap-2 flex-col justify-center">
               <select
                 {...register("type")}
@@ -67,7 +70,22 @@ export const AddMaterial: FC = () => {
                 <option value="finished">Finished</option>
               </select>
             </div>
-            <CustomButton title="Submit" type="submit" />
+            <div className="flex w-full justify-center items-center">
+              <div className="flex-1" />
+              <div className="flex-1">
+                <Button
+                  size="lg"
+                  type="submit"
+                  className="w-30 my-5"
+                  disabled={createMaterialIsPending}
+                >
+                  Create
+                </Button>
+              </div>
+              <div className="flex-1">
+                <IsPendingLoader isPending={createMaterialIsPending} />
+              </div>
+            </div>
           </form>
         </div>
       </Modal>

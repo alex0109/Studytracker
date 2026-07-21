@@ -6,7 +6,6 @@ const MaterialPage = async ({
   params: Promise<{ materialId: string }>;
 }) => {
   const { materialId } = await params;
-  // const material = await getMaterial(token, materialId);
 
   return <MaterialPageClient materialId={materialId} />;
 };

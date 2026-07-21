@@ -17,22 +17,22 @@ const AdminPanel: FC = () => {
         <Separator />
         <ContainerRow blockStyles="flex justify-center">
           <Link target="_blank" href="https://reybey-org.sentry.io/issues/">
-            <Button className="w-[400px] h-[200px] text-2xl">
+            <Button size="lg" className="w-[400px] h-[200px] text-2xl">
               Check logs (Sentry) <LuSquareArrowOutUpRight />
             </Button>
           </Link>
           <Link href="/admin/materials">
-            <Button className="w-[400px] h-[200px] text-2xl">
+            <Button size="lg" className="w-[400px] h-[200px] text-2xl">
               Check Materials <LuChartSpline />
             </Button>
           </Link>
           <Link href="/admin/users">
-            <Button className="w-[400px] h-[200px] text-2xl">
+            <Button size="lg" className="w-[400px] h-[200px] text-2xl">
               Check Users <LuUsers />
             </Button>
           </Link>
           <Link href="/admin/traffic">
-            <Button className="w-[400px] h-[200px] text-2xl">
+            <Button size="lg" className="w-[400px] h-[200px] text-2xl">
               Check Traffic <LuActivity />
             </Button>
           </Link>

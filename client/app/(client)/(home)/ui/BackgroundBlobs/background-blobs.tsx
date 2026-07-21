@@ -3,8 +3,8 @@ export const BackgroundBlobs = () => {
     <>
       <div
         className="absolute bg-[#cde7ff] top-[-6rem] 
-           right-[-10rem] h-[31.25rem] w-[31.25rem] 
-          rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263] -z-10"
+           right-0 h-[31.25rem] w-[31rem] 
+          rounded-full blur-[10rem] sm:w-[68rem] dark:bg-[#946263] -z-10"
       />
       <div
         className="absolute bg-[#c6c4ff] top-[-1rem] 
@@ -20,7 +20,7 @@ export const BackgroundBlobs = () => {
       />
       <div
         className="absolute bg-[#ffd0cd] top-[30rem] 
-          right-[-20rem] h-[31.25rem] w-[31.25rem] 
+          right-0 h-[31.25rem] w-[31.25rem] 
           rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-[#946263] -z-10"
       />
     </>

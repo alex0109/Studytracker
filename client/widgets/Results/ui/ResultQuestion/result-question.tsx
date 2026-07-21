@@ -18,6 +18,7 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({ title, answers }) => {
 
       {answers.map((answer, index) => (
         <div key={answer.id} className="my-4">
+          <p className="text-neutral-400 text-sm">Answer {index + 1}</p>
           <span
             className={cn(
               `font-semibold`,
@@ -26,7 +27,6 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({ title, answers }) => {
           >
             {answer.isCorrect ? "Correct" : "Wrong"}
           </span>
-
           <p
             className={
               answer.isCorrect
@@ -34,14 +34,6 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({ title, answers }) => {
                 : "bg-red-200 p-3 rounded-2xl"
             }
           >
-            <span
-              className={cn(
-                `p-2 mr-2 rounded-4xl`,
-                answer.isCorrect ? "bg-emerald-300" : "bg-red-300",
-              )}
-            >
-              Answer {index + 1}
-            </span>
             {answer.userAnswer}
           </p>
         </div>

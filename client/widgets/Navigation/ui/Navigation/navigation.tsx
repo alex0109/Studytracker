@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { authorizedLinks, links } from "@/shared/config/data";
 import { useSession } from "@/shared/context/session.provider";
-import { Title, Modal, CustomButton } from "@/shared/ui";
+import { Title, Modal } from "@/shared/ui";
 import { signOut } from "@/entities/auth";
+import { Button } from "@/shared/radix-ui";
 
 export const Navigation: FC = () => {
   const { user } = useSession();
@@ -77,7 +78,9 @@ export const Navigation: FC = () => {
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
           <Title text="Are you sure?" />
-          <CustomButton title="Sign out" onClick={handleLogOut} />
+          <Button size="lg" variant="destructive" onClick={handleLogOut}>
+            Sign out
+          </Button>
         </div>
       </Modal>
     </header>
