@@ -1,4 +1,4 @@
-import { ITag } from "@/entities/tag";
+import { ITagResponse } from "@/entities/tag";
 import { MaterialStatusEnum } from "./material-status.type";
 import { MaterialTypeEnum } from "./material-type.type";
 import { RichTextDocument } from "./rich-text-document.type";
@@ -8,7 +8,7 @@ export interface IMaterialResponse {
   assessmentId: string;
   title: string;
   type: MaterialTypeEnum;
-  materialTags?: ITag[];
+  materialTags?: ITagResponse[];
   link?: string;
   content?: RichTextDocument | undefined;
   status: MaterialStatusEnum;

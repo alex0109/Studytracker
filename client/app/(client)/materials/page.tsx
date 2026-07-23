@@ -1,4 +1,4 @@
-import { MaterialList } from "@/widgets/MaterialList/ui/MaterialList/material-list";
+import { MaterialList } from "@/widgets/MaterialList/ui";
 import { AddTagAndMaterial } from "@/widgets/AddTagAndMaterial";
 
 const Materials = () => {

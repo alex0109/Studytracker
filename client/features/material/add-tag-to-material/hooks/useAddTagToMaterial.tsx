@@ -18,7 +18,6 @@ export const useAddTagToMaterial = (materialId: string) => {
       tagId: string;
     }) => addTagToMaterial(token, materialId, tagId),
     onSuccess: (updatedMaterial) => {
-      console.log("ADD TAG / UPDATED MATERIAL", updatedMaterial);
       queryClient.setQueryData(
         materialKeys.detail(materialId),
         updatedMaterial,

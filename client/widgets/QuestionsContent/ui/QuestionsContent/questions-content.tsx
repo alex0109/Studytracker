@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
-import { BlockColumn, ContainerRow } from "@/shared/ui";
+import { BlockColumn, ContainerRow, InProductionModal } from "@/shared/ui";
 import styles from "./styles.module.css";
 import { Button, Separator } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
@@ -27,6 +27,8 @@ export const QuestionsContent: FC<QuestionsType> = ({
   assessmentId,
 }) => {
   const [open, setOpen] = useState(false);
+  const [inProductionIsOpen, setInProductionIsOpen] = useState(false);
+
   const router = useRouter();
   const path = usePathname();
 
@@ -43,7 +45,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
 
   const onClickhandlers = {
     "open-modal": () => setOpen(true),
-    generate: () => alert("Not working"),
+    generate: () => setInProductionIsOpen(true),
     start: () => startAttemptHandler(),
   };
 
@@ -110,6 +112,10 @@ export const QuestionsContent: FC<QuestionsType> = ({
         materialId={materialId}
         open={open}
         setOpen={setOpen}
+      />
+      <InProductionModal
+        isOpen={inProductionIsOpen}
+        setIsOpen={setInProductionIsOpen}
       />
     </BlockColumn>
   );

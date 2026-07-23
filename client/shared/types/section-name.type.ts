@@ -1,4 +1,4 @@
-import { materialInterface } from "@/app/(client)/materials/[materialId]/lib/data/data";
+import { materialInterface } from "@/widgets/MaterialInterface";
 import { links } from "../config/data";
 
 export type NavSectionName = (typeof links)[number]["name"];

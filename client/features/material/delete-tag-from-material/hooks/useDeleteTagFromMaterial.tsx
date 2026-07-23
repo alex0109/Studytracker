@@ -18,7 +18,6 @@ export const useDeleteTagFromMaterial = (materialId: string) => {
       tagId: string;
     }) => deleteTagFromMaterial(token, materialId, tagId),
     onSuccess: (updatedMaterial) => {
-      console.log("DELETE TAG / UPDATED MATERIAL", updatedMaterial);
       queryClient.setQueryData(
         materialKeys.detail(materialId),
         updatedMaterial,

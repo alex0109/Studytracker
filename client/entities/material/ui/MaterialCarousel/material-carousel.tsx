@@ -25,6 +25,7 @@ export const MaterialCarousel: FC<CarouselProps> = ({ materials }) => {
           onClick={() => saveLastOpenedId(item.id)}
         >
           <MaterialCarouselItem
+            assessmentId={item.assessmentId}
             title={item.title}
             type={item.type}
             materialTags={item.materialTags}

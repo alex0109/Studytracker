@@ -13,3 +13,4 @@ export * from "./TextArea";
 export * from "./Title";
 export * from "./TypeText";
 export * from "./IsPendingLoader";
+export * from "./InProductionModal";
