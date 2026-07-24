@@ -74,32 +74,36 @@ export const QuestionsContent: FC<QuestionsType> = ({
         ))}
       </div>
       <Separator />
-      {questionsData && questionsData.length > 0 ? (
+      {questionsData &&
+      questionsData.length > 0 &&
+      questionsData.filter((item) => item.isActive == true).length > 0 ? (
         <Accordion.Root
           className={styles.Root}
           type="single"
           defaultValue="item-1"
           collapsible
         >
-          {questionsData.map((item) => (
-            <Accordion.Item
-              key={item.id}
-              className={styles.Item}
-              value={item.id}
-            >
-              <QuestionTitle
-                materialId={item.materialId}
-                id={item.id}
-                title={item.title}
-              />
-              <QuestionAnswer
-                materialId={item.materialId}
-                id={item.id}
-                answer={item.answer!}
-                deleteQuestion={deleteQuestion}
-              />
-            </Accordion.Item>
-          ))}
+          {questionsData
+            .filter((item) => item.isActive == true)
+            .map((item) => (
+              <Accordion.Item
+                key={item.id}
+                className={styles.Item}
+                value={item.id}
+              >
+                <QuestionTitle
+                  materialId={item.materialId}
+                  id={item.id}
+                  title={item.title}
+                />
+                <QuestionAnswer
+                  materialId={item.materialId}
+                  id={item.id}
+                  answer={item.answer!}
+                  deleteQuestion={deleteQuestion}
+                />
+              </Accordion.Item>
+            ))}
         </Accordion.Root>
       ) : (
         <ContainerRow blockStyles="justify-center items-center">

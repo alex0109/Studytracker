@@ -1,2 +1,2 @@
 export * from "./ui";
-export { materialInterface } from "./lib/material-interface";
+export * from "./lib";

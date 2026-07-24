@@ -3,7 +3,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { attemptKeys, finishAttempt } from "@/entities/attempt";
+import { finishAttempt } from "@/entities/attempt";
 
 export const useAttemptFinish = (attemptId: string) => {
   const { token, user } = useSession();

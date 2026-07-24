@@ -4,6 +4,5 @@ export { getAllMaterials } from "./getAllMaterials";
 export { getMaterial } from "./getMaterial";
 export { getStatistics } from "./getStatistics";
 export { updateMaterial } from "./updateMaterial";
-export { getAttempts } from "./getAttempts";
 export { addTagToMaterial } from "./addTagToMaterial";
 export { deleteTagFromMaterial } from "./deleteTagFromMaterial";

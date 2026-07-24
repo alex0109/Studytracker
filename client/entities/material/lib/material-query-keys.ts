@@ -4,4 +4,6 @@ export const materialKeys = {
   details: () => [...materialKeys.all, "detail"] as const,
 
   detail: (id: string) => [...materialKeys.details(), id] as const,
+
+  attempts: (id: string) => [...materialKeys.detail(id), "attempts"] as const,
 };

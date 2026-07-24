@@ -4,9 +4,10 @@ import { FC, useState } from "react";
 import { ContainerColumn, ContainerRow, Subtitle, TextArea } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui/Button/button";
 import { motion } from "framer-motion";
-import { IResultRequest, useAttemptSubmitAnswer } from "@/entities/attempt";
+import { IResultRequest } from "@/entities/attempt";
 import { useForm } from "react-hook-form";
 import { Separator } from "@/shared";
+import { useAttemptSubmitAnswer } from "@/features/attempt/submit-answer";
 
 interface AttemptQuestionProps {
   questionId: string;

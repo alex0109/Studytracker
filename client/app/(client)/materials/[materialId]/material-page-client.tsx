@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
-import { BlockColumn, Text } from "@/shared/ui";
 import { MaterialContent } from "@/widgets/MaterialContent/ui";
 import { MaterialHeader } from "@/widgets/MaterialHeader/ui";
 import { MaterialInterface } from "@/widgets/MaterialInterface/ui";
@@ -10,10 +9,14 @@ import { QuestionsContent } from "@/widgets/QuestionsContent/ui";
 import { MaterialDeleteModal } from "@/features/material/delete-material/ui";
 import { useMaterialExact } from "@/entities/material";
 import MaterialLoading from "./loading";
+import { AttemptsContent } from "@/widgets/AttemptsContent";
+import { MaterialInterfaceEnum } from "@/widgets/MaterialInterface/lib";
+import { useFinishedAttempts } from "@/entities/attempt";
 
 export const MaterialPageClient = ({ materialId }: { materialId: string }) => {
   const { activeSection } = useActiveSectionContext();
   const [open, setOpen] = useState(false);
+  const { finishedAttempts } = useFinishedAttempts(materialId);
   const { exactMaterialData } = useMaterialExact(materialId);
 
   if (!exactMaterialData) {
@@ -30,11 +33,13 @@ export const MaterialPageClient = ({ materialId }: { materialId: string }) => {
         setOpen={setOpen}
       />
       <MaterialInterface />
-      {activeSection === "Questions" ? (
+      {activeSection === MaterialInterfaceEnum.Questions ? (
         <QuestionsContent
           materialId={exactMaterialData.id}
           assessmentId={exactMaterialData.assessmentId}
         />
+      ) : activeSection === MaterialInterfaceEnum.Attempts ? (
+        <AttemptsContent materialId={materialId} attempts={finishedAttempts} />
       ) : (
         <MaterialContent
           id={exactMaterialData.id}

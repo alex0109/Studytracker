@@ -2,34 +2,35 @@
 
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getAttempts } from "../api";
+
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { IAttempt } from "@/entities/attempt";
-import { materialKeys } from "../lib";
+import { attemptKeys, IAttempt } from "@/entities/attempt";
+import { materialKeys } from "../../material/lib";
+import { getFinishedAttempts } from "../api/getAttempts";
 
-export const useMaterialAttempts = (id: string) => {
+export const useFinishedAttempts = (materialId: string) => {
   const { token, user } = useSession();
 
   const attempts = useQuery<IAttempt[], Error>({
-    queryKey: materialKeys.detail(id),
-    queryFn: () => getAttempts(token, id),
-    enabled: !!id && !!token,
+    queryKey: attemptKeys.all,
+    queryFn: () => getFinishedAttempts(token, materialId),
+    enabled: !!materialId && !!token,
     staleTime: 5000,
   });
 
   useEffect(() => {
     if (attempts.error) {
       logExceptionError(attempts.error, {
-        section: `materials/${id}/attempts`,
+        section: `attempts/`,
         userID: user?.id,
       });
     }
   }, [attempts.error]);
 
   return {
-    attempts: attempts.data,
-    attemptsLoading: attempts.isLoading,
-    attemptsError: attempts.error,
+    finishedAttempts: attempts.data,
+    finishedAttemptsLoading: attempts.isLoading,
+    finishedAttemptsError: attempts.error,
   };
 };
