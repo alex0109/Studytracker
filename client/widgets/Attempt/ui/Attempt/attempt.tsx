@@ -12,17 +12,19 @@ import { useAttemptFinish } from "@/features/attempt/finish-attempt";
 import { useAttemptResults } from "@/entities/attempt";
 
 interface AttemptProps {
-  questionsReduced: IQuestionReduced[];
+  questionsActiveReduced: IQuestionReduced[];
   materialId: string;
   attemptId: string;
 }
 
 export const Attempt: FC<AttemptProps> = ({
-  questionsReduced,
+  questionsActiveReduced,
   materialId,
   attemptId,
 }) => {
-  const [questions] = useState(() => shuffleQuestions([...questionsReduced]));
+  const [questions] = useState(() =>
+    shuffleQuestions([...questionsActiveReduced]),
+  );
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
   const [isDisabled, setIsDisabled] = useState(false);
 

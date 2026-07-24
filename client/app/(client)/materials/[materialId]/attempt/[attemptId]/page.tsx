@@ -1,7 +1,5 @@
 import { getUser } from "@/entities/auth/model/get-current-user.supabase";
-import { getReducedQuestions } from "@/entities/question";
-import { Separator, Skeleton } from "@/shared/radix-ui";
-import { BlockColumn } from "@/shared/ui";
+import { getActiveReducedQuestions } from "@/entities/question";
 import { Attempt } from "@/widgets/Attempt/ui";
 
 const AttemptPage = async ({
@@ -12,11 +10,14 @@ const AttemptPage = async ({
   const { materialId, attemptId } = await params;
   const { token } = await getUser();
 
-  const questionsReduced = await getReducedQuestions(token, materialId);
+  const questionsActiveReduced = await getActiveReducedQuestions(
+    token,
+    materialId,
+  );
 
   return (
     <Attempt
-      questionsReduced={questionsReduced}
+      questionsActiveReduced={questionsActiveReduced}
       materialId={materialId}
       attemptId={attemptId}
     />

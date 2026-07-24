@@ -3,8 +3,7 @@ import Link from "next/link";
 import { EmptyMaterialCarouselItem } from "./empty-material-list";
 import { MaterialCarouselItem } from "./material-carousel-item";
 import { routes } from "@/shared/config/routes";
-import { useLastOpened } from "@/shared/hooks";
-import { CarouselProps } from "@/entities/material";
+import { CarouselProps, useLastOpened } from "@/entities/material";
 
 export const MaterialCarousel: FC<CarouselProps> = ({ materials }) => {
   const { saveLastOpenedId } = useLastOpened();

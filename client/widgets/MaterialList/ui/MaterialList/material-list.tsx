@@ -12,8 +12,7 @@ import { MaterialListItem } from "./material-list-item";
 import { routes } from "@/shared/config/routes";
 import { EmptyMaterialCarouselItem } from "@/entities/material/ui";
 import { filteredMaterials } from "../../lib/filter-materials";
-import { useLastOpened } from "@/shared/hooks";
-import { useMaterialAll } from "@/entities/material";
+import { useLastOpened, useMaterialAll } from "@/entities/material";
 import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
 

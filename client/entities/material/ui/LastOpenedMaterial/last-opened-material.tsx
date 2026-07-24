@@ -4,11 +4,19 @@ import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Title, ContainerColumn, BlockColumn } from "@/shared/ui";
 import { useRouter } from "next/navigation";
-import { useLastOpened } from "@/shared/hooks";
-import { StatusBadge, useMaterialExact } from "@/entities/material";
+import {
+  StatusBadge,
+  useLastOpened,
+  useMaterialExact,
+} from "@/entities/material";
 import { Button } from "@/shared/radix-ui";
+import { useSession } from "@/shared/context/session.provider";
 
 export const LastOpened: FC = () => {
+  const { token, user } = useSession();
+
+  if (!user || !token) return null;
+
   const router = useRouter();
 
   const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>("");

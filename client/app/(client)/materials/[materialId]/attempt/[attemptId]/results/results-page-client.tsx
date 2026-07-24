@@ -1,7 +1,7 @@
 "use client";
 
 import { useAttemptResults } from "@/entities/attempt";
-import { useQuestionReduced } from "@/entities/question";
+import { useQuestionAllReduced } from "@/entities/question";
 import { BlockColumn, ContainerColumn, Title } from "@/shared/ui";
 import { ResultsSummary, ResultQuestionList } from "@/widgets/Results";
 
@@ -16,11 +16,13 @@ export const ResultsPageClient = ({
 }: ResultsPageClientProps) => {
   const { attemptResults } = useAttemptResults(attemptId);
 
-  const { questionsReducedData } = useQuestionReduced(materialId);
+  const { questionsAllReducedData } = useQuestionAllReduced(materialId);
 
-  if (!attemptResults || !questionsReducedData) {
+  if (!attemptResults || !questionsAllReducedData) {
     return null;
   }
+
+  console.log("Q: ", questionsAllReducedData);
 
   return (
     <ContainerColumn>
@@ -31,13 +33,13 @@ export const ResultsPageClient = ({
       <BlockColumn>
         <ResultsSummary
           attempt={attemptResults}
-          questionsLength={questionsReducedData.length}
+          questionsLength={questionsAllReducedData.length}
         />
       </BlockColumn>
 
       <BlockColumn>
         <ResultQuestionList
-          questions={questionsReducedData}
+          questions={questionsAllReducedData}
           results={attemptResults.results}
           materialId={materialId}
         />

@@ -1,12 +1,12 @@
 import axios from "axios";
 import { IQuestionReduced } from "../model";
 
-export const getReducedQuestions = async (
+export const getAllReducedQuestions = async (
   token: string | undefined,
   materialId: string,
 ): Promise<IQuestionReduced[]> => {
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/attempt`,
+    `${process.env.NEXT_PUBLIC_API_HTTP}/materials/${materialId}/questions/reduced`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },

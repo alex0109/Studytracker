@@ -26,15 +26,19 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
     const redirectTo = `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`;
     setLoading(true);
     const supabase = createClient();
-    supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${redirectTo}?redirect=${encodeURIComponent(
-          "/materials",
-        )}`,
-      },
-    });
-    setLoading(false);
+    try {
+      supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${redirectTo}?redirect=${encodeURIComponent(
+            "/materials",
+          )}`,
+        },
+      });
+      setLoading(false);
+    } catch (error) {
+      return;
+    }
   };
 
   return (

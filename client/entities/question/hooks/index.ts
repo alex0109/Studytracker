@@ -1,3 +1,4 @@
 export { useQuestionAll } from "./useQuestionAll";
 export { useQuestionExact } from "./useQuestionExact";
-export { useQuestionReduced } from "./useQuestionReduced";
+export { useQuestionActiveReduced } from "./useQuestionActiveReduced";
+export { useQuestionAllReduced } from "./useQuestionAllReduced";

@@ -9,4 +9,10 @@ export const questionKeys = {
 
   detail: (materialId: string, id: string) =>
     [...questionKeys.details(), materialId, id] as const,
+
+  reducedAll: (materialId: string) =>
+    [...questionKeys.lists(), materialId, "reducedAll"] as const,
+
+  reducedActive: (materialId: string) =>
+    [...questionKeys.lists(), materialId, "reducedActive"] as const,
 };

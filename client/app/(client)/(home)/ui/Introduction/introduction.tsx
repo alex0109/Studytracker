@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BlockColumn, ContainerColumn, TypeText, ITypeText } from "@/shared/ui";
 
 const config: ITypeText = {
-  text: "Keep it simple. Keep it productive.",
+  text: "Converts learning from passive information storage into a measurable feedback system.",
   typeSpeed: 60,
 };
 
