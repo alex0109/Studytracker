@@ -81,26 +81,6 @@ h6 {
   font-size: 0.75rem;
   font-weight: 200;
 }
-ul {
-  list-style: none;
-  list-style-type: disc;
-  /* margin-left: 0.5rem; */
-}
-
-ul li {
-  list-style: none;
-  margin-bottom: 0.5rem;
-}
-ol {
-  list-style: none;
-  list-style-type: decimal;
-  margin-left: 1.5rem;
-}
-
-ol li {
-  list-style: none;
-  margin-bottom: 0.5rem;
-}
 
 :root {
   --radius: 0.625rem;

@@ -1,8 +1,10 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_BREAKPOINT = 985;
 
-function useIsMobile() {
+export function useIsMobile() {
   const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
@@ -17,5 +19,3 @@ function useIsMobile() {
 
   return !!isMobile;
 }
-
-export default useIsMobile;

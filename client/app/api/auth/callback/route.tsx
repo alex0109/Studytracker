@@ -1,6 +1,6 @@
-import { createClient } from "@/shared/supabase/server";
+import { getUser } from "@/entities/auth";
+import { createClientOnServer } from "@/entities/auth/api/server";
 import { NextResponse } from "next/server";
-import { getUser } from "@/shared/queries/user";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 
   const redirectTo = decodeURIComponent(encodedRedirectTo);
 
-  const supabase = await createClient();
+  const supabase = await createClientOnServer();
 
   if (code) {
     await supabase.auth.exchangeCodeForSession(code);

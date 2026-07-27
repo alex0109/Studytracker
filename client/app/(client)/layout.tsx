@@ -1,4 +1,4 @@
-import Navigation from "@/shared/components/navigation";
+import { Navigation } from "@/widgets/Navigation";
 
 export default function WithNavLayout({
   children,
