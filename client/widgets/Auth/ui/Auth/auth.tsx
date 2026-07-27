@@ -1,16 +1,13 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { CustomInput, Subtitle, Title } from "@/shared/ui";
+import { Subtitle, Title } from "@/shared/ui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import {
-  createClient,
-  MagicLinkStateType,
-  signInWithMagicLink,
-} from "@/entities/auth";
+import { MagicLinkStateType, signInWithMagicLink } from "@/entities/auth";
 import { Button } from "@/shared/radix-ui";
+import { createClient } from "@/entities/auth/api/client";
 
 export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const [loading, setLoading] = useState(false);
