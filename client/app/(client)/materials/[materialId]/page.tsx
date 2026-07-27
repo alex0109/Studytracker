@@ -1,18 +1,13 @@
-import MaterialPage from "./components/material.page";
-import { getOneMaterialService } from "../services/material.service";
-import { getUser } from "@/shared/queries/user";
+import { MaterialPageClient } from "./material-page-client";
 
-const Page = async ({
+const MaterialPage = async ({
   params,
 }: {
   params: Promise<{ materialId: string }>;
 }) => {
-  const { token } = await getUser();
   const { materialId } = await params;
 
-  const material = await getOneMaterialService(token, materialId);
-
-  return <MaterialPage materialId={materialId} exactMaterial={material} />;
+  return <MaterialPageClient materialId={materialId} />;
 };
 
-export default Page;
+export default MaterialPage;

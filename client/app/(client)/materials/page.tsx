@@ -1,10 +1,10 @@
-import MaterialList from "./components/material-list/material-list.component";
-import AddMaterial from "./components/add-material/add-material.component";
+import { MaterialList } from "@/widgets/MaterialList/ui";
+import { AddTagAndMaterial } from "@/widgets/AddTagAndMaterial";
 
 const Materials = () => {
   return (
     <>
-      <AddMaterial />
+      {/* <AddTagAndMaterial /> */}
       <MaterialList />
     </>
   );

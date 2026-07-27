@@ -1,7 +1,7 @@
 "use client";
 
-import BlockColumn from "@/shared/components/block-column";
-import { Skeleton } from "@/shared/components/ui/skeleton";
+import { BlockColumn } from "@/shared/ui";
+import { Skeleton } from "@/shared/radix-ui";
 
 const MaterialError = () => {
   return (

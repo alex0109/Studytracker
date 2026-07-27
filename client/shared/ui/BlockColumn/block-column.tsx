@@ -1,0 +1,28 @@
+// SHARED-UI
+
+import { FC, ReactNode } from "react";
+import { cn } from "@/shared/lib/cn";
+
+interface BlockColumnProps {
+  children: ReactNode;
+  blockStyles?: string;
+}
+
+export const BlockColumn: FC<BlockColumnProps> = ({
+  children,
+  blockStyles,
+}) => {
+  return (
+    <div
+      className={cn(
+        `p-3 my-3 bg-gray-100 dark:bg-neutral-800 
+        rounded-xl w-[80%] lg:w-[1000px] md:w-[700px] sm:w-full  h-full border-3 
+        border-gray-50 dark:border-neutral-700 
+        flex flex-col gap-1 flex-wrap items-center`,
+        blockStyles,
+      )}
+    >
+      {children}
+    </div>
+  );
+};

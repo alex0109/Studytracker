@@ -1,18 +1,15 @@
 import { FC } from "react";
-import Intro from "./(client)/(home)/intro.component";
-import Navigation from "@/shared/components/navigation";
-import LastOpened from "./(client)/(home)/components/last-opened.component";
+import { Introduction, Advantages, Bulletpoints } from "./(client)/(home)";
+import { LastOpened } from "@/entities/material/ui";
+import { Navigation } from "@/widgets/Navigation";
 
-import Advantages from "./(client)/(home)/components/advantages.component";
-import Bulletpoints from "./(client)/(home)/components/bulletpoints.component";
-
-const Home: FC = () => {
+const Page: FC = () => {
   return (
     <>
       <Navigation />
       <main className=" flex flex-col items-center pt-30">
         <LastOpened />
-        <Intro />
+        <Introduction />
         <Advantages />
         <Bulletpoints />
       </main>
@@ -20,4 +17,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default Page;

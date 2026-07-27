@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ActiveSectionContextProvider from "@/shared/context/active-section.context";
-import Footer from "@/shared/components/footer";
-import ReactQueryClientProvider from "@/shared/context/query-client-provider.context";
-import { getUser } from "@/shared/queries/user";
-import { SessionProvider } from "@/shared/context/session-provider.context";
+import ActiveSectionContextProvider from "@/shared/context/active-section.provider";
+import { Footer } from "@/shared/ui";
+import ReactQueryClientProvider from "@/shared/context/query-client.provider";
+import { SessionProvider } from "@/shared/context/session.provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import BackgroundBlobs from "./(client)/(home)/components/background-blobs.component";
+import { BackgroundBlobs } from "./(client)/(home)";
+import { getUser } from "@/entities/auth";
 
 export const metadata: Metadata = {
   title: "Studytracker",
@@ -17,7 +17,6 @@ const RootLayout = async ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
   const { user, token } = await getUser();
-  console.log("TOKEN: \n", token);
   return (
     <ReactQueryClientProvider>
       <html lang="en">

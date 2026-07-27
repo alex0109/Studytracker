@@ -1,0 +1,39 @@
+"use client";
+
+import { useState, useEffect, FC } from "react";
+import { ITypeText } from "./type-text.type";
+
+let timer: string | number | NodeJS.Timeout | undefined;
+
+export const TypeText: FC<ITypeText> = ({ text, typeSpeed }) => {
+  const [state, setState] = useState({
+    typedText: "",
+    currentIndex: 0,
+  });
+
+  function type() {
+    timer = setTimeout(() => {
+      if (state.currentIndex < text.length) {
+        const currentText = text[state.currentIndex];
+        setState({
+          typedText: state.typedText + currentText,
+          currentIndex: state.currentIndex + 1,
+        });
+        type();
+      }
+    }, 1000 / typeSpeed);
+  }
+
+  useEffect(() => {
+    type();
+
+    return () => clearTimeout(timer);
+  }, [state.currentIndex]);
+
+  return (
+    <p className="text-xl text-center">
+      {state.typedText}{" "}
+      <span className="cursor border-black dark:border-white" />
+    </p>
+  );
+};

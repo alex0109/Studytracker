@@ -1,0 +1,32 @@
+import { FC, ReactNode } from "react";
+import { MaterialStatusEnum } from "@/entities/material/model";
+
+interface StatusBadgeSelectProps {
+  status: MaterialStatusEnum | undefined;
+  children: ReactNode;
+}
+
+export const StatusBadgeSelect: FC<StatusBadgeSelectProps> = ({
+  status,
+  children,
+}) => {
+  if (!status) {
+    return <div className="w-[130px] bg-neutral-500"></div>;
+  }
+
+  return (
+    <div
+      className={`w-[130px] p-2 rounded-2xl text-white text-center ${
+        status == "tolearn"
+          ? "bg-sky-500"
+          : status == "inprocess"
+            ? "bg-purple-500"
+            : status == "finished"
+              ? "bg-emerald-500"
+              : "bg-neutral-500"
+      }`}
+    >
+      {children}
+    </div>
+  );
+};

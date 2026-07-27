@@ -1,6 +1,5 @@
-import ContainerColumn from "@/shared/components/container-column";
-import Title from "@/shared/components/title";
 import { FC } from "react";
+import { ContainerColumn, Title } from "@/shared/ui";
 
 const ErrorPage: FC = () => {
   return (
