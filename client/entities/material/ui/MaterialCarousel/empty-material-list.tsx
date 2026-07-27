@@ -6,7 +6,7 @@ export const EmptyMaterialCarouselItem: FC = () => {
   const { user } = useSession();
 
   return (
-    <div className="flex items-center justify-center h-[200px] w-full rounded-2xl p-2 m-2 border-3 border-neutral-600 border-dashed">
+    <div className="flex items-center justify-center h-[200px] w-full rounded-2xl p-2 m-2">
       <Subtitle
         text={
           !user

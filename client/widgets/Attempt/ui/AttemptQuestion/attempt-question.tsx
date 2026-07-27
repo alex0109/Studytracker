@@ -51,42 +51,44 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
     <motion.div
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
+      className="flex flex-col w-full justify-center items-center"
     >
-      <ContainerColumn>
-        <ContainerRow blockStyles="items-center">
-          <span className="text-xl font-bold">{index}.</span>
-          <Subtitle text={title} />
-        </ContainerRow>
-        {answers && answers.length > 0 && (
-          <div className="mb-3 rounded-2xl bg-emerald-100 p-3">
-            <p className="font-semibold">Saved answers</p>
+      <div className="flex w-full justify-start items-center">
+        <span className="text-xl font-bold">{index}.</span>
+        <Subtitle text={title} />
+      </div>
+      {answers && answers.length > 0 && (
+        <div className="flex flex-col w-full mb-3 rounded-2xl bg-emerald-100 p-3">
+          <p className="font-semibold">Saved answers</p>
 
-            {answers.map((answer, index) => (
-              <p key={index} className="mt-1 pl-3">
-                * {answer}
-              </p>
-            ))}
-          </div>
-        )}
-        <form onSubmit={handleSubmit(onFormSubmit)}>
-          <div>
-            <TextArea
-              {...register<"userAnswer">("userAnswer", {
-                required: "Required",
-              })}
-              placeholder="Write down what you remember about this question..."
-              inputStyles="w-full h-[300px] p-5 bg-neutral-200"
-              value={textAreaVlaue}
-              maxLength={1000}
-              onChange={(e) => setTextAreaValue(e.target.value)}
-              error={errors.userAnswer?.message}
-            />
-          </div>
-          <Button size="lg" type="submit" className="self-end w-[150px]">
-            Answer
-          </Button>
-        </form>
-      </ContainerColumn>
+          {answers.map((answer, index) => (
+            <div key={index}>
+              <p className="mt-1 pl-3">* {answer}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      <form
+        onSubmit={handleSubmit(onFormSubmit)}
+        className="flex flex-col justify-center items-center w-full"
+      >
+        <div className="flex justify-center items-center w-full">
+          <TextArea
+            {...register<"userAnswer">("userAnswer", {
+              required: "Required",
+            })}
+            placeholder="Write down what you remember about this question..."
+            inputStyles="w-full h-[300px] p-5 bg-neutral-200"
+            value={textAreaVlaue}
+            maxLength={1000}
+            onChange={(e) => setTextAreaValue(e.target.value)}
+            error={errors.userAnswer?.message}
+          />
+        </div>
+        <Button size="lg" type="submit" className="self-end w-[150px]">
+          Answer
+        </Button>
+      </form>
     </motion.div>
   );
 };

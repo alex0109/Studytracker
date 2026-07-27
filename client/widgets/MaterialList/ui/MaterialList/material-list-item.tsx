@@ -1,24 +1,32 @@
 import { FC } from "react";
 import moment from "moment";
 import { IMaterialResponse, StatusBadge } from "@/entities/material";
-import { Subtitle, Text, Title } from "@/shared/ui";
+import TypeBadge from "@/entities/material/ui/TypeBadge/type-badge";
 
 export const MaterialListItem: FC<IMaterialResponse> = ({
   title,
   type,
   status,
-  createdAt,
+  updatedAt,
 }) => {
   return (
-    <div className="bg-neutral-900 h-[200px] min-w-[300px] lg:w-[630px] md:w-[420px] sm:w-[300px] flex flex-col items-center rounded-2xl p-2 m-2 cursor-pointer hover:scale-105 ease-in-out duration-300 overflow-hidden">
-      <Title text={title} textStyles="text-white" />
-      <StatusBadge status={status} />
-      <Subtitle text={type ? type : "no type"} textStyles="text-white" />
-      <div className="w-full">
-        <Text
-          textStyles="text-neutral-400"
-          text={moment(createdAt).format("DD MMMM yy")}
-        />
+    <div
+      className="flex flex-1 justify-center items-center h-[50px] min-w-[500px] lg:w-[800px] md:w-[520px] sm:w-[600px]
+                cursor-pointer hover:scale-105 ease-in-out 
+                duration-300 overflow-hidden"
+    >
+      <div className="flex justify-center items-center flex-1 h-full mx-2">
+        <StatusBadge status={status} />
+      </div>
+      <div className="flex w-full h-[50px] justify-center items-center mx-2 px-2 rounded-2xl bg-neutral-200">
+        <div className="flex-1">
+          <p className="text-black">
+            <TypeBadge type={type} /> {title}
+          </p>
+        </div>
+        <div className="flex flex-1 w-full justify-end px-2">
+          <p className="text-black">{moment(updatedAt).format("DD MMMM yy")}</p>
+        </div>
       </div>
     </div>
   );

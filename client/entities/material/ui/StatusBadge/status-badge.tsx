@@ -1,5 +1,8 @@
+"use client";
+
 import { FC } from "react";
 import { MaterialStatusEnum } from "@/entities/material/model";
+import { useIsMobile } from "@/shared/hooks";
 
 interface StatusBadgeProps {
   status: MaterialStatusEnum | undefined;
@@ -10,6 +13,24 @@ export const StatusBadge: FC<StatusBadgeProps> = ({
   status,
   size = "normal",
 }) => {
+  const mobile = useIsMobile();
+
+  if (mobile) {
+    return (
+      <div
+        className={`w-[20px] h-[20px] p-2 rounded-2xl text-white text-center ${
+          status == "tolearn"
+            ? "bg-sky-500"
+            : status == "inprocess"
+              ? "bg-purple-500"
+              : status == "finished"
+                ? "bg-emerald-500"
+                : "bg-neutral-500"
+        }`}
+      />
+    );
+  }
+
   return size == "mini" ? (
     <p
       className={`${

@@ -4,7 +4,7 @@ import { AddTagAndMaterial } from "@/widgets/AddTagAndMaterial";
 const Materials = () => {
   return (
     <>
-      <AddTagAndMaterial />
+      {/* <AddTagAndMaterial /> */}
       <MaterialList />
     </>
   );

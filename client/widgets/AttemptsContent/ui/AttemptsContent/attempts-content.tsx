@@ -19,7 +19,9 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
   if (!attempts || attempts.length == 0) {
     return (
       <BlockColumn>
-        <p>No attempts on this material yet...</p>
+        <p className="text-neutral-500 text-lg">
+          No attempts on this material yet...
+        </p>
       </BlockColumn>
     );
   }
@@ -40,7 +42,7 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
               <div>
                 <p>
                   Finished: {moment(item.finishedAt).format("DD MMMM yy")} (
-                  {moment(item.finishedAt).format("hh:mm:ss")})
+                  {moment(item.finishedAt).format("HH:mm:ss")})
                 </p>
               </div>
             </div>

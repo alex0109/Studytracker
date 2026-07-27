@@ -27,12 +27,15 @@ export const AddMaterial: FC = () => {
 
   return (
     <>
-      <div
+      {/* <div
         onClick={() => setOpen(true)}
         className="relative w-10 h-10 rounded-4xl bg-neutral-900 hover:bg-neutral-700 text-neutral-600 text-2xl text-center cursor-pointer"
       >
         <span className="absolute top-0.5 left-[33%] text-white">+</span>
-      </div>
+      </div> */}
+
+      <Button onClick={() => setOpen(true)}>New Material</Button>
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-[400px]">
           <Title text="Add new material" />
@@ -53,11 +56,11 @@ export const AddMaterial: FC = () => {
                 {...register("type")}
                 className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
               >
-                <option value="article">Article</option>
-                <option value="video">Video</option>
-                <option value="summary">Summary</option>
-                <option value="practice">Practice</option>
-                <option value="test">Test</option>
+                <option value="article">📄Article</option>
+                <option value="video">▶️Video</option>
+                <option value="summary">📚Summary</option>
+                <option value="practice">📝Practice</option>
+                <option value="test">✏️Test</option>
               </select>
             </div>
             <div className="flex gap-2 flex-col justify-center">
@@ -72,11 +75,11 @@ export const AddMaterial: FC = () => {
             </div>
             <div className="flex w-full justify-center items-center">
               <div className="flex-1" />
-              <div className="flex-1">
+              <div className="flex-1 my-5">
                 <Button
                   size="lg"
                   type="submit"
-                  className="w-30 my-5"
+                  className="w-30"
                   disabled={createMaterialIsPending}
                 >
                   Create

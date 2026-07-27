@@ -18,7 +18,7 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
         <TableRow>
           <TableCell className="text-xl font-medium">Score</TableCell>
 
-          <TableCell className="text-xl">{attempt.score}</TableCell>
+          <TableCell className="text-xl font-bold">{attempt.score}%</TableCell>
         </TableRow>
 
         <TableRow>

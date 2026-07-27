@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { CustomInput, Subtitle, Title, Text } from "@/shared/ui";
+import { CustomInput, Subtitle, Title } from "@/shared/ui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
@@ -75,7 +75,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
             </div>
           </motion.div>
           <form action={magicLinkAction} className="flex flex-col w-full">
-            <div className="w-full">
+            {/* <div className="w-full">
               <CustomInput
                 disabled={pending ? true : false}
                 name="email"
@@ -92,7 +92,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
                 <p className="text-neutral-500">or</p>
               </div>
               <div className="border-t border-neutral-400 w-[150px]" />
-            </div>
+            </div> */}
             <Button
               size="lg"
               type="button"
@@ -107,7 +107,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
 
       {magicLinkState.error && (
         <div className="flex flex-col justify-center items-center w-[400px] my-10">
-          <Text textStyles="text-rose-700" text={magicLinkState.error} />
+          <p className="text-rose-700">{magicLinkState.error}</p>
         </div>
       )}
 

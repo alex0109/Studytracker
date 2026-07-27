@@ -60,14 +60,14 @@ export const QuestionsContent: FC<QuestionsType> = ({
 
   return (
     <BlockColumn blockStyles="p-[70px] items-start">
-      <div className="w-full flex justify-between items-center mb-5">
+      <div className="w-full flex lg:flex-row md:flex-col sm:flex-col gap-5 justify-between items-center mb-5">
         {questionInterface.map((item) => (
           <Button
             size="lg"
             key={item.key}
             onClick={onClickhandlers[item.key]}
             disabled={disabledHandlers[item.key]}
-            className={`w-[200px] ${cn(item.styles)}`}
+            className={`lg:w-[250px] sm:w-full ${cn(item.styles)}`}
           >
             {item.icon} {item.title}
           </Button>
@@ -106,11 +106,11 @@ export const QuestionsContent: FC<QuestionsType> = ({
             ))}
         </Accordion.Root>
       ) : (
-        <ContainerRow blockStyles="justify-center items-center">
+        <div className="flex w-full my-5 justify-center items-center">
           <p className="text-neutral-500 text-lg">
             There is no questions yet...
           </p>
-        </ContainerRow>
+        </div>
       )}
       <OpenQuestionCreateModal
         materialId={materialId}

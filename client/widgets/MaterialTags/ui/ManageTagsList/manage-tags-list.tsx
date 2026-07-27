@@ -7,6 +7,7 @@ import { ITagResponse, useTagsAll } from "@/entities/tag";
 import { ManageTagItem } from "../ManageTagItem/manage-tag-item";
 import { useAddTagToMaterial } from "@/features/material/add-tag-to-material";
 import { useDeleteTagFromMaterial } from "@/features/material/delete-tag-from-material";
+import { AddTag } from "@/features/tag/create-tag";
 
 interface SelectTagProps {
   materialId: string;
@@ -52,7 +53,9 @@ export const ManageTagsList: FC<SelectTagProps> = ({
           <div className="flex flex-wrap gap-2 p-2 m-2">
             {!tagsData || tagsData.length === 0 ? (
               <div className="w-full">
-                <p className="text-center">No available tags</p>
+                <p className="text-center text-neutral-500">
+                  No available tags...
+                </p>
               </div>
             ) : (
               tagsData?.map((tag) => (
@@ -67,6 +70,9 @@ export const ManageTagsList: FC<SelectTagProps> = ({
                 />
               ))
             )}
+          </div>
+          <div className="flex w-full justify-center items-center my-5">
+            <AddTag />
           </div>
         </div>
       </Modal>

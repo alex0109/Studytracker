@@ -23,7 +23,7 @@ export const MaterialType: FC<MaterialTypeType> = ({ id, type }) => {
     updateMaterial({ id: materialId, dataToUpdate: { type } });
   };
 
-  const debouncedTypeValue = useDebounce(selectType, 1500);
+  const debouncedTypeValue = useDebounce(selectType, 500);
 
   useEffect(() => {
     if (type !== debouncedTypeValue) {
@@ -44,11 +44,11 @@ export const MaterialType: FC<MaterialTypeType> = ({ id, type }) => {
           value={selectType}
           onChange={(e) => onTypeUpdate(id, e.target.value as MaterialTypeEnum)}
         >
-          <option value="article">Article</option>
-          <option value="video">Video</option>
-          <option value="summary">Summary</option>
-          <option value="practice">Practice</option>
-          <option value="test">Test</option>
+          <option value="article">📄Article</option>
+          <option value="video">▶️Video</option>
+          <option value="summary">📚Summary</option>
+          <option value="practice">📝Practice</option>
+          <option value="test">✏️Test</option>
         </select>
       </div>
       <div className="flex-1 h-10">

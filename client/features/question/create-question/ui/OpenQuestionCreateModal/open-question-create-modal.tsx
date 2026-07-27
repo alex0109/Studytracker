@@ -40,7 +40,7 @@ export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="w-dvh h-[600px]">
+      <div className="w-[400px] lg:w-[800px] sm:w-[700px] h-[600px]">
         <div className="flex flex-col w-full justify-center">
           <Title text="Add new Question" />
           <Separator />
@@ -55,11 +55,8 @@ export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
               })}
               error={errors.title?.message}
             />
-            <div className="flex flex-col justify-center">
-              <select
-                {...register("questionDifficulty")}
-                className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
-              >
+            <div className="flex flex-col justify-center bg-gray-100 dark:bg-neutral-700 rounded-2xl m-2 p-3">
+              <select {...register("questionDifficulty")} className="p-2">
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>

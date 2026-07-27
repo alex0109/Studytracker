@@ -1,6 +1,5 @@
 import { FC } from "react";
 import moment from "moment";
-import { Text } from "@/shared/ui";
 
 interface MaterialDateType {
   createdAt: Date;
@@ -13,10 +12,9 @@ export const MaterialDate: FC<MaterialDateType> = ({ createdAt }) => {
 
   return (
     <div>
-      <Text
-        textStyles="text-neutral-400"
-        text={moment(createdAt).format("DD MMMM yy")}
-      />
+      <p className="text-neutral-500">
+        {moment(createdAt).format("DD MMMM yy")}
+      </p>
     </div>
   );
 };

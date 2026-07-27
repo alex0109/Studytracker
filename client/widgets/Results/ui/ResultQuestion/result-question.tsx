@@ -18,7 +18,7 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({ title, answers }) => {
 
       {answers.map((answer, index) => (
         <div key={answer.id} className="my-4">
-          <p className="text-neutral-400 text-sm">Answer {index + 1}</p>
+          <p className="text-neutral-500 text-sm">Answer {index + 1}</p>
           <span
             className={cn(
               `font-semibold`,

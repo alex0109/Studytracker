@@ -46,7 +46,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     };
 
     return (
-      <div className={cn("flex flex-col gap-1", inputBlockStyles)}>
+      <div className={cn("flex flex-col w-full gap-1", inputBlockStyles)}>
         <textarea
           {...textareaProps}
           ref={ref}

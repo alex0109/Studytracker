@@ -22,10 +22,8 @@ export const ResultsPageClient = ({
     return null;
   }
 
-  console.log("Q: ", questionsAllReducedData);
-
   return (
-    <ContainerColumn>
+    <div className="flex flex-col justify-center items-center">
       <BlockColumn>
         <Title text="RESULTS" />
       </BlockColumn>
@@ -44,6 +42,6 @@ export const ResultsPageClient = ({
           materialId={materialId}
         />
       </BlockColumn>
-    </ContainerColumn>
+    </div>
   );
 };

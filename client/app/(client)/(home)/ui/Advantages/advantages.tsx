@@ -7,9 +7,9 @@ import { LuLeaf, LuChartSpline, LuLock } from "react-icons/lu";
 
 export const Advantages: FC = () => {
   return (
-    <ContainerRow blockStyles="gap-10 my-20 justify-center items-center">
+    <ContainerRow blockStyles="sm:flex-col md:flex-row lg:flex-row gap-10 my-20 justify-center items-center">
       <motion.div
-        className="flex w-65 h-65 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
+        className="flex w-65 lg:w-65 sm:w-100 h-65 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
         initial={{ y: -120, x: 0, opacity: 0 }}
         animate={{ y: 0, x: 0, opacity: 1 }}
       >
@@ -22,7 +22,7 @@ export const Advantages: FC = () => {
         </p>
       </motion.div>
       <motion.div
-        className="flex w-70 h-70 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
+        className="flex w-70 lg:w-70 sm:w-120 h-70 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
         initial={{ y: -120, x: 0, opacity: 0 }}
         animate={{ y: 0, x: 0, opacity: 1 }}
       >
@@ -36,7 +36,7 @@ export const Advantages: FC = () => {
         </p>
       </motion.div>
       <motion.div
-        className="flex w-65 h-65 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
+        className="flex w-65 lg:w-65 sm:w-100 h-65 bg-neutral-900 rounded-2xl flex-col justify-center items-center text-white p-5 gap-3"
         initial={{ y: -120, x: 0, opacity: 0 }}
         animate={{ y: 0, x: 0, opacity: 1 }}
       >

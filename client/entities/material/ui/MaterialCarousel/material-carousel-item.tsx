@@ -1,6 +1,6 @@
 import { FC } from "react";
 import moment from "moment";
-import { Subtitle, Text } from "@/shared/ui";
+import { Subtitle } from "@/shared/ui";
 import { IMaterialResponse, StatusBadge } from "@/entities/material";
 
 export const MaterialCarouselItem: FC<IMaterialResponse> = ({
@@ -28,10 +28,9 @@ export const MaterialCarouselItem: FC<IMaterialResponse> = ({
         </div>
       </div>
       <div>
-        <Text
-          textStyles="text-neutral-400"
-          text={moment(createdAt).format("DD MMMM yy")}
-        />
+        <p className="text-neutral-500">
+          {moment(createdAt).format("DD MMMM yy")}
+        </p>
       </div>
     </div>
   );

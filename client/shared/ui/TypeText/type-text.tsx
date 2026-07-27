@@ -31,7 +31,7 @@ export const TypeText: FC<ITypeText> = ({ text, typeSpeed }) => {
   }, [state.currentIndex]);
 
   return (
-    <p className="text-xl">
+    <p className="text-xl text-center">
       {state.typedText}{" "}
       <span className="cursor border-black dark:border-white" />
     </p>

@@ -1,7 +1,13 @@
+export interface TextType {
+  type: "bold" | "italic" | "underline" | "highlight" | "link";
+  attrs?: Record<string, string | number>;
+}
+
 export interface Node {
   type: string;
   text?: string;
-  attrs?: Record<string, string | number>;
+  marks?: TextType[];
+  attrs?: Record<string, string | number | boolean>;
   content?: Node[];
 }
 

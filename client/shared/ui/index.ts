@@ -8,7 +8,6 @@ export * from "./Input";
 export * from "./Modal";
 export * from "./Pie";
 export * from "./Subtitle";
-export * from "./Text";
 export * from "./TextArea";
 export * from "./Title";
 export * from "./TypeText";

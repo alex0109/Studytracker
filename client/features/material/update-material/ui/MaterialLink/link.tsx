@@ -34,7 +34,7 @@ export const MaterialLink: FC<MaterialLinkType> = ({ id, link }) => {
 
   return (
     <div className="flex items-center w-full gap-2 border-b border-b-neutral-700">
-      <Subtitle text="Link:" />
+      <Subtitle text="Source:" />
       <Input value={linkValue} onChange={(e) => onLinkUpdate(e.target.value)} />
     </div>
   );

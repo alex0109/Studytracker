@@ -32,12 +32,14 @@ export const AddTag: FC = () => {
 
   return (
     <>
-      <div
+      {/* <div
         onClick={() => setOpen(true)}
         className="relative w-10 h-10 rounded-4xl bg-neutral-900 hover:bg-neutral-700 text-neutral-600 text-2xl text-center cursor-pointer"
       >
         <span className="absolute top-0.5 left-[33%] text-white">+</span>
-      </div>
+      </div> */}
+
+      <Button onClick={() => setOpen(true)}>New Tag</Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-[400px]">
@@ -51,14 +53,16 @@ export const AddTag: FC = () => {
               error={errors.name?.message}
             />
             <ColorPicker onChange={setColor} />
-            <Button
-              size="lg"
-              className="w-full"
-              type="submit"
-              onClick={() => setOpen(true)}
-            >
-              Submit
-            </Button>
+            <div className="flex w-full justify-center items-center my-5">
+              <Button
+                size="lg"
+                className="w-30"
+                type="submit"
+                onClick={() => setOpen(true)}
+              >
+                Submit
+              </Button>
+            </div>
           </form>
         </div>
       </Modal>

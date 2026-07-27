@@ -15,7 +15,7 @@ export const ContainerRow: FC<ContainerRowProps> = ({
   return (
     <div
       className={cn(
-        `flex flex-row gap-2 flex-wrap my-5 min-w-[360px] lg:w-[900px] md:w-[600px] sm:w-full rounded-xl h-full`,
+        `flex flex-row gap-2 flex-wrap my-5 w-[360px] lg:w-[900px] md:w-[600px] sm:w-full rounded-xl h-full`,
         blockStyles,
       )}
     >
