@@ -37,7 +37,7 @@ export const AddMaterial: FC = () => {
       <Button onClick={() => setOpen(true)}>New Material</Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="w-[400px]">
+        <div className="md:w-[400px] w-[300px]">
           <Title text="Add new material" />
           <form
             onSubmit={handleSubmit(onFormSubmit)}

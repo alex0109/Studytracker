@@ -18,9 +18,7 @@ export const signInWithMagicLink = validatedAction(
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${redirectTo}?redirect=${encodeURIComponent(
-          "/materials",
-        )}`,
+        emailRedirectTo: `${redirectTo}?redirect=${encodeURIComponent("/")}`,
       },
     });
     if (error) {

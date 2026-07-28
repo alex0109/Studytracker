@@ -8,6 +8,7 @@ import {
   IMaterialCreate,
   materialKeys,
 } from "@/entities/material";
+import { toast } from "@/shared/radix-ui";
 
 export const useMaterialCreate = () => {
   const queryClient = useQueryClient();
@@ -17,11 +18,21 @@ export const useMaterialCreate = () => {
     mutationFn: (body: IMaterialCreate) => createMaterial(token, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: materialKeys.all });
+
+      toast({
+        title: "🎉Material has been created!",
+        variant: "success",
+      });
     },
     onError: (error) => {
       logExceptionError(error, {
         section: "materials/ (create)",
         userID: user?.id,
+      });
+
+      toast({
+        title: "❌Error occured while creating material",
+        variant: "error",
       });
     },
   });

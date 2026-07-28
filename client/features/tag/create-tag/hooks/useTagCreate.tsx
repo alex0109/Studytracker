@@ -5,6 +5,7 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { createTag, ITagCreate } from "@/entities/tag";
 import { tagKeys } from "@/entities/tag/lib/tag-query-keys";
+import { toast } from "@/shared/radix-ui";
 
 export const useTagCreate = () => {
   const queryClient = useQueryClient();
@@ -14,11 +15,20 @@ export const useTagCreate = () => {
     mutationFn: (body: ITagCreate) => createTag(token, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: tagKeys.all });
+      toast({
+        title: "✅Tag has created",
+        description: "You can use inside any material",
+        variant: "success",
+      });
     },
     onError: (error) => {
       logExceptionError(error, {
         section: "tags/ (create)",
         userID: user?.id,
+      });
+      toast({
+        title: "❌Error occured while creating tag",
+        variant: "error",
       });
     },
   });

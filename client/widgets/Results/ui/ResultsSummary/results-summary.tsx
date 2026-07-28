@@ -30,20 +30,20 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
         <TableRow>
           <TableCell className="text-xl font-medium">Correct answers</TableCell>
 
-          <TableCell className="text-xl">{attempt.correctAnswers}</TableCell>
+          <TableCell className="text-xl">✅ {attempt.correctAnswers}</TableCell>
         </TableRow>
 
         <TableRow>
           <TableCell className="text-xl font-medium">Wrong answers</TableCell>
 
-          <TableCell className="text-xl">{attempt.wrongAnswers}</TableCell>
+          <TableCell className="text-xl">❌ {attempt.wrongAnswers}</TableCell>
         </TableRow>
 
         <TableRow>
           <TableCell className="text-xl font-medium">Started at</TableCell>
 
           <TableCell className="text-xl">
-            {moment(attempt.startedAt).format("DD.MM.YY | HH:mm:ss")}
+            {moment(attempt.startedAt).format("DD dddd, MMM YY ( HH:mm:ss )")}
           </TableCell>
         </TableRow>
 
@@ -51,7 +51,7 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
           <TableCell className="text-xl font-medium">Finished at</TableCell>
 
           <TableCell className="text-xl">
-            {moment(attempt.finishedAt).format("DD.MM.YY | HH:mm:ss")}
+            {moment(attempt.finishedAt).format("DD dddd, MMM YY ( HH:mm:ss )")}
           </TableCell>
         </TableRow>
       </TableBody>

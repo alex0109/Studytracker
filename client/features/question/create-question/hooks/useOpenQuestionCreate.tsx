@@ -8,6 +8,7 @@ import {
   createOpenQuestion,
   IOpenQuestionRequest,
 } from "@/entities/question";
+import { toast } from "@/shared/radix-ui";
 
 export const useOpenQuestionCreate = (materialId: string) => {
   const queryClient = useQueryClient();
@@ -21,11 +22,21 @@ export const useOpenQuestionCreate = (materialId: string) => {
       queryClient.refetchQueries({
         queryKey: questionKeys.list(materialId),
       });
+
+      toast({
+        title: "✅Question has been created!",
+        variant: "success",
+      });
     },
     onError: (error) => {
       logExceptionError(error, {
         section: `materials/${materialId}/questions/open (create)`,
         userID: user?.id,
+      });
+
+      toast({
+        title: "❌Error occured while creating question",
+        variant: "error",
       });
     },
   });

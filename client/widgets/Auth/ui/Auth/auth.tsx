@@ -27,11 +27,10 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${redirectTo}?redirect=${encodeURIComponent(
-            "/materials",
-          )}`,
+          redirectTo: `${redirectTo}?redirect=${encodeURIComponent("/")}`,
         },
       });
+
       setLoading(false);
     } catch (error) {
       return;

@@ -16,7 +16,6 @@ import { filteredMaterials } from "../../lib/filter-materials";
 import { useLastOpened, useMaterialAll } from "@/entities/material";
 import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
-import { Button } from "@/shared/radix-ui";
 import { AddMaterial } from "@/features/material/create-material/ui";
 import { AddTag } from "@/features/tag/create-tag";
 
@@ -30,9 +29,9 @@ export const MaterialList: FC = () => {
     <Sentry.ErrorBoundary fallback={<ErrorPage />}>
       <BlockColumn blockStyles="min-h-[70vh]">
         <>
-          <ContainerColumn blockStyles="justify-center items-center">
+          <div className="flex flex-col justify-center items-center mb-5">
             <Title text="EXPLORE YOUR MATERIALS" />
-            <div className="flex w-full justify-center items-center">
+            <div className="flex lg:flex-row flex-col w-full justify-center items-center">
               <div className="flex-1" />
               <div className="flex-1 w-full">
                 <CustomInput
@@ -47,14 +46,7 @@ export const MaterialList: FC = () => {
                 <AddTag />
               </div>
             </div>
-            {/* <Subtitle
-              text={`Materials: ${
-                materialsData
-                  ? filteredMaterials(materialsData, search).length
-                  : "0"
-              }`}
-            /> */}
-          </ContainerColumn>
+          </div>
           {!materialsData || materialsData.length == 0 ? (
             <EmptyMaterialCarouselItem />
           ) : (
