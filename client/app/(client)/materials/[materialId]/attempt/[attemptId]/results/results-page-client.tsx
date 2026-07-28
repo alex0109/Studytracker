@@ -23,7 +23,7 @@ export const ResultsPageClient = ({
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col w-full justify-center items-center">
       <BlockColumn>
         <Title text="RESULTS" />
       </BlockColumn>

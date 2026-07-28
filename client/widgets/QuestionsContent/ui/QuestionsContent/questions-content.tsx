@@ -59,7 +59,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
   };
 
   return (
-    <BlockColumn blockStyles="p-[70px] items-start">
+    <BlockColumn blockStyles="lg:p-[70px] p-3 items-start">
       <div className="w-full flex lg:flex-row flex-col gap-5 justify-between items-center mb-5">
         {questionInterface.map((item) => (
           <Button

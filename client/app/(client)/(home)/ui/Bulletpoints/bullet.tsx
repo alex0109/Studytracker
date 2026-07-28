@@ -10,7 +10,7 @@ export const Bullet: FC<BulletProps> = ({ children }) => {
       <div
         className="bg-[#c9c9c9] relative bottom-9 z-999 right-2 h-10 w-5 
           rounded-full blur-[2rem] sm:w-275 dark:bg-[#946263]"
-      ></div>
+      />
       {children}
       <div
         className="bg-[#000000] relative top-9 

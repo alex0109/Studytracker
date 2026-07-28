@@ -34,19 +34,19 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
     <>
       {attempts?.map((item) => (
         <BlockColumn key={item.id}>
-          <div className="flex w-full justify-between items-center">
+          <div className="flex lg:flex-row flex-col w-full justify-between items-center gap-3">
             <div className="flex flex-col w-full flex-1 justify-start">
-              <div className="flex w-full justify-start">
+              <div className="flex w-full lg:justify-start justify-center items-center gap-3">
                 <Title text={`Attempt - ${item.id.split("-")[0]}`} />
               </div>
-              <div>
-                <p>
-                  Finished: {moment(item.finishedAt).format("DD MMMM yy")} (
+              <div className="flex w-full lg:justify-start justify-center items-center">
+                <p className="text-neutral-500">
+                  {moment(item.finishedAt).format("DD MMMM yy")} (
                   {moment(item.finishedAt).format("HH:mm:ss")})
                 </p>
               </div>
             </div>
-            <div className="flex flex-1 w-full justify-center items-center gap-5">
+            <div className="flex lg:flex-row flex-col flex-1 w-full lg:justify-center justify-center items-center gap-5">
               <div>
                 <Subtitle text={`SCORE: ${item.score}`} />
               </div>
