@@ -1,9 +1,18 @@
 import { IMaterialResponse } from "@/entities/material";
 
-export const filteredMaterials = (data: IMaterialResponse[], title: string) => {
+export const filteredMaterials = (data: IMaterialResponse[], query: string) => {
+  const normalizedQuery = query.trim().toLowerCase();
+
+  if (!normalizedQuery) return data;
+
   return data.filter((material) => {
-    return title.toLowerCase() === ""
-      ? material
-      : material.title!.toLowerCase().includes(title.toLowerCase().trim());
+    const title = material.title?.toLowerCase() ?? "";
+    const tags =
+      material.materialTags?.map((tag) => tag.name?.toLowerCase() ?? "") ?? [];
+
+    return (
+      title.includes(normalizedQuery) ||
+      tags.some((tag) => tag.includes(normalizedQuery))
+    );
   });
 };

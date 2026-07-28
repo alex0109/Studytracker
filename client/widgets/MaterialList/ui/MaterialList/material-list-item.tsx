@@ -17,7 +17,7 @@ export const MaterialListItem: FC<IMaterialResponse> = ({
                 duration-300 overflow-hidden"
     >
       <div className="flex flex-1 w-full justify-start items-center h-full mx-2">
-        <StatusBadge status={status} />
+        <StatusBadge isListed status={status} />
       </div>
       <div className="flex flex-9 w-full h-[50px] justify-start items-center mx-2 px-2 rounded-2xl bg-neutral-200">
         <div className="flex-1">

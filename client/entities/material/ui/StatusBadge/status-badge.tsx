@@ -7,15 +7,17 @@ import { useIsMobile } from "@/shared/hooks";
 interface StatusBadgeProps {
   status: MaterialStatusEnum | undefined;
   size?: "normal" | "mini";
+  isListed?: boolean;
 }
 
 export const StatusBadge: FC<StatusBadgeProps> = ({
   status,
   size = "normal",
+  isListed,
 }) => {
   const mobile = useIsMobile();
 
-  if (mobile) {
+  if (mobile && isListed) {
     return (
       <div
         className={`w-[20px] h-[20px] p-2 rounded-2xl text-white text-center ${
