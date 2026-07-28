@@ -8,6 +8,7 @@ import {
   materialKeys,
   updateMaterial,
 } from "@/entities/material";
+import { toast } from "@/shared/radix-ui";
 
 export const useMaterialUpdate = (id: string) => {
   const queryClient = useQueryClient();
@@ -29,6 +30,11 @@ export const useMaterialUpdate = (id: string) => {
       logExceptionError(error, {
         section: `materials/${id} (update)`,
         userID: user?.id,
+      });
+
+      toast({
+        title: "❌Error occured while updating material",
+        variant: "error",
       });
     },
   });

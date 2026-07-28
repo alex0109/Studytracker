@@ -7,6 +7,7 @@ import { SessionProvider } from "@/shared/context/session.provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BackgroundBlobs } from "./(client)/(home)";
 import { getUser } from "@/entities/auth";
+import { ToastProvider } from "@/shared/radix-ui";
 
 export const metadata: Metadata = {
   title: "Studytracker",
@@ -28,6 +29,7 @@ const RootLayout = async ({
               <Footer />
             </ActiveSectionContextProvider>
           </SessionProvider>
+          <ToastProvider />
         </body>
       </html>
     </ReactQueryClientProvider>

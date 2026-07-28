@@ -85,3 +85,4 @@ export {
   TooltipContent,
   TooltipProvider,
 } from "./Tooltip/tooltip";
+export * from "./Toast";

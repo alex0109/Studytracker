@@ -60,14 +60,14 @@ export const QuestionsContent: FC<QuestionsType> = ({
 
   return (
     <BlockColumn blockStyles="p-[70px] items-start">
-      <div className="w-full flex lg:flex-row md:flex-col sm:flex-col gap-5 justify-between items-center mb-5">
+      <div className="w-full flex lg:flex-row flex-col gap-5 justify-between items-center mb-5">
         {questionInterface.map((item) => (
           <Button
             size="lg"
             key={item.key}
             onClick={onClickhandlers[item.key]}
             disabled={disabledHandlers[item.key]}
-            className={`lg:w-[250px] sm:w-full ${cn(item.styles)}`}
+            className={`lg:w-[250px] md:w-[200px] sm:w-[200px] w-full ${cn(item.styles)}`}
           >
             {item.icon} {item.title}
           </Button>

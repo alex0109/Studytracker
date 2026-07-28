@@ -42,7 +42,7 @@ export const AddTag: FC = () => {
       <Button onClick={() => setOpen(true)}>New Tag</Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="w-[400px]">
+        <div className="md:w-[400px] w-[300px]">
           <Title text="Add new tag" />
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <CustomInput

@@ -38,17 +38,17 @@ export const MaterialType: FC<MaterialTypeType> = ({ id, type }) => {
   return (
     <div className="flex w-full gap-2">
       <div className="flex-1" />
-      <div className="flex flex-1 w-full justify-center items-center">
+      <div className="flex flex-2 w-full justify-center items-center">
         <select
           className="outline-none cursor-pointer text-black dark:text-white"
           value={selectType}
           onChange={(e) => onTypeUpdate(id, e.target.value as MaterialTypeEnum)}
         >
-          <option value="article">📄Article</option>
-          <option value="video">▶️Video</option>
-          <option value="summary">📚Summary</option>
-          <option value="practice">📝Practice</option>
-          <option value="test">✏️Test</option>
+          <option value="article">📄 Article</option>
+          <option value="video">▶️ Video</option>
+          <option value="summary">📚 Summary</option>
+          <option value="practice">📝 Practice</option>
+          <option value="test">✏️ Test</option>
         </select>
       </div>
       <div className="flex-1 h-10">

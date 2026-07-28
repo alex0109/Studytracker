@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib";
 import { addTagToMaterial, materialKeys } from "@/entities/material";
+import { toast } from "@/shared/radix-ui";
 
 export const useAddTagToMaterial = (materialId: string) => {
   const queryClient = useQueryClient();
@@ -27,11 +28,21 @@ export const useAddTagToMaterial = (materialId: string) => {
         queryKey: materialKeys.all,
         refetchType: "active",
       });
+
+      toast({
+        title: "✅Tag has been added to material",
+        variant: "success",
+      });
     },
     onError: (error) => {
       logExceptionError(error, {
         section: `materials/${materialId}/tags}`,
         userID: user?.id,
+      });
+
+      toast({
+        title: "❌Error occured while adding tag to material",
+        variant: "error",
       });
     },
   });
