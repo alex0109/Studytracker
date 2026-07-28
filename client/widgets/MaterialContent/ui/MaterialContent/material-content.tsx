@@ -25,7 +25,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
   status,
 }) => {
   return (
-    <BlockColumn blockStyles="p-[70px] items-start">
+    <BlockColumn blockStyles="lg:p-[70px] p-3 items-start">
       <MaterialLink id={id} link={link} />
       <MaterialTextContent id={id} content={content} />
       <MaterialTags materialId={id} materialTags={tags} />
