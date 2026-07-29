@@ -40,7 +40,7 @@ export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="w-[400px] lg:w-[800px] sm:w-[700px] h-[600px]">
+      <div className="lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px]">
         <div className="flex flex-col w-full justify-center">
           <Title text="Add new Question" />
           <Separator />

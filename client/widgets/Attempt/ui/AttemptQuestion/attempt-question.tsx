@@ -1,12 +1,11 @@
 "use client";
 
-import { FC, useState } from "react";
-import { ContainerColumn, ContainerRow, Subtitle, TextArea } from "@/shared/ui";
+import { FC } from "react";
+import { Subtitle, TextArea } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui/Button/button";
 import { motion } from "framer-motion";
 import { IResultRequest } from "@/entities/attempt";
 import { useForm } from "react-hook-form";
-import { Separator } from "@/shared";
 import { useAttemptSubmitAnswer } from "@/features/attempt/submit-answer";
 
 interface AttemptQuestionProps {
@@ -17,6 +16,18 @@ interface AttemptQuestionProps {
   answers?: string[];
   onAnswered: (answer: string) => void;
 }
+
+export enum IConfidenceLevel {
+  "Low" = 0,
+  "Medium" = 1,
+  "High" = 2,
+}
+
+const CONFIDENCE_OPTIONS: { value: IConfidenceLevel; label: string }[] = [
+  { value: IConfidenceLevel.Low, label: "Not sure" },
+  { value: IConfidenceLevel.Medium, label: "Fairly sure" },
+  { value: IConfidenceLevel.High, label: "Confident" },
+];
 
 export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   questionId,
@@ -30,11 +41,14 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
 
   const {
     register,
+    setValue,
+    watch,
     formState: { errors },
     handleSubmit,
   } = useForm<Partial<IResultRequest>>();
 
-  const [textAreaVlaue, setTextAreaValue] = useState<string>("");
+  const selectedConfidence = watch("confidenceLevel");
+  const textAreaValue = watch("userAnswer") ?? "";
 
   const onFormSubmit = async (values: Partial<IResultRequest>) => {
     const answer = values.userAnswer ?? "";
@@ -42,6 +56,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
     await submitAnswer({
       questionId,
       userAnswer: answer,
+      confidenceLevel: values.confidenceLevel,
     });
 
     onAnswered(answer);
@@ -79,13 +94,39 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
             })}
             placeholder="Write down what you remember about this question..."
             inputStyles="w-full h-[300px] p-5 bg-neutral-200"
-            value={textAreaVlaue}
+            value={textAreaValue}
             maxLength={1000}
-            onChange={(e) => setTextAreaValue(e.target.value)}
             error={errors.userAnswer?.message}
           />
         </div>
-        <Button size="lg" type="submit" className="self-end w-[150px]">
+
+        <div className="flex flex-col w-full mt-3">
+          <span className="text-sm text-neutral-500 mb-2">
+            How confident are you in this answer?
+          </span>
+          <div className="flex gap-2">
+            {CONFIDENCE_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => setValue("confidenceLevel", option.value)}
+                className={
+                  selectedConfidence === option.value
+                    ? "flex-1 rounded-xl py-2 text-sm font-medium bg-emerald-700 text-white"
+                    : "flex-1 rounded-xl py-2 text-sm font-medium bg-neutral-200 text-neutral-700"
+                }
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <Button
+          size="lg"
+          type="submit"
+          className="self-end w-[150px] bg-emerald-700 mt-4"
+        >
           Answer
         </Button>
       </form>

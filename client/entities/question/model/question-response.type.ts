@@ -1,4 +1,5 @@
 import { IOption } from "./option.type";
+import { QuestionDifficultyEnum } from "./question-difficulty";
 import { QuestionTypeEnum } from "./question-type.type";
 
 export interface IQuestionResponse {
@@ -9,7 +10,7 @@ export interface IQuestionResponse {
   questionType: QuestionTypeEnum;
   correctOptionId?: string;
   options: IOption[];
-  questionDifficulty: string;
+  questionDifficulty: QuestionDifficultyEnum;
   explanation?: string;
   version: number;
   isActive: boolean;

@@ -30,6 +30,7 @@ const RootLayout = async ({
             </ActiveSectionContextProvider>
           </SessionProvider>
           <ToastProvider />
+          <SpeedInsights />
         </body>
       </html>
     </ReactQueryClientProvider>
