@@ -40,7 +40,7 @@ export const useFinishedAttempts = (materialId: string) => {
 
   return {
     finishedAttempts: attempts.data,
-    finishedAttemptsLoading: attempts.isLoading,
+    finishedAttemptsIsPending: attempts.isPending,
     finishedAttemptsError: attempts.error,
   };
 };

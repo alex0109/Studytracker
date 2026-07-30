@@ -29,7 +29,7 @@ export const useStatisticsTagPerformance = () => {
 
   return {
     statisticsTagPerformanceData: statisticsTagPerformance.data,
-    statisticsTagPerformanceLoading: statisticsTagPerformance.isLoading,
+    statisticsTagPerformanceIsPending: statisticsTagPerformance.isPending,
     statisticsTagPerformanceError: statisticsTagPerformance.error,
   };
 };

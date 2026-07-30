@@ -29,7 +29,7 @@ export const useStatisticsAttemtTrend = () => {
 
   return {
     statisticsAttemtTrendData: statisticsAttemtTrend.data,
-    statisticsAttemtTrendLoading: statisticsAttemtTrend.isLoading,
+    statisticsAttemtTrendIsPending: statisticsAttemtTrend.isPending,
     statisticsAttemtTrendError: statisticsAttemtTrend.error,
   };
 };

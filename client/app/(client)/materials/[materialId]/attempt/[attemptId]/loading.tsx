@@ -3,7 +3,7 @@
 import { BlockColumn } from "@/shared/ui";
 import { Separator, Skeleton } from "@/shared/radix-ui";
 
-const AttemptLoading = () => {
+const AttemptIsPending = () => {
   return (
     <BlockColumn blockStyles="bg-none">
       <div className="flex flex-col w-full gap-3">
@@ -27,4 +27,4 @@ const AttemptLoading = () => {
   );
 };
 
-export default AttemptLoading;
+export default AttemptIsPending;

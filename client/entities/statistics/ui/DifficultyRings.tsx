@@ -17,10 +17,10 @@ const TRACK_COLOR = "#404040";
 export function DifficultyRings() {
   const {
     statisticsDifficultyBreakdownData,
-    statisticsDifficultyBreakdownLoading,
+    statisticsDifficultyBreakdownIsPending,
   } = useStatisticsDifficultyBreakdown();
 
-  if (statisticsDifficultyBreakdownLoading) {
+  if (statisticsDifficultyBreakdownIsPending) {
     return (
       <div className="h-52 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
     );

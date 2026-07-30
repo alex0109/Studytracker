@@ -31,7 +31,7 @@ export const useQuestionAll = (materialId: string) => {
 
   return {
     questionsData: questions.data,
-    questionsLoading: questions.isLoading,
+    questionsIsPending: questions.isPending,
     questionsError: questions.error,
   };
 };

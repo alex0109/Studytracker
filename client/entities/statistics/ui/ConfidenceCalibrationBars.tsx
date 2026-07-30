@@ -6,10 +6,10 @@ import { confidenceLabel } from "./tokens";
 export function ConfidenceCalibrationBars() {
   const {
     statisticsConfidenceCalibrationData,
-    statisticsConfidenceCalibrationLoading,
+    statisticsConfidenceCalibrationIsPending,
   } = useStatisticsConfidenceCalibration();
 
-  if (statisticsConfidenceCalibrationLoading) {
+  if (statisticsConfidenceCalibrationIsPending) {
     return (
       <div className="h-52 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
     );

@@ -3,7 +3,7 @@
 import { BlockColumn } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const MaterialsLoading = () => {
+const MaterialsIsPending = () => {
   return (
     <BlockColumn>
       <div className="flex flex-col gap-5 w-full mb-5 justify-start items-center">
@@ -56,4 +56,4 @@ const MaterialsLoading = () => {
   );
 };
 
-export default MaterialsLoading;
+export default MaterialsIsPending;

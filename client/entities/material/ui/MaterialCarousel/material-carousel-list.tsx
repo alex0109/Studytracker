@@ -6,14 +6,14 @@ import { MaterialCarousel } from "./material-carousel";
 import { useMaterialAll } from "@/entities/material";
 
 export const MaterialCarouselList: FC = () => {
-  const { materialsData, materialsLoading } = useMaterialAll();
+  const { materialsData, materialsIsPending } = useMaterialAll();
 
   return (
     <BlockColumn>
       <Title text="List" />
       <MaterialCarousel
         materials={materialsData ?? []}
-        materialsLoading={materialsLoading}
+        materialsIsPending={materialsIsPending}
       />
     </BlockColumn>
   );

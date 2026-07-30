@@ -3,7 +3,7 @@
 import { BlockColumn, ContainerColumn } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const MaterialLoading = () => {
+const MaterialIsPending = () => {
   return (
     <>
       <BlockColumn blockStyles="bg-none">
@@ -34,4 +34,4 @@ const MaterialLoading = () => {
   );
 };
 
-export default MaterialLoading;
+export default MaterialIsPending;

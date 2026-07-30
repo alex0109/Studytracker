@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
-import { BlockColumn, ContainerRow, InProductionModal } from "@/shared/ui";
+import { BlockColumn, InProductionModal } from "@/shared/ui";
 import styles from "./styles.module.css";
 import { Button, Separator } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
@@ -16,6 +16,8 @@ import {
 import { useQuestionDelete } from "@/features/question/delete-question";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
+import { EmptyQuestions } from "./empty-questions";
+import LoadingQuestions from "./loading-questions";
 
 interface QuestionsType {
   materialId: string;
@@ -32,10 +34,10 @@ export const QuestionsContent: FC<QuestionsType> = ({
   const router = useRouter();
   const path = usePathname();
 
-  const { questionsData } = useQuestionAll(materialId);
+  const { questionsData, questionsIsPending } = useQuestionAll(materialId);
   const { deleteQuestion } = useQuestionDelete(materialId);
 
-  const { attemptStart, startAttemptPending } = useAttemptStart(assessmentId);
+  const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId);
 
   const startAttemptHandler = async () => {
     const attempt = await attemptStart();
@@ -53,7 +55,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
     "open-modal": false,
     generate: false,
     start:
-      questionsData && questionsData.length > 0 && !startAttemptPending
+      questionsData && questionsData.length > 0 && !startAttemptIsPending
         ? false
         : true,
   };
@@ -74,9 +76,11 @@ export const QuestionsContent: FC<QuestionsType> = ({
         ))}
       </div>
       <Separator />
-      {questionsData &&
-      questionsData.length > 0 &&
-      questionsData.filter((item) => item.isActive == true).length > 0 ? (
+      {questionsIsPending ? (
+        <LoadingQuestions />
+      ) : questionsData &&
+        questionsData.length > 0 &&
+        questionsData.filter((item) => item.isActive == true).length > 0 ? (
         <Accordion.Root
           className={styles.Root}
           type="single"
@@ -106,11 +110,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
             ))}
         </Accordion.Root>
       ) : (
-        <div className="flex w-full my-5 justify-center items-center">
-          <p className="text-neutral-500 text-lg">
-            There is no questions yet...
-          </p>
-        </div>
+        <EmptyQuestions />
       )}
       <OpenQuestionCreateModal
         materialId={materialId}

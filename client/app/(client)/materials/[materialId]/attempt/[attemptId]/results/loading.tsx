@@ -3,7 +3,7 @@
 import { BlockColumn } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 
-const ResultsLoading = () => {
+const ResultsIsPending = () => {
   return (
     <>
       <BlockColumn>
@@ -30,4 +30,4 @@ const ResultsLoading = () => {
   );
 };
 
-export default ResultsLoading;
+export default ResultsIsPending;

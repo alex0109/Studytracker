@@ -24,6 +24,6 @@ export const useAttemptStart = (assessmentId: string) => {
 
   return {
     attemptStart: startAttemptMutation.mutateAsync,
-    startAttemptPending: startAttemptMutation.isPending,
+    startAttemptIsPending: startAttemptMutation.isPending,
   };
 };

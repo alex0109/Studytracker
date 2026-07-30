@@ -29,7 +29,7 @@ export const useTagExact = (id: string) => {
 
   return {
     exactTagData: exactTag.data,
-    exactTagLoading: exactTag.isLoading,
+    exactTagIsPending: exactTag.isPending,
     exactTagError: exactTag.error,
   };
 };

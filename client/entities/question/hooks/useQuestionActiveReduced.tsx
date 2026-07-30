@@ -31,7 +31,7 @@ export const useQuestionActiveReduced = (materialId: string) => {
 
   return {
     questionsActiveReducedData: questionsActiveReduced.data,
-    questionsActiveReducedLoading: questionsActiveReduced.isLoading,
+    questionsActiveReducedIsPending: questionsActiveReduced.isPending,
     questionsActiveReducedError: questionsActiveReduced.error,
   };
 };

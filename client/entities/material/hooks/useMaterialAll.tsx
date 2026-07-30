@@ -29,7 +29,7 @@ export const useMaterialAll = () => {
 
   return {
     materialsData: materials.data,
-    materialsLoading: materials.isLoading,
+    materialsIsPending: materials.isPending,
     materialsError: materials.error,
   };
 };

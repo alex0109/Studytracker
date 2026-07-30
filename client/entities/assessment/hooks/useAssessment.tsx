@@ -26,7 +26,7 @@ export const useAssessment = (id: string) => {
 
   return {
     assessment: assessment.data,
-    assessmentLoading: assessment.isLoading,
+    assessmentIsPending: assessment.isPending,
     assessmentError: assessment.error,
   };
 };

@@ -3,10 +3,10 @@
 import { useStatisticsStudyStreak } from "../hooks";
 
 export function StudyStreakStrip() {
-  const { statisticsStudyStreakData, statisticsStudyStreakLoading } =
+  const { statisticsStudyStreakData, statisticsStudyStreakIsPending } =
     useStatisticsStudyStreak();
 
-  if (statisticsStudyStreakLoading || !statisticsStudyStreakData) {
+  if (statisticsStudyStreakIsPending || !statisticsStudyStreakData) {
     return (
       <div className="h-40 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
     );

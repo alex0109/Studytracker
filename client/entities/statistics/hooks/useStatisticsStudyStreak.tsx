@@ -29,7 +29,7 @@ export const useStatisticsStudyStreak = () => {
 
   return {
     statisticsStudyStreakData: statisticsStudyStreak.data,
-    statisticsStudyStreakLoading: statisticsStudyStreak.isLoading,
+    statisticsStudyStreakIsPending: statisticsStudyStreak.isPending,
     statisticsStudyStreakError: statisticsStudyStreak.error,
   };
 };
