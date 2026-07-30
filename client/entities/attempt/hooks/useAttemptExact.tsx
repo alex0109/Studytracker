@@ -29,7 +29,7 @@ export const useAttemptExact = (attemptId: string) => {
 
   return {
     exactAttempt: exactAttempt.data,
-    exactAttemptLoading: exactAttempt.isLoading,
+    exactAttemptIsPending: exactAttempt.isPending,
     exactAttemptError: exactAttempt.error,
   };
 };

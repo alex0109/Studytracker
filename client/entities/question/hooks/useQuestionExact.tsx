@@ -31,7 +31,7 @@ export const useQuestionExact = (materialId: string, id: string) => {
 
   return {
     questionExact: questionExact.data,
-    questionExactLoading: questionExact.isLoading,
+    questionExactIsPending: questionExact.isPending,
     questionExactError: questionExact.error,
   };
 };

@@ -29,8 +29,8 @@ export const useStatisticsConfidenceCalibration = () => {
 
   return {
     statisticsConfidenceCalibrationData: statisticsConfidenceCalibration.data,
-    statisticsConfidenceCalibrationLoading:
-      statisticsConfidenceCalibration.isLoading,
+    statisticsConfidenceCalibrationIsPending:
+      statisticsConfidenceCalibration.isPending,
     statisticsConfidenceCalibrationError: statisticsConfidenceCalibration.error,
   };
 };

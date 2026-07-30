@@ -3,10 +3,10 @@
 import { useStatisticsTagPerformance } from "../hooks";
 
 export function TagPerformanceList() {
-  const { statisticsTagPerformanceData, statisticsTagPerformanceLoading } =
+  const { statisticsTagPerformanceData, statisticsTagPerformanceIsPending } =
     useStatisticsTagPerformance();
 
-  if (statisticsTagPerformanceLoading) {
+  if (statisticsTagPerformanceIsPending) {
     return (
       <div className="h-52 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
     );

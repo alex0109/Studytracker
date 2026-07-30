@@ -29,7 +29,7 @@ export const useTagsAll = () => {
 
   return {
     tagsData: tags.data,
-    tagsLoading: tags.isLoading,
+    tagsIsPending: tags.isPending,
     tagsError: tags.error,
   };
 };

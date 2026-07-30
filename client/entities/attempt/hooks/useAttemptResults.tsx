@@ -29,7 +29,7 @@ export const useAttemptResults = (attemptId: string) => {
 
   return {
     attemptResults: attemptResults.data,
-    attemptResultsLoading: attemptResults.isLoading,
+    attemptResultsIsPending: attemptResults.isPending,
     attemptResultsError: attemptResults.error,
   };
 };

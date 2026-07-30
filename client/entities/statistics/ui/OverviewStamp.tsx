@@ -4,10 +4,10 @@ import { useStatisticsOverview } from "../hooks";
 import { formatDuration } from "./tokens";
 
 export function OverviewStamp() {
-  const { statisticsOverviewData, statisticsOverviewLoading } =
+  const { statisticsOverviewData, statisticsOverviewIsPending } =
     useStatisticsOverview();
 
-  if (statisticsOverviewLoading || !statisticsOverviewData) {
+  if (statisticsOverviewIsPending || !statisticsOverviewData) {
     return (
       <div className="h-56 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
     );

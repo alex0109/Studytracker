@@ -29,7 +29,7 @@ export const useStatisticsOverview = () => {
 
   return {
     statisticsOverviewData: statisticsOverview.data,
-    statisticsOverviewLoading: statisticsOverview.isLoading,
+    statisticsOverviewIsPending: statisticsOverview.isPending,
     statisticsOverviewError: statisticsOverview.error,
   };
 };

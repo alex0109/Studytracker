@@ -29,7 +29,7 @@ export const useMaterialsByTag = (tagId: string) => {
 
   return {
     materialsByTagData: materialsByTag.data,
-    materialsByTagLoading: materialsByTag.isLoading,
+    materialsByTagIsPending: materialsByTag.isPending,
     materialsByTagError: materialsByTag.error,
   };
 };

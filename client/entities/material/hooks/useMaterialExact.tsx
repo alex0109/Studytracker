@@ -29,7 +29,7 @@ export const useMaterialExact = (id: string) => {
 
   return {
     exactMaterialData: exactMaterial.data,
-    exactMaterialLoading: exactMaterial.isLoading,
+    exactMaterialIsPending: exactMaterial.isPending,
     exactMaterialError: exactMaterial.error,
   };
 };

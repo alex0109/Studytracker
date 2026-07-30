@@ -28,7 +28,7 @@ export const useStatistics = () => {
 
   return {
     statsData: stats.data,
-    statsLoading: stats.isLoading,
+    statsIsPending: stats.isPending,
     statsError: stats.error,
   };
 };

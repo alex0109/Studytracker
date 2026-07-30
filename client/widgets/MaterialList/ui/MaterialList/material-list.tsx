@@ -13,6 +13,7 @@ import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
 import { AddMaterial } from "@/features/material/create-material/ui";
 import { AddTag } from "@/features/tag/create-tag";
+import { LoadingMaterials } from "@/entities/material/ui/MaterialCarousel/loading-materials";
 
 const listVariants = {
   hidden: { opacity: 0 },
@@ -30,7 +31,7 @@ const itemVariants = {
 
 export const MaterialList: FC = () => {
   const [search, setSearch] = useState("");
-  const { materialsData } = useMaterialAll();
+  const { materialsData, materialsIsPending } = useMaterialAll();
   const { saveLastOpenedId } = useLastOpened();
 
   const filtered = useMemo(
@@ -64,7 +65,9 @@ export const MaterialList: FC = () => {
             </div>
           </div>
 
-          {!hasMaterials ? (
+          {materialsIsPending ? (
+            <LoadingMaterials />
+          ) : !hasMaterials ? (
             <EmptyMaterialCarouselItem />
           ) : (
             <AnimatePresence mode="wait">

@@ -10,7 +10,7 @@ const GRID_COLOR = "#262626";
 const TICK_COLOR = "#737373";
 
 export function AttemptTrendChart() {
-  const { statisticsAttemtTrendData, statisticsAttemtTrendLoading } =
+  const { statisticsAttemtTrendData, statisticsAttemtTrendIsPending } =
     useStatisticsAttemtTrend();
   const { statisticsOverviewData } = useStatisticsOverview();
 
@@ -19,7 +19,7 @@ export function AttemptTrendChart() {
     y: p.averageScore,
   }));
 
-  if (statisticsAttemtTrendLoading) {
+  if (statisticsAttemtTrendIsPending) {
     return (
       <div className="h-64 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
     );

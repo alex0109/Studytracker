@@ -29,8 +29,8 @@ export const useStatisticsDifficultyBreakdown = () => {
 
   return {
     statisticsDifficultyBreakdownData: statisticsDifficultyBreakdown.data,
-    statisticsDifficultyBreakdownLoading:
-      statisticsDifficultyBreakdown.isLoading,
+    statisticsDifficultyBreakdownIsPending:
+      statisticsDifficultyBreakdown.isPending,
     statisticsDifficultyBreakdownError: statisticsDifficultyBreakdown.error,
   };
 };
