@@ -13,7 +13,7 @@ export const useMaterialDelete = (id: string) => {
   const deleteMaterialMutation = useMutation({
     mutationFn: () => deleteMaterial(token, id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: materialKeys.detail(id) });
+      queryClient.invalidateQueries({ queryKey: materialKeys.all });
 
       toast({
         title: "✅Material has been deleted!",
