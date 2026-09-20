@@ -7,7 +7,7 @@ import { IMaterialCreate } from "@/entities/material";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { Button } from "@/shared/radix-ui";
 
-export const AddMaterial: FC = () => {
+export const AddMaterialModal: FC = () => {
   const {
     register,
     formState: { errors },

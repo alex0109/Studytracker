@@ -3,8 +3,7 @@
 import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
-import { AccordionTrigger } from "@/entities/question";
-import { IsPendingLoader } from "@/shared/ui";
+import { AccordionTrigger, IsPendingLoader } from "@/shared/ui";
 
 interface QuestionTitleProps {
   materialId: string;
@@ -36,7 +35,12 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
   };
 
   return (
-    <AccordionTrigger>
+    <AccordionTrigger
+      className="all-unset font-[inherit] px-5 py-[5px] min-h-10 h-auto flex-1
+    flex items-start justify-between
+    text-xl font-semibold leading-none
+    duration-[400ms] hover:bg-[oklch(92%_0.004_286.32)]"
+    >
       <div className="flex w-full justify-start items-center">
         <div className="flex-8 w-full">
           <textarea

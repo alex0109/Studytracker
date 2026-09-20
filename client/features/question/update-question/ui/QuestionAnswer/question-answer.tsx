@@ -2,14 +2,17 @@
 
 import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
-import { AccordionContent } from "@/entities/question";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
+import { Button } from "@/shared/radix-ui";
+import { LuTrash2 } from "react-icons/lu";
+import { AccordionContent } from "@/shared/ui";
 
 interface QuestionAnswerProps {
   materialId: string;
   id: string;
   answer: string;
   deleteQuestion: (id: string) => void;
+  openValue: boolean;
 }
 
 export const QuestionAnswer: FC<QuestionAnswerProps> = ({
@@ -17,6 +20,7 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
   id,
   answer,
   deleteQuestion,
+  openValue,
 }) => {
   const [answerValue, setAnswerValue] = useState(answer);
   const { updateQuestion } = useQuestionUpdate(materialId, id);
@@ -33,7 +37,21 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
     setAnswerValue(newAnswer);
   };
   return (
-    <AccordionContent deleteQuestion={() => deleteQuestion(id)}>
+    <AccordionContent
+      isOpen={openValue}
+      className="overflow-hidden text-base pl-[15px]
+    data-[state=open]:animate-slideDown
+    data-[state=closed]:animate-slideUp"
+      actions={
+        <Button
+          size="lg"
+          variant="destructive"
+          onClick={() => deleteQuestion(id)}
+        >
+          <LuTrash2 />
+        </Button>
+      }
+    >
       <textarea
         value={answerValue}
         className="border-0 w-full resize-none pr-3

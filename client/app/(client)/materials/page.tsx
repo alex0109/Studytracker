@@ -1,11 +1,11 @@
 import { MaterialList } from "@/widgets/MaterialList/ui";
-import { AddTagAndMaterial } from "@/widgets/AddTagAndMaterial";
+import { MaterialsSideBar } from "@/widgets/MaterialsSideBar";
 
 const Materials = () => {
   return (
     <>
-      {/* <AddTagAndMaterial /> */}
-      <MaterialList />
+      {/* <MaterialList /> */}
+      <MaterialsSideBar />
     </>
   );
 };

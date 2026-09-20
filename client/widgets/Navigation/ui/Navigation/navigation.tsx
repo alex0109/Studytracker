@@ -132,11 +132,25 @@ export const Navigation: FC = () => {
         <motion.div
           className="z-40 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white 
           dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem] 
-          h-10 hidden md:flex md:w-[26rem] justify-center items-center pt-2"
+          h-10 hidden md:flex md:w-[26rem] justify-center items-start pt-2"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
           <p className="text-center text-sm text-neutral-900 dark:text-neutral-300">
+            {user?.email}
+          </p>
+        </motion.div>
+      )}
+
+      {user && (
+        <motion.div
+          className="z-40 fixed top-[1rem] left-1/2 -translate-x-1/2 bg-white 
+        rounded-full w-[22rem] 
+          h-10 flex md:hidden justify-center items-start pt-2"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+        >
+          <p className="text-center text-md font-bold text-neutral-900">
             {user?.email}
           </p>
         </motion.div>

@@ -8,6 +8,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { BackgroundBlobs } from "./(client)/(home)";
 import { getUser } from "@/entities/auth";
 import { ToastProvider } from "@/shared/radix-ui";
+import { Geist } from "next/font/google";
+import { cn } from "@/shared/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Studytracker",
@@ -20,7 +24,7 @@ const RootLayout = async ({
   const { user, token } = await getUser();
   return (
     <ReactQueryClientProvider>
-      <html lang="en">
+      <html lang="en" className={cn("font-sans", geist.variable)}>
         <body className="min-h-screen flex flex-col bg-gray-50 relative">
           <BackgroundBlobs />
           <SessionProvider user={user} token={token}>

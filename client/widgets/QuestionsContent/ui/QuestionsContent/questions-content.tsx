@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import { BlockColumn, InProductionModal } from "@/shared/ui";
-import styles from "./styles.module.css";
+import styles from "@/shared/ui/Accordion/styles.module.css";
 import { Button, Separator } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
@@ -28,7 +28,8 @@ export const QuestionsContent: FC<QuestionsType> = ({
   materialId,
   assessmentId,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openValue, setOpenValue] = useState<string | undefined>();
   const [inProductionIsOpen, setInProductionIsOpen] = useState(false);
 
   const router = useRouter();
@@ -84,7 +85,8 @@ export const QuestionsContent: FC<QuestionsType> = ({
         <Accordion.Root
           className={styles.Root}
           type="single"
-          defaultValue="item-1"
+          value={openValue}
+          onValueChange={setOpenValue}
           collapsible
         >
           {questionsData
@@ -105,6 +107,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
                   id={item.id}
                   answer={item.answer!}
                   deleteQuestion={deleteQuestion}
+                  openValue={openValue === item.id}
                 />
               </Accordion.Item>
             ))}
