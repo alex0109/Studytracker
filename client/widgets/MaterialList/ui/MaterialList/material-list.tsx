@@ -11,7 +11,7 @@ import { filteredMaterials } from "../../lib/filter-materials";
 import { useLastOpened, useMaterialAll } from "@/entities/material";
 import * as Sentry from "@sentry/react";
 import ErrorPage from "@/app/error-page";
-import { AddMaterial } from "@/features/material/create-material/ui";
+import { AddMaterialBlock } from "@/features/material/create-material/ui";
 import { AddTag } from "@/features/tag/create-tag";
 import { LoadingMaterials } from "@/entities/material/ui/MaterialCarousel/loading-materials";
 
@@ -59,7 +59,7 @@ export const MaterialList: FC = () => {
                 />
               </div>
               <div className="flex flex-1 gap-2 mx-2">
-                <AddMaterial />
+                <AddMaterialBlock />
                 <AddTag />
               </div>
             </div>

@@ -1,3 +1,3 @@
 export { Canvas } from "./Canvas/canvas";
-export { DrawingContent } from "./DrawingContent/drawing-content";
+export { DrawingBoard } from "./DrawingBoard/drawing-board";
 export { Toolbar } from "./Toolbar/toolbar";

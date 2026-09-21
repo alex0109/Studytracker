@@ -2,16 +2,27 @@ import React, { FC, useRef, useState } from "react";
 import { getStroke } from "perfect-freehand";
 import { Toolbar } from "../Toolbar/toolbar";
 import { Canvas } from "../Canvas/canvas";
-import { Point, Stroke } from "../../model";
+import { Point, ILocalStroke, ITool } from "../../model";
+import { DEFAULT_COLOR, DEFAULT_SIZE, DEFAULT_TOOL } from "../../consts";
+import { toDrawingContent } from "../../lib/to-drawing-content";
 
-export const DrawingContent: FC = () => {
-  const [strokes, setStrokes] = useState<Stroke[]>([]);
-
+export const DrawingBoard: FC = () => {
+  const [strokes, setStrokes] = useState<ILocalStroke[]>([]);
   const [currentStroke, setCurrentStroke] = useState<Point[]>([]);
-
   const [isDrawing, setIsDrawing] = useState(false);
 
+  const [color, setColor] = useState(DEFAULT_COLOR);
+  const [size, setSize] = useState(DEFAULT_SIZE);
+  const [tool, setTool] = useState<ITool>(DEFAULT_TOOL);
+
   const svgRef = useRef<SVGSVGElement | null>(null);
+
+  //   useEffect(() => {
+  //   if (note.drawingContent) {
+  //     const localStrokes = fromDrawingContent(note.drawingContent);
+  //     setStrokes(localStrokes);
+  //   }
+  // }, [note]);
 
   function getSvgPath(points: number[][]) {
     if (!points.length) {
@@ -77,6 +88,9 @@ export const DrawingContent: FC = () => {
           ...prev,
           {
             points: current,
+            color,
+            size,
+            tool,
           },
         ]);
       }
@@ -109,13 +123,13 @@ export const DrawingContent: FC = () => {
     setCurrentStroke([]);
   }
 
-  function renderStroke(points: Point[]) {
-    if (points.length === 0) {
+  function renderStroke(stroke: ILocalStroke) {
+    if (stroke.points.length === 0) {
       return null;
     }
 
-    const outline = getStroke(points, {
-      size: 16,
+    const outline = getStroke(stroke.points, {
+      size: stroke.size,
       thinning: 0.5,
       smoothing: 0.5,
       streamline: 0.5,
@@ -140,6 +154,16 @@ export const DrawingContent: FC = () => {
     return path;
   }
 
+  function handleSave() {
+    const svg = svgRef.current;
+    const canvasSize = {
+      width: svg?.clientWidth ?? 0,
+      height: svg?.clientHeight ?? 0,
+    };
+
+    const drawingContent = toDrawingContent(strokes, canvasSize);
+  }
+
   return (
     <div className="flex flex-3 flex-col gap-3 bg-transparent h-[500px] rounded-2xl p-5">
       <Toolbar
@@ -147,11 +171,18 @@ export const DrawingContent: FC = () => {
         currentStroke={currentStroke}
         handleClear={handleClear}
         handleUndo={handleUndo}
+        color={color}
+        size={size}
+        tool={tool}
+        onColorChange={setColor}
+        onSizeChange={setSize}
+        onToolChange={setTool}
       />
       <Canvas
         svgRef={svgRef}
         strokes={strokes}
         currentStroke={currentStroke}
+        currentTool={{ color, size, tool }}
         handlePointerDown={handlePointerDown}
         handlePointerMove={handlePointerMove}
         handlePointerUp={handlePointerUp}
