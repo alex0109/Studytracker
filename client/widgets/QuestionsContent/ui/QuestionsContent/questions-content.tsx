@@ -2,9 +2,9 @@
 
 import { FC, useState } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
-import { BlockColumn, InProductionModal } from "@/shared/ui";
+import { InProductionModal } from "@/shared/ui";
 import styles from "@/shared/ui/Accordion/styles.module.css";
-import { Button, Separator } from "@/shared/radix-ui";
+import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { useRouter, usePathname } from "next/navigation";
@@ -62,21 +62,20 @@ export const QuestionsContent: FC<QuestionsType> = ({
   };
 
   return (
-    <BlockColumn blockStyles="lg:p-[70px] p-3 items-start">
-      <div className="w-full flex lg:flex-row flex-col gap-5 justify-between items-center mb-5">
+    <div className="flex flex-col w-full">
+      <div className="w-full flex sm:flex-wrap gap-5 justify-center items-center my-5">
         {questionInterface.map((item) => (
           <Button
             size="lg"
             key={item.key}
             onClick={onClickhandlers[item.key]}
             disabled={disabledHandlers[item.key]}
-            className={`lg:w-[250px] md:w-[200px] sm:w-[200px] w-full ${cn(item.styles)}`}
+            className={`lg:w-[250px] md:w-[180px] sm:w-[180px] w-full ${cn(item.styles)}`}
           >
             {item.icon} {item.title}
           </Button>
         ))}
       </div>
-      <Separator />
       {questionsIsPending ? (
         <LoadingQuestions />
       ) : questionsData &&
@@ -124,6 +123,6 @@ export const QuestionsContent: FC<QuestionsType> = ({
         isOpen={inProductionIsOpen}
         setIsOpen={setInProductionIsOpen}
       />
-    </BlockColumn>
+    </div>
   );
 };

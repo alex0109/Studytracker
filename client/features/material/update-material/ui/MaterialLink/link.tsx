@@ -6,12 +6,12 @@ import { Input } from "@/shared/radix-ui";
 import { useDebounce } from "@/shared/hooks";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
-interface MaterialLinkType {
+interface MaterialLinkProps {
   id: string;
   link: string | undefined;
 }
 
-export const MaterialLink: FC<MaterialLinkType> = ({ id, link }) => {
+export const MaterialLink: FC<MaterialLinkProps> = ({ id, link }) => {
   const [linkValue, setLinkValue] = useState(link || "");
 
   const { updateMaterial } = useMaterialUpdate(id);

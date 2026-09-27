@@ -6,12 +6,12 @@ import { useDebounce } from "@/shared/hooks";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 import { IsPendingLoader } from "@/shared/ui";
 
-interface MaterialTypeType {
+interface MaterialTypeProps {
   id: string;
   type: MaterialTypeEnum;
 }
 
-export const MaterialType: FC<MaterialTypeType> = ({ id, type }) => {
+export const MaterialType: FC<MaterialTypeProps> = ({ id, type }) => {
   const [selectType, setSelectType] = useState<MaterialTypeEnum>(type);
 
   const { updateMaterial, updateMaterialIsPending } = useMaterialUpdate(id);

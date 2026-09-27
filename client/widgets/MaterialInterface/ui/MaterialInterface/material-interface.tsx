@@ -1,6 +1,5 @@
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
-import { Button } from "@/shared/radix-ui";
-import { ContainerRow } from "@/shared/ui";
+import { Button, Separator } from "@/shared/radix-ui";
 import { motion } from "framer-motion";
 import { materialInterface } from "../../lib/material-interface";
 
@@ -9,7 +8,7 @@ export const MaterialInterface = () => {
     useActiveSectionContext();
 
   return (
-    <ContainerRow blockStyles="flex w-full items-start justify-center gap-5">
+    <div className="flex sm:flex-wrap w-full justify-center items-start gap-5 rounded-2xl my-2 p-5">
       {materialInterface.map((item) => (
         <motion.div
           key={item.key}
@@ -41,6 +40,7 @@ export const MaterialInterface = () => {
           </Button>
         </motion.div>
       ))}
-    </ContainerRow>
+      <Separator />
+    </div>
   );
 };

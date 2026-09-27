@@ -1,8 +1,9 @@
 import { ITagResponse } from "@/entities/tag";
 import { MaterialStatusEnum } from "./material-status.type";
 import { MaterialTypeEnum } from "./material-type.type";
-import { RichTextDocument } from "./rich-text-document.type";
+
 import { INoteResponse } from "@/entities/note/model";
+import { RichTextDocument } from "@/shared/types";
 
 export interface IMaterialResponse {
   id: string;
@@ -12,7 +13,7 @@ export interface IMaterialResponse {
   materialTags?: ITagResponse[];
   notes?: INoteResponse[];
   link?: string;
-  content?: RichTextDocument | undefined;
+  content?: RichTextDocument;
   status: MaterialStatusEnum;
   isActive: boolean;
   createdAt: Date;

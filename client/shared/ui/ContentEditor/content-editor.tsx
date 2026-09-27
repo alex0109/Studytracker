@@ -24,17 +24,24 @@ import {
   LuImage,
 } from "react-icons/lu";
 import { useDebounce } from "@/shared/hooks";
-import { RichTextDocument } from "@/entities/material";
+import { RichTextDocument } from "@/shared/types";
+import { Separator } from "@/shared/radix-ui";
 
 interface ContentEditorType {
-  id: string;
+  materailId: string;
+  noteId?: string;
   initialContent: RichTextDocument | undefined;
-  updateContentHandler: (id: string, content: RichTextDocument) => void;
+  updateContentHandler: (
+    materailId: string,
+    content: RichTextDocument,
+    noteId?: string,
+  ) => void;
 }
 
 const ContentEditor: FC<ContentEditorType> = ({
-  id,
+  materailId,
   initialContent,
+  noteId,
   updateContentHandler,
 }) => {
   const [HTMLcontent, setHTMLcontent] = useState<RichTextDocument | undefined>(
@@ -49,9 +56,9 @@ const ContentEditor: FC<ContentEditorType> = ({
     if (
       JSON.stringify(initialContent) !== JSON.stringify(debouncedHTMLcontent)
     ) {
-      updateContentHandler(id, debouncedHTMLcontent);
+      updateContentHandler(materailId, debouncedHTMLcontent, noteId);
     }
-  }, [id, initialContent, debouncedHTMLcontent]);
+  }, [materailId, initialContent, debouncedHTMLcontent, noteId]);
 
   const editor = useEditor({
     extensions: [
@@ -168,9 +175,9 @@ const ContentEditor: FC<ContentEditorType> = ({
   };
 
   return (
-    <div className="flex flex-col w-full rounded-xl bg-neutral-200 dark:bg-neutral-900 my-2">
+    <div className="flex flex-col w-full rounded-xl my-2">
       <div className="w-full p-2">
-        <div className="flex flex-wrap gap-1 mb-2">
+        <div className="flex flex-wrap gap-1 mb-2 bg-neutral-200 rounded-xl p-2">
           <button
             onClick={() =>
               editor.chain().focus().toggleHeading({ level: 1 }).run()
@@ -302,9 +309,10 @@ const ContentEditor: FC<ContentEditorType> = ({
         </div>
         <EditorContent
           editor={editor}
-          className="p-2 rounded-2xl bg-neutral-100 dark:bg-[#1c1c1c]"
+          className="p-2 rounded-2xl bg-neutral-100 break-words min-w-0"
         />
       </div>
+      <Separator />
     </div>
   );
 };

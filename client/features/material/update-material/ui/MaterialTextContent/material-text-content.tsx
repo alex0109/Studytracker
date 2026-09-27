@@ -1,21 +1,21 @@
 import { FC } from "react";
 import dynamic from "next/dynamic";
-import { RichTextDocument } from "@/entities/material";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
+import { RichTextDocument } from "@/shared/types";
 
 const TextEditor = dynamic(
-  () => import("../MaterialContentEditor/content-editor"),
+  () => import("@/shared/ui/ContentEditor/content-editor"),
   {
     ssr: false,
   },
 );
 
-interface MaterialTextContentType {
+interface MaterialTextContentProps {
   id: string;
-  content: RichTextDocument | undefined;
+  content?: RichTextDocument;
 }
 
-export const MaterialTextContent: FC<MaterialTextContentType> = ({
+export const MaterialTextContent: FC<MaterialTextContentProps> = ({
   id,
   content,
 }) => {
@@ -30,7 +30,7 @@ export const MaterialTextContent: FC<MaterialTextContentType> = ({
 
   return (
     <TextEditor
-      id={id}
+      materailId={id}
       initialContent={content ?? undefined}
       updateContentHandler={updateContentHandler}
     />

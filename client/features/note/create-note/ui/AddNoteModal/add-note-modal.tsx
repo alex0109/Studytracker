@@ -3,26 +3,29 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Title, Modal, CustomInput, IsPendingLoader } from "@/shared/ui";
-import { IMaterialCreate } from "@/entities/material";
-import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { Button } from "@/shared/radix-ui";
 import { LuPlus } from "react-icons/lu";
+import { INoteCreate } from "@/entities/note/model";
+import { useNoteCreate } from "../../hooks/useNoteCreate";
 
-export const AddMaterialModal: FC = () => {
+interface AddNoteModalProps {
+  materialId: string;
+}
+
+export const AddNoteModal: FC<AddNoteModalProps> = ({ materialId }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IMaterialCreate>();
-
-  const { createMaterial, createMaterialIsPending } = useMaterialCreate();
+  } = useForm<INoteCreate>();
 
   const [open, setOpen] = useState(false);
+  const { createNote, createNoteIsPending } = useNoteCreate(materialId);
 
-  const onFormSubmit = (values: IMaterialCreate) => {
-    createMaterial(values);
+  const onFormSubmit = (values: INoteCreate) => {
     setOpen(false);
+    createNote(values);
     reset();
   };
 
@@ -30,11 +33,13 @@ export const AddMaterialModal: FC = () => {
     <>
       <Button
         onClick={() => setOpen(true)}
-        className="w-full flex justify-between items-center"
+        variant="ghost"
+        className="w-full flex justify-between items-center hover:bg-neutral-900/10"
       >
         <div>
-          <p>Add Material</p>
+          <p>Add Note</p>
         </div>
+
         <div>
           <LuPlus />
         </div>
@@ -42,7 +47,7 @@ export const AddMaterialModal: FC = () => {
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="md:w-[400px] w-[300px]">
-          <Title text="Add new material" />
+          <Title text="Add new note" />
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="flex flex-col w-full justify-center items-center"
@@ -60,21 +65,8 @@ export const AddMaterialModal: FC = () => {
                 {...register("type")}
                 className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
               >
-                <option value="article">📄Article</option>
-                <option value="video">▶️Video</option>
-                <option value="summary">📚Summary</option>
-                <option value="practice">📝Practice</option>
-                <option value="test">✏️Test</option>
-              </select>
-            </div>
-            <div className="flex gap-2 flex-col justify-center">
-              <select
-                {...register("status")}
-                className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
-              >
-                <option value="tolearn">Want to learn</option>
-                <option value="inprocess">In process</option>
-                <option value="finished">Finished</option>
+                <option value="text">✍️ Text</option>
+                <option value="drawing">🖌️ Drawing</option>
               </select>
             </div>
             <div className="flex w-full justify-center items-center">
@@ -84,13 +76,13 @@ export const AddMaterialModal: FC = () => {
                   size="lg"
                   type="submit"
                   className="w-30"
-                  disabled={createMaterialIsPending}
+                  disabled={createNoteIsPending}
                 >
                   Create
                 </Button>
               </div>
               <div className="flex-1">
-                <IsPendingLoader isPending={createMaterialIsPending} />
+                <IsPendingLoader isPending={createNoteIsPending} />
               </div>
             </div>
           </form>

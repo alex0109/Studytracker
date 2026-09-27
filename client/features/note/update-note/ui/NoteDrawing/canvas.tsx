@@ -1,16 +1,22 @@
 import React, { FC, RefObject } from "react";
 import { ILocalStroke, ITool, Point } from "../../model";
 
+interface CanvasSize {
+  width: number;
+  height: number;
+}
+
 interface CanvasProps {
   svgRef: RefObject<SVGSVGElement | null>;
   strokes: ILocalStroke[];
   currentStroke: Point[];
   currentTool: { color: string; size: number; tool: ITool };
+  canvasSize: CanvasSize;
   handlePointerDown: (e: React.PointerEvent<SVGSVGElement>) => void;
   handlePointerMove: (e: React.PointerEvent<SVGSVGElement>) => void;
   handlePointerUp: (e: React.PointerEvent<SVGSVGElement>) => void;
   handlePointerCancel: (e: React.PointerEvent<SVGSVGElement>) => void;
-  renderStroke: (stroke: ILocalStroke) => string | null;
+  renderStroke: (stroke: ILocalStroke, canvasSize: CanvasSize) => string | null;
 }
 
 export const Canvas: FC<CanvasProps> = ({
@@ -18,6 +24,7 @@ export const Canvas: FC<CanvasProps> = ({
   strokes,
   currentStroke,
   currentTool,
+  canvasSize,
   handlePointerDown,
   handlePointerMove,
   handlePointerUp,
@@ -35,17 +42,17 @@ export const Canvas: FC<CanvasProps> = ({
         onPointerCancel={handlePointerCancel}
       >
         {strokes.map((stroke, index) => {
-          const path = renderStroke(stroke);
+          const path = renderStroke(stroke, canvasSize);
           if (!path) return null;
           return <path key={index} d={path} fill={stroke.color} />;
         })}
 
         {currentStroke.length > 0 &&
           (() => {
-            const path = renderStroke({
-              points: currentStroke,
-              ...currentTool,
-            });
+            const path = renderStroke(
+              { points: currentStroke, ...currentTool },
+              canvasSize,
+            );
             if (!path) return null;
             return <path d={path} fill={currentTool.color} />;
           })()}

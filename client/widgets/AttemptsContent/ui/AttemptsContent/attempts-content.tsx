@@ -18,11 +18,11 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
 
   if (!attempts || attempts.length == 0) {
     return (
-      <BlockColumn>
+      <div className="flex w-full justify-center items-center">
         <p className="text-neutral-500 text-lg">
           No attempts on this material yet...
         </p>
-      </BlockColumn>
+      </div>
     );
   }
 
@@ -33,7 +33,10 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
   return (
     <>
       {attempts?.map((item) => (
-        <BlockColumn key={item.id}>
+        <div
+          className="flex flex-col w-full justify-center items-center pl-10"
+          key={item.id}
+        >
           <div className="flex lg:flex-row flex-col w-full justify-between items-center gap-3">
             <div className="flex flex-col w-full flex-1 justify-start">
               <div className="flex w-full lg:justify-start justify-center items-center gap-3">
@@ -57,7 +60,7 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
               </div>
             </div>
           </div>
-        </BlockColumn>
+        </div>
       ))}
     </>
   );

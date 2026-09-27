@@ -6,12 +6,12 @@ import { useDebounce } from "@/shared/hooks";
 import { IsPendingLoader, Subtitle } from "@/shared/ui";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
-interface MaterialStatusType {
+interface MaterialStatusProps {
   id: string;
   materialStatus: MaterialStatusEnum;
 }
 
-export const MaterialStatus: FC<MaterialStatusType> = ({
+export const MaterialStatus: FC<MaterialStatusProps> = ({
   id,
   materialStatus,
 }) => {

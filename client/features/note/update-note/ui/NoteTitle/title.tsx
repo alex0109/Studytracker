@@ -3,30 +3,44 @@
 import { FC, useEffect, useState } from "react";
 import { Input } from "@/shared/radix-ui";
 import { useDebounce } from "@/shared/hooks";
-import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
-import { IsPendingLoader } from "@/shared/ui";
 
-interface MaterialTitleProps {
-  id: string;
+import { IsPendingLoader } from "@/shared/ui";
+import { useNoteUpdate } from "../../hooks/useNoteUpdate";
+
+interface NoteTitleProps {
+  materialId: string;
+  noteId: string;
   title: string;
 }
 
-export const MaterialTitle: FC<MaterialTitleProps> = ({ id, title }) => {
+export const NoteTitle: FC<NoteTitleProps> = ({
+  materialId,
+  noteId,
+  title,
+}) => {
   const [titleValue, setTitleValue] = useState(title);
 
-  const { updateMaterial, updateMaterialIsPending } = useMaterialUpdate(id);
+  const { updateNote, updateNoteIsPending } = useNoteUpdate(noteId);
 
-  const updateTitleHandler = (materialId: string, title: string): void => {
-    updateMaterial({ id: materialId, dataToUpdate: { title } });
+  const updateTitleHandler = (
+    materialId: string,
+    noteId: string,
+    title: string,
+  ): void => {
+    updateNote({
+      materialId: materialId,
+      noteId: noteId,
+      dataToUpdate: { title },
+    });
   };
 
   const debouncedTitleValue = useDebounce(titleValue, 1500);
 
   useEffect(() => {
     if (title !== debouncedTitleValue) {
-      updateTitleHandler(id, debouncedTitleValue);
+      updateTitleHandler(materialId, noteId, debouncedTitleValue);
     }
-  }, [id, title, debouncedTitleValue]);
+  }, [materialId, noteId, title, debouncedTitleValue]);
 
   const onUpdateTitle = (newTitle: string) => {
     setTitleValue(newTitle);
@@ -40,7 +54,7 @@ export const MaterialTitle: FC<MaterialTitleProps> = ({ id, title }) => {
           value={titleValue}
           onChange={(e) => onUpdateTitle(e.target.value)}
           maxLength={30}
-          disabled={updateMaterialIsPending}
+          disabled={updateNoteIsPending}
         />
       </div>
     </div>
