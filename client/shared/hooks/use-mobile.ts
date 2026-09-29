@@ -59,7 +59,7 @@ export function useScreenInfo(): ScreenInfo {
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  return buildScreenInfo(width);
+  return buildScreenInfo(width ?? BREAKPOINTS.lg);
 }
 
 export function useIsMobile(): boolean {

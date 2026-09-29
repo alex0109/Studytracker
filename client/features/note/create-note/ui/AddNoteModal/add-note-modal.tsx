@@ -34,14 +34,13 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({ materialId }) => {
       <Button
         onClick={() => setOpen(true)}
         variant="ghost"
-        className="w-full flex justify-between items-center hover:bg-neutral-900/10"
+        className="w-full flex justify-start items-center hover:bg-neutral-900/10 px-3"
       >
         <div>
-          <p>Add Note</p>
-        </div>
-
-        <div>
           <LuPlus />
+        </div>
+        <div>
+          <p>Add Note</p>
         </div>
       </Button>
 

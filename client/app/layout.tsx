@@ -23,9 +23,9 @@ const RootLayout = async ({
 }: Readonly<{ children: React.ReactNode }>) => {
   const { user, token } = await getUser();
   return (
-    <ReactQueryClientProvider>
-      <html lang="en" className={cn("font-sans", geist.variable)}>
-        <body className="min-h-screen flex flex-col bg-gray-50 relative">
+    <html lang="en" className={cn("font-sans", geist.variable)}>
+      <body className="min-h-screen flex flex-col bg-gray-50 relative">
+        <ReactQueryClientProvider>
           <BackgroundBlobs />
           <SessionProvider user={user} token={token}>
             <ActiveSectionContextProvider>
@@ -35,9 +35,9 @@ const RootLayout = async ({
           </SessionProvider>
           <ToastProvider />
           <SpeedInsights />
-        </body>
-      </html>
-    </ReactQueryClientProvider>
+        </ReactQueryClientProvider>
+      </body>
+    </html>
   );
 };
 
