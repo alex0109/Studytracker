@@ -10,13 +10,13 @@ import {
 } from "@/entities/question";
 import { toast } from "@/shared/radix-ui";
 
-export const useOpenQuestionCreate = (materialId: string) => {
+export const useOpenQuestionCreate = (materialId: string, noteId?: string) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const createOpenQuestionMutation = useMutation({
     mutationFn: (body: IOpenQuestionRequest) => {
-      return createOpenQuestion(token, materialId, body);
+      return createOpenQuestion(token, materialId, body, noteId);
     },
     onSuccess: () => {
       queryClient.refetchQueries({

@@ -1,50 +1,78 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { Flame } from "lucide-react";
 import { useStatisticsStudyStreak } from "../hooks";
+import { AnimatedNumber, Card, CardSkeleton } from "./primitives";
+
+const DAYS = 14;
 
 export function StudyStreakStrip() {
   const { statisticsStudyStreakData, statisticsStudyStreakIsPending } =
     useStatisticsStudyStreak();
 
   if (statisticsStudyStreakIsPending || !statisticsStudyStreakData) {
-    return (
-      <div className="h-40 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
-    );
+    return <CardSkeleton className="h-36 md:col-span-2" />;
   }
 
   const { currentStreakDays, longestStreakDays } = statisticsStudyStreakData;
-  const dots = Array.from({ length: 14 }, (_, i) => {
-    const dayIndex = 13 - i;
-    return dayIndex < currentStreakDays;
-  });
+  const dots = Array.from({ length: DAYS }, (_, i) => i < currentStreakDays);
+  const active = currentStreakDays > 0;
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl border border-neutral-800 bg-neutral-900 p-6 sm:flex-row sm:items-center">
-      <div className="p-5">
-        <span className="text-4xl font-semibold text-neutral-50">
-          {currentStreakDays}
-        </span>
-        <span className="ml-2 text-neutral-500">
-          day{currentStreakDays === 1 ? "" : "s"} in a row
-        </span>
-        <p className="mt-1 font-mono text-xs text-neutral-500">
-          longest streak {longestStreakDays} day
-          {longestStreakDays === 1 ? "" : "s"}
-        </p>
-      </div>
+    <Card className="md:col-span-2">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-4">
+          <div
+            className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+              active
+                ? "bg-emerald-500/10 text-emerald-400"
+                : "bg-neutral-800 text-neutral-500"
+            }`}
+          >
+            <Flame className="h-6 w-6" aria-hidden />
+          </div>
+          <div>
+            <p>
+              <span className="text-3xl font-semibold tabular-nums text-neutral-50">
+                <AnimatedNumber value={currentStreakDays} />
+              </span>
+              <span className="ml-2 text-neutral-500">
+                day{currentStreakDays === 1 ? "" : "s"} in a row
+              </span>
+            </p>
+            <p className="text-sm text-neutral-500">
+              Longest streak: {longestStreakDays} day
+              {longestStreakDays === 1 ? "" : "s"}
+            </p>
+          </div>
+        </div>
 
-      <div className="mt-5 flex gap-1.5 sm:mt-0">
-        {dots.map((filled, i) => (
-          <span
-            key={i}
-            className={
-              filled
-                ? "h-3 w-3 rounded-full border border-neutral-200 bg-neutral-200"
-                : "h-3 w-3 rounded-full border border-neutral-700"
-            }
-          />
-        ))}
+        <div
+          role="img"
+          aria-label={`Last ${DAYS} days: ${Math.min(currentStreakDays, DAYS)} studied`}
+          className="flex gap-1.5"
+        >
+          {dots.map((filled, i) => (
+            <motion.span
+              key={i}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 18,
+                delay: 0.3 + i * 0.03,
+              }}
+              className={`h-3.5 w-3.5 rounded-2xl border ${
+                filled
+                  ? "border-emerald-500 bg-emerald-500"
+                  : "border-neutral-700"
+              }`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </Card>
   );
 }

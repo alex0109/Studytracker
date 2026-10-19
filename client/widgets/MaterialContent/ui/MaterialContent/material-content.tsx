@@ -5,9 +5,10 @@ import {
   MaterialStatusEnum,
   MaterialDate,
   MaterialTypeEnum,
+  materialInterface,
+  MaterialInterfaceEnum,
 } from "@/entities/material";
 import {
-  MaterialLink,
   MaterialTextContent,
   MaterialStatus,
   MaterialTitle,
@@ -17,13 +18,12 @@ import { ITagResponse } from "@/entities/tag";
 import { MaterialTags } from "@/widgets/MaterialTags";
 import { Button } from "@/shared/radix-ui";
 import { MaterialDeleteModal } from "@/features/material/delete-material/ui";
-import { MaterialInterface } from "@/widgets/MaterialInterface";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
-import { MaterialInterfaceEnum } from "@/widgets/MaterialInterface/lib";
 import { QuestionsContent } from "@/widgets/QuestionsContent";
 import { AttemptsContent } from "@/widgets/AttemptsContent";
 import { useFinishedAttempts } from "@/entities/attempt";
 import { RichTextDocument } from "@/shared/types";
+import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 
 interface MaterialContentType {
   id: string;
@@ -69,13 +69,13 @@ export const MaterialContent: FC<MaterialContentType> = ({
         <MaterialType id={id} type={type} />
         <MaterialDate createdAt={createdAt} />
       </div>
-      <MaterialInterface />
+      <SwitchInterface switchInterface={materialInterface} />
       {activeSection === MaterialInterfaceEnum.Questions ? (
         <QuestionsContent materialId={id} assessmentId={assessmentId} />
       ) : activeSection === MaterialInterfaceEnum.Attempts ? (
         <AttemptsContent materialId={id} attempts={finishedAttempts} />
       ) : (
-        <div className="flex flex-3 flex-col justify-center items-start gap-3 bg-transparent min-h-[500px] rounded-2xl p-5">
+        <div className="flex flex-col justify-center items-start gap-3 bg-transparent min-h-[500px] rounded-2xl p-5">
           <MaterialTextContent id={id} content={content} />
           <MaterialTags materialId={id} materialTags={tags} />
           <MaterialStatus id={id} materialStatus={status} />

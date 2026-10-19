@@ -47,7 +47,7 @@ export const NoteTitle: FC<NoteTitleProps> = ({
   };
 
   return (
-    <div className="flex w-full gap-2">
+    <div className="flex flex-col w-full gap-2 justify-center items-center">
       <div className="flex-1 w-full">
         <Input
           className="focus:outline-none text-center text-2xl font-bold border-0"
@@ -56,6 +56,9 @@ export const NoteTitle: FC<NoteTitleProps> = ({
           maxLength={30}
           disabled={updateNoteIsPending}
         />
+      </div>
+      <div>
+        <p className="text-xs text-neutral-500">{noteId.split("-")[0]}</p>
       </div>
     </div>
   );

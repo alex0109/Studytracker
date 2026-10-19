@@ -32,9 +32,9 @@ export const ResultQuestionList: FC<ResultsQuestionsProps> = ({
         />
       ))}
       <div className="flex my-5 w-full justify-center items-center">
-        <Link href={`/materials/${materialId}`}>
+        <Link href={`/materials`}>
           <Button size="lg" className="h-12 text-md rounded-2xl">
-            Go to Material
+            Go to Materials
           </Button>
         </Link>
       </div>

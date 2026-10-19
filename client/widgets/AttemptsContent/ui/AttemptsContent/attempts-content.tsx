@@ -1,26 +1,29 @@
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import { IAttempt, useAttemptResults } from "@/entities/attempt";
-import { BlockColumn, Subtitle, Title } from "@/shared/ui";
+import { useFinishedAttempts } from "@/entities/attempt";
+import { Subtitle, Title } from "@/shared/ui";
 import moment from "moment";
 import { Button } from "@/shared/radix-ui";
 
 interface AttemptsContentProps {
   materialId: string;
-  attempts: IAttempt[] | undefined;
+  noteId?: string;
 }
 
 export const AttemptsContent: FC<AttemptsContentProps> = ({
   materialId,
-  attempts,
+  noteId,
 }) => {
   const router = useRouter();
 
-  if (!attempts || attempts.length == 0) {
+  const { finishedAttempts, finishedAttemptsIsPending } =
+    useFinishedAttempts(materialId);
+
+  if (!finishedAttempts || finishedAttempts.length == 0) {
     return (
       <div className="flex w-full justify-center items-center">
         <p className="text-neutral-500 text-lg">
-          No attempts on this material yet...
+          {`No attempts on this ${noteId ? "note" : "material"} yet...`}
         </p>
       </div>
     );
@@ -32,7 +35,7 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
 
   return (
     <>
-      {attempts?.map((item) => (
+      {finishedAttempts.map((item) => (
         <div
           className="flex flex-col w-full justify-center items-center pl-10"
           key={item.id}

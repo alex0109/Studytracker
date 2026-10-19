@@ -13,12 +13,14 @@ import { useOpenQuestionCreate } from "../../hooks/useOpenQuestionCreate";
 
 interface QuestionCreateModalProps {
   materialId: string;
+  noteId?: string;
   open: boolean;
   setOpen: (isOpen: boolean) => void;
 }
 
 export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
   materialId,
+  noteId,
   open,
   setOpen,
 }) => {
@@ -30,7 +32,7 @@ export const OpenQuestionCreateModal: FC<QuestionCreateModalProps> = ({
   } = useForm<IOpenQuestionRequest>();
 
   const { createOpenQuestion, createOpenQuestionIsPending } =
-    useOpenQuestionCreate(materialId);
+    useOpenQuestionCreate(materialId, noteId);
 
   const onFormSubmit = (values: IOpenQuestionRequest) => {
     createOpenQuestion(values);

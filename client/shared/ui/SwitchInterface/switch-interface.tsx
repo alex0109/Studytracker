@@ -1,16 +1,23 @@
+import { FC } from "react";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { Button, Separator } from "@/shared/radix-ui";
 import { motion } from "framer-motion";
-import { materialInterface } from "../../lib/material-interface";
+import type { switchInterfaceType } from "./switch-interface.type";
 
-export const MaterialInterface = () => {
+interface SwitchInterfaceProps {
+  switchInterface: switchInterfaceType[];
+}
+
+export const SwitchInterface: FC<SwitchInterfaceProps> = ({
+  switchInterface,
+}) => {
   const { activeSection, setActiveSection, setTimeOfLastClick } =
     useActiveSectionContext();
 
   return (
     <div className="flex flex-col w-full justify-center items-start rounded-2xl my-2">
       <div className="flex md:flex-row flex-col w-full justify-center items-start gap-5 rounded-2xl p-5">
-        {materialInterface.map((item) => (
+        {switchInterface.map((item) => (
           <motion.div
             key={item.key}
             initial={{ y: -100, opacity: 0 }}
@@ -27,18 +34,6 @@ export const MaterialInterface = () => {
               }}
             >
               {item.icon} {item.name}
-              {item.name === activeSection && (
-                <motion.span
-                  className=" bg-gray-900 rounded-full 
-                    absolute inset-0 -z-10 dark:bg-neutral-950"
-                  layoutId="activeSection"
-                  transition={{
-                    type: "spring",
-                    stiffness: 380,
-                    damping: 30,
-                  }}
-                ></motion.span>
-              )}
             </Button>
           </motion.div>
         ))}

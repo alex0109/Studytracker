@@ -1,13 +1,7 @@
-import { MaterialList } from "@/widgets/MaterialList/ui";
 import { MaterialsSideBar } from "@/widgets/MaterialsSideBar";
 
 const Materials = () => {
-  return (
-    <>
-      {/* <MaterialList /> */}
-      <MaterialsSideBar />
-    </>
-  );
+  return <MaterialsSideBar />;
 };
 
 export default Materials;

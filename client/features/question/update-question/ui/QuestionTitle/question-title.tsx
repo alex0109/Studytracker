@@ -7,12 +7,14 @@ import { AccordionTrigger, IsPendingLoader } from "@/shared/ui";
 
 interface QuestionTitleProps {
   materialId: string;
+  noteId?: string;
   id: string;
   title: string;
 }
 
 export const QuestionTitle: FC<QuestionTitleProps> = ({
   materialId,
+  noteId,
   id,
   title,
 }) => {
@@ -42,7 +44,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
     duration-[400ms] hover:bg-[oklch(92%_0.004_286.32)]"
     >
       <div className="flex w-full justify-start items-center">
-        <div className="flex-8 w-full">
+        <div className="flex flex-col flex-8 w-full">
           <textarea
             value={titleValue}
             className="text-xl font-bold border-0 w-full resize-none 
@@ -50,6 +52,14 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
             onChange={(e) => onUpdateTitle(e.target.value)}
             maxLength={70}
           />
+          {noteId && (
+            <div className="flex">
+              <p className="text-xs text-neutral-500">
+                {" "}
+                From note {noteId.split("-")[0]}
+              </p>
+            </div>
+          )}
         </div>
         <div className="flex flex-1 justify-end">
           <IsPendingLoader isPending={updateQuestionIsPending} />

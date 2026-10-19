@@ -165,6 +165,7 @@ export const MaterialsSideBar: FC = () => {
       <NotesContent
         materialId={activeMaterial.id}
         noteId={activeNote.id}
+        assessmentId={activeMaterial.assessmentId}
         title={activeNote.title}
         textContent={activeNote.textContent}
         drawingContent={activeNote.drawingContent}
@@ -178,8 +179,10 @@ export const MaterialsSideBar: FC = () => {
     <div className="my-3 bg-gray-100 rounded-xl h-full border-3 border-gray-50 w-full min-w-0 lg:w-[90%]">
       {isDesktop ? (
         <div className="flex w-full min-w-0">
-          <div className="flex-1 h-[500px] p-3">{list}</div>
-          {content}
+          <div className="flex-1 min-h-[500px] p-3">{list}</div>
+          <div className="flex flex-3 justify-center items-start">
+            {content}
+          </div>
         </div>
       ) : (
         <div className="flex flex-col w-full min-w-0">

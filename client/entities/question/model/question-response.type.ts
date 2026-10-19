@@ -5,6 +5,7 @@ import { QuestionTypeEnum } from "./question-type.type";
 export interface IQuestionResponse {
   id: string;
   materialId: string;
+  noteId?: string;
   title: string;
   answer?: string;
   questionType: QuestionTypeEnum;
