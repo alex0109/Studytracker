@@ -28,6 +28,8 @@ export const ResultQuestionList: FC<ResultsQuestionsProps> = ({
         <ResultQuestion
           key={question.id}
           title={question.title}
+          questionType={question.questionType}
+          options={question.options}
           answers={question.answers}
         />
       ))}

@@ -4,12 +4,14 @@ import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
 import { AccordionTrigger, IsPendingLoader } from "@/shared/ui";
+import { QuestionTypeEnum, questionTypeLabels } from "@/entities/question";
 
 interface QuestionTitleProps {
   materialId: string;
   noteId?: string;
   id: string;
   title: string;
+  questionType?: QuestionTypeEnum;
 }
 
 export const QuestionTitle: FC<QuestionTitleProps> = ({
@@ -17,6 +19,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
   noteId,
   id,
   title,
+  questionType,
 }) => {
   const [titleValue, setTitleValue] = useState(title);
   const { updateQuestion, updateQuestionIsPending } = useQuestionUpdate(
@@ -52,14 +55,19 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
             onChange={(e) => onUpdateTitle(e.target.value)}
             maxLength={70}
           />
-          {noteId && (
-            <div className="flex">
+          <div className="flex gap-2">
+            {questionType && (
+              <p className="text-xs text-neutral-500">
+                {questionTypeLabels[questionType] ?? questionType}
+              </p>
+            )}
+            {noteId && (
               <p className="text-xs text-neutral-500">
                 {" "}
                 From note {noteId.split("-")[0]}
               </p>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div className="flex flex-1 justify-end">
           <IsPendingLoader isPending={updateQuestionIsPending} />

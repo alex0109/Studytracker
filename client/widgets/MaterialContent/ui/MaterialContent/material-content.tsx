@@ -21,12 +21,12 @@ import { MaterialDeleteModal } from "@/features/material/delete-material/ui";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { QuestionsContent } from "@/widgets/QuestionsContent";
 import { AttemptsContent } from "@/widgets/AttemptsContent";
-import { useFinishedAttempts } from "@/entities/attempt";
 import { RichTextDocument } from "@/shared/types";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 
 interface MaterialContentType {
   id: string;
+  noteId?: string;
   assessmentId: string;
   link: string | undefined;
   content?: RichTextDocument;
@@ -39,6 +39,7 @@ interface MaterialContentType {
 
 export const MaterialContent: FC<MaterialContentType> = ({
   id,
+  noteId,
   assessmentId,
   link,
   content,
@@ -49,8 +50,8 @@ export const MaterialContent: FC<MaterialContentType> = ({
   createdAt,
 }) => {
   const { activeSection } = useActiveSectionContext();
-  const { finishedAttempts } = useFinishedAttempts(id);
   const [open, setOpen] = useState(false);
+
   return (
     <div className="flex flex-col w-full p-5 min-w-0">
       <div className="flex flex-col w-full justify-center items-center mb-5">
@@ -73,7 +74,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
       {activeSection === MaterialInterfaceEnum.Questions ? (
         <QuestionsContent materialId={id} assessmentId={assessmentId} />
       ) : activeSection === MaterialInterfaceEnum.Attempts ? (
-        <AttemptsContent materialId={id} attempts={finishedAttempts} />
+        <AttemptsContent materialId={id} noteId={noteId} />
       ) : (
         <div className="flex flex-col justify-center items-start gap-3 bg-transparent min-h-[500px] rounded-2xl p-5">
           <MaterialTextContent id={id} content={content} />

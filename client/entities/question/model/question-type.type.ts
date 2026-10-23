@@ -1,4 +1,7 @@
+// Same values as backend QuestionType
 export enum QuestionTypeEnum {
-  open = "open",
-  options = "options",
+  Open = "Open",
+  Options = "Options",
+  Flashcard = "Flashcard",
+  TrueFalse = "TrueFalse",
 }

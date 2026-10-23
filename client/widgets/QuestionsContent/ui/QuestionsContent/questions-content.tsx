@@ -6,7 +6,7 @@ import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { useRouter, usePathname } from "next/navigation";
-import { OpenQuestionCreateModal } from "@/features/question/create-question/ui";
+import { QuestionCreateModal } from "@/features/question/create-question/ui";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
 import { QuestionsAccordion } from "./questions-accordion";
@@ -93,7 +93,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
         )}
       </div>
 
-      <OpenQuestionCreateModal
+      <QuestionCreateModal
         materialId={materialId}
         noteId={noteId}
         open={open}

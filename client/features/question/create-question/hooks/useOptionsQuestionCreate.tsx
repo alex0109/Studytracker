@@ -46,5 +46,6 @@ export const useOptionsQuestionCreate = (
 
   return {
     createOptionsQuestion: createOptionsQuestionMutation.mutate,
+    createOptionsQuestionIsPending: createOptionsQuestionMutation.isPending,
   };
 };

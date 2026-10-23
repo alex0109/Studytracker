@@ -4,9 +4,11 @@ import * as Accordion from "@radix-ui/react-accordion";
 import styles from "@/shared/ui/Accordion/styles.module.css";
 import {
   QuestionAnswer,
+  QuestionOptions,
   QuestionTitle,
+  QuestionTrueFalse,
 } from "@/features/question/update-question/ui";
-import { IQuestionResponse } from "@/entities/question";
+import { IQuestionResponse, QuestionTypeEnum } from "@/entities/question";
 import { FC, useState } from "react";
 import { useQuestionDelete } from "@/features/question/delete-question";
 
@@ -42,14 +44,33 @@ export const QuestionsAccordion: FC<QuestionsAccordionProps> = ({
               noteId={item.noteId}
               id={item.id}
               title={item.title}
+              questionType={item.questionType}
             />
-            <QuestionAnswer
-              materialId={item.materialId}
-              id={item.id}
-              answer={item.answer!}
-              deleteQuestion={deleteQuestion}
-              openValue={openValue === item.id}
-            />
+            {item.questionType === QuestionTypeEnum.Options ? (
+              <QuestionOptions
+                materialId={item.materialId}
+                id={item.id}
+                options={item.options}
+                deleteQuestion={deleteQuestion}
+                openValue={openValue === item.id}
+              />
+            ) : item.questionType === QuestionTypeEnum.TrueFalse ? (
+              <QuestionTrueFalse
+                materialId={item.materialId}
+                id={item.id}
+                options={item.options}
+                deleteQuestion={deleteQuestion}
+                openValue={openValue === item.id}
+              />
+            ) : (
+              <QuestionAnswer
+                materialId={item.materialId}
+                id={item.id}
+                answer={item.answer ?? ""}
+                deleteQuestion={deleteQuestion}
+                openValue={openValue === item.id}
+              />
+            )}
           </Accordion.Item>
         ))}
     </Accordion.Root>

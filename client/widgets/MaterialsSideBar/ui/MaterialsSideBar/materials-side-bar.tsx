@@ -177,6 +177,7 @@ export const MaterialsSideBar: FC = () => {
       <MaterialContent
         key={activeMaterial.id}
         id={activeMaterial.id}
+        noteId={activeNote?.id}
         assessmentId={activeMaterial.assessmentId}
         title={activeMaterial.title}
         type={activeMaterial.type}

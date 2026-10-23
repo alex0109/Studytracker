@@ -1,11 +1,11 @@
-import { IOption } from "./option.type";
+import { IOptionRequest } from "./option-request.type";
 import { QuestionDifficultyEnum } from "./question-difficulty";
 
 export interface IQuestionUpdate {
   title?: string;
   answer?: string;
   correctOptionId?: string;
-  options?: IOption[];
+  options?: IOptionRequest[];
   questionDifficulty?: QuestionDifficultyEnum;
   explanation?: string;
 }

@@ -57,6 +57,8 @@ export const Attempt: FC<AttemptProps> = ({
           attemptId={attemptId}
           index={i + 1}
           title={item.title}
+          questionType={item.questionType}
+          options={item.options}
           answers={answers[item.id]}
           onAnswered={(answer) =>
             setAnswers((prev) => ({
