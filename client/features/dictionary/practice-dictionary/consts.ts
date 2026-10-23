@@ -1,10 +1,22 @@
 import { IconType } from "react-icons";
 import { LuCheck, LuCircleHelp, LuX } from "react-icons/lu";
+import { FlashcardRatingEnum } from "@/entities/flashcard";
 import { FlashcardAnswerEnum } from "./model";
 
 export const SWIPE_THRESHOLD = 110;
 export const SWIPE_VELOCITY = 650;
 export const SWIPE_EXIT_DISTANCE = 700;
+
+// Mirrors backend FlashcardLimits
+export const DEFAULT_SESSION_SIZE = 20;
+export const MAX_SESSION_SIZE = 200;
+
+// Swipe answers are sent as FSRS ratings
+export const ANSWER_RATINGS: Record<FlashcardAnswerEnum, FlashcardRatingEnum> = {
+  [FlashcardAnswerEnum.DontKnow]: FlashcardRatingEnum.Again,
+  [FlashcardAnswerEnum.Unsure]: FlashcardRatingEnum.Hard,
+  [FlashcardAnswerEnum.Know]: FlashcardRatingEnum.Good,
+};
 
 // Order matches swipe directions: left, down, right
 export const FLASHCARD_ANSWER_OPTIONS: {

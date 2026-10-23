@@ -9,6 +9,8 @@ import {
 } from "@/entities/dictionary";
 import { ArchiveEntryButton } from "@/features/dictionary/update-dictionary-entry";
 import { DeleteEntryButton } from "@/features/dictionary/delete-dictionary-entry";
+import { ResetProgressButton } from "@/features/dictionary/reset-entry-progress";
+import { FlashcardProgressBadge } from "@/entities/flashcard";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 
@@ -56,6 +58,9 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = ({
             </span>
           )}
           <PartOfSpeechBadge partOfSpeech={entry.partOfSpeech} />
+          {!entry.isArchived && (
+            <FlashcardProgressBadge progress={entry.progress} />
+          )}
           {entry.isArchived && (
             <span className="rounded-xl bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-300">
               archived
@@ -81,6 +86,12 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = ({
         >
           <LuPencil />
         </Button>
+        {entry.progress && (
+          <ResetProgressButton
+            dictionaryId={dictionaryId}
+            entryId={entry.id}
+          />
+        )}
         <ArchiveEntryButton
           dictionaryId={dictionaryId}
           entryId={entry.id}

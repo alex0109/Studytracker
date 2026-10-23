@@ -3,17 +3,24 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { LuUndo2 } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
-import { IDictionaryEntryResponse } from "@/entities/dictionary";
-import { FlashcardAnswerEnum, ISwipeableCardHandle } from "../../model";
-import { shuffleEntries } from "../../lib";
+import { IFlashcardSessionResponse } from "@/entities/flashcard";
+import {
+  FlashcardAnswerEnum,
+  IDeckAnswer,
+  ISwipeableCardHandle,
+} from "../../model";
+import { ANSWER_RATINGS } from "../../consts";
+import { useFlashcardReviewSync } from "../../hooks/useFlashcardReviewSync";
 import { SwipeableCard } from "../SwipeableCard/swipeable-card";
 import { FlashcardsSummary } from "../FlashcardsSummary/flashcards-summary";
-import { EmptyFlashcards } from "../EmptyFlashcards/empty-flashcards";
 import { FlashcardsProgress } from "./flashcards-progress";
 import { AnswerButtons } from "./answer-buttons";
 
 interface FlashcardsDeckProps {
-  entries: IDictionaryEntryResponse[];
+  session: IFlashcardSessionResponse;
+  isRepeatPending: boolean;
+  onRepeat: (entryIds: string[]) => void;
+  onRestart: () => void;
 }
 
 const KEY_ANSWERS: Record<string, FlashcardAnswerEnum> = {
@@ -22,23 +29,29 @@ const KEY_ANSWERS: Record<string, FlashcardAnswerEnum> = {
   ArrowDown: FlashcardAnswerEnum.Unsure,
 };
 
-export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({ entries }) => {
-  const [queue, setQueue] = useState(() => shuffleEntries(entries));
+export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
+  session,
+  isRepeatPending,
+  onRepeat,
+  onRestart,
+}) => {
+  const queue = session.cards;
+
   const [index, setIndex] = useState(0);
-  const [round, setRound] = useState(1);
-  const [answers, setAnswers] = useState<Record<string, FlashcardAnswerEnum>>(
-    {},
-  );
+  const [answers, setAnswers] = useState<Record<string, IDeckAnswer>>({});
   const [isFlipped, setIsFlipped] = useState(false);
 
   const cardRef = useRef<ISwipeableCardHandle>(null);
+  const shownAt = useRef(Date.now());
+
+  const { saveReview, removeReview, finish } = useFlashcardReviewSync(session);
 
   const current = queue[index];
-  const isFinished = queue.length > 0 && index >= queue.length;
+  const isFinished = index >= queue.length;
   const remaining = queue.length - index;
 
   const counts = Object.values(answers).reduce(
-    (acc, answer) => ({ ...acc, [answer]: acc[answer] + 1 }),
+    (acc, { answer }) => ({ ...acc, [answer]: acc[answer] + 1 }),
     {
       [FlashcardAnswerEnum.Know]: 0,
       [FlashcardAnswerEnum.DontKnow]: 0,
@@ -46,18 +59,18 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({ entries }) => {
     },
   );
 
-  const startRound = (nextEntries: IDictionaryEntryResponse[]) => {
-    setQueue(shuffleEntries(nextEntries));
-    setIndex(0);
-    setAnswers({});
-    setIsFlipped(false);
-    setRound((prev) => prev + 1);
-  };
-
   const handleAnswer = (answer: FlashcardAnswerEnum) => {
     if (!current) return;
 
-    setAnswers((prev) => ({ ...prev, [current.id]: answer }));
+    const reviewId = crypto.randomUUID();
+    saveReview({
+      id: reviewId,
+      entryId: current.id,
+      rating: ANSWER_RATINGS[answer],
+      durationMs: Date.now() - shownAt.current,
+    });
+
+    setAnswers((prev) => ({ ...prev, [current.id]: { answer, reviewId } }));
     setIndex((prev) => prev + 1);
     setIsFlipped(false);
   };
@@ -66,6 +79,10 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({ entries }) => {
     if (index === 0) return;
 
     const previousEntry = queue[index - 1];
+    const previousAnswer = answers[previousEntry.id];
+
+    if (previousAnswer) removeReview(previousEntry.id, previousAnswer.reviewId);
+
     setAnswers((prev) => {
       const next = { ...prev };
       delete next[previousEntry.id];
@@ -74,6 +91,14 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({ entries }) => {
     setIndex((prev) => prev - 1);
     setIsFlipped(false);
   };
+
+  useEffect(() => {
+    shownAt.current = Date.now();
+  }, [index]);
+
+  useEffect(() => {
+    if (isFinished) finish();
+  }, [isFinished]);
 
   useEffect(() => {
     if (!current) return;
@@ -103,17 +128,19 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({ entries }) => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [current]);
 
-  if (queue.length === 0) {
-    return <EmptyFlashcards />;
-  }
-
   if (isFinished) {
     return (
       <FlashcardsSummary
         queue={queue}
-        answers={answers}
-        onRepeat={startRound}
-        onRestart={() => startRound(entries)}
+        answers={Object.fromEntries(
+          Object.entries(answers).map(([entryId, { answer }]) => [
+            entryId,
+            answer,
+          ]),
+        )}
+        isRepeatPending={isRepeatPending}
+        onRepeat={(entries) => onRepeat(entries.map((entry) => entry.id))}
+        onRestart={onRestart}
       />
     );
   }
@@ -134,7 +161,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({ entries }) => {
           <div className="absolute inset-0 translate-y-3 scale-95 rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 shadow-sm opacity-80" />
         )}
         <SwipeableCard
-          key={`${round}-${current.id}`}
+          key={current.id}
           ref={cardRef}
           entry={current}
           isFlipped={isFlipped}

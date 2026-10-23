@@ -1,1 +1,1 @@
-export { FlashcardsDeck } from "./FlashcardsDeck/flashcards-deck";
+export { FlashcardsPractice } from "./FlashcardsPractice/flashcards-practice";

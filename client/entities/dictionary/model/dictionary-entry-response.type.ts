@@ -1,3 +1,4 @@
+import type { IFlashcardProgress } from "@/entities/flashcard/model";
 import { PartOfSpeechEnum } from "./part-of-speech.type";
 
 export interface IDictionaryEntryResponse {
@@ -14,6 +15,7 @@ export interface IDictionaryEntryResponse {
   synonyms: string[];
   position: number;
   isArchived: boolean;
+  progress?: IFlashcardProgress;
   createdAt: Date;
   updatedAt: Date;
 }

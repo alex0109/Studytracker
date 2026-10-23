@@ -11,7 +11,7 @@ import {
   DictionaryTitle,
 } from "@/features/dictionary/update-dictionary";
 import { DictionaryDeleteModal } from "@/features/dictionary/delete-dictionary";
-import { FlashcardsDeck } from "@/features/dictionary/practice-dictionary";
+import { FlashcardsPractice } from "@/features/dictionary/practice-dictionary";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { Subtitle } from "@/shared/ui";
@@ -86,7 +86,7 @@ export const DictionaryContent: FC<DictionaryContentProps> = ({
       </div>
       <SwitchInterface switchInterface={dictionaryInterface} />
       {activeSection === DictionaryInterfaceEnum.Flashcards ? (
-        <FlashcardsDeck key={dictionaryId} entries={activeEntries} />
+        <FlashcardsPractice key={dictionaryId} dictionaryId={dictionaryId} />
       ) : (
         <DictionaryWords dictionaryId={dictionaryId} entries={entries} />
       )}

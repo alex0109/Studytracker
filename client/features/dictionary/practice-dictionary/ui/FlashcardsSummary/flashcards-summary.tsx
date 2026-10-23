@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { motion } from "framer-motion";
-import { LuRepeat, LuShuffle } from "react-icons/lu";
+import { LuArrowLeft, LuRepeat } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { Subtitle, Title } from "@/shared/ui";
 import { cn } from "@/shared/lib";
@@ -13,6 +13,7 @@ import { FLASHCARD_ANSWER_OPTIONS } from "../../consts";
 interface FlashcardsSummaryProps {
   queue: IDictionaryEntryResponse[];
   answers: Record<string, FlashcardAnswerEnum>;
+  isRepeatPending: boolean;
   onRepeat: (entries: IDictionaryEntryResponse[]) => void;
   onRestart: () => void;
 }
@@ -20,6 +21,7 @@ interface FlashcardsSummaryProps {
 export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
   queue,
   answers,
+  isRepeatPending,
   onRepeat,
   onRestart,
 }) => {
@@ -57,9 +59,14 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
         )}
       </div>
 
-      <p className="text-neutral-500">
-        You know {knownPercent}% of the words in this round
-      </p>
+      <div className="flex flex-col items-center gap-1">
+        <p className="text-neutral-500">
+          You know {knownPercent}% of the words in this round
+        </p>
+        <p className="text-xs text-neutral-400">
+          Answers are saved, next reviews are scheduled automatically
+        </p>
+      </div>
 
       {toRepeat.length > 0 && (
         <div className="flex flex-col w-full max-w-[460px] gap-2">
@@ -96,7 +103,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
         <Button
           size="lg"
           className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
-          disabled={toRepeat.length === 0}
+          disabled={toRepeat.length === 0 || isRepeatPending}
           onClick={() => onRepeat(toRepeat)}
         >
           <LuRepeat /> Repeat {toRepeat.length}{" "}
@@ -108,7 +115,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
           className="flex-1"
           onClick={onRestart}
         >
-          <LuShuffle /> Start over
+          <LuArrowLeft /> Back to start
         </Button>
       </div>
     </motion.div>
