@@ -18,11 +18,13 @@ import { ITagResponse } from "@/entities/tag";
 import { MaterialTags } from "@/widgets/MaterialTags";
 import { Button } from "@/shared/radix-ui";
 import { MaterialDeleteModal } from "@/features/material/delete-material/ui";
+import { MaterialShareModal } from "@/features/material/share-material";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { QuestionsContent } from "@/widgets/QuestionsContent";
 import { AttemptsContent } from "@/widgets/AttemptsContent";
 import { RichTextDocument } from "@/shared/types";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
+import { LuDownload } from "react-icons/lu";
 
 interface MaterialContentType {
   id: string;
@@ -35,6 +37,8 @@ interface MaterialContentType {
   title: string;
   type: MaterialTypeEnum;
   createdAt: Date;
+  isImported?: boolean;
+  importedAt?: Date;
 }
 
 export const MaterialContent: FC<MaterialContentType> = ({
@@ -48,6 +52,8 @@ export const MaterialContent: FC<MaterialContentType> = ({
   title,
   type,
   createdAt,
+  isImported,
+  importedAt,
 }) => {
   const { activeSection } = useActiveSectionContext();
   const [open, setOpen] = useState(false);
@@ -55,7 +61,8 @@ export const MaterialContent: FC<MaterialContentType> = ({
   return (
     <div className="flex flex-col w-full p-5 min-w-0">
       <div className="flex flex-col w-full justify-center items-center mb-5">
-        <div className="flex w-full justify-end">
+        <div className="flex w-full justify-end gap-2">
+          <MaterialShareModal materialId={id} />
           <div>
             <Button
               size="lg"
@@ -69,6 +76,13 @@ export const MaterialContent: FC<MaterialContentType> = ({
         <MaterialTitle id={id} title={title} />
         <MaterialType id={id} type={type} />
         <MaterialDate createdAt={createdAt} />
+        {isImported && (
+          <span className="mt-2 inline-flex items-center gap-1 rounded-xl bg-sky-100 px-3 py-1 text-xs font-medium text-sky-700">
+            <LuDownload /> Imported
+            {importedAt &&
+              ` · ${new Date(importedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`}
+          </span>
+        )}
       </div>
       <SwitchInterface switchInterface={materialInterface} />
       {activeSection === MaterialInterfaceEnum.Questions ? (

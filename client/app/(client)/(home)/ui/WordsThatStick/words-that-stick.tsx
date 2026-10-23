@@ -15,13 +15,13 @@ const RULES = [
   {
     icon: LuArrowDown,
     swipe: "Not sure",
-    result: "comes back tomorrow",
+    result: "comes back again soon",
     styles: "bg-amber-100 text-amber-600",
   },
   {
     icon: LuArrowRight,
     swipe: "Know",
-    result: "waits a few days, then longer and longer",
+    result: "waits longer every time you get it right",
     styles: "bg-emerald-100 text-emerald-700",
   },
 ];
@@ -60,8 +60,9 @@ export const WordsThatStick: FC = () => {
           ))}
         </ul>
         <p className="text-sm text-neutral-500">
-          Every swipe is saved, so progress survives closing the tab. Your
-          time goes to the words you actually struggle with.
+          Reviews are scheduled by FSRS, a modern spaced repetition
+          algorithm that learns how fast you forget. Your time goes to the
+          words you actually struggle with.
         </p>
       </Reveal>
 

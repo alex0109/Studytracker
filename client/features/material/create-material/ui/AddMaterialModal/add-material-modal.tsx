@@ -2,8 +2,16 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Title, Modal, CustomInput, IsPendingLoader } from "@/shared/ui";
-import { IMaterialCreate } from "@/entities/material";
+import {
+  Title,
+  Modal,
+  CustomInput,
+  IsPendingLoader,
+  LimitCounter,
+} from "@/shared/ui";
+import { IMaterialCreate, useMaterialAll } from "@/entities/material";
+import { useLimits } from "@/entities/limits";
+import { isLimitReached } from "@/shared/lib";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { Button } from "@/shared/radix-ui";
 import { LuPlus } from "react-icons/lu";
@@ -17,6 +25,11 @@ export const AddMaterialModal: FC = () => {
   } = useForm<IMaterialCreate>();
 
   const { createMaterial, createMaterialIsPending } = useMaterialCreate();
+  const { materialsData } = useMaterialAll();
+  const { limitsData } = useLimits();
+
+  const materialsCount = materialsData?.length ?? 0;
+  const isFull = isLimitReached(materialsCount, limitsData?.maxMaterials);
 
   const [open, setOpen] = useState(false);
 
@@ -30,12 +43,23 @@ export const AddMaterialModal: FC = () => {
     <>
       <Button
         onClick={() => setOpen(true)}
+        disabled={isFull}
+        title={
+          isFull
+            ? `Limit reached: ${limitsData?.maxMaterials} materials. Delete one to add a new one`
+            : undefined
+        }
         className="w-full flex justify-between items-center"
       >
         <div>
-          <p>Add Material</p>
+          <p>{isFull ? "Materials limit reached" : "Add Material"}</p>
         </div>
-        <div>
+        <div className="flex items-center gap-2">
+          <LimitCounter
+            used={materialsCount}
+            max={limitsData?.maxMaterials}
+            label="materials"
+          />
           <LuPlus />
         </div>
       </Button>

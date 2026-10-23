@@ -25,7 +25,7 @@ import { NotesContent } from "@/widgets/NotesContent";
 import { DictionaryContent } from "@/widgets/DictionaryContent";
 import { MaterialDictionaries } from "../MaterialDictionaries/material-dictionaries";
 import { Skeleton } from "@/shared/radix-ui";
-import { LuMenu, LuNotebookPen, LuPencil } from "react-icons/lu";
+import { LuDownload, LuMenu, LuNotebookPen, LuPencil } from "react-icons/lu";
 import { cn } from "@/shared/lib/utils";
 import { useScreenInfo } from "@/shared/hooks/use-mobile";
 import { motion } from "framer-motion";
@@ -105,16 +105,29 @@ export const MaterialsSideBar: FC = () => {
                   <span className="px-2 group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50">
                     {item.title}
                   </span>
+                  {item.isImported && (
+                    <LuDownload
+                      title="Imported"
+                      aria-label="Imported"
+                      className="ml-1 mt-2 shrink-0 text-sky-600"
+                    />
+                  )}
                 </div>
               </AccordionTrigger>
 
               <AccordionContent isOpen={accordionOpenValue === item.id}>
                 <div className="flex flex-col ml-5 pl-2 py-2 gap-2 border-l border-neutral-200">
                   <div className="flex justify-between items-center">
-                    <AddNoteModal materialId={item.id} />
+                    <AddNoteModal
+                      materialId={item.id}
+                      notesCount={item.notes?.length ?? 0}
+                    />
                   </div>
                   <div className="flex justify-between items-center">
-                    <AddDictionaryModal materialId={item.id} />
+                    <AddDictionaryModal
+                      materialId={item.id}
+                      enabled={accordionOpenValue === item.id}
+                    />
                   </div>
 
                   {item.notes &&
@@ -186,6 +199,8 @@ export const MaterialsSideBar: FC = () => {
         tags={activeMaterial.materialTags}
         status={activeMaterial.status}
         createdAt={activeMaterial.createdAt}
+        isImported={activeMaterial.isImported}
+        importedAt={activeMaterial.importedAt}
       />
     ) : activeSidebarSection === MaterialsSidebarSectionEnum.Notes &&
       activeMaterial &&

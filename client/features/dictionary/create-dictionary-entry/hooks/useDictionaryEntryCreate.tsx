@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { getLimitErrorMessage } from "@/shared/lib/limits";
 import { toast } from "@/shared/radix-ui";
 import {
   createDictionaryEntry,
@@ -29,6 +30,14 @@ export const useDictionaryEntryCreate = (dictionaryId: string) => {
       });
     },
     onError: (error) => {
+      // Limit reached: show why and refresh the counter, this is not a bug to report
+      const limitMessage = getLimitErrorMessage(error);
+      if (limitMessage) {
+        queryClient.invalidateQueries({ queryKey: dictionaryKeys.detail(dictionaryId) });
+        toast({ title: `⚠️${limitMessage}`, variant: "error" });
+        return;
+      }
+
       logExceptionError(error, {
         section: `dictionaries/${dictionaryId}/entries (create)`,
         userID: user?.id,

@@ -8,19 +8,34 @@ import {
   CustomInput,
   IsPendingLoader,
   TextArea,
+  LimitCounter,
 } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { LuPlus } from "react-icons/lu";
-import { IDictionaryCreate } from "@/entities/dictionary";
+import { IDictionaryCreate, useDictionaryAll } from "@/entities/dictionary";
+import { useLimits } from "@/entities/limits";
+import { isLimitReached } from "@/shared/lib";
 import { useDictionaryCreate } from "../../hooks/useDictionaryCreate";
 
 interface AddDictionaryModalProps {
   materialId: string;
+  // Dictionaries are loaded only for the opened material
+  enabled: boolean;
 }
 
 export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
   materialId,
+  enabled,
 }) => {
+  const { dictionariesData } = useDictionaryAll(materialId, enabled);
+  const { limitsData } = useLimits();
+
+  const dictionariesCount = dictionariesData?.length ?? 0;
+  const isFull = isLimitReached(
+    dictionariesCount,
+    limitsData?.maxDictionariesPerMaterial,
+  );
+
   const {
     register,
     formState: { errors },
@@ -45,6 +60,7 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
     <>
       <Button
         onClick={() => setOpen(true)}
+        disabled={isFull}
         variant="ghost"
         className="w-full flex justify-start items-center hover:bg-neutral-900/10 px-3"
       >
@@ -52,8 +68,16 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
           <LuPlus />
         </div>
         <div>
-          <p>Add Dictionary</p>
+          <p>{isFull ? "Dictionaries limit reached" : "Add Dictionary"}</p>
         </div>
+        {dictionariesData && (
+          <LimitCounter
+            used={dictionariesCount}
+            max={limitsData?.maxDictionariesPerMaterial}
+            label="dictionaries in this material"
+            className="ml-auto"
+          />
+        )}
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>

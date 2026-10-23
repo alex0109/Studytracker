@@ -3,6 +3,7 @@
 import z from "zod";
 import { createClientOnServer } from "../api/server";
 import { validatedAction } from "./middleware.supabase";
+import { getSafeRedirect } from "@/shared/lib/safe-redirect";
 
 export const signInWithMagicLink = validatedAction(
   z.object({
@@ -18,7 +19,7 @@ export const signInWithMagicLink = validatedAction(
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${redirectTo}?redirect=${encodeURIComponent("/")}`,
+        emailRedirectTo: `${redirectTo}?redirect=${encodeURIComponent(getSafeRedirect(data.redirect))}`,
       },
     });
     if (error) {

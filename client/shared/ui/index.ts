@@ -14,3 +14,4 @@ export * from "./TypeText";
 export * from "./IsPendingLoader";
 export * from "./InProductionModal";
 export * from "./Accordion";
+export * from "./LimitCounter";

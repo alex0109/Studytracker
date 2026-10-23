@@ -1,9 +1,10 @@
 "use client";
 
 import { FC, useState } from "react";
-import { InProductionModal } from "@/shared/ui";
+import { InProductionModal, LimitCounter } from "@/shared/ui";
+import { useLimits } from "@/entities/limits";
 import { Button } from "@/shared/radix-ui";
-import { cn } from "@/shared/lib";
+import { cn, isLimitReached } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { useRouter, usePathname } from "next/navigation";
 import { QuestionCreateModal } from "@/features/question/create-question/ui";
@@ -31,6 +32,15 @@ export const QuestionsContent: FC<QuestionsType> = ({
   const path = usePathname();
 
   const { questionsData, questionsIsPending } = useQuestionAll(materialId);
+  const { limitsData } = useLimits();
+
+  // Limit is per material, so notes share it with the material itself
+  const activeQuestionsCount =
+    questionsData?.filter((item) => item.isActive).length ?? 0;
+  const isQuestionsFull = isLimitReached(
+    activeQuestionsCount,
+    limitsData?.maxQuestionsPerMaterial,
+  );
 
   const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId);
 
@@ -47,7 +57,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
   };
 
   const disabledHandlers = {
-    "open-modal": false,
+    "open-modal": isQuestionsFull,
     generate: false,
     start:
       questionsData && questionsData.length > 0 && !startAttemptIsPending
@@ -70,7 +80,17 @@ export const QuestionsContent: FC<QuestionsType> = ({
             disabled={disabledHandlers[item.key]}
             className={`lg:w-[250px] md:w-[180px] sm:w-[180px] w-full ${cn(item.styles)}`}
           >
-            {item.icon} {item.title}
+            {item.icon}{" "}
+            {item.key === "open-modal" && isQuestionsFull
+              ? "Questions limit reached"
+              : item.title}
+            {item.key === "open-modal" && (
+              <LimitCounter
+                used={activeQuestionsCount}
+                max={limitsData?.maxQuestionsPerMaterial}
+                label="questions in this material"
+              />
+            )}
           </Button>
         ))}
       </div>

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { MagicLinkStateType, signInWithMagicLink } from "@/entities/auth";
 import { Button } from "@/shared/radix-ui";
 import { createClient } from "@/entities/auth/api/client";
+import { getSafeRedirect } from "@/shared/lib";
 
 export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${redirectTo}?redirect=${encodeURIComponent("/")}`,
+          redirectTo: `${redirectTo}?redirect=${encodeURIComponent(getSafeRedirect(redirect))}`,
         },
       });
 

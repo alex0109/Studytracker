@@ -2,7 +2,15 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Title, Modal, CustomInput, IsPendingLoader } from "@/shared/ui";
+import {
+  Title,
+  Modal,
+  CustomInput,
+  IsPendingLoader,
+  LimitCounter,
+} from "@/shared/ui";
+import { useLimits } from "@/entities/limits";
+import { isLimitReached } from "@/shared/lib";
 import { Button } from "@/shared/radix-ui";
 import { LuPlus } from "react-icons/lu";
 import { INoteCreate } from "@/entities/note/model";
@@ -10,9 +18,16 @@ import { useNoteCreate } from "../../hooks/useNoteCreate";
 
 interface AddNoteModalProps {
   materialId: string;
+  notesCount: number;
 }
 
-export const AddNoteModal: FC<AddNoteModalProps> = ({ materialId }) => {
+export const AddNoteModal: FC<AddNoteModalProps> = ({
+  materialId,
+  notesCount,
+}) => {
+  const { limitsData } = useLimits();
+  const isFull = isLimitReached(notesCount, limitsData?.maxNotesPerMaterial);
+
   const {
     register,
     formState: { errors },
@@ -33,6 +48,7 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({ materialId }) => {
     <>
       <Button
         onClick={() => setOpen(true)}
+        disabled={isFull}
         variant="ghost"
         className="w-full flex justify-start items-center hover:bg-neutral-900/10 px-3"
       >
@@ -40,8 +56,14 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({ materialId }) => {
           <LuPlus />
         </div>
         <div>
-          <p>Add Note</p>
+          <p>{isFull ? "Notes limit reached" : "Add Note"}</p>
         </div>
+        <LimitCounter
+          used={notesCount}
+          max={limitsData?.maxNotesPerMaterial}
+          label="notes in this material"
+          className="ml-auto"
+        />
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>

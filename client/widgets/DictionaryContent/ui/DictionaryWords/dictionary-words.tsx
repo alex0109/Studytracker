@@ -8,6 +8,9 @@ import { AddEntryModal } from "@/features/dictionary/create-dictionary-entry";
 import { EditEntryModal } from "@/features/dictionary/update-dictionary-entry";
 import { useDictionaryEntriesReorder } from "@/features/dictionary/reorder-dictionary-entries";
 import { Button } from "@/shared/radix-ui";
+import { LimitCounter } from "@/shared/ui";
+import { isLimitReached } from "@/shared/lib";
+import { useLimits } from "@/entities/limits";
 import { DictionaryWordItem } from "./dictionary-word-item";
 import { EmptyWords } from "./empty-words";
 
@@ -30,6 +33,12 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
   const orderedEntriesRef = useRef(entries);
 
   const { reorderEntries } = useDictionaryEntriesReorder(dictionaryId);
+  const { limitsData } = useLimits();
+
+  const isWordsFull = isLimitReached(
+    entries.length,
+    limitsData?.maxEntriesPerDictionary,
+  );
 
   useEffect(() => {
     setOrderedEntries(entries);
@@ -59,9 +68,20 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
         <Button
           size="lg"
           className="lg:w-[250px] md:w-[180px] sm:w-[180px] w-full"
+          disabled={isWordsFull}
+          title={
+            isWordsFull
+              ? `Limit reached: ${limitsData?.maxEntriesPerDictionary} words in one dictionary`
+              : undefined
+          }
           onClick={() => setAddOpen(true)}
         >
-          <LuPlus /> Add Word
+          <LuPlus /> {isWordsFull ? "Words limit reached" : "Add Word"}
+          <LimitCounter
+            used={entries.length}
+            max={limitsData?.maxEntriesPerDictionary}
+            label="words in this dictionary"
+          />
         </Button>
       </div>
 

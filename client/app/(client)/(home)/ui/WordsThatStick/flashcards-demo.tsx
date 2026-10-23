@@ -113,7 +113,7 @@ export const FlashcardsDemo: FC = () => {
             </span>
             <p className="text-neutral-600">
               {missed === 0
-                ? "You knew every word. They will wait a few days before coming back."
+                ? "You knew every word. They will wait longer before coming back."
                 : `${missed} ${missed === 1 ? "word is" : "words are"} already scheduled to come back sooner.`}
             </p>
             <button

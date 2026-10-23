@@ -19,4 +19,7 @@ export interface IMaterialResponse {
   createdAt: Date;
   updatedAt: Date;
   version: number;
+  // Copy received through a share link
+  isImported?: boolean;
+  importedAt?: Date;
 }
