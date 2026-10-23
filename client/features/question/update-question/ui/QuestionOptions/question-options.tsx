@@ -43,12 +43,15 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
     updateQuestion({ dataToUpdate: { options: nextOptions } });
   };
 
-  const onMarkCorrect = (optionId: string) => {
+  const correctCount = options.filter((option) => option.isCorrect).length;
+
+  const onToggleCorrect = (optionId: string) => {
     saveOptions(
-      toRequest(options).map((option) => ({
-        ...option,
-        isCorrect: option.id === optionId,
-      })),
+      toRequest(options).map((option) =>
+        option.id === optionId
+          ? { ...option, isCorrect: !option.isCorrect }
+          : option,
+      ),
     );
   };
 
@@ -102,11 +105,18 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
           <div key={option.id} className="flex items-center gap-2">
             <button
               type="button"
-              title="Mark as correct"
-              disabled={updateQuestionIsPending}
-              onClick={() => onMarkCorrect(option.id)}
+              title={
+                option.isCorrect && correctCount === 1
+                  ? "At least one option must be correct"
+                  : "Toggle correct"
+              }
+              disabled={
+                updateQuestionIsPending ||
+                (option.isCorrect && correctCount === 1)
+              }
+              onClick={() => onToggleCorrect(option.id)}
               className={cn(
-                "flex shrink-0 justify-center items-center size-7 rounded-full border-2",
+                "flex shrink-0 justify-center items-center size-7 rounded-lg border-2",
                 option.isCorrect
                   ? "bg-emerald-700 border-emerald-700 text-white"
                   : "border-neutral-300 text-transparent hover:border-emerald-700",

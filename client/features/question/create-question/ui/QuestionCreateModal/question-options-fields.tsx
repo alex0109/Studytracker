@@ -5,7 +5,7 @@ import {
   Control,
   FieldErrors,
   UseFormRegister,
-  UseFormSetValue,
+  UseFormWatch,
   useFieldArray,
 } from "react-hook-form";
 import { LuCheck, LuPlus, LuX } from "react-icons/lu";
@@ -17,53 +17,52 @@ import { IQuestionCreateForm } from "../../model";
 interface QuestionOptionsFieldsProps {
   control: Control<IQuestionCreateForm>;
   register: UseFormRegister<IQuestionCreateForm>;
-  setValue: UseFormSetValue<IQuestionCreateForm>;
+  watch: UseFormWatch<IQuestionCreateForm>;
   errors: FieldErrors<IQuestionCreateForm>;
-  correctOptionIndex: number;
 }
 
 export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
   control,
   register,
-  setValue,
+  watch,
   errors,
-  correctOptionIndex,
 }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: "options",
+    rules: {
+      validate: (options) =>
+        options.some((option) => option.isCorrect) ||
+        "Mark at least one correct option",
+    },
   });
 
-  const onRemoveHandler = (index: number) => {
-    remove(index);
-
-    // Keep the same option marked as correct after the list shifts
-    if (index === correctOptionIndex) setValue("correctOptionIndex", 0);
-    else if (index < correctOptionIndex)
-      setValue("correctOptionIndex", correctOptionIndex - 1);
-  };
+  const options = watch("options");
 
   return (
     <div className="flex flex-col gap-2 m-2">
       <span className="text-sm text-neutral-500">
-        Options: mark the correct one
+        Options: mark every correct one
       </span>
       {fields.map((field, index) => (
         <div key={field.id} className="flex flex-col">
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              title="Mark as correct"
-              onClick={() => setValue("correctOptionIndex", index)}
+            <label
+              title="Correct option"
               className={cn(
-                "flex shrink-0 justify-center items-center size-8 rounded-full border-2",
-                correctOptionIndex === index
+                "flex shrink-0 justify-center items-center size-8 rounded-lg border-2 cursor-pointer",
+                options?.[index]?.isCorrect
                   ? "bg-emerald-700 border-emerald-700 text-white"
                   : "border-neutral-300 text-transparent hover:border-emerald-700",
               )}
             >
+              <input
+                type="checkbox"
+                className="sr-only"
+                {...register(`options.${index}.isCorrect`)}
+              />
               <LuCheck />
-            </button>
+            </label>
             <input
               placeholder={`*Option ${index + 1}...`}
               maxLength={500}
@@ -86,7 +85,7 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
               size="icon"
               title="Remove option"
               disabled={fields.length <= MIN_OPTIONS}
-              onClick={() => onRemoveHandler(index)}
+              onClick={() => remove(index)}
             >
               <LuX />
             </Button>
@@ -98,12 +97,15 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
           )}
         </div>
       ))}
+      {errors.options?.root?.message && (
+        <p className="text-red-400 text-sm">{errors.options.root.message}</p>
+      )}
       <Button
         type="button"
         variant="ghost"
         className="self-start"
         disabled={fields.length >= MAX_OPTIONS}
-        onClick={() => append({ name: "" })}
+        onClick={() => append({ name: "", isCorrect: false })}
       >
         <LuPlus /> Add option
       </Button>

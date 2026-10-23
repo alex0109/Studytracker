@@ -1,0 +1,98 @@
+.tint {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Grow: emerald */
+.grow {
+  opacity: 1;
+  background: radial-gradient(
+    55rem 40rem at 12% 18%,
+    rgb(16 185 129 / 0.14),
+    transparent 70%
+  );
+}
+
+/* Reinforce: violet */
+.reinforce {
+  background: radial-gradient(
+    55rem 40rem at 88% 40%,
+    rgb(139 92 246 / 0.16),
+    transparent 70%
+  );
+}
+
+/* Strengthen: sky */
+.strengthen {
+  background: radial-gradient(
+    55rem 40rem at 50% 85%,
+    rgb(14 165 233 / 0.16),
+    transparent 70%
+  );
+}
+
+/* Page colour follows the story while scrolling, static first colour otherwise */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: scroll()) and (animation-range: entry)) {
+    .grow {
+      animation: tint-grow auto linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .reinforce {
+      animation: tint-reinforce auto linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .strengthen {
+      animation: tint-strengthen auto linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes tint-grow {
+  0%,
+  20% {
+    opacity: 1;
+  }
+  45%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tint-reinforce {
+  0%,
+  20% {
+    opacity: 0;
+  }
+  40%,
+  60% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tint-strengthen {
+  0%,
+  60% {
+    opacity: 0;
+  }
+  85%,
+  100% {
+    opacity: 1;
+  }
+}

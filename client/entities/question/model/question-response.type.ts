@@ -9,7 +9,6 @@ export interface IQuestionResponse {
   title: string;
   answer?: string;
   questionType: QuestionTypeEnum;
-  correctOptionId?: string;
   options: IOption[];
   questionDifficulty: QuestionDifficultyEnum;
   explanation?: string;

@@ -11,7 +11,9 @@ export const QUESTION_CREATE_DEFAULTS: IQuestionCreateForm = {
   title: "",
   questionDifficulty: "easy",
   answer: "",
-  options: [{ name: "" }, { name: "" }],
-  correctOptionIndex: 0,
+  options: [
+    { name: "", isCorrect: true },
+    { name: "", isCorrect: false },
+  ],
   isTrue: true,
 };

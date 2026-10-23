@@ -1,0 +1,18 @@
+/* Decorative only: without support or with reduced motion the content is simply visible */
+@media (prefers-reduced-motion: no-preference) {
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    .reveal {
+      animation: reveal-in auto linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+    scale: 0.98;
+  }
+}

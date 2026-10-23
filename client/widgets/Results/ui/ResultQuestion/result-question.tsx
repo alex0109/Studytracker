@@ -22,8 +22,11 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
     questionType === QuestionTypeEnum.Options ||
     questionType === QuestionTypeEnum.TrueFalse;
 
-  const optionName = (optionId?: string) =>
-    options.find((option) => option.id === optionId)?.name;
+  const optionNames = (optionIds: string[] = []) =>
+    options
+      .filter((option) => optionIds.includes(option.id))
+      .map((option) => option.name)
+      .join(", ");
 
   return (
     <>
@@ -40,7 +43,11 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
               answer.isCorrect ? "text-emerald-500" : "text-red-500",
             )}
           >
-            {answer.isCorrect ? "Correct" : "Wrong"}
+            {answer.isCorrect
+              ? "Correct"
+              : isChoice && answer.score > 0
+                ? `Partly correct (${Math.round(answer.score)}%)`
+                : "Wrong"}
           </span>
           <p
             className={
@@ -49,16 +56,20 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
                 : "bg-red-200 p-3 rounded-2xl"
             }
           >
-            {isChoice ? optionName(answer.userAnswerOptionId) : answer.userAnswer}
+            {isChoice
+              ? optionNames(answer.userAnswerOptionIds)
+              : answer.userAnswer}
           </p>
-          {isChoice && !answer.isCorrect && optionName(answer.correctOptionId) && (
-            <p className="mt-2 text-sm text-neutral-500">
-              Correct answer:{" "}
-              <span className="font-semibold text-emerald-600">
-                {optionName(answer.correctOptionId)}
-              </span>
-            </p>
-          )}
+          {isChoice &&
+            !answer.isCorrect &&
+            optionNames(answer.correctOptionIds) && (
+              <p className="mt-2 text-sm text-neutral-500">
+                Correct answer:{" "}
+                <span className="font-semibold text-emerald-600">
+                  {optionNames(answer.correctOptionIds)}
+                </span>
+              </p>
+            )}
         </div>
       ))}
 

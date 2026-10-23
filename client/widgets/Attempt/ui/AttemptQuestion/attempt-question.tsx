@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Subtitle, TextArea } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui/Button/button";
 import { motion } from "framer-motion";
@@ -46,32 +46,59 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   const isChoice =
     questionType === QuestionTypeEnum.Options ||
     questionType === QuestionTypeEnum.TrueFalse;
+  // Options question may have several correct answers, True/False has one
+  const isMultiple = questionType === QuestionTypeEnum.Options;
+
+  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
 
   const { submitAnswer } = useAttemptSubmitAnswer(attemptId);
 
   const {
     register,
     setValue,
+    setError,
+    clearErrors,
     watch,
     formState: { errors },
     handleSubmit,
   } = useForm<Partial<IResultRequest>>();
 
   const selectedConfidence = watch("confidenceLevel");
-  const selectedOptionId = watch("userAnswerOptionId");
   const textAreaValue = watch("userAnswer") ?? "";
+
+  const onSelectOption = (optionId: string) => {
+    clearErrors("userAnswerOptionIds");
+
+    if (!isMultiple) {
+      setSelectedOptionIds([optionId]);
+      return;
+    }
+
+    setSelectedOptionIds((prev) =>
+      prev.includes(optionId)
+        ? prev.filter((id) => id !== optionId)
+        : [...prev, optionId],
+    );
+  };
 
   const onFormSubmit = async (values: Partial<IResultRequest>) => {
     if (isChoice) {
-      const option = options.find((o) => o.id === values.userAnswerOptionId);
+      if (selectedOptionIds.length === 0) {
+        setError("userAnswerOptionIds", { message: "Choose an answer" });
+        return;
+      }
+
+      const chosenNames = options
+        .filter((o) => selectedOptionIds.includes(o.id))
+        .map((o) => o.name);
 
       await submitAnswer({
         questionId,
-        userAnswerOptionId: values.userAnswerOptionId,
+        userAnswerOptionIds: selectedOptionIds,
         confidenceLevel: values.confidenceLevel,
       });
 
-      onAnswered(option?.name ?? "");
+      onAnswered(chosenNames.join(", "));
       return;
     }
 
@@ -113,12 +140,11 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
       >
         {isChoice ? (
           <div className="flex flex-col w-full gap-2">
-            <input
-              type="hidden"
-              {...register("userAnswerOptionId", {
-                required: "Choose an answer",
-              })}
-            />
+            {isMultiple && (
+              <span className="text-sm text-neutral-500">
+                Choose all correct answers
+              </span>
+            )}
             <div
               className={cn(
                 "flex w-full gap-2",
@@ -129,16 +155,12 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
                 <button
                   key={option.id}
                   type="button"
-                  onClick={() =>
-                    setValue("userAnswerOptionId", option.id, {
-                      shouldValidate: true,
-                    })
-                  }
+                  onClick={() => onSelectOption(option.id)}
                   className={cn(
                     "flex-1 rounded-xl px-4 py-3 text-left font-medium",
                     questionType === QuestionTypeEnum.TrueFalse &&
                       "text-center",
-                    selectedOptionId === option.id
+                    selectedOptionIds.includes(option.id)
                       ? "bg-emerald-700 text-white"
                       : "bg-neutral-200 text-neutral-700",
                   )}
@@ -152,9 +174,9 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
                 </button>
               ))}
             </div>
-            {errors.userAnswerOptionId && (
+            {errors.userAnswerOptionIds && (
               <p className="text-red-400 px-5">
-                {errors.userAnswerOptionId.message}
+                {errors.userAnswerOptionIds.message}
               </p>
             )}
           </div>

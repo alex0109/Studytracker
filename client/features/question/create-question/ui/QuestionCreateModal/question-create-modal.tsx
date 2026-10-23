@@ -56,7 +56,6 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     shouldUnregister: true,
   });
 
-  const correctOptionIndex = watch("correctOptionIndex");
   const isTrue = watch("isTrue");
 
   const { createOpenQuestion, createOpenQuestionIsPending } =
@@ -78,13 +77,11 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     };
 
     if (questionType === QuestionTypeEnum.Options) {
-      const correctIndex = Number(values.correctOptionIndex);
-
       createOptionsQuestion({
         ...base,
-        options: values.options.map((option, index) => ({
+        options: values.options.map((option) => ({
           name: option.name.trim(),
-          isCorrect: index === correctIndex,
+          isCorrect: option.isCorrect,
         })),
       });
     } else if (questionType === QuestionTypeEnum.TrueFalse) {
@@ -160,19 +157,12 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
             )}
 
             {questionType === QuestionTypeEnum.Options && (
-              <>
-                <input
-                  type="hidden"
-                  {...register("correctOptionIndex", { valueAsNumber: true })}
-                />
-                <QuestionOptionsFields
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  errors={errors}
-                  correctOptionIndex={correctOptionIndex}
-                />
-              </>
+              <QuestionOptionsFields
+                control={control}
+                register={register}
+                watch={watch}
+                errors={errors}
+              />
             )}
 
             {questionType === QuestionTypeEnum.TrueFalse && (
