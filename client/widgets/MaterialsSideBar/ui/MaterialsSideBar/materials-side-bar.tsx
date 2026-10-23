@@ -16,10 +16,14 @@ import { IMaterialResponse, useMaterialAll } from "@/entities/material";
 import { MaterialsSidebarSectionEnum } from "../../lib/materials-sidebar-enum";
 import { AddMaterialModal } from "@/features/material/create-material/ui";
 import { AddNoteModal } from "@/features/note/create-note";
+import { AddDictionaryModal } from "@/features/dictionary/create-dictionary";
 import { EmptySection } from "../EmptySection/empty-section";
 import { INoteResponse } from "@/entities/note/model";
+import { IDictionaryResponse } from "@/entities/dictionary";
 import { MaterialContent } from "@/widgets/MaterialContent";
 import { NotesContent } from "@/widgets/NotesContent";
+import { DictionaryContent } from "@/widgets/DictionaryContent";
+import { MaterialDictionaries } from "../MaterialDictionaries/material-dictionaries";
 import { Skeleton } from "@/shared/radix-ui";
 import { LuMenu, LuNotebookPen, LuPencil } from "react-icons/lu";
 import { cn } from "@/shared/lib/utils";
@@ -41,6 +45,9 @@ export const MaterialsSideBar: FC = () => {
   const [activeNote, setActiveNote] = useState<INoteResponse | undefined>(
     undefined,
   );
+  const [activeDictionary, setActiveDictionary] = useState<
+    IDictionaryResponse | undefined
+  >(undefined);
   const [accordionOpenValue, setAccordionOpenValue] = useState<
     string | undefined
   >();
@@ -81,6 +88,7 @@ export const MaterialsSideBar: FC = () => {
                   setActiveMaterial(item);
                   setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
                   setActiveNote(undefined);
+                  setActiveDictionary(undefined);
                 }}
                 className="flex w-full justify-start items-start hover:bg-neutral-900/10 p-2"
               >
@@ -105,6 +113,9 @@ export const MaterialsSideBar: FC = () => {
                   <div className="flex justify-between items-center">
                     <AddNoteModal materialId={item.id} />
                   </div>
+                  <div className="flex justify-between items-center">
+                    <AddDictionaryModal materialId={item.id} />
+                  </div>
 
                   {item.notes &&
                     item.notes.map((note) => (
@@ -116,6 +127,7 @@ export const MaterialsSideBar: FC = () => {
                           onClick={() => {
                             setActiveMaterial(item);
                             setActiveNote(note);
+                            setActiveDictionary(undefined);
                             setActiveSidebarSection(
                               MaterialsSidebarSectionEnum.Notes,
                             );
@@ -136,6 +148,21 @@ export const MaterialsSideBar: FC = () => {
                         </Button>
                       </div>
                     ))}
+
+                  <MaterialDictionaries
+                    materialId={item.id}
+                    enabled={accordionOpenValue === item.id}
+                    activeDictionaryId={activeDictionary?.id}
+                    onSelect={(dictionary) => {
+                      setActiveMaterial(item);
+                      setActiveNote(undefined);
+                      setActiveDictionary(dictionary);
+                      setActiveSidebarSection(
+                        MaterialsSidebarSectionEnum.Dictionary,
+                      );
+                      closeSheetIfMobile();
+                    }}
+                  />
                 </div>
               </AccordionContent>
             </Accordion.Item>
@@ -170,6 +197,18 @@ export const MaterialsSideBar: FC = () => {
         textContent={activeNote.textContent}
         drawingContent={activeNote.drawingContent}
         type={activeNote.type}
+      />
+    ) : activeSidebarSection === MaterialsSidebarSectionEnum.Dictionary &&
+      activeMaterial &&
+      activeDictionary ? (
+      <DictionaryContent
+        key={activeDictionary.id}
+        materialId={activeMaterial.id}
+        dictionaryId={activeDictionary.id}
+        onDeleted={() => {
+          setActiveDictionary(undefined);
+          setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
+        }}
       />
     ) : (
       <EmptySection />
