@@ -56,7 +56,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
           >
-            <div className="flex flex-col justify-center items-center w-[400px]">
+            <div className="flex flex-col justify-center items-center w-full">
               <Title
                 text={
                   mode === "signin" ? "Welcome back!" : "Create your account"
@@ -103,7 +103,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       )}
 
       {magicLinkState.error && (
-        <div className="flex flex-col justify-center items-center w-[400px] my-10">
+        <div className="flex flex-col justify-center items-center w-full my-10">
           <p className="text-rose-700">{magicLinkState.error}</p>
         </div>
       )}

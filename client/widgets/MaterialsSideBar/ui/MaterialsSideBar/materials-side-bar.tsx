@@ -25,7 +25,13 @@ import { NotesContent } from "@/widgets/NotesContent";
 import { DictionaryContent } from "@/widgets/DictionaryContent";
 import { MaterialDictionaries } from "../MaterialDictionaries/material-dictionaries";
 import { Skeleton } from "@/shared/radix-ui";
-import { LuDownload, LuMenu, LuNotebookPen, LuPencil } from "react-icons/lu";
+import {
+  LuDownload,
+  LuMenu,
+  LuNotebookPen,
+  LuPencil,
+  LuScrollText,
+} from "react-icons/lu";
 import { cn } from "@/shared/lib/utils";
 import { useScreenInfo } from "@/shared/hooks/use-mobile";
 import { motion } from "framer-motion";
@@ -121,6 +127,10 @@ export const MaterialsSideBar: FC = () => {
                     <AddNoteModal
                       materialId={item.id}
                       notesCount={item.notes?.length ?? 0}
+                      hasSummary={
+                        item.notes?.some((note) => note.type === "summary") ??
+                        false
+                      }
                     />
                   </div>
                   <div className="flex justify-between items-center">
@@ -156,6 +166,8 @@ export const MaterialsSideBar: FC = () => {
                             <LuNotebookPen />
                           ) : note.type === "drawing" ? (
                             <LuPencil />
+                          ) : note.type === "summary" ? (
+                            <LuScrollText />
                           ) : null}{" "}
                           {note.title}
                         </Button>

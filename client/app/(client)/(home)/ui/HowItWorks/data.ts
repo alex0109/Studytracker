@@ -28,7 +28,7 @@ export const howItWorksSteps: IHowItWorksStep[] = [
     label: "Add a material",
     icon: LuFileText,
     title: "Everything starts with a material",
-    text: "An article, a video, a summary, a practice task or a test. Give it a status and tags, then attach notes, questions and a dictionary to it.",
+    text: "An article, a video, a practice task or a test. Give it a status and tags, then attach notes, questions and a dictionary to it.",
     Demo: MaterialDemo,
   },
   {

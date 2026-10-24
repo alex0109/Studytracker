@@ -2,8 +2,10 @@
 
 import { useAttemptResults } from "@/entities/attempt";
 import { useQuestionAllReduced } from "@/entities/question";
-import { BlockColumn, ContainerColumn, Title } from "@/shared/ui";
+import { BlockColumn, Title } from "@/shared/ui";
+import { Skeleton } from "@/shared/radix-ui";
 import { ResultsSummary, ResultQuestionList } from "@/widgets/Results";
+import { ExplainMistakesButton } from "@/features/attempt/explain-mistakes";
 
 interface ResultsPageClientProps {
   materialId: string;
@@ -19,29 +21,33 @@ export const ResultsPageClient = ({
   const { questionsAllReducedData } = useQuestionAllReduced(materialId);
 
   if (!attemptResults || !questionsAllReducedData) {
-    return null;
+    return (
+      <BlockColumn blockStyles="gap-3">
+        <Skeleton className="h-10 w-40" />
+        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-48 w-full" />
+      </BlockColumn>
+    );
   }
 
   return (
-    <div className="flex flex-col w-full justify-center items-center">
-      <BlockColumn>
-        <Title text="RESULTS" />
-      </BlockColumn>
+    <BlockColumn blockStyles="gap-4">
+      <Title text="Results" blockStyles="my-1" />
 
-      <BlockColumn>
-        <ResultsSummary
-          attempt={attemptResults}
-          questionsLength={questionsAllReducedData.length}
-        />
-      </BlockColumn>
+      <ResultsSummary
+        attempt={attemptResults}
+        questionsLength={attemptResults.results.length}
+      />
 
-      <BlockColumn>
-        <ResultQuestionList
-          questions={questionsAllReducedData}
-          results={attemptResults.results}
-          materialId={materialId}
-        />
-      </BlockColumn>
-    </div>
+      <ExplainMistakesButton
+        attemptId={attemptId}
+        results={attemptResults.results}
+      />
+
+      <ResultQuestionList
+        questions={questionsAllReducedData}
+        results={attemptResults.results}
+      />
+    </BlockColumn>
   );
 };

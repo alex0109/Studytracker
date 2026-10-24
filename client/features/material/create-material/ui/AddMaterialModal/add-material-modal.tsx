@@ -86,7 +86,6 @@ export const AddMaterialModal: FC = () => {
               >
                 <option value="article">📄Article</option>
                 <option value="video">▶️Video</option>
-                <option value="summary">📚Summary</option>
                 <option value="practice">📝Practice</option>
                 <option value="test">✏️Test</option>
               </select>

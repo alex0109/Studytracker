@@ -1,14 +1,15 @@
 "use client";
 
-import { FC, useState } from "react";
-import { Subtitle, TextArea } from "@/shared/ui";
-import { Button } from "@/shared/radix-ui/Button/button";
+import { FC, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { IResultRequest } from "@/entities/attempt";
-import { useForm } from "react-hook-form";
+import { LuCheck, LuCircleCheck, LuX } from "react-icons/lu";
+import { TextArea } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui";
+import { cn } from "@/shared/lib";
 import { useAttemptSubmitAnswer } from "@/features/attempt/submit-answer";
 import { IOption, QuestionTypeEnum } from "@/entities/question";
-import { cn } from "@/shared/lib";
+import { IConfidenceLevel } from "@/entities/attempt/model/confidence-level";
+import { ISavedAnswer } from "../../model/saved-answer.type";
 
 interface AttemptQuestionProps {
   questionId: string;
@@ -17,14 +18,10 @@ interface AttemptQuestionProps {
   title: string;
   questionType: QuestionTypeEnum;
   options?: IOption[];
-  answers?: string[];
-  onAnswered: (answer: string) => void;
-}
-
-export enum IConfidenceLevel {
-  "Low" = 0,
-  "Medium" = 1,
-  "High" = 2,
+  savedAnswer?: ISavedAnswer;
+  // Finish was pressed while this question had no answer
+  isMissing: boolean;
+  onAnswered: (answer: ISavedAnswer) => void;
 }
 
 const CONFIDENCE_OPTIONS: { value: IConfidenceLevel; label: string }[] = [
@@ -33,6 +30,12 @@ const CONFIDENCE_OPTIONS: { value: IConfidenceLevel; label: string }[] = [
   { value: IConfidenceLevel.High, label: "Confident" },
 ];
 
+const TYPE_HINTS: Partial<Record<QuestionTypeEnum, string>> = {
+  [QuestionTypeEnum.Open]: "Write your answer",
+  [QuestionTypeEnum.Options]: "Choose all correct answers",
+  [QuestionTypeEnum.TrueFalse]: "True or false?",
+};
+
 export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   questionId,
   attemptId,
@@ -40,36 +43,34 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   title,
   questionType,
   options = [],
-  answers,
+  savedAnswer,
+  isMissing,
   onAnswered,
 }) => {
-  const isChoice =
-    questionType === QuestionTypeEnum.Options ||
-    questionType === QuestionTypeEnum.TrueFalse;
-  // Options question may have several correct answers, True/False has one
-  const isMultiple = questionType === QuestionTypeEnum.Options;
+  const isTrueFalse = questionType === QuestionTypeEnum.TrueFalse;
+  const isChoice = questionType === QuestionTypeEnum.Options || isTrueFalse;
 
   const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
+  const [text, setText] = useState("");
+  const [confidence, setConfidence] = useState<IConfidenceLevel>();
+  const [error, setError] = useState<string>();
 
-  const { submitAnswer } = useAttemptSubmitAnswer(attemptId);
+  const { submitAnswer, submitAnswerIsPending } =
+    useAttemptSubmitAnswer(attemptId);
 
-  const {
-    register,
-    setValue,
-    setError,
-    clearErrors,
-    watch,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<Partial<IResultRequest>>();
-
-  const selectedConfidence = watch("confidenceLevel");
-  const textAreaValue = watch("userAnswer") ?? "";
+  // An answer saved before a reload is shown and can be changed
+  useEffect(() => {
+    if (!savedAnswer) return;
+    setSelectedOptionIds((prev) =>
+      prev.length ? prev : savedAnswer.optionIds,
+    );
+    setText((prev) => prev || savedAnswer.text || "");
+  }, [savedAnswer]);
 
   const onSelectOption = (optionId: string) => {
-    clearErrors("userAnswerOptionIds");
+    setError(undefined);
 
-    if (!isMultiple) {
+    if (!isChoice || isTrueFalse) {
       setSelectedOptionIds([optionId]);
       return;
     }
@@ -81,135 +82,178 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
     );
   };
 
-  const onFormSubmit = async (values: Partial<IResultRequest>) => {
-    if (isChoice) {
-      if (selectedOptionIds.length === 0) {
-        setError("userAnswerOptionIds", { message: "Choose an answer" });
-        return;
-      }
-
-      const chosenNames = options
-        .filter((o) => selectedOptionIds.includes(o.id))
-        .map((o) => o.name);
-
-      await submitAnswer({
-        questionId,
-        userAnswerOptionIds: selectedOptionIds,
-        confidenceLevel: values.confidenceLevel,
-      });
-
-      onAnswered(chosenNames.join(", "));
+  const onSubmit = async () => {
+    if (isChoice && selectedOptionIds.length === 0) {
+      setError("Choose an answer first");
       return;
     }
 
-    const answer = values.userAnswer ?? "";
+    if (!isChoice && !text.trim()) {
+      setError("Write an answer first");
+      return;
+    }
 
-    await submitAnswer({
-      questionId,
-      userAnswer: answer,
-      confidenceLevel: values.confidenceLevel,
-    });
+    setError(undefined);
 
-    onAnswered(answer);
+    try {
+      await submitAnswer(
+        isChoice
+          ? {
+              questionId,
+              userAnswerOptionIds: selectedOptionIds,
+              confidenceLevel: confidence,
+            }
+          : {
+              questionId,
+              userAnswer: text.trim(),
+              confidenceLevel: confidence,
+            },
+      );
+
+      onAnswered({
+        text: isChoice ? undefined : text.trim(),
+        optionIds: isChoice ? selectedOptionIds : [],
+        changes: savedAnswer ? savedAnswer.changes + 1 : 0,
+      });
+    } catch {
+      // The hook already tells the user
+    }
   };
 
-  return (
-    <motion.div
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className="flex flex-col w-full justify-center items-center"
-    >
-      <div className="flex w-full justify-start items-center">
-        <span className="text-xl font-bold">{index}.</span>
-        <Subtitle text={title} />
-      </div>
-      {answers && answers.length > 0 && (
-        <div className="flex flex-col w-full mb-3 rounded-2xl bg-emerald-100 p-3">
-          <p className="font-semibold">Saved answers</p>
+  const savedOptionNames = options
+    .filter((option) => savedAnswer?.optionIds.includes(option.id))
+    .map((option) => option.name);
 
-          {answers.map((answer, index) => (
-            <div key={index}>
-              <p className="mt-1 pl-3">* {answer}</p>
-            </div>
-          ))}
-        </div>
+  return (
+    <motion.section
+      id={`question-${questionId}`}
+      initial={{ y: 24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className={cn(
+        "flex w-full scroll-mt-28 flex-col gap-4 rounded-2xl border bg-white p-4 sm:p-5 dark:bg-neutral-900",
+        isMissing
+          ? "border-red-400 ring-2 ring-red-200 dark:ring-red-900"
+          : savedAnswer
+            ? "border-emerald-300 dark:border-emerald-800"
+            : "border-neutral-200 dark:border-neutral-700",
       )}
-      <form
-        onSubmit={handleSubmit(onFormSubmit)}
-        className="flex flex-col justify-center items-center w-full"
-      >
-        {isChoice ? (
-          <div className="flex flex-col w-full gap-2">
-            {isMultiple && (
-              <span className="text-sm text-neutral-500">
-                Choose all correct answers
-              </span>
-            )}
-            <div
-              className={cn(
-                "flex w-full gap-2",
-                questionType === QuestionTypeEnum.Options && "flex-col",
-              )}
-            >
-              {options.map((option, optionIndex) => (
-                <button
-                  key={option.id}
-                  type="button"
-                  onClick={() => onSelectOption(option.id)}
+    >
+      <header className="flex items-start gap-3">
+        <span
+          className={cn(
+            "flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold",
+            savedAnswer
+              ? "bg-emerald-600 text-white"
+              : "bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-100",
+          )}
+        >
+          {savedAnswer ? <LuCheck /> : index}
+        </span>
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <h3 className="break-words text-lg font-semibold leading-snug">
+            {title}
+          </h3>
+          <span className="text-sm text-neutral-500">
+            {TYPE_HINTS[questionType]}
+          </span>
+        </div>
+      </header>
+
+      {isTrueFalse ? (
+        <div className="flex flex-wrap gap-2">
+          {options.map((option) => {
+            const isTrue = option.name.toLowerCase() === "true";
+            const isSelected = selectedOptionIds.includes(option.id);
+
+            return (
+              <button
+                key={option.id}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => onSelectOption(option.id)}
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-full border-2 px-5 py-2 text-sm font-semibold transition-colors",
+                  isSelected
+                    ? isTrue
+                      ? "border-emerald-600 bg-emerald-600 text-white"
+                      : "border-rose-600 bg-rose-600 text-white"
+                    : "border-neutral-300 bg-white text-neutral-700 hover:border-neutral-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200",
+                )}
+              >
+                {isTrue ? <LuCheck /> : <LuX />}
+                {option.name}
+              </button>
+            );
+          })}
+        </div>
+      ) : isChoice ? (
+        <div className="flex flex-col gap-2">
+          {options.map((option, optionIndex) => {
+            const isSelected = selectedOptionIds.includes(option.id);
+
+            return (
+              <button
+                key={option.id}
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => onSelectOption(option.id)}
+                className={cn(
+                  "flex w-full items-center gap-3 rounded-xl border-2 px-3 py-2.5 text-left transition-colors",
+                  isSelected
+                    ? "border-emerald-600 bg-emerald-50 text-emerald-950 dark:bg-emerald-950/40 dark:text-emerald-100"
+                    : "border-neutral-200 bg-white hover:border-neutral-400 dark:border-neutral-700 dark:bg-neutral-800",
+                )}
+              >
+                <span
                   className={cn(
-                    "flex-1 rounded-xl px-4 py-3 text-left font-medium",
-                    questionType === QuestionTypeEnum.TrueFalse &&
-                      "text-center",
-                    selectedOptionIds.includes(option.id)
-                      ? "bg-emerald-700 text-white"
-                      : "bg-neutral-200 text-neutral-700",
+                    "flex size-7 shrink-0 items-center justify-center rounded-md text-xs font-bold",
+                    isSelected
+                      ? "bg-emerald-600 text-white"
+                      : "bg-neutral-100 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-200",
                   )}
                 >
-                  {questionType === QuestionTypeEnum.Options && (
-                    <span className="mr-2 opacity-70">
-                      {String.fromCharCode(65 + optionIndex)}.
-                    </span>
+                  {isSelected ? (
+                    <LuCheck />
+                  ) : (
+                    String.fromCharCode(65 + optionIndex)
                   )}
-                  {option.name}
-                </button>
-              ))}
-            </div>
-            {errors.userAnswerOptionIds && (
-              <p className="text-red-400 px-5">
-                {errors.userAnswerOptionIds.message}
-              </p>
-            )}
-          </div>
-        ) : (
-          <div className="flex justify-center items-center w-full">
-            <TextArea
-              {...register<"userAnswer">("userAnswer", {
-                required: "Required",
-              })}
-              placeholder="Write down what you remember about this question..."
-              inputStyles="w-full h-[300px] p-5 bg-neutral-200"
-              value={textAreaValue}
-              maxLength={1000}
-              error={errors.userAnswer?.message}
-            />
-          </div>
-        )}
+                </span>
+                <span className="break-words">{option.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <TextArea
+          value={text}
+          onChange={(e) => {
+            setError(undefined);
+            setText(e.target.value);
+          }}
+          placeholder="Write down what you remember about this question..."
+          inputStyles="h-40 w-full bg-neutral-100 p-4 dark:bg-neutral-800"
+          maxLength={1000}
+        />
+      )}
 
-        <div className="flex flex-col w-full mt-3">
-          <span className="text-sm text-neutral-500 mb-2">
-            How confident are you in this answer?
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-1.5">
+          <span className="text-xs text-neutral-500">
+            How confident are you?
           </span>
-          <div className="flex gap-2">
+          <div className="inline-flex w-fit rounded-full bg-neutral-100 p-1 dark:bg-neutral-800">
             {CONFIDENCE_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 type="button"
-                onClick={() => setValue("confidenceLevel", option.value)}
-                className={
-                  selectedConfidence === option.value
-                    ? "flex-1 rounded-xl py-2 text-sm font-medium bg-emerald-700 text-white"
-                    : "flex-1 rounded-xl py-2 text-sm font-medium bg-neutral-200 text-neutral-700"
-                }
+                aria-pressed={confidence === option.value}
+                onClick={() => setConfidence(option.value)}
+                className={cn(
+                  "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+                  confidence === option.value
+                    ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-600 dark:text-white"
+                    : "text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200",
+                )}
               >
                 {option.label}
               </button>
@@ -219,12 +263,54 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
 
         <Button
           size="lg"
-          type="submit"
-          className="self-end w-[150px] bg-emerald-700 mt-4"
+          onClick={onSubmit}
+          disabled={submitAnswerIsPending}
+          className="w-full bg-emerald-700 hover:bg-emerald-800 sm:w-auto"
         >
-          Answer
+          {submitAnswerIsPending
+            ? isChoice
+              ? "Saving..."
+              : "Checking..."
+            : savedAnswer
+              ? "Update answer"
+              : "Save answer"}
         </Button>
-      </form>
-    </motion.div>
+      </div>
+
+      {error && <p className="text-sm text-red-500">{error}</p>}
+
+      {savedAnswer && (
+        <div className="flex flex-col gap-2 rounded-xl bg-emerald-50 p-3 dark:bg-emerald-950/40">
+          <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+            <LuCircleCheck /> Your answer is saved
+            {savedAnswer.changes > 0 && (
+              <span className="font-normal text-emerald-700/70 dark:text-emerald-300/70">
+                · changed {savedAnswer.changes}{" "}
+                {savedAnswer.changes === 1 ? "time" : "times"}
+              </span>
+            )}
+          </p>
+          {isChoice ? (
+            <div className="flex flex-wrap gap-1.5">
+              {savedOptionNames.map((name) => (
+                <span
+                  key={name}
+                  className="rounded-full bg-white px-3 py-1 text-sm text-emerald-900 dark:bg-emerald-900 dark:text-emerald-50"
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="whitespace-pre-line break-words border-l-2 border-emerald-400 pl-3 text-sm text-neutral-700 dark:text-neutral-200">
+              {savedAnswer.text}
+            </p>
+          )}
+          <p className="text-xs text-neutral-500">
+            You can change it until you finish the attempt.
+          </p>
+        </div>
+      )}
+    </motion.section>
   );
 };

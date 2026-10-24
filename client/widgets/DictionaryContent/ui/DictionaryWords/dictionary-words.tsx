@@ -2,9 +2,10 @@
 
 import { FC, useEffect, useRef, useState } from "react";
 import { Reorder } from "framer-motion";
-import { LuPlus } from "react-icons/lu";
+import { LuPlus, LuSparkles } from "react-icons/lu";
 import { IDictionaryEntryResponse } from "@/entities/dictionary";
 import { AddEntryModal } from "@/features/dictionary/create-dictionary-entry";
+import { GenerateEntriesModal } from "@/features/dictionary/generate-dictionary-entries";
 import { EditEntryModal } from "@/features/dictionary/update-dictionary-entry";
 import { useDictionaryEntriesReorder } from "@/features/dictionary/reorder-dictionary-entries";
 import { Button } from "@/shared/radix-ui";
@@ -16,14 +17,17 @@ import { EmptyWords } from "./empty-words";
 
 interface DictionaryWordsProps {
   dictionaryId: string;
+  materialId: string;
   entries: IDictionaryEntryResponse[];
 }
 
 export const DictionaryWords: FC<DictionaryWordsProps> = ({
   dictionaryId,
+  materialId,
   entries,
 }) => {
   const [addOpen, setAddOpen] = useState(false);
+  const [generateOpen, setGenerateOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<
     IDictionaryEntryResponse | undefined
@@ -64,7 +68,7 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
 
   return (
     <div className="flex flex-col w-full">
-      <div className="w-full flex sm:flex-wrap gap-5 justify-center items-center my-5">
+      <div className="w-full flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-5 justify-center items-center my-5">
         <Button
           size="lg"
           className="lg:w-[250px] md:w-[180px] sm:w-[180px] w-full"
@@ -82,6 +86,14 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
             max={limitsData?.maxEntriesPerDictionary}
             label="words in this dictionary"
           />
+        </Button>
+        <Button
+          size="lg"
+          className="lg:w-[250px] md:w-[180px] sm:w-[180px] w-full bg-violet-700 hover:bg-violet-800"
+          disabled={isWordsFull}
+          onClick={() => setGenerateOpen(true)}
+        >
+          <LuSparkles /> Generate Words
         </Button>
       </div>
 
@@ -110,6 +122,15 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
         dictionaryId={dictionaryId}
         open={addOpen}
         setOpen={setAddOpen}
+      />
+      <GenerateEntriesModal
+        dictionaryId={dictionaryId}
+        materialId={materialId}
+        freeSlots={
+          (limitsData?.maxEntriesPerDictionary ?? Infinity) - entries.length
+        }
+        open={generateOpen}
+        setOpen={setGenerateOpen}
       />
       <EditEntryModal
         dictionaryId={dictionaryId}

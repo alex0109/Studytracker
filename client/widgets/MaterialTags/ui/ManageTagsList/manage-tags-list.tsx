@@ -47,7 +47,7 @@ export const ManageTagsList: FC<SelectTagProps> = ({
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="w-[400px]">
+        <div className="w-[300px] sm:w-[400px]">
           <Title text="Add tag" />
 
           <div className="flex flex-wrap gap-2 p-2 m-2">

@@ -21,12 +21,12 @@ export const glossary: IGlossaryItem[] = [
   {
     name: "Material",
     icon: LuFileText,
-    text: "Anything you study: an article, video, summary, practice or test. Has a status and tags.",
+    text: "Anything you study: an article, video, practice or test. Has a status and tags.",
   },
   {
     name: "Note",
     icon: LuNotebookPen,
-    text: "Your own text or drawing inside a material. Notes can have their own questions.",
+    text: "Your own text or drawing inside a material, plus one summary of it. Notes can have their own questions.",
   },
   {
     name: "Question",

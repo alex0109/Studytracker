@@ -24,6 +24,10 @@ export const authorizedLinks = [
     name: "Statistics",
     hash: "/statistics",
   },
+  {
+    name: "Limits",
+    hash: "/limits",
+  },
 ];
 
 export const adminNavLinks = [

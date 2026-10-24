@@ -37,7 +37,7 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
     <>
       {finishedAttempts.map((item) => (
         <div
-          className="flex flex-col w-full justify-center items-center pl-10"
+          className="flex flex-col w-full justify-center items-center lg:pl-10"
           key={item.id}
         >
           <div className="flex lg:flex-row flex-col w-full justify-between items-center gap-3">

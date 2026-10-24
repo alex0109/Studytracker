@@ -58,7 +58,7 @@ export const DictionaryContent: FC<DictionaryContentProps> = ({
   const activeEntries = entries.filter((entry) => !entry.isArchived);
 
   return (
-    <div key={dictionaryId} className="flex flex-col w-full p-5 min-w-0">
+    <div key={dictionaryId} className="flex flex-col w-full p-3 sm:p-5 min-w-0">
       <div className="flex flex-col w-full justify-center items-center mb-5">
         <div className="flex w-full justify-end">
           <div>
@@ -88,7 +88,11 @@ export const DictionaryContent: FC<DictionaryContentProps> = ({
       {activeSection === DictionaryInterfaceEnum.Flashcards ? (
         <FlashcardsPractice key={dictionaryId} dictionaryId={dictionaryId} />
       ) : (
-        <DictionaryWords dictionaryId={dictionaryId} entries={entries} />
+        <DictionaryWords
+          dictionaryId={dictionaryId}
+          materialId={materialId}
+          entries={entries}
+        />
       )}
       <DictionaryDeleteModal
         materialId={materialId}

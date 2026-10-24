@@ -19,11 +19,14 @@ import { useNoteCreate } from "../../hooks/useNoteCreate";
 interface AddNoteModalProps {
   materialId: string;
   notesCount: number;
+  // A material has at most one summary
+  hasSummary: boolean;
 }
 
 export const AddNoteModal: FC<AddNoteModalProps> = ({
   materialId,
   notesCount,
+  hasSummary,
 }) => {
   const { limitsData } = useLimits();
   const isFull = isLimitReached(notesCount, limitsData?.maxNotesPerMaterial);
@@ -88,6 +91,7 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
               >
                 <option value="text">✍️ Text</option>
                 <option value="drawing">🖌️ Drawing</option>
+                {!hasSummary && <option value="summary">📚 Summary</option>}
               </select>
             </div>
             <div className="flex w-full justify-center items-center">

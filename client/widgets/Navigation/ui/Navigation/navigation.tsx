@@ -29,7 +29,7 @@ export const Navigation: FC = () => {
         className="z-40 fixed top-0 left-1/2 
         h-[4.5rem] w-full border-white bg-white shadow-lg 
         shadow-black/[0.03] backdrop-blur-[0.5rem] 
-        md:top-6 md:h-[3.25rem] md:w-[36rem] 
+        md:top-6 md:h-[3.25rem] md:w-[40rem] 
         md:rounded-tl-[160px] md:rounded-br-[160px] md:rounded-bl-[16px] md:rounded-tr-[16px] dark:bg-neutral-900"
         initial={{ y: -100, x: "-50%", opacity: 0 }}
         animate={{ y: 0, x: "-50%", opacity: 1 }}
@@ -38,7 +38,7 @@ export const Navigation: FC = () => {
       <nav
         className="z-40 fixed inset-x-0 top-0 flex h-[4.5rem] w-full items-center 
         justify-between px-5 overflow-hidden md:inset-x-auto md:left-1/2 
-        md:-translate-x-1/2 md:top-[1.7rem] md:h-[initial] md:w-[36rem] md:px-0 
+        md:-translate-x-1/2 md:top-[1.7rem] md:h-[initial] md:w-[40rem] md:px-0 
         md:justify-center md:overflow-visible"
       >
         <ul className="hidden md:flex items-center justify-center gap-5 text-[0.9rem] font-medium">
@@ -144,13 +144,13 @@ export const Navigation: FC = () => {
 
       {user && (
         <motion.div
-          className="z-40 fixed top-[1rem] left-1/2 -translate-x-1/2 bg-white 
-        rounded-full w-[22rem] 
+          className="z-40 fixed top-[1rem] left-4 bg-white 
+        rounded-full w-[calc(100%-5.5rem)] max-w-[22rem] px-4
           h-10 flex md:hidden justify-center items-start pt-2"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
-          <p className="text-center text-md font-bold text-neutral-900">
+          <p className="min-w-0 truncate text-center text-md font-bold text-neutral-900">
             {user?.email}
           </p>
         </motion.div>

@@ -1,7 +1,6 @@
 export interface IStatistics {
   count: number;
   types: {
-    summary?: number;
     video?: number;
     article?: number;
     practice?: number;

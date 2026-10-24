@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import type { IDrawingContent, NoteTypeEnum } from "@/entities/note/model";
+import { IDrawingContent, NoteTypeEnum } from "@/entities/note/model";
 import { NoteDrawing, NoteText } from "@/features/note/update-note";
 import { NoteTitle } from "@/features/note/update-note/ui/NoteTitle/title";
 import { RichTextDocument } from "@/shared/types";
@@ -8,6 +8,7 @@ import { noteInterface, NoteInterfaceEnum } from "@/entities/note/lib";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { QuestionsContent } from "@/widgets/QuestionsContent";
 import { AttemptsContent } from "@/widgets/AttemptsContent";
+import { SummaryNote } from "../SummaryNote/summary-note";
 
 interface NotesContentProps {
   materialId: string;
@@ -32,7 +33,7 @@ export const NotesContent: FC<NotesContentProps> = ({
   return (
     <div
       key={noteId}
-      className="flex flex-3 flex-col justify-center items-center p-5 w-full min-w-0"
+      className="flex flex-3 flex-col justify-center items-center p-3 sm:p-5 w-full min-w-0"
     >
       <NoteTitle materialId={materialId} noteId={noteId} title={title} />
       <SwitchInterface switchInterface={noteInterface} />
@@ -44,13 +45,19 @@ export const NotesContent: FC<NotesContentProps> = ({
         />
       ) : (
         <div className="min-h-125 max-w-full min-w-0 w-full">
-          {type === "text" ? (
+          {type === NoteTypeEnum.text ? (
             <NoteText
               materialId={materialId}
               propNoteId={noteId}
               textContent={textContent}
             />
-          ) : type === "drawing" ? (
+          ) : type === NoteTypeEnum.summary ? (
+            <SummaryNote
+              materialId={materialId}
+              noteId={noteId}
+              textContent={textContent}
+            />
+          ) : type === NoteTypeEnum.drawing ? (
             <NoteDrawing
               materialId={materialId}
               propNoteId={noteId}

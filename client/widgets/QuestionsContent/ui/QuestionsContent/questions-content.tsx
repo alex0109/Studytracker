@@ -1,13 +1,14 @@
 "use client";
 
 import { FC, useState } from "react";
-import { InProductionModal, LimitCounter } from "@/shared/ui";
+import { LimitCounter } from "@/shared/ui";
 import { useLimits } from "@/entities/limits";
 import { Button } from "@/shared/radix-ui";
 import { cn, isLimitReached } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { useRouter, usePathname } from "next/navigation";
 import { QuestionCreateModal } from "@/features/question/create-question/ui";
+import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
 import { QuestionsAccordion } from "./questions-accordion";
@@ -26,7 +27,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
   assessmentId,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [inProductionIsOpen, setInProductionIsOpen] = useState(false);
+  const [generateIsOpen, setGenerateIsOpen] = useState(false);
 
   const router = useRouter();
   const path = usePathname();
@@ -52,13 +53,13 @@ export const QuestionsContent: FC<QuestionsType> = ({
 
   const onClickhandlers = {
     "open-modal": () => setOpen(true),
-    generate: () => setInProductionIsOpen(true),
+    generate: () => setGenerateIsOpen(true),
     start: () => startAttemptHandler(),
   };
 
   const disabledHandlers = {
     "open-modal": isQuestionsFull,
-    generate: false,
+    generate: isQuestionsFull,
     start:
       questionsData && questionsData.length > 0 && !startAttemptIsPending
         ? false
@@ -71,7 +72,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
 
   return (
     <div className="flex flex-col w-full">
-      <div className="w-full flex sm:flex-wrap gap-5 justify-center items-center my-5">
+      <div className="w-full flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-5 justify-center items-center my-5">
         {questionInterface.map((item) => (
           <Button
             size="lg"
@@ -119,9 +120,15 @@ export const QuestionsContent: FC<QuestionsType> = ({
         open={open}
         setOpen={setOpen}
       />
-      <InProductionModal
-        isOpen={inProductionIsOpen}
-        setIsOpen={setInProductionIsOpen}
+      <GenerateQuestionsModal
+        materialId={materialId}
+        noteId={noteId}
+        freeSlots={
+          (limitsData?.maxQuestionsPerMaterial ?? Infinity) -
+          activeQuestionsCount
+        }
+        open={generateIsOpen}
+        setOpen={setGenerateIsOpen}
       />
     </div>
   );

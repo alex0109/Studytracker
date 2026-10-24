@@ -15,3 +15,4 @@ export * from "./IsPendingLoader";
 export * from "./InProductionModal";
 export * from "./Accordion";
 export * from "./LimitCounter";
+export * from "./LimitBar";

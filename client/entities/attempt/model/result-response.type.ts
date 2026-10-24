@@ -12,6 +12,14 @@ export interface IResultResponse {
   rating?: string;
   // Filled for option and true/false questions
   correctOptionIds?: string[];
+  // Model answer of an open question
+  correctAnswer?: string | null;
+  // Why the right answer is right, written with the question
+  questionExplanation?: string | null;
+  // How the answer was checked: Exact, Fuzzy, AI (accepted by meaning) or None
+  method?: string;
+  // AI explanation of a wrong answer, saved once it was asked for
+  aiExplanation?: string | null;
   answerChangedCount?: number;
   timeSpent: number;
   answeredAt: Date;

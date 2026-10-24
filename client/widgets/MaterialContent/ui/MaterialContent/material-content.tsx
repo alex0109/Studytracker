@@ -59,7 +59,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col w-full p-5 min-w-0">
+    <div className="flex flex-col w-full p-3 sm:p-5 min-w-0">
       <div className="flex flex-col w-full justify-center items-center mb-5">
         <div className="flex w-full justify-end gap-2">
           <MaterialShareModal materialId={id} />
@@ -90,7 +90,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
       ) : activeSection === MaterialInterfaceEnum.Attempts ? (
         <AttemptsContent materialId={id} noteId={noteId} />
       ) : (
-        <div className="flex flex-col justify-center items-start gap-3 bg-transparent min-h-[500px] rounded-2xl p-5">
+        <div className="flex flex-col justify-center items-start gap-3 bg-transparent min-h-[500px] rounded-2xl p-0 sm:p-5">
           <MaterialTextContent id={id} content={content} />
           <MaterialTags materialId={id} materialTags={tags} />
           <MaterialStatus id={id} materialStatus={status} />
