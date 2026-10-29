@@ -8,6 +8,7 @@ import { ManageTagItem } from "../ManageTagItem/manage-tag-item";
 import { useAddTagToMaterial } from "@/features/material/add-tag-to-material";
 import { useDeleteTagFromMaterial } from "@/features/material/delete-tag-from-material";
 import { AddTag } from "@/features/tag/create-tag";
+import { useTranslation } from "@/shared/i18n";
 
 interface SelectTagProps {
   materialId: string;
@@ -18,6 +19,7 @@ export const ManageTagsList: FC<SelectTagProps> = ({
   materialId,
   materialTags = [],
 }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const { tagsData } = useTagsAll();
@@ -43,18 +45,18 @@ export const ManageTagsList: FC<SelectTagProps> = ({
   return (
     <>
       <Button size="lg" className="rounded-2xl" onClick={() => setOpen(true)}>
-        Manage Tags +
+        {t("tags.manage")} +
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="w-[300px] sm:w-[400px]">
-          <Title text="Add tag" />
+          <Title text={t("tags.addToMaterial")} />
 
           <div className="flex flex-wrap gap-2 p-2 m-2">
             {!tagsData || tagsData.length === 0 ? (
               <div className="w-full">
                 <p className="text-center text-neutral-500">
-                  No available tags...
+                  {t("tags.noneYet")}
                 </p>
               </div>
             ) : (

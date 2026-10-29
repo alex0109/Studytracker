@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { Modal, Title } from "@/shared/ui";
 import { Separator, toast } from "@/shared/radix-ui";
@@ -25,6 +27,7 @@ export const EditEntryModal: FC<EditEntryModalProps> = ({
   open,
   setOpen,
 }) => {
+  const { t } = useTranslation();
   const { updateEntry, updateEntryIsPending } = useDictionaryEntryUpdate(
     dictionaryId,
     entry?.id,
@@ -39,7 +42,7 @@ export const EditEntryModal: FC<EditEntryModalProps> = ({
         onSuccess: () => {
           setOpen(false);
           toast({
-            title: "✅Word has been updated!",
+            title: `✅${t("toasts.wordUpdated")}`,
             variant: "success",
           });
         },
@@ -51,13 +54,13 @@ export const EditEntryModal: FC<EditEntryModalProps> = ({
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px] max-h-[80vh] overflow-y-auto">
         <div className="flex flex-col w-full justify-center">
-          <Title text="Edit word" />
+          <Title text={t("dictionary.editWord")} />
           <Separator className="mb-3" />
           {entry && (
             <DictionaryEntryForm
               key={`${entry.id}-${entry.updatedAt}`}
               defaultValues={toEntryForm(entry)}
-              submitText="Save"
+              submitText={t("common.save")}
               isPending={updateEntryIsPending}
               onSubmit={onFormSubmit}
             />

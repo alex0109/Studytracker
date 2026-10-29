@@ -1,24 +1,21 @@
 import { isAxiosError } from "axios";
+import type { TFunction } from "i18next";
 
-const fallbackMessages: Record<number, string> = {
-  400: "Can't generate from this content",
-  409: "Limit reached",
-  422: "AI could not generate anything for this content",
-  429: "AI limit for this month is reached",
-  503: "AI is not responding right now, please try again later",
-};
+const MESSAGES = {
+  400: "ai.errors.badRequest",
+  409: "ai.errors.limit",
+  422: "ai.errors.nothing",
+  429: "ai.errors.quota",
+  503: "ai.errors.unavailable",
+} as const;
 
 // Expected AI answers: quota, all providers down, nothing generated, bad source.
 // Null means an unknown error that should be reported
-export const getAiErrorMessage = (error: unknown): string | null => {
+export const getAiErrorMessage = (error: unknown, t: TFunction): string | null => {
   if (!isAxiosError(error)) return null;
 
   const status = error.response?.status;
-  if (!status || !(status in fallbackMessages)) return null;
+  if (!status || !(status in MESSAGES)) return null;
 
-  const detail = error.response?.data?.detail;
-
-  return typeof detail === "string" && detail
-    ? detail
-    : fallbackMessages[status];
+  return t(MESSAGES[status as keyof typeof MESSAGES]);
 };

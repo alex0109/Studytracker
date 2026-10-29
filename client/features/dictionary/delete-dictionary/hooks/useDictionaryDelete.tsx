@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { deleteDictionary, dictionaryKeys } from "@/entities/dictionary";
 
 export const useDictionaryDelete = (materialId: string, dictionaryId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -18,7 +20,7 @@ export const useDictionaryDelete = (materialId: string, dictionaryId: string) =>
       });
 
       toast({
-        title: "✅Dictionary has been deleted!",
+        title: `✅${t("toasts.dictionaryDeleted")}`,
         variant: "success",
       });
     },
@@ -29,7 +31,7 @@ export const useDictionaryDelete = (materialId: string, dictionaryId: string) =>
       });
 
       toast({
-        title: "❌Error occurred while deleting dictionary",
+        title: `❌${t("toasts.dictionaryDeleteError")}`,
         variant: "error",
       });
     },

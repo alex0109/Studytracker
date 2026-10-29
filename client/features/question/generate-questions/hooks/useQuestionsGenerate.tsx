@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { questionKeys } from "@/entities/question";
 import {
   aiKeys,
@@ -13,6 +14,7 @@ import {
 } from "@/entities/ai";
 
 export const useQuestionsGenerate = (materialId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -25,13 +27,13 @@ export const useQuestionsGenerate = (materialId: string) => {
       });
 
       toast({
-        title: `✨${questions.length} ${questions.length === 1 ? "question has" : "questions have"} been generated!`,
+        title: `✨${t("toasts.questionsGenerated", { count: questions.length })}`,
         variant: "success",
       });
     },
     onError: (error) => {
       // Quota, AI down or nothing to generate from: tell why, this is not a bug to report
-      const aiMessage = getAiErrorMessage(error);
+      const aiMessage = getAiErrorMessage(error, t);
       if (aiMessage) {
         queryClient.invalidateQueries({
           queryKey: questionKeys.list(materialId),
@@ -46,7 +48,7 @@ export const useQuestionsGenerate = (materialId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while generating questions",
+        title: `❌${t("toasts.questionsGenerateError")}`,
         variant: "error",
       });
     },

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC, useEffect, useRef, useState } from "react";
 import { LuUndo2 } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
@@ -35,6 +37,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   onRepeat,
   onRestart,
 }) => {
+  const { t } = useTranslation();
   const queue = session.cards;
 
   const [index, setIndex] = useState(0);
@@ -155,10 +158,10 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
 
       <div className="relative w-full max-w-[460px] h-[340px] md:h-[380px]">
         {remaining > 2 && (
-          <div className="absolute inset-0 translate-y-6 scale-90 rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 shadow-sm opacity-50" />
+          <div className="absolute inset-0 translate-y-6 scale-90 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-sm opacity-50" />
         )}
         {remaining > 1 && (
-          <div className="absolute inset-0 translate-y-3 scale-95 rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 shadow-sm opacity-80" />
+          <div className="absolute inset-0 translate-y-3 scale-95 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-sm opacity-80" />
         )}
         <SwipeableCard
           key={current.id}
@@ -174,7 +177,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
 
       <div className="flex w-full max-w-[460px] justify-between items-center gap-3">
         <p className="text-xs text-neutral-400">
-          Swipe the card or use ← ↓ → keys, Space to flip
+          {t("flashcards.keysHint")}
         </p>
         <Button
           variant="ghost"
@@ -185,7 +188,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
             handleUndo();
           }}
         >
-          <LuUndo2 /> Undo
+          <LuUndo2 /> {t("flashcards.undo")}
         </Button>
       </div>
     </div>

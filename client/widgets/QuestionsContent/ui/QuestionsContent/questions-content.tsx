@@ -11,6 +11,7 @@ import { QuestionCreateModal } from "@/features/question/create-question/ui";
 import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
+import { useTranslation } from "@/shared/i18n";
 import { QuestionsAccordion } from "./questions-accordion";
 import { EmptyQuestions } from "./empty-questions";
 import LoadingQuestions from "./loading-questions";
@@ -26,6 +27,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
   noteId,
   assessmentId,
 }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [generateIsOpen, setGenerateIsOpen] = useState(false);
 
@@ -83,13 +85,13 @@ export const QuestionsContent: FC<QuestionsType> = ({
           >
             {item.icon}{" "}
             {item.key === "open-modal" && isQuestionsFull
-              ? "Questions limit reached"
-              : item.title}
+              ? t("questions.limitReached")
+              : t(`questions.actions.${item.title}`)}
             {item.key === "open-modal" && (
               <LimitCounter
                 used={activeQuestionsCount}
                 max={limitsData?.maxQuestionsPerMaterial}
-                label="questions in this material"
+                label={t("limits.counter.questions")}
               />
             )}
           </Button>

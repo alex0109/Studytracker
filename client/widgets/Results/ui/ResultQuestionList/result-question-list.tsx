@@ -7,6 +7,7 @@ import { IResultResponse } from "@/entities/attempt";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { ResultQuestion } from "../ResultQuestion/result-question";
+import { useTranslation } from "@/shared/i18n";
 
 interface ResultsQuestionsProps {
   questions: IQuestionReduced[];
@@ -19,6 +20,7 @@ export const ResultQuestionList: FC<ResultsQuestionsProps> = ({
   questions,
   results,
 }) => {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<Filter>("all");
 
   // Questions of this attempt first, deleted later ones are not part of it
@@ -35,12 +37,12 @@ export const ResultQuestionList: FC<ResultsQuestionsProps> = ({
   return (
     <div className="flex w-full flex-col gap-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-lg font-semibold">Answers</h3>
+        <h3 className="text-lg font-semibold">{t("results.answers")}</h3>
         <div className="inline-flex rounded-full bg-white p-1 dark:bg-neutral-900">
           {(
             [
-              ["all", `All (${items.length})`],
-              ["mistakes", `Mistakes (${mistakes.length})`],
+              ["all", t("results.filter.all", { count: items.length })],
+              ["mistakes", t("results.filter.mistakes", { count: mistakes.length })],
             ] as const
           ).map(([value, label]) => (
             <button
@@ -63,7 +65,7 @@ export const ResultQuestionList: FC<ResultsQuestionsProps> = ({
 
       {visible.length === 0 ? (
         <p className="py-6 text-center text-neutral-500">
-          {filter === "mistakes" ? "No mistakes, well done! 🎉" : "No answers"}
+          {filter === "mistakes" ? t("results.noMistakes") : t("results.noAnswers")}
         </p>
       ) : (
         visible.map(({ question, result }) => (
@@ -83,7 +85,7 @@ export const ResultQuestionList: FC<ResultsQuestionsProps> = ({
       <div className="mt-2 flex w-full justify-center">
         <Link href="/materials">
           <Button size="lg" className="h-12 rounded-2xl">
-            Go to Materials
+            {t("results.goToMaterials")}
           </Button>
         </Link>
       </div>

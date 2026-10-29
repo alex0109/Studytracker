@@ -41,8 +41,8 @@ export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           className={cn(
             `text-[15px] ${
               disabled
-                ? "bg-gray-200 dark:bg-neutral-500"
-                : "bg-gray-100 dark:bg-neutral-700"
+                ? "bg-neutral-200 dark:bg-neutral-500"
+                : "bg-neutral-100 dark:bg-neutral-700"
             } px-4 py-2 my-2 rounded-2xl`,
             inputStyles,
           )}

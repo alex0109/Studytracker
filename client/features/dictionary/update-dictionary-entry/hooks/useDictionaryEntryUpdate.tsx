@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import {
   dictionaryKeys,
   IDictionaryEntryUpdate,
@@ -14,6 +15,7 @@ export const useDictionaryEntryUpdate = (
   dictionaryId: string,
   entryId?: string,
 ) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -39,7 +41,7 @@ export const useDictionaryEntryUpdate = (
       });
 
       toast({
-        title: "❌Error occurred while updating word",
+        title: `❌${t("toasts.wordUpdateError")}`,
         variant: "error",
       });
     },

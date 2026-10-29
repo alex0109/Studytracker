@@ -12,6 +12,7 @@ import {
   useAiUsage,
 } from "@/entities/ai";
 import { useMistakesExplain } from "../../hooks/useMistakesExplain";
+import { useTranslation } from "@/shared/i18n";
 
 interface ExplainMistakesButtonProps {
   attemptId: string;
@@ -22,6 +23,7 @@ export const ExplainMistakesButton: FC<ExplainMistakesButtonProps> = ({
   attemptId,
   results,
 }) => {
+  const { t } = useTranslation();
   const mistakes = results.filter((result) => !result.isCorrect);
   const notExplained = mistakes.filter((result) => !result.aiExplanation);
 
@@ -48,10 +50,10 @@ export const ExplainMistakesButton: FC<ExplainMistakesButtonProps> = ({
         >
           <LuSparkles />
           {explainMistakesIsPending
-            ? "Explaining..."
+            ? t("results.explain.pending")
             : isExplained
-              ? "Mistakes are explained"
-              : `Explain mistakes (${notExplained.length})`}
+              ? t("results.explain.done")
+              : t("results.explain.button", { count: notExplained.length })}
         </Button>
         <IsPendingLoader isPending={explainMistakesIsPending} />
       </div>

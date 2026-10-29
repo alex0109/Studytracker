@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Dialog as SheetPrimitive } from "radix-ui";
+import { useTranslation } from "react-i18next";
 
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/components/ui/button";
@@ -76,7 +77,9 @@ function SheetContent({
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">
+                <CloseLabel />
+              </span>
             </Button>
           </SheetPrimitive.Close>
         )}
@@ -144,3 +147,8 @@ export {
   SheetTitle,
   SheetDescription,
 };
+
+function CloseLabel() {
+  const { t } = useTranslation();
+  return <>{t("common.close")}</>;
+}

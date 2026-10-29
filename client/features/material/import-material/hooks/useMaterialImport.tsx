@@ -5,26 +5,28 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { getLimitErrorMessage } from "@/shared/lib/limits";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { materialKeys } from "@/entities/material";
 import { importSharedMaterial, shareKeys } from "@/entities/share";
 
 export const useMaterialImport = (shareToken: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const importMutation = useMutation({
     mutationFn: () => importSharedMaterial(token, shareToken),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: materialKeys.all });
+      queryClient.invalidateQueries({ queryKey: materialKeys.list() });
       queryClient.invalidateQueries({ queryKey: shareKeys.all });
 
       toast({
-        title: "🎉Material has been added to your materials!",
+        title: `🎉${t("toasts.materialImported")}`,
         variant: "success",
       });
     },
     onError: (error) => {
-      const limitMessage = getLimitErrorMessage(error);
+      const limitMessage = getLimitErrorMessage(error, t);
       if (limitMessage) {
         toast({ title: `⚠️${limitMessage}`, variant: "error" });
         return;
@@ -36,7 +38,7 @@ export const useMaterialImport = (shareToken: string) => {
       });
 
       toast({
-        title: "❌Error occurred while importing material",
+        title: `❌${t("toasts.materialImportError")}`,
         variant: "error",
       });
     },

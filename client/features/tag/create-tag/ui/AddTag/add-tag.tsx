@@ -9,8 +9,10 @@ import { isLimitReached } from "@/shared/lib";
 import { useTagCreate } from "../../hooks/useTagCreate";
 import { ColorPicker } from "../ColorPicker/color-picker";
 import { Button } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 
 export const AddTag: FC = () => {
+  const { t } = useTranslation();
   const {
     register,
     formState: { errors },
@@ -51,27 +53,28 @@ export const AddTag: FC = () => {
         disabled={isFull}
         title={
           isFull
-            ? `Limit reached: ${limitsData?.maxTags} tags. Delete one to add a new one`
+            ? t("tags.limitReachedHint", { count: limitsData?.maxTags })
             : undefined
         }
       >
-        {isFull ? "Tags limit reached" : "New Tag"}
+        {isFull ? t("tags.limitReached") : t("tags.new")}
         <LimitCounter
           used={tagsCount}
           max={limitsData?.maxTags}
-          label="tags"
+          label={t("limits.counter.tags")}
         />
       </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="md:w-[400px] w-[300px]">
-          <Title text="Add new tag" />
+          <Title text={t("tags.addTitle")} />
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <CustomInput
-              label="Name"
-              placeholder="*Name..."
+              label={t("tags.name")}
+              placeholder={t("tags.namePlaceholder")}
               inputBlockStyles="my-5"
-              {...register<"name">("name", { required: "Required" })}
+              maxLength={30}
+              {...register<"name">("name", { required: t("common.required") })}
               error={errors.name?.message}
             />
             <ColorPicker onChange={setColor} />
@@ -82,7 +85,7 @@ export const AddTag: FC = () => {
                 type="submit"
                 onClick={() => setOpen(true)}
               >
-                Submit
+                {t("common.create")}
               </Button>
             </div>
           </form>

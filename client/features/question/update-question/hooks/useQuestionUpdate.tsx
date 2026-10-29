@@ -9,8 +9,10 @@ import {
   updateQuestion,
 } from "@/entities/question";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 
 export const useQuestionUpdate = (materialId: string, id: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -32,7 +34,7 @@ export const useQuestionUpdate = (materialId: string, id: string) => {
       });
 
       toast({
-        title: "❌Error occured while updating question",
+        title: `❌${t("toasts.questionUpdateError")}`,
         variant: "error",
       });
     },

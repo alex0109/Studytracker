@@ -15,7 +15,6 @@ export const useNoteExact = (materialId: string, noteId: string) => {
     queryKey: notesKeys.detail(noteId),
     queryFn: () => getNote(token, materialId, noteId),
     enabled: !!materialId && !!noteId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

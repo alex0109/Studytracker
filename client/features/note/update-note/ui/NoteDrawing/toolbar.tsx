@@ -1,4 +1,7 @@
+"use client";
+
 import React, { FC } from "react";
+import { useTranslation } from "@/shared/i18n";
 import { Button } from "@/shared/radix-ui";
 import {
   LuRotateCcw,
@@ -43,6 +46,8 @@ export const Toolbar: FC<ToolbarProps> = ({
   onSizeChange,
   onToolChange,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       {TOOLS.map(({ value, icon: Icon }) => (
@@ -50,6 +55,9 @@ export const Toolbar: FC<ToolbarProps> = ({
           key={value}
           variant={tool === value ? "ghost" : "outline"}
           onClick={() => onToolChange(value)}
+          title={t(`notes.drawing.tools.${value}`)}
+          aria-label={t(`notes.drawing.tools.${value}`)}
+          aria-pressed={tool === value}
         >
           <Icon />
         </Button>
@@ -59,6 +67,8 @@ export const Toolbar: FC<ToolbarProps> = ({
         type="color"
         value={color}
         onChange={(e) => onColorChange(e.target.value)}
+        aria-label={t("notes.drawing.color")}
+        title={t("notes.drawing.color")}
         className="w-8 h-8 rounded cursor-pointer"
       />
 
@@ -68,6 +78,8 @@ export const Toolbar: FC<ToolbarProps> = ({
         max={40}
         value={size}
         onChange={(e) => onSizeChange(Number(e.target.value))}
+        aria-label={t("notes.drawing.size")}
+        title={t("notes.drawing.size")}
       />
 
       <Button
@@ -76,7 +88,7 @@ export const Toolbar: FC<ToolbarProps> = ({
         disabled={strokes.length === 0}
       >
         <LuRotateCcw />
-        Undo
+        {t("notes.drawing.undo")}
       </Button>
 
       <Button
@@ -85,7 +97,7 @@ export const Toolbar: FC<ToolbarProps> = ({
         disabled={strokes.length === 0 && currentStroke.length === 0}
       >
         <LuTrash2 />
-        Clear
+        {t("notes.drawing.clear")}
       </Button>
     </div>
   );

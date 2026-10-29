@@ -15,8 +15,11 @@ import { isLimitReached } from "@/shared/lib";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { Button } from "@/shared/radix-ui";
 import { LuPlus } from "react-icons/lu";
+import { useTranslation } from "@/shared/i18n";
+import { MATERIAL_TYPES, MATERIAL_STATUSES } from "@/entities/material";
 
 export const AddMaterialModal: FC = () => {
+  const { t } = useTranslation();
   const {
     register,
     formState: { errors },
@@ -46,19 +49,19 @@ export const AddMaterialModal: FC = () => {
         disabled={isFull}
         title={
           isFull
-            ? `Limit reached: ${limitsData?.maxMaterials} materials. Delete one to add a new one`
+            ? t("materials.limitReachedHint", { count: limitsData?.maxMaterials })
             : undefined
         }
         className="w-full flex justify-between items-center"
       >
         <div>
-          <p>{isFull ? "Materials limit reached" : "Add Material"}</p>
+          <p>{isFull ? t("materials.limitReached") : t("materials.add")}</p>
         </div>
         <div className="flex items-center gap-2">
           <LimitCounter
             used={materialsCount}
             max={limitsData?.maxMaterials}
-            label="materials"
+            label={t("limits.counter.materials")}
           />
           <LuPlus />
         </div>
@@ -66,38 +69,41 @@ export const AddMaterialModal: FC = () => {
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="md:w-[400px] w-[300px]">
-          <Title text="Add new material" />
+          <Title text={t("materials.addTitle")} />
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="flex flex-col w-full justify-center items-center"
           >
             <div className="w-full">
               <CustomInput
-                label="Title"
-                placeholder="*Title..."
-                {...register<"title">("title", { required: "Required" })}
+                label={t("materials.titleLabel")}
+                placeholder={t("materials.titlePlaceholder")}
+                {...register<"title">("title", { required: t("common.required") })}
                 error={errors.title?.message}
               />
             </div>
             <div className="flex gap-2 flex-col justify-center">
               <select
                 {...register("type")}
-                className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
+                className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
               >
-                <option value="article">📄Article</option>
-                <option value="video">▶️Video</option>
-                <option value="practice">📝Practice</option>
-                <option value="test">✏️Test</option>
+                {MATERIAL_TYPES.map((type) => (
+                  <option key={type} value={type}>
+                    {t(`materials.types.${type}`)}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex gap-2 flex-col justify-center">
               <select
                 {...register("status")}
-                className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
+                className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
               >
-                <option value="tolearn">Want to learn</option>
-                <option value="inprocess">In process</option>
-                <option value="finished">Finished</option>
+                {MATERIAL_STATUSES.map((status) => (
+                  <option key={status} value={status}>
+                    {t(`materials.statuses.${status}`)}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex w-full justify-center items-center">
@@ -109,7 +115,7 @@ export const AddMaterialModal: FC = () => {
                   className="w-30"
                   disabled={createMaterialIsPending}
                 >
-                  Create
+                  {t("common.create")}
                 </Button>
               </div>
               <div className="flex-1">

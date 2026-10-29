@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { LuArchive, LuArchiveRestore } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
@@ -16,6 +18,7 @@ export const ArchiveEntryButton: FC<ArchiveEntryButtonProps> = ({
   entryId,
   isArchived,
 }) => {
+  const { t } = useTranslation();
   const { updateEntry, updateEntryIsPending } = useDictionaryEntryUpdate(
     dictionaryId,
     entryId,
@@ -25,7 +28,8 @@ export const ArchiveEntryButton: FC<ArchiveEntryButtonProps> = ({
     <Button
       variant="ghost"
       size="icon"
-      title={isArchived ? "Return to flashcards" : "Hide from flashcards"}
+      title={isArchived ? t("dictionary.unarchive") : t("dictionary.archive")}
+      aria-label={isArchived ? t("dictionary.unarchive") : t("dictionary.archive")}
       disabled={updateEntryIsPending}
       onClick={() =>
         updateEntry({ entryId, dataToUpdate: { isArchived: !isArchived } })

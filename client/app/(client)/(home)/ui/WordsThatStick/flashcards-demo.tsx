@@ -10,14 +10,15 @@ import {
 import { LuCheck, LuCircleHelp, LuRotateCcw, LuX } from "react-icons/lu";
 import { DictionaryFlipCard } from "@/entities/dictionary";
 import { cn } from "@/shared/lib";
-import { sampleEntries } from "../../lib/sample-entries";
+import { useTranslation } from "@/shared/i18n";
+import { useSampleEntries } from "../../lib/sample-entries";
 
 type Answer = "dontKnow" | "unsure" | "know";
 
-const ANSWERS: { value: Answer; label: string; icon: typeof LuX; styles: string }[] = [
-  { value: "dontKnow", label: "Don't know", icon: LuX, styles: "bg-red-500 hover:bg-red-600" },
-  { value: "unsure", label: "Not sure", icon: LuCircleHelp, styles: "bg-amber-500 hover:bg-amber-600" },
-  { value: "know", label: "Know", icon: LuCheck, styles: "bg-emerald-600 hover:bg-emerald-700" },
+const ANSWERS: { value: Answer; icon: typeof LuX; styles: string }[] = [
+  { value: "dontKnow", icon: LuX, styles: "bg-red-500 hover:bg-red-600" },
+  { value: "unsure", icon: LuCircleHelp, styles: "bg-amber-500 hover:bg-amber-600" },
+  { value: "know", icon: LuCheck, styles: "bg-emerald-600 hover:bg-emerald-700" },
 ];
 
 const EXIT: Record<Answer, { x: number; y: number; rotate: number }> = {
@@ -27,6 +28,8 @@ const EXIT: Record<Answer, { x: number; y: number; rotate: number }> = {
 };
 
 export const FlashcardsDemo: FC = () => {
+  const { t } = useTranslation();
+  const sampleEntries = useSampleEntries();
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [flippedId, setFlippedId] = useState<string | null>(null);
@@ -63,10 +66,10 @@ export const FlashcardsDemo: FC = () => {
     <div className="flex w-full flex-col items-center gap-5">
       <div className="relative h-[320px] w-full max-w-[400px]">
         {remaining > 2 && (
-          <div className="absolute inset-0 translate-y-6 scale-90 rounded-2xl border-3 border-white bg-gray-50 opacity-50 shadow-sm" />
+          <div className="absolute inset-0 translate-y-6 scale-90 rounded-2xl border-3 border-white bg-neutral-50 opacity-50 shadow-sm dark:border-neutral-800 dark:bg-neutral-900" />
         )}
         {remaining > 1 && (
-          <div className="absolute inset-0 translate-y-3 scale-95 rounded-2xl border-3 border-white bg-gray-50 opacity-80 shadow-sm" />
+          <div className="absolute inset-0 translate-y-3 scale-95 rounded-2xl border-3 border-white bg-neutral-50 opacity-80 shadow-sm dark:border-neutral-800 dark:bg-neutral-900" />
         )}
 
         <AnimatePresence custom={lastAnswer}>
@@ -85,8 +88,8 @@ export const FlashcardsDemo: FC = () => {
                 type="button"
                 aria-label={
                   flippedId === current.id
-                    ? `Hide translation of ${current.term}`
-                    : `Show translation of ${current.term}`
+                    ? t("landing.words.hideTranslation", { term: current.term })
+                    : t("landing.words.showTranslation", { term: current.term })
                 }
                 onClick={() =>
                   setFlippedId((prev) => (prev === current.id ? null : current.id))
@@ -106,22 +109,22 @@ export const FlashcardsDemo: FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl border-3 border-white bg-white p-6 text-center shadow-md"
+            className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl border-3 border-white bg-white p-6 text-center shadow-md dark:border-neutral-800 dark:bg-neutral-900"
           >
-            <span className="text-2xl font-semibold text-neutral-900">
-              Deck done
+            <span className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
+              {t("landing.words.deckDone")}
             </span>
-            <p className="text-neutral-600">
+            <p className="text-neutral-600 dark:text-neutral-400">
               {missed === 0
-                ? "You knew every word. They will wait longer before coming back."
-                : `${missed} ${missed === 1 ? "word is" : "words are"} already scheduled to come back sooner.`}
+                ? t("landing.words.allKnown")
+                : t("landing.words.missed", { count: missed })}
             </p>
             <button
               type="button"
               onClick={restart}
-              className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white"
+              className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white dark:bg-neutral-100 dark:text-neutral-900"
             >
-              <LuRotateCcw /> Try again
+              <LuRotateCcw /> {t("landing.demo.defend.tryAgain")}
             </button>
           </motion.div>
         )}
@@ -139,13 +142,11 @@ export const FlashcardsDemo: FC = () => {
               answer.styles,
             )}
           >
-            <answer.icon /> {answer.label}
+            <answer.icon /> {t(`flashcards.answers.${answer.value}`)}
           </button>
         ))}
       </div>
-      <p className="text-xs text-neutral-500">
-        Tap the card to flip it. In the app you can also swipe it.
-      </p>
+      <p className="text-xs text-neutral-500">{t("landing.words.tapHint")}</p>
     </div>
   );
 };

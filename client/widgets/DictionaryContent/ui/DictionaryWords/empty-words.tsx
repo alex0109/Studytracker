@@ -1,12 +1,17 @@
-import { Subtitle } from "@/shared/ui";
+"use client";
+
+import { LuBookA } from "react-icons/lu";
+import { EmptyState } from "@/shared/ui";
+import { useTranslation } from "@/shared/i18n";
 
 export const EmptyWords = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex w-full my-5 justify-center items-center">
-      <Subtitle
-        text="There are no words yet..."
-        textStyles="text-neutral-500"
-      />
-    </div>
+    <EmptyState
+      icon={<LuBookA aria-hidden />}
+      title={t("dictionary.empty.title")}
+      text={t("dictionary.empty.text")}
+    />
   );
 };

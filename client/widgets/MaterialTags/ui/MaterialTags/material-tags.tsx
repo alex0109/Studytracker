@@ -1,4 +1,7 @@
+"use client";
+
 import { FC } from "react";
+import { useTranslation } from "@/shared/i18n";
 import { ITagResponse, TagsList } from "@/entities/tag";
 import { Subtitle } from "@/shared";
 import { ManageTagsList } from "../ManageTagsList/manage-tags-list";
@@ -12,9 +15,11 @@ export const MaterialTags: FC<SyncTagsType> = ({
   materialId,
   materialTags,
 }) => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex justify-center items-center gap-2 mt-7">
-      <Subtitle text="Tags: " />
+    <div className="flex flex-wrap items-center gap-2">
+      <Subtitle text={`${t("tags.label")}:`} />
       {!materialTags || materialTags.length === 0 ? (
         <ManageTagsList materialId={materialId} materialTags={materialTags} />
       ) : (

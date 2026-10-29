@@ -3,6 +3,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
+import { useTranslation } from "react-i18next";
 
 import { useIsMobile } from "@/shared/hooks/use-mobile";
 import { cn } from "@/shared/lib/utils";
@@ -195,8 +196,7 @@ function Sidebar({
           side={side}
         >
           <SheetHeader className="sr-only">
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+            <SidebarSheetText />
           </SheetHeader>
           <div className="flex h-full w-full flex-col">{children}</div>
         </SheetContent>
@@ -700,3 +700,13 @@ export {
   SidebarTrigger,
   useSidebar,
 };
+
+function SidebarSheetText() {
+  const { t } = useTranslation();
+  return (
+    <>
+      <SheetTitle>{t("common.sidebar")}</SheetTitle>
+      <SheetDescription>{t("common.sidebarText")}</SheetDescription>
+    </>
+  );
+}

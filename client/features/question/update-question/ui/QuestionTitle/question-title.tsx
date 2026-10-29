@@ -4,7 +4,8 @@ import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
 import { AccordionTrigger, IsPendingLoader } from "@/shared/ui";
-import { QuestionTypeEnum, questionTypeLabels } from "@/entities/question";
+import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
+import { useTranslation } from "@/shared/i18n";
 
 interface QuestionTitleProps {
   materialId: string;
@@ -21,6 +22,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
   title,
   questionType,
 }) => {
+  const { t } = useTranslation();
   const [titleValue, setTitleValue] = useState(title);
   const { updateQuestion, updateQuestionIsPending } = useQuestionUpdate(
     materialId,
@@ -44,13 +46,14 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
       className="all-unset font-[inherit] px-5 py-[5px] min-h-10 h-auto flex-1
     flex items-start justify-between
     text-xl font-semibold leading-none
-    duration-[400ms] hover:bg-[oklch(92%_0.004_286.32)]"
+    duration-[400ms] hover:bg-neutral-200/70 dark:hover:bg-neutral-800"
     >
       <div className="flex w-full justify-start items-center">
         <div className="flex flex-col flex-8 w-full">
           <textarea
             value={titleValue}
-            className="text-xl font-bold border-0 w-full resize-none 
+            aria-label={t("questions.titleLabel")}
+            className="text-xl font-bold border-0 w-full resize-none bg-transparent
                   wrap-break-word overflow-hidden outline-none"
             onChange={(e) => onUpdateTitle(e.target.value)}
             maxLength={70}
@@ -58,13 +61,13 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
           <div className="flex gap-2">
             {questionType && (
               <p className="text-xs text-neutral-500">
-                {questionTypeLabels[questionType] ?? questionType}
+                {t(`questions.types.${questionTypeKeys[questionType]}`)}
               </p>
             )}
             {noteId && (
               <p className="text-xs text-neutral-500">
                 {" "}
-                From note {noteId.split("-")[0]}
+                {t("questions.fromNote", { id: noteId.split("-")[0] })}
               </p>
             )}
           </div>

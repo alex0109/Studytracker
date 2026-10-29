@@ -6,6 +6,7 @@ import { NoteText } from "@/features/note/update-note";
 import { GenerateSummaryButton } from "@/features/note/generate-summary";
 import { useNoteExact } from "@/entities/note/hooks/useNoteExact";
 import { hasTextContent } from "@/entities/note/lib";
+import { useTranslation } from "@/shared/i18n";
 
 interface SummaryNoteProps {
   materialId: string;
@@ -18,6 +19,7 @@ export const SummaryNote: FC<SummaryNoteProps> = ({
   noteId,
   textContent,
 }) => {
+  const { t } = useTranslation();
   // The editor keeps its own state, a new version remounts it with the generated text
   const [content, setContent] = useState(textContent);
   const [version, setVersion] = useState(0);
@@ -29,8 +31,7 @@ export const SummaryNote: FC<SummaryNoteProps> = ({
     <div className="flex flex-col gap-3 w-full">
       <div className="flex flex-wrap justify-between items-center gap-3 rounded-2xl bg-violet-50 dark:bg-violet-950/40 p-4">
         <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-md">
-          A short retelling of the whole material. Write it yourself, or let AI
-          write it from the material, its notes and dictionaries.
+          {t("notes.summary.hint")}
         </p>
         <GenerateSummaryButton
           materialId={materialId}

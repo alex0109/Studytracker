@@ -1,4 +1,7 @@
+"use client";
+
 import { FC } from "react";
+import { useTranslation } from "@/shared/i18n";
 import { LuArrowRight, LuRepeat } from "react-icons/lu";
 import { cn } from "@/shared/lib";
 import { Reveal } from "../Reveal";
@@ -6,20 +9,22 @@ import { SectionHeading } from "../SectionHeading";
 import { loopSteps } from "./data";
 
 export const KnowledgeLoop: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="flex w-full max-w-6xl flex-col gap-12 px-4">
       <Reveal>
         <SectionHeading
-          eyebrow="The idea"
-          title="One loop. Three verbs."
-          text="Notes alone fade. Studytracker keeps knowledge moving through a loop that grows it, reinforces it and makes it stronger every time you come back."
+          eyebrow={t("landing.loop.eyebrow")}
+          title={t("landing.loop.title")}
+          text={t("landing.loop.text")}
         />
       </Reveal>
 
       <div className="grid gap-5 md:grid-cols-3">
         {loopSteps.map((step, index) => (
-          <Reveal key={step.verb} className="relative h-full">
-            <article className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-white bg-white/80 p-6 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <Reveal key={step.key} className="relative h-full">
+            <article className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl border border-white bg-white/80 p-6 shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-neutral-800 dark:bg-neutral-900/80">
               <div
                 aria-hidden
                 className={cn(
@@ -36,14 +41,16 @@ export const KnowledgeLoop: FC = () => {
                 >
                   <step.icon />
                 </span>
-                <span className="font-mono text-sm text-neutral-300">
+                <span className="font-mono text-sm text-neutral-300 dark:text-neutral-600">
                   0{index + 1}
                 </span>
               </div>
-              <h3 className="relative text-2xl! font-semibold! text-neutral-900">
-                {step.verb}
+              <h3 className="relative text-2xl! font-semibold! text-neutral-900 dark:text-neutral-50">
+                {t(`landing.loop.steps.${step.key}.verb`)}
               </h3>
-              <p className="relative text-neutral-600">{step.text}</p>
+              <p className="relative text-neutral-600 dark:text-neutral-400">
+                {t(`landing.loop.steps.${step.key}.text`)}
+              </p>
               <div className="relative mt-auto flex flex-wrap gap-2 pt-2">
                 {step.entities.map((entity) => (
                   <span
@@ -53,7 +60,7 @@ export const KnowledgeLoop: FC = () => {
                       step.styles.chip,
                     )}
                   >
-                    {entity}
+                    {t(`landing.entities.${entity}`)}
                   </span>
                 ))}
               </div>
@@ -61,7 +68,7 @@ export const KnowledgeLoop: FC = () => {
             {index < loopSteps.length - 1 && (
               <LuArrowRight
                 aria-hidden
-                className="absolute -right-4 top-1/2 z-10 hidden size-6 -translate-y-1/2 rounded-full bg-white p-1 text-neutral-400 shadow md:block"
+                className="absolute -right-4 top-1/2 z-10 hidden size-6 -translate-y-1/2 rounded-full bg-white p-1 text-neutral-400 shadow md:block dark:bg-neutral-800"
               />
             )}
           </Reveal>
@@ -71,8 +78,7 @@ export const KnowledgeLoop: FC = () => {
       <Reveal>
         <p className="mx-auto flex max-w-xl items-center justify-center gap-2 text-center text-sm text-neutral-500">
           <LuRepeat className="shrink-0" />
-          Weak spots from Strengthen become the next things you Grow. The loop
-          never stops, and neither does your progress.
+          {t("landing.loop.footer")}
         </p>
       </Reveal>
     </section>

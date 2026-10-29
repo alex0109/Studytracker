@@ -4,12 +4,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import {
   IFlashcardReviewCreate,
   submitFlashcardReview,
 } from "@/entities/flashcard";
 
 export const useFlashcardReviewSubmit = (sessionId: string) => {
+  const { t } = useTranslation();
   const { token, user } = useSession();
 
   const submitReviewMutation = useMutation({
@@ -24,7 +26,7 @@ export const useFlashcardReviewSubmit = (sessionId: string) => {
       });
 
       toast({
-        title: "❌Answer was not saved",
+        title: `❌${t("toasts.answerNotSaved")}`,
         variant: "error",
       });
     },

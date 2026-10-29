@@ -1,11 +1,11 @@
 import { IconType } from "react-icons";
 import { LuShieldCheck, LuRepeat, LuSprout } from "react-icons/lu";
 
+// Texts are translation keys under "landing.loop.steps.<key>"
 export interface ILoopStep {
-  verb: string;
+  key: "grow" | "reinforce" | "strengthen";
   icon: IconType;
-  text: string;
-  entities: string[];
+  entities: ("materials" | "notes" | "dictionaries" | "questions" | "flashcards" | "selfDefending" | "score" | "statistics")[];
   styles: {
     icon: string;
     chip: string;
@@ -15,36 +15,33 @@ export interface ILoopStep {
 
 export const loopSteps: ILoopStep[] = [
   {
-    verb: "Grow",
+    key: "grow",
     icon: LuSprout,
-    text: "Give everything you learn a place to live: an article, a lecture, a set of new words. Your knowledge base starts here.",
-    entities: ["Materials", "Notes", "Dictionaries"],
+    entities: ["materials", "notes", "dictionaries"],
     styles: {
       icon: "bg-emerald-600 text-white shadow-emerald-600/30",
-      chip: "bg-emerald-50 text-emerald-700",
-      glow: "from-emerald-200/60",
+      chip: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300",
+      glow: "from-emerald-200/60 dark:from-emerald-900/40",
     },
   },
   {
-    verb: "Reinforce",
+    key: "reinforce",
     icon: LuRepeat,
-    text: "Turn it into questions and flashcards. Pulling an answer out of memory makes it stronger than reading it again.",
-    entities: ["Questions", "Flashcards"],
+    entities: ["questions", "flashcards"],
     styles: {
       icon: "bg-violet-600 text-white shadow-violet-600/30",
-      chip: "bg-violet-50 text-violet-700",
-      glow: "from-violet-200/60",
+      chip: "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300",
+      glow: "from-violet-200/60 dark:from-violet-900/40",
     },
   },
   {
-    verb: "Strengthen",
+    key: "strengthen",
     icon: LuShieldCheck,
-    text: "Defend what you know, get an honest score and see which topics crack. Then go back and grow exactly those.",
-    entities: ["Self defending", "Score", "Statistics"],
+    entities: ["selfDefending", "score", "statistics"],
     styles: {
       icon: "bg-sky-600 text-white shadow-sky-600/30",
-      chip: "bg-sky-50 text-sky-700",
-      glow: "from-sky-200/60",
+      chip: "bg-sky-50 text-sky-700 dark:bg-sky-950/50 dark:text-sky-300",
+      glow: "from-sky-200/60 dark:from-sky-900/40",
     },
   },
 ];

@@ -23,7 +23,8 @@
 .Chevron {
   color: var(--violet-10);
   transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
-  .Trigger[data-state="open"] > & {
+  /* The chevron sits in a wrapper, so a child selector never matched and it never turned */
+  .Trigger[data-state="open"] & {
     transform: rotate(180deg);
   }
 }

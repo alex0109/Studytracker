@@ -4,6 +4,7 @@ import { CSSProperties, FC, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { LuRotateCcw } from "react-icons/lu";
 import { cn } from "@/shared/lib";
+import { useTranslation } from "react-i18next";
 import { IDictionaryEntryResponse } from "../../model";
 import { PartOfSpeechBadge } from "../PartOfSpeechBadge/part-of-speech-badge";
 
@@ -24,7 +25,7 @@ const CardFace: FC<{
 }> = ({ children, isBack }) => (
   <div
     style={isBack ? { ...faceStyle, transform: "rotateY(180deg)" } : faceStyle}
-    className="absolute inset-0 flex flex-col rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 shadow-md p-6 overflow-hidden"
+    className="absolute inset-0 flex flex-col rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-md p-6 overflow-hidden"
   >
     {children}
   </div>
@@ -35,6 +36,8 @@ export const DictionaryFlipCard: FC<DictionaryFlipCardProps> = ({
   isFlipped,
   className,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={cn("relative w-full h-full", className)}
@@ -64,14 +67,14 @@ export const DictionaryFlipCard: FC<DictionaryFlipCardProps> = ({
           </div>
           <div className="flex justify-center items-center gap-2 text-xs text-neutral-400">
             <LuRotateCcw />
-            <span>Tap to see translation</span>
+            <span>{t("flashcards.tapToFlip")}</span>
           </div>
         </CardFace>
 
         <CardFace isBack>
           <div className="flex justify-between items-center min-h-6">
             <span className="text-xs uppercase tracking-wide text-neutral-400">
-              Translation
+              {t("dictionary.translation")}
             </span>
             <PartOfSpeechBadge partOfSpeech={entry.partOfSpeech} />
           </div>
@@ -80,7 +83,7 @@ export const DictionaryFlipCard: FC<DictionaryFlipCardProps> = ({
               {entry.translation}
             </p>
             {entry.example && (
-              <div className="flex flex-col w-full gap-1 rounded-xl bg-gray-100 dark:bg-neutral-800 p-3">
+              <div className="flex flex-col w-full gap-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-3">
                 <p className="italic">&ldquo;{entry.example}&rdquo;</p>
                 {entry.exampleTranslation && (
                   <p className="text-sm text-neutral-500">

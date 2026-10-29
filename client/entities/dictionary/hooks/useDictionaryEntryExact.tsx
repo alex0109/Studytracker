@@ -15,7 +15,6 @@ export const useDictionaryEntryExact = (entryId: string) => {
     queryKey: dictionaryKeys.entry(entryId),
     queryFn: () => getDictionaryEntry(token, entryId),
     enabled: !!entryId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

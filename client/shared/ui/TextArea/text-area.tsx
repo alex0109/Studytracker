@@ -58,8 +58,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           className={cn(
             `text-[15px] min-h-[50px] resize-none rounded-2xl outline-none`,
             disabled
-              ? "bg-gray-200 dark:bg-neutral-500"
-              : "bg-gray-100 dark:bg-neutral-700",
+              ? "bg-neutral-200 dark:bg-neutral-500"
+              : "bg-neutral-100 dark:bg-neutral-700",
             inputStyles,
           )}
         />
@@ -69,7 +69,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           </div>
           {maxLength && (
             <div className="flex justify-end">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-neutral-500">
                 {textLength}/{maxLength}
               </p>
             </div>

@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { revokeMaterialShare, shareKeys } from "@/entities/share";
 
 export const useMaterialShareRevoke = (materialId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -16,7 +18,7 @@ export const useMaterialShareRevoke = (materialId: string) => {
       queryClient.setQueryData(shareKeys.material(materialId), null);
 
       toast({
-        title: "✅Link is disabled, nobody can import it anymore",
+        title: `✅${t("toasts.shareDisabled")}`,
         variant: "success",
       });
     },
@@ -27,7 +29,7 @@ export const useMaterialShareRevoke = (materialId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while disabling share link",
+        title: `❌${t("toasts.shareDisableError")}`,
         variant: "error",
       });
     },

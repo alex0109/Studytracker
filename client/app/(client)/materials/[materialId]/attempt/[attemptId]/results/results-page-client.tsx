@@ -6,6 +6,7 @@ import { BlockColumn, Title } from "@/shared/ui";
 import { Skeleton } from "@/shared/radix-ui";
 import { ResultsSummary, ResultQuestionList } from "@/widgets/Results";
 import { ExplainMistakesButton } from "@/features/attempt/explain-mistakes";
+import { useTranslation } from "@/shared/i18n";
 
 interface ResultsPageClientProps {
   materialId: string;
@@ -16,6 +17,7 @@ export const ResultsPageClient = ({
   materialId,
   attemptId,
 }: ResultsPageClientProps) => {
+  const { t } = useTranslation();
   const { attemptResults } = useAttemptResults(attemptId);
 
   const { questionsAllReducedData } = useQuestionAllReduced(materialId);
@@ -32,7 +34,7 @@ export const ResultsPageClient = ({
 
   return (
     <BlockColumn blockStyles="gap-4">
-      <Title text="Results" blockStyles="my-1" />
+      <Title text={t("results.title")} blockStyles="my-1" />
 
       <ResultsSummary
         attempt={attemptResults}

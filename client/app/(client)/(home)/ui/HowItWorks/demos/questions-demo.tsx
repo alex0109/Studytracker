@@ -1,28 +1,30 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { LuCheck } from "react-icons/lu";
 import { cn } from "@/shared/lib";
+import { useTranslation } from "@/shared/i18n";
 
-type DemoType = "Open" | "Options" | "True / False";
+type DemoType = "open" | "options" | "trueFalse";
 
-const TYPES: DemoType[] = ["Open", "Options", "True / False"];
+const TYPES: DemoType[] = ["open", "options", "trueFalse"];
 
 const OPTIONS = [
-  { name: "Glucose", isCorrect: true },
-  { name: "Oxygen", isCorrect: true },
-  { name: "Carbon dioxide", isCorrect: false },
-  { name: "Water", isCorrect: false },
-];
+  { key: "glucose", isCorrect: true },
+  { key: "oxygen", isCorrect: true },
+  { key: "carbonDioxide", isCorrect: false },
+  { key: "water", isCorrect: false },
+] as const;
 
 export const QuestionsDemo: FC = () => {
+  const { t } = useTranslation();
   const reduceMotion = useReducedMotion();
-  const [type, setType] = useState<DemoType>("Options");
+  const [type, setType] = useState<DemoType>("options");
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2" role="group" aria-label="Question type">
+      <div className="flex gap-2" role="group" aria-label={t("landing.demo.questions.typeLabel")}>
         {TYPES.map((item) => (
           <button
             key={item}
@@ -33,10 +35,10 @@ export const QuestionsDemo: FC = () => {
               "flex-1 rounded-xl py-2 text-sm font-medium transition-colors",
               type === item
                 ? "bg-emerald-700 text-white"
-                : "bg-neutral-200 text-neutral-700 hover:bg-neutral-300",
+                : "bg-neutral-200 text-neutral-700 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700",
             )}
           >
-            {item}
+            {t(`questions.types.${item}`)}
           </button>
         ))}
       </div>
@@ -48,58 +50,56 @@ export const QuestionsDemo: FC = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -16 }}
           transition={{ duration: 0.2 }}
-          className="flex flex-col gap-3 rounded-2xl border border-neutral-100 bg-white p-5"
+          className="flex flex-col gap-3 rounded-2xl border border-neutral-100 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900"
         >
-          {type === "Open" && (
+          {type === "open" && (
             <>
-              <QuestionHeader title="What light does chlorophyll absorb best?" difficulty="Easy" />
-              <p className="rounded-xl bg-gray-100 p-3 text-neutral-700">
-                Red and blue light
+              <QuestionHeader title={t("landing.demo.questions.open.title")} difficulty="easy" />
+              <p className="rounded-xl bg-neutral-100 p-3 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200">
+                {t("landing.demo.questions.open.answer")}
               </p>
-              <Footnote>
-                Typed “red and blu light”? Fuzzy matching still counts it.
-              </Footnote>
+              <Footnote>{t("landing.demo.questions.open.note")}</Footnote>
             </>
           )}
 
-          {type === "Options" && (
+          {type === "options" && (
             <>
-              <QuestionHeader title="Which are products of photosynthesis?" difficulty="Medium" />
+              <QuestionHeader title={t("landing.demo.questions.options.title")} difficulty="medium" />
               <ul className="flex flex-col gap-2">
                 {OPTIONS.map((option) => (
-                  <li key={option.name} className="flex items-center gap-2">
+                  <li key={option.key} className="flex items-center gap-2">
                     <span
                       className={cn(
                         "flex size-6 items-center justify-center rounded-md border-2",
                         option.isCorrect
                           ? "border-emerald-700 bg-emerald-700 text-white"
-                          : "border-neutral-300 text-transparent",
+                          : "border-neutral-300 text-transparent dark:border-neutral-600",
                       )}
                     >
                       <LuCheck className="size-3.5" />
                     </span>
-                    <span className="text-neutral-800">{option.name}</span>
+                    <span className="text-neutral-800 dark:text-neutral-200">
+                      {t(`landing.demo.questions.options.items.${option.key}`)}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <Footnote>
-                One or more correct answers. Partial picks earn partial credit.
-              </Footnote>
+              <Footnote>{t("landing.demo.questions.options.note")}</Footnote>
             </>
           )}
 
-          {type === "True / False" && (
+          {type === "trueFalse" && (
             <>
-              <QuestionHeader title="Plants release oxygen only at night." difficulty="Hard" />
+              <QuestionHeader title={t("landing.demo.questions.trueFalse.title")} difficulty="hard" />
               <div className="flex gap-2">
-                <span className="flex-1 rounded-xl bg-neutral-200 py-2 text-center text-sm font-medium text-neutral-700">
-                  True
+                <span className="flex-1 rounded-xl bg-neutral-200 py-2 text-center text-sm font-medium text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+                  {t("questions.true")}
                 </span>
                 <span className="flex-1 rounded-xl bg-emerald-700 py-2 text-center text-sm font-medium text-white">
-                  False
+                  {t("questions.false")}
                 </span>
               </div>
-              <Footnote>One statement, one tap.</Footnote>
+              <Footnote>{t("landing.demo.questions.trueFalse.note")}</Footnote>
             </>
           )}
         </motion.div>
@@ -109,28 +109,32 @@ export const QuestionsDemo: FC = () => {
 };
 
 const DIFFICULTY_STYLES = {
-  Easy: "bg-emerald-50 text-emerald-700",
-  Medium: "bg-amber-50 text-amber-700",
-  Hard: "bg-rose-50 text-rose-700",
+  easy: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300",
+  medium: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300",
+  hard: "bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300",
 };
 
 const QuestionHeader: FC<{
   title: string;
   difficulty: keyof typeof DIFFICULTY_STYLES;
-}> = ({ title, difficulty }) => (
-  <div className="flex items-start justify-between gap-3">
-    <span className="font-semibold text-neutral-900">{title}</span>
-    <span
-      className={cn(
-        "shrink-0 rounded-full px-2 py-0.5 text-xs font-medium",
-        DIFFICULTY_STYLES[difficulty],
-      )}
-    >
-      {difficulty}
-    </span>
-  </div>
-);
+}> = ({ title, difficulty }) => {
+  const { t } = useTranslation();
 
-const Footnote: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <p className="text-sm text-neutral-500">{children}</p>
+  return (
+    <div className="flex items-start justify-between gap-3">
+      <span className="font-semibold text-neutral-900 dark:text-neutral-100">{title}</span>
+      <span
+        className={cn(
+          "shrink-0 rounded-full px-2 py-0.5 text-xs font-medium",
+          DIFFICULTY_STYLES[difficulty],
+        )}
+      >
+        {t(`questions.difficulty.${difficulty}`)}
+      </span>
+    </div>
+  );
+};
+
+const Footnote: FC<{ children: ReactNode }> = ({ children }) => (
+  <p className="text-sm text-neutral-500 dark:text-neutral-400">{children}</p>
 );

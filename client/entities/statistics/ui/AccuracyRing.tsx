@@ -6,7 +6,8 @@ import {
   RadialBarChart,
   ResponsiveContainer,
 } from "recharts";
-import { COLORS, accuracyTone } from "./tokens";
+import { accuracyTone, useChartColors } from "./tokens";
+import { useTranslation } from "react-i18next";
 import { useChartAnimation } from "../lib/motion";
 
 type Props = {
@@ -17,13 +18,15 @@ type Props = {
 };
 
 export function AccuracyRing({ accuracy, size = 96, label, large }: Props) {
+  const { t } = useTranslation();
+  const colors = useChartColors();
   const animated = useChartAnimation();
   const tone = accuracyTone(accuracy);
 
   return (
     <div
       role="img"
-      aria-label={`${label ?? "Accuracy"}: ${Math.round(accuracy)}%`}
+      aria-label={`${label ?? t("statistics.accuracy")}: ${Math.round(accuracy)}%`}
       className="relative shrink-0"
       style={{ width: size, height: size }}
     >
@@ -40,14 +43,14 @@ export function AccuracyRing({ accuracy, size = 96, label, large }: Props) {
             dataKey="value"
             cornerRadius={12}
             fill={tone.hex}
-            background={{ fill: COLORS.grid }}
+            background={{ fill: colors.grid }}
             isAnimationActive={animated}
             animationDuration={900}
           />
         </RadialBarChart>
       </ResponsiveContainer>
       <span
-        className={`absolute inset-0 flex items-center justify-center font-semibold text-neutral-50 ${
+        className={`absolute inset-0 flex items-center justify-center font-semibold text-neutral-900 dark:text-neutral-50 ${
           large ? "text-4xl" : "font-mono text-sm"
         }`}
       >

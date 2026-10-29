@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { LuRotateCcw } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
@@ -14,6 +16,7 @@ export const ResetProgressButton: FC<ResetProgressButtonProps> = ({
   dictionaryId,
   entryId,
 }) => {
+  const { t } = useTranslation();
   const { resetProgress, resetProgressIsPending } =
     useEntryProgressReset(dictionaryId);
 
@@ -21,7 +24,8 @@ export const ResetProgressButton: FC<ResetProgressButtonProps> = ({
     <Button
       variant="ghost"
       size="icon"
-      title="Reset learning progress"
+      title={t("dictionary.resetProgress")}
+      aria-label={t("dictionary.resetProgress")}
       disabled={resetProgressIsPending}
       onClick={() => resetProgress(entryId)}
     >

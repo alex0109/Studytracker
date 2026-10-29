@@ -1,15 +1,17 @@
-import { Subtitle } from "@/shared/ui";
+"use client";
+
+import { LuLayers } from "react-icons/lu";
+import { EmptyState } from "@/shared/ui";
+import { useTranslation } from "@/shared/i18n";
 
 export const EmptyFlashcards = () => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex flex-col w-full my-5 justify-center items-center">
-      <Subtitle
-        text="There are no words to practice yet..."
-        textStyles="text-neutral-500"
-      />
-      <p className="text-sm text-neutral-400">
-        Add words in the Words tab or return archived ones
-      </p>
-    </div>
+    <EmptyState
+      icon={<LuLayers aria-hidden />}
+      title={t("flashcards.empty.title")}
+      text={t("flashcards.empty.text")}
+    />
   );
 };

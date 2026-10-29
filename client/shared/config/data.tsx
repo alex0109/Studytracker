@@ -1,34 +1,18 @@
 import { SquareTerminal, BookOpen, Settings2 } from "lucide-react";
 
+// Names are translation keys under "nav"
 export const links = [
-  {
-    name: "Home",
-    hash: "/",
-  },
-  {
-    name: "Auth",
-    hash: "/sign-in",
-  },
-];
+  { name: "home", hash: "/" },
+  { name: "auth", hash: "/sign-in" },
+] as const;
 
 export const authorizedLinks = [
-  {
-    name: "Home",
-    hash: "/",
-  },
-  {
-    name: "Materials",
-    hash: "/materials",
-  },
-  {
-    name: "Statistics",
-    hash: "/statistics",
-  },
-  {
-    name: "Limits",
-    hash: "/limits",
-  },
-];
+  { name: "home", hash: "/" },
+  { name: "materials", hash: "/materials" },
+  { name: "library", hash: "/library" },
+  { name: "statistics", hash: "/statistics" },
+  { name: "limits", hash: "/limits" },
+] as const;
 
 export const adminNavLinks = [
   {

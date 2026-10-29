@@ -1,4 +1,8 @@
+"use client";
+
 import { FC, ReactNode } from "react";
+import { useTranslation } from "@/shared/i18n";
+import { isTrueFalseName } from "@/entities/question";
 import { LuCheck, LuLightbulb, LuSparkles, LuX } from "react-icons/lu";
 import { IResultResponse } from "@/entities/attempt";
 import { IOption, QuestionTypeEnum } from "@/entities/question";
@@ -16,37 +20,29 @@ type Status = "correct" | "partly" | "wrong" | "unanswered";
 
 const STATUS_STYLES: Record<
   Status,
-  { label: string; badge: string; card: string }
+  { badge: string; card: string }
 > = {
   correct: {
-    label: "Correct",
     badge:
       "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
     card: "border-l-emerald-500",
   },
   partly: {
-    label: "Partly correct",
     badge: "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
     card: "border-l-amber-500",
   },
   wrong: {
-    label: "Wrong",
     badge: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300",
     card: "border-l-red-500",
   },
   unanswered: {
-    label: "Not answered",
     badge:
       "bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300",
     card: "border-l-neutral-300",
   },
 };
 
-const CONFIDENCE_LABELS: Record<string, string> = {
-  Low: "Not sure",
-  Medium: "Fairly sure",
-  High: "Confident",
-};
+const CONFIDENCE_KEYS = { Low: "low", Medium: "medium", High: "high" } as const;
 
 const AnswerBlock: FC<{
   label: string;
@@ -82,6 +78,7 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
   options = [],
   result,
 }) => {
+  const { t } = useTranslation();
   const isChoice =
     questionType === QuestionTypeEnum.Options ||
     questionType === QuestionTypeEnum.TrueFalse;
@@ -126,15 +123,15 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
             )}
           >
             {status === "partly"
-              ? `${styles.label} · ${Math.round(result!.score)}%`
-              : styles.label}
+              ? `${t("results.status.partly")} · ${Math.round(result!.score)}%`
+              : t(`results.status.${status}`)}
           </span>
           {result?.method === "AI" && (
             <span
-              title="Wording differed from the answer, AI checked the meaning"
+              title={t("results.aiCheckedHint")}
               className="inline-flex items-center gap-1 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700 dark:bg-violet-950 dark:text-violet-300"
             >
-              <LuSparkles /> Checked by AI
+              <LuSparkles /> {t("results.aiChecked")}
             </span>
           )}
         </div>
@@ -173,17 +170,27 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
                   ) : (
                     <span className="size-4 shrink-0" />
                   )}
-                  <span className="break-words">{option.name}</span>
+                  <span className="break-words">
+                    {isTrueFalseName(option.name)
+                      ? t(option.name === "True" ? "questions.true" : "questions.false")
+                      : option.name}
+                  </span>
                 </span>
                 <span className="shrink-0 text-xs font-medium">
                   {isChosen ? (
                     <span
-                      className={isRight ? "text-emerald-700" : "text-red-700"}
+                      className={
+                        isRight
+                          ? "text-emerald-700 dark:text-emerald-400"
+                          : "text-red-700 dark:text-red-400"
+                      }
                     >
-                      Your answer
+                      {t("results.yourAnswer")}
                     </span>
                   ) : isRight ? (
-                    <span className="text-emerald-700">Correct answer</span>
+                    <span className="text-emerald-700 dark:text-emerald-400">
+                      {t("results.correctAnswer")}
+                    </span>
                   ) : null}
                 </span>
               </li>
@@ -193,24 +200,28 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
       ) : (
         <div className="grid gap-2 md:grid-cols-2">
           <AnswerBlock
-            label="Your answer"
+            label={t("results.yourAnswer")}
             tone={!result ? "neutral" : result.isCorrect ? "good" : "bad"}
           >
             {result?.userAnswer || (
-              <span className="text-neutral-500">No answer</span>
+              <span className="text-neutral-500">{t("results.noAnswer")}</span>
             )}
           </AnswerBlock>
           {result?.correctAnswer && (
-            <AnswerBlock label="Correct answer" tone="neutral">
+            <AnswerBlock label={t("results.correctAnswer")} tone="neutral">
               {result.correctAnswer}
             </AnswerBlock>
           )}
         </div>
       )}
 
-      {result?.confidenceLevel && CONFIDENCE_LABELS[result.confidenceLevel] && (
+      {result?.confidenceLevel && result.confidenceLevel in CONFIDENCE_KEYS && (
         <p className="text-xs text-neutral-500">
-          You felt: {CONFIDENCE_LABELS[result.confidenceLevel]}
+          {t("results.youFelt", {
+            confidence: t(
+              `attempt.confidence.${CONFIDENCE_KEYS[result.confidenceLevel as keyof typeof CONFIDENCE_KEYS]}`,
+            ),
+          })}
         </p>
       )}
 
@@ -224,7 +235,7 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
       {result?.aiExplanation && (
         <div className="rounded-xl bg-violet-50 p-3 text-sm dark:bg-violet-950/40">
           <p className="mb-1 flex items-center gap-1 font-semibold text-violet-700 dark:text-violet-300">
-            <LuSparkles /> Why
+            <LuSparkles /> {t("results.why")}
           </p>
           <p className="whitespace-pre-line break-words">
             {result.aiExplanation}

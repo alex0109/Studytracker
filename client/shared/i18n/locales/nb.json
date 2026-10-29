@@ -1,0 +1,1135 @@
+{
+  "meta": {
+    "description": "Bygg kunnskap, forsterk den og gjør den varig.",
+    "landingTitle": "Studytracker — bygg kunnskap, forsterk den og gjør den varig",
+    "landingDescription": "Gjør materialer om til notater, spørsmål og kort. Selvforsvar, spredt repetisjon med FSRS og statistikk viser hva du faktisk husker.",
+    "titles": {
+      "auth": "Logg inn",
+      "error": "Feil",
+      "limits": "Grenser",
+      "materials": "Materialer",
+      "share": "Delt materiale",
+      "statistics": "Statistikk",
+      "library": "Bibliotek"
+    }
+  },
+  "nav": {
+    "home": "Hjem",
+    "auth": "Logg inn",
+    "materials": "Materialer",
+    "statistics": "Statistikk",
+    "limits": "Grenser",
+    "signOut": "Logg ut",
+    "signOutConfirm": "Er du sikker?",
+    "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny",
+    "streak_one": "Din rekke: {{count}} dag på rad",
+    "streak_other": "Din rekke: {{count}} dager på rad",
+    "streakNone": "Ingen rekke ennå. Studer i dag for å starte en",
+    "library": "Bibliotek"
+  },
+  "preferences": {
+    "language": "Språk",
+    "darkTheme": "Bytt til mørkt tema",
+    "lightTheme": "Bytt til lyst tema"
+  },
+  "footer": {
+    "rights": "Alle rettigheter forbeholdt."
+  },
+  "common": {
+    "create": "Opprett",
+    "save": "Lagre",
+    "cancel": "Avbryt",
+    "delete": "Slett",
+    "close": "Lukk",
+    "back": "Tilbake",
+    "loading": "Laster...",
+    "saving": "Lagrer…",
+    "saved": "Lagret",
+    "required": "Påkrevd",
+    "tryAgain": "Prøv igjen",
+    "yes": "Ja",
+    "no": "Nei",
+    "edit": "Rediger",
+    "add": "Legg til",
+    "send": "Send",
+    "update": "Oppdater",
+    "comingSoon": "Kommer snart",
+    "areYouSure": "Er du sikker?",
+    "sidebar": "Sidepanel",
+    "sidebarText": "Materialer og delene deres"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Et læringssystem, ikke en notatbok",
+      "line1": "Bygg kunnskap.",
+      "line2": "Forsterk den.",
+      "line3": "Gjør den varig.",
+      "text": "Studytracker er et system som bygger, forsterker og styrker det du lærer. Samle materialer, gjør dem om til spørsmål og kort, forsvar det du kan og se nøyaktig hvor det fortsatt slår sprekker.",
+      "openMaterials": "Åpne materialene mine",
+      "start": "Begynn å vokse",
+      "howItWorks": "Se hvordan det fungerer"
+    },
+    "preview": {
+      "showWord": "Vis ordet",
+      "showTranslation": "Vis oversettelsen",
+      "attemptScore": "Poeng for forsøket",
+      "weights": "vanskelig ×3 · middels ×2 · lett ×1",
+      "streak": "12 dager på rad",
+      "lastTwoWeeks": "siste to uker"
+    },
+    "samples": {
+      "butterfly": {
+        "translation": "sommerfugl",
+        "grammar": "der, flertall: die Schmetterlinge",
+        "example": "En sommerfugl sitter på blomsten."
+      },
+      "cozy": {
+        "translation": "koselig",
+        "example": "Kafeen er veldig koselig."
+      },
+      "run": {
+        "translation": "å løpe, å gå",
+        "example": "Jeg løper i parken hver morgen."
+      }
+    },
+    "loop": {
+      "eyebrow": "Ideen",
+      "title": "Én sirkel. Tre verb.",
+      "text": "Notater alene blekner. Studytracker holder kunnskapen i bevegelse gjennom en sirkel som bygger den, forsterker den og gjør den sterkere hver gang du kommer tilbake.",
+      "steps": {
+        "grow": {
+          "verb": "Bygg",
+          "text": "Gi alt du lærer et sted å bo: en artikkel, en forelesning, en samling nye ord. Kunnskapsbasen din starter her."
+        },
+        "reinforce": {
+          "verb": "Forsterk",
+          "text": "Gjør det om til spørsmål og kort. Å hente et svar fra hukommelsen gjør det sterkere enn å lese det på nytt."
+        },
+        "strengthen": {
+          "verb": "Styrk",
+          "text": "Forsvar det du kan, få en ærlig poengsum og se hvilke temaer som slår sprekker. Gå så tilbake og bygg akkurat dem."
+        }
+      },
+      "footer": "Svake punkter fra «Styrk» blir det neste du bygger. Sirkelen stopper aldri, og det gjør ikke fremgangen din heller."
+    },
+    "entities": {
+      "materials": "Materialer",
+      "notes": "Notater",
+      "dictionaries": "Ordlister",
+      "questions": "Spørsmål",
+      "flashcards": "Kort",
+      "selfDefending": "Selvforsvar",
+      "score": "Poeng",
+      "statistics": "Statistikk"
+    },
+    "how": {
+      "eyebrow": "Slik fungerer det",
+      "title": "Fra det første notatet til kunnskap som sitter",
+      "text": "Fem steg, ett materiale. Klikk deg gjennom dem, demoene er ekte.",
+      "tabsLabel": "Slik fungerer Studytracker",
+      "stepOf": "Steg {{step}} av {{total}}",
+      "next": "Neste: {{step}}",
+      "steps": {
+        "material": {
+          "label": "Legg til et materiale",
+          "title": "Alt starter med et materiale",
+          "text": "En artikkel, en video, en praktisk oppgave eller en prøve. Gi det en status og tagger, og legg til notater, spørsmål og en ordliste."
+        },
+        "questions": {
+          "label": "Lag spørsmål",
+          "title": "Gjør det om til spørsmål",
+          "text": "Skriv spørsmål med dine egne ord eller la AI lage et utkast, og velg vanskelighetsgrad. Tre typer dekker det meste du trenger å sjekke:"
+        },
+        "defend": {
+          "label": "Selvforsvar",
+          "title": "Forsvar det du kan",
+          "text": "Selvforsvar er en quiz over spørsmålene i et materiale. De kommer i tilfeldig rekkefølge, og for hvert svar sier du hvor sikker du er. Prøv selv:"
+        },
+        "score": {
+          "label": "Få en poengsum",
+          "title": "En ærlig poengsum",
+          "text": "Hvert svar får 0 til 100. Åpne svar sjekkes først for eksakt treff, så med uskarpt treff, så en skrivefeil koster deg ikke noe; nesten riktige svar med andre ord sjekkes etter mening. Poengsummen for forsøket er et vektet snitt der vanskelige spørsmål teller tre ganger."
+        },
+        "statistics": {
+          "label": "Se det vokse",
+          "title": "Se hva som blir sterkere",
+          "text": "Statistikken følger deg over tid: poengutvikling, studierekke, treffsikkerhet etter vanskelighetsgrad, hvor godt selvtilliten stemmer med virkeligheten og hvilke tagger som er svakest."
+        }
+      }
+    },
+    "demo": {
+      "material": {
+        "meta": "📄 artikkel · opprettet 12. okt.",
+        "title": "Fotosyntese",
+        "status": "Pågår",
+        "tagBiology": "biologi",
+        "tagExam": "eksamen",
+        "attachments": {
+          "lightReactions": {
+            "title": "Lysreaksjoner",
+            "meta": "tekstnotat"
+          },
+          "sketch": {
+            "title": "Skisse av kloroplast",
+            "meta": "tegning"
+          },
+          "questions": {
+            "title": "6 spørsmål",
+            "meta": "åpent · alternativer · sant/usant"
+          },
+          "terms": {
+            "title": "Nøkkelbegreper",
+            "meta": "ordliste · 18 ord"
+          }
+        }
+      },
+      "questions": {
+        "typeLabel": "Spørsmålstype",
+        "open": {
+          "title": "Hvilket lys absorberer klorofyll best?",
+          "answer": "Rødt og blått lys",
+          "note": "Skrev du «rødt og blot lys»? Uskarpt treff godtar det likevel."
+        },
+        "options": {
+          "title": "Hva er produkter av fotosyntesen?",
+          "items": {
+            "glucose": "Glukose",
+            "oxygen": "Oksygen",
+            "carbonDioxide": "Karbondioksid",
+            "water": "Vann",
+            "nitrogen": "Nitrogen"
+          },
+          "note": "Ett eller flere riktige svar. Delvis riktige valg gir delvis poeng."
+        },
+        "trueFalse": {
+          "title": "Planter slipper ut oksygen bare om natten.",
+          "note": "Én påstand, ett trykk."
+        }
+      },
+      "defend": {
+        "counter": "Spørsmål 1 av 6",
+        "score": "poeng {{score}}",
+        "tryAgain": "Prøv igjen",
+        "answer": "Svar",
+        "feedback": {
+          "rightUnsure": "Riktig, men usikker. Spørsmålet kommer tilbake til ny repetisjon.",
+          "rightSure": "Sikker og riktig. Det er kunnskap som sitter.",
+          "wrongSure": "Sikker, men feil. Statistikken markerer dette som overmot.",
+          "wrong": "Ikke helt ennå. Dette spørsmålet står nå på listen over ting å styrke."
+        }
+      },
+      "score": {
+        "total": "poeng for forsøket",
+        "methods": {
+          "easy": "Åpent · eksakt treff",
+          "medium": "Åpent · uskarpt treff, skrivefeil tilgitt",
+          "hard": "Alternativer · 1 av 2 riktige"
+        }
+      },
+      "stats": {
+        "accuracy": "Total treffsikkerhet",
+        "growth": "+6 % denne måneden",
+        "streak": "Studierekke",
+        "streakDays": "12 dager",
+        "calibration": "Hvor ofte du har rett når du føler deg…",
+        "weakest": "Svakeste tema",
+        "weakestTag": "#kjemi",
+        "next": "Neste ting å styrke"
+      }
+    },
+    "words": {
+      "eyebrow": "Ordlister og kort",
+      "title": "Ord som sitter.",
+      "text": "Hvert materiale kan ha sin egen ordliste: ord med oversettelse, uttale, ordklasse, eksempler og synonymer. Kortene henter dem fram rett før du ville glemt dem.",
+      "rules": {
+        "dontKnow": "kommer tilbake om et minutt",
+        "unsure": "kommer snart tilbake",
+        "know": "venter lenger hver gang du svarer riktig"
+      },
+      "fsrs": "Repetisjonene planlegges av FSRS, en moderne algoritme for spredt repetisjon som lærer hvor fort du glemmer. Tiden din går til ordene du faktisk sliter med.",
+      "hideTranslation": "Skjul oversettelsen av {{term}}",
+      "showTranslation": "Vis oversettelsen av {{term}}",
+      "deckDone": "Bunken er ferdig",
+      "allKnown": "Du kunne alle ordene. De venter lenger før de kommer tilbake.",
+      "missed_one": "{{count}} ord er allerede satt opp til å komme tilbake tidligere.",
+      "missed_other": "{{count}} ord er allerede satt opp til å komme tilbake tidligere.",
+      "tapHint": "Trykk på kortet for å snu det. I appen kan du også sveipe det."
+    },
+    "glossary": {
+      "eyebrow": "Ordliste",
+      "title": "Hver del, på én linje",
+      "text": "Ni ideer er alt du trenger for å føle deg hjemme.",
+      "items": {
+        "material": {
+          "name": "Materiale",
+          "text": "Alt du studerer: en artikkel, video, øvelse eller prøve. Har status og tagger."
+        },
+        "note": {
+          "name": "Notat",
+          "text": "Din egen tekst eller tegning i et materiale, pluss ett sammendrag av det. Notater kan ha egne spørsmål."
+        },
+        "question": {
+          "name": "Spørsmål",
+          "text": "Åpent, alternativer med ett eller flere riktige svar, eller sant/usant. Lett, middels eller vanskelig."
+        },
+        "dictionary": {
+          "name": "Ordliste",
+          "text": "Ordene i et materiale med oversettelse, uttale, eksempler og synonymer."
+        },
+        "flashcard": {
+          "name": "Kort",
+          "text": "Et ord fra ordlisten i praksis. Svaret ditt avgjør når du ser det igjen."
+        },
+        "selfDefending": {
+          "name": "Selvforsvar",
+          "text": "En quiz over spørsmålene i et materiale, der selvtilliten din registreres for hvert svar."
+        },
+        "score": {
+          "name": "Poeng",
+          "text": "Vektet snitt av svarene dine, 0 til 100. Vanskelige spørsmål teller tre ganger."
+        },
+        "statistics": {
+          "name": "Statistikk",
+          "text": "Utvikling, rekke, treffsikkerhet, kalibrering av selvtillit og de svakeste temaene dine over tid."
+        },
+        "tag": {
+          "name": "Tagg",
+          "text": "En merkelapp som grupperer materialer og viser hvilke temaer som trenger mest arbeid."
+        }
+      }
+    },
+    "cta": {
+      "title": "Plant det første frøet i dag.",
+      "text": "Legg til ett materiale, still deg selv tre spørsmål og forsvar dem i morgen. Om en uke ser du hva du virkelig kan, og hva du bør bygge videre på."
+    }
+  },
+  "questions": {
+    "types": {
+      "open": "Åpent",
+      "options": "Alternativer",
+      "trueFalse": "Sant / Usant",
+      "flashcard": "Kort"
+    },
+    "true": "Sant",
+    "false": "Usant",
+    "difficulty": {
+      "easy": "Lett",
+      "medium": "Middels",
+      "hard": "Vanskelig"
+    },
+    "limitReached": "Grensen for spørsmål er nådd",
+    "actions": {
+      "add": "Legg til spørsmål",
+      "generate": "Generer",
+      "start": "Start selvforsvar"
+    },
+    "empty": {
+      "title": "Ingen spørsmål ennå",
+      "text": "Legg til ditt første spørsmål eller la AI lage noen fra teksten. Forsvar dem så i selvforsvar."
+    },
+    "loading": "Laster spørsmål...",
+    "fromNote": "Fra notat {{id}}",
+    "titleLabel": "Spørsmål",
+    "addTitle": "Nytt spørsmål",
+    "titlePlaceholder": "*Spørsmål...",
+    "statementPlaceholder": "*Påstand som skal sjekkes...",
+    "difficultyLabel": "Vanskelighetsgrad",
+    "answerLabel": "Svar",
+    "answerPlaceholder": "*Skriv svaret her, opptil 1000 tegn...",
+    "statementIs": "Denne påstanden er",
+    "options": {
+      "atLeastOne": "Minst ett alternativ må være riktig",
+      "toggleCorrect": "Merk som riktig eller feil",
+      "remove": "Fjern alternativ",
+      "newPlaceholder": "Nytt alternativ...",
+      "markOne": "Merk minst ett riktig alternativ",
+      "markEvery": "Alternativer: merk alle riktige",
+      "correct": "Riktig alternativ",
+      "placeholder": "*Alternativ {{number}}...",
+      "unique": "Alternativene må være unike",
+      "add": "Legg til alternativ"
+    },
+    "generate": {
+      "title": "Generer spørsmål",
+      "fromNote": "AI skriver spørsmål fra teksten i dette notatet.",
+      "fromMaterial": "AI skriver spørsmål fra innholdet i dette materialet.",
+      "check": "Se over dem før du starter selvforsvar.",
+      "howMany": "Hvor mange",
+      "full": "Grensen for spørsmål i dette materialet er nådd",
+      "fits_one": "Bare {{count}} spørsmål til får plass i dette materialet",
+      "fits_other": "Bare {{count}} spørsmål til får plass i dette materialet",
+      "type": "Type",
+      "mixed": "Blandet"
+    }
+  },
+  "attempt": {
+    "chooseAll": "Velg alle riktige svar",
+    "confidenceQuestion": "Hvor sikker er du på dette svaret?",
+    "confidence": {
+      "low": "Usikker",
+      "medium": "Ganske sikker",
+      "high": "Sikker"
+    },
+    "answered": "Besvart {{answered}} av {{total}}",
+    "noneAnswered": "Du har ikke svart på noen spørsmål ennå. Svar på alle for å fullføre.",
+    "left_one": "Svar på alle spørsmålene for å fullføre: {{count}} gjenstår, det er merket med rødt.",
+    "left_other": "Svar på alle spørsmålene for å fullføre: {{count}} gjenstår, de er merket med rødt.",
+    "finish": "Fullfør",
+    "hints": {
+      "open": "Skriv svaret ditt",
+      "trueFalse": "Sant eller usant?"
+    },
+    "errors": {
+      "choose": "Velg et svar først",
+      "write": "Skriv et svar først"
+    },
+    "answerPlaceholder": "Skriv ned det du husker om dette spørsmålet...",
+    "answerLabel": "Ditt svar",
+    "confidenceShort": "Hvor sikker er du?",
+    "saving": "Lagrer...",
+    "checking": "Sjekker...",
+    "update": "Oppdater svar",
+    "save": "Lagre svar",
+    "saved": "Svaret ditt er lagret",
+    "changed_one": "endret {{count}} gang",
+    "changed_other": "endret {{count}} ganger",
+    "canChange": "Du kan endre det til du fullfører forsøket."
+  },
+  "results": {
+    "correctAnswer": "Riktig svar",
+    "status": {
+      "correct": "Riktig",
+      "partly": "Delvis riktig",
+      "wrong": "Feil",
+      "unanswered": "Ikke besvart"
+    },
+    "explain": {
+      "pending": "Forklarer...",
+      "done": "Feilene er forklart",
+      "button": "Forklar feil ({{count}})"
+    },
+    "title": "Resultater",
+    "summary": {
+      "score": "Poeng",
+      "correct": "Riktige",
+      "wrong": "Feil",
+      "time": "Tid"
+    },
+    "duration": {
+      "minutes": "{{minutes}} min {{seconds}} s",
+      "seconds": "{{seconds}} s"
+    },
+    "aiChecked": "Sjekket av AI",
+    "aiCheckedHint": "Ordlyden skilte seg fra svaret, så AI sjekket meningen",
+    "yourAnswer": "Ditt svar",
+    "noAnswer": "Ikke besvart",
+    "youFelt": "Du følte deg: {{confidence}}",
+    "why": "Hvorfor",
+    "answers": "Svar",
+    "filter": {
+      "all": "Alle ({{count}})",
+      "mistakes": "Feil ({{count}})"
+    },
+    "noMistakes": "Ingen feil, godt jobbet! 🎉",
+    "noAnswers": "Ingen svar",
+    "goToMaterials": "Til materialene"
+  },
+  "flashcards": {
+    "answers": {
+      "dontKnow": "Kan ikke",
+      "unsure": "Usikker",
+      "know": "Kan"
+    },
+    "tapToFlip": "Trykk for å se oversettelsen",
+    "keysHint": "Sveip kortet eller bruk ← ↓ →, mellomrom for å snu",
+    "undo": "Angre",
+    "empty": {
+      "title": "Ingen ord å øve på ennå",
+      "text": "Legg til ord i fanen Ord, eller hent tilbake arkiverte ord."
+    },
+    "start": {
+      "due": "Klar nå",
+      "new": "Nye",
+      "learning": "Lærer",
+      "review": "Til repetisjon",
+      "next_one": "Neste økt: {{count}} kort",
+      "next_other": "Neste økt: {{count}} kort",
+      "nothing": "Ingenting å repetere akkurat nå, kom tilbake senere eller øv på alle ordene",
+      "reviewButton": "Repeter {{count}}",
+      "allButton": "Øv på alle {{count}}"
+    },
+    "summary": {
+      "title": "Runden er ferdig",
+      "known": "Du kan {{percent}} % av ordene i denne runden",
+      "saved": "Svarene er lagret, neste repetisjoner planlegges automatisk",
+      "toPractice": "Ord å øve på",
+      "repeat_one": "Repeter {{count}} ord",
+      "repeat_other": "Repeter {{count}} ord",
+      "back": "Tilbake til start"
+    },
+    "state": {
+      "New": "ny",
+      "Learning": "lærer",
+      "Review": "repetisjon",
+      "Relearning": "lærer på nytt"
+    },
+    "badge": {
+      "nextReview": "Neste repetisjon: {{date}}",
+      "notReviewed": "Ikke repetert ennå",
+      "dueNow": "klar nå"
+    }
+  },
+  "feedback": {
+    "title": "Si hva du synes",
+    "text": "En idé, en feil, et hyggelig ord eller litt frustrasjon: hver melding går rett til innboksen min, og jeg leser alle. Legg igjen e-posten din hvis du vil ha svar.",
+    "category": "Hva gjelder det?",
+    "categories": {
+      "Idea": "💡 Idé",
+      "Bug": "🐞 Feil",
+      "Praise": "💚 Ros",
+      "Other": "💬 Annet"
+    },
+    "name": "Navn (valgfritt)",
+    "namePlaceholder": "Hva skal jeg kalle deg?",
+    "email": "E-post (valgfritt)",
+    "emailPlaceholder": "deg@eksempel.no",
+    "message": "Melding",
+    "messagePlaceholder": "Hva fungerer, hva gjør det ikke, hva savner du…",
+    "privacy": "E-posten din brukes bare til å svare deg.",
+    "send": "Send",
+    "sending": "Sender…",
+    "errors": {
+      "email": "Dette ser ikke ut som en e-postadresse",
+      "message_one": "Skriv minst {{count}} tegn",
+      "message_other": "Skriv minst {{count}} tegn"
+    },
+    "toast": {
+      "sent": "Takk! Meldingen din er på vei",
+      "tooMany": "For mange meldinger på rad, prøv igjen om noen minutter",
+      "notSent": "Meldingen kunne ikke sendes, prøv igjen senere"
+    }
+  },
+  "auth": {
+    "checkEmail": "Sjekk e-posten din!",
+    "magicLinkSent": "Vi har sendt deg en magisk lenke for å logge inn",
+    "welcomeBack": "Velkommen tilbake!",
+    "createAccount": "Opprett kontoen din",
+    "signInText": "Logg inn for å fortsette til kontoen din.",
+    "signUpText": "Kom i gang med din nye konto!",
+    "google": "Fortsett med Google",
+    "newHere": "Ny her?",
+    "haveAccount": "Har du allerede en konto?",
+    "createAccountLink": "Opprett en konto",
+    "signInLink": "Logg inn"
+  },
+  "errors": {
+    "notFound": "Ikke funnet",
+    "goHome": "Til forsiden",
+    "generic": "Oi, noe gikk galt :(",
+    "unknown": "Ukjent"
+  },
+  "materials": {
+    "add": "Legg til materiale",
+    "addTitle": "Nytt materiale",
+    "limitReached": "Grensen for materialer er nådd",
+    "limitReachedHint_one": "Grensen er nådd: {{count}} materiale. Slett ett for å legge til et nytt",
+    "limitReachedHint_other": "Grensen er nådd: {{count}} materialer. Slett ett for å legge til et nytt",
+    "titleLabel": "Tittel",
+    "titlePlaceholder": "*Tittel...",
+    "typeLabel": "Type",
+    "statusLabel": "Status",
+    "imported": "Importert",
+    "deleteWarning": "Materialet med notater, spørsmål, forsøk og ordlister slettes for godt.",
+    "types": {
+      "article": "📄 Artikkel",
+      "video": "▶️ Video",
+      "practice": "📝 Øvelse",
+      "test": "✏️ Prøve"
+    },
+    "statuses": {
+      "tolearn": "Vil lære",
+      "inprocess": "Pågår",
+      "finished": "Ferdig"
+    },
+    "sidebar": {
+      "emptyTitle": "Ingen materialer ennå",
+      "emptyText": "Legg til det første: en artikkel, en video eller en prøve. Legg så til notater, spørsmål og ord.",
+      "noNotes": "Ingen notater ennå"
+    },
+    "emptySection": {
+      "hint": "Velg et materiale til venstre eller legg til et nytt.",
+      "another": "En til",
+      "lines": [
+        "📚 Kunnskap er den eneste sekken som blir lettere jo mer du fyller den.",
+        "🧠 Hjernen din ringte. Den vil ha en matbit: ett lite materiale, takk.",
+        "🌱 Alle eksperter var en gang nybegynnere som ikke ga opp etter første side.",
+        "☕ Kaffe i den ene hånden, nysgjerrighet i den andre. Perfekt oppsett.",
+        "🐢 Sakte fremgang er fortsatt fremgang. Skilpadder kommer også i mål.",
+        "🎯 Ti fokuserte minutter slår en time med «jeg begynner straks».",
+        "🔥 Den beste tiden å starte var i går. Den nest beste er akkurat nå.",
+        "🦉 Nattugle eller A-menneske, denne siden er åpen for begge.",
+        "🧩 Dagens forvirring er morgendagens «å, det var jo lett».",
+        "🚀 Små daglige steg blir stille og rolig til store sprang.",
+        "🍕 Læring er som pizza: selv én bit teller.",
+        "🌧️ Dårlig dag? Lær én liten ting. Den seieren kan ingen ta fra deg.",
+        "💡 Spørsmål er bare svar du ikke har møtt ennå.",
+        "🏋️ Hukommelsen er en muskel. I dag er det beindag for nevronene dine.",
+        "🎧 Sett på en god spilleliste og velg ett materiale. Framtidige deg sier takk.",
+        "🐝 Flittige bier lager honning; nysgjerrige hoder lager kunnskap.",
+        "📈 Du trenger ikke være god for å starte, men du må starte for å bli god.",
+        "🌍 Hvert ord du lærer er et nytt vindu å se ut av.",
+        "🧘 Pust inn, åpne et materiale, pust ut. Du klarer dette.",
+        "🕯️ Et lys mister ingenting ved å tenne et annet. Det gjør heller ikke du når du deler det du lærer.",
+        "🐣 Alt du elsker å gjøre nå, kunne du en gang ikke.",
+        "🧭 Gått deg vill i et tema? Det er bare utforsking med ekstra steg.",
+        "🎲 Snurr kunnskapshjulet: dagens premie er det du åpner neste gang.",
+        "🌙 Trøtt? Selv fem minutter holder rekka i live og glemselskurven unna.",
+        "✨ Feil er bevis på at du prøver. Fortsett å samle dem."
+      ]
+    }
+  },
+  "limits": {
+    "counter": {
+      "materials": "materialer",
+      "tags": "tagger",
+      "notes": "notater i dette materialet",
+      "questions": "spørsmål i dette materialet",
+      "dictionaries": "ordlister i dette materialet",
+      "words": "ord i denne ordlisten"
+    },
+    "reachedToast": "Grensen er nådd. Frigjør litt plass og prøv igjen",
+    "counterUsed": "{{used}} av {{max}} {{label}} brukt",
+    "counterFull": "Grensen er nådd: {{max}} {{label}}",
+    "page": {
+      "loadError": "Kunne ikke laste grensene dine, last inn siden på nytt.",
+      "plan": "Abonnementet ditt",
+      "planText": "AI-grensene avhenger av abonnementet",
+      "resets": "AI-forespørsler telles per måned og nullstilles <b>{{date}}</b>. Forespørsler som feilet, telles ikke.",
+      "workspace": "Arbeidsområde",
+      "workspaceText": "Delt av alle materialene dine",
+      "materials": "Materialer",
+      "tags": "Tagger",
+      "aiMonth": "AI denne måneden",
+      "aiMonthText": "Hvor mange AI-forespørsler som er igjen",
+      "perMaterial": "I hvert materiale",
+      "perMaterialText_one": "Hver ordliste rommer opptil {{count}} ord",
+      "perMaterialText_other": "Hver ordliste rommer opptil {{count}} ord",
+      "noMaterials": "Ingen materialer ennå.",
+      "createFirst": "Opprett det første",
+      "questions": "Spørsmål",
+      "notes": "Notater",
+      "dictionaries": "Ordlister",
+      "fullestDictionary": "Ord i den fulleste ordlisten"
+    }
+  },
+  "toasts": {
+    "materialCreated": "Materialet er opprettet!",
+    "materialCreateError": "Kunne ikke opprette materialet",
+    "tagAddedToMaterial": "Taggen er lagt til materialet",
+    "tagAddError": "Kunne ikke legge taggen til materialet",
+    "materialDeleted": "Materialet er slettet!",
+    "materialDeleteError": "Kunne ikke slette materialet",
+    "shareDisabled": "Lenken er slått av, ingen kan importere den lenger",
+    "shareDisableError": "Kunne ikke slå av delingslenken",
+    "shareCreateError": "Kunne ikke opprette delingslenken",
+    "materialImported": "Materialet er lagt til i materialene dine!",
+    "materialImportError": "Kunne ikke importere materialet",
+    "tagRemoved": "Taggen er fjernet",
+    "tagRemoveError": "Kunne ikke fjerne taggen",
+    "materialUpdateError": "Kunne ikke oppdatere materialet",
+    "tagCreated": "Taggen er opprettet",
+    "tagCreateError": "Kunne ikke opprette taggen",
+    "noteCreated": "Notatet er opprettet!",
+    "noteCreateError": "Kunne ikke opprette notatet",
+    "noteUpdateError": "Kunne ikke oppdatere notatet",
+    "summaryError": "Kunne ikke generere sammendraget",
+    "questionUpdateError": "Kunne ikke oppdatere spørsmålet",
+    "questionDeleted": "Spørsmålet er slettet",
+    "questionDeleteError": "Kunne ikke slette spørsmålet",
+    "questionCreated": "Spørsmålet er opprettet!",
+    "questionCreateError": "Kunne ikke opprette spørsmålet",
+    "questionsGenerateError": "Kunne ikke generere spørsmål",
+    "wordAdded": "Ordet er lagt til!",
+    "wordAddError": "Kunne ikke legge til ordet",
+    "wordUpdated": "Ordet er oppdatert!",
+    "wordUpdateError": "Kunne ikke oppdatere ordet",
+    "dictionaryUpdateError": "Kunne ikke oppdatere ordlisten",
+    "wordsGenerateError": "Kunne ikke generere ord",
+    "dictionaryDeleted": "Ordlisten er slettet!",
+    "dictionaryDeleteError": "Kunne ikke slette ordlisten",
+    "dictionaryCreated": "Ordlisten er opprettet!",
+    "dictionaryCreateError": "Kunne ikke opprette ordlisten",
+    "wordDeleted": "Ordet er slettet",
+    "wordDeleteError": "Kunne ikke slette ordet",
+    "progressReset": "Fremgangen for ordet er nullstilt",
+    "progressResetError": "Kunne ikke nullstille fremgangen",
+    "flashcardsFinishError": "Kunne ikke avslutte kortøkten",
+    "noCards": "Det er ingen kort å repetere akkurat nå",
+    "flashcardsStartError": "Kunne ikke starte kortøkten",
+    "undoError": "Kunne ikke angre svaret",
+    "answerNotSaved": "Svaret ble ikke lagret",
+    "answerNotSavedRetry": "Svaret ble ikke lagret, prøv igjen",
+    "reorderError": "Kunne ikke endre rekkefølgen på ordene",
+    "explainError": "Kunne ikke forklare feilene",
+    "copyFailed": "Kunne ikke kopiere, marker lenken i stedet",
+    "questionsGenerated_one": "{{count}} spørsmål er generert!",
+    "questionsGenerated_other": "{{count}} spørsmål er generert!",
+    "wordsGenerated_one": "{{count}} ord er lagt til!",
+    "wordsGenerated_other": "{{count}} ord er lagt til!",
+    "summaryTruncated": "Sammendraget er klart. Materialet er veldig langt, så bare første del ble brukt",
+    "summaryGenerated": "Sammendraget er generert!",
+    "attemptNotFinished": "Forsøket ble ikke fullført, prøv igjen",
+    "tagCreatedText": "Du kan bruke den i alle materialer"
+  },
+  "ai": {
+    "errors": {
+      "badRequest": "Det er ikke nok egnet tekst til dette. Legg til mer innhold og prøv igjen",
+      "limit": "Grensen her er nådd. Frigjør litt plass og prøv igjen",
+      "nothing": "AI fikk ikke laget noe av dette innholdet. Prøv et annet",
+      "quota": "AI-grensen din for denne måneden er brukt opp",
+      "unavailable": "AI svarer ikke akkurat nå, prøv igjen senere"
+    },
+    "generate": "Generer",
+    "generating": "Genererer...",
+    "usageHint": "{{left}} av {{limit}} AI-forespørsler igjen denne måneden på {{tier}}, nullstilles {{date}}",
+    "off": "AI-funksjoner er slått av akkurat nå",
+    "features": {
+      "QuestionGeneration": "Generering av spørsmål",
+      "DictionaryGeneration": "Generering av ord",
+      "AnswerGrading": "Sjekk av svar etter mening",
+      "SummaryGeneration": "Generering av sammendrag",
+      "MistakeExplanation": "Forklaring av feil"
+    }
+  },
+  "share": {
+    "button": "Del",
+    "title": "Del materiale",
+    "text": "Alle med lenken får en full kopi: notater, ordlister og spørsmål. Tagger og forsøk blir hos deg, og endringer i deres kopi rører aldri din.",
+    "linkLabel": "Delingslenke",
+    "copy": "Kopier",
+    "copied": "Kopiert",
+    "imports_one": "Importert {{count}} gang",
+    "imports_other": "Importert {{count}} ganger",
+    "stop": "Slutt å dele",
+    "create": "Opprett lenke",
+    "preview": {
+      "errorTitle": "Kunne ikke åpne denne lenken",
+      "errorText": "Noe gikk galt hos oss, prøv igjen litt senere.",
+      "inactiveTitle": "Denne lenken er ikke aktiv",
+      "inactiveText": "Eieren har sluttet å dele dette materialet eller slettet det.",
+      "sharedWithYou": "Noen har delt et materiale med deg",
+      "stats": {
+        "notes_one": "notat",
+        "notes_other": "notater",
+        "questions_one": "spørsmål",
+        "questions_other": "spørsmål",
+        "dictionaries_one": "ordliste",
+        "dictionaries_other": "ordlister",
+        "words_one": "ord",
+        "words_other": "ord"
+      },
+      "copyNote": "Du får din egen kopi som du kan redigere og lære av. Tagger, forsøk og eierens fremgang kopieres ikke.",
+      "signIn": "Logg inn for å få dette materialet",
+      "yours": "Dette er ditt materiale.",
+      "alreadyImported": "Du har allerede en kopi. En ny import lager en til.",
+      "import": "Importer til materialene mine"
+    }
+  },
+  "tags": {
+    "label": "Tagger",
+    "manage": "Administrer tagger",
+    "addToMaterial": "Tagger for dette materialet",
+    "noneYet": "Ingen tagger ennå. Opprett den første nedenfor.",
+    "none": "Ingen tagger",
+    "new": "Ny tagg",
+    "addTitle": "Ny tagg",
+    "limitReached": "Grensen for tagger er nådd",
+    "limitReachedHint_one": "Grensen er nådd: {{count}} tagg. Slett én for å legge til en ny",
+    "limitReachedHint_other": "Grensen er nådd: {{count}} tagger. Slett én for å legge til en ny",
+    "name": "Navn",
+    "namePlaceholder": "*Navn...",
+    "color": "Farge"
+  },
+  "editor": {
+    "toolbar": "Tekstformatering",
+    "heading": "Overskrift {{level}}",
+    "bold": "Fet",
+    "italic": "Kursiv",
+    "underline": "Understreking",
+    "highlight": "Utheving",
+    "link": "Lenke",
+    "bulletList": "Punktliste",
+    "orderedList": "Nummerert liste",
+    "image": "Bilde",
+    "linkPrompt": "Skriv inn lenken",
+    "linkInvalid": "Bare lenker som starter med http://, https:// eller mailto: kan legges til"
+  },
+  "sections": {
+    "Material": "Materiale",
+    "Questions": "Spørsmål",
+    "Attempts": "Forsøk",
+    "Note": "Notat",
+    "Words": "Ord",
+    "Flashcards": "Kort"
+  },
+  "notes": {
+    "add": "Legg til notat",
+    "addTitle": "Nytt notat",
+    "limitReached": "Grensen for notater er nådd",
+    "types": {
+      "text": "✍️ Tekst",
+      "drawing": "🖌️ Tegning",
+      "summary": "📚 Sammendrag"
+    },
+    "drawing": {
+      "tools": {
+        "pen": "Penn",
+        "eraser": "Viskelær",
+        "highlighter": "Merkepenn"
+      },
+      "color": "Farge",
+      "size": "Penselstørrelse",
+      "undo": "Angre",
+      "clear": "Tøm"
+    },
+    "summary": {
+      "hint": "En kort gjenfortelling av hele materialet. Skriv den selv, eller la AI skrive den fra materialet, notatene og ordlistene.",
+      "generate": "Generer sammendrag",
+      "generating": "Genererer sammendrag...",
+      "replaceTitle": "Erstatte sammendraget?",
+      "replaceText": "AI skriver et nytt sammendrag fra materialet, notatene og ordlistene. Den nåværende teksten i sammendraget blir erstattet.",
+      "replace": "Erstatt"
+    }
+  },
+  "dictionary": {
+    "generate": {
+      "title": "Generer ord",
+      "text": "AI plukker ut ord som er verdt å lære fra teksten og legger dem til med oversettelse, uttale og et eksempel.",
+      "from": "Fra",
+      "materialContent": "📄 Innholdet i materialet",
+      "translateInto": "Oversett til",
+      "upTo": "Opptil",
+      "full": "Grensen for ord i denne ordlisten er nådd",
+      "fits_one": "Bare {{count}} ord til får plass i denne ordlisten",
+      "fits_other": "Bare {{count}} ord til får plass i denne ordlisten"
+    },
+    "add": "Legg til ordliste",
+    "addTitle": "Ny ordliste",
+    "limitReached": "Grensen for ordlister er nådd",
+    "description": "Beskrivelse",
+    "descriptionPlaceholder": "Beskrivelse...",
+    "descriptionAdd": "Legg til en kort beskrivelse...",
+    "addWord": "Legg til ord",
+    "addWordTitle": "Nytt ord",
+    "editWord": "Rediger ord",
+    "deleteWord": "Slett ord",
+    "wordsLimitReached": "Grensen for ord er nådd",
+    "wordsLimitHint_one": "Grensen er nådd: {{count}} ord i én ordliste",
+    "wordsLimitHint_other": "Grensen er nådd: {{count}} ord i én ordliste",
+    "dragToReorder": "Dra for å endre rekkefølgen",
+    "loadError": "Ordlisten kunne ikke lastes...",
+    "wordsCount_one": "{{count}} ord",
+    "wordsCount_other": "{{count}} ord",
+    "inFlashcards_one": "{{count}} i kortene",
+    "inFlashcards_other": "{{count}} i kortene",
+    "archive": "Skjul fra kortene",
+    "unarchive": "Tilbake til kortene",
+    "resetProgress": "Nullstill læringsfremgang",
+    "deleteWarning": "Ordlisten med alle ordene og fremgangen deres blir slettet.",
+    "translation": "Oversettelse",
+    "empty": {
+      "title": "Ingen ord ennå",
+      "text": "Legg til ord for hånd, eller la AI plukke dem fra materialet eller et notat."
+    },
+    "form": {
+      "term": "*Ord...",
+      "translation": "*Oversettelse...",
+      "transcription": "Uttale...",
+      "partOfSpeech": "Ordklasse...",
+      "example": "Eksempel...",
+      "exampleTranslation": "Oversettelse av eksempelet...",
+      "grammar": "Grammatikk (f.eks. flertall: mice)...",
+      "synonyms": "Synonymer, skilt med komma...",
+      "note": "Merknad..."
+    },
+    "partOfSpeech": {
+      "Noun": "substantiv",
+      "Pronoun": "pronomen",
+      "Verb": "verb",
+      "Adjective": "adjektiv",
+      "Adverb": "adverb",
+      "Preposition": "preposisjon",
+      "Conjunction": "konjunksjon",
+      "Interjection": "interjeksjon"
+    }
+  },
+  "attempts": {
+    "title": "Forsøk {{id}}",
+    "correctOf": "{{correct}} av {{total}} riktige",
+    "seeResults": "Se resultater",
+    "empty": {
+      "material": "Ingen forsøk på dette materialet ennå",
+      "note": "Ingen forsøk på dette notatet ennå",
+      "text": "Start selvforsvar i fanen Spørsmål: fullførte forsøk med poengsum dukker opp her."
+    }
+  },
+  "statistics": {
+    "accuracy": "Treffsikkerhet",
+    "noData": "Ingen data",
+    "answers_one": "{{count}} svar",
+    "answers_other": "{{count}} svar",
+    "levels": {
+      "strong": "Sterk total treffsikkerhet",
+      "fair": "Grei total treffsikkerhet",
+      "weak": "Svak total treffsikkerhet"
+    },
+    "duration": {
+      "hours": "{{hours}} t {{minutes}} min",
+      "minutes": "{{minutes}} min {{seconds}} s",
+      "seconds": "{{seconds}} s"
+    },
+    "overview": {
+      "materials": "Materialer",
+      "questions": "Spørsmål",
+      "attempts": "Forsøk",
+      "avgPerQuestion": "Snitt per spørsmål",
+      "totalTime": "Total studietid:"
+    },
+    "trend": {
+      "title": "Poeng over tid",
+      "band": "Det skraverte området viser ditt vanlige nivå",
+      "empty": "Ingen fullførte forsøk ennå — poengutviklingen vises etter det første.",
+      "delta": "{{delta}} mot forrige",
+      "chartLabel": "Linjediagram over gjennomsnittlig poengsum per dag",
+      "tooltipScore": "Poeng: {{score}} %",
+      "tooltipAttempts_one": "{{count}} forsøk",
+      "tooltipAttempts_other": "{{count}} forsøk"
+    },
+    "difficulty": {
+      "title": "Etter vanskelighetsgrad",
+      "subtitle": "Treffsikkerhet og gjennomsnittlig tid per svar"
+    },
+    "tags": {
+      "title": "Fokusområder",
+      "subtitle": "Svakeste temaer først",
+      "empty": "Legg til tagger på materialene dine for å se hvilke temaer som trenger mer arbeid.",
+      "accuracyOf": "Treffsikkerhet for {{tag}}"
+    },
+    "calibration": {
+      "title": "Kalibrering av selvtillit",
+      "empty": "Oppgi hvor sikker du er når du svarer, så ser du hvor godt du vet hva du kan.",
+      "matches": "Selvtilliten din stemmer med resultatene.",
+      "over": "Du er for sikker når du velger «{{level}}».",
+      "under": "Du undervurderer deg selv når du velger «{{level}}».",
+      "actual": "Faktisk treffsikkerhet: {{value}} %",
+      "overLegend": "For sikker",
+      "underLegend": "For usikker"
+    },
+    "streak": {
+      "inARow_one": "dag på rad",
+      "inARow_other": "dager på rad",
+      "longest_one": "Lengste rekke: {{count}} dag",
+      "longest_other": "Lengste rekke: {{count}} dager",
+      "todayDone": "dagen i dag er unnagjort ✅",
+      "todayNotYet": "ingenting studert i dag ennå",
+      "recent": "Siste {{days}} dager: {{count}} med studier"
+    }
+  },
+  "digest": {
+    "title": "Dagen din",
+    "subtitle": "Hva du bør repetere nå, hvordan rekka går og hvordan forrige uke gikk",
+    "today": {
+      "title": "I dag",
+      "due_one": "ord venter på repetisjon i dag",
+      "due_other": "ord venter på repetisjon i dag",
+      "onlyNew_one": "Ingenting å repetere — {{count}} nytt ord er klart til å læres",
+      "onlyNew_other": "Ingenting å repetere — {{count}} nye ord er klare til å læres",
+      "plusNew_one": "Pluss {{count}} nytt.",
+      "plusNew_other": "Pluss {{count}} nye.",
+      "clear": "Alt er repetert. Legg ord i en ordliste, så dukker de opp her 🌿",
+      "dueShort_one": "{{count}} å repetere",
+      "dueShort_other": "{{count}} å repetere",
+      "newShort_one": "{{count}} nytt",
+      "newShort_other": "{{count}} nye",
+      "cta": "Åpne materialene"
+    },
+    "streak": {
+      "title": "Rekke",
+      "safe": "Dagen i dag teller allerede. Vi ses i morgen 🎉",
+      "atRisk_one": "Rekka di på {{count}} dag tar slutt i kveld — én kort økt redder den 🔥",
+      "atRisk_other": "Rekka di på {{count}} dager tar slutt i kveld — én kort økt redder den 🔥",
+      "keep": "Studer litt i dag for å holde den i gang",
+      "start": "Fullfør et forsøk eller repeter noen kort for å starte en ny rekke"
+    },
+    "weekly": {
+      "title": "Forrige uke",
+      "none": "Det første ukesammendraget kommer mandag morgen. Studer litt denne uka for å gjøre det spennende 📬",
+      "studyDays": "Studiedager",
+      "accuracy": "Treffsikkerhet",
+      "reviews": "Kort repetert",
+      "attempts": "Forsøk",
+      "weakest": "Temaer å ta opp igjen"
+    },
+    "inbox": {
+      "title": "Påminnelser og sammendrag",
+      "empty": "Ingenting her ennå. Påminnelser og ukesammendrag dukker opp her når de er klare.",
+      "daily_one": "{{count}} ord ventet på repetisjon",
+      "daily_other": "{{count}} ord ventet på repetisjon",
+      "streak_one": "Rekka di på {{count}} dag var i fare",
+      "streak_other": "Rekka di på {{count}} dager var i fare",
+      "weekly": "Ukesammendrag · {{range}}",
+      "markAll_one": "Merk {{count}} som lest",
+      "markAll_other": "Merk alle {{count}} som lest"
+    },
+    "settings": {
+      "title": "Påminnelser på e-post",
+      "text": "Av som standard. Slå på bare det du vil motta — du kan slå det av når som helst.",
+      "daily": {
+        "title": "Daglig repetisjon",
+        "text": "Kl. 9.00 din tid, når ord venter på repetisjon"
+      },
+      "streak": {
+        "title": "Rekka i fare",
+        "text": "Kl. 20.00 din tid, bare hvis du ikke har studert den dagen"
+      },
+      "weekly": {
+        "title": "Ukesammendrag",
+        "text": "Mandag morgen: rekke, treffsikkerhet og svakeste temaer"
+      },
+      "consent": "E-postene sendes til {{email}}. Ved å slå på en bryter godtar du å motta disse e-postene.",
+      "noEmail": "Kontoen din har ingen e-postadresse, så påminnelser vises bare på denne siden.",
+      "saved": "Innstillingene for påminnelser er lagret",
+      "error": "Kunne ikke lagre innstillingene for påminnelser"
+    }
+  },
+  "library": {
+    "eyebrow": "Kuratert, bare for lesing",
+    "title": "Bibliotek",
+    "subtitle": "Gjennomgåtte materialer du kan lese, lære av og legge til dine egne. Hvert av dem ble sjekket før det kom hit.",
+    "share": "Del materialet ditt",
+    "sendMaterial": "Til biblioteket",
+    "fromLibrary": "Fra biblioteket",
+    "searchPlaceholder": "Søk etter tittel eller forfatter",
+    "filters": {
+      "all": "Alle"
+    },
+    "by": "av {{name}}",
+    "yours": "Ditt",
+    "inYourMaterials": "I materialene dine",
+    "imports_one": "{{count}} import",
+    "imports_other": "{{count}} importer",
+    "counts": {
+      "notes_one": "{{count}} notat",
+      "notes_other": "{{count}} notater",
+      "questions_one": "{{count}} spørsmål",
+      "questions_other": "{{count}} spørsmål",
+      "words_one": "{{count}} ord",
+      "words_other": "{{count}} ord"
+    },
+    "pagination": "Sider i biblioteket",
+    "page": "Side {{page}} av {{pages}}",
+    "prev": "Forrige",
+    "next": "Neste",
+    "loadError": "Biblioteket kunne ikke lastes, last inn siden på nytt.",
+    "empty": {
+      "title": "Biblioteket har akkurat åpnet",
+      "text": "Bli den første som deler et materiale: etter en rask gjennomgang dukker det opp her for alle."
+    },
+    "notFound": {
+      "title": "Ingenting funnet",
+      "text": "Prøv et annet ord eller en annen type."
+    },
+    "import": "Legg til i materialene mine",
+    "importing": "Legger til...",
+    "importAgain": "Legg til en kopi til",
+    "alreadyImported": "Du har allerede en kopi",
+    "requests": {
+      "title": "Forespørslene dine",
+      "types": {
+        "Publish": "Ny",
+        "Update": "Oppdatering",
+        "Remove": "Fjerning"
+      },
+      "statuses": {
+        "Pending": "Venter på gjennomgang",
+        "Approved": "Godkjent",
+        "Rejected": "Avslått",
+        "Cancelled": "Avbrutt"
+      },
+      "cancel": "Avbryt",
+      "reviewComment": "Gjennomgang: {{comment}}",
+      "reasons": {
+        "Content": "Innholdet passer ikke i biblioteket. Det kan være utenfor tema, ufullstendig eller kopiert.",
+        "Title": "Velg en tydeligere tittel og send på nytt.",
+        "Nickname": "Velg et annet forfatternavn og send på nytt.",
+        "Other": "Forespørselen ble ikke godkjent."
+      }
+    },
+    "submit": {
+      "title": "Del med biblioteket",
+      "text": "En kopi av materialet sendes slik det er nå: tekst, notater, spørsmål og ordlister. Etter gjennomgang dukker det opp i biblioteket og kan ikke redigeres av noen. Send en oppdatering hvis du vil endre det senere.",
+      "updateTitle": "Send en oppdatering",
+      "updateText": "Bibliotekmaterialet erstattes med en kopi av materialet du velger, etter gjennomgang. Til da ser leserne den nåværende versjonen.",
+      "material": "Materiale",
+      "chooseMaterial": "Velg et materiale",
+      "nickname": "Forfatternavn",
+      "nicknamePlaceholder": "Slik ser leserne deg",
+      "nicknameHint": "Vises for alle lesere. Kontoen og e-posten din forblir private.",
+      "comment": "Merknad til den som gjennomgår (valgfritt)",
+      "commentPlaceholder": "Alt som hjelper med gjennomgangen",
+      "send": "Send til gjennomgang"
+    },
+    "author": {
+      "title": "Materialet ditt i biblioteket",
+      "text": "Bibliotekmaterialer kan ikke redigeres. Send en ny versjon eller be om å få det fjernet: begge gjennomgås først.",
+      "updatePending": "Oppdateringen din venter på gjennomgang",
+      "removalPending": "Forespørselen din om fjerning venter på gjennomgang",
+      "update": "Send en oppdatering",
+      "remove": "Be om fjerning",
+      "removeTitle": "Fjerne det fra biblioteket?",
+      "removeText": "Etter gjennomgang forsvinner materialet fra biblioteket. Kopier som leserne allerede har lagt til, blir hos dem.",
+      "removeConfirm": "Be om fjerning"
+    },
+    "reader": {
+      "back": "Bibliotek",
+      "published": "Publisert {{date}}",
+      "updated": "Oppdatert {{date}}",
+      "source": "Opprinnelig kilde",
+      "contents": "I dette materialet",
+      "sections": {
+        "notes": "Notater",
+        "questions": "Spørsmål",
+        "dictionaries": "Ordlister"
+      },
+      "summary": "Sammendrag",
+      "noContent": "Ingen tekst her.",
+      "demo": "Bare for lesing: legg materialet til dine egne for å svare på spørsmålene og øve på ordene.",
+      "showAnswer": "Vis svaret",
+      "hideAnswer": "Skjul svaret",
+      "answer": "Svar",
+      "explanation": "Hvorfor",
+      "correct": "riktig",
+      "synonyms": "Synonymer: {{list}}",
+      "unavailable": "Dette materialet finnes ikke i biblioteket",
+      "unavailableText": "Det kan ha blitt fjernet, eller lenken er feil."
+    },
+    "toasts": {
+      "imported": "Lagt til i materialene dine!",
+      "importError": "Materialet kunne ikke legges til, prøv igjen",
+      "sentPublish": "Sendt til gjennomgang. Resultatet ser du under «Forespørslene dine»",
+      "sentUpdate": "Oppdateringen er sendt til gjennomgang",
+      "sentRemove": "Forespørselen om fjerning er sendt til gjennomgang",
+      "cancelled": "Forespørselen er avbrutt"
+    },
+    "errors": {
+      "tooManyPending": "Du har for mange forespørsler som venter på gjennomgang. Vent på dem eller avbryt én",
+      "alreadyPending": "En forespørsel om dette materialet venter allerede på gjennomgang",
+      "tooLarge": "Materialet er for stort for biblioteket. Prøv færre eller mindre bilder",
+      "fromLibrary": "Materialer lagt til fra biblioteket kan ikke sendes tilbake dit",
+      "nickname": "Bruk 2 til 40 bokstaver, sifre, mellomrom eller _ . ' -",
+      "notFound": "Materialet ble ikke funnet",
+      "generic": "Noe gikk galt, prøv igjen"
+    }
+  }
+}

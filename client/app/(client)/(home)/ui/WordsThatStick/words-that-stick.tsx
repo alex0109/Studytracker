@@ -1,4 +1,7 @@
+"use client";
+
 import { FC } from "react";
+import { useTranslation } from "@/shared/i18n";
 import { LuArrowDown, LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import { cn } from "@/shared/lib";
 import { Reveal } from "../Reveal";
@@ -8,39 +11,38 @@ import { FlashcardsDemo } from "./flashcards-demo";
 const RULES = [
   {
     icon: LuArrowLeft,
-    swipe: "Don't know",
-    result: "comes back in a minute",
-    styles: "bg-red-100 text-red-600",
+    key: "dontKnow",
+    styles: "bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400",
   },
   {
     icon: LuArrowDown,
-    swipe: "Not sure",
-    result: "comes back again soon",
-    styles: "bg-amber-100 text-amber-600",
+    key: "unsure",
+    styles: "bg-amber-100 text-amber-600 dark:bg-amber-950/60 dark:text-amber-400",
   },
   {
     icon: LuArrowRight,
-    swipe: "Know",
-    result: "waits longer every time you get it right",
-    styles: "bg-emerald-100 text-emerald-700",
+    key: "know",
+    styles: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400",
   },
-];
+] as const;
 
 export const WordsThatStick: FC = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="grid w-full max-w-6xl items-center gap-12 px-4 lg:grid-cols-2">
       <Reveal className="flex flex-col gap-8">
         <SectionHeading
           align="left"
-          eyebrow="Dictionaries & flashcards"
-          title="Words that stick."
-          text="Every material can have its own dictionary: words with translation, transcription, part of speech, examples and synonyms. Flashcards bring them back right before you would forget them."
+          eyebrow={t("landing.words.eyebrow")}
+          title={t("landing.words.title")}
+          text={t("landing.words.text")}
         />
         <ul className="flex flex-col gap-3">
           {RULES.map((rule) => (
             <li
-              key={rule.swipe}
-              className="flex items-center gap-3 rounded-2xl border border-white bg-white/70 p-3 backdrop-blur"
+              key={rule.key}
+              className="flex items-center gap-3 rounded-2xl border border-white bg-white/70 p-3 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70"
             >
               <span
                 className={cn(
@@ -50,19 +52,17 @@ export const WordsThatStick: FC = () => {
               >
                 <rule.icon />
               </span>
-              <span className="text-neutral-700">
-                <span className="font-semibold text-neutral-900">
-                  {rule.swipe}
+              <span className="text-neutral-700 dark:text-neutral-300">
+                <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+                  {t(`flashcards.answers.${rule.key}`)}
                 </span>{" "}
-                {rule.result}
+                {t(`landing.words.rules.${rule.key}`)}
               </span>
             </li>
           ))}
         </ul>
-        <p className="text-sm text-neutral-500">
-          Reviews are scheduled by FSRS, a modern spaced repetition
-          algorithm that learns how fast you forget. Your time goes to the
-          words you actually struggle with.
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          {t("landing.words.fsrs")}
         </p>
       </Reveal>
 

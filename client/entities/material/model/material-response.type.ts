@@ -19,7 +19,9 @@ export interface IMaterialResponse {
   createdAt: Date;
   updatedAt: Date;
   version: number;
-  // Copy received through a share link
+  // Copy received through a share link or from the library
   isImported?: boolean;
+  // Copy of a library material
+  isFromLibrary?: boolean;
   importedAt?: Date;
 }

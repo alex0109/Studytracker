@@ -15,7 +15,6 @@ export const useMaterialsByTag = (tagId: string) => {
     queryKey: tagKeys.all,
     queryFn: () => getMaterialsByTag(token, tagId),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

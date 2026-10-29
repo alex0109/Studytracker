@@ -2,7 +2,7 @@
 
 import { AddTag } from "@/features/tag/create-tag";
 import { BlockColumn, Title } from "@/shared/ui";
-import { AddMaterial } from "@/features/material/create-material/ui";
+import { AddMaterialBlock } from "@/features/material/create-material/ui";
 import { useTagsAll } from "@/entities/tag";
 import { DeleteTagsList } from "@/features/tag/delete-tag";
 
@@ -21,7 +21,7 @@ export const AddTagAndMaterial = () => {
           <div>
             <Title text="Add new material" />
             <div className="flex justify-center items-center">
-              <AddMaterial />
+              <AddMaterialBlock />
             </div>
           </div>
         </div>

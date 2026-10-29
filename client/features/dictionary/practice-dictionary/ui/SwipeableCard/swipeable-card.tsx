@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import {
   animate,
@@ -30,12 +32,13 @@ const EXIT_TARGETS: Record<FlashcardAnswerEnum, { x: number; y: number }> = {
 };
 
 const stampStyles =
-  "pointer-events-none absolute rounded-xl border-3 bg-white/80 px-3 py-1 text-lg font-bold uppercase";
+  "pointer-events-none absolute rounded-xl border-3 bg-white/80 dark:bg-neutral-900/80 px-3 py-1 text-lg font-bold uppercase";
 
 export const SwipeableCard = forwardRef<
   ISwipeableCardHandle,
   SwipeableCardProps
 >(({ entry, isFlipped, onFlip, onAnswer }, ref) => {
+    const { t } = useTranslation();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -105,19 +108,19 @@ export const SwipeableCard = forwardRef<
         style={{ opacity: knowOpacity }}
         className={`${stampStyles} top-6 left-6 -rotate-12 border-emerald-600 text-emerald-600`}
       >
-        Know
+        {t("flashcards.answers.know")}
       </motion.div>
       <motion.div
         style={{ opacity: dontKnowOpacity }}
         className={`${stampStyles} top-6 right-6 rotate-12 border-red-500 text-red-500`}
       >
-        Don&apos;t know
+        {t("flashcards.answers.dontKnow")}
       </motion.div>
       <motion.div
         style={{ opacity: unsureOpacity }}
         className={`${stampStyles} bottom-12 left-1/2 -translate-x-1/2 border-amber-500 text-amber-500`}
       >
-        Not sure
+        {t("flashcards.answers.unsure")}
       </motion.div>
     </motion.div>
   );

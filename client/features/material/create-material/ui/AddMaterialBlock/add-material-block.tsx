@@ -43,7 +43,7 @@ export const AddMaterialBlock: FC = () => {
         <div className="flex gap-2 flex-col justify-center w-[50%] p-2">
           <select
             {...register("type")}
-            className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
+            className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
           >
             <option value="article">📄Article</option>
             <option value="video">▶️Video</option>
@@ -54,7 +54,7 @@ export const AddMaterialBlock: FC = () => {
         <div className="flex gap-2 flex-col justify-center w-[50%] p-2">
           <select
             {...register("status")}
-            className="bg-gray-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
+            className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
           >
             <option value="tolearn">Want to learn</option>
             <option value="inprocess">In process</option>

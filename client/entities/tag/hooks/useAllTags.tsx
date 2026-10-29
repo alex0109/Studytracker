@@ -15,7 +15,6 @@ export const useTagsAll = () => {
     queryKey: tagKeys.all,
     queryFn: () => getAllTags(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

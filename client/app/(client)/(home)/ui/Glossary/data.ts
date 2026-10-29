@@ -11,56 +11,56 @@ import {
   LuTag,
 } from "react-icons/lu";
 
+// Texts are translation keys under "landing.glossary.items.<key>"
 export interface IGlossaryItem {
-  name: string;
+  key:
+    | "material"
+    | "note"
+    | "question"
+    | "dictionary"
+    | "flashcard"
+    | "selfDefending"
+    | "score"
+    | "statistics"
+    | "tag";
   icon: IconType;
-  text: string;
 }
 
 export const glossary: IGlossaryItem[] = [
   {
-    name: "Material",
+    key: "material",
     icon: LuFileText,
-    text: "Anything you study: an article, video, practice or test. Has a status and tags.",
   },
   {
-    name: "Note",
+    key: "note",
     icon: LuNotebookPen,
-    text: "Your own text or drawing inside a material, plus one summary of it. Notes can have their own questions.",
   },
   {
-    name: "Question",
+    key: "question",
     icon: LuCircleHelp,
-    text: "Open, options with one or more right answers, or true/false. Easy, medium or hard.",
   },
   {
-    name: "Dictionary",
+    key: "dictionary",
     icon: LuBookA,
-    text: "The words of a material with translation, transcription, examples and synonyms.",
   },
   {
-    name: "Flashcard",
+    key: "flashcard",
     icon: LuLayers,
-    text: "A dictionary word in practice. Your answer decides when you see it again.",
   },
   {
-    name: "Self defending",
+    key: "selfDefending",
     icon: LuShieldCheck,
-    text: "A quiz over a material's questions, with your confidence recorded for every answer.",
   },
   {
-    name: "Score",
+    key: "score",
     icon: LuGauge,
-    text: "Weighted average of your answers, 0 to 100. Hard questions count three times.",
   },
   {
-    name: "Statistics",
+    key: "statistics",
     icon: LuChartSpline,
-    text: "Trend, streak, accuracy, confidence calibration and your weakest topics over time.",
   },
   {
-    name: "Tag",
+    key: "tag",
     icon: LuTag,
-    text: "A label that groups materials and shows which topics need the most work.",
   },
 ];

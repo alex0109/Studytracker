@@ -15,7 +15,6 @@ export const useStatisticsConfidenceCalibration = () => {
     queryKey: statisticsKeys.confidenceLevel(),
     queryFn: () => getConfidenceCalibration(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

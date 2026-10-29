@@ -10,6 +10,8 @@ import { useAttemptSubmitAnswer } from "@/features/attempt/submit-answer";
 import { IOption, QuestionTypeEnum } from "@/entities/question";
 import { IConfidenceLevel } from "@/entities/attempt/model/confidence-level";
 import { ISavedAnswer } from "../../model/saved-answer.type";
+import { useTranslation } from "@/shared/i18n";
+import { isTrueFalseName } from "@/entities/question";
 
 interface AttemptQuestionProps {
   questionId: string;
@@ -24,17 +26,19 @@ interface AttemptQuestionProps {
   onAnswered: (answer: ISavedAnswer) => void;
 }
 
-const CONFIDENCE_OPTIONS: { value: IConfidenceLevel; label: string }[] = [
-  { value: IConfidenceLevel.Low, label: "Not sure" },
-  { value: IConfidenceLevel.Medium, label: "Fairly sure" },
-  { value: IConfidenceLevel.High, label: "Confident" },
-];
+// Labels are translation keys under "attempt.confidence"
+const CONFIDENCE_OPTIONS = [
+  { value: IConfidenceLevel.Low, key: "low" },
+  { value: IConfidenceLevel.Medium, key: "medium" },
+  { value: IConfidenceLevel.High, key: "high" },
+] as const;
 
-const TYPE_HINTS: Partial<Record<QuestionTypeEnum, string>> = {
-  [QuestionTypeEnum.Open]: "Write your answer",
-  [QuestionTypeEnum.Options]: "Choose all correct answers",
-  [QuestionTypeEnum.TrueFalse]: "True or false?",
-};
+const TYPE_HINTS = {
+  [QuestionTypeEnum.Open]: "attempt.hints.open",
+  [QuestionTypeEnum.Options]: "attempt.chooseAll",
+  [QuestionTypeEnum.TrueFalse]: "attempt.hints.trueFalse",
+  [QuestionTypeEnum.Flashcard]: "attempt.hints.open",
+} as const;
 
 export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   questionId,
@@ -47,6 +51,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   isMissing,
   onAnswered,
 }) => {
+  const { t } = useTranslation();
   const isTrueFalse = questionType === QuestionTypeEnum.TrueFalse;
   const isChoice = questionType === QuestionTypeEnum.Options || isTrueFalse;
 
@@ -84,12 +89,12 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
 
   const onSubmit = async () => {
     if (isChoice && selectedOptionIds.length === 0) {
-      setError("Choose an answer first");
+      setError(t("attempt.errors.choose"));
       return;
     }
 
     if (!isChoice && !text.trim()) {
-      setError("Write an answer first");
+      setError(t("attempt.errors.write"));
       return;
     }
 
@@ -122,7 +127,11 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
 
   const savedOptionNames = options
     .filter((option) => savedAnswer?.optionIds.includes(option.id))
-    .map((option) => option.name);
+    .map((option) =>
+      isTrueFalseName(option.name)
+        ? t(option.name === "True" ? "questions.true" : "questions.false")
+        : option.name,
+    );
 
   return (
     <motion.section
@@ -154,7 +163,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
             {title}
           </h3>
           <span className="text-sm text-neutral-500">
-            {TYPE_HINTS[questionType]}
+            {t(TYPE_HINTS[questionType])}
           </span>
         </div>
       </header>
@@ -181,7 +190,9 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
                 )}
               >
                 {isTrue ? <LuCheck /> : <LuX />}
-                {option.name}
+                {isTrueFalseName(option.name)
+                  ? t(isTrue ? "questions.true" : "questions.false")
+                  : option.name}
               </button>
             );
           })}
@@ -230,7 +241,8 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
             setError(undefined);
             setText(e.target.value);
           }}
-          placeholder="Write down what you remember about this question..."
+          placeholder={t("attempt.answerPlaceholder")}
+          aria-label={t("attempt.answerLabel")}
           inputStyles="h-40 w-full bg-neutral-100 p-4 dark:bg-neutral-800"
           maxLength={1000}
         />
@@ -239,7 +251,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-1.5">
           <span className="text-xs text-neutral-500">
-            How confident are you?
+            {t("attempt.confidenceShort")}
           </span>
           <div className="inline-flex w-fit rounded-full bg-neutral-100 p-1 dark:bg-neutral-800">
             {CONFIDENCE_OPTIONS.map((option) => (
@@ -255,7 +267,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
                     : "text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200",
                 )}
               >
-                {option.label}
+                {t(`attempt.confidence.${option.key}`)}
               </button>
             ))}
           </div>
@@ -269,11 +281,11 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
         >
           {submitAnswerIsPending
             ? isChoice
-              ? "Saving..."
-              : "Checking..."
+              ? t("attempt.saving")
+              : t("attempt.checking")
             : savedAnswer
-              ? "Update answer"
-              : "Save answer"}
+              ? t("attempt.update")
+              : t("attempt.save")}
         </Button>
       </div>
 
@@ -282,11 +294,10 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
       {savedAnswer && (
         <div className="flex flex-col gap-2 rounded-xl bg-emerald-50 p-3 dark:bg-emerald-950/40">
           <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
-            <LuCircleCheck /> Your answer is saved
+            <LuCircleCheck /> {t("attempt.saved")}
             {savedAnswer.changes > 0 && (
               <span className="font-normal text-emerald-700/70 dark:text-emerald-300/70">
-                · changed {savedAnswer.changes}{" "}
-                {savedAnswer.changes === 1 ? "time" : "times"}
+                · {t("attempt.changed", { count: savedAnswer.changes })}
               </span>
             )}
           </p>
@@ -307,7 +318,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
             </p>
           )}
           <p className="text-xs text-neutral-500">
-            You can change it until you finish the attempt.
+            {t("attempt.canChange")}
           </p>
         </div>
       )}

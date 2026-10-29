@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { Modal, Title } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
@@ -20,6 +22,7 @@ export const DictionaryDeleteModal: FC<DictionaryDeleteModalProps> = ({
   setOpen,
   onDeleted,
 }) => {
+  const { t } = useTranslation();
   const { deleteDictionary, deleteDictionaryIsPending } = useDictionaryDelete(
     materialId,
     dictionaryId,
@@ -37,14 +40,15 @@ export const DictionaryDeleteModal: FC<DictionaryDeleteModalProps> = ({
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
-        <Title text="Are you sure?" />
+        <Title text={t("common.areYouSure")} />
+        <p className="text-center text-sm text-neutral-500">{t("dictionary.deleteWarning")}</p>
         <Button
           size="lg"
           variant="destructive"
           disabled={deleteDictionaryIsPending}
           onClick={() => handleDeleteDictionary()}
         >
-          Delete
+          {t("common.delete")}
         </Button>
       </div>
     </Modal>

@@ -22,14 +22,14 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
         align === "center" ? "items-center text-center mx-auto" : "items-start",
       )}
     >
-      <span className="inline-flex items-center gap-2 rounded-full border border-white bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-wider text-neutral-500 shadow-sm backdrop-blur">
+      <span className="inline-flex items-center gap-2 rounded-full border border-white bg-white/70 px-3 py-1 text-xs font-medium uppercase tracking-wider text-neutral-500 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-400">
         {eyebrow}
       </span>
-      <h2 className="text-3xl! md:text-5xl! font-semibold! tracking-tight text-neutral-900 text-balance">
+      <h2 className="text-3xl! md:text-5xl! font-semibold! tracking-tight text-neutral-900 text-balance dark:text-neutral-50">
         {title}
       </h2>
       {text && (
-        <p className="text-base md:text-lg text-neutral-600 text-pretty">
+        <p className="text-base md:text-lg text-neutral-600 text-pretty dark:text-neutral-400">
           {text}
         </p>
       )}

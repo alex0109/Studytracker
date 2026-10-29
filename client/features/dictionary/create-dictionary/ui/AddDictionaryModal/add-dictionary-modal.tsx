@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -27,6 +29,7 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
   materialId,
   enabled,
 }) => {
+  const { t } = useTranslation();
   const { dictionariesData } = useDictionaryAll(materialId, enabled);
   const { limitsData } = useLimits();
 
@@ -68,13 +71,13 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
           <LuPlus />
         </div>
         <div>
-          <p>{isFull ? "Dictionaries limit reached" : "Add Dictionary"}</p>
+          <p>{isFull ? t("dictionary.limitReached") : t("dictionary.add")}</p>
         </div>
         {dictionariesData && (
           <LimitCounter
             used={dictionariesCount}
             max={limitsData?.maxDictionariesPerMaterial}
-            label="dictionaries in this material"
+            label={t("limits.counter.dictionaries")}
             className="ml-auto"
           />
         )}
@@ -82,18 +85,19 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="md:w-[400px] w-[300px]">
-          <Title text="Add new dictionary" />
+          <Title text={t("dictionary.addTitle")} />
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="flex flex-col w-full justify-center items-center"
           >
             <div className="w-full">
               <CustomInput
-                placeholder="*Title..."
+                placeholder={t("materials.titlePlaceholder")}
+                aria-label={t("materials.titleLabel")}
                 maxLength={70}
                 {...register<"title">("title", {
-                  required: "Required",
-                  validate: (value) => value.trim().length > 0 || "Required",
+                  required: t("common.required"),
+                  validate: (value) => value.trim().length > 0 || t("common.required"),
                 })}
                 error={errors.title?.message}
               />
@@ -102,7 +106,8 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
               <TextArea
                 inputBlockStyles="mt-2"
                 inputStyles="h-[120px] px-4 py-2"
-                placeholder="Description..."
+                placeholder={t("dictionary.descriptionPlaceholder")}
+                aria-label={t("dictionary.description")}
                 maxLength={500}
                 {...register<"description">("description")}
               />
@@ -116,7 +121,7 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
                   className="w-30"
                   disabled={createDictionaryIsPending}
                 >
-                  Create
+                  {t("common.create")}
                 </Button>
               </div>
               <div className="flex-1">

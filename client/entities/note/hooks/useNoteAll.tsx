@@ -12,10 +12,9 @@ export const useNotesAll = (materialId: string) => {
   const { token, user } = useSession();
 
   const notes = useQuery<INoteResponse[]>({
-    queryKey: notesKeys.all,
+    queryKey: notesKeys.list(materialId),
     queryFn: () => getAllNotes(token, materialId),
     enabled: !!materialId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

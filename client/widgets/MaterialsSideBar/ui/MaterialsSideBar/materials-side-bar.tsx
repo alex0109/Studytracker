@@ -12,13 +12,13 @@ import {
 } from "@/shared/components/ui/sheet";
 import * as Accordion from "@radix-ui/react-accordion";
 import styles from "@/shared/ui/Accordion/styles.module.css";
-import { IMaterialResponse, useMaterialAll } from "@/entities/material";
+import { useMaterialAll, usePrefetchMaterial } from "@/entities/material";
+import { usePrefetchNote } from "@/entities/note/hooks";
 import { MaterialsSidebarSectionEnum } from "../../lib/materials-sidebar-enum";
 import { AddMaterialModal } from "@/features/material/create-material/ui";
 import { AddNoteModal } from "@/features/note/create-note";
 import { AddDictionaryModal } from "@/features/dictionary/create-dictionary";
 import { EmptySection } from "../EmptySection/empty-section";
-import { INoteResponse } from "@/entities/note/model";
 import { IDictionaryResponse } from "@/entities/dictionary";
 import { MaterialContent } from "@/widgets/MaterialContent";
 import { NotesContent } from "@/widgets/NotesContent";
@@ -27,29 +27,40 @@ import { MaterialDictionaries } from "../MaterialDictionaries/material-dictionar
 import { Skeleton } from "@/shared/radix-ui";
 import {
   LuDownload,
+  LuFolderPlus,
+  LuLibrary,
   LuMenu,
   LuNotebookPen,
   LuPencil,
   LuScrollText,
 } from "react-icons/lu";
+import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib/utils";
-import { useScreenInfo } from "@/shared/hooks/use-mobile";
+import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { motion } from "framer-motion";
 
 export const MaterialsSideBar: FC = () => {
-  const { isDesktop } = useScreenInfo();
+  const { t } = useTranslation();
+  // Same breakpoint as Tailwind's lg; re-renders only when it is crossed
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const [activeSidebarSection, setActiveSidebarSection] =
     useState<MaterialsSidebarSectionEnum>(MaterialsSidebarSectionEnum.Empty);
 
   const { materialsData, materialsIsPending } = useMaterialAll();
+  const prefetchMaterial = usePrefetchMaterial();
+  const prefetchNote = usePrefetchNote();
 
-  const [activeMaterial, setActiveMaterial] = useState<
-    IMaterialResponse | undefined
-  >(undefined);
-  const [activeNote, setActiveNote] = useState<INoteResponse | undefined>(
-    undefined,
+  // Ids, not copies: a copy taken at the click went stale after edits, so new tags,
+  // titles and statuses didn't show until the material was clicked again
+  const [activeMaterialId, setActiveMaterialId] = useState<string>();
+  const [activeNoteId, setActiveNoteId] = useState<string>();
+  const activeMaterial = materialsData?.find(
+    (material) => material.id === activeMaterialId,
+  );
+  const activeNote = activeMaterial?.notes?.find(
+    (note) => note.id === activeNoteId,
   );
   const [activeDictionary, setActiveDictionary] = useState<
     IDictionaryResponse | undefined
@@ -82,6 +93,20 @@ export const MaterialsSideBar: FC = () => {
           </div>
         )}
 
+        {materialsData && materialsData.length === 0 && (
+          <div className="mt-4 flex flex-col items-center gap-2 rounded-2xl border border-dashed border-neutral-300 p-5 text-center dark:border-neutral-700">
+            <span className="flex size-10 items-center justify-center rounded-xl bg-neutral-200 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300">
+              <LuFolderPlus aria-hidden />
+            </span>
+            <p className="font-medium text-neutral-800 dark:text-neutral-100">
+              {t("materials.sidebar.emptyTitle")}
+            </p>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              {t("materials.sidebar.emptyText")}
+            </p>
+          </div>
+        )}
+
         {materialsData &&
           materialsData.map((item) => (
             <Accordion.Item
@@ -90,15 +115,21 @@ export const MaterialsSideBar: FC = () => {
               value={item.id}
             >
               <AccordionTrigger
+                onMouseEnter={() => prefetchMaterial(item.id)}
+                onFocus={() => prefetchMaterial(item.id)}
                 onClick={() => {
-                  setActiveMaterial(item);
+                  setActiveMaterialId(item.id);
                   setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
-                  setActiveNote(undefined);
+                  setActiveNoteId(undefined);
                   setActiveDictionary(undefined);
                 }}
-                className="flex w-full justify-start items-start hover:bg-neutral-900/10 p-2"
+                className={cn(
+                  "flex w-full justify-start items-start rounded-xl transition-colors hover:bg-neutral-900/10 dark:hover:bg-white/10 p-2",
+                  activeMaterial?.id === item.id &&
+                    "bg-neutral-900/5 dark:bg-white/5",
+                )}
               >
-                <div className="flex w-full">
+                <div className="flex w-full min-w-0">
                   {activeMaterial?.id === item.id ? (
                     <motion.span
                       initial={{ x: -10, opacity: 0 }}
@@ -108,21 +139,32 @@ export const MaterialsSideBar: FC = () => {
                       {`>`}
                     </motion.span>
                   ) : null}
-                  <span className="px-2 group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50">
+                  {/* Long titles wrap to two lines: on one line they were cut off,
+                      and focusing the item scrolled the start of the title away */}
+                  <span
+                    title={item.title}
+                    className="min-w-0 px-2 py-1 text-left text-sm font-medium break-words line-clamp-2 select-none"
+                  >
                     {item.title}
                   </span>
-                  {item.isImported && (
+                  {item.isFromLibrary ? (
+                    <LuLibrary
+                      title={t("library.fromLibrary")}
+                      aria-label={t("library.fromLibrary")}
+                      className="ml-1 mt-2 shrink-0 text-emerald-600"
+                    />
+                  ) : item.isImported ? (
                     <LuDownload
-                      title="Imported"
-                      aria-label="Imported"
+                      title={t("materials.imported")}
+                      aria-label={t("materials.imported")}
                       className="ml-1 mt-2 shrink-0 text-sky-600"
                     />
-                  )}
+                  ) : null}
                 </div>
               </AccordionTrigger>
 
               <AccordionContent isOpen={accordionOpenValue === item.id}>
-                <div className="flex flex-col ml-5 pl-2 py-2 gap-2 border-l border-neutral-200">
+                <div className="flex flex-col ml-5 pl-2 py-2 gap-2 border-l border-neutral-200 dark:border-neutral-700">
                   <div className="flex justify-between items-center">
                     <AddNoteModal
                       materialId={item.id}
@@ -140,6 +182,12 @@ export const MaterialsSideBar: FC = () => {
                     />
                   </div>
 
+                  {(item.notes?.length ?? 0) === 0 && (
+                    <p className="px-3 text-xs text-neutral-400 dark:text-neutral-500">
+                      {t("materials.sidebar.noNotes")}
+                    </p>
+                  )}
+
                   {item.notes &&
                     item.notes.map((note) => (
                       <div
@@ -147,9 +195,11 @@ export const MaterialsSideBar: FC = () => {
                         className="flex justify-between items-center"
                       >
                         <Button
+                          onMouseEnter={() => prefetchNote(item.id, note.id)}
+                          onFocus={() => prefetchNote(item.id, note.id)}
                           onClick={() => {
-                            setActiveMaterial(item);
-                            setActiveNote(note);
+                            setActiveMaterialId(item.id);
+                            setActiveNoteId(note.id);
                             setActiveDictionary(undefined);
                             setActiveSidebarSection(
                               MaterialsSidebarSectionEnum.Notes,
@@ -158,8 +208,8 @@ export const MaterialsSideBar: FC = () => {
                           }}
                           variant="ghost"
                           className={cn(
-                            "w-full flex justify-start items-center hover:bg-neutral-900/10",
-                            activeNote?.id === note.id && "bg-neutral-900/5",
+                            "w-full flex justify-start items-center hover:bg-neutral-900/10 dark:hover:bg-white/10",
+                            activeNote?.id === note.id && "bg-neutral-900/5 dark:bg-white/5",
                           )}
                         >
                           {note.type === "text" ? (
@@ -179,8 +229,8 @@ export const MaterialsSideBar: FC = () => {
                     enabled={accordionOpenValue === item.id}
                     activeDictionaryId={activeDictionary?.id}
                     onSelect={(dictionary) => {
-                      setActiveMaterial(item);
-                      setActiveNote(undefined);
+                      setActiveMaterialId(item.id);
+                      setActiveNoteId(undefined);
                       setActiveDictionary(dictionary);
                       setActiveSidebarSection(
                         MaterialsSidebarSectionEnum.Dictionary,
@@ -207,11 +257,11 @@ export const MaterialsSideBar: FC = () => {
         title={activeMaterial.title}
         type={activeMaterial.type}
         link={activeMaterial.link}
-        content={activeMaterial.content}
         tags={activeMaterial.materialTags}
         status={activeMaterial.status}
         createdAt={activeMaterial.createdAt}
         isImported={activeMaterial.isImported}
+        isFromLibrary={activeMaterial.isFromLibrary}
         importedAt={activeMaterial.importedAt}
       />
     ) : activeSidebarSection === MaterialsSidebarSectionEnum.Notes &&
@@ -222,8 +272,6 @@ export const MaterialsSideBar: FC = () => {
         noteId={activeNote.id}
         assessmentId={activeMaterial.assessmentId}
         title={activeNote.title}
-        textContent={activeNote.textContent}
-        drawingContent={activeNote.drawingContent}
         type={activeNote.type}
       />
     ) : activeSidebarSection === MaterialsSidebarSectionEnum.Dictionary &&
@@ -242,22 +290,36 @@ export const MaterialsSideBar: FC = () => {
       <EmptySection />
     );
 
+  // Opening something else fades it in, so the pane doesn't just snap to new content
+  const contentKey = `${activeSidebarSection}:${activeMaterial?.id ?? ""}:${activeNote?.id ?? ""}:${activeDictionary?.id ?? ""}`;
+  const animatedContent = (
+    <motion.div
+      key={contentKey}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
+      className="flex w-full min-w-0 justify-center"
+    >
+      {content}
+    </motion.div>
+  );
+
   return (
-    <div className="my-3 bg-gray-100 rounded-xl h-full border-3 border-gray-50 w-full min-w-0 lg:w-[90%]">
+    <div className="my-3 bg-neutral-100 rounded-xl h-full border-3 border-neutral-50 w-full min-w-0 lg:w-[90%] dark:bg-neutral-900 dark:border-neutral-800">
       {isDesktop ? (
         <div className="flex w-full min-w-0">
           <div className="flex-1 min-h-[500px] p-3">{list}</div>
-          <div className="flex flex-3 justify-center items-start">
-            {content}
+          <div className="flex flex-3 min-w-0 justify-center items-start">
+            {animatedContent}
           </div>
         </div>
       ) : (
         <div className="flex flex-col w-full min-w-0">
-          <div className="p-3 border-b border-neutral-200">
+          <div className="p-3 border-b border-neutral-200 dark:border-neutral-800">
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" size="lg">
-                  <LuMenu /> Materials
+                  <LuMenu /> {t("nav.materials")}
                 </Button>
               </SheetTrigger>
               <SheetContent
@@ -268,7 +330,7 @@ export const MaterialsSideBar: FC = () => {
                   <SheetTitle>
                     <SheetTrigger asChild>
                       <Button variant="outline" size="lg">
-                        <LuMenu /> Materials
+                        <LuMenu /> {t("nav.materials")}
                       </Button>
                     </SheetTrigger>
                   </SheetTitle>
@@ -277,7 +339,7 @@ export const MaterialsSideBar: FC = () => {
               </SheetContent>
             </Sheet>
           </div>
-          {content}
+          {animatedContent}
         </div>
       )}
     </div>

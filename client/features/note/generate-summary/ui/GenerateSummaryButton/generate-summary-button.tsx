@@ -12,6 +12,7 @@ import {
   useAiUsage,
 } from "@/entities/ai";
 import { useSummaryGenerate } from "../../hooks/useSummaryGenerate";
+import { useTranslation } from "@/shared/i18n";
 
 interface GenerateSummaryButtonProps {
   materialId: string;
@@ -27,6 +28,7 @@ export const GenerateSummaryButton: FC<GenerateSummaryButtonProps> = ({
   hasContent,
   onGenerated,
 }) => {
+  const { t } = useTranslation();
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const { aiUsageData } = useAiUsage();
@@ -60,8 +62,8 @@ export const GenerateSummaryButton: FC<GenerateSummaryButtonProps> = ({
         >
           <LuSparkles />
           {generateSummaryIsPending
-            ? "Generating summary..."
-            : "Generate Summary"}
+            ? t("notes.summary.generating")
+            : t("notes.summary.generate")}
         </Button>
         <IsPendingLoader isPending={generateSummaryIsPending} />
       </div>
@@ -69,20 +71,17 @@ export const GenerateSummaryButton: FC<GenerateSummaryButtonProps> = ({
 
       <Modal open={confirmOpen} onClose={() => setConfirmOpen(false)}>
         <div className="md:w-[400px] w-[300px] flex flex-col gap-4">
-          <Title text="Replace summary?" />
-          <p className="text-sm text-neutral-500">
-            AI writes a new summary from the material, its notes and
-            dictionaries. The current text of this summary will be replaced.
-          </p>
+          <Title text={t("notes.summary.replaceTitle")} />
+          <p className="text-sm text-neutral-500">{t("notes.summary.replaceText")}</p>
           <div className="flex justify-end gap-2">
             <Button variant="ghost" onClick={() => setConfirmOpen(false)}>
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button
               className="bg-violet-700 hover:bg-violet-800"
               onClick={generate}
             >
-              Replace
+              {t("notes.summary.replace")}
             </Button>
           </div>
         </div>

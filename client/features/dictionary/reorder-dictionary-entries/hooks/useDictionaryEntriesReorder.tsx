@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import {
   dictionaryKeys,
   IDictionaryResponse,
@@ -11,6 +12,7 @@ import {
 } from "@/entities/dictionary";
 
 export const useDictionaryEntriesReorder = (dictionaryId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -53,7 +55,7 @@ export const useDictionaryEntriesReorder = (dictionaryId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while reordering words",
+        title: `❌${t("toasts.reorderError")}`,
         variant: "error",
       });
     },

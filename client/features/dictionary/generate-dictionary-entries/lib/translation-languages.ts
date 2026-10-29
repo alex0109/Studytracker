@@ -1,27 +1,31 @@
-// Names in English, the server accepts any language name
-export const TRANSLATION_LANGUAGES = [
-  "Ukrainian",
-  "English",
-  "German",
-  "French",
-  "Spanish",
-  "Italian",
-  "Polish",
-  "Portuguese",
-  "Czech",
-  "Japanese",
-  "Chinese",
-  "Korean",
-];
+// Target languages for word translations. The server gets the English name ("Ukrainian"),
+// the user sees the name in the language of the site
+export const TRANSLATION_LANGUAGE_CODES = [
+  "uk",
+  "en",
+  "nb",
+  "de",
+  "fr",
+  "es",
+  "it",
+  "pl",
+  "pt",
+  "cs",
+  "ja",
+  "zh",
+  "ko",
+] as const;
 
-// Language of the browser, so most users don't have to pick anything
-export const getBrowserLanguage = (): string => {
+export const languageName = (code: string, displayLocale: string): string => {
   try {
-    const code = navigator.language.split("-")[0];
-    const name = new Intl.DisplayNames(["en"], { type: "language" }).of(code);
-
-    return name && /^\p{L}[\p{L} -]{1,39}$/u.test(name) ? name : "English";
+    return new Intl.DisplayNames([displayLocale], { type: "language" }).of(code) ?? code;
   } catch {
-    return "English";
+    return code;
   }
+};
+
+// By default words are translated into the language the user reads the site in
+export const defaultTranslationCode = (siteLanguage: string): string => {
+  const code = siteLanguage.split("-")[0];
+  return (TRANSLATION_LANGUAGE_CODES as readonly string[]).includes(code) ? code : "en";
 };

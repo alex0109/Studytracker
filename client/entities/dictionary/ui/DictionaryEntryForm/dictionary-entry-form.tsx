@@ -6,6 +6,7 @@ import { CustomInput, IsPendingLoader, TextArea } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { IDictionaryEntryForm } from "../../model";
 import { partOfSpeechOptions } from "../../lib";
+import { useTranslation } from "react-i18next";
 
 interface DictionaryEntryFormProps {
   defaultValues?: IDictionaryEntryForm;
@@ -22,6 +23,7 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({
   resetOnSubmit,
   onSubmit,
 }) => {
+  const { t } = useTranslation();
   const {
     register,
     formState: { errors },
@@ -38,63 +40,71 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({
     <form onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col">
       <div className="grid md:grid-cols-2 grid-cols-1 md:gap-x-3">
         <CustomInput
-          placeholder="*Word..."
+          placeholder={t("dictionary.form.term")}
+          aria-label={t("dictionary.form.term")}
           maxLength={200}
           {...register<"term">("term", {
-            required: "Required",
-            validate: (value) => value.trim().length > 0 || "Required",
+            required: t("common.required"),
+            validate: (value) => value.trim().length > 0 || t("common.required"),
           })}
           error={errors.term?.message}
         />
         <CustomInput
-          placeholder="*Translation..."
+          placeholder={t("dictionary.form.translation")}
+          aria-label={t("dictionary.form.translation")}
           maxLength={200}
           {...register<"translation">("translation", {
-            required: "Required",
-            validate: (value) => value.trim().length > 0 || "Required",
+            required: t("common.required"),
+            validate: (value) => value.trim().length > 0 || t("common.required"),
           })}
           error={errors.translation?.message}
         />
         <CustomInput
-          placeholder="Transcription..."
+          placeholder={t("dictionary.form.transcription")}
+          aria-label={t("dictionary.form.transcription")}
           maxLength={200}
           {...register<"transcription">("transcription")}
         />
         <select
           {...register("partOfSpeech")}
-          className="bg-gray-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl text-[15px] cursor-pointer"
+          className="bg-neutral-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl text-[15px] cursor-pointer"
         >
-          <option value="">Part of speech...</option>
+          <option value="">{t("dictionary.form.partOfSpeech")}</option>
           {partOfSpeechOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
+            <option key={option} value={option}>
+              {t(`dictionary.partOfSpeech.${option}`)}
             </option>
           ))}
         </select>
         <CustomInput
-          placeholder="Example..."
+          placeholder={t("dictionary.form.example")}
+          aria-label={t("dictionary.form.example")}
           maxLength={500}
           {...register<"example">("example")}
         />
         <CustomInput
-          placeholder="Example translation..."
+          placeholder={t("dictionary.form.exampleTranslation")}
+          aria-label={t("dictionary.form.exampleTranslation")}
           maxLength={500}
           {...register<"exampleTranslation">("exampleTranslation")}
         />
         <CustomInput
-          placeholder="Grammar info (e.g. plural: mice)..."
+          placeholder={t("dictionary.form.grammar")}
+          aria-label={t("dictionary.form.grammar")}
           maxLength={300}
           {...register<"grammarInfo">("grammarInfo")}
         />
         <CustomInput
-          placeholder="Synonyms, comma separated..."
+          placeholder={t("dictionary.form.synonyms")}
+          aria-label={t("dictionary.form.synonyms")}
           {...register<"synonyms">("synonyms")}
         />
       </div>
       <TextArea
         inputBlockStyles="mt-2"
         inputStyles="h-[120px] px-4 py-2"
-        placeholder="Note..."
+        placeholder={t("dictionary.form.note")}
+        aria-label={t("dictionary.form.note")}
         maxLength={1000}
         defaultValue={defaultValues?.note}
         {...register<"note">("note")}

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { Modal, Title } from "@/shared/ui";
 import { Separator } from "@/shared/radix-ui";
@@ -21,6 +23,7 @@ export const AddEntryModal: FC<AddEntryModalProps> = ({
   open,
   setOpen,
 }) => {
+  const { t } = useTranslation();
   const { createEntry, createEntryIsPending } =
     useDictionaryEntryCreate(dictionaryId);
 
@@ -33,10 +36,10 @@ export const AddEntryModal: FC<AddEntryModalProps> = ({
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px] max-h-[80vh] overflow-y-auto">
         <div className="flex flex-col w-full justify-center">
-          <Title text="Add new word" />
+          <Title text={t("dictionary.addWordTitle")} />
           <Separator className="mb-3" />
           <DictionaryEntryForm
-            submitText="Add"
+            submitText={t("common.add")}
             isPending={createEntryIsPending}
             resetOnSubmit
             onSubmit={onFormSubmit}

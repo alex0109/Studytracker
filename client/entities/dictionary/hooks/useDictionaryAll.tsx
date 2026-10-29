@@ -15,7 +15,6 @@ export const useDictionaryAll = (materialId: string, enabled = true) => {
     queryKey: dictionaryKeys.list(materialId),
     queryFn: () => getAllDictionaries(token, materialId),
     enabled: enabled && !!materialId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

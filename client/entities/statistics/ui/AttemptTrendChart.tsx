@@ -12,7 +12,8 @@ import {
 import { ChartLine, TrendingDown, TrendingUp } from "lucide-react";
 import { useStatisticsAttemtTrend, useStatisticsOverview } from "../hooks";
 import { Card, CardEmpty, CardSkeleton, TooltipShell } from "./primitives";
-import { COLORS, formatShortDate } from "./tokens";
+import { COLORS, formatShortDate, useChartColors } from "./tokens";
+import { useTranslation } from "react-i18next";
 import { useChartAnimation } from "../lib/motion";
 
 type Row = {
@@ -29,13 +30,18 @@ function TrendTooltip({
   active?: boolean;
   payload?: { payload: Row }[];
 }) {
+  const { t } = useTranslation();
   if (!active || !payload?.length) return null;
   const row = payload[0].payload;
   return (
     <TooltipShell>
       <p className="mb-1 text-neutral-500">{row.label}</p>
-      <p className="font-medium text-neutral-50">Score: {row.score}%</p>
-      <p className="text-neutral-400">Attempts: {row.attempts}</p>
+      <p className="font-medium text-neutral-900 dark:text-neutral-50">
+        {t("statistics.trend.tooltipScore", { score: row.score })}
+      </p>
+      <p className="text-neutral-500 dark:text-neutral-400">
+        {t("statistics.trend.tooltipAttempts", { count: row.attempts })}
+      </p>
     </TooltipShell>
   );
 }
@@ -45,6 +51,8 @@ export function AttemptTrendChart() {
     useStatisticsAttemtTrend();
   const { statisticsOverviewData } = useStatisticsOverview();
   const animated = useChartAnimation();
+  const colors = useChartColors();
+  const { t, i18n } = useTranslation();
 
   if (statisticsAttemtTrendIsPending)
     return <CardSkeleton className="h-72 md:col-span-2" />;
@@ -56,7 +64,7 @@ export function AttemptTrendChart() {
       <CardEmpty
         className="h-72 md:col-span-2"
         icon={<ChartLine className="h-8 w-8" aria-hidden />}
-        text="No finished attempts yet — your score trend appears after the first one."
+        text={t("statistics.trend.empty")}
       />
     );
   }
@@ -69,7 +77,7 @@ export function AttemptTrendChart() {
       : [Math.max(0, mean - consistency), Math.min(100, mean + consistency)];
 
   const data: Row[] = trend.map((p) => ({
-    label: formatShortDate(new Date(p.date)),
+    label: formatShortDate(new Date(p.date), i18n.language),
     score: Math.round(p.averageScore * 10) / 10,
     attempts: p.attemptsCount,
     band,
@@ -84,15 +92,15 @@ export function AttemptTrendChart() {
   return (
     <Card
       className="md:col-span-2"
-      title="Score over time"
-      subtitle={band ? "Shaded area shows your typical range" : undefined}
+      title={t("statistics.trend.title")}
+      subtitle={band ? t("statistics.trend.band") : undefined}
       action={
         delta !== null && (
           <span
             className={`flex items-center gap-1 rounded-2xl px-3 py-1 text-sm font-medium ${
               up
-                ? "bg-emerald-500/10 text-emerald-400"
-                : "bg-rose-500/10 text-rose-400"
+                ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                : "bg-rose-500/10 text-rose-700 dark:text-rose-400"
             }`}
           >
             {up ? (
@@ -101,14 +109,14 @@ export function AttemptTrendChart() {
               <TrendingDown className="h-4 w-4" aria-hidden />
             )}
             {up ? "+" : ""}
-            {delta.toFixed(1)} vs previous
+            {t("statistics.trend.delta", { delta: delta.toFixed(1) })}
           </span>
         )
       }
     >
       <div
         role="img"
-        aria-label="Line chart of average score per day"
+        aria-label={t("statistics.trend.chartLabel")}
         className="h-56"
       >
         <ResponsiveContainer width="100%" height="100%">
@@ -136,12 +144,12 @@ export function AttemptTrendChart() {
                 />
               </linearGradient>
             </defs>
-            <CartesianGrid vertical={false} stroke={COLORS.grid} />
+            <CartesianGrid vertical={false} stroke={colors.grid} />
             <XAxis
               dataKey="label"
               tickLine={false}
               axisLine={false}
-              tick={{ fill: COLORS.tick, fontSize: 11 }}
+              tick={{ fill: colors.tick, fontSize: 11 }}
               minTickGap={24}
             />
             <YAxis
@@ -149,18 +157,18 @@ export function AttemptTrendChart() {
               ticks={[0, 50, 100]}
               tickLine={false}
               axisLine={false}
-              tick={{ fill: COLORS.tick, fontSize: 11 }}
+              tick={{ fill: colors.tick, fontSize: 11 }}
               width={40}
             />
             <Tooltip
               content={<TrendTooltip />}
-              cursor={{ stroke: COLORS.tick, strokeDasharray: 4 }}
+              cursor={{ stroke: colors.tick, strokeDasharray: 4 }}
             />
             {band && (
               <Area
                 dataKey="band"
                 stroke="none"
-                fill={COLORS.line}
+                fill={colors.line}
                 fillOpacity={0.1}
                 isAnimationActive={animated}
                 activeDot={false}

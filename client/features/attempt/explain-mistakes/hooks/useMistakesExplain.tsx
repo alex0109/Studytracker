@@ -4,10 +4,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { attemptKeys, IAttempt } from "@/entities/attempt";
 import { aiKeys, explainMistakes, getAiErrorMessage } from "@/entities/ai";
 
 export const useMistakesExplain = (attemptId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -33,7 +35,7 @@ export const useMistakesExplain = (attemptId: string) => {
     },
     onError: (error) => {
       // Quota or AI down: tell why, this is not a bug to report
-      const aiMessage = getAiErrorMessage(error);
+      const aiMessage = getAiErrorMessage(error, t);
       if (aiMessage) {
         toast({ title: `⚠️${aiMessage}`, variant: "error" });
         return;
@@ -45,7 +47,7 @@ export const useMistakesExplain = (attemptId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while explaining mistakes",
+        title: `❌${t("toasts.explainError")}`,
         variant: "error",
       });
     },

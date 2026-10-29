@@ -5,12 +5,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import {
   IFlashcardSessionCreate,
   startFlashcardSession,
 } from "@/entities/flashcard";
 
 export const useFlashcardSessionStart = (dictionaryId: string) => {
+  const { t } = useTranslation();
   const { token, user } = useSession();
 
   const startSessionMutation = useMutation({
@@ -19,7 +21,7 @@ export const useFlashcardSessionStart = (dictionaryId: string) => {
     onError: (error) => {
       if (isAxiosError(error) && error.response?.status === 409) {
         toast({
-          title: "🤷There are no cards to review right now",
+          title: `🤷${t("toasts.noCards")}`,
           variant: "error",
         });
         return;
@@ -31,7 +33,7 @@ export const useFlashcardSessionStart = (dictionaryId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while starting flashcards",
+        title: `❌${t("toasts.flashcardsStartError")}`,
         variant: "error",
       });
     },

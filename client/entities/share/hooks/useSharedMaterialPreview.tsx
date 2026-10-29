@@ -15,7 +15,6 @@ export const useSharedMaterialPreview = (shareToken: string) => {
     queryKey: shareKeys.preview(shareToken, user?.id),
     queryFn: () => getSharedMaterialPreview(token, shareToken),
     enabled: !!shareToken,
-    staleTime: 5000,
   });
 
   useEffect(() => {

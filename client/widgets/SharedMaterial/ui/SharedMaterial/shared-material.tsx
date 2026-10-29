@@ -17,12 +17,14 @@ import { useSession } from "@/shared/context/session.provider";
 import { routes } from "@/shared/config/routes";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { BlockColumn, IsPendingLoader, Subtitle, Title } from "@/shared/ui";
+import { useTranslation } from "@/shared/i18n";
 
 interface SharedMaterialProps {
   shareToken: string;
 }
 
 export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { user } = useSession();
   const { previewData, previewIsPending, previewError } =
@@ -52,9 +54,9 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
     return (
       <BlockColumn>
         <div className="flex flex-col items-center gap-3 p-5 text-center">
-          <Title text="Could not open this link" />
+          <Title text={t("share.preview.errorTitle")} />
           <Subtitle
-            text="Something went wrong on our side, please try again a bit later."
+            text={t("share.preview.errorText")}
             textStyles="text-neutral-500"
           />
         </div>
@@ -68,14 +70,14 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
       <BlockColumn>
         <div className="flex flex-col items-center gap-3 p-5 text-center">
           <LuLink2Off className="size-10 text-neutral-400" />
-          <Title text="This link is not active" />
+          <Title text={t("share.preview.inactiveTitle")} />
           <Subtitle
-            text="The owner stopped sharing this material or deleted it."
+            text={t("share.preview.inactiveText")}
             textStyles="text-neutral-500"
           />
           <Link href={routes.home}>
             <Button size="lg" variant="outline">
-              Go home
+              {t("errors.goHome")}
             </Button>
           </Link>
         </div>
@@ -96,7 +98,7 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
       value: previewData.dictionariesCount,
     },
     { icon: LuBookA, label: "words", value: previewData.wordsCount },
-  ];
+  ] as const;
 
   return (
     <BlockColumn>
@@ -107,11 +109,11 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
       >
         <div className="flex flex-col items-center gap-1 text-center">
           <span className="text-sm text-neutral-500">
-            Someone shared a material with you
+            {t("share.preview.sharedWithYou")}
           </span>
           <Title text={previewData.title} blockStyles="my-1" />
-          <span className="rounded-xl bg-neutral-200 px-3 py-1 text-xs text-neutral-700">
-            {previewData.type}
+          <span className="rounded-xl bg-neutral-200 px-3 py-1 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
+            {t(`materials.types.${previewData.type}`)}
           </span>
         </div>
 
@@ -119,35 +121,36 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center gap-1 rounded-2xl border-3 border-white bg-gray-50 p-4"
+              className="flex flex-col items-center gap-1 rounded-2xl border-3 border-white bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900"
             >
               <stat.icon className="text-neutral-500" />
               <span className="text-2xl font-bold">{stat.value}</span>
-              <span className="text-xs text-neutral-500">{stat.label}</span>
+              <span className="text-xs text-neutral-500">
+                {t(`share.preview.stats.${stat.label}`, { count: stat.value })}
+              </span>
             </div>
           ))}
         </div>
 
         <p className="max-w-[520px] text-center text-sm text-neutral-500">
-          You get your own copy to edit and learn from. Tags, attempts and the
-          owner&apos;s progress are not copied.
+          {t("share.preview.copyNote")}
         </p>
 
         {!user ? (
           <Link
             href={`${routes.auth}?redirect=${encodeURIComponent(`/share/${shareToken}`)}`}
           >
-            <Button size="lg">Sign in to get this material</Button>
+            <Button size="lg">{t("share.preview.signIn")}</Button>
           </Link>
         ) : previewData.isOwner ? (
           <div className="flex flex-col items-center gap-3">
             <Subtitle
-              text="This is your material."
+              text={t("share.preview.yours")}
               textStyles="text-neutral-500"
             />
             <Link href={routes.materials}>
               <Button size="lg" variant="outline">
-                Open my materials
+                {t("landing.hero.openMaterials")}
               </Button>
             </Link>
           </div>
@@ -155,7 +158,7 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
           <div className="flex flex-col items-center gap-3">
             {previewData.isAlreadyImported && (
               <span className="text-sm text-amber-600">
-                You already have a copy. Importing again creates another one.
+                {t("share.preview.alreadyImported")}
               </span>
             )}
             <div className="flex items-center gap-3">
@@ -165,7 +168,7 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
                 disabled={importMaterialIsPending}
                 onClick={onImport}
               >
-                <LuDownload /> Import to my materials
+                <LuDownload /> {t("share.preview.import")}
               </Button>
               <IsPendingLoader isPending={importMaterialIsPending} />
             </div>

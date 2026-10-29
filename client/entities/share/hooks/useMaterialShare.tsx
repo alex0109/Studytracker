@@ -15,7 +15,6 @@ export const useMaterialShare = (materialId: string, enabled = true) => {
     queryKey: shareKeys.material(materialId),
     queryFn: () => getMaterialShare(token, materialId),
     enabled: enabled && !!materialId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

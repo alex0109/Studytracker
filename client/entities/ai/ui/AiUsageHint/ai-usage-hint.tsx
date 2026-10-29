@@ -6,6 +6,7 @@ import { cn } from "@/shared/lib";
 import { useAiUsage } from "../../hooks";
 import { getFeatureUsage } from "../../lib";
 import { AiFeatureEnum } from "../../model";
+import { useTranslation } from "react-i18next";
 
 interface AiUsageHintProps {
   feature: AiFeatureEnum;
@@ -20,6 +21,7 @@ export const AiUsageHint: FC<AiUsageHintProps> = ({
   enabled = true,
   className,
 }) => {
+  const { t, i18n } = useTranslation();
   const { aiUsageData } = useAiUsage(enabled);
 
   if (!aiUsageData) return null;
@@ -28,7 +30,7 @@ export const AiUsageHint: FC<AiUsageHintProps> = ({
   if (used === undefined || limit === undefined) return null;
 
   const left = Math.max(0, limit - used);
-  const resetsAt = new Date(aiUsageData.resetsAt).toLocaleDateString();
+  const resetsAt = new Date(aiUsageData.resetsAt).toLocaleDateString(i18n.language);
 
   return (
     <p
@@ -40,8 +42,8 @@ export const AiUsageHint: FC<AiUsageHintProps> = ({
     >
       <LuSparkles />
       {aiUsageData.isEnabled
-        ? `${left} of ${limit} AI requests left this month on ${aiUsageData.tier}, resets ${resetsAt}`
-        : "AI features are turned off right now"}
+        ? t("ai.usageHint", { left, limit, tier: aiUsageData.tier, date: resetsAt })
+        : t("ai.off")}
     </p>
   );
 };

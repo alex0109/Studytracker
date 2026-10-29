@@ -12,10 +12,9 @@ export const useMaterialAll = () => {
   const { token, user } = useSession();
 
   const materials = useQuery<IMaterialResponse[]>({
-    queryKey: materialKeys.all,
+    queryKey: materialKeys.list(),
     queryFn: () => getAllMaterials(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

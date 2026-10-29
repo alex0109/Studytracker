@@ -13,6 +13,7 @@ import { IQuestionReduced } from "@/entities/question";
 import { useAttemptFinish } from "@/features/attempt/finish-attempt";
 import { useAttemptResults } from "@/entities/attempt";
 import { ISavedAnswer } from "../../model/saved-answer.type";
+import { useTranslation } from "@/shared/i18n";
 
 interface AttemptProps {
   questionsActiveReduced: IQuestionReduced[];
@@ -25,6 +26,7 @@ export const Attempt: FC<AttemptProps> = ({
   materialId,
   attemptId,
 }) => {
+  const { t } = useTranslation();
   const [questions] = useState(() =>
     shuffleQuestions([...questionsActiveReduced]),
   );
@@ -74,7 +76,7 @@ export const Attempt: FC<AttemptProps> = ({
       router.push(`/materials/${materialId}/attempt/${attemptId}/results`);
     } catch {
       toast({
-        title: "❌Attempt was not finished, please try again",
+        title: `❌${t("toasts.attemptNotFinished")}`,
         variant: "error",
       });
     }
@@ -104,7 +106,7 @@ export const Attempt: FC<AttemptProps> = ({
       <div className="sticky bottom-3 z-10 mt-4 flex w-full flex-col gap-3 rounded-2xl border border-neutral-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex-row sm:items-center dark:border-neutral-700 dark:bg-neutral-900/95">
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <span className="text-sm font-medium">
-            Answered {answeredCount} of {questions.length}
+            {t("attempt.answered", { answered: answeredCount, total: questions.length })}
           </span>
           <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700">
             <div
@@ -117,8 +119,8 @@ export const Attempt: FC<AttemptProps> = ({
           {missingIds.length > 0 && (
             <p className="text-sm text-red-500">
               {answeredCount === 0
-                ? "You haven't answered any question yet. Answer all of them to finish."
-                : `Answer all questions to finish: ${missingIds.length} left, they are marked in red.`}
+                ? t("attempt.noneAnswered")
+                : t("attempt.left", { count: missingIds.length })}
             </p>
           )}
         </div>
@@ -135,7 +137,7 @@ export const Attempt: FC<AttemptProps> = ({
                 : "bg-neutral-800 hover:bg-neutral-900",
             )}
           >
-            <LuFlag /> Finish
+            <LuFlag /> {t("attempt.finish")}
           </Button>
         </div>
       </div>

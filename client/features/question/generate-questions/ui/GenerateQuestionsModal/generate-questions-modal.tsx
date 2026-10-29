@@ -5,7 +5,8 @@ import { LuSparkles } from "react-icons/lu";
 import { IsPendingLoader, Modal, Title } from "@/shared/ui";
 import { Button, Separator } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
-import { QuestionTypeEnum, questionTypeLabels } from "@/entities/question";
+import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
+import { useTranslation } from "@/shared/i18n";
 import {
   AiFeatureEnum,
   AiUsageHint,
@@ -26,15 +27,15 @@ interface GenerateQuestionsModalProps {
 
 const MAX_GENERATED = 5;
 
-const TYPE_OPTIONS: { value?: QuestionTypeEnum; label: string }[] = [
-  { label: "Mixed" },
-  { value: QuestionTypeEnum.Open, label: questionTypeLabels.Open },
-  { value: QuestionTypeEnum.Options, label: questionTypeLabels.Options },
-  { value: QuestionTypeEnum.TrueFalse, label: questionTypeLabels.TrueFalse },
+const TYPE_OPTIONS: (QuestionTypeEnum | undefined)[] = [
+  undefined,
+  QuestionTypeEnum.Open,
+  QuestionTypeEnum.Options,
+  QuestionTypeEnum.TrueFalse,
 ];
 
 const selectedStyles = "bg-violet-700 text-white";
-const unselectedStyles = "bg-neutral-200 text-neutral-700";
+const unselectedStyles = "bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300";
 
 export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   materialId,
@@ -43,6 +44,7 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   open,
   setOpen,
 }) => {
+  const { t } = useTranslation();
   const maxCount = Math.max(0, Math.min(MAX_GENERATED, freeSlots));
 
   const [count, setCount] = useState(3);
@@ -71,17 +73,15 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="lg:w-[600px] md:w-[500px] sm:w-[400px] w-[300px] max-h-[85vh] overflow-y-auto">
         <div className="flex flex-col w-full justify-center gap-4">
-          <Title text="Generate Questions" />
+          <Title text={t("questions.generate.title")} />
           <Separator />
           <p className="text-sm text-neutral-500">
-            {noteId
-              ? "AI writes questions from the text of this note."
-              : "AI writes questions from the content of this material."}{" "}
-            Check them before you start Self Defending.
+            {noteId ? t("questions.generate.fromNote") : t("questions.generate.fromMaterial")}{" "}
+            {t("questions.generate.check")}
           </p>
 
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">How many</span>
+            <span className="text-sm font-medium">{t("questions.generate.howMany")}</span>
             <div className="flex gap-2">
               {Array.from({ length: MAX_GENERATED }, (_, i) => i + 1).map(
                 (value) => (
@@ -105,28 +105,28 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
             {maxCount < MAX_GENERATED && (
               <span className="text-xs text-neutral-500">
                 {maxCount === 0
-                  ? "Questions limit of this material is reached"
-                  : `Only ${maxCount} more ${maxCount === 1 ? "question fits" : "questions fit"} into this material`}
+                  ? t("questions.generate.full")
+                  : t("questions.generate.fits", { count: maxCount })}
               </span>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">Type</span>
+            <span className="text-sm font-medium">{t("questions.generate.type")}</span>
             <div className="flex flex-wrap gap-2">
               {TYPE_OPTIONS.map((option) => (
                 <button
-                  key={option.label}
+                  key={option ?? "mixed"}
                   type="button"
-                  onClick={() => setQuestionType(option.value)}
+                  onClick={() => setQuestionType(option)}
                   className={cn(
                     "flex-1 rounded-xl px-3 py-2 text-sm font-medium",
-                    questionType === option.value
-                      ? selectedStyles
-                      : unselectedStyles,
+                    questionType === option ? selectedStyles : unselectedStyles,
                   )}
                 >
-                  {option.label}
+                  {option
+                    ? t(`questions.types.${questionTypeKeys[option]}`)
+                    : t("questions.generate.mixed")}
                 </button>
               ))}
             </div>
@@ -149,7 +149,9 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
                 }
               >
                 <LuSparkles />
-                {generateQuestionsIsPending ? "Generating..." : "Generate"}
+                {generateQuestionsIsPending
+                  ? t("ai.generating")
+                  : t("ai.generate")}
               </Button>
             </div>
             <div className="flex-1">

@@ -6,3 +6,4 @@ export type { IMaterialCreate } from "./material-create.type";
 export type { IMaterialResponse } from "./material-response.type";
 export type { IMaterialUpdate } from "./material-update.type";
 export type { IStatistics } from "./statistics.type";
+export { MATERIAL_TYPES, MATERIAL_STATUSES } from "./material-options";

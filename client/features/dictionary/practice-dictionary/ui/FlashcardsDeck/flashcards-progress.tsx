@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "@/shared/i18n";
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/shared/lib";
@@ -15,6 +18,7 @@ export const FlashcardsProgress: FC<FlashcardsProgressProps> = ({
   total,
   counts,
 }) => {
+  const { t } = useTranslation();
   const answered = current - 1;
 
   return (
@@ -25,10 +29,10 @@ export const FlashcardsProgress: FC<FlashcardsProgressProps> = ({
         </span>
         <div className="flex gap-3">
           {FLASHCARD_ANSWER_OPTIONS.map(
-            ({ value, label, icon: Icon, textStyles }) => (
+            ({ value, icon: Icon, textStyles }) => (
               <span
                 key={value}
-                title={label}
+                title={t(`flashcards.answers.${value}`)}
                 className={cn("flex items-center gap-1 font-medium", textStyles)}
               >
                 <Icon /> {counts[value]}

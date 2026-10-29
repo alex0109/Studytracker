@@ -19,10 +19,14 @@ import {
   ConfidenceName,
   confidenceRank,
   normalizeConfidence,
+  useChartColors,
 } from "./tokens";
+import { useTranslation } from "react-i18next";
+
+const CONFIDENCE_KEYS = { Low: "low", Medium: "medium", High: "high" } as const;
 import { useChartAnimation } from "../lib/motion";
 
-type Row = { name: string; gap: number; actual: number; count: number };
+type Row = { name: string; level: ConfidenceName; gap: number; actual: number; count: number };
 
 type LabelProps = {
   x?: unknown;
@@ -39,15 +43,18 @@ function CalibrationTooltip({
   active?: boolean;
   payload?: { payload: Row }[];
 }) {
+  const { t } = useTranslation();
   if (!active || !payload?.length) return null;
   const r = payload[0].payload;
   return (
     <TooltipShell>
-      <p className="font-medium text-neutral-50">{r.name} confidence</p>
-      <p className="text-neutral-400">
-        Actual accuracy: {Math.round(r.actual)}%
+      <p className="font-medium text-neutral-900 dark:text-neutral-50">{r.name}</p>
+      <p className="text-neutral-500 dark:text-neutral-400">
+        {t("statistics.calibration.actual", { value: Math.round(r.actual) })}
       </p>
-      <p className="text-neutral-400">Answers: {r.count}</p>
+      <p className="text-neutral-500 dark:text-neutral-400">
+        {t("statistics.answers", { count: r.count })}
+      </p>
     </TooltipShell>
   );
 }
@@ -58,6 +65,8 @@ export function ConfidenceCalibrationBars() {
     statisticsConfidenceCalibrationIsPending,
   } = useStatisticsConfidenceCalibration();
   const animated = useChartAnimation();
+  const colors = useChartColors();
+  const { t } = useTranslation();
 
   if (statisticsConfidenceCalibrationIsPending)
     return <CardSkeleton className="h-56" />;
@@ -69,7 +78,7 @@ export function ConfidenceCalibrationBars() {
       <CardEmpty
         className="h-56"
         icon={<Gauge className="h-8 w-8" aria-hidden />}
-        text="Set your confidence while answering to see how well you know what you know."
+        text={t("statistics.calibration.empty")}
       />
     );
   }
@@ -81,7 +90,8 @@ export function ConfidenceCalibrationBars() {
     )
     .sort((a, b) => confidenceRank(a.level) - confidenceRank(b.level))
     .map(({ level, d }) => ({
-      name: level,
+      name: t(`attempt.confidence.${CONFIDENCE_KEYS[level]}`),
+      level,
       gap: Math.round(d.calibrationGap),
       actual: d.actualAccuracy,
       count: d.answersCount,
@@ -93,10 +103,10 @@ export function ConfidenceCalibrationBars() {
   );
   const summary =
     Math.abs(worst.gap) < 5
-      ? "Your confidence matches your results."
+      ? t("statistics.calibration.matches")
       : worst.gap < 0
-        ? `You're overconfident on ${worst.name.toLowerCase()}-confidence answers.`
-        : `You're underconfident on ${worst.name.toLowerCase()}-confidence answers.`;
+        ? t("statistics.calibration.over", { level: worst.name })
+        : t("statistics.calibration.under", { level: worst.name });
 
   function GapLabel({ x, y, width, height, value }: LabelProps) {
     const [nx, ny, nw, nh, v] = [x, y, width, height, value].map((n) =>
@@ -112,7 +122,7 @@ export function ConfidenceCalibrationBars() {
         x={edge}
         y={ny + nh / 2}
         dy={4}
-        fill={COLORS.tick}
+        fill={colors.tick}
         fontSize={11}
         textAnchor={negative ? "end" : "start"}
       >
@@ -122,7 +132,7 @@ export function ConfidenceCalibrationBars() {
   }
 
   return (
-    <Card title="Confidence calibration" subtitle={summary}>
+    <Card title={t("statistics.calibration.title")} subtitle={summary}>
       <div
         role="img"
         aria-label={summary}
@@ -139,15 +149,15 @@ export function ConfidenceCalibrationBars() {
             <YAxis
               type="category"
               dataKey="name"
-              width={64}
+              width={96}
               tickLine={false}
               axisLine={false}
-              tick={{ fill: "#fafafa", fontSize: 13 }}
+              tick={{ fill: colors.label, fontSize: 13 }}
             />
-            <ReferenceLine x={0} stroke="#404040" />
+            <ReferenceLine x={0} stroke={colors.reference} />
             <Tooltip
               content={<CalibrationTooltip />}
-              cursor={{ fill: "#262626", opacity: 0.4 }}
+              cursor={{ fill: colors.cursor, opacity: 0.6 }}
             />
             <Bar
               dataKey="gap"
@@ -157,7 +167,7 @@ export function ConfidenceCalibrationBars() {
             >
               {data.map((d) => (
                 <Cell
-                  key={d.name}
+                  key={d.level}
                   fill={d.gap < 0 ? COLORS.rose : COLORS.emerald}
                 />
               ))}
@@ -168,11 +178,11 @@ export function ConfidenceCalibrationBars() {
       </div>
 
       <div className="mt-3 flex justify-between text-xs">
-        <span className="flex items-center gap-1.5 text-rose-400">
-          <span className="h-2 w-2 rounded-2xl bg-rose-500" /> Overconfident
+        <span className="flex items-center gap-1.5 text-rose-600 dark:text-rose-400">
+          <span className="h-2 w-2 rounded-2xl bg-rose-500" /> {t("statistics.calibration.overLegend")}
         </span>
-        <span className="flex items-center gap-1.5 text-emerald-400">
-          Underconfident <span className="h-2 w-2 rounded-2xl bg-emerald-500" />
+        <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+          {t("statistics.calibration.underLegend")} <span className="h-2 w-2 rounded-2xl bg-emerald-500" />
         </span>
       </div>
     </Card>

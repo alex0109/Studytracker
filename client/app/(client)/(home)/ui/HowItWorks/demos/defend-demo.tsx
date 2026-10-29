@@ -4,20 +4,21 @@ import { FC, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { LuCheck } from "react-icons/lu";
 import { cn } from "@/shared/lib";
+import { useTranslation } from "@/shared/i18n";
 
 const OPTIONS = [
-  { id: "glucose", name: "Glucose", isCorrect: true },
-  { id: "co2", name: "Carbon dioxide", isCorrect: false },
-  { id: "oxygen", name: "Oxygen", isCorrect: true },
-  { id: "nitrogen", name: "Nitrogen", isCorrect: false },
-];
+  { id: "glucose", isCorrect: true },
+  { id: "carbonDioxide", isCorrect: false },
+  { id: "oxygen", isCorrect: true },
+  { id: "nitrogen", isCorrect: false },
+] as const;
 
-const CONFIDENCE = ["Not sure", "Fairly sure", "Confident"] as const;
+const CONFIDENCE = ["low", "medium", "high"] as const;
 type Confidence = (typeof CONFIDENCE)[number];
 
 // Same rule as the backend: every wrong pick cancels one right pick
 function grade(selected: string[]) {
-  const correct = OPTIONS.filter((o) => o.isCorrect).map((o) => o.id);
+  const correct: string[] = OPTIONS.filter((o) => o.isCorrect).map((o) => o.id);
   const right = selected.filter((id) => correct.includes(id)).length;
   const wrong = selected.length - right;
   const isCorrect = right === correct.length && wrong === 0;
@@ -27,9 +28,10 @@ function grade(selected: string[]) {
 }
 
 export const DefendDemo: FC = () => {
+  const { t } = useTranslation();
   const reduceMotion = useReducedMotion();
   const [selected, setSelected] = useState<string[]>([]);
-  const [confidence, setConfidence] = useState<Confidence>("Fairly sure");
+  const [confidence, setConfidence] = useState<Confidence>("medium");
   const [result, setResult] = useState<ReturnType<typeof grade> | null>(null);
 
   const toggle = (id: string) => {
@@ -47,22 +49,22 @@ export const DefendDemo: FC = () => {
   const feedback = !result
     ? null
     : result.isCorrect
-      ? confidence === "Not sure"
-        ? "Right, but unsure. It will come back for another review."
-        : "Confident and right. That is knowledge that holds."
-      : confidence === "Confident"
-        ? "Confident but wrong. Statistics flag this as overconfidence."
-        : "Not there yet. This question is now on your list to strengthen.";
+      ? confidence === "low"
+        ? t("landing.demo.defend.feedback.rightUnsure")
+        : t("landing.demo.defend.feedback.rightSure")
+      : confidence === "high"
+        ? t("landing.demo.defend.feedback.wrongSure")
+        : t("landing.demo.defend.feedback.wrong");
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-neutral-100 bg-white p-5">
+    <div className="flex flex-col gap-4 rounded-2xl border border-neutral-100 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
       <div className="flex flex-col gap-1">
-        <span className="text-sm text-neutral-500">Question 1 of 6</span>
-        <span className="font-semibold text-neutral-900">
-          Which are products of photosynthesis?
+        <span className="text-sm text-neutral-500">{t("landing.demo.defend.counter")}</span>
+        <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+          {t("landing.demo.questions.options.title")}
         </span>
         <span className="text-sm text-neutral-500">
-          Choose all correct answers
+          {t("attempt.chooseAll")}
         </span>
       </div>
 
@@ -82,7 +84,7 @@ export const DefendDemo: FC = () => {
                 "flex items-center justify-between rounded-xl px-4 py-3 text-left font-medium transition-colors",
                 isSelected
                   ? "bg-emerald-700 text-white"
-                  : "bg-neutral-200 text-neutral-700 hover:bg-neutral-300",
+                  : "bg-neutral-200 text-neutral-700 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700",
                 result && !isSelected && "opacity-60",
               )}
             >
@@ -90,9 +92,9 @@ export const DefendDemo: FC = () => {
                 <span className="mr-2 opacity-70">
                   {String.fromCharCode(65 + index)}.
                 </span>
-                {option.name}
+                {t(`landing.demo.questions.options.items.${option.id}`)}
               </span>
-              {showCorrect && <LuCheck aria-label="correct answer" />}
+              {showCorrect && <LuCheck aria-label={t("results.correctAnswer")} />}
             </button>
           );
         })}
@@ -100,7 +102,7 @@ export const DefendDemo: FC = () => {
 
       <div className="flex flex-col gap-2">
         <span className="text-sm text-neutral-500">
-          How confident are you in this answer?
+          {t("attempt.confidenceQuestion")}
         </span>
         <div className="flex gap-2">
           {CONFIDENCE.map((item) => (
@@ -114,10 +116,10 @@ export const DefendDemo: FC = () => {
                 "flex-1 rounded-xl py-2 text-sm font-medium transition-colors",
                 confidence === item
                   ? "bg-emerald-700 text-white"
-                  : "bg-neutral-200 text-neutral-700",
+                  : "bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
               )}
             >
-              {item}
+              {t(`attempt.confidence.${item}`)}
             </button>
           ))}
         </div>
@@ -144,20 +146,20 @@ export const DefendDemo: FC = () => {
                 )}
               >
                 {result.isCorrect
-                  ? "Correct"
+                  ? t("results.status.correct")
                   : result.score > 0
-                    ? "Partly correct"
-                    : "Wrong"}{" "}
-                · score {result.score}
+                    ? t("results.status.partly")
+                    : t("results.status.wrong")}{" "}
+                · {t("landing.demo.defend.score", { score: result.score })}
               </span>
               <span className="text-sm text-neutral-500">{feedback}</span>
             </div>
             <button
               type="button"
               onClick={reset}
-              className="self-start rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white sm:self-auto"
+              className="self-start rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white sm:self-auto dark:bg-neutral-100 dark:text-neutral-900"
             >
-              Try again
+              {t("landing.demo.defend.tryAgain")}
             </button>
           </motion.div>
         ) : (
@@ -169,7 +171,7 @@ export const DefendDemo: FC = () => {
             onClick={() => setResult(grade(selected))}
             className="self-end rounded-xl bg-emerald-700 px-6 py-2 font-medium text-white transition-opacity disabled:opacity-40"
           >
-            Answer
+            {t("landing.demo.defend.answer")}
           </motion.button>
         )}
       </AnimatePresence>

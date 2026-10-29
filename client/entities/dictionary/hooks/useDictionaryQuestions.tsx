@@ -15,7 +15,6 @@ export const useDictionaryQuestions = (dictionaryId: string) => {
     queryKey: dictionaryKeys.questions(dictionaryId),
     queryFn: () => getDictionaryQuestions(token, dictionaryId),
     enabled: !!dictionaryId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

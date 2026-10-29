@@ -3,37 +3,36 @@
 import { FC, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/shared/lib";
+import { useTranslation } from "@/shared/i18n";
 import { CountUp } from "../../CountUp";
 
 const ROWS = [
   {
-    difficulty: "Easy",
+    difficulty: "easy",
     weight: 1,
-    method: "Open · exact match",
     score: 100,
-    styles: "bg-emerald-50 text-emerald-700",
+    styles: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300",
   },
   {
-    difficulty: "Medium",
+    difficulty: "medium",
     weight: 2,
-    method: "Open · fuzzy match, typo forgiven",
     score: 92,
-    styles: "bg-amber-50 text-amber-700",
+    styles: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300",
   },
   {
-    difficulty: "Hard",
+    difficulty: "hard",
     weight: 3,
-    method: "Options · 1 of 2 right picks",
     score: 50,
-    styles: "bg-rose-50 text-rose-700",
+    styles: "bg-rose-50 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300",
   },
-];
+] as const;
 
 const TOTAL_WEIGHT = ROWS.reduce((acc, row) => acc + row.weight, 0);
 const TOTAL =
   ROWS.reduce((acc, row) => acc + row.score * row.weight, 0) / TOTAL_WEIGHT;
 
 export const ScoreDemo: FC = () => {
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const reduceMotion = useReducedMotion();
@@ -44,7 +43,7 @@ export const ScoreDemo: FC = () => {
         {ROWS.map((row, index) => (
           <li
             key={row.difficulty}
-            className="flex flex-col gap-2 rounded-2xl border border-neutral-100 bg-white p-4"
+            className="flex flex-col gap-2 rounded-2xl border border-neutral-100 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="flex min-w-0 items-center gap-2">
@@ -54,17 +53,17 @@ export const ScoreDemo: FC = () => {
                     row.styles,
                   )}
                 >
-                  {row.difficulty} ×{row.weight}
+                  {t(`questions.difficulty.${row.difficulty}`)} ×{row.weight}
                 </span>
-                <span className="truncate text-sm text-neutral-600">
-                  {row.method}
+                <span className="truncate text-sm text-neutral-600 dark:text-neutral-400">
+                  {t(`landing.demo.score.methods.${row.difficulty}`)}
                 </span>
               </div>
-              <span className="font-mono font-semibold text-neutral-900">
+              <span className="font-mono font-semibold text-neutral-900 dark:text-neutral-100">
                 {row.score}
               </span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-neutral-100">
+            <div className="h-2 overflow-hidden rounded-full bg-neutral-100 dark:bg-neutral-800">
               <motion.div
                 className="h-full origin-left rounded-full bg-emerald-500"
                 initial={{ scaleX: reduceMotion ? row.score / 100 : 0 }}
@@ -76,13 +75,13 @@ export const ScoreDemo: FC = () => {
         ))}
       </ul>
 
-      <div className="flex flex-col items-start justify-between gap-3 rounded-2xl bg-neutral-900 p-5 text-white sm:flex-row sm:items-center">
+      <div className="flex flex-col items-start justify-between gap-3 rounded-2xl bg-neutral-900 p-5 text-white sm:flex-row sm:items-center dark:border dark:border-neutral-800">
         <code className="text-sm text-neutral-300">
           ({ROWS.map((row) => `${row.score}×${row.weight}`).join(" + ")}) ÷{" "}
           {TOTAL_WEIGHT}
         </code>
         <div className="flex items-baseline gap-2">
-          <span className="text-sm text-neutral-400">attempt score</span>
+          <span className="text-sm text-neutral-400">{t("landing.demo.score.total")}</span>
           <CountUp
             value={TOTAL}
             decimals={1}

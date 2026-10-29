@@ -6,3 +6,4 @@ export * from "./ui/HowItWorks";
 export * from "./ui/KnowledgeLoop";
 export * from "./ui/ScrollTint";
 export * from "./ui/WordsThatStick";
+export * from "./ui/Feedback";

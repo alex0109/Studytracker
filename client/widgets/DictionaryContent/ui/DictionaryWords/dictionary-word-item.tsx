@@ -1,6 +1,8 @@
 "use client";
 
-import { FC } from "react";
+import { useTranslation } from "@/shared/i18n";
+
+import { FC, memo } from "react";
 import { Reorder, useDragControls } from "framer-motion";
 import { LuGripVertical, LuPencil } from "react-icons/lu";
 import {
@@ -21,12 +23,14 @@ interface DictionaryWordItemProps {
   onDragEnd: () => void;
 }
 
-export const DictionaryWordItem: FC<DictionaryWordItemProps> = ({
+// Up to a hundred rows with their own buttons: a row re-renders only when its word changes
+export const DictionaryWordItem: FC<DictionaryWordItemProps> = memo(function DictionaryWordItem({
   dictionaryId,
   entry,
   onEdit,
   onDragEnd,
-}) => {
+}) {
+  const { t } = useTranslation();
   const controls = useDragControls();
 
   return (
@@ -36,13 +40,13 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = ({
       dragControls={controls}
       onDragEnd={onDragEnd}
       className={cn(
-        "flex items-center gap-3 rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 p-3",
+        "flex items-center gap-3 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3",
         entry.isArchived && "opacity-60",
       )}
     >
       <button
         type="button"
-        aria-label="Drag to reorder"
+        aria-label={t("dictionary.dragToReorder")}
         onPointerDown={(e) => controls.start(e)}
         className="p-1 cursor-grab active:cursor-grabbing touch-none text-neutral-400 hover:text-neutral-600"
       >
@@ -81,7 +85,8 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = ({
         <Button
           variant="ghost"
           size="icon"
-          title="Edit word"
+          title={t("dictionary.editWord")}
+          aria-label={t("dictionary.editWord")}
           onClick={() => onEdit(entry)}
         >
           <LuPencil />
@@ -101,4 +106,4 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = ({
       </div>
     </Reorder.Item>
   );
-};
+});

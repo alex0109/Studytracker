@@ -1,10 +1,9 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { Input } from "@/shared/radix-ui";
 import { useDebounce } from "@/shared/hooks";
-
-import { IsPendingLoader } from "@/shared/ui";
+import { useTranslation } from "@/shared/i18n";
+import { SaveStatus, TitleInput } from "@/shared/ui";
 import { useNoteUpdate } from "../../hooks/useNoteUpdate";
 
 interface NoteTitleProps {
@@ -18,9 +17,11 @@ export const NoteTitle: FC<NoteTitleProps> = ({
   noteId,
   title,
 }) => {
+  const { t } = useTranslation();
   const [titleValue, setTitleValue] = useState(title);
 
-  const { updateNote, updateNoteIsPending } = useNoteUpdate(noteId);
+  const { updateNote, updateNoteIsPending, updateNoteIsError } =
+    useNoteUpdate(noteId);
 
   const updateTitleHandler = (
     materialId: string,
@@ -36,30 +37,29 @@ export const NoteTitle: FC<NoteTitleProps> = ({
 
   const debouncedTitleValue = useDebounce(titleValue, 1500);
 
+  // The field stays editable while it saves: disabling it threw the cursor out mid-word
   useEffect(() => {
-    if (title !== debouncedTitleValue) {
+    if (title !== debouncedTitleValue && debouncedTitleValue.trim()) {
       updateTitleHandler(materialId, noteId, debouncedTitleValue);
     }
   }, [materialId, noteId, title, debouncedTitleValue]);
 
-  const onUpdateTitle = (newTitle: string) => {
-    setTitleValue(newTitle);
-  };
-
   return (
-    <div className="flex flex-col w-full gap-2 justify-center items-center">
-      <div className="flex-1 w-full">
-        <Input
-          className="focus:outline-none text-center text-2xl font-bold border-0"
+    <div className="flex flex-col w-full gap-1 justify-center items-center">
+      <div className="relative w-full">
+        <TitleInput
           value={titleValue}
-          onChange={(e) => onUpdateTitle(e.target.value)}
-          maxLength={30}
-          disabled={updateNoteIsPending}
+          onChange={setTitleValue}
+          maxLength={70}
+          ariaLabel={t("materials.titleLabel")}
+        />
+        <SaveStatus
+          isPending={updateNoteIsPending}
+          isError={updateNoteIsError}
+          className="absolute top-1/2 right-1 -translate-y-1/2"
         />
       </div>
-      <div>
-        <p className="text-xs text-neutral-500">{noteId.split("-")[0]}</p>
-      </div>
+      <p className="text-xs text-neutral-500">{noteId.split("-")[0]}</p>
     </div>
   );
 };

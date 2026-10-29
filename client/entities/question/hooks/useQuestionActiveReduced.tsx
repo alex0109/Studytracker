@@ -17,7 +17,6 @@ export const useQuestionActiveReduced = (materialId: string) => {
       return getActiveReducedQuestions(token, materialId);
     },
     enabled: !!materialId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

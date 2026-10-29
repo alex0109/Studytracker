@@ -41,8 +41,8 @@ export const MaterialDictionaries: FC<MaterialDictionariesProps> = ({
               onClick={() => onSelect(dictionary)}
               variant="ghost"
               className={cn(
-                "w-full flex justify-start items-center hover:bg-neutral-900/10",
-                activeDictionaryId === dictionary.id && "bg-neutral-900/5",
+                "w-full flex justify-start items-center hover:bg-neutral-900/10 dark:hover:bg-white/10",
+                activeDictionaryId === dictionary.id && "bg-neutral-900/5 dark:bg-white/5",
               )}
             >
               <LuBookA /> {dictionary.title}

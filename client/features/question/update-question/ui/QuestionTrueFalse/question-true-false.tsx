@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+import { isTrueFalseName } from "@/entities/question";
 import { FC } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import { IOption } from "@/entities/question";
@@ -23,6 +25,7 @@ export const QuestionTrueFalse: FC<QuestionTrueFalseProps> = ({
   deleteQuestion,
   openValue,
 }) => {
+  const { t } = useTranslation();
   const { updateQuestion, updateQuestionIsPending } = useQuestionUpdate(
     materialId,
     id,
@@ -45,7 +48,7 @@ export const QuestionTrueFalse: FC<QuestionTrueFalseProps> = ({
       }
     >
       <div className="flex flex-col gap-2 pr-3">
-        <span className="text-sm text-neutral-500">This statement is</span>
+        <span className="text-sm text-neutral-500">{t("questions.statementIs")}</span>
         <div className="flex items-center gap-2">
           {options.map((option) => (
             <button
@@ -59,10 +62,12 @@ export const QuestionTrueFalse: FC<QuestionTrueFalseProps> = ({
                 "flex-1 rounded-xl py-2 text-sm font-medium",
                 option.isCorrect
                   ? "bg-emerald-700 text-white"
-                  : "bg-neutral-200 text-neutral-700",
+                  : "bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
               )}
             >
-              {option.name}
+              {isTrueFalseName(option.name)
+                ? t(option.name === "True" ? "questions.true" : "questions.false")
+                : option.name}
             </button>
           ))}
           <div className="w-9">

@@ -15,7 +15,6 @@ export const useFlashcardStats = (dictionaryId: string) => {
     queryKey: flashcardKeys.stats(dictionaryId),
     queryFn: () => getFlashcardStats(token, dictionaryId),
     enabled: !!dictionaryId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

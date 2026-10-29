@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { LuArrowLeft, LuRepeat } from "react-icons/lu";
@@ -25,6 +27,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
   onRepeat,
   onRestart,
 }) => {
+  const { t } = useTranslation();
   const toRepeat = queue.filter(
     (entry) => answers[entry.id] !== FlashcardAnswerEnum.Know,
   );
@@ -40,19 +43,19 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
       animate={{ y: 0, opacity: 1 }}
       className="flex flex-col w-full items-center gap-5 py-5"
     >
-      <Title text="Round finished" />
+      <Title text={t("flashcards.summary.title")} />
 
       <div className="grid grid-cols-3 gap-3 w-full max-w-[460px]">
         {FLASHCARD_ANSWER_OPTIONS.map(
-          ({ value, label, icon: Icon, textStyles }) => (
+          ({ value, icon: Icon, textStyles }) => (
             <div
               key={value}
-              className="flex flex-col items-center gap-1 rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 p-4"
+              className="flex flex-col items-center gap-1 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-4"
             >
               <Icon className={cn("size-5", textStyles)} />
               <span className="text-2xl font-bold">{countOf(value)}</span>
               <span className="text-xs text-neutral-500 text-center">
-                {label}
+                {t(`flashcards.answers.${value}`)}
               </span>
             </div>
           ),
@@ -61,24 +64,24 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
 
       <div className="flex flex-col items-center gap-1">
         <p className="text-neutral-500">
-          You know {knownPercent}% of the words in this round
+          {t("flashcards.summary.known", { percent: knownPercent })}
         </p>
         <p className="text-xs text-neutral-400">
-          Answers are saved, next reviews are scheduled automatically
+          {t("flashcards.summary.saved")}
         </p>
       </div>
 
       {toRepeat.length > 0 && (
         <div className="flex flex-col w-full max-w-[460px] gap-2">
           <Subtitle
-            text="Words to practice"
+            text={t("flashcards.summary.toPractice")}
             blockStyles="my-0"
             textStyles="font-semibold text-left"
           />
           {toRepeat.map((entry) => (
             <div
               key={entry.id}
-              className="flex justify-between items-center gap-3 rounded-xl bg-gray-50 dark:bg-neutral-900 px-4 py-2"
+              className="flex justify-between items-center gap-3 rounded-xl bg-neutral-50 dark:bg-neutral-900 px-4 py-2"
             >
               <div className="flex items-center gap-2 min-w-0">
                 <span
@@ -106,8 +109,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
           disabled={toRepeat.length === 0 || isRepeatPending}
           onClick={() => onRepeat(toRepeat)}
         >
-          <LuRepeat /> Repeat {toRepeat.length}{" "}
-          {toRepeat.length === 1 ? "word" : "words"}
+          <LuRepeat /> {t("flashcards.summary.repeat", { count: toRepeat.length })}
         </Button>
         <Button
           size="lg"
@@ -115,7 +117,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
           className="flex-1"
           onClick={onRestart}
         >
-          <LuArrowLeft /> Back to start
+          <LuArrowLeft /> {t("flashcards.summary.back")}
         </Button>
       </div>
     </motion.div>

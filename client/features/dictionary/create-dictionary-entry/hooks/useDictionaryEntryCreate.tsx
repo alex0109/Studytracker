@@ -5,6 +5,7 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { getLimitErrorMessage } from "@/shared/lib/limits";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import {
   createDictionaryEntry,
   dictionaryKeys,
@@ -12,6 +13,7 @@ import {
 } from "@/entities/dictionary";
 
 export const useDictionaryEntryCreate = (dictionaryId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -25,13 +27,13 @@ export const useDictionaryEntryCreate = (dictionaryId: string) => {
       queryClient.invalidateQueries({ queryKey: dictionaryKeys.lists() });
 
       toast({
-        title: "🎉Word has been added!",
+        title: `🎉${t("toasts.wordAdded")}`,
         variant: "success",
       });
     },
     onError: (error) => {
       // Limit reached: show why and refresh the counter, this is not a bug to report
-      const limitMessage = getLimitErrorMessage(error);
+      const limitMessage = getLimitErrorMessage(error, t);
       if (limitMessage) {
         queryClient.invalidateQueries({ queryKey: dictionaryKeys.detail(dictionaryId) });
         toast({ title: `⚠️${limitMessage}`, variant: "error" });
@@ -44,7 +46,7 @@ export const useDictionaryEntryCreate = (dictionaryId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while adding word",
+        title: `❌${t("toasts.wordAddError")}`,
         variant: "error",
       });
     },

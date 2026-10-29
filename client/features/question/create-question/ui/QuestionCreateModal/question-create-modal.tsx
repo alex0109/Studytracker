@@ -2,7 +2,8 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { QuestionTypeEnum, questionTypeLabels } from "@/entities/question";
+import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
+import { useTranslation } from "@/shared/i18n";
 import { IQuestionCreateForm } from "../../model";
 import {
   CustomInput,
@@ -30,7 +31,7 @@ interface QuestionCreateModalProps {
 }
 
 const selectedStyles = "bg-emerald-700 text-white";
-const unselectedStyles = "bg-neutral-200 text-neutral-700";
+const unselectedStyles = "bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300";
 
 export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
   materialId,
@@ -38,6 +39,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
   open,
   setOpen,
 }) => {
+  const { t } = useTranslation();
   const [questionType, setQuestionType] = useState<QuestionTypeEnum>(
     QuestionTypeEnum.Open,
   );
@@ -102,7 +104,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px] max-h-[85vh] overflow-y-auto">
         <div className="flex flex-col w-full justify-center">
-          <Title text="Add new Question" />
+          <Title text={t("questions.addTitle")} />
           <Separator />
           <div className="flex gap-2 m-2 mt-4">
             {CREATABLE_QUESTION_TYPES.map((type) => (
@@ -115,42 +117,46 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
                   questionType === type ? selectedStyles : unselectedStyles,
                 )}
               >
-                {questionTypeLabels[type]}
+                {t(`questions.types.${questionTypeKeys[type]}`)}
               </button>
             ))}
           </div>
           <form onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col">
             <CustomInput
-              label="Title"
+              label={t("questions.titleLabel")}
               inputBlockStyles="text-center"
               placeholder={
                 questionType === QuestionTypeEnum.TrueFalse
-                  ? "*Statement to check..."
-                  : "*Title..."
+                  ? t("questions.statementPlaceholder")
+                  : t("questions.titlePlaceholder")
               }
               maxLength={100}
               {...register<"title">("title", {
-                required: "Required",
-                validate: (value) => value.trim().length > 0 || "Required",
+                required: t("common.required"),
+                validate: (value) => value.trim().length > 0 || t("common.required"),
               })}
               error={errors.title?.message}
             />
-            <div className="flex flex-col justify-center bg-gray-100 dark:bg-neutral-700 rounded-2xl m-2 p-3">
-              <select {...register("questionDifficulty")} className="p-2">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
+            <div className="flex flex-col justify-center bg-neutral-100 dark:bg-neutral-700 rounded-2xl m-2 p-3">
+              <select
+                {...register("questionDifficulty")}
+                aria-label={t("questions.difficultyLabel")}
+                className="p-2 bg-transparent [&>option]:bg-white dark:[&>option]:bg-neutral-800"
+              >
+                <option value="easy">{t("questions.difficulty.easy")}</option>
+                <option value="medium">{t("questions.difficulty.medium")}</option>
+                <option value="hard">{t("questions.difficulty.hard")}</option>
               </select>
             </div>
 
             {questionType === QuestionTypeEnum.Open && (
               <TextArea
-                label="Answer"
+                label={t("questions.answerLabel")}
                 inputStyles="h-[300px] p-5"
-                placeholder="*Type your answer to Question here but remember 1000 symbols max..."
+                placeholder={t("questions.answerPlaceholder")}
                 maxLength={1000}
                 {...register<"answer">("answer", {
-                  required: "Required",
+                  required: t("common.required"),
                 })}
                 error={errors.answer?.message}
               />
@@ -168,7 +174,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
             {questionType === QuestionTypeEnum.TrueFalse && (
               <div className="flex flex-col m-2 gap-2">
                 <span className="text-sm text-neutral-500">
-                  This statement is
+                  {t("questions.statementIs")}
                 </span>
                 <div className="flex gap-2">
                   {[true, false].map((value) => (
@@ -181,7 +187,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
                         isTrue === value ? selectedStyles : unselectedStyles,
                       )}
                     >
-                      {value ? "True" : "False"}
+                      {value ? t("questions.true") : t("questions.false")}
                     </button>
                   ))}
                 </div>
@@ -198,7 +204,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
                   type="submit"
                   disabled={isPending}
                 >
-                  Create
+                  {t("common.create")}
                 </Button>
               </div>
               <div className="flex-1">

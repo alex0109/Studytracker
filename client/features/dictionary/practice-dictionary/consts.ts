@@ -18,31 +18,27 @@ export const ANSWER_RATINGS: Record<FlashcardAnswerEnum, FlashcardRatingEnum> = 
   [FlashcardAnswerEnum.Know]: FlashcardRatingEnum.Good,
 };
 
-// Order matches swipe directions: left, down, right
+// Order matches swipe directions: left, down, right; labels are "flashcards.answers.<value>"
 export const FLASHCARD_ANSWER_OPTIONS: {
   value: FlashcardAnswerEnum;
-  label: string;
   icon: IconType;
   styles: string;
   textStyles: string;
 }[] = [
   {
     value: FlashcardAnswerEnum.DontKnow,
-    label: "Don't know",
     icon: LuX,
     styles: "bg-red-500 hover:bg-red-600",
     textStyles: "text-red-500",
   },
   {
     value: FlashcardAnswerEnum.Unsure,
-    label: "Not sure",
     icon: LuCircleHelp,
     styles: "bg-amber-500 hover:bg-amber-600",
     textStyles: "text-amber-500",
   },
   {
     value: FlashcardAnswerEnum.Know,
-    label: "Know",
     icon: LuCheck,
     styles: "bg-emerald-600 hover:bg-emerald-700",
     textStyles: "text-emerald-600",

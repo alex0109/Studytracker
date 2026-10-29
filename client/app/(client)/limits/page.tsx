@@ -1,11 +1,14 @@
 import { FC } from "react";
 import { BlockColumn, Title } from "@/shared/ui";
 import { LimitsOverview } from "@/widgets/LimitsOverview";
+import { getServerT } from "@/shared/i18n/server";
 
-const Limits: FC = () => {
+const Limits: FC = async () => {
+  const { t } = await getServerT();
+
   return (
     <BlockColumn>
-      <Title text="Limits" />
+      <Title text={t("nav.limits")} />
       <LimitsOverview />
     </BlockColumn>
   );

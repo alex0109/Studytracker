@@ -1,8 +1,13 @@
 /* Decorative only: without support or with reduced motion the content is simply visible */
 @media (prefers-reduced-motion: no-preference) {
   @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    /* Longhands on purpose: in the shorthand, the webpack build's CSS Modules read "auto"
+       as a second animation name, wrote ":local(auto)" and the production build failed */
     .reveal {
-      animation: reveal-in auto linear backwards;
+      animation-name: reveal-in;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: backwards;
       animation-timeline: view();
       animation-range: entry 0% entry 80%;
     }

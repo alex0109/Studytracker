@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
 import { FC, useState } from "react";
 import { LuCheck, LuPlus, LuTrash2, LuX } from "react-icons/lu";
 import {
@@ -32,6 +33,7 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
   deleteQuestion,
   openValue,
 }) => {
+  const { t } = useTranslation();
   const [newOptionName, setNewOptionName] = useState("");
   const { updateQuestion, updateQuestionIsPending } = useQuestionUpdate(
     materialId,
@@ -107,8 +109,8 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
               type="button"
               title={
                 option.isCorrect && correctCount === 1
-                  ? "At least one option must be correct"
-                  : "Toggle correct"
+                  ? t("questions.options.atLeastOne")
+                  : t("questions.options.toggleCorrect")
               }
               disabled={
                 updateQuestionIsPending ||
@@ -119,7 +121,7 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
                 "flex shrink-0 justify-center items-center size-7 rounded-lg border-2",
                 option.isCorrect
                   ? "bg-emerald-700 border-emerald-700 text-white"
-                  : "border-neutral-300 text-transparent hover:border-emerald-700",
+                  : "border-neutral-300 text-transparent hover:border-emerald-700 dark:border-neutral-600",
               )}
             >
               <LuCheck />
@@ -134,7 +136,8 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
             <Button
               variant="ghost"
               size="icon"
-              title="Remove option"
+              title={t("questions.options.remove")}
+              aria-label={t("questions.options.remove")}
               disabled={options.length <= MIN_OPTIONS || updateQuestionIsPending}
               onClick={() => onRemove(option.id)}
             >
@@ -147,7 +150,7 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
           <div className="flex items-center gap-2">
             <input
               value={newOptionName}
-              placeholder="New option..."
+              placeholder={t("questions.options.newPlaceholder")}
               maxLength={500}
               onChange={(e) => setNewOptionName(e.target.value)}
               onKeyDown={(e) => {
@@ -156,14 +159,14 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
                   onAdd();
                 }
               }}
-              className="flex-1 text-[15px] bg-gray-100 dark:bg-neutral-700 px-4 py-2 rounded-2xl"
+              className="flex-1 text-[15px] bg-neutral-100 dark:bg-neutral-700 px-4 py-2 rounded-2xl"
             />
             <Button
               variant="ghost"
               disabled={!newOptionName.trim() || updateQuestionIsPending}
               onClick={onAdd}
             >
-              <LuPlus /> Add
+              <LuPlus /> {t("common.add")}
             </Button>
           </div>
         )}

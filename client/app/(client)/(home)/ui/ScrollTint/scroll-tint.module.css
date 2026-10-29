@@ -43,19 +43,27 @@
 /* Page colour follows the story while scrolling, static first colour otherwise */
 @media (prefers-reduced-motion: no-preference) {
   @supports ((animation-timeline: scroll()) and (animation-range: entry)) {
-    .grow {
-      animation: tint-grow auto linear both;
+    /* Longhands on purpose: in the shorthand, the webpack build's CSS Modules read "auto"
+       as a second animation name, wrote ":local(auto)" and the production build failed */
+    .grow,
+    .reinforce,
+    .strengthen {
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: scroll(root);
+    }
+
+    .grow {
+      animation-name: tint-grow;
     }
 
     .reinforce {
-      animation: tint-reinforce auto linear both;
-      animation-timeline: scroll(root);
+      animation-name: tint-reinforce;
     }
 
     .strengthen {
-      animation: tint-strengthen auto linear both;
-      animation-timeline: scroll(root);
+      animation-name: tint-strengthen;
     }
   }
 }
@@ -95,4 +103,9 @@
   100% {
     opacity: 1;
   }
+}
+
+/* Dark theme stays in the neutral range: the colour washes become soft grey light */
+:global(.dark) .tint {
+  filter: grayscale(1) brightness(0.7);
 }

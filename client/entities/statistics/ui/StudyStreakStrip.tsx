@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useStatisticsStudyStreak } from "../hooks";
 import { AnimatedNumber, Card, CardSkeleton } from "./primitives";
 
-const DAYS = 14;
-
 export function StudyStreakStrip() {
+  const { t } = useTranslation();
   const { statisticsStudyStreakData, statisticsStudyStreakIsPending } =
     useStatisticsStudyStreak();
 
@@ -15,9 +15,10 @@ export function StudyStreakStrip() {
     return <CardSkeleton className="h-36 md:col-span-2" />;
   }
 
-  const { currentStreakDays, longestStreakDays } = statisticsStudyStreakData;
-  const dots = Array.from({ length: DAYS }, (_, i) => i < currentStreakDays);
+  const { currentStreakDays, longestStreakDays, studiedToday, recentDays } =
+    statisticsStudyStreakData;
   const active = currentStreakDays > 0;
+  const studiedRecently = recentDays.filter(Boolean).length;
 
   return (
     <Card className="md:col-span-2">
@@ -26,34 +27,41 @@ export function StudyStreakStrip() {
           <div
             className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
               active
-                ? "bg-emerald-500/10 text-emerald-400"
-                : "bg-neutral-800 text-neutral-500"
+                ? "bg-orange-500/10 text-orange-500"
+                : "bg-neutral-100 text-neutral-400 dark:bg-neutral-800 dark:text-neutral-500"
             }`}
           >
             <Flame className="h-6 w-6" aria-hidden />
           </div>
           <div>
             <p>
-              <span className="text-3xl font-semibold tabular-nums text-neutral-50">
+              <span className="text-3xl font-semibold tabular-nums text-neutral-900 dark:text-neutral-50">
                 <AnimatedNumber value={currentStreakDays} />
               </span>
               <span className="ml-2 text-neutral-500">
-                day{currentStreakDays === 1 ? "" : "s"} in a row
+                {t("statistics.streak.inARow", { count: currentStreakDays })}
               </span>
             </p>
             <p className="text-sm text-neutral-500">
-              Longest streak: {longestStreakDays} day
-              {longestStreakDays === 1 ? "" : "s"}
+              {t("statistics.streak.longest", { count: longestStreakDays })}
+              {" · "}
+              {studiedToday
+                ? t("statistics.streak.todayDone")
+                : t("statistics.streak.todayNotYet")}
             </p>
           </div>
         </div>
 
+        {/* Real study days of the last two weeks, today is the last dot */}
         <div
           role="img"
-          aria-label={`Last ${DAYS} days: ${Math.min(currentStreakDays, DAYS)} studied`}
+          aria-label={t("statistics.streak.recent", {
+            count: studiedRecently,
+            days: recentDays.length,
+          })}
           className="flex gap-1.5"
         >
-          {dots.map((filled, i) => (
+          {recentDays.map((studied, i) => (
             <motion.span
               key={i}
               initial={{ scale: 0, opacity: 0 }}
@@ -65,10 +73,10 @@ export function StudyStreakStrip() {
                 delay: 0.3 + i * 0.03,
               }}
               className={`h-3.5 w-3.5 rounded-2xl border ${
-                filled
+                studied
                   ? "border-emerald-500 bg-emerald-500"
-                  : "border-neutral-700"
-              }`}
+                  : "border-neutral-300 dark:border-neutral-700"
+              } ${i === recentDays.length - 1 ? "ring-2 ring-offset-2 ring-neutral-300 ring-offset-white dark:ring-neutral-600 dark:ring-offset-neutral-900" : ""}`}
             />
           ))}
         </div>

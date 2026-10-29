@@ -4,9 +4,12 @@ import { BookOpen, CircleHelp, ListChecks, Timer } from "lucide-react";
 import { useStatisticsOverview } from "../hooks";
 import { AccuracyRing } from "./AccuracyRing";
 import { AnimatedNumber, Card, CardSkeleton } from "./primitives";
-import { accuracyTone, formatDuration } from "./tokens";
+import { accuracyTone, useFormatDuration } from "./tokens";
+import { useTranslation } from "react-i18next";
 
 export function OverviewStamp() {
+  const { t } = useTranslation();
+  const formatDuration = useFormatDuration();
   const { statisticsOverviewData, statisticsOverviewIsPending } =
     useStatisticsOverview();
 
@@ -27,22 +30,22 @@ export function OverviewStamp() {
 
   const tiles = [
     {
-      label: "Materials",
+      label: t("statistics.overview.materials"),
       value: <AnimatedNumber value={totalMaterials} />,
       icon: BookOpen,
     },
     {
-      label: "Questions",
+      label: t("statistics.overview.questions"),
       value: <AnimatedNumber value={totalQuestions} />,
       icon: CircleHelp,
     },
     {
-      label: "Attempts",
+      label: t("statistics.overview.attempts"),
       value: <AnimatedNumber value={totalFinishedAttempts} />,
       icon: ListChecks,
     },
     {
-      label: "Avg per question",
+      label: t("statistics.overview.avgPerQuestion"),
       value: formatDuration(averageTimePerQuestion),
       icon: Timer,
     },
@@ -56,16 +59,16 @@ export function OverviewStamp() {
           <span
             className={`rounded-2xl px-3 py-1 text-xs font-medium ${tone.badge}`}
           >
-            {tone.label} overall accuracy
+            {t(`statistics.levels.${tone.level}`)}
           </span>
         </div>
 
         <div className="w-full flex-1">
           <div className="grid grid-cols-2 gap-3">
             {tiles.map(({ label, value, icon: Icon }) => (
-              <div key={label} className="rounded-2xl bg-neutral-800/50 p-4">
+              <div key={label} className="rounded-2xl bg-neutral-100 p-4 dark:bg-neutral-800/50">
                 <Icon className="mb-3 h-5 w-5 text-emerald-500" aria-hidden />
-                <p className="text-2xl font-semibold tabular-nums text-neutral-50">
+                <p className="text-2xl font-semibold tabular-nums text-neutral-900 dark:text-neutral-50">
                   {value}
                 </p>
                 <p className="mt-1 text-sm text-neutral-500">{label}</p>
@@ -73,8 +76,8 @@ export function OverviewStamp() {
             ))}
           </div>
           <p className="mt-4 text-sm text-neutral-500">
-            Total study time:{" "}
-            <span className="text-neutral-300">
+            {t("statistics.overview.totalTime")}{" "}
+            <span className="text-neutral-700 dark:text-neutral-300">
               {formatDuration(totalTimeSpent)}
             </span>
           </p>

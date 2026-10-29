@@ -1,6 +1,8 @@
 "use client";
 
-import { FC, useEffect, useRef, useState } from "react";
+import { useTranslation } from "@/shared/i18n";
+
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Reorder } from "framer-motion";
 import { LuPlus, LuSparkles } from "react-icons/lu";
 import { IDictionaryEntryResponse } from "@/entities/dictionary";
@@ -26,6 +28,7 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
   materialId,
   entries,
 }) => {
+  const { t } = useTranslation();
   const [addOpen, setAddOpen] = useState(false);
   const [generateOpen, setGenerateOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -54,17 +57,18 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
     orderedEntriesRef.current = nextEntries;
   };
 
-  const commitOrder = () => {
+  // Stable handlers keep the memoized word rows from re-rendering when a modal opens
+  const commitOrder = useCallback(() => {
     const nextIds = orderedEntriesRef.current.map((entry) => entry.id);
     const isChanged = nextIds.some((id, index) => id !== entries[index]?.id);
 
     if (isChanged) reorderEntries(nextIds);
-  };
+  }, [entries, reorderEntries]);
 
-  const onEditHandler = (entry: IDictionaryEntryResponse) => {
+  const onEditHandler = useCallback((entry: IDictionaryEntryResponse) => {
     setEditingEntry(entry);
     setEditOpen(true);
-  };
+  }, []);
 
   return (
     <div className="flex flex-col w-full">
@@ -75,16 +79,16 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
           disabled={isWordsFull}
           title={
             isWordsFull
-              ? `Limit reached: ${limitsData?.maxEntriesPerDictionary} words in one dictionary`
+              ? t("dictionary.wordsLimitHint", { count: limitsData?.maxEntriesPerDictionary })
               : undefined
           }
           onClick={() => setAddOpen(true)}
         >
-          <LuPlus /> {isWordsFull ? "Words limit reached" : "Add Word"}
+          <LuPlus /> {isWordsFull ? t("dictionary.wordsLimitReached") : t("dictionary.addWord")}
           <LimitCounter
             used={entries.length}
             max={limitsData?.maxEntriesPerDictionary}
-            label="words in this dictionary"
+            label={t("limits.counter.words")}
           />
         </Button>
         <Button
@@ -93,7 +97,7 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
           disabled={isWordsFull}
           onClick={() => setGenerateOpen(true)}
         >
-          <LuSparkles /> Generate Words
+          <LuSparkles /> {t("dictionary.generate.title")}
         </Button>
       </div>
 

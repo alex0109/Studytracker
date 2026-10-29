@@ -4,10 +4,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { flashcardKeys, resetEntryProgress } from "@/entities/flashcard";
 import { dictionaryKeys } from "@/entities/dictionary";
 
 export const useEntryProgressReset = (dictionaryId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -22,7 +24,7 @@ export const useEntryProgressReset = (dictionaryId: string) => {
       });
 
       toast({
-        title: "✅Word progress has been reset",
+        title: `✅${t("toasts.progressReset")}`,
         variant: "success",
       });
     },
@@ -33,7 +35,7 @@ export const useEntryProgressReset = (dictionaryId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while resetting progress",
+        title: `❌${t("toasts.progressResetError")}`,
         variant: "error",
       });
     },

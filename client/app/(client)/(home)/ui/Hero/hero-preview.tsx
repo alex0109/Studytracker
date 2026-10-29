@@ -6,12 +6,15 @@ import { LuFlame } from "react-icons/lu";
 import { DictionaryFlipCard } from "@/entities/dictionary";
 import { cn } from "@/shared/lib";
 import { CountUp } from "../CountUp";
-import { sampleEntries } from "../../lib/sample-entries";
+import { useTranslation } from "@/shared/i18n";
+import { useSampleEntries } from "../../lib/sample-entries";
 
 // Days of the last two weeks the user studied, for the streak strip
 const STREAK = [1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1];
 
 export const HeroPreview: FC = () => {
+  const { t } = useTranslation();
+  const sampleEntries = useSampleEntries();
   const reduceMotion = useReducedMotion();
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -29,7 +32,9 @@ export const HeroPreview: FC = () => {
       >
         <button
           type="button"
-          aria-label={isFlipped ? "Show the word" : "Show the translation"}
+          aria-label={
+            isFlipped ? t("landing.preview.showWord") : t("landing.preview.showTranslation")
+          }
           onClick={() => setIsFlipped((prev) => !prev)}
           className="h-full w-full cursor-pointer rounded-2xl text-left"
         >
@@ -39,10 +44,10 @@ export const HeroPreview: FC = () => {
 
       <motion.div
         {...enter(0.3)}
-        className="absolute bottom-6 left-0 flex w-[158px] rotate-2 flex-col items-center gap-2 rounded-2xl border-3 border-white bg-neutral-900 p-4 text-white shadow-xl sm:left-4 sm:w-[210px] sm:p-5"
+        className="absolute bottom-6 left-0 flex w-[158px] rotate-2 flex-col items-center gap-2 rounded-2xl border-3 border-white bg-neutral-900 p-4 text-white shadow-xl sm:left-4 sm:w-[210px] sm:p-5 dark:border-neutral-800"
       >
         <span className="text-xs uppercase tracking-wider text-neutral-400">
-          Attempt score
+          {t("landing.preview.attemptScore")}
         </span>
         <div className="relative flex size-24 items-center justify-center">
           <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90">
@@ -68,23 +73,23 @@ export const HeroPreview: FC = () => {
           <CountUp value={86} className="text-2xl font-semibold" />
         </div>
         <span className="text-center text-xs text-neutral-400">
-          hard ×3 · medium ×2 · easy ×1
+          {t("landing.preview.weights")}
         </span>
       </motion.div>
 
       <motion.div
         {...enter(0.45)}
-        className="absolute bottom-0 right-0 flex w-[178px] -rotate-1 flex-col gap-3 rounded-2xl border-3 border-white bg-white/90 p-3 shadow-xl backdrop-blur sm:w-[230px] sm:p-4"
+        className="absolute bottom-0 right-0 flex w-[178px] -rotate-1 flex-col gap-3 rounded-2xl border-3 border-white bg-white/90 p-3 shadow-xl backdrop-blur sm:w-[230px] sm:p-4 dark:border-neutral-800 dark:bg-neutral-900/90"
       >
         <div className="flex items-center gap-2">
           <span className="flex size-8 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
             <LuFlame />
           </span>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold text-neutral-900">
-              12-day streak
+            <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+              {t("landing.preview.streak")}
             </span>
-            <span className="text-xs text-neutral-500">last two weeks</span>
+            <span className="text-xs text-neutral-500">{t("landing.preview.lastTwoWeeks")}</span>
           </div>
         </div>
         <div className="grid grid-cols-7 gap-1.5">
@@ -96,7 +101,7 @@ export const HeroPreview: FC = () => {
               transition={{ delay: 0.7 + index * 0.04 }}
               className={cn(
                 "aspect-square rounded-md",
-                day ? "bg-emerald-500" : "bg-neutral-200",
+                day ? "bg-emerald-500" : "bg-neutral-200 dark:bg-neutral-700",
               )}
             />
           ))}

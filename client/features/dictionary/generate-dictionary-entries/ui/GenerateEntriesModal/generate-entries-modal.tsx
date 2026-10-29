@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { LuSparkles } from "react-icons/lu";
 import { IsPendingLoader, Modal, Title } from "@/shared/ui";
 import { Button, Separator } from "@/shared/radix-ui";
@@ -15,9 +15,11 @@ import {
 } from "@/entities/ai";
 import { useDictionaryEntriesGenerate } from "../../hooks/useDictionaryEntriesGenerate";
 import {
-  getBrowserLanguage,
-  TRANSLATION_LANGUAGES,
+  defaultTranslationCode,
+  languageName,
+  TRANSLATION_LANGUAGE_CODES,
 } from "../../lib/translation-languages";
+import { useTranslation } from "@/shared/i18n";
 
 interface GenerateEntriesModalProps {
   dictionaryId: string;
@@ -38,13 +40,12 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
   open,
   setOpen,
 }) => {
+  const { t, i18n } = useTranslation();
   const [source, setSource] = useState(MATERIAL_SOURCE);
   const [count, setCount] = useState(10);
-  const [language, setLanguage] = useState("English");
-
-  useEffect(() => {
-    setLanguage(getBrowserLanguage());
-  }, []);
+  const [languageCode, setLanguageCode] = useState(() =>
+    defaultTranslationCode(i18n.language),
+  );
 
   // Only notes of this dictionary's material can be a source
   const { materialsData } = useMaterialAll();
@@ -66,16 +67,13 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
 
   const maxCount = Math.max(0, Math.min(20, freeSlots));
   const selectedCount = Math.min(count, maxCount);
-  const languages = TRANSLATION_LANGUAGES.includes(language)
-    ? TRANSLATION_LANGUAGES
-    : [language, ...TRANSLATION_LANGUAGES];
 
   const onGenerate = async () => {
     try {
       await generateEntries({
         noteId: source === MATERIAL_SOURCE ? undefined : source,
         count: selectedCount,
-        language,
+        language: languageName(languageCode, "en"),
       });
       setOpen(false);
     } catch {
@@ -87,21 +85,18 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className="lg:w-[600px] md:w-[500px] sm:w-[400px] w-[300px] max-h-[85vh] overflow-y-auto">
         <div className="flex flex-col w-full justify-center gap-4">
-          <Title text="Generate Words" />
+          <Title text={t("dictionary.generate.title")} />
           <Separator />
-          <p className="text-sm text-neutral-500">
-            AI picks words worth learning from the text and adds them with a
-            translation, transcription and an example.
-          </p>
+          <p className="text-sm text-neutral-500">{t("dictionary.generate.text")}</p>
 
           <label className="flex flex-col gap-2 text-sm font-medium">
-            From
+            {t("dictionary.generate.from")}
             <select
               value={source}
               onChange={(e) => setSource(e.target.value)}
-              className="bg-gray-100 dark:bg-neutral-700 p-2 rounded-2xl font-normal"
+              className="bg-neutral-100 dark:bg-neutral-700 p-2 rounded-2xl font-normal"
             >
-              <option value={MATERIAL_SOURCE}>📄 Material content</option>
+              <option value={MATERIAL_SOURCE}>{t("dictionary.generate.materialContent")}</option>
               {textNotes.map((note) => (
                 <option key={note.id} value={note.id}>
                   {note.type === NoteTypeEnum.summary ? "📚" : "✍️"}{" "}
@@ -112,22 +107,22 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
           </label>
 
           <label className="flex flex-col gap-2 text-sm font-medium">
-            Translate into
+            {t("dictionary.generate.translateInto")}
             <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              className="bg-gray-100 dark:bg-neutral-700 p-2 rounded-2xl font-normal"
+              value={languageCode}
+              onChange={(e) => setLanguageCode(e.target.value)}
+              className="bg-neutral-100 dark:bg-neutral-700 p-2 rounded-2xl font-normal"
             >
-              {languages.map((item) => (
-                <option key={item} value={item}>
-                  {item}
+              {TRANSLATION_LANGUAGE_CODES.map((code) => (
+                <option key={code} value={code}>
+                  {languageName(code, i18n.language)}
                 </option>
               ))}
             </select>
           </label>
 
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">Up to</span>
+            <span className="text-sm font-medium">{t("dictionary.generate.upTo")}</span>
             <div className="flex gap-2">
               {COUNT_OPTIONS.map((value) => (
                 <button
@@ -139,7 +134,7 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
                     "flex-1 rounded-xl py-2 text-sm font-medium disabled:opacity-40",
                     selectedCount === Math.min(value, maxCount)
                       ? "bg-violet-700 text-white"
-                      : "bg-neutral-200 text-neutral-700",
+                      : "bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200",
                   )}
                 >
                   {value}
@@ -149,8 +144,8 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
             {maxCount < 20 && (
               <span className="text-xs text-neutral-500">
                 {maxCount === 0
-                  ? "Words limit of this dictionary is reached"
-                  : `Only ${maxCount} more ${maxCount === 1 ? "word fits" : "words fit"} into this dictionary`}
+                  ? t("dictionary.generate.full")
+                  : t("dictionary.generate.fits", { count: maxCount })}
               </span>
             )}
           </div>
@@ -172,7 +167,7 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
                 }
               >
                 <LuSparkles />
-                {generateEntriesIsPending ? "Generating..." : "Generate"}
+                {generateEntriesIsPending ? t("ai.generating") : t("ai.generate")}
               </Button>
             </div>
             <div className="flex-1">

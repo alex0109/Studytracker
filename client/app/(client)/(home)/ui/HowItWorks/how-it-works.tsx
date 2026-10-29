@@ -4,11 +4,13 @@ import { FC, KeyboardEvent, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { LuArrowRight } from "react-icons/lu";
 import { cn } from "@/shared/lib";
+import { useTranslation } from "@/shared/i18n";
 import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";
 import { howItWorksSteps } from "./data";
 
 export const HowItWorks: FC = () => {
+  const { t } = useTranslation();
   const reduceMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -41,9 +43,9 @@ export const HowItWorks: FC = () => {
     >
       <Reveal>
         <SectionHeading
-          eyebrow="How it works"
-          title="From the first note to knowledge that holds"
-          text="Five steps, one material. Click through them, the demos are live."
+          eyebrow={t("landing.how.eyebrow")}
+          title={t("landing.how.title")}
+          text={t("landing.how.text")}
         />
       </Reveal>
 
@@ -51,7 +53,7 @@ export const HowItWorks: FC = () => {
         <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
           <div
             role="tablist"
-            aria-label="How Studytracker works"
+            aria-label={t("landing.how.tabsLabel")}
             aria-orientation="vertical"
             onKeyDown={onTabsKeyDown}
             className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0"
@@ -75,14 +77,14 @@ export const HowItWorks: FC = () => {
                   className={cn(
                     "relative flex shrink-0 items-center gap-3 rounded-2xl px-4 py-3 text-left font-medium transition-colors",
                     isActive
-                      ? "text-neutral-900"
-                      : "text-neutral-500 hover:text-neutral-800",
+                      ? "text-neutral-900 dark:text-neutral-50"
+                      : "text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200",
                   )}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="how-it-works-active"
-                      className="absolute inset-0 rounded-2xl bg-white shadow-md"
+                      className="absolute inset-0 rounded-2xl bg-white shadow-md dark:bg-neutral-800"
                       transition={{ type: "spring", stiffness: 400, damping: 34 }}
                     />
                   )}
@@ -90,14 +92,14 @@ export const HowItWorks: FC = () => {
                     className={cn(
                       "relative flex size-8 items-center justify-center rounded-xl text-sm transition-colors",
                       isActive
-                        ? "bg-neutral-900 text-white"
-                        : "bg-white/70 text-neutral-500",
+                        ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+                        : "bg-white/70 text-neutral-500 dark:bg-neutral-900/70 dark:text-neutral-400",
                     )}
                   >
                     <step.icon />
                   </span>
                   <span className="relative whitespace-nowrap">
-                    {step.label}
+                    {t(`landing.how.steps.${step.id}.label`)}
                   </span>
                 </button>
               );
@@ -108,7 +110,7 @@ export const HowItWorks: FC = () => {
             role="tabpanel"
             id={`how-panel-${active.id}`}
             aria-labelledby={`how-tab-${active.id}`}
-            className="min-h-[480px] rounded-3xl border border-white bg-white/80 p-5 shadow-sm backdrop-blur md:p-8"
+            className="min-h-[480px] rounded-3xl border border-white bg-white/80 p-5 shadow-sm backdrop-blur md:p-8 dark:border-neutral-800 dark:bg-neutral-900/80"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -121,12 +123,17 @@ export const HowItWorks: FC = () => {
               >
                 <div className="flex flex-col gap-2">
                   <span className="font-mono text-sm text-neutral-400">
-                    Step {activeIndex + 1} of {howItWorksSteps.length}
+                    {t("landing.how.stepOf", {
+                      step: activeIndex + 1,
+                      total: howItWorksSteps.length,
+                    })}
                   </span>
-                  <h3 className="text-2xl! font-semibold! text-neutral-900">
-                    {active.title}
+                  <h3 className="text-2xl! font-semibold! text-neutral-900 dark:text-neutral-50">
+                    {t(`landing.how.steps.${active.id}.title`)}
                   </h3>
-                  <p className="text-neutral-600">{active.text}</p>
+                  <p className="text-neutral-600 dark:text-neutral-400">
+                    {t(`landing.how.steps.${active.id}.text`)}
+                  </p>
                 </div>
 
                 <active.Demo />
@@ -135,9 +142,11 @@ export const HowItWorks: FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveIndex(activeIndex + 1)}
-                    className="group inline-flex items-center gap-2 self-end text-sm font-medium text-neutral-700 hover:text-neutral-900"
+                    className="group inline-flex items-center gap-2 self-end text-sm font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
                   >
-                    Next: {howItWorksSteps[activeIndex + 1].label}
+                    {t("landing.how.next", {
+                      step: t(`landing.how.steps.${howItWorksSteps[activeIndex + 1].id}.label`),
+                    })}
                     <LuArrowRight className="transition-transform group-hover:translate-x-0.5" />
                   </button>
                 )}

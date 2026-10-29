@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslation } from "@/shared/i18n";
 import { FC } from "react";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
@@ -9,9 +12,10 @@ interface AnswerButtonsProps {
 }
 
 export const AnswerButtons: FC<AnswerButtonsProps> = ({ onAnswer }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex w-full max-w-[460px] gap-2">
-      {FLASHCARD_ANSWER_OPTIONS.map(({ value, label, icon: Icon, styles }) => (
+      {FLASHCARD_ANSWER_OPTIONS.map(({ value, icon: Icon, styles }) => (
         <Button
           key={value}
           size="lg"
@@ -22,7 +26,7 @@ export const AnswerButtons: FC<AnswerButtonsProps> = ({ onAnswer }) => {
             onAnswer(value);
           }}
         >
-          <Icon /> {label}
+          <Icon /> {t(`flashcards.answers.${value}`)}
         </Button>
       ))}
     </div>

@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { dictionaryKeys } from "@/entities/dictionary";
 import {
   aiKeys,
@@ -13,6 +14,7 @@ import {
 } from "@/entities/ai";
 
 export const useDictionaryEntriesGenerate = (dictionaryId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -26,13 +28,13 @@ export const useDictionaryEntriesGenerate = (dictionaryId: string) => {
       queryClient.invalidateQueries({ queryKey: dictionaryKeys.lists() });
 
       toast({
-        title: `✨${entries.length} ${entries.length === 1 ? "word has" : "words have"} been added!`,
+        title: `✨${t("toasts.wordsGenerated", { count: entries.length })}`,
         variant: "success",
       });
     },
     onError: (error) => {
       // Quota, AI down or nothing to generate from: tell why, this is not a bug to report
-      const aiMessage = getAiErrorMessage(error);
+      const aiMessage = getAiErrorMessage(error, t);
       if (aiMessage) {
         queryClient.invalidateQueries({
           queryKey: dictionaryKeys.detail(dictionaryId),
@@ -47,7 +49,7 @@ export const useDictionaryEntriesGenerate = (dictionaryId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while generating words",
+        title: `❌${t("toasts.wordsGenerateError")}`,
         variant: "error",
       });
     },

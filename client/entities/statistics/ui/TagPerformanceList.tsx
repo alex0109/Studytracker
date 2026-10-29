@@ -5,8 +5,10 @@ import { Tags } from "lucide-react";
 import { useStatisticsTagPerformance } from "../hooks";
 import { Card, CardEmpty, CardSkeleton } from "./primitives";
 import { accuracyTone } from "./tokens";
+import { useTranslation } from "react-i18next";
 
 export function TagPerformanceList() {
+  const { t } = useTranslation();
   const { statisticsTagPerformanceData, statisticsTagPerformanceIsPending } =
     useStatisticsTagPerformance();
 
@@ -20,7 +22,7 @@ export function TagPerformanceList() {
       <CardEmpty
         className="h-56 md:col-span-2"
         icon={<Tags className="h-8 w-8" aria-hidden />}
-        text="Add tags to your materials to see which topics need more work."
+        text={t("statistics.tags.empty")}
       />
     );
   }
@@ -28,8 +30,8 @@ export function TagPerformanceList() {
   return (
     <Card
       className="md:col-span-2"
-      title="Focus areas"
-      subtitle="Weakest topics first"
+      title={t("statistics.tags.title")}
+      subtitle={t("statistics.tags.subtitle")}
     >
       <ul className="space-y-4">
         {tags.map((tag, i) => {
@@ -37,7 +39,7 @@ export function TagPerformanceList() {
           return (
             <li key={tag.tagId} className="flex items-center gap-3">
               <span
-                className="w-28 shrink-0 truncate text-sm text-neutral-50 sm:w-40"
+                className="w-28 shrink-0 truncate text-sm text-neutral-900 dark:text-neutral-50 sm:w-40"
                 title={tag.tagName}
               >
                 {tag.tagName}
@@ -48,8 +50,8 @@ export function TagPerformanceList() {
                 aria-valuenow={Math.round(tag.accuracy)}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label={`${tag.tagName} accuracy`}
-                className="h-2.5 flex-1 overflow-hidden rounded-2xl bg-neutral-800"
+                aria-label={t("statistics.tags.accuracyOf", { tag: tag.tagName })}
+                className="h-2.5 flex-1 overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800"
               >
                 <motion.div
                   className={`h-full rounded-2xl ${tone.bar}`}
@@ -69,7 +71,7 @@ export function TagPerformanceList() {
                 {Math.round(tag.accuracy)}%
               </span>
               <span className="hidden w-20 shrink-0 text-right text-xs text-neutral-500 sm:block">
-                {tag.answersCount} answers
+                {t("statistics.answers", { count: tag.answersCount })}
               </span>
             </li>
           );

@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/shared/i18n";
+
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { LuPlay, LuShuffle } from "react-icons/lu";
@@ -23,6 +25,7 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
   isPending,
   onStart,
 }) => {
+  const { t } = useTranslation();
   const { flashcardStatsData, flashcardStatsIsPending } =
     useFlashcardStats(dictionaryId);
 
@@ -52,18 +55,18 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
 
   const tiles = [
     {
-      label: "Due now",
+      label: t("flashcards.start.due"),
       value: flashcardStatsData.due,
       styles: "text-emerald-600",
     },
-    { label: "New", value: flashcardStatsData.new, styles: "text-sky-600" },
+    { label: t("flashcards.start.new"), value: flashcardStatsData.new, styles: "text-sky-600" },
     {
-      label: "Learning",
+      label: t("flashcards.start.learning"),
       value: flashcardStatsData.learning + flashcardStatsData.relearning,
       styles: "text-amber-500",
     },
     {
-      label: "In review",
+      label: t("flashcards.start.review"),
       value: flashcardStatsData.review,
       styles: "text-violet-700",
     },
@@ -79,7 +82,7 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
         {tiles.map((tile) => (
           <div
             key={tile.label}
-            className="flex flex-col items-center gap-1 rounded-2xl border-3 border-white dark:border-neutral-800 bg-gray-50 dark:bg-neutral-900 p-4"
+            className="flex flex-col items-center gap-1 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-4"
           >
             <span className={`text-2xl font-bold ${tile.styles}`}>
               {tile.value}
@@ -93,8 +96,8 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
 
       <p className="text-sm text-neutral-500 text-center">
         {reviewCount > 0
-          ? `Next session: ${reviewCount} ${reviewCount === 1 ? "card" : "cards"}`
-          : "Nothing to review right now, come back later or practice all words"}
+          ? t("flashcards.start.next", { count: reviewCount })
+          : t("flashcards.start.nothing")}
       </p>
 
       <div className="flex md:flex-row flex-col gap-3 w-full max-w-[460px]">
@@ -109,7 +112,7 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
             })
           }
         >
-          <LuPlay /> Review {reviewCount}
+          <LuPlay /> {t("flashcards.start.reviewButton", { count: reviewCount })}
         </Button>
         <Button
           size="lg"
@@ -118,7 +121,7 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
           disabled={isPending}
           onClick={() => onStart({ mode: FlashcardSessionModeEnum.All })}
         >
-          <LuShuffle /> Practice all {allCount}
+          <LuShuffle /> {t("flashcards.start.allButton", { count: allCount })}
         </Button>
       </div>
     </motion.div>

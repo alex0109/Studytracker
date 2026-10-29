@@ -15,7 +15,6 @@ export const useStatisticsAttemtTrend = () => {
     queryKey: statisticsKeys.attemptTrend(),
     queryFn: () => getAttemptTrend(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

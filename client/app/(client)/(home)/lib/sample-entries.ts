@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { IDictionaryEntryResponse, PartOfSpeechEnum } from "@/entities/dictionary";
 
 const base = {
@@ -8,42 +9,47 @@ const base = {
   updatedAt: new Date(0),
 };
 
-// Sample words for landing demos, shaped like real dictionary entries
-export const sampleEntries: IDictionaryEntryResponse[] = [
-  {
-    ...base,
-    id: "schmetterling",
-    position: 0,
-    term: "Schmetterling",
-    translation: "butterfly",
-    transcription: "[ˈʃmɛtɐlɪŋ]",
-    partOfSpeech: PartOfSpeechEnum.Noun,
-    grammarInfo: "der, plural: die Schmetterlinge",
-    example: "Ein Schmetterling sitzt auf der Blume.",
-    exampleTranslation: "A butterfly is sitting on the flower.",
-  },
-  {
-    ...base,
-    id: "gemuetlich",
-    position: 1,
-    term: "gemütlich",
-    translation: "cozy",
-    transcription: "[ɡəˈmyːtlɪç]",
-    partOfSpeech: PartOfSpeechEnum.Adjective,
-    example: "Das Café ist sehr gemütlich.",
-    exampleTranslation: "The café is very cozy.",
-    synonyms: ["behaglich", "heimelig"],
-  },
-  {
-    ...base,
-    id: "laufen",
-    position: 2,
-    term: "laufen",
-    translation: "to run, to walk",
-    transcription: "[ˈlaʊ̯fn̩]",
-    partOfSpeech: PartOfSpeechEnum.Verb,
-    grammarInfo: "läuft, lief, ist gelaufen",
-    example: "Ich laufe jeden Morgen im Park.",
-    exampleTranslation: "I run in the park every morning.",
-  },
-];
+// Sample German words for landing demos, shaped like real dictionary entries;
+// translations follow the language of the page
+export const useSampleEntries = (): IDictionaryEntryResponse[] => {
+  const { t } = useTranslation();
+
+  return [
+    {
+      ...base,
+      id: "schmetterling",
+      position: 0,
+      term: "Schmetterling",
+      translation: t("landing.samples.butterfly.translation"),
+      transcription: "[ˈʃmɛtɐlɪŋ]",
+      partOfSpeech: PartOfSpeechEnum.Noun,
+      grammarInfo: t("landing.samples.butterfly.grammar"),
+      example: "Ein Schmetterling sitzt auf der Blume.",
+      exampleTranslation: t("landing.samples.butterfly.example"),
+    },
+    {
+      ...base,
+      id: "gemuetlich",
+      position: 1,
+      term: "gemütlich",
+      translation: t("landing.samples.cozy.translation"),
+      transcription: "[ɡəˈmyːtlɪç]",
+      partOfSpeech: PartOfSpeechEnum.Adjective,
+      example: "Das Café ist sehr gemütlich.",
+      exampleTranslation: t("landing.samples.cozy.example"),
+      synonyms: ["behaglich", "heimelig"],
+    },
+    {
+      ...base,
+      id: "laufen",
+      position: 2,
+      term: "laufen",
+      translation: t("landing.samples.run.translation"),
+      transcription: "[ˈlaʊ̯fn̩]",
+      partOfSpeech: PartOfSpeechEnum.Verb,
+      grammarInfo: "läuft, lief, ist gelaufen",
+      example: "Ich laufe jeden Morgen im Park.",
+      exampleTranslation: t("landing.samples.run.example"),
+    },
+  ];
+};

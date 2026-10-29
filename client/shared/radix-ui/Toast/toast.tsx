@@ -8,18 +8,21 @@ import {
   animate,
   AnimationPlaybackControls,
 } from "framer-motion";
+import { LuX } from "react-icons/lu";
+import { useTranslation } from "react-i18next";
 import { useToasts } from "./useToast";
 import { toastStore, ToastVariant } from "./toast.store";
 
+// Neutral card, the variant shows in the border and the progress bar
 const variantClasses: Record<ToastVariant, string> = {
-  default: "bg-blue-600/50",
-  success: "bg-green-400/50",
-  error: "bg-red-500/50",
+  default: "border-neutral-200 dark:border-neutral-700",
+  success: "border-emerald-300 dark:border-emerald-800",
+  error: "border-red-300 dark:border-red-800",
 };
 
 const barVariantClasses: Record<ToastVariant, string> = {
-  default: "bg-blue-600",
-  success: "bg-green-400",
+  default: "bg-neutral-500",
+  success: "bg-emerald-500",
   error: "bg-red-500",
 };
 
@@ -44,7 +47,7 @@ const ProgressBar: FC<{ variant: ToastVariant; durationMs: number }> = ({
   }, [durationMs]);
 
   return (
-    <div className="absolute top-0 left-0 h-1 w-full overflow-hidden rounded-b-2xl bg-black/10">
+    <div className="absolute top-0 left-0 h-1 w-full overflow-hidden rounded-b-2xl bg-neutral-900/10 dark:bg-white/10">
       <div
         ref={barRef}
         className={`h-full w-full origin-right ${barVariantClasses[variant]}`}
@@ -56,6 +59,7 @@ const ProgressBar: FC<{ variant: ToastVariant; durationMs: number }> = ({
 };
 
 export const ToastProvider: FC = () => {
+  const { t } = useTranslation();
   const toasts = useToasts();
 
   return (
@@ -84,24 +88,24 @@ export const ToastProvider: FC = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className={`${variantClasses[variant]} relative z-50 overflow-hidden rounded-2xl shadow
+                className={`${variantClasses[variant]} relative z-50 overflow-hidden rounded-2xl border bg-white/95 shadow-lg backdrop-blur dark:bg-neutral-900/95
                   p-4 grid grid-cols-[1fr_auto] gap-x-3 items-center`}
               >
                 <div className="grid gap-1">
-                  <Toast.Title className="font-medium text-sm text-black">
+                  <Toast.Title className="font-medium text-sm text-neutral-900 dark:text-neutral-50">
                     {title}
                   </Toast.Title>
                   {description && (
-                    <Toast.Description className="text-sm text-black">
+                    <Toast.Description className="text-sm text-neutral-600 dark:text-neutral-300">
                       {description}
                     </Toast.Description>
                   )}
                 </div>
                 <Toast.Close
-                  aria-label="Close"
-                  className="text-black p-1 rounded-lg"
+                  aria-label={t("common.close")}
+                  className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 p-1 rounded-lg"
                 >
-                  <p>X</p>
+                  <LuX aria-hidden />
                 </Toast.Close>
                 <ProgressBar variant={variant} durationMs={durationMs} />
               </motion.div>

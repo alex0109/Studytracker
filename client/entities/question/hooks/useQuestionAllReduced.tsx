@@ -17,7 +17,6 @@ export const useQuestionAllReduced = (materialId: string) => {
       return getAllReducedQuestions(token, materialId);
     },
     enabled: !!materialId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {

@@ -5,18 +5,20 @@ import { LuBookOpen, LuCrown, LuFolderOpen, LuSparkles } from "react-icons/lu";
 import { Skeleton } from "@/shared/radix-ui";
 import { LimitBar } from "@/shared/ui";
 import { useLimits, useLimitsUsage } from "@/entities/limits";
-import { aiFeatureLabels, useAiUsage } from "@/entities/ai";
+import { aiFeatureLabelKey, useAiUsage } from "@/entities/ai";
+import { Trans, useTranslation } from "@/shared/i18n";
 import { LimitsCard } from "../LimitsCard/limits-card";
 import { MaterialLimitsList } from "../MaterialLimitsList/material-limits-list";
 
-const formatDate = (value: string) =>
-  new Date(value).toLocaleDateString(undefined, {
+const formatDate = (value: string, language: string) =>
+  new Date(value).toLocaleDateString(language, {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
 
 export const LimitsOverview: FC = () => {
+  const { t, i18n } = useTranslation();
   const { limitsData } = useLimits();
   const { limitsUsageData, limitsUsageError } = useLimitsUsage();
   const { aiUsageData } = useAiUsage();
@@ -24,14 +26,14 @@ export const LimitsOverview: FC = () => {
   if (limitsUsageError) {
     return (
       <p className="py-10 text-center text-neutral-500">
-        Could not load your limits, please refresh the page.
+        {t("limits.page.loadError")}
       </p>
     );
   }
 
   if (!limitsData || !limitsUsageData) {
     return (
-      <div className="grid w-full gap-4 md:grid-cols-2">
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
         <Skeleton className="h-44 w-full rounded-2xl" />
         <Skeleton className="h-44 w-full rounded-2xl" />
         <Skeleton className="h-64 w-full rounded-2xl md:col-span-2" />
@@ -39,11 +41,13 @@ export const LimitsOverview: FC = () => {
     );
   }
 
+  // grid-cols-1 is minmax(0, 1fr): without it the phone column grew to fit a long
+  // material title and the page got wider than the screen
   return (
-    <div className="grid w-full gap-4 md:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
       <LimitsCard
-        title="Your plan"
-        subtitle="AI limits depend on the plan"
+        title={t("limits.page.plan")}
+        subtitle={t("limits.page.planText")}
         icon={<LuCrown />}
       >
         {aiUsageData ? (
@@ -52,15 +56,17 @@ export const LimitsOverview: FC = () => {
               {aiUsageData.tier}
             </span>
             <p className="text-sm text-neutral-500">
-              AI requests are counted per month and reset on{" "}
-              <span className="font-medium text-neutral-700 dark:text-neutral-200">
-                {formatDate(aiUsageData.resetsAt)}
-              </span>
-              . Requests that failed are not counted.
+              <Trans
+                i18nKey="limits.page.resets"
+                values={{ date: formatDate(aiUsageData.resetsAt, i18n.language) }}
+                components={{
+                  b: <span className="font-medium text-neutral-700 dark:text-neutral-200" />,
+                }}
+              />
             </p>
             {!aiUsageData.isEnabled && (
               <p className="text-sm text-amber-600">
-                AI features are turned off right now.
+                {t("ai.off")}
               </p>
             )}
           </div>
@@ -70,25 +76,25 @@ export const LimitsOverview: FC = () => {
       </LimitsCard>
 
       <LimitsCard
-        title="Workspace"
-        subtitle="Shared by all your materials"
+        title={t("limits.page.workspace")}
+        subtitle={t("limits.page.workspaceText")}
         icon={<LuFolderOpen />}
       >
         <LimitBar
-          label="Materials"
+          label={t("limits.page.materials")}
           used={limitsUsageData.materials}
           max={limitsData.maxMaterials}
         />
         <LimitBar
-          label="Tags"
+          label={t("limits.page.tags")}
           used={limitsUsageData.tags}
           max={limitsData.maxTags}
         />
       </LimitsCard>
 
       <LimitsCard
-        title="AI this month"
-        subtitle="How many AI requests are left"
+        title={t("limits.page.aiMonth")}
+        subtitle={t("limits.page.aiMonthText")}
         icon={<LuSparkles />}
         className="md:col-span-2"
       >
@@ -97,7 +103,7 @@ export const LimitsOverview: FC = () => {
             {aiUsageData.features.map((item) => (
               <LimitBar
                 key={item.feature}
-                label={aiFeatureLabels[item.feature] ?? item.feature}
+                label={t(aiFeatureLabelKey(item.feature), { defaultValue: item.feature })}
                 used={item.used}
                 max={item.limit}
               />
@@ -109,8 +115,8 @@ export const LimitsOverview: FC = () => {
       </LimitsCard>
 
       <LimitsCard
-        title="Inside every material"
-        subtitle={`Every dictionary holds up to ${limitsData.maxEntriesPerDictionary} words`}
+        title={t("limits.page.perMaterial")}
+        subtitle={t("limits.page.perMaterialText", { count: limitsData.maxEntriesPerDictionary })}
         icon={<LuBookOpen />}
         className="md:col-span-2"
       >

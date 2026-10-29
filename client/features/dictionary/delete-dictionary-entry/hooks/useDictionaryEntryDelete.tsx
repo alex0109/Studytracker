@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 import { deleteDictionaryEntry, dictionaryKeys } from "@/entities/dictionary";
 
 export const useDictionaryEntryDelete = (dictionaryId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -19,7 +21,7 @@ export const useDictionaryEntryDelete = (dictionaryId: string) => {
       queryClient.invalidateQueries({ queryKey: dictionaryKeys.lists() });
 
       toast({
-        title: "✅Word successfully deleted",
+        title: `✅${t("toasts.wordDeleted")}`,
         variant: "success",
       });
     },
@@ -30,7 +32,7 @@ export const useDictionaryEntryDelete = (dictionaryId: string) => {
       });
 
       toast({
-        title: "❌Error occurred while deleting word",
+        title: `❌${t("toasts.wordDeleteError")}`,
         variant: "error",
       });
     },

@@ -1,4 +1,8 @@
+"use client";
+
 import { FC, ReactNode } from "react";
+import type { TFunction } from "i18next";
+import { useTranslation } from "@/shared/i18n";
 import moment from "moment";
 import { LuCircleCheck, LuCircleX, LuClock, LuTarget } from "react-icons/lu";
 import { IAttempt } from "@/entities/attempt";
@@ -9,11 +13,13 @@ interface ResultsSummaryProps {
   questionsLength: number;
 }
 
-const formatDuration = (totalSeconds: number) => {
+const formatDuration = (totalSeconds: number, t: TFunction) => {
   const seconds = Math.round(totalSeconds);
   const minutes = Math.floor(seconds / 60);
 
-  return minutes > 0 ? `${minutes} min ${seconds % 60} s` : `${seconds} s`;
+  return minutes > 0
+    ? t("results.duration.minutes", { minutes, seconds: seconds % 60 })
+    : t("results.duration.seconds", { seconds });
 };
 
 const StatCard: FC<{
@@ -40,6 +46,7 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
   attempt,
   questionsLength,
 }) => {
+  const { t } = useTranslation();
   const score = Math.round(attempt.score);
   const scoreColor =
     score >= 80
@@ -53,12 +60,12 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
       <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-4">
         <StatCard
           icon={<LuTarget />}
-          label="Score"
+          label={t("results.summary.score")}
           value={<span className={scoreColor}>{score}%</span>}
         />
         <StatCard
           icon={<LuCircleCheck className="text-emerald-600" />}
-          label="Correct"
+          label={t("results.summary.correct")}
           value={
             <>
               {attempt.correctAnswers}
@@ -71,13 +78,13 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
         />
         <StatCard
           icon={<LuCircleX className="text-red-500" />}
-          label="Wrong"
+          label={t("results.summary.wrong")}
           value={attempt.wrongAnswers}
         />
         <StatCard
           icon={<LuClock />}
-          label="Time"
-          value={formatDuration(attempt.totalTimeSeconds)}
+          label={t("results.summary.time")}
+          value={formatDuration(attempt.totalTimeSeconds, t)}
         />
       </div>
       <p className="text-center text-sm text-neutral-500">
