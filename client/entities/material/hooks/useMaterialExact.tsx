@@ -15,7 +15,6 @@ export const useMaterialExact = (id: string) => {
     queryKey: materialKeys.detail(id),
     queryFn: () => getMaterial(token, id),
     enabled: !!id && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useMaterialExact = (id: string) => {
         userID: user?.id,
       });
     }
-  }, [exactMaterial.error]);
+  }, [exactMaterial.error, id, user?.id]);
 
   return {
     exactMaterialData: exactMaterial.data,

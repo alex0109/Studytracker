@@ -15,7 +15,6 @@ export const useTagExact = (id: string) => {
     queryKey: tagKeys.detail(id),
     queryFn: () => getTag(token, id),
     enabled: !!id && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useTagExact = (id: string) => {
         userID: user?.id,
       });
     }
-  }, [exactTag.error]);
+  }, [exactTag.error, id, user?.id]);
 
   return {
     exactTagData: exactTag.data,

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Modal, Title } from "@/shared/ui";
 import { useMaterialDelete } from "../../hooks/useMaterialDelete";
 import { Button } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 
 interface MaterialDeleteModalType {
   id: string;
@@ -17,6 +18,7 @@ export const MaterialDeleteModal: FC<MaterialDeleteModalType> = ({
   open,
   setOpen,
 }) => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const { deleteMaterial } = useMaterialDelete(id);
@@ -27,14 +29,15 @@ export const MaterialDeleteModal: FC<MaterialDeleteModalType> = ({
   };
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
-        <Title text="Are you sure?" />
+      <div className="flex flex-col w-[240px] min-h-[200px] justify-center items-center gap-3 text-center">
+        <Title text={t("common.areYouSure")} />
+        <p className="text-sm text-neutral-500">{t("materials.deleteWarning")}</p>
         <Button
           size="lg"
           variant="destructive"
           onClick={() => handleDeleteMaterial()}
         >
-          Delete
+          {t("common.delete")}
         </Button>
       </div>
     </Modal>

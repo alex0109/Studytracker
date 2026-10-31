@@ -17,7 +17,6 @@ export const useQuestionActiveReduced = (materialId: string) => {
       return getActiveReducedQuestions(token, materialId);
     },
     enabled: !!materialId && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -27,7 +26,7 @@ export const useQuestionActiveReduced = (materialId: string) => {
         userID: user?.id,
       });
     }
-  }, [questionsActiveReduced.error]);
+  }, [materialId, questionsActiveReduced.error, user?.id]);
 
   return {
     questionsActiveReducedData: questionsActiveReduced.data,

@@ -1,15 +1,15 @@
 "use client";
 
 import React, { useContext, useState, createContext } from "react";
-import { MaterialSectionName } from "../types/section-name.type";
+import { SwitchSectionName } from "../types/section-name.type";
 
 interface ActiveSectionContextProvider {
   children: React.ReactNode;
 }
 
 type ActiveSectionContextType = {
-  activeSection: MaterialSectionName;
-  setActiveSection: React.Dispatch<React.SetStateAction<MaterialSectionName>>;
+  activeSection: SwitchSectionName;
+  setActiveSection: React.Dispatch<React.SetStateAction<SwitchSectionName>>;
   timeOfLastClick: number;
   setTimeOfLastClick: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -21,7 +21,7 @@ export default function ActiveSectionContextProvider({
   children,
 }: ActiveSectionContextProvider) {
   const [activeSection, setActiveSection] =
-    useState<MaterialSectionName>("Materials");
+    useState<SwitchSectionName>(undefined);
   const [timeOfLastClick, setTimeOfLastClick] = useState(0);
 
   return (

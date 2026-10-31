@@ -22,7 +22,7 @@ export const useAssessment = (id: string) => {
         userID: user?.id,
       });
     }
-  }, [assessment.error]);
+  }, [assessment.error, id, user?.id]);
 
   return {
     assessment: assessment.data,

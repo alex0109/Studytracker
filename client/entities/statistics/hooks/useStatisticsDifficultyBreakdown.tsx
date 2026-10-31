@@ -15,7 +15,6 @@ export const useStatisticsDifficultyBreakdown = () => {
     queryKey: statisticsKeys.difficultyBreakdown(),
     queryFn: () => getDifficultyBreakdown(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useStatisticsDifficultyBreakdown = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsDifficultyBreakdown.error]);
+  }, [statisticsDifficultyBreakdown.error, user?.id]);
 
   return {
     statisticsDifficultyBreakdownData: statisticsDifficultyBreakdown.data,

@@ -4,11 +4,17 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
-
-Sentry.logger.info("User triggered test log", { log_source: "sentry_test" });
+import { dataCollection } from "./sentry.data-collection";
 
 Sentry.init({
   dsn: "https://df8a197f3764b2cce4848c4012bcd832@o4510302881775616.ingest.de.sentry.io/4510302884069456",
+
+  // Only the deployed app reports. Local runs used to flood the real project with traces and
+  // replays, and in dev every browser report went through the /monitoring tunnel, which made
+  // Next 16 log MaxListenersExceededWarning. NEXT_PUBLIC_SENTRY_ENABLED=true turns it on locally
+  enabled:
+    process.env.NODE_ENV === "production" ||
+    process.env.NEXT_PUBLIC_SENTRY_ENABLED === "true",
 
   integrations: [
     // send console.log, console.warn, and console.error calls as logs to Sentry
@@ -18,10 +24,6 @@ Sentry.init({
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
   tracesSampleRate: 1,
 
-  // Enable logs to be sent to Sentry
-  enableLogs: true,
-
-  // Enable sending user PII (Personally Identifiable Information)
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  // No PII, see sentry.data-collection.ts
+  dataCollection,
 });

@@ -1,0 +1,48 @@
+.Root {
+  border-radius: 6px;
+  width: 100%;
+}
+
+.Item {
+  overflow: hidden;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 16px;
+
+  &:focus-within {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.Header {
+  all: unset;
+  display: flex;
+}
+
+.Chevron {
+  color: var(--violet-10);
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+  /* The chevron sits in a wrapper, so a child selector never matched and it never turned */
+  .Trigger[data-state="open"] & {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}

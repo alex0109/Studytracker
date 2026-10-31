@@ -1,10 +1,9 @@
-import { IOption } from "./option.type";
+import { IOptionRequest } from "./option-request.type";
 
 export interface IOptionsQuestionRequest {
-  materialId: string;
+  noteId?: string;
   title: string;
-  correctOptionId: string;
   questionDifficulty: string;
-  options: IOption[];
+  options: IOptionRequest[];
   explanation?: string;
 }

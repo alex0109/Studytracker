@@ -17,7 +17,6 @@ export const useQuestionExact = (materialId: string, id: string) => {
       return getQuestion(token, queryKey[1] as string, queryKey[2] as string);
     },
     enabled: !!materialId && !!id && !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -27,7 +26,7 @@ export const useQuestionExact = (materialId: string, id: string) => {
         userID: user?.id,
       });
     }
-  }, [questionExact.error]);
+  }, [id, materialId, questionExact.error, user?.id]);
 
   return {
     questionExact: questionExact.data,

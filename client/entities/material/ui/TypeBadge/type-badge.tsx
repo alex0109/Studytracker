@@ -12,13 +12,11 @@ const TypeBadge: FC<TypeBadgeProps> = ({ type }) => {
         ? "📄"
         : type === "video"
           ? "▶️"
-          : type === "summary"
-            ? "📚"
-            : type === "practice"
-              ? "📝"
-              : type === "test"
-                ? "✏️"
-                : "❓"}
+          : type === "practice"
+            ? "📝"
+            : type === "test"
+              ? "✏️"
+              : "❓"}
     </span>
   );
 };

@@ -6,27 +6,23 @@ import { Input } from "@/shared/radix-ui";
 import { useDebounce } from "@/shared/hooks";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
-interface MaterialLinkType {
+interface MaterialLinkProps {
   id: string;
   link: string | undefined;
 }
 
-export const MaterialLink: FC<MaterialLinkType> = ({ id, link }) => {
+export const MaterialLink: FC<MaterialLinkProps> = ({ id, link }) => {
   const [linkValue, setLinkValue] = useState(link || "");
 
   const { updateMaterial } = useMaterialUpdate(id);
-
-  const updateLinkHandler = (materialId: string, link: string): void => {
-    updateMaterial({ id: materialId, dataToUpdate: { link } });
-  };
 
   const debouncedLinkValue = useDebounce(linkValue, 1500);
 
   useEffect(() => {
     if (link !== debouncedLinkValue) {
-      updateLinkHandler(id, debouncedLinkValue);
+      updateMaterial({ id, dataToUpdate: { link: debouncedLinkValue } });
     }
-  }, [id, link, debouncedLinkValue]);
+  }, [id, link, debouncedLinkValue, updateMaterial]);
 
   const onLinkUpdate = (newLink: string) => {
     setLinkValue(newLink);

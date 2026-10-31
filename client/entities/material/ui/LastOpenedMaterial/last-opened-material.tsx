@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { motion } from "framer-motion";
 import { Title, ContainerColumn, BlockColumn } from "@/shared/ui";
 import { useRouter } from "next/navigation";
@@ -14,25 +14,13 @@ import { useSession } from "@/shared/context/session.provider";
 
 export const LastOpened: FC = () => {
   const { token, user } = useSession();
-
-  if (!user || !token) return null;
-
   const router = useRouter();
 
-  const [lastOpenedMaterialID, setLastOpenedMaterialID] = useState<string>("");
-
   const { lastOpened } = useLastOpened();
+  const { exactMaterialData } = useMaterialExact(lastOpened ?? "");
 
-  const { exactMaterialData, exactMaterialError } =
-    useMaterialExact(lastOpenedMaterialID);
-
-  useEffect(() => {
-    if (lastOpened) {
-      setLastOpenedMaterialID(lastOpened);
-    }
-  }, [exactMaterialData, exactMaterialError, lastOpened]);
-
-  if (!exactMaterialData) {
+  // Hooks above run on every render, guests just see nothing
+  if (!user || !token || !exactMaterialData) {
     return null;
   }
 

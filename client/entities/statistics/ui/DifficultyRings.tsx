@@ -1,30 +1,29 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useStatisticsDifficultyBreakdown } from "../hooks";
 import { QuestionDifficultyEnum } from "@/entities/question/model/question-difficulty";
-import { difficultyLabel, formatDuration, normalizeDifficulty } from "./tokens";
+import { AccuracyRing } from "./AccuracyRing";
+import { Card, CardSkeleton } from "./primitives";
+import { difficultyKey, normalizeDifficulty, useFormatDuration } from "./tokens";
+import { useTranslation } from "react-i18next";
 
 const ORDER: QuestionDifficultyEnum[] = [
   QuestionDifficultyEnum.Easy,
   QuestionDifficultyEnum.Medium,
   QuestionDifficultyEnum.Hard,
 ];
-const RADIUS = 30;
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-const RING_COLOR = "#e5e5e5";
-const TRACK_COLOR = "#404040";
 
 export function DifficultyRings() {
+  const { t } = useTranslation();
+  const formatDuration = useFormatDuration();
   const {
     statisticsDifficultyBreakdownData,
     statisticsDifficultyBreakdownIsPending,
   } = useStatisticsDifficultyBreakdown();
 
-  if (statisticsDifficultyBreakdownIsPending) {
-    return (
-      <div className="h-52 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
-    );
-  }
+  if (statisticsDifficultyBreakdownIsPending)
+    return <CardSkeleton className="h-56" />;
 
   const byDifficulty = new Map(
     (statisticsDifficultyBreakdownData ?? []).map((d) => [
@@ -34,60 +33,31 @@ export function DifficultyRings() {
   );
 
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-      <h3 className="mb-5 text-lg text-neutral-50">By difficulty</h3>
-
-      <div className="grid grid-cols-3 gap-4">
+    <Card title={t("statistics.difficulty.title")} subtitle={t("statistics.difficulty.subtitle")}>
+      <div className="grid grid-cols-3 gap-2">
         {ORDER.map((difficulty) => {
           const stat = byDifficulty.get(difficulty);
-          const accuracy = stat?.accuracy ?? 0;
-          const offset = CIRCUMFERENCE - (accuracy / 100) * CIRCUMFERENCE;
-
           return (
-            <div key={difficulty} className="flex flex-col items-center">
-              <svg width={72} height={72} viewBox="0 0 72 72">
-                <circle
-                  cx={36}
-                  cy={36}
-                  r={RADIUS}
-                  fill="none"
-                  stroke={TRACK_COLOR}
-                  strokeWidth={6}
-                />
-                <circle
-                  cx={36}
-                  cy={36}
-                  r={RADIUS}
-                  fill="none"
-                  stroke={RING_COLOR}
-                  strokeWidth={6}
-                  strokeLinecap="round"
-                  strokeDasharray={CIRCUMFERENCE}
-                  strokeDashoffset={offset}
-                  transform="rotate(-90 36 36)"
-                />
-                <text
-                  x={36}
-                  y={41}
-                  textAnchor="middle"
-                  className="font-mono"
-                  fontSize={14}
-                  fill="#fafafa"
-                >
-                  {Math.round(accuracy)}%
-                </text>
-              </svg>
-
-              <span className="mt-2 text-sm text-neutral-50">
-                {difficultyLabel[difficulty]}
+            <motion.div
+              key={difficulty}
+              className="flex flex-col items-center rounded-2xl p-2 hover:bg-neutral-100 dark:hover:bg-neutral-800/50"
+              whileHover={{ y: -2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <AccuracyRing
+                accuracy={stat?.accuracy ?? 0}
+                label={t(`questions.difficulty.${difficultyKey[difficulty]}`)}
+              />
+              <span className="mt-2 text-sm text-neutral-900 dark:text-neutral-50">
+                {t(`questions.difficulty.${difficultyKey[difficulty]}`)}
               </span>
-              <span className="font-mono text-[11px] text-neutral-500">
-                {stat ? formatDuration(stat.averageTimeSpent) : "—"}
+              <span className="text-xs text-neutral-500">
+                {stat ? formatDuration(stat.averageTimeSpent) : t("statistics.noData")}
               </span>
-            </div>
+            </motion.div>
           );
         })}
       </div>
-    </div>
+    </Card>
   );
 }

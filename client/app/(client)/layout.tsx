@@ -8,7 +8,8 @@ export default function WithNavLayout({
   return (
     <>
       <Navigation />
-      <main className="pt-30">{children}</main>
+      {/* The root layout already has the one <main> of the page */}
+      <div className="pt-30">{children}</div>
     </>
   );
 }

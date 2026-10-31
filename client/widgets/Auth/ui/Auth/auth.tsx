@@ -8,13 +8,16 @@ import { motion } from "framer-motion";
 import { MagicLinkStateType, signInWithMagicLink } from "@/entities/auth";
 import { Button } from "@/shared/radix-ui";
 import { createClient } from "@/entities/auth/api/client";
+import { getSafeRedirect } from "@/shared/lib";
+import { useTranslation } from "@/shared/i18n";
 
 export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const redirect = searchParams!.get("redirect");
 
-  const [magicLinkState, magicLinkAction, pending] = useActionState<
+  const [magicLinkState, magicLinkAction] = useActionState<
     MagicLinkStateType,
     FormData
   >(signInWithMagicLink, {});
@@ -27,12 +30,12 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${redirectTo}?redirect=${encodeURIComponent("/")}`,
+          redirectTo: `${redirectTo}?redirect=${encodeURIComponent(getSafeRedirect(redirect))}`,
         },
       });
 
       setLoading(false);
-    } catch (error) {
+    } catch {
       return;
     }
   };
@@ -45,8 +48,8 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
           animate={{ y: 0, opacity: 1 }}
         >
           <div className="flex flex-col justify-center items-center h-[450px] w-[300px]">
-            <Title text="Check your email!" />
-            <Subtitle text="✅We have sent you a magic link to sign in to your account" />
+            <Title text={t("auth.checkEmail")} />
+            <Subtitle text={`✅${t("auth.magicLinkSent")}`} />
           </div>
         </motion.div>
       ) : (
@@ -55,17 +58,15 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
           >
-            <div className="flex flex-col justify-center items-center w-[400px]">
+            <div className="flex flex-col justify-center items-center w-full">
               <Title
                 text={
-                  mode === "signin" ? "Welcome back!" : "Create your account"
+                  mode === "signin" ? t("auth.welcomeBack") : t("auth.createAccount")
                 }
               />
               <Subtitle
                 text={
-                  mode === "signin"
-                    ? "Sign in to continue to your account."
-                    : "Get started with your new account!"
+                  mode === "signin" ? t("auth.signInText") : t("auth.signUpText")
                 }
               />
             </div>
@@ -95,31 +96,31 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
               onClick={handleGoogleSignIn}
               disabled={loading}
             >
-              Continue with Google
+              {t("auth.google")}
             </Button>
           </form>
         </>
       )}
 
       {magicLinkState.error && (
-        <div className="flex flex-col justify-center items-center w-[400px] my-10">
+        <div className="flex flex-col justify-center items-center w-full my-10">
           <p className="text-rose-700">{magicLinkState.error}</p>
         </div>
       )}
 
       <div className="flex flex-row my-5">
         <p className="text-xs">
-          {mode === "signin"
-            ? "New to our platform? "
-            : "Already have an account? "}
+          {mode === "signin" ? t("auth.newHere") : t("auth.haveAccount")}{" "}
+          {/* Only a checked local path goes on, encoded as a query value */}
           <Link
-            href={`
-              ${mode === "signin" ? "/sign-up" : "/sign-in"}
-              ${redirect ? `?redirect=${redirect}` : ""}
-            `}
-            className="font-medium text-blue-600 hover:text-blue-500"
+            href={`${mode === "signin" ? "/sign-up" : "/sign-in"}${
+              redirect
+                ? `?redirect=${encodeURIComponent(getSafeRedirect(redirect))}`
+                : ""
+            }`}
+            className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
           >
-            {mode === "signin" ? "Create an account" : "Sign in"}
+            {mode === "signin" ? t("auth.createAccountLink") : t("auth.signInLink")}
           </Link>
         </p>
       </div>

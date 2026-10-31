@@ -1,0 +1,1439 @@
+{
+  "meta": {
+    "description": "Grow knowledge, reinforce it and make it last.",
+    "landingTitle": "Studytracker — grow knowledge, reinforce it, make it last",
+    "landingDescription": "Turn study materials into notes, questions and flashcards. Self defending, FSRS spaced repetition and statistics show what you really remember.",
+    "titles": {
+      "auth": "Sign in",
+      "error": "Error",
+      "limits": "Limits",
+      "materials": "Materials",
+      "share": "Shared material",
+      "statistics": "Statistics",
+      "library": "Library",
+      "today": "Today",
+      "account": "Account"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "auth": "Sign in",
+    "materials": "Materials",
+    "statistics": "Statistics",
+    "limits": "Limits",
+    "signOut": "Sign out",
+    "signOutConfirm": "Are you sure?",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "streak_one": "Your streak: {{count}} day in a row",
+    "streak_other": "Your streak: {{count}} days in a row",
+    "streakNone": "No streak yet. Study today to start one",
+    "library": "Library",
+    "today": "Today",
+    "account": "Account"
+  },
+  "preferences": {
+    "language": "Language",
+    "darkTheme": "Switch to dark theme",
+    "lightTheme": "Switch to light theme"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
+  },
+  "common": {
+    "create": "Create",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "close": "Close",
+    "back": "Go back",
+    "loading": "Loading...",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "required": "Required",
+    "tryAgain": "Please try again",
+    "yes": "Yes",
+    "no": "No",
+    "edit": "Edit",
+    "add": "Add",
+    "send": "Send",
+    "update": "Update",
+    "comingSoon": "Coming soon",
+    "areYouSure": "Are you sure?",
+    "sidebar": "Sidebar",
+    "sidebarText": "Materials and their sections"
+  },
+  "landing": {
+    "hero": {
+      "badge": "A learning system, not a notebook",
+      "line1": "Grow knowledge.",
+      "line2": "Reinforce it.",
+      "line3": "Make it last.",
+      "text": "Studytracker is a system that grows, reinforces and strengthens what you learn. Collect materials, turn them into questions and flashcards, defend what you know and see exactly where it still cracks.",
+      "openMaterials": "Open my materials",
+      "start": "Start growing",
+      "howItWorks": "See how it works"
+    },
+    "preview": {
+      "showWord": "Show the word",
+      "showTranslation": "Show the translation",
+      "attemptScore": "Attempt score",
+      "weights": "hard ×3 · medium ×2 · easy ×1",
+      "streak": "12-day streak",
+      "lastTwoWeeks": "last two weeks"
+    },
+    "samples": {
+      "butterfly": {
+        "translation": "butterfly",
+        "grammar": "der, plural: die Schmetterlinge",
+        "example": "A butterfly is sitting on the flower."
+      },
+      "cozy": {
+        "translation": "cosy",
+        "example": "The café is very cosy."
+      },
+      "run": {
+        "translation": "to run, to walk",
+        "example": "I run in the park every morning."
+      }
+    },
+    "loop": {
+      "eyebrow": "The idea",
+      "title": "One loop. Three verbs.",
+      "text": "Notes alone fade. Studytracker keeps knowledge moving through a loop that grows it, reinforces it and makes it stronger every time you come back.",
+      "steps": {
+        "grow": {
+          "verb": "Grow",
+          "text": "Give everything you learn a place to live: an article, a lecture, a set of new words. Your knowledge base starts here."
+        },
+        "reinforce": {
+          "verb": "Reinforce",
+          "text": "Turn it into questions and flashcards. Pulling an answer out of memory makes it stronger than reading it again."
+        },
+        "strengthen": {
+          "verb": "Strengthen",
+          "text": "Defend what you know, get an honest score and see which topics crack. Then go back and grow exactly those."
+        }
+      },
+      "footer": "Weak spots from Strengthen become the next things you Grow. The loop never stops, and neither does your progress."
+    },
+    "entities": {
+      "materials": "Materials",
+      "notes": "Notes",
+      "dictionaries": "Dictionaries",
+      "questions": "Questions",
+      "flashcards": "Flashcards",
+      "selfDefending": "Self defending",
+      "score": "Score",
+      "statistics": "Statistics"
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "From the first note to knowledge that holds",
+      "text": "Five steps, one material. Click through them, the demos are live.",
+      "tabsLabel": "How Studytracker works",
+      "stepOf": "Step {{step}} of {{total}}",
+      "next": "Next: {{step}}",
+      "steps": {
+        "material": {
+          "label": "Add a material",
+          "title": "Everything starts with a material",
+          "text": "An article, a video, a practice task or a test. Give it a status and tags, then attach notes, questions and a dictionary to it."
+        },
+        "questions": {
+          "label": "Create questions",
+          "title": "Turn it into questions",
+          "text": "Write questions in your own words or let AI draft them, and pick a difficulty. Three types cover most of what you need to check:"
+        },
+        "defend": {
+          "label": "Self defending",
+          "title": "Defend what you know",
+          "text": "Self defending is a quiz over a material's questions. They come in random order, and with every answer you say how sure you are. Try it:"
+        },
+        "score": {
+          "label": "Get a score",
+          "title": "A score that is honest",
+          "text": "Every answer gets 0 to 100. Open answers are checked by exact match first, then by fuzzy match, so a typo does not cost you; close answers in other words are checked by meaning. The attempt score is a weighted average where hard questions count three times."
+        },
+        "statistics": {
+          "label": "Watch it grow",
+          "title": "See what is getting stronger",
+          "text": "Statistics follow you over time: score trend, study streak, accuracy by difficulty, how well your confidence matches reality and which tags are your weakest."
+        }
+      }
+    },
+    "demo": {
+      "material": {
+        "meta": "📄 article · created 12 Oct",
+        "title": "Photosynthesis",
+        "status": "In process",
+        "tagBiology": "biology",
+        "tagExam": "exam",
+        "attachments": {
+          "lightReactions": {
+            "title": "Light reactions",
+            "meta": "text note"
+          },
+          "sketch": {
+            "title": "Chloroplast sketch",
+            "meta": "drawing note"
+          },
+          "questions": {
+            "title": "6 questions",
+            "meta": "open · options · true/false"
+          },
+          "terms": {
+            "title": "Key terms",
+            "meta": "dictionary · 18 words"
+          }
+        }
+      },
+      "questions": {
+        "typeLabel": "Question type",
+        "open": {
+          "title": "What light does chlorophyll absorb best?",
+          "answer": "Red and blue light",
+          "note": "Typed “red and blu light”? Fuzzy matching still counts it."
+        },
+        "options": {
+          "title": "Which are products of photosynthesis?",
+          "items": {
+            "glucose": "Glucose",
+            "oxygen": "Oxygen",
+            "carbonDioxide": "Carbon dioxide",
+            "water": "Water",
+            "nitrogen": "Nitrogen"
+          },
+          "note": "One or more correct answers. Partial picks earn partial credit."
+        },
+        "trueFalse": {
+          "title": "Plants release oxygen only at night.",
+          "note": "One statement, one tap."
+        }
+      },
+      "defend": {
+        "counter": "Question 1 of 6",
+        "score": "score {{score}}",
+        "tryAgain": "Try again",
+        "answer": "Answer",
+        "feedback": {
+          "rightUnsure": "Right, but unsure. It will come back for another review.",
+          "rightSure": "Confident and right. That is knowledge that holds.",
+          "wrongSure": "Confident but wrong. Statistics flag this as overconfidence.",
+          "wrong": "Not there yet. This question is now on your list to strengthen."
+        }
+      },
+      "score": {
+        "total": "attempt score",
+        "methods": {
+          "easy": "Open · exact match",
+          "medium": "Open · fuzzy match, typo forgiven",
+          "hard": "Options · 1 of 2 right picks"
+        }
+      },
+      "stats": {
+        "accuracy": "Overall accuracy",
+        "growth": "+6% this month",
+        "streak": "Study streak",
+        "streakDays": "12 days",
+        "calibration": "How often you are right when you feel…",
+        "weakest": "Weakest topic",
+        "weakestTag": "#chemistry",
+        "next": "Next thing to strengthen"
+      }
+    },
+    "words": {
+      "eyebrow": "Dictionaries & flashcards",
+      "title": "Words that stick.",
+      "text": "Every material can have its own dictionary: words with translation, transcription, part of speech, examples and synonyms. Flashcards bring them back right before you would forget them.",
+      "rules": {
+        "dontKnow": "comes back in a minute",
+        "unsure": "comes back again soon",
+        "know": "waits longer every time you get it right"
+      },
+      "fsrs": "Reviews are scheduled by FSRS, a modern spaced repetition algorithm that learns how fast you forget. Your time goes to the words you actually struggle with.",
+      "hideTranslation": "Hide translation of {{term}}",
+      "showTranslation": "Show translation of {{term}}",
+      "deckDone": "Deck done",
+      "allKnown": "You knew every word. They will wait longer before coming back.",
+      "missed_one": "{{count}} word is already scheduled to come back sooner.",
+      "missed_other": "{{count}} words are already scheduled to come back sooner.",
+      "tapHint": "Tap the card to flip it. In the app you can also swipe it."
+    },
+    "glossary": {
+      "eyebrow": "Glossary",
+      "title": "Every piece, in one line",
+      "text": "Nine ideas are all you need to know to feel at home.",
+      "items": {
+        "material": {
+          "name": "Material",
+          "text": "Anything you study: an article, video, practice or test. Has a status and tags."
+        },
+        "note": {
+          "name": "Note",
+          "text": "Your own text or drawing inside a material, plus one summary of it. Notes can have their own questions."
+        },
+        "question": {
+          "name": "Question",
+          "text": "Open, options with one or more right answers, or true/false. Easy, medium or hard."
+        },
+        "dictionary": {
+          "name": "Dictionary",
+          "text": "The words of a material with translation, transcription, examples and synonyms."
+        },
+        "flashcard": {
+          "name": "Flashcard",
+          "text": "A dictionary word in practice. Your answer decides when you see it again."
+        },
+        "selfDefending": {
+          "name": "Self defending",
+          "text": "A quiz over a material's questions, with your confidence recorded for every answer."
+        },
+        "score": {
+          "name": "Score",
+          "text": "Weighted average of your answers, 0 to 100. Hard questions count three times."
+        },
+        "statistics": {
+          "name": "Statistics",
+          "text": "Trend, streak, accuracy, confidence calibration and your weakest topics over time."
+        },
+        "tag": {
+          "name": "Tag",
+          "text": "A label that groups materials and shows which topics need the most work."
+        }
+      }
+    },
+    "cta": {
+      "title": "Plant the first seed today.",
+      "text": "Add one material, ask yourself three questions and defend them tomorrow. In a week you will see what you really know, and what to grow next."
+    }
+  },
+  "questions": {
+    "types": {
+      "open": "Open",
+      "options": "Options",
+      "trueFalse": "True / False",
+      "flashcard": "Flashcard"
+    },
+    "true": "True",
+    "false": "False",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "limitReached": "Questions limit reached",
+    "actions": {
+      "add": "Add Question",
+      "generate": "Generate it",
+      "start": "Start Self Defending"
+    },
+    "empty": {
+      "title": "No questions yet",
+      "text": "Add your first question or let AI draft a few from the text. Then defend them in Self Defending."
+    },
+    "loading": "Loading questions...",
+    "fromNote": "From note {{id}}",
+    "titleLabel": "Question",
+    "addTitle": "Add new question",
+    "titlePlaceholder": "*Question...",
+    "statementPlaceholder": "*Statement to check...",
+    "difficultyLabel": "Difficulty",
+    "answerLabel": "Answer",
+    "answerPlaceholder": "*Type the answer here, up to 1000 characters...",
+    "statementIs": "This statement is",
+    "options": {
+      "atLeastOne": "At least one option must be correct",
+      "toggleCorrect": "Mark as correct or wrong",
+      "remove": "Remove option",
+      "newPlaceholder": "New option...",
+      "markOne": "Mark at least one correct option",
+      "markEvery": "Options: mark every correct one",
+      "correct": "Correct option",
+      "placeholder": "*Option {{number}}...",
+      "unique": "Options must be unique",
+      "add": "Add option"
+    },
+    "generate": {
+      "title": "Generate Questions",
+      "fromNote": "AI writes questions from the text of this note.",
+      "fromMaterial": "AI writes questions from the content of this material.",
+      "check": "Check them before you start Self Defending.",
+      "howMany": "How many",
+      "full": "Questions limit of this material is reached",
+      "fits_one": "Only {{count}} more question fits into this material",
+      "fits_other": "Only {{count}} more questions fit into this material",
+      "type": "Type",
+      "mixed": "Mixed"
+    },
+    "review": {
+      "due": "Due for review",
+      "next": "Next review {{when}}",
+      "leech": "Tough one",
+      "leechHint": "Missed many times: try rewording or splitting it"
+    }
+  },
+  "attempt": {
+    "chooseAll": "Choose all correct answers",
+    "confidenceQuestion": "How confident are you in this answer?",
+    "confidence": {
+      "low": "Not sure",
+      "medium": "Fairly sure",
+      "high": "Confident"
+    },
+    "answered": "Answered {{answered}} of {{total}}",
+    "noneAnswered": "You haven't answered any question yet. Answer all of them to finish.",
+    "left_one": "Answer all questions to finish: {{count}} left, it is marked in red.",
+    "left_other": "Answer all questions to finish: {{count}} left, they are marked in red.",
+    "finish": "Finish",
+    "hints": {
+      "open": "Write your answer",
+      "trueFalse": "True or false?"
+    },
+    "errors": {
+      "choose": "Choose an answer first",
+      "write": "Write an answer first"
+    },
+    "answerPlaceholder": "Write down what you remember about this question...",
+    "answerLabel": "Your answer",
+    "confidenceShort": "How confident are you?",
+    "saving": "Saving...",
+    "checking": "Checking...",
+    "update": "Update answer",
+    "save": "Save answer",
+    "saved": "Your answer is saved",
+    "changed_one": "changed {{count}} time",
+    "changed_other": "changed {{count}} times",
+    "canChange": "You can change it until you finish the attempt."
+  },
+  "results": {
+    "correctAnswer": "Correct answer",
+    "status": {
+      "correct": "Correct",
+      "partly": "Partly correct",
+      "wrong": "Wrong",
+      "unanswered": "Not answered"
+    },
+    "explain": {
+      "pending": "Explaining...",
+      "done": "Mistakes are explained",
+      "button": "Explain mistakes ({{count}})"
+    },
+    "title": "Results",
+    "summary": {
+      "score": "Score",
+      "correct": "Correct",
+      "wrong": "Wrong",
+      "time": "Time"
+    },
+    "duration": {
+      "minutes": "{{minutes}} min {{seconds}} s",
+      "seconds": "{{seconds}} s"
+    },
+    "aiChecked": "Checked by AI",
+    "aiCheckedHint": "Wording differed from the answer, AI checked the meaning",
+    "yourAnswer": "Your answer",
+    "noAnswer": "No answer",
+    "youFelt": "You felt: {{confidence}}",
+    "why": "Why",
+    "answers": "Answers",
+    "filter": {
+      "all": "All ({{count}})",
+      "mistakes": "Mistakes ({{count}})"
+    },
+    "noMistakes": "No mistakes, well done! 🎉",
+    "noAnswers": "No answers",
+    "goToMaterials": "Go to Materials",
+    "accept": "I answered correctly",
+    "acceptHint": "Automatic checking can miss a right answer worded differently. Count it as correct",
+    "accepted": "Accepted by you",
+    "acceptedHint": "You marked this answer as correct after the automatic check",
+    "acceptedToast": "Counted as correct",
+    "acceptError": "Could not count the answer, please try again",
+    "undo": "Undo",
+    "undone": "The original grade is back",
+    "undoError": "It can no longer be undone"
+  },
+  "flashcards": {
+    "answers": {
+      "dontKnow": "Don't know",
+      "unsure": "Not sure",
+      "know": "Know"
+    },
+    "tapToFlip": "Tap to see translation",
+    "keysHint": "Swipe the card or use ← ↓ → keys, Space to flip",
+    "undo": "Undo",
+    "empty": {
+      "title": "No words to practise yet",
+      "text": "Add words in the Words tab or return archived ones."
+    },
+    "start": {
+      "due": "Due now",
+      "new": "New",
+      "learning": "Learning",
+      "review": "In review",
+      "next_one": "Next session: {{count}} card",
+      "next_other": "Next session: {{count}} cards",
+      "nothing": "Nothing to review right now, come back later or practise all words",
+      "reviewButton": "Review {{count}}",
+      "allButton": "Practise all {{count}}"
+    },
+    "summary": {
+      "title": "Round finished",
+      "known": "You know {{percent}}% of the words in this round",
+      "saved": "Answers are saved, next reviews are scheduled automatically",
+      "toPractice": "Words to practise",
+      "repeat_one": "Repeat {{count}} word",
+      "repeat_other": "Repeat {{count}} words",
+      "back": "Back to start"
+    },
+    "state": {
+      "New": "new",
+      "Learning": "learning",
+      "Review": "review",
+      "Relearning": "relearning"
+    },
+    "badge": {
+      "nextReview": "Next review: {{date}}",
+      "notReviewed": "Not reviewed yet",
+      "dueNow": "due now"
+    }
+  },
+  "feedback": {
+    "title": "Tell me what you think",
+    "text": "An idea, a bug, a kind word or a rant: every message goes straight to my inbox, and I read each one. Leave your email if you'd like an answer.",
+    "category": "What is it about?",
+    "categories": {
+      "Idea": "💡 Idea",
+      "Bug": "🐞 Bug",
+      "Praise": "💚 Praise",
+      "Other": "💬 Other"
+    },
+    "name": "Name (optional)",
+    "namePlaceholder": "How should I call you?",
+    "email": "Email (optional)",
+    "emailPlaceholder": "you@example.com",
+    "message": "Message",
+    "messagePlaceholder": "What works, what doesn't, what you wish was here…",
+    "privacy": "Your email is used only to answer you.",
+    "send": "Send",
+    "sending": "Sending…",
+    "errors": {
+      "email": "This doesn't look like an email address",
+      "message_one": "Write at least {{count}} character",
+      "message_other": "Write at least {{count}} characters"
+    },
+    "toast": {
+      "sent": "Thank you! Your message is on its way",
+      "tooMany": "Too many messages in a row, please try again in a few minutes",
+      "notSent": "The message couldn't be sent, please try again later"
+    }
+  },
+  "auth": {
+    "checkEmail": "Check your email!",
+    "magicLinkSent": "We have sent you a magic link to sign in to your account",
+    "welcomeBack": "Welcome back!",
+    "createAccount": "Create your account",
+    "signInText": "Sign in to continue to your account.",
+    "signUpText": "Get started with your new account!",
+    "google": "Continue with Google",
+    "newHere": "New to our platform?",
+    "haveAccount": "Already have an account?",
+    "createAccountLink": "Create an account",
+    "signInLink": "Sign in"
+  },
+  "errors": {
+    "notFound": "Not found",
+    "goHome": "Go home",
+    "generic": "Oops, something went wrong :(",
+    "unknown": "Unknown"
+  },
+  "materials": {
+    "add": "Add Material",
+    "addTitle": "Add new material",
+    "limitReached": "Materials limit reached",
+    "limitReachedHint_one": "Limit reached: {{count}} material. Delete one to add a new one",
+    "limitReachedHint_other": "Limit reached: {{count}} materials. Delete one to add a new one",
+    "titleLabel": "Title",
+    "titlePlaceholder": "*Title...",
+    "typeLabel": "Type",
+    "statusLabel": "Status",
+    "imported": "Imported",
+    "deleteWarning": "The material with its notes, questions, attempts and dictionaries will be deleted for good.",
+    "types": {
+      "article": "📄 Article",
+      "video": "▶️ Video",
+      "practice": "📝 Practice",
+      "test": "✏️ Test"
+    },
+    "statuses": {
+      "tolearn": "Want to learn",
+      "inprocess": "In process",
+      "finished": "Finished"
+    },
+    "sidebar": {
+      "emptyTitle": "No materials yet",
+      "emptyText": "Add your first one: an article, a video or a test. Then attach notes, questions and words to it.",
+      "noNotes": "No notes yet"
+    },
+    "emptySection": {
+      "hint": "Pick a material on the left or add a new one.",
+      "another": "Another one",
+      "lines": [
+        "📚 Knowledge is the only backpack that gets lighter the more you fill it.",
+        "🧠 Your brain called. It wants a snack: one small material, please.",
+        "🌱 Every expert was once a beginner who didn't quit after the first page.",
+        "☕ Coffee in one hand, curiosity in the other. Perfect setup.",
+        "🐢 Slow progress is still progress. Turtles finish races too.",
+        "🎯 Ten focused minutes beat an hour of “I'll start in a second”.",
+        "🔥 The best time to start was yesterday. The second best is right now.",
+        "🦉 Night owl or early bird, this page is open for both.",
+        "🧩 Today's confusion is tomorrow's “oh, that's easy”.",
+        "🚀 Small daily steps quietly turn into giant leaps.",
+        "🍕 Learning is like pizza: even a single slice counts.",
+        "🌧️ Bad day? Learn one tiny thing. It's a win nobody can take away.",
+        "💡 Questions are just answers that haven't been met yet.",
+        "🏋️ Memory is a muscle. Today is leg day for your neurons.",
+        "🎧 Put on a good playlist and pick one material. Future you says thanks.",
+        "🐝 Busy bees make honey; curious minds make knowledge.",
+        "📈 You don't have to be great to start, but you have to start to be great.",
+        "🌍 Every word you learn is a new window to look out of.",
+        "🧘 Breathe in, open a material, breathe out. You've got this.",
+        "🕯️ A candle loses nothing by lighting another one. Neither does sharing what you learn.",
+        "🐣 Everything you love doing now, you once didn't know how to do.",
+        "🧭 Lost in a topic? That's just exploring with extra steps.",
+        "🎲 Spin the wheel of knowledge: today's prize is whatever you open next.",
+        "🌙 Tired? Even five minutes keeps the streak and the forgetting curve at bay.",
+        "✨ Mistakes are proof you're trying. Keep collecting them."
+      ]
+    },
+    "import": {
+      "tabManual": "By hand",
+      "tabLink": "From a link",
+      "url": "Link to an article",
+      "privateNote": "The text is saved only for you. Videos can't be imported yet.",
+      "generateQuestions": "Make self-test questions right away",
+      "submit": "Import",
+      "pending": "Importing…",
+      "steps": {
+        "fetch": "Loading the page",
+        "extract": "Taking out the text",
+        "questions": "Preparing questions"
+      },
+      "done": "The article is in your materials",
+      "questions_one": "{{count}} question is ready",
+      "questions_other": "{{count}} questions are ready",
+      "questionsSkipped": {
+        "quota": "No questions: this month's AI limit is used up",
+        "unavailable": "No questions: AI isn't answering right now, try later from the material",
+        "failed": "No questions this time, try again from the material"
+      },
+      "errors": {
+        "InvalidUrl": "That doesn't look like a web address",
+        "BlockedAddress": "This address can't be opened",
+        "Unreachable": "The site can't be reached or doesn't give the page",
+        "Timeout": "The site took too long to answer",
+        "TooLarge": "The page is too large to import",
+        "NotHtml": "The link is not a web page",
+        "NotAnArticle": "No article text was found on this page",
+        "VideoNotSupported": "Videos can't be imported yet",
+        "tooMany": "Too many imports for now, try again in an hour",
+        "generic": "Couldn't import the article, try again"
+      }
+    }
+  },
+  "limits": {
+    "counter": {
+      "materials": "materials",
+      "tags": "tags",
+      "notes": "notes in this material",
+      "questions": "questions in this material",
+      "dictionaries": "dictionaries in this material",
+      "words": "words in this dictionary"
+    },
+    "reachedToast": "Limit reached. Free up some space and try again",
+    "counterUsed": "{{used}} of {{max}} {{label}} used",
+    "counterFull": "Limit reached: {{max}} {{label}}",
+    "page": {
+      "loadError": "Could not load your limits, please refresh the page.",
+      "plan": "Your plan",
+      "planText": "AI limits depend on the plan",
+      "resets": "AI requests are counted per month and reset on <b>{{date}}</b>. Requests that failed are not counted.",
+      "workspace": "Workspace",
+      "workspaceText": "Shared by all your materials",
+      "materials": "Materials",
+      "tags": "Tags",
+      "aiMonth": "AI this month",
+      "aiMonthText": "How many AI requests are left",
+      "perMaterial": "Inside every material",
+      "perMaterialText_one": "Every dictionary holds up to {{count}} word",
+      "perMaterialText_other": "Every dictionary holds up to {{count}} words",
+      "noMaterials": "No materials yet.",
+      "createFirst": "Create the first one",
+      "questions": "Questions",
+      "notes": "Notes",
+      "dictionaries": "Dictionaries",
+      "fullestDictionary": "Words in fullest dictionary",
+      "libraryCopies": "Copies from the library",
+      "perMaterialTextUnlimited": "Notes, questions and dictionaries of every material, with no word limit on your plan"
+    }
+  },
+  "toasts": {
+    "materialCreated": "Material has been created!",
+    "materialCreateError": "Error occurred while creating material",
+    "tagAddedToMaterial": "Tag has been added to the material",
+    "tagAddError": "Error occurred while adding the tag to the material",
+    "materialDeleted": "Material has been deleted!",
+    "materialDeleteError": "Error occurred while deleting material",
+    "shareDisabled": "Link is disabled, nobody can import it anymore",
+    "shareDisableError": "Error occurred while disabling the share link",
+    "shareCreateError": "Error occurred while creating the share link",
+    "materialImported": "Material has been added to your materials!",
+    "materialImportError": "Error occurred while importing material",
+    "tagRemoved": "Tag has been removed",
+    "tagRemoveError": "Error occurred while removing the tag",
+    "materialUpdateError": "Error occurred while updating material",
+    "tagCreated": "Tag has been created",
+    "tagCreateError": "Error occurred while creating tag",
+    "noteCreated": "Note has been created!",
+    "noteCreateError": "Error occurred while creating note",
+    "noteUpdateError": "Error occurred while updating note",
+    "summaryError": "Error occurred while generating the summary",
+    "questionUpdateError": "Error occurred while updating question",
+    "questionDeleted": "Question has been deleted",
+    "questionDeleteError": "Error occurred while deleting question",
+    "questionCreated": "Question has been created!",
+    "questionCreateError": "Error occurred while creating question",
+    "questionsGenerateError": "Error occurred while generating questions",
+    "wordAdded": "Word has been added!",
+    "wordAddError": "Error occurred while adding word",
+    "wordUpdated": "Word has been updated!",
+    "wordUpdateError": "Error occurred while updating word",
+    "dictionaryUpdateError": "Error occurred while updating dictionary",
+    "wordsGenerateError": "Error occurred while generating words",
+    "dictionaryDeleted": "Dictionary has been deleted!",
+    "dictionaryDeleteError": "Error occurred while deleting dictionary",
+    "dictionaryCreated": "Dictionary has been created!",
+    "dictionaryCreateError": "Error occurred while creating dictionary",
+    "wordDeleted": "Word has been deleted",
+    "wordDeleteError": "Error occurred while deleting word",
+    "progressReset": "Word progress has been reset",
+    "progressResetError": "Error occurred while resetting progress",
+    "flashcardsFinishError": "Error occurred while finishing flashcards",
+    "noCards": "There are no cards to review right now",
+    "flashcardsStartError": "Error occurred while starting flashcards",
+    "undoError": "Error occurred while undoing the answer",
+    "answerNotSaved": "Answer was not saved",
+    "answerNotSavedRetry": "Answer was not saved, please try again",
+    "reorderError": "Error occurred while reordering words",
+    "explainError": "Error occurred while explaining mistakes",
+    "copyFailed": "Could not copy, select the link instead",
+    "questionsGenerated_one": "{{count}} question has been generated!",
+    "questionsGenerated_other": "{{count}} questions have been generated!",
+    "wordsGenerated_one": "{{count}} word has been added!",
+    "wordsGenerated_other": "{{count}} words have been added!",
+    "summaryTruncated": "Summary is ready. The material is very long, so only its first part was used",
+    "summaryGenerated": "Summary has been generated!",
+    "attemptNotFinished": "Attempt was not finished, please try again",
+    "tagCreatedText": "You can use it inside any material",
+    "noQuestions": "There are no questions to review right now"
+  },
+  "ai": {
+    "errors": {
+      "badRequest": "There isn't enough suitable text for this. Add more content and try again",
+      "limit": "The limit here is reached. Free up some space and try again",
+      "nothing": "AI couldn't make anything from this content. Try another one",
+      "quota": "Your AI limit for this month is used up",
+      "unavailable": "AI is not responding right now, please try again later"
+    },
+    "generate": "Generate",
+    "generating": "Generating...",
+    "usageHint": "{{left}} of {{limit}} AI requests left this month on {{tier}}, resets {{date}}",
+    "off": "AI features are turned off right now",
+    "features": {
+      "QuestionGeneration": "Question generation",
+      "DictionaryGeneration": "Word generation",
+      "AnswerGrading": "Answer checks by meaning",
+      "SummaryGeneration": "Summary generation",
+      "MistakeExplanation": "Mistake explanations",
+      "WordLookup": "Words from the text"
+    }
+  },
+  "share": {
+    "button": "Share",
+    "title": "Share material",
+    "text": "Anyone with the link gets a full copy: notes, dictionaries and questions. Tags and attempts stay with you, and changes in their copy never touch yours.",
+    "linkLabel": "Share link",
+    "copy": "Copy",
+    "copied": "Copied",
+    "imports_one": "Imported {{count}} time",
+    "imports_other": "Imported {{count}} times",
+    "stop": "Stop sharing",
+    "create": "Create link",
+    "preview": {
+      "errorTitle": "Could not open this link",
+      "errorText": "Something went wrong on our side, please try again a bit later.",
+      "inactiveTitle": "This link is not active",
+      "inactiveText": "The owner stopped sharing this material or deleted it.",
+      "sharedWithYou": "Someone shared a material with you",
+      "stats": {
+        "notes_one": "note",
+        "notes_other": "notes",
+        "questions_one": "question",
+        "questions_other": "questions",
+        "dictionaries_one": "dictionary",
+        "dictionaries_other": "dictionaries",
+        "words_one": "word",
+        "words_other": "words"
+      },
+      "copyNote": "You get your own copy to edit and learn from. Tags, attempts and the owner's progress are not copied.",
+      "signIn": "Sign in to get this material",
+      "yours": "This is your material.",
+      "alreadyImported": "You already have a copy. Importing again creates another one.",
+      "import": "Import to my materials"
+    }
+  },
+  "tags": {
+    "label": "Tags",
+    "manage": "Manage tags",
+    "addToMaterial": "Tags of this material",
+    "noneYet": "No tags yet. Create the first one below.",
+    "none": "No tags",
+    "new": "New tag",
+    "addTitle": "Add new tag",
+    "limitReached": "Tags limit reached",
+    "limitReachedHint_one": "Limit reached: {{count}} tag. Delete one to add a new one",
+    "limitReachedHint_other": "Limit reached: {{count}} tags. Delete one to add a new one",
+    "name": "Name",
+    "namePlaceholder": "*Name...",
+    "color": "Colour"
+  },
+  "editor": {
+    "toolbar": "Text formatting",
+    "heading": "Heading {{level}}",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "highlight": "Highlight",
+    "link": "Link",
+    "bulletList": "Bulleted list",
+    "orderedList": "Numbered list",
+    "image": "Image",
+    "linkPrompt": "Enter the link",
+    "linkInvalid": "Only links starting with http://, https:// or mailto: can be added"
+  },
+  "sections": {
+    "Material": "Material",
+    "Questions": "Questions",
+    "Attempts": "Attempts",
+    "Note": "Note",
+    "Words": "Words",
+    "Flashcards": "Flashcards"
+  },
+  "notes": {
+    "add": "Add Note",
+    "addTitle": "Add new note",
+    "limitReached": "Notes limit reached",
+    "types": {
+      "text": "✍️ Text",
+      "drawing": "🖌️ Drawing",
+      "summary": "📚 Summary"
+    },
+    "drawing": {
+      "tools": {
+        "pen": "Pen",
+        "eraser": "Eraser",
+        "highlighter": "Highlighter"
+      },
+      "color": "Colour",
+      "size": "Brush size",
+      "undo": "Undo",
+      "clear": "Clear"
+    },
+    "summary": {
+      "hint": "A short retelling of the whole material. Write it yourself, or let AI write it from the material, its notes and dictionaries.",
+      "generate": "Generate Summary",
+      "generating": "Generating summary...",
+      "replaceTitle": "Replace summary?",
+      "replaceText": "AI writes a new summary from the material, its notes and dictionaries. The current text of this summary will be replaced.",
+      "replace": "Replace"
+    }
+  },
+  "dictionary": {
+    "generate": {
+      "title": "Generate Words",
+      "text": "AI picks words worth learning from the text and adds them with a translation, transcription and an example.",
+      "from": "From",
+      "materialContent": "📄 Material content",
+      "translateInto": "Translate into",
+      "upTo": "Up to",
+      "full": "Words limit of this dictionary is reached",
+      "fits_one": "Only {{count}} more word fits into this dictionary",
+      "fits_other": "Only {{count}} more words fit into this dictionary"
+    },
+    "add": "Add Dictionary",
+    "addTitle": "Add new dictionary",
+    "limitReached": "Dictionaries limit reached",
+    "description": "Description",
+    "descriptionPlaceholder": "Description...",
+    "descriptionAdd": "Add a short description...",
+    "addWord": "Add Word",
+    "addWordTitle": "Add new word",
+    "editWord": "Edit word",
+    "deleteWord": "Delete word",
+    "wordsLimitReached": "Words limit reached",
+    "wordsLimitHint_one": "Limit reached: {{count}} word in one dictionary",
+    "wordsLimitHint_other": "Limit reached: {{count}} words in one dictionary",
+    "dragToReorder": "Drag to reorder",
+    "loadError": "Dictionary could not be loaded...",
+    "wordsCount_one": "{{count}} word",
+    "wordsCount_other": "{{count}} words",
+    "inFlashcards_one": "{{count}} in flashcards",
+    "inFlashcards_other": "{{count}} in flashcards",
+    "archive": "Hide from flashcards",
+    "unarchive": "Return to flashcards",
+    "resetProgress": "Reset learning progress",
+    "deleteWarning": "The dictionary with all its words and their progress will be deleted.",
+    "translation": "Translation",
+    "empty": {
+      "title": "No words yet",
+      "text": "Add words by hand or let AI pick them from the material or a note."
+    },
+    "form": {
+      "term": "*Word...",
+      "translation": "*Translation...",
+      "transcription": "Transcription...",
+      "partOfSpeech": "Part of speech...",
+      "example": "Example...",
+      "exampleTranslation": "Example translation...",
+      "grammar": "Grammar info (e.g. plural: mice)...",
+      "synonyms": "Synonyms, comma separated...",
+      "note": "Note..."
+    },
+    "partOfSpeech": {
+      "Noun": "noun",
+      "Pronoun": "pronoun",
+      "Verb": "verb",
+      "Adjective": "adjective",
+      "Adverb": "adverb",
+      "Preposition": "preposition",
+      "Conjunction": "conjunction",
+      "Interjection": "interjection",
+      "Phrase": "phrase",
+      "Article": "article",
+      "Numeral": "numeral",
+      "Determiner": "determiner"
+    },
+    "fromReading": {
+      "button": "Add to dictionary",
+      "title": "Add to dictionary",
+      "dictionary": "Dictionary",
+      "noDictionary": "This material has no dictionary yet.",
+      "createDictionary": "Create a dictionary",
+      "defaultTitle": "Words from the text",
+      "term": "Word or phrase",
+      "alreadyIn": "Already in “{{dictionary}}”",
+      "example": "Example sentence",
+      "fill": "Fill in with AI",
+      "filling": "Looking it up…",
+      "translation": "Translation",
+      "transcription": "Transcription",
+      "duplicate": "This word is already in the dictionary. Put this sentence in as its example?",
+      "updateExample": "Update the example",
+      "added": "Added to the dictionary",
+      "exampleUpdated": "The example is updated",
+      "open": "Open",
+      "limit": "The dictionary is full, free some room first",
+      "error": "Couldn't save the word, try again",
+      "lookupError": "Couldn't look the word up, try again"
+    }
+  },
+  "attempts": {
+    "title": "Attempt {{id}}",
+    "correctOf": "{{correct}} of {{total}} correct",
+    "seeResults": "See results",
+    "empty": {
+      "material": "No attempts on this material yet",
+      "note": "No attempts on this note yet",
+      "text": "Start Self Defending in the Questions tab: your finished attempts with scores will appear here."
+    }
+  },
+  "statistics": {
+    "accuracy": "Accuracy",
+    "noData": "No data",
+    "answers_one": "{{count}} answer",
+    "answers_other": "{{count}} answers",
+    "levels": {
+      "strong": "Strong overall accuracy",
+      "fair": "Fair overall accuracy",
+      "weak": "Weak overall accuracy"
+    },
+    "duration": {
+      "hours": "{{hours}}h {{minutes}}m",
+      "minutes": "{{minutes}}m {{seconds}}s",
+      "seconds": "{{seconds}}s"
+    },
+    "overview": {
+      "materials": "Materials",
+      "questions": "Questions",
+      "attempts": "Attempts",
+      "avgPerQuestion": "Avg per question",
+      "totalTime": "Total study time:"
+    },
+    "trend": {
+      "title": "Score over time",
+      "band": "Shaded area shows your typical range",
+      "empty": "No finished attempts yet — your score trend appears after the first one.",
+      "delta": "{{delta}} vs previous",
+      "chartLabel": "Line chart of average score per day",
+      "tooltipScore": "Score: {{score}}%",
+      "tooltipAttempts_one": "{{count}} attempt",
+      "tooltipAttempts_other": "{{count}} attempts"
+    },
+    "difficulty": {
+      "title": "By difficulty",
+      "subtitle": "Accuracy and average time per answer"
+    },
+    "tags": {
+      "title": "Focus areas",
+      "subtitle": "Weakest topics first",
+      "empty": "Add tags to your materials to see which topics need more work.",
+      "accuracyOf": "Accuracy for {{tag}}"
+    },
+    "calibration": {
+      "title": "Confidence calibration",
+      "empty": "Set your confidence while answering to see how well you know what you know.",
+      "matches": "Your confidence matches your results.",
+      "over": "You're overconfident when you feel “{{level}}”.",
+      "under": "You're underconfident when you feel “{{level}}”.",
+      "actual": "Actual accuracy: {{value}}%",
+      "overLegend": "Overconfident",
+      "underLegend": "Underconfident"
+    },
+    "streak": {
+      "inARow_one": "day in a row",
+      "inARow_other": "days in a row",
+      "longest_one": "Longest streak: {{count}} day",
+      "longest_other": "Longest streak: {{count}} days",
+      "todayDone": "today is done ✅",
+      "todayNotYet": "nothing studied today yet",
+      "recent": "Last {{days}} days: {{count}} with study",
+      "goal": "today {{done}} of {{goal}}",
+      "freezes_one": "{{count}} streak freeze left this month",
+      "freezes_other": "{{count}} streak freezes left this month",
+      "frozenDay": "Missed, a streak freeze kept the streak"
+    }
+  },
+  "digest": {
+    "title": "Your day",
+    "subtitle": "What to review now, how your streak is doing and how last week went",
+    "today": {
+      "title": "Today",
+      "due_one": "word is waiting for review today",
+      "due_other": "words are waiting for review today",
+      "onlyNew_one": "Nothing to repeat — {{count}} new word is ready to learn",
+      "onlyNew_other": "Nothing to repeat — {{count}} new words are ready to learn",
+      "plusNew_one": "Plus {{count}} new one.",
+      "plusNew_other": "Plus {{count}} new ones.",
+      "clear": "All caught up. Add words to a dictionary and they will show up here 🌿",
+      "dueShort_one": "{{count}} to review",
+      "dueShort_other": "{{count}} to review",
+      "newShort_one": "{{count}} new",
+      "newShort_other": "{{count}} new",
+      "cta": "Open Today",
+      "plusQuestions_one": "And {{count}} question to review.",
+      "plusQuestions_other": "And {{count}} questions to review."
+    },
+    "streak": {
+      "title": "Streak",
+      "safe": "Today counts already. See you tomorrow 🎉",
+      "atRisk_one": "Your {{count}}-day streak ends tonight — one short session saves it 🔥",
+      "atRisk_other": "Your {{count}}-day streak ends tonight — one short session saves it 🔥",
+      "keep": "Study a little today to keep it going",
+      "start": "Finish an attempt or review a few cards to start a new streak"
+    },
+    "weekly": {
+      "title": "Last week",
+      "none": "Your first weekly digest arrives on Monday morning. Study a bit this week to make it interesting 📬",
+      "studyDays": "Study days",
+      "accuracy": "Accuracy",
+      "reviews": "Cards reviewed",
+      "attempts": "Attempts",
+      "weakest": "Topics to revisit"
+    },
+    "inbox": {
+      "title": "Reminders and digests",
+      "empty": "Nothing here yet. Reminders and weekly digests will appear here once they are ready.",
+      "daily_one": "{{count}} word was waiting for review",
+      "daily_other": "{{count}} words were waiting for review",
+      "streak_one": "Your {{count}}-day streak was at risk",
+      "streak_other": "Your {{count}}-day streak was at risk",
+      "weekly": "Weekly digest · {{range}}",
+      "markAll_one": "Mark {{count}} as read",
+      "markAll_other": "Mark all {{count}} as read",
+      "dailyQuestions_one": "{{count}} question was waiting for review",
+      "dailyQuestions_other": "{{count}} questions were waiting for review"
+    },
+    "settings": {
+      "title": "Email reminders",
+      "text": "Off by default. Switch on only what you want to receive — you can turn it off any time.",
+      "daily": {
+        "title": "Daily review",
+        "text": "At 9:00 your time, when words are due"
+      },
+      "streak": {
+        "title": "Streak at risk",
+        "text": "At 20:00 your time, only if you haven't studied that day"
+      },
+      "weekly": {
+        "title": "Weekly digest",
+        "text": "Monday morning: streak, accuracy and weakest topics"
+      },
+      "consent": "Emails go to {{email}}. Turning a switch on means you agree to receive these emails.",
+      "noEmail": "Your account has no email address, so reminders are shown only on this page.",
+      "saved": "Reminder settings saved",
+      "error": "Couldn't save reminder settings"
+    }
+  },
+  "library": {
+    "eyebrow": "Curated, read-only",
+    "title": "Library",
+    "subtitle": "Reviewed materials to read, learn from and add to your own. Every one was checked before it got here.",
+    "share": "Share your material",
+    "sendMaterial": "To library",
+    "fromLibrary": "From the library",
+    "searchPlaceholder": "Search by title or author",
+    "filters": {
+      "all": "All"
+    },
+    "by": "by {{name}}",
+    "yours": "Yours",
+    "inYourMaterials": "In your materials",
+    "imports_one": "{{count}} import",
+    "imports_other": "{{count}} imports",
+    "counts": {
+      "notes_one": "{{count}} note",
+      "notes_other": "{{count}} notes",
+      "questions_one": "{{count}} question",
+      "questions_other": "{{count}} questions",
+      "words_one": "{{count}} word",
+      "words_other": "{{count}} words"
+    },
+    "pagination": "Library pages",
+    "page": "Page {{page}} of {{pages}}",
+    "prev": "Previous",
+    "next": "Next",
+    "loadError": "The library couldn't be loaded, please refresh the page.",
+    "empty": {
+      "title": "The library is just opening",
+      "text": "Be the first to share a material: after a quick review it will appear here for everyone."
+    },
+    "notFound": {
+      "title": "Nothing found",
+      "text": "Try another word or another type."
+    },
+    "import": "Add to my materials",
+    "importing": "Adding...",
+    "importAgain": "Add another copy",
+    "alreadyImported": "You already have a copy",
+    "requests": {
+      "title": "Your requests",
+      "types": {
+        "Publish": "New",
+        "Update": "Update",
+        "Remove": "Removal"
+      },
+      "statuses": {
+        "Pending": "Waiting for review",
+        "Approved": "Approved",
+        "Rejected": "Declined",
+        "Cancelled": "Cancelled"
+      },
+      "cancel": "Cancel",
+      "reviewComment": "Reviewer: {{comment}}",
+      "reasons": {
+        "Content": "The content isn't a fit for the library. It may be off-topic, incomplete or copied.",
+        "Title": "Please choose a clearer title and send it again.",
+        "Nickname": "Please choose another author name and send it again.",
+        "Other": "The request wasn't approved."
+      }
+    },
+    "submit": {
+      "title": "Share with the library",
+      "text": "A copy of the material is sent as it is now: text, notes, questions and dictionaries. After review it appears in the library and can't be edited by anyone. To change it later, send an update.",
+      "updateTitle": "Send an update",
+      "updateText": "The library material will be replaced with a copy of the material you choose, after review. Until then readers see the current version.",
+      "material": "Material",
+      "chooseMaterial": "Choose a material",
+      "nickname": "Author name",
+      "nicknamePlaceholder": "How readers will see you",
+      "nicknameHint": "Shown to every reader. Your account and email stay private.",
+      "comment": "Note for the reviewer (optional)",
+      "commentPlaceholder": "Anything that helps with the review",
+      "send": "Send for review",
+      "copyrightWarning": "This material was imported from a website. Publish it only if you have the right to share this text."
+    },
+    "author": {
+      "title": "Your material in the library",
+      "text": "Library materials can't be edited. Send a new version or ask to take it down: both are reviewed first.",
+      "updatePending": "Your update is waiting for review",
+      "removalPending": "Your removal request is waiting for review",
+      "update": "Send an update",
+      "remove": "Ask to remove",
+      "removeTitle": "Take it out of the library?",
+      "removeText": "After review the material disappears from the library. Copies that readers already added stay with them.",
+      "removeConfirm": "Ask to remove"
+    },
+    "reader": {
+      "back": "Library",
+      "published": "Published {{date}}",
+      "updated": "Updated {{date}}",
+      "source": "Original source",
+      "contents": "In this material",
+      "sections": {
+        "notes": "Notes",
+        "questions": "Questions",
+        "dictionaries": "Dictionaries"
+      },
+      "summary": "Summary",
+      "noContent": "No text here.",
+      "demo": "For reading only: add the material to yours to answer the questions and practise the words.",
+      "showAnswer": "Show answer",
+      "hideAnswer": "Hide answer",
+      "answer": "Answer",
+      "explanation": "Why",
+      "correct": "correct",
+      "synonyms": "Synonyms: {{list}}",
+      "unavailable": "This material isn't in the library",
+      "unavailableText": "It may have been taken down, or the link is wrong."
+    },
+    "toasts": {
+      "imported": "Added to your materials!",
+      "importError": "The material couldn't be added, please try again",
+      "sentPublish": "Sent for review. You'll see the result under “Your requests”",
+      "sentUpdate": "Update sent for review",
+      "sentRemove": "Removal request sent for review",
+      "cancelled": "Request cancelled"
+    },
+    "errors": {
+      "tooManyPending": "You have too many requests waiting for review. Wait for them or cancel one",
+      "alreadyPending": "A request about this material is already waiting for review",
+      "tooLarge": "This material is too large for the library. Try fewer or smaller images",
+      "fromLibrary": "Materials added from the library can't be sent back to it",
+      "nickname": "Use 2 to 40 letters, digits, spaces or _ . ' -",
+      "notFound": "This material wasn't found",
+      "generic": "Something went wrong, please try again"
+    }
+  },
+  "today": {
+    "title": "Today",
+    "subtitle": "Everything due for review, from every dictionary and material.",
+    "words_one": "{{count}} word",
+    "words_other": "{{count}} words",
+    "questions_one": "{{count}} question",
+    "questions_other": "{{count}} questions",
+    "minutes": "~{{count}} min",
+    "newWords_one": "incl. {{count}} new",
+    "newWords_other": "incl. {{count}} new",
+    "overdue_one": "{{count}} missed earlier",
+    "overdue_other": "{{count}} missed earlier",
+    "start": "Start",
+    "startWords": "Words",
+    "startQuestions": "Questions",
+    "sources": "From",
+    "phaseWords": "Step 1 · words",
+    "phaseQuestions": "Step 2 · questions",
+    "empty": {
+      "title": "All caught up",
+      "text": "Nothing is due today. Add a material or practise a dictionary to plant something new."
+    },
+    "done": {
+      "title": "Done for today",
+      "text": "Everything due is reviewed. What you answered will come back right when it starts to fade.",
+      "back": "Back to Today"
+    },
+    "question": {
+      "of": "{{index}} of {{total}}",
+      "correct": "Right",
+      "incorrect": "Not quite",
+      "correctAnswer": "Correct answer",
+      "next": "Next",
+      "finish": "Finish",
+      "check": "Check",
+      "again": "It comes back soon to fix it",
+      "nextReview": "Next review {{when}}"
+    },
+    "error": "Could not load the review queue",
+    "goal": {
+      "title": "Daily goal",
+      "progress": "{{done}} of {{goal}}"
+    },
+    "limit": {
+      "title": "That's your limit for today",
+      "text": "You've done as many reviews as you set for a day. The rest will wait until tomorrow.",
+      "settings": "Change the limit"
+    }
+  },
+  "account": {
+    "export": {
+      "title": "Your data",
+      "subtitle": "Download everything Studytracker keeps about you: materials, notes, questions, answers, dictionaries and review history. Words also come as a CSV for Anki.",
+      "button": "Export my data",
+      "pending": "Preparing the archive…",
+      "done": "The archive is downloaded",
+      "error": "Couldn't prepare the archive",
+      "tooOften": "Too many exports in a row, try again in a few minutes"
+    },
+    "delete": {
+      "sectionTitle": "Delete account",
+      "sectionText": "Removes the account and all your study data for good.",
+      "open": "Delete account",
+      "title": "Delete your account?",
+      "subtitle": "This can't be undone.",
+      "consequenceData": "Materials, notes, questions, dictionaries, attempts and all study history are deleted for good.",
+      "consequenceLibrary": "Your materials in the library stay there without the author's name: others already have copies.",
+      "consequenceFinal": "The account can't be restored. Export your data first if you want to keep it.",
+      "typeEmail": "Type {{email}} to confirm",
+      "button": "Delete for good",
+      "waitButton_one": "Delete in {{count}} s",
+      "waitButton_other": "Delete in {{count}} s",
+      "pending": "Deleting…",
+      "error": "Couldn't delete the account, try again",
+      "reauthTitle": "Confirm it's you",
+      "reauthText": "For safety, an account can only be deleted within a few minutes of signing in. Sign in again and you'll come straight back here.",
+      "reauthGoogle": "Sign in with Google",
+      "reauthEmail": "Send me a sign-in link",
+      "reauthSent": "Check your email",
+      "reauthSentText": "We sent a link to {{email}}. Open it and you'll come back here to finish.",
+      "reauthError": "Couldn't start the sign-in, try again",
+      "doneTitle": "Account deleted",
+      "doneText": "Your data is gone. A confirmation is on its way to your email."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Your time zone, languages and how you appear in the library. Changes save on their own.",
+    "timeZone": "Time zone",
+    "timeZoneHint": "Days, streaks and reminder hours are counted in it.",
+    "timeZoneUnknown": "Not set yet",
+    "useBrowserZone": "Use {{zone}}",
+    "interfaceLanguage": "Site language",
+    "explanationLanguage": "AI explanations in",
+    "explanationHint": "Explanations of mistakes come in this language, whatever language the material is in.",
+    "explanationAsInterface": "Site language ({{language}})",
+    "explanationAsQuestion": "The language of the question",
+    "nativeLanguage": "Native language",
+    "nativeLanguagePlaceholder": "e.g. Ukrainian",
+    "studyLanguage": "Language you study",
+    "studyLanguagePlaceholder": "e.g. Norwegian",
+    "nickname": "Nickname",
+    "nicknameHint": "Shown on materials you publish in the library.",
+    "dailyGoal": "Daily goal",
+    "dailyGoalHint": "Reviews a day; leave empty for no goal.",
+    "invalid": "This value can't be saved, check it",
+    "error": "Couldn't save the profile"
+  },
+  "learning": {
+    "title": "Learning",
+    "subtitle": "Your daily rhythm and reminders. The defaults suit most people.",
+    "dailyGoal": "Daily goal",
+    "dailyGoalHint": "Reviews a day. With a goal, a streak day counts once it's reached.",
+    "dailyReminder": "Review reminder",
+    "streakReminder": "Streak reminder",
+    "defaultHour": "Default ({{hour}})",
+    "noLimit": "No limit",
+    "advanced": "Advanced",
+    "retention": "How much you want to remember: {{percent}}%",
+    "retentionHint": "Higher means you review more often and forget less. Lower means fewer reviews and more forgotten words. It changes the next intervals only.",
+    "retentionLess": "Fewer reviews",
+    "retentionMore": "Remember more",
+    "retentionReset": "Back to the default ({{percent}}%)",
+    "newPerDay": "New words a day",
+    "maxPerDay": "Reviews a day at most",
+    "freezes": "Streak freezes a month",
+    "freezesHint": "Missed days that don't break your streak.",
+    "freezesDefault_one": "Default ({{count}})",
+    "freezesDefault_other": "Default ({{count}})",
+    "rescheduleHint": "Changed how much you want to remember? Recount the dates of all words and questions now, not only after their next review.",
+    "reschedule": "Reschedule",
+    "rescheduled_one": "{{count}} card rescheduled",
+    "rescheduled_other": "{{count}} cards rescheduled",
+    "rescheduleError": "Couldn't reschedule, try again",
+    "noGoal": "No goal"
+  },
+  "billing": {
+    "checkoutError": "Couldn't open the payment page, try again",
+    "endsOn": "Won't renew, ends on {{date}}",
+    "pastDue": "The last payment didn't go through: check your card in the payment email",
+    "trialUntil": "Free trial until {{date}}",
+    "activeUntil": "Active until {{date}}",
+    "activeNoEnd": "Active, no end date",
+    "manage": "Manage subscription",
+    "portalError": "Couldn't open subscription settings, try again",
+    "alreadyPaid": "You already have a plan: change it in subscription settings",
+    "activating": "Payment received. Switching your plan on, it takes a few seconds…",
+    "activationSlow": "Payment received, the plan will switch on shortly. Refresh the page in a minute",
+    "activated": "{{plan}} is on",
+    "checkoutCancelled": "Payment cancelled, nothing was charged",
+    "plans": {
+      "title": "Plans",
+      "text": "More materials and more AI",
+      "period": "Billing period",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "save": "−{{percent}}%",
+      "perMonth": "/ month",
+      "perYear": "/ year",
+      "monthlyEquivalent": "≈ {{price}} a month",
+      "materials": "Materials: {{count}}",
+      "words": "Words per dictionary: {{count}}",
+      "aiPerMonth": "{{feature}}: {{count}} a month",
+      "unlimited": "unlimited",
+      "current": "Your plan",
+      "choose": "Choose {{plan}}",
+      "note": "Payment goes through Stripe's secure page, we never see your card. Cancel any time, the plan stays until the paid period ends."
+    }
+  },
+  "consent": {
+    "title": "May we count visits?",
+    "text": "With your permission Google Analytics shows us which pages help and which don't. No ads, no names, no emails, and the site works the same either way.",
+    "more": "How we handle data",
+    "accept": "Allow",
+    "decline": "No, thanks"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "updated": "Updated 31 October 2026",
+    "intro": "Studytracker keeps only what it needs to help you learn. Here is what that is, who helps run the site, and how to take your data with you or remove it.",
+    "data": {
+      "title": "What we keep",
+      "text": "Your email from signing in; what you create: materials, notes, drawings, questions, dictionaries, attempts and review history; and your settings such as time zone and languages. Nobody else sees your materials unless you share a link or publish to the library."
+    },
+    "analytics": {
+      "title": "Visit statistics",
+      "text": "Only if you allow it, Google Analytics counts which pages are opened, from what kind of device and roughly from which country. Shared links are sent without their secret part, and nothing that names you is sent. Advertising features are off. You can change your choice at any time with “Cookies” at the bottom of the page."
+    },
+    "errors": {
+      "title": "Errors and speed",
+      "text": "When something breaks, technical details of the error go to Sentry (servers in the EU) so we can fix it. Vercel Speed Insights measures how fast pages load, without cookies and without identifying you."
+    },
+    "ai": {
+      "title": "AI features",
+      "text": "When you use an AI feature, the text it needs (for example a material's content or your answer) is sent to the AI provider for that one request: Anthropic, OpenAI or Google."
+    },
+    "services": {
+      "title": "Who helps run the site",
+      "text": "Supabase (sign-in), Microsoft Azure (server and database), Vercel (website), Resend (emails), Sentry (error reports), Google (visit statistics, only with consent), Stripe (payments, only if you buy a plan; we never see card details) and the AI providers above."
+    },
+    "rights": {
+      "title": "Your data, your choice",
+      "text": "On the Account page you can download everything we keep about you or delete your account for good. Reminder emails can be turned off in the statistics page settings."
+    },
+    "contact": {
+      "title": "Questions",
+      "text": "Write to us through the feedback form on the home page."
+    }
+  }
+}

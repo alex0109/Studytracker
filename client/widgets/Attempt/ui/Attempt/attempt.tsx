@@ -2,14 +2,18 @@
 
 import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
+import { LuFlag } from "react-icons/lu";
 import { BlockColumn, IsPendingLoader } from "@/shared/ui";
 import { AttemptHeader } from "@/entities/attempt/ui";
-import { Separator, Button } from "@/shared/radix-ui";
+import { Button, toast } from "@/shared/radix-ui";
+import { cn } from "@/shared/lib";
 import { shuffleQuestions } from "@/widgets/Attempt/lib/shuffle-questions";
 import { AttemptQuestion } from "@/widgets/Attempt/ui/AttemptQuestion/attempt-question";
 import { IQuestionReduced } from "@/entities/question";
 import { useAttemptFinish } from "@/features/attempt/finish-attempt";
 import { useAttemptResults } from "@/entities/attempt";
+import { ISavedAnswer } from "../../model/saved-answer.type";
+import { useTranslation } from "@/shared/i18n";
 
 interface AttemptProps {
   questionsActiveReduced: IQuestionReduced[];
@@ -22,34 +26,66 @@ export const Attempt: FC<AttemptProps> = ({
   materialId,
   attemptId,
 }) => {
+  const { t } = useTranslation();
   const [questions] = useState(() =>
     shuffleQuestions([...questionsActiveReduced]),
   );
-  const [answers, setAnswers] = useState<Record<string, string[]>>({});
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [savedAnswers, setSavedAnswers] = useState<
+    Record<string, ISavedAnswer>
+  >({});
+  // Questions that had no answer when Finish was pressed
+  const [highlightedIds, setHighlightedIds] = useState<string[]>([]);
 
   const router = useRouter();
 
   const { finishAttempt, finishAttemptIsPending } = useAttemptFinish(attemptId);
+  const { attemptResults } = useAttemptResults(attemptId);
+
+  // Answers saved earlier, so a reload doesn't lose progress
+  const [mergedResults, setMergedResults] = useState<typeof attemptResults>();
+  if (attemptResults && attemptResults !== mergedResults) {
+    setMergedResults(attemptResults);
+    setSavedAnswers((prev) => {
+      const next = { ...prev };
+      for (const result of attemptResults.results) {
+        next[result.questionId] = {
+          text: result.userAnswer || undefined,
+          optionIds: result.userAnswerOptionIds ?? [],
+          changes: result.answerChangedCount ?? 0,
+        };
+      }
+      return next;
+    });
+  }
+
+  const unanswered = questions.filter((q) => !savedAnswers[q.id]);
+  const answeredCount = questions.length - unanswered.length;
+  const missingIds = highlightedIds.filter((id) => !savedAnswers[id]);
 
   const handleFinishAttempt = async () => {
-    setIsDisabled(true);
-    const unanswered = questions.some((q) => !answers[q.id]);
-
-    if (unanswered) {
-      setIsDisabled(false);
+    if (unanswered.length > 0) {
+      setHighlightedIds(unanswered.map((q) => q.id));
+      document
+        .getElementById(`question-${unanswered[0].id}`)
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
 
-    await finishAttempt();
-
-    router.push(`/materials/${materialId}/attempt/${attemptId}/results`);
+    try {
+      await finishAttempt();
+      router.push(`/materials/${materialId}/attempt/${attemptId}/results`);
+    } catch {
+      toast({
+        title: `❌${t("toasts.attemptNotFinished")}`,
+        variant: "error",
+      });
+    }
   };
 
   return (
-    <BlockColumn>
+    <BlockColumn blockStyles="gap-4">
       <AttemptHeader materialId={materialId} attemptId={attemptId} />
-      <Separator />
+
       {questions.map((item, i) => (
         <AttemptQuestion
           key={item.id}
@@ -57,31 +93,52 @@ export const Attempt: FC<AttemptProps> = ({
           attemptId={attemptId}
           index={i + 1}
           title={item.title}
-          answers={answers[item.id]}
+          questionType={item.questionType}
+          options={item.options}
+          savedAnswer={savedAnswers[item.id]}
+          isMissing={missingIds.includes(item.id)}
           onAnswered={(answer) =>
-            setAnswers((prev) => ({
-              ...prev,
-              [item.id]: [...(prev[item.id] ?? []), answer],
-            }))
+            setSavedAnswers((prev) => ({ ...prev, [item.id]: answer }))
           }
         />
       ))}
-      <Separator className="my-10" />
-      <div className="flex w-full justify-center items-center">
-        <div className="flex-1" />
-        <div className="flex flex-1 justify-center items-center">
-          <Button
-            className="w-60 text-md bg-emerald-600 text-white hover:bg-emerald-700 hover:text-white"
-            size="lg"
-            variant="outline"
-            disabled={isDisabled}
-            onClick={() => handleFinishAttempt()}
-          >
-            Finish
-          </Button>
+
+      <div className="sticky bottom-3 z-10 mt-4 flex w-full flex-col gap-3 rounded-2xl border border-neutral-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex-row sm:items-center dark:border-neutral-700 dark:bg-neutral-900/95">
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <span className="text-sm font-medium">
+            {t("attempt.answered", { answered: answeredCount, total: questions.length })}
+          </span>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700">
+            <div
+              className="h-full rounded-full bg-emerald-500 transition-[width] duration-500"
+              style={{
+                width: `${questions.length ? (answeredCount / questions.length) * 100 : 0}%`,
+              }}
+            />
+          </div>
+          {missingIds.length > 0 && (
+            <p className="text-sm text-red-500">
+              {answeredCount === 0
+                ? t("attempt.noneAnswered")
+                : t("attempt.left", { count: missingIds.length })}
+            </p>
+          )}
         </div>
-        <div className="flex-1">
+        <div className="flex items-center gap-2">
           <IsPendingLoader isPending={finishAttemptIsPending} />
+          <Button
+            size="lg"
+            disabled={finishAttemptIsPending}
+            onClick={handleFinishAttempt}
+            className={cn(
+              "w-full sm:w-44",
+              unanswered.length === 0
+                ? "bg-emerald-600 hover:bg-emerald-700"
+                : "bg-neutral-800 hover:bg-neutral-900",
+            )}
+          >
+            <LuFlag /> {t("attempt.finish")}
+          </Button>
         </div>
       </div>
     </BlockColumn>

@@ -5,8 +5,10 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib";
 import { deleteTagFromMaterial, materialKeys } from "@/entities/material";
 import { toast } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 
 export const useDeleteTagFromMaterial = (materialId: string) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
@@ -24,13 +26,14 @@ export const useDeleteTagFromMaterial = (materialId: string) => {
         updatedMaterial,
       );
 
+      // The material itself came back in the answer, only the list is refetched
       queryClient.invalidateQueries({
-        queryKey: materialKeys.all,
+        queryKey: materialKeys.list(),
         refetchType: "active",
       });
 
       toast({
-        title: "✅Tag has been deleted",
+        title: `✅${t("toasts.tagRemoved")}`,
         variant: "success",
       });
     },
@@ -41,7 +44,7 @@ export const useDeleteTagFromMaterial = (materialId: string) => {
       });
 
       toast({
-        title: "❌Error occered while deleting tag",
+        title: `❌${t("toasts.tagRemoveError")}`,
         variant: "error",
       });
     },

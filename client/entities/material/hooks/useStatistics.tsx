@@ -14,7 +14,6 @@ export const useStatistics = () => {
     queryKey: ["stats"],
     queryFn: () => getStatistics(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export const useStatistics = () => {
         userID: user?.id,
       });
     }
-  }, [stats.error]);
+  }, [stats.error, user?.id]);
 
   return {
     statsData: stats.data,

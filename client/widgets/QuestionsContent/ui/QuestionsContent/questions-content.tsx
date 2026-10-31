@@ -1,126 +1,137 @@
 "use client";
 
 import { FC, useState } from "react";
-import * as Accordion from "@radix-ui/react-accordion";
-import { BlockColumn, InProductionModal } from "@/shared/ui";
-import styles from "./styles.module.css";
-import { Button, Separator } from "@/shared/radix-ui";
-import { cn } from "@/shared/lib";
+import { LimitCounter } from "@/shared/ui";
+import { useLimits } from "@/entities/limits";
+import { Button } from "@/shared/radix-ui";
+import { cn, isLimitReached } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { useRouter, usePathname } from "next/navigation";
-import { OpenQuestionCreateModal } from "@/features/question/create-question/ui";
-import {
-  QuestionAnswer,
-  QuestionTitle,
-} from "@/features/question/update-question/ui";
-import { useQuestionDelete } from "@/features/question/delete-question";
+import { QuestionCreateModal } from "@/features/question/create-question/ui";
+import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
+import { useTranslation } from "@/shared/i18n";
+import { QuestionsAccordion } from "./questions-accordion";
 import { EmptyQuestions } from "./empty-questions";
 import LoadingQuestions from "./loading-questions";
 
 interface QuestionsType {
   materialId: string;
+  noteId?: string;
   assessmentId: string;
 }
 
 export const QuestionsContent: FC<QuestionsType> = ({
   materialId,
+  noteId,
   assessmentId,
 }) => {
-  const [open, setOpen] = useState(false);
-  const [inProductionIsOpen, setInProductionIsOpen] = useState(false);
+  const { t } = useTranslation();
+  const [open, setOpen] = useState<boolean>(false);
+  const [generateIsOpen, setGenerateIsOpen] = useState(false);
 
   const router = useRouter();
   const path = usePathname();
 
   const { questionsData, questionsIsPending } = useQuestionAll(materialId);
-  const { deleteQuestion } = useQuestionDelete(materialId);
+  const { limitsData } = useLimits();
+
+  // Limit is per material, so notes share it with the material itself
+  const activeQuestionsCount =
+    questionsData?.filter((item) => item.isActive).length ?? 0;
+  const isQuestionsFull = isLimitReached(
+    activeQuestionsCount,
+    limitsData?.maxQuestionsPerMaterial,
+  );
 
   const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId);
 
   const startAttemptHandler = async () => {
     const attempt = await attemptStart();
 
-    router.push(`${path}/attempt/${attempt}`);
+    router.push(`${path}/${materialId}/attempt/${attempt}`);
   };
 
   const onClickhandlers = {
     "open-modal": () => setOpen(true),
-    generate: () => setInProductionIsOpen(true),
+    generate: () => setGenerateIsOpen(true),
     start: () => startAttemptHandler(),
   };
 
   const disabledHandlers = {
-    "open-modal": false,
-    generate: false,
+    "open-modal": isQuestionsFull,
+    generate: isQuestionsFull,
     start:
       questionsData && questionsData.length > 0 && !startAttemptIsPending
         ? false
         : true,
   };
 
+  const questionsAfterFilter = noteId
+    ? questionsData?.filter((item) => item.noteId)
+    : questionsData;
+
   return (
-    <BlockColumn blockStyles="lg:p-[70px] p-3 items-start">
-      <div className="w-full flex lg:flex-row flex-col gap-5 justify-between items-center mb-5">
+    <div className="flex flex-col w-full">
+      <div className="w-full flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-5 justify-center items-center my-5">
         {questionInterface.map((item) => (
           <Button
             size="lg"
             key={item.key}
             onClick={onClickhandlers[item.key]}
             disabled={disabledHandlers[item.key]}
-            className={`lg:w-[250px] md:w-[200px] sm:w-[200px] w-full ${cn(item.styles)}`}
+            className={`lg:w-[250px] md:w-[180px] sm:w-[180px] w-full ${cn(item.styles)}`}
           >
-            {item.icon} {item.title}
+            {item.icon}{" "}
+            {item.key === "open-modal" && isQuestionsFull
+              ? t("questions.limitReached")
+              : t(`questions.actions.${item.title}`)}
+            {item.key === "open-modal" && (
+              <LimitCounter
+                used={activeQuestionsCount}
+                max={limitsData?.maxQuestionsPerMaterial}
+                label={t("limits.counter.questions")}
+              />
+            )}
           </Button>
         ))}
       </div>
-      <Separator />
-      {questionsIsPending ? (
-        <LoadingQuestions />
-      ) : questionsData &&
-        questionsData.length > 0 &&
-        questionsData.filter((item) => item.isActive == true).length > 0 ? (
-        <Accordion.Root
-          className={styles.Root}
-          type="single"
-          defaultValue="item-1"
-          collapsible
-        >
-          {questionsData
-            .filter((item) => item.isActive == true)
-            .map((item) => (
-              <Accordion.Item
-                key={item.id}
-                className={styles.Item}
-                value={item.id}
-              >
-                <QuestionTitle
-                  materialId={item.materialId}
-                  id={item.id}
-                  title={item.title}
-                />
-                <QuestionAnswer
-                  materialId={item.materialId}
-                  id={item.id}
-                  answer={item.answer!}
-                  deleteQuestion={deleteQuestion}
-                />
-              </Accordion.Item>
-            ))}
-        </Accordion.Root>
-      ) : (
-        <EmptyQuestions />
-      )}
-      <OpenQuestionCreateModal
+
+      <div>
+        {questionsIsPending ? (
+          <LoadingQuestions />
+        ) : questionsAfterFilter &&
+          questionsAfterFilter.length > 0 &&
+          questionsAfterFilter.filter((item) => item.isActive == true).length >
+            0 ? (
+          <QuestionsAccordion
+            materialId={materialId}
+            noteId={noteId}
+            questionsData={questionsAfterFilter}
+            questionsIsPending={questionsIsPending}
+          />
+        ) : (
+          <EmptyQuestions />
+        )}
+      </div>
+
+      <QuestionCreateModal
         materialId={materialId}
+        noteId={noteId}
         open={open}
         setOpen={setOpen}
       />
-      <InProductionModal
-        isOpen={inProductionIsOpen}
-        setIsOpen={setInProductionIsOpen}
+      <GenerateQuestionsModal
+        materialId={materialId}
+        noteId={noteId}
+        freeSlots={
+          (limitsData?.maxQuestionsPerMaterial ?? Infinity) -
+          activeQuestionsCount
+        }
+        open={generateIsOpen}
+        setOpen={setGenerateIsOpen}
       />
-    </BlockColumn>
+    </div>
   );
 };

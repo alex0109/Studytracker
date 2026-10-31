@@ -1,23 +1,30 @@
+"use client";
+
+import { MotionConfig, motion } from "framer-motion";
 import { OverviewStamp } from "./OverviewStamp";
 import { AttemptTrendChart } from "./AttemptTrendChart";
 import { DifficultyRings } from "./DifficultyRings";
 import { ConfidenceCalibrationBars } from "./ConfidenceCalibrationBars";
 import { TagPerformanceList } from "./TagPerformanceList";
 import { StudyStreakStrip } from "./StudyStreakStrip";
+import { stagger } from "./../lib/motion";
 
 export function StatisticsDashboard() {
   return (
-    <div className="flex justify-center items-center max-w-3xl flex-col gap-6 lg:p-6">
-      <OverviewStamp />
-      <AttemptTrendChart />
-
-      <div className="grid gap-6 sm:grid-cols-2">
+    <MotionConfig reducedMotion="user">
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        className="mx-auto grid w-full max-w-5xl gap-6 md:grid-cols-2"
+      >
+        <OverviewStamp />
+        <AttemptTrendChart />
         <DifficultyRings />
         <ConfidenceCalibrationBars />
-      </div>
-
-      <TagPerformanceList />
-      <StudyStreakStrip />
-    </div>
+        <TagPerformanceList />
+        <StudyStreakStrip />
+      </motion.div>
+    </MotionConfig>
   );
 }

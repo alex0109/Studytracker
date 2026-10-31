@@ -2,13 +2,17 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Title, Modal, CustomInput } from "@/shared/ui";
-import { ITagCreate } from "@/entities/tag";
+import { Title, Modal, CustomInput, LimitCounter } from "@/shared/ui";
+import { ITagCreate, useTagsAll } from "@/entities/tag";
+import { useLimits } from "@/entities/limits";
+import { isLimitReached } from "@/shared/lib";
 import { useTagCreate } from "../../hooks/useTagCreate";
 import { ColorPicker } from "../ColorPicker/color-picker";
 import { Button } from "@/shared/radix-ui";
+import { useTranslation } from "@/shared/i18n";
 
 export const AddTag: FC = () => {
+  const { t } = useTranslation();
   const {
     register,
     formState: { errors },
@@ -17,6 +21,11 @@ export const AddTag: FC = () => {
   } = useForm<ITagCreate>();
 
   const { createTag } = useTagCreate();
+  const { tagsData } = useTagsAll();
+  const { limitsData } = useLimits();
+
+  const tagsCount = tagsData?.length ?? 0;
+  const isFull = isLimitReached(tagsCount, limitsData?.maxTags);
 
   const [open, setOpen] = useState(false);
   const [color, setColor] = useState("#64748B");
@@ -39,17 +48,33 @@ export const AddTag: FC = () => {
         <span className="absolute top-0.5 left-[33%] text-white">+</span>
       </div> */}
 
-      <Button onClick={() => setOpen(true)}>New Tag</Button>
+      <Button
+        onClick={() => setOpen(true)}
+        disabled={isFull}
+        title={
+          isFull
+            ? t("tags.limitReachedHint", { count: limitsData?.maxTags })
+            : undefined
+        }
+      >
+        {isFull ? t("tags.limitReached") : t("tags.new")}
+        <LimitCounter
+          used={tagsCount}
+          max={limitsData?.maxTags}
+          label={t("limits.counter.tags")}
+        />
+      </Button>
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="md:w-[400px] w-[300px]">
-          <Title text="Add new tag" />
+          <Title text={t("tags.addTitle")} />
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <CustomInput
-              label="Name"
-              placeholder="*Name..."
+              label={t("tags.name")}
+              placeholder={t("tags.namePlaceholder")}
               inputBlockStyles="my-5"
-              {...register<"name">("name", { required: "Required" })}
+              maxLength={30}
+              {...register<"name">("name", { required: t("common.required") })}
               error={errors.name?.message}
             />
             <ColorPicker onChange={setColor} />
@@ -60,7 +85,7 @@ export const AddTag: FC = () => {
                 type="submit"
                 onClick={() => setOpen(true)}
               >
-                Submit
+                {t("common.create")}
               </Button>
             </div>
           </form>

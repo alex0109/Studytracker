@@ -1,14 +1,15 @@
 import { IOption } from "./option.type";
 import { QuestionDifficultyEnum } from "./question-difficulty";
 import { QuestionTypeEnum } from "./question-type.type";
+import { IQuestionProgress } from "./question-progress.type";
 
 export interface IQuestionResponse {
   id: string;
   materialId: string;
+  noteId?: string;
   title: string;
   answer?: string;
   questionType: QuestionTypeEnum;
-  correctOptionId?: string;
   options: IOption[];
   questionDifficulty: QuestionDifficultyEnum;
   explanation?: string;
@@ -16,4 +17,5 @@ export interface IQuestionResponse {
   isActive: boolean;
   createdAt: Date;
   finishedAt: Date;
+  progress?: IQuestionProgress | null;
 }

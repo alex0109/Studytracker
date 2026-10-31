@@ -25,7 +25,7 @@ export const useAttemptExact = (attemptId: string) => {
         userID: user?.id,
       });
     }
-  }, [exactAttempt.error]);
+  }, [attemptId, exactAttempt.error, user?.id]);
 
   return {
     exactAttempt: exactAttempt.data,

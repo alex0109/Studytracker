@@ -11,10 +11,11 @@ export const MaterialDate: FC<MaterialDateType> = ({ createdAt }) => {
   }
 
   return (
-    <div>
-      <p className="text-neutral-500">
-        {moment(createdAt).format("DD MMMM yy")}
-      </p>
-    </div>
+    <time
+      dateTime={moment(createdAt).format("YYYY-MM-DD")}
+      className="text-sm text-neutral-500 dark:text-neutral-400"
+    >
+      {moment(createdAt).format("DD MMMM yy")}
+    </time>
   );
 };

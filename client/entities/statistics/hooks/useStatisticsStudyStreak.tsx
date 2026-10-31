@@ -15,7 +15,6 @@ export const useStatisticsStudyStreak = () => {
     queryKey: statisticsKeys.studyStreak(),
     queryFn: () => getStudyStreak(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useStatisticsStudyStreak = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsStudyStreak.error]);
+  }, [statisticsStudyStreak.error, user?.id]);
 
   return {
     statisticsStudyStreakData: statisticsStudyStreak.data,

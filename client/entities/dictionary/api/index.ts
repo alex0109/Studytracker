@@ -1,0 +1,13 @@
+export { getAllDictionaries } from "./getAllDictionaries";
+export { getDictionary } from "./getDictionary";
+export { createDictionary } from "./createDictionary";
+export { updateDictionary } from "./updateDictionary";
+export { deleteDictionary } from "./deleteDictionary";
+export { createDictionaryEntry } from "./createDictionaryEntry";
+export { getDictionaryEntry } from "./getDictionaryEntry";
+export { updateDictionaryEntry } from "./updateDictionaryEntry";
+export { deleteDictionaryEntry } from "./deleteDictionaryEntry";
+export { reorderDictionaryEntries } from "./reorderDictionaryEntries";
+export { getDictionaryQuestions } from "./getDictionaryQuestions";
+export { lookupDictionaryEntry } from "./lookupDictionaryEntry";
+export type { IWordLookup, IWordLookupRequest } from "./lookupDictionaryEntry";

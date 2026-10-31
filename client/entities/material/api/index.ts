@@ -6,3 +6,5 @@ export { getStatistics } from "./getStatistics";
 export { updateMaterial } from "./updateMaterial";
 export { addTagToMaterial } from "./addTagToMaterial";
 export { deleteTagFromMaterial } from "./deleteTagFromMaterial";
+export { importMaterial } from "./importMaterial";
+export type { ArticleImportErrorCode, IMaterialImportResult } from "./importMaterial";

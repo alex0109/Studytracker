@@ -1,6 +1,11 @@
 export type { IQuestionReduced } from "./question-reduced.type";
 export type { IOpenQuestionRequest } from "./question-open.type";
 export type { IOptionsQuestionRequest } from "./question-options.type";
+export type { ITrueFalseQuestionRequest } from "./question-true-false.type";
+export type { IOptionRequest } from "./option-request.type";
+export { QuestionTypeEnum } from "./question-type.type";
+export { QuestionDifficultyEnum } from "./question-difficulty";
 export type { IOption } from "./option.type";
 export type { IQuestionResponse } from "./question-response.type";
 export type { IQuestionUpdate } from "./question-update.type";
+export type { IQuestionProgress } from "./question-progress.type";

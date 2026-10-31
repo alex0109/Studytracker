@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { attemptKeys, IAttempt } from "@/entities/attempt";
-import { materialKeys } from "../../material/lib";
 import { getFinishedAttempts } from "../api/getAttempts";
 
 export const useFinishedAttempts = (materialId: string) => {
@@ -21,7 +20,7 @@ export const useFinishedAttempts = (materialId: string) => {
       if (
         error instanceof Error &&
         "status" in error &&
-        (error as any).status === 404
+        error.status === 404
       ) {
         return false;
       }
@@ -36,7 +35,7 @@ export const useFinishedAttempts = (materialId: string) => {
         userID: user?.id,
       });
     }
-  }, [attempts.error]);
+  }, [attempts.error, user?.id]);
 
   return {
     finishedAttempts: attempts.data,

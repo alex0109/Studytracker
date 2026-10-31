@@ -15,7 +15,6 @@ export const useStatisticsTagPerformance = () => {
     queryKey: statisticsKeys.tagPerformance(),
     queryFn: () => getTagPerformance(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useStatisticsTagPerformance = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsTagPerformance.error]);
+  }, [statisticsTagPerformance.error, user?.id]);
 
   return {
     statisticsTagPerformanceData: statisticsTagPerformance.data,

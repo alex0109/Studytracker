@@ -15,7 +15,6 @@ export const useTagsAll = () => {
     queryKey: tagKeys.all,
     queryFn: () => getAllTags(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useTagsAll = () => {
         userID: user?.id,
       });
     }
-  }, [tags.error]);
+  }, [tags.error, user?.id]);
 
   return {
     tagsData: tags.data,

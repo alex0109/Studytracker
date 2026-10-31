@@ -3,6 +3,7 @@
 import { FC } from "react";
 import { MaterialStatusEnum } from "@/entities/material/model";
 import { useIsMobile } from "@/shared/hooks";
+import { useTranslation } from "@/shared/i18n";
 
 interface StatusBadgeProps {
   status: MaterialStatusEnum | undefined;
@@ -15,7 +16,9 @@ export const StatusBadge: FC<StatusBadgeProps> = ({
   size = "normal",
   isListed,
 }) => {
+  const { t } = useTranslation();
   const mobile = useIsMobile();
+  const label = status ? t(`materials.statuses.${status}`) : t("errors.unknown");
 
   if (mobile && isListed) {
     return (
@@ -45,10 +48,7 @@ export const StatusBadge: FC<StatusBadgeProps> = ({
               : "text-neutral-500"
       }`}
     >
-      {status == "tolearn" && "Want to learn"}
-      {status == "inprocess" && "In process"}
-      {status == "finished" && "Finished"}
-      {!status && "Error"}
+      {label}
     </p>
   ) : (
     <div
@@ -62,10 +62,7 @@ export const StatusBadge: FC<StatusBadgeProps> = ({
               : "bg-neutral-500"
       }`}
     >
-      {status == "tolearn" && <p>Want to learn</p>}
-      {status == "inprocess" && <p>In process</p>}
-      {status == "finished" && <p>Finished</p>}
-      {!status && <p>Error</p>}
+      <p>{label}</p>
     </div>
   );
 };

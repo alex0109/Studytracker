@@ -2,14 +2,11 @@
 
 import { redirect } from "next/navigation";
 import { createClientOnServer } from "../api/server";
-import { toast } from "@/shared/radix-ui";
+import { getSafeRedirect } from "@/shared/lib/safe-redirect";
 
-export const signOut = async () => {
+// After an account deletion the user lands on the home page with a note instead of the sign in form
+export const signOut = async (redirectTo?: string) => {
   const supabase = await createClientOnServer();
   await supabase.auth.signOut();
-  toast({
-    title: "✅Successfully signed out",
-    variant: "success",
-  });
-  redirect("/sign-in");
+  redirect(redirectTo ? getSafeRedirect(redirectTo) : "/sign-in");
 };

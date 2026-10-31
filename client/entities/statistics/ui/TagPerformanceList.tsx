@@ -1,59 +1,82 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { Tags } from "lucide-react";
 import { useStatisticsTagPerformance } from "../hooks";
+import { Card, CardEmpty, CardSkeleton } from "./primitives";
+import { accuracyTone } from "./tokens";
+import { useTranslation } from "react-i18next";
 
 export function TagPerformanceList() {
+  const { t } = useTranslation();
   const { statisticsTagPerformanceData, statisticsTagPerformanceIsPending } =
     useStatisticsTagPerformance();
 
-  if (statisticsTagPerformanceIsPending) {
-    return (
-      <div className="h-52 animate-pulse rounded-2xl border border-neutral-800 bg-neutral-900" />
-    );
-  }
+  if (statisticsTagPerformanceIsPending)
+    return <CardSkeleton className="h-56 md:col-span-2" />;
 
   const tags = statisticsTagPerformanceData ?? [];
 
   if (tags.length === 0) {
     return (
-      <div className="flex h-52 flex-col items-center justify-center rounded-2xl border border-neutral-800 bg-neutral-900 text-center p-5">
-        <p className="text-neutral-500">
-          Tag materials to see which topics need work.
-        </p>
-      </div>
+      <CardEmpty
+        className="h-56 md:col-span-2"
+        icon={<Tags className="h-8 w-8" aria-hidden />}
+        text={t("statistics.tags.empty")}
+      />
     );
   }
 
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-      <h3 className="mb-5 text-lg text-neutral-50">
-        Focus areas — weakest first
-      </h3>
+    <Card
+      className="md:col-span-2"
+      title={t("statistics.tags.title")}
+      subtitle={t("statistics.tags.subtitle")}
+    >
+      <ul className="space-y-4">
+        {tags.map((tag, i) => {
+          const tone = accuracyTone(tag.accuracy);
+          return (
+            <li key={tag.tagId} className="flex items-center gap-3">
+              <span
+                className="w-28 shrink-0 truncate text-sm text-neutral-900 dark:text-neutral-50 sm:w-40"
+                title={tag.tagName}
+              >
+                {tag.tagName}
+              </span>
 
-      <div className="space-y-3">
-        {tags.map((tag, i) => (
-          <div key={tag.tagId} className="flex items-center gap-3">
-            <span className="w-6 shrink-0 font-mono text-xs text-neutral-500">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-
-            <span className="w-28 shrink-0 truncate text-sm text-neutral-50">
-              {tag.tagName}
-            </span>
-
-            <div className="h-2 flex-1 overflow-hidden rounded-full bg-neutral-800">
               <div
-                className="h-full rounded-full bg-neutral-300"
-                style={{ width: `${tag.accuracy}%` }}
-              />
-            </div>
+                role="progressbar"
+                aria-valuenow={Math.round(tag.accuracy)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label={t("statistics.tags.accuracyOf", { tag: tag.tagName })}
+                className="h-2.5 flex-1 overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800"
+              >
+                <motion.div
+                  className={`h-full rounded-2xl ${tone.bar}`}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${tag.accuracy}%` }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.1 + i * 0.05,
+                    ease: "easeOut",
+                  }}
+                />
+              </div>
 
-            <span className="w-12 shrink-0 text-right font-mono text-xs text-neutral-300">
-              {Math.round(tag.accuracy)}%
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
+              <span
+                className={`w-12 shrink-0 text-right font-mono text-sm tabular-nums ${tone.text}`}
+              >
+                {Math.round(tag.accuracy)}%
+              </span>
+              <span className="hidden w-20 shrink-0 text-right text-xs text-neutral-500 sm:block">
+                {t("statistics.answers", { count: tag.answersCount })}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </Card>
   );
 }

@@ -2,12 +2,12 @@
 
 "use client";
 
-import { FC, useState } from "react";
+import { ChangeEventHandler, FC, useState } from "react";
 import { LuSquarePen } from "react-icons/lu";
 
 type EditableLinkProps = {
   initialValue: string;
-  onChange: (...args: any[]) => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
 export const EditableLink: FC<EditableLinkProps> = ({

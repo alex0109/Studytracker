@@ -15,7 +15,6 @@ export const useStatisticsOverview = () => {
     queryKey: statisticsKeys.overview(),
     queryFn: () => getOverview(token),
     enabled: !!token,
-    staleTime: 5000,
   });
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useStatisticsOverview = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsOverview.error]);
+  }, [statisticsOverview.error, user?.id]);
 
   return {
     statisticsOverviewData: statisticsOverview.data,
