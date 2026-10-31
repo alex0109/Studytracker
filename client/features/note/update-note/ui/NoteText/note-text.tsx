@@ -26,7 +26,6 @@ export const NoteText: FC<NoteTextProps> = ({
   const updateContentHandler = (
     materialId: string,
     content: RichTextDocument,
-    noteId?: string,
   ): void => {
     updateNote({
       noteId: propNoteId,

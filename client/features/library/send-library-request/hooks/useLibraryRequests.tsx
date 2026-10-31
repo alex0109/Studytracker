@@ -13,6 +13,7 @@ import {
   libraryKeys,
 } from "@/entities/library";
 import { getLibraryRequestError } from "../lib/request-error";
+import { profileKeys } from "@/entities/profile";
 
 const SENT_KEYS = {
   [LibraryRequestTypeEnum.Publish]: "library.toasts.sentPublish",
@@ -32,6 +33,8 @@ export const useLibraryRequestCreate = () => {
       if (request.libraryItemId) {
         queryClient.invalidateQueries({ queryKey: libraryKeys.detail(request.libraryItemId) });
       }
+      // The first nickname is saved to the profile by the server
+      queryClient.invalidateQueries({ queryKey: profileKeys.all });
 
       toast({ title: `📬${t(SENT_KEYS[request.type])}`, variant: "success" });
     },

@@ -19,7 +19,6 @@ export const NoteDrawing: FC<NoteDrawingProps> = ({
   const updateContentHandler = (
     materialId: string,
     content: IDrawingContent,
-    noteId?: string,
   ): void => {
     updateNote({
       noteId: propNoteId,

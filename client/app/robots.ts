@@ -14,6 +14,8 @@ export default function robots(): MetadataRoute.Robots {
         "/library",
         "/statistics",
         "/limits",
+        "/today",
+        "/account",
         "/share/",
         "/error",
       ],

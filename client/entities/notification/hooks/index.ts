@@ -22,7 +22,7 @@ export const useNotificationFeed = () => {
     if (feed.error) {
       logExceptionError(feed.error, { section: "notifications/feed", userID: user?.id });
     }
-  }, [feed.error]);
+  }, [feed.error, user?.id]);
 
   return {
     feedData: feed.data,
@@ -45,7 +45,7 @@ export const useNotificationSettings = () => {
     if (settings.error) {
       logExceptionError(settings.error, { section: "notifications/settings", userID: user?.id });
     }
-  }, [settings.error]);
+  }, [settings.error, user?.id]);
 
   return {
     settingsData: settings.data,

@@ -6,7 +6,8 @@ import { cn } from "@/shared/lib/cn";
 
 interface LimitCounterProps {
   used: number;
-  max?: number;
+  // null: the plan has no limit here, so there is nothing to count down
+  max?: number | null;
   // What is counted, for the tooltip: "materials", "words"...
   label: string;
   className?: string;
@@ -20,7 +21,7 @@ export const LimitCounter: FC<LimitCounterProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  if (max === undefined) return null;
+  if (max === undefined || max === null) return null;
 
   const ratio = used / max;
   const isFull = used >= max;

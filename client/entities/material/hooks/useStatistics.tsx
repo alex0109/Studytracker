@@ -23,7 +23,7 @@ export const useStatistics = () => {
         userID: user?.id,
       });
     }
-  }, [stats.error]);
+  }, [stats.error, user?.id]);
 
   return {
     statsData: stats.data,

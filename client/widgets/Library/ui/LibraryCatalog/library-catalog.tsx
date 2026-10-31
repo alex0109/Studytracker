@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { LuChevronLeft, LuChevronRight, LuLibrary, LuSearch, LuSearchX, LuSend } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
@@ -30,7 +30,12 @@ export const LibraryCatalog: FC = () => {
   const debouncedSearch = useDebounce(search, 350);
 
   // A new search or filter starts from the first page
-  useEffect(() => setPage(1), [debouncedSearch, type]);
+  const filter = `${debouncedSearch}|${type ?? ""}`;
+  const [pagedFilter, setPagedFilter] = useState(filter);
+  if (filter !== pagedFilter) {
+    setPagedFilter(filter);
+    setPage(1);
+  }
 
   const { libraryPageData, libraryPageIsPending, libraryPageIsFetching, libraryPageError } = useLibraryPage({
     search: debouncedSearch.trim() || undefined,

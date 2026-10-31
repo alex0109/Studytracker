@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Flame } from "lucide-react";
+import { Flame, Snowflake } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useStatisticsStudyStreak } from "../hooks";
 import { AnimatedNumber, Card, CardSkeleton } from "./primitives";
@@ -15,8 +15,17 @@ export function StudyStreakStrip() {
     return <CardSkeleton className="h-36 md:col-span-2" />;
   }
 
-  const { currentStreakDays, longestStreakDays, studiedToday, recentDays } =
-    statisticsStudyStreakData;
+  const {
+    currentStreakDays,
+    longestStreakDays,
+    studiedToday,
+    recentDays,
+    recentFrozenDays = [],
+    freezesLeft = 0,
+    freezesPerMonth = 0,
+    dailyGoal,
+    reviewsToday = 0,
+  } = statisticsStudyStreakData;
   const active = currentStreakDays > 0;
   const studiedRecently = recentDays.filter(Boolean).length;
 
@@ -45,10 +54,18 @@ export function StudyStreakStrip() {
             <p className="text-sm text-neutral-500">
               {t("statistics.streak.longest", { count: longestStreakDays })}
               {" · "}
-              {studiedToday
-                ? t("statistics.streak.todayDone")
-                : t("statistics.streak.todayNotYet")}
+              {dailyGoal
+                ? t("statistics.streak.goal", { done: Math.min(reviewsToday, dailyGoal), goal: dailyGoal })
+                : studiedToday
+                  ? t("statistics.streak.todayDone")
+                  : t("statistics.streak.todayNotYet")}
             </p>
+            {freezesPerMonth > 0 && (
+              <p className="mt-0.5 flex items-center gap-1 text-xs text-sky-600 dark:text-sky-400">
+                <Snowflake className="h-3.5 w-3.5" aria-hidden />
+                {t("statistics.streak.freezes", { count: freezesLeft })}
+              </p>
+            )}
           </div>
         </div>
 
@@ -61,7 +78,20 @@ export function StudyStreakStrip() {
           })}
           className="flex gap-1.5"
         >
-          {recentDays.map((studied, i) => (
+          {recentDays.map((studied, i) =>
+            recentFrozenDays[i] ? (
+              // A missed day a freeze covered: the streak went on through it
+              <motion.span
+                key={i}
+                title={t("statistics.streak.frozenDay")}
+                initial={{ scale: 0, rotate: -90, opacity: 0 }}
+                animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 18, delay: 0.3 + i * 0.03 }}
+                className="flex h-3.5 w-3.5 items-center justify-center text-sky-500"
+              >
+                <Snowflake className="h-3.5 w-3.5" aria-hidden />
+              </motion.span>
+            ) : (
             <motion.span
               key={i}
               initial={{ scale: 0, opacity: 0 }}
@@ -78,7 +108,8 @@ export function StudyStreakStrip() {
                   : "border-neutral-300 dark:border-neutral-700"
               } ${i === recentDays.length - 1 ? "ring-2 ring-offset-2 ring-neutral-300 ring-offset-white dark:ring-neutral-600 dark:ring-offset-neutral-900" : ""}`}
             />
-          ))}
+            ),
+          )}
         </div>
       </div>
     </Card>

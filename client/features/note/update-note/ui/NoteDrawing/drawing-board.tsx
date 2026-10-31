@@ -7,7 +7,7 @@ import { DEFAULT_COLOR, DEFAULT_SIZE, DEFAULT_TOOL } from "../../consts";
 import { toDrawingContent } from "../../lib/to-drawing-content";
 import { fromDrawingContent } from "../../lib/from-drawing-content";
 import { IDrawingContent } from "@/entities/note/model";
-import { useDebounce } from "@/shared/hooks";
+import { useDebounce, useLatest } from "@/shared/hooks";
 
 interface CanvasSize {
   width: number;
@@ -65,22 +65,35 @@ export const DrawingBoard: FC<DrawingBoardProps> = ({
     return () => observer.disconnect();
   }, []);
 
+  // Read through a ref: a refetched note must not reset the drawing, and a new handler
+  // or a resize must not save it again
+  const latest = useLatest({
+    materialId,
+    noteId,
+    initialContent,
+    canvasSize,
+    updateContentHandler,
+  });
+
   useEffect(() => {
+    const { initialContent } = latest.current;
     if (initialContent && !isHydrated.current) {
       setStrokes(fromDrawingContent(initialContent));
     }
     isHydrated.current = true;
     hasUserEdited.current = false;
-  }, [noteId]);
+  }, [noteId, latest]);
 
   const debouncedStrokes = useDebounce(strokes, 800);
 
   useEffect(() => {
     if (!isHydrated.current || !hasUserEdited.current) return;
 
+    const { materialId, noteId, canvasSize, updateContentHandler } =
+      latest.current;
     const drawingContent = toDrawingContent(debouncedStrokes, canvasSize);
     updateContentHandler(materialId, drawingContent, noteId);
-  }, [debouncedStrokes]);
+  }, [debouncedStrokes, latest]);
 
   function getSvgPath(points: number[][]) {
     if (!points.length) return "";

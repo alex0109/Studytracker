@@ -26,7 +26,7 @@ export const useQuestionActiveReduced = (materialId: string) => {
         userID: user?.id,
       });
     }
-  }, [questionsActiveReduced.error]);
+  }, [materialId, questionsActiveReduced.error, user?.id]);
 
   return {
     questionsActiveReducedData: questionsActiveReduced.data,

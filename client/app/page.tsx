@@ -9,7 +9,9 @@ import {
   ScrollTint,
   WordsThatStick,
 } from "./(client)/(home)";
+import { Suspense } from "react";
 import { Navigation } from "@/widgets/Navigation";
+import { AccountDeletedNotice } from "@/features/account/delete-account";
 import { getServerT } from "@/shared/i18n/server";
 import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config/site";
 
@@ -75,6 +77,9 @@ const Page = async () => {
         dangerouslySetInnerHTML={{ __html: json }}
       />
       <Navigation />
+      <Suspense>
+        <AccountDeletedNotice />
+      </Suspense>
       <ScrollTint />
       <div className="flex flex-col items-center gap-28 overflow-x-clip pt-36 pb-24 md:gap-36 md:pt-44">
         <Hero />

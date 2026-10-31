@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LuFlag } from "react-icons/lu";
 import { BlockColumn, IsPendingLoader } from "@/shared/ui";
@@ -42,9 +42,9 @@ export const Attempt: FC<AttemptProps> = ({
   const { attemptResults } = useAttemptResults(attemptId);
 
   // Answers saved earlier, so a reload doesn't lose progress
-  useEffect(() => {
-    if (!attemptResults) return;
-
+  const [mergedResults, setMergedResults] = useState<typeof attemptResults>();
+  if (attemptResults && attemptResults !== mergedResults) {
+    setMergedResults(attemptResults);
     setSavedAnswers((prev) => {
       const next = { ...prev };
       for (const result of attemptResults.results) {
@@ -56,7 +56,7 @@ export const Attempt: FC<AttemptProps> = ({
       }
       return next;
     });
-  }, [attemptResults]);
+  }
 
   const unanswered = questions.filter((q) => !savedAnswers[q.id]);
   const answeredCount = questions.length - unanswered.length;

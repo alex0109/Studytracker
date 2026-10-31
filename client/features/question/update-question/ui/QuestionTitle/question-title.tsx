@@ -4,7 +4,12 @@ import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
 import { AccordionTrigger, IsPendingLoader } from "@/shared/ui";
-import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
+import {
+  IQuestionProgress,
+  QuestionReviewBadge,
+  QuestionTypeEnum,
+  questionTypeKeys,
+} from "@/entities/question";
 import { useTranslation } from "@/shared/i18n";
 
 interface QuestionTitleProps {
@@ -13,6 +18,7 @@ interface QuestionTitleProps {
   id: string;
   title: string;
   questionType?: QuestionTypeEnum;
+  progress?: IQuestionProgress | null;
 }
 
 export const QuestionTitle: FC<QuestionTitleProps> = ({
@@ -21,6 +27,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
   id,
   title,
   questionType,
+  progress,
 }) => {
   const { t } = useTranslation();
   const [titleValue, setTitleValue] = useState(title);
@@ -35,7 +42,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
     if (title !== debouncedTitleValue) {
       updateQuestion({ dataToUpdate: { title: debouncedTitleValue } });
     }
-  }, [id, title, debouncedTitleValue]);
+  }, [id, title, debouncedTitleValue, updateQuestion]);
 
   const onUpdateTitle = (newTitle: string) => {
     setTitleValue(newTitle);
@@ -58,7 +65,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
             onChange={(e) => onUpdateTitle(e.target.value)}
             maxLength={70}
           />
-          <div className="flex gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {questionType && (
               <p className="text-xs text-neutral-500">
                 {t(`questions.types.${questionTypeKeys[questionType]}`)}
@@ -70,6 +77,7 @@ export const QuestionTitle: FC<QuestionTitleProps> = ({
                 {t("questions.fromNote", { id: noteId.split("-")[0] })}
               </p>
             )}
+            <QuestionReviewBadge progress={progress} />
           </div>
         </div>
         <div className="flex flex-1 justify-end">

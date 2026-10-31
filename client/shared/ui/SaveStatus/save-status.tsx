@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuCheck } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
@@ -25,22 +25,21 @@ export const SaveStatus: FC<SaveStatusProps> = ({
   idle,
 }) => {
   const { t } = useTranslation();
-  const [saved, setSaved] = useState(false);
-  const wasPending = useRef(false);
+  // Every finished save gets a number; the check shows until its timer hides that number
+  const [wasPending, setWasPending] = useState(isPending);
+  const [savedCount, setSavedCount] = useState(0);
+  const [hiddenCount, setHiddenCount] = useState(0);
+  if (isPending !== wasPending) {
+    setWasPending(isPending);
+    if (!isPending && !isError) setSavedCount((count) => count + 1);
+  }
+  const saved = savedCount !== hiddenCount;
 
   useEffect(() => {
-    if (isPending) {
-      wasPending.current = true;
-      return;
-    }
-    if (!wasPending.current) return;
-    wasPending.current = false;
-    if (isError) return;
-
-    setSaved(true);
-    const timer = setTimeout(() => setSaved(false), SAVED_FOR_MS);
+    if (savedCount === 0) return;
+    const timer = setTimeout(() => setHiddenCount(savedCount), SAVED_FOR_MS);
     return () => clearTimeout(timer);
-  }, [isPending, isError]);
+  }, [savedCount]);
 
   const state = isPending ? "saving" : saved ? "saved" : null;
 

@@ -3,7 +3,7 @@
 import { IMaterialCreate } from "@/entities/material";
 import { Button } from "@/shared/radix-ui";
 import { CustomInput, IsPendingLoader, Title } from "@/shared/ui";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 
@@ -17,11 +17,8 @@ export const AddMaterialBlock: FC = () => {
 
   const { createMaterial, createMaterialIsPending } = useMaterialCreate();
 
-  const [open, setOpen] = useState(false);
-
   const onFormSubmit = (values: IMaterialCreate) => {
     createMaterial(values);
-    setOpen(false);
     reset();
   };
   return (

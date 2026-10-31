@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useSyncExternalStore } from "react";
 
 export const BREAKPOINTS = {
   sm: 640,
@@ -46,20 +46,20 @@ function buildScreenInfo(width: number): ScreenInfo {
   };
 }
 
+const subscribeToResize = (onChange: () => void) => {
+  window.addEventListener("resize", onChange);
+  return () => window.removeEventListener("resize", onChange);
+};
+
+const windowWidth = () => window.innerWidth;
+
+// The server knows no window: 0 there and while hydrating, the real width right after
+const serverWidth = () => 0;
+
 export function useScreenInfo(): ScreenInfo {
-  const [width, setWidth] = useState(0);
+  const width = useSyncExternalStore(subscribeToResize, windowWidth, serverWidth);
 
-  const handleResize = useCallback(() => {
-    setWidth(window.innerWidth);
-  }, []);
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
-
-  return buildScreenInfo(width ?? BREAKPOINTS.lg);
+  return buildScreenInfo(width);
 }
 
 export function useIsMobile(): boolean {

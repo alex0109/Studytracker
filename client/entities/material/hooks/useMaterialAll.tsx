@@ -24,7 +24,7 @@ export const useMaterialAll = () => {
         userID: user?.id,
       });
     }
-  }, [materials.error]);
+  }, [materials.error, user?.id]);
 
   return {
     materialsData: materials.data,

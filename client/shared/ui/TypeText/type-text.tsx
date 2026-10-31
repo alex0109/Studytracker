@@ -3,36 +3,23 @@
 import { useState, useEffect, FC } from "react";
 import { ITypeText } from "./type-text.type";
 
-let timer: string | number | NodeJS.Timeout | undefined;
-
 export const TypeText: FC<ITypeText> = ({ text, typeSpeed }) => {
-  const [state, setState] = useState({
-    typedText: "",
-    currentIndex: 0,
-  });
+  const [typedCount, setTypedCount] = useState(0);
 
-  function type() {
-    timer = setTimeout(() => {
-      if (state.currentIndex < text.length) {
-        const currentText = text[state.currentIndex];
-        setState({
-          typedText: state.typedText + currentText,
-          currentIndex: state.currentIndex + 1,
-        });
-        type();
-      }
-    }, 1000 / typeSpeed);
-  }
-
+  // One more letter per tick until the whole text is shown
   useEffect(() => {
-    type();
+    if (typedCount >= text.length) return;
 
+    const timer = setTimeout(
+      () => setTypedCount((count) => count + 1),
+      1000 / typeSpeed,
+    );
     return () => clearTimeout(timer);
-  }, [state.currentIndex]);
+  }, [typedCount, text.length, typeSpeed]);
 
   return (
     <p className="text-xl text-center">
-      {state.typedText}{" "}
+      {text.slice(0, typedCount)}{" "}
       <span className="cursor border-black dark:border-white" />
     </p>
   );

@@ -24,7 +24,7 @@ export const useFlashcardStats = (dictionaryId: string) => {
         userID: user?.id,
       });
     }
-  }, [stats.error]);
+  }, [dictionaryId, stats.error, user?.id]);
 
   return {
     flashcardStatsData: stats.data,

@@ -10,4 +10,8 @@ export const partOfSpeechOptions: PartOfSpeechEnum[] = [
   PartOfSpeechEnum.Preposition,
   PartOfSpeechEnum.Conjunction,
   PartOfSpeechEnum.Interjection,
+  PartOfSpeechEnum.Phrase,
+  PartOfSpeechEnum.Article,
+  PartOfSpeechEnum.Numeral,
+  PartOfSpeechEnum.Determiner,
 ];

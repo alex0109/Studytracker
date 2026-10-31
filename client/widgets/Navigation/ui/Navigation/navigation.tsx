@@ -11,7 +11,8 @@ import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { PreferencesControls } from "@/features/preferences";
 import { StreakBadge } from "../StreakBadge/streak-badge";
-import { ReminderSettingsSync } from "@/features/reminders";
+import { ProfileSync } from "@/features/profile";
+import { TodayCount } from "./today-count";
 
 export const Navigation: FC = () => {
   const { t } = useTranslation();
@@ -30,39 +31,44 @@ export const Navigation: FC = () => {
 
   return (
     <header className="z-40 relative">
-      {user && <ReminderSettingsSync />}
+      {user && <ProfileSync />}
       <motion.div
         className="z-40 fixed top-0 left-1/2 
         h-[4.5rem] w-full border-white bg-white shadow-lg 
         shadow-black/[0.03] backdrop-blur-[0.5rem] 
-        md:top-6 md:h-[3.25rem] md:w-[40rem] 
+        md:top-6 md:h-[3.25rem] md:w-[50rem] 
         md:rounded-tl-[160px] md:rounded-br-[160px] md:rounded-bl-[16px] md:rounded-tr-[16px] dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-black/40"
         initial={{ y: -100, x: "-50%", opacity: 0 }}
         animate={{ y: 0, x: "-50%", opacity: 1 }}
       />
 
+      {/* On desktop the menu covers the bar exactly, so everything sits on its middle line.
+          Three columns: the links stay centred and the side items can't run into them */}
       <nav
         aria-label={t("nav.home")}
-        className="z-40 fixed inset-x-0 top-0 flex h-[4.5rem] w-full items-center 
-        justify-between gap-2 px-4 md:inset-x-auto md:left-1/2 
-        md:-translate-x-1/2 md:top-[1.7rem] md:h-[initial] md:w-[40rem] md:px-0 
-        md:justify-center"
+        className="z-40 fixed inset-x-0 top-0 flex h-[4.5rem] w-full items-center
+        justify-between gap-2 px-4 md:inset-x-auto md:left-1/2
+        md:-translate-x-1/2 md:top-6 md:grid md:h-[3.25rem] md:w-[44rem]
+        md:max-w-[calc(100vw-2rem)] md:grid-cols-[1fr_auto_1fr] md:px-0"
       >
-        {user && <StreakBadge className="md:absolute md:left-6 md:bottom-1.5 md:size-9" />}
+        {user && (
+          <StreakBadge className="md:col-start-1 md:justify-self-start md:size-9" />
+        )}
 
-        <ul className="hidden md:flex items-center justify-center gap-3 text-[0.9rem] font-medium">
+        <ul className="hidden md:col-start-2 md:flex items-center justify-center gap-0.5 text-[0.9rem] font-medium">
           {mappedLinkList.map((link) => (
             <motion.li
-              className="h-3/4 flex items-center justify-center relative"
+              className="flex items-center justify-center"
               key={link.hash}
               initial={{ y: -100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
             >
               <Link
-                className="flex w-full items-center justify-center px-3 py-3 text-neutral-700 hover:text-neutral-950 transition dark:text-neutral-300 dark:hover:text-white"
+                className="flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-neutral-700 hover:text-neutral-950 transition dark:text-neutral-300 dark:hover:text-white"
                 href={link.hash}
               >
                 {t(`nav.${link.name}`)}
+                {link.name === "today" && <TodayCount />}
               </Link>
             </motion.li>
           ))}
@@ -71,7 +77,10 @@ export const Navigation: FC = () => {
         {user && (
           <motion.button
             type="button"
-            className="hidden md:flex absolute right-0 bottom-1 justify-center items-center h-12 px-5 cursor-pointer text-[0.9rem] font-medium rounded-full text-red-500"
+            className="hidden md:col-start-3 md:flex md:justify-self-end
+                      shrink-0 items-center justify-center h-9 px-3 cursor-pointer
+                      whitespace-nowrap text-[0.9rem] font-medium rounded-full
+                      text-red-500 transition hover:text-red-600 dark:hover:text-red-400"
             onClick={() => setOpen(true)}
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -116,6 +125,7 @@ export const Navigation: FC = () => {
                     onClick={closeMobile}
                   >
                     {t(`nav.${link.name}`)}
+                    {link.name === "today" && <TodayCount />}
                   </Link>
                 </li>
               ))}
@@ -123,9 +133,16 @@ export const Navigation: FC = () => {
               {user && (
                 <>
                   <li className="w-full px-6 pt-2">
-                    <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 truncate">
+                    <Link
+                      href="/account"
+                      onClick={closeMobile}
+                      className="block text-center text-sm text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100 truncate"
+                    >
                       {user?.email}
-                    </p>
+                      <span className="block text-xs text-neutral-400">
+                        {t("nav.account")}
+                      </span>
+                    </Link>
                   </li>
                   <li className="w-full text-center border-t border-neutral-200 dark:border-neutral-700 mt-2 pt-2">
                     <button
@@ -154,9 +171,14 @@ export const Navigation: FC = () => {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
-          <p className="max-w-[24rem] truncate text-center text-sm text-neutral-900 dark:text-neutral-300">
+          {/* The email opens the account page: export, deletion, later profile and learning settings */}
+          <Link
+            href="/account"
+            title={t("nav.account")}
+            className="max-w-[24rem] truncate text-center text-sm text-neutral-900 hover:underline underline-offset-4 dark:text-neutral-300"
+          >
             {user?.email}
-          </p>
+          </Link>
         </motion.div>
       )}
 

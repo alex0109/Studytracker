@@ -1,13 +1,14 @@
 "use client";
 
 import { FC, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { LuLibrary } from "react-icons/lu";
 import { CustomInput, IsPendingLoader, Modal, TextArea, Title } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { useMaterialAll } from "@/entities/material";
 import { LibraryRequestTypeEnum } from "@/entities/library";
+import { useProfile } from "@/entities/profile";
 import { useLibraryRequestCreate } from "../hooks/useLibraryRequests";
 import { isValidNickname, readSavedNickname, saveNickname } from "../lib/nickname";
 
@@ -37,6 +38,7 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
   const { t } = useTranslation();
   const isUpdate = !!libraryItemId;
   const { materialsData } = useMaterialAll();
+  const { profileData } = useProfile();
   const { createLibraryRequest, createLibraryRequestIsPending } = useLibraryRequestCreate();
 
   // Library copies go back only through their own library material
@@ -46,18 +48,26 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<SubmitForm>();
+
+  // An article imported from a link is someone else's text: publishing needs the right to share it
+  const watchedId = useWatch({ control, name: "materialId" });
+  const chosenId = materialId ?? watchedId;
+  const chosen = materialsData?.find((material) => material.id === chosenId);
+  const fromTheWeb = !!chosen?.link && chosen.type === "article";
 
   useEffect(() => {
     if (open) {
       reset({
         materialId: materialId ?? "",
-        nickname: defaultNickname ?? readSavedNickname(),
+        // The profile keeps it across devices; this browser's copy is for profiles from before
+        nickname: defaultNickname ?? profileData?.nickname ?? readSavedNickname(),
         comment: "",
       });
     }
-  }, [open, materialId, defaultNickname, reset]);
+  }, [open, materialId, defaultNickname, profileData?.nickname, reset]);
 
   const onSubmit = async (values: SubmitForm) => {
     const nickname = values.nickname.trim().replace(/\s+/g, " ");
@@ -107,6 +117,12 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
             </select>
             {errors.materialId && <span className="text-red-400">{errors.materialId.message}</span>}
           </label>
+        )}
+
+        {fromTheWeb && (
+          <p role="note" className="rounded-xl bg-amber-50 p-3 text-xs text-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
+            {t("library.submit.copyrightWarning")}
+          </p>
         )}
 
         <label className="flex flex-col text-sm font-medium">

@@ -24,7 +24,7 @@ export const useMaterialExact = (id: string) => {
         userID: user?.id,
       });
     }
-  }, [exactMaterial.error]);
+  }, [exactMaterial.error, id, user?.id]);
 
   return {
     exactMaterialData: exactMaterial.data,

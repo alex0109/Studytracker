@@ -1,6 +1,4 @@
-import { BlockColumn } from "@/shared/ui";
 import { ResultsPageClient } from "./results-page-client";
-import { Skeleton } from "@/shared/radix-ui";
 
 const ResultsPage = async ({
   params,

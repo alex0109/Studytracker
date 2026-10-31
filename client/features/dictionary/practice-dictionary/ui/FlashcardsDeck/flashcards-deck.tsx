@@ -5,6 +5,7 @@ import { useTranslation } from "@/shared/i18n";
 import { FC, useEffect, useRef, useState } from "react";
 import { LuUndo2 } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
+import { useLatest } from "@/shared/hooks";
 import { IFlashcardSessionResponse } from "@/entities/flashcard";
 import {
   FlashcardAnswerEnum,
@@ -23,6 +24,7 @@ interface FlashcardsDeckProps {
   isRepeatPending: boolean;
   onRepeat: (entryIds: string[]) => void;
   onRestart: () => void;
+  continueLabel?: string;
 }
 
 const KEY_ANSWERS: Record<string, FlashcardAnswerEnum> = {
@@ -36,6 +38,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   isRepeatPending,
   onRepeat,
   onRestart,
+  continueLabel,
 }) => {
   const { t } = useTranslation();
   const queue = session.cards;
@@ -45,7 +48,8 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
 
   const cardRef = useRef<ISwipeableCardHandle>(null);
-  const shownAt = useRef(Date.now());
+  // Set when each card shows up, see the effect on index below
+  const shownAt = useRef(0);
 
   const { saveReview, removeReview, finish } = useFlashcardReviewSync(session);
 
@@ -99,9 +103,12 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
     shownAt.current = Date.now();
   }, [index]);
 
+  // finish is a new function on every render, but the session ends only once
+  const finishRef = useLatest(finish);
+
   useEffect(() => {
-    if (isFinished) finish();
-  }, [isFinished]);
+    if (isFinished) finishRef.current();
+  }, [isFinished, finishRef]);
 
   useEffect(() => {
     if (!current) return;
@@ -144,6 +151,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
         isRepeatPending={isRepeatPending}
         onRepeat={(entries) => onRepeat(entries.map((entry) => entry.id))}
         onRestart={onRestart}
+        continueLabel={continueLabel}
       />
     );
   }

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ITagResponse, Tag } from "@/entities/tag";
+import { ITagResponse } from "@/entities/tag";
 import { DeleteTagItem } from "../DeleteTagItem/delete-tag-item";
 import { Subtitle, Title } from "@/shared/ui";
 

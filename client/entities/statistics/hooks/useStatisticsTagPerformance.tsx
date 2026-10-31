@@ -24,7 +24,7 @@ export const useStatisticsTagPerformance = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsTagPerformance.error]);
+  }, [statisticsTagPerformance.error, user?.id]);
 
   return {
     statisticsTagPerformanceData: statisticsTagPerformance.data,

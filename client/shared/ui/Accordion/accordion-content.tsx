@@ -36,3 +36,5 @@ export const AccordionContent = forwardRef<
     </motion.div>
   </Accordion.Content>
 ));
+
+AccordionContent.displayName = "AccordionContent";

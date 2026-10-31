@@ -4,9 +4,7 @@ import { LuChevronsDown } from "react-icons/lu";
 import * as Accordion from "@radix-ui/react-accordion";
 import { cn } from "@/shared/lib";
 
-interface AccordionTriggerProps extends ComponentPropsWithoutRef<
-  typeof Accordion.Trigger
-> {}
+type AccordionTriggerProps = ComponentPropsWithoutRef<typeof Accordion.Trigger>;
 
 export const AccordionTrigger = forwardRef<
   HTMLButtonElement,
@@ -25,3 +23,5 @@ export const AccordionTrigger = forwardRef<
     </Accordion.Trigger>
   </Accordion.Header>
 ));
+
+AccordionTrigger.displayName = "AccordionTrigger";

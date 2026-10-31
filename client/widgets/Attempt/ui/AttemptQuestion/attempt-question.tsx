@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { LuCheck, LuCircleCheck, LuX } from "react-icons/lu";
 import { TextArea } from "@/shared/ui";
@@ -64,13 +64,14 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
     useAttemptSubmitAnswer(attemptId);
 
   // An answer saved before a reload is shown and can be changed
-  useEffect(() => {
-    if (!savedAnswer) return;
+  const [shownSavedAnswer, setShownSavedAnswer] = useState<typeof savedAnswer>();
+  if (savedAnswer && savedAnswer !== shownSavedAnswer) {
+    setShownSavedAnswer(savedAnswer);
     setSelectedOptionIds((prev) =>
       prev.length ? prev : savedAnswer.optionIds,
     );
     setText((prev) => prev || savedAnswer.text || "");
-  }, [savedAnswer]);
+  }
 
   const onSelectOption = (optionId: string) => {
     setError(undefined);

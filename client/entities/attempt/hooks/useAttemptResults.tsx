@@ -25,7 +25,7 @@ export const useAttemptResults = (attemptId: string) => {
         userID: user?.id,
       });
     }
-  }, [attemptResults.error]);
+  }, [attemptId, attemptResults.error, user?.id]);
 
   return {
     attemptResults: attemptResults.data,

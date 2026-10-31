@@ -1,4 +1,4 @@
-import { LuBookCheck, LuNotebookPen, LuBookMarked } from "react-icons/lu";
+import { LuBookCheck, LuNotebookPen } from "react-icons/lu";
 
 import { NoteInterfaceEnum } from "./note-interface-enum";
 import { switchInterfaceType } from "@/shared/ui/SwitchInterface/switch-interface.type";

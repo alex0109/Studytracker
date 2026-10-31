@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import { NoteTypeEnum } from "@/entities/note/model";
 import { useNoteExact } from "@/entities/note/hooks";
 import { Skeleton } from "@/shared/radix-ui";
@@ -9,8 +9,9 @@ import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { noteInterface, NoteInterfaceEnum } from "@/entities/note/lib";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { QuestionsContent } from "@/widgets/QuestionsContent";
-import { AttemptsContent } from "@/widgets/AttemptsContent";
 import { SummaryNote } from "../SummaryNote/summary-note";
+import { AddFromSelection } from "@/features/dictionary/add-from-selection";
+import { IDictionaryResponse } from "@/entities/dictionary";
 
 interface NotesContentProps {
   materialId: string;
@@ -18,6 +19,7 @@ interface NotesContentProps {
   assessmentId: string;
   title: string;
   type: NoteTypeEnum;
+  onOpenDictionary?: (dictionary: IDictionaryResponse) => void;
 }
 
 export const NotesContent: FC<NotesContentProps> = ({
@@ -26,6 +28,7 @@ export const NotesContent: FC<NotesContentProps> = ({
   assessmentId,
   title,
   type,
+  onOpenDictionary,
 }) => {
   const { t } = useTranslation();
   const { activeSection } = useActiveSectionContext();
@@ -33,6 +36,7 @@ export const NotesContent: FC<NotesContentProps> = ({
   const { exactNoteData, exactNoteError } = useNoteExact(materialId, noteId);
   const textContent = exactNoteData?.textContent ?? undefined;
   const drawingContent = exactNoteData?.drawingContent ?? undefined;
+  const textRef = useRef<HTMLDivElement>(null);
   return (
     <div
       key={noteId}
@@ -60,18 +64,24 @@ export const NotesContent: FC<NotesContentProps> = ({
             ) : (
               <Skeleton className="h-[250px] w-full" />
             )
-          ) : type === NoteTypeEnum.text ? (
-            <NoteText
-              materialId={materialId}
-              propNoteId={noteId}
-              textContent={textContent}
-            />
-          ) : type === NoteTypeEnum.summary ? (
-            <SummaryNote
-              materialId={materialId}
-              noteId={noteId}
-              textContent={textContent}
-            />
+          ) : type === NoteTypeEnum.text || type === NoteTypeEnum.summary ? (
+            // Words can go to a dictionary of the material from a note's text too
+            <div ref={textRef} className="w-full min-w-0">
+              {type === NoteTypeEnum.text ? (
+                <NoteText
+                  materialId={materialId}
+                  propNoteId={noteId}
+                  textContent={textContent}
+                />
+              ) : (
+                <SummaryNote
+                  materialId={materialId}
+                  noteId={noteId}
+                  textContent={textContent}
+                />
+              )}
+              <AddFromSelection materialId={materialId} containerRef={textRef} onOpenDictionary={onOpenDictionary} />
+            </div>
           ) : type === NoteTypeEnum.drawing ? (
             <NoteDrawing
               materialId={materialId}

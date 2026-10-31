@@ -45,6 +45,7 @@ export const QuestionsAccordion: FC<QuestionsAccordionProps> = ({
               id={item.id}
               title={item.title}
               questionType={item.questionType}
+              progress={item.progress}
             />
             {item.questionType === QuestionTypeEnum.Options ? (
               <QuestionOptions

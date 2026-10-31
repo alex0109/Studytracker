@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/shared/i18n";
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import {
   MaterialStatusEnum,
   MaterialDate,
@@ -27,6 +27,8 @@ import { AttemptsContent } from "@/widgets/AttemptsContent";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { LuDownload, LuLibrary, LuTrash2 } from "react-icons/lu";
 import { SubmitToLibraryModal } from "@/features/library/send-library-request";
+import { AddFromSelection } from "@/features/dictionary/add-from-selection";
+import { IDictionaryResponse } from "@/entities/dictionary";
 
 interface MaterialContentType {
   id: string;
@@ -41,6 +43,8 @@ interface MaterialContentType {
   isImported?: boolean;
   isFromLibrary?: boolean;
   importedAt?: Date;
+  // Opens a dictionary of this material, e.g. after a word was added from the text
+  onOpenDictionary?: (dictionary: IDictionaryResponse) => void;
 }
 
 export const MaterialContent: FC<MaterialContentType> = ({
@@ -55,11 +59,13 @@ export const MaterialContent: FC<MaterialContentType> = ({
   isImported,
   isFromLibrary,
   importedAt,
+  onOpenDictionary,
 }) => {
   const { t, i18n } = useTranslation();
   const { activeSection } = useActiveSectionContext();
   const [open, setOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
+  const textRef = useRef<HTMLDivElement>(null);
   // The list has no content: the text is loaded for the opened material only
   const { exactMaterialData, exactMaterialError } = useMaterialExact(id);
 
@@ -115,7 +121,10 @@ export const MaterialContent: FC<MaterialContentType> = ({
           {/* The editor reads its text once, so it waits for the loaded one: an empty start
               would be saved over the real text */}
           {exactMaterialData ? (
-            <MaterialTextContent id={id} content={exactMaterialData.content} />
+            <div ref={textRef} className="w-full min-w-0">
+              <MaterialTextContent id={id} content={exactMaterialData.content} />
+              <AddFromSelection materialId={id} containerRef={textRef} onOpenDictionary={onOpenDictionary} />
+            </div>
           ) : exactMaterialError ? (
             <p className="text-sm text-neutral-500">{t("errors.generic")}</p>
           ) : (

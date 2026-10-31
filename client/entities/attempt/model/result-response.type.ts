@@ -16,8 +16,12 @@ export interface IResultResponse {
   correctAnswer?: string | null;
   // Why the right answer is right, written with the question
   questionExplanation?: string | null;
-  // How the answer was checked: Exact, Fuzzy, AI (accepted by meaning) or None
+  // How the answer was checked: Exact, Fuzzy, AI (accepted by meaning), Manual (accepted by the user) or None
   method?: string;
+  // A rejected open answer the user may accept as right
+  canAccept?: boolean;
+  // When the user accepted it; undo works for a few minutes
+  overriddenAt?: string | null;
   // AI explanation of a wrong answer, saved once it was asked for
   aiExplanation?: string | null;
   answerChangedCount?: number;

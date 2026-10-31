@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import {
   Title,
@@ -14,11 +15,20 @@ import { useLimits } from "@/entities/limits";
 import { isLimitReached } from "@/shared/lib";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { Button } from "@/shared/radix-ui";
-import { LuPlus } from "react-icons/lu";
+import { LuLink, LuPencil, LuPlus } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
 import { MATERIAL_TYPES, MATERIAL_STATUSES } from "@/entities/material";
+import { cn } from "@/shared/lib";
+import { ImportFromUrl } from "./import-from-url";
 
-export const AddMaterialModal: FC = () => {
+type Mode = "manual" | "link";
+
+interface AddMaterialModalProps {
+  // Opens the new material, e.g. right after an article was imported
+  onCreated?: (materialId: string) => void;
+}
+
+export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
   const { t } = useTranslation();
   const {
     register,
@@ -31,10 +41,13 @@ export const AddMaterialModal: FC = () => {
   const { materialsData } = useMaterialAll();
   const { limitsData } = useLimits();
 
-  const materialsCount = materialsData?.length ?? 0;
+  // Counted like the server: library copies take places only when the plan says so
+  const materialsCount =
+    materialsData?.filter((m) => limitsData?.countLibraryImports !== false || !m.isFromLibrary).length ?? 0;
   const isFull = isLimitReached(materialsCount, limitsData?.maxMaterials);
 
   const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState<Mode>("manual");
 
   const onFormSubmit = (values: IMaterialCreate) => {
     createMaterial(values);
@@ -70,6 +83,43 @@ export const AddMaterialModal: FC = () => {
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className="md:w-[400px] w-[300px]">
           <Title text={t("materials.addTitle")} />
+          <div role="tablist" className="mx-auto mb-4 flex w-fit rounded-full bg-neutral-200/70 p-1 dark:bg-neutral-800">
+            {([
+              ["manual", LuPencil, t("materials.import.tabManual")],
+              ["link", LuLink, t("materials.import.tabLink")],
+            ] as const).map(([value, Icon, label]) => (
+              <button
+                key={value}
+                type="button"
+                role="tab"
+                aria-selected={mode === value}
+                onClick={() => setMode(value)}
+                className={cn(
+                  "relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+                  mode === value ? "text-neutral-900 dark:text-white" : "text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200",
+                )}
+              >
+                {mode === value && (
+                  <motion.span
+                    layoutId="add-material-mode"
+                    className="absolute inset-0 rounded-full bg-white shadow-sm dark:bg-neutral-700"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
+                )}
+                <Icon aria-hidden className="relative" />
+                <span className="relative">{label}</span>
+              </button>
+            ))}
+          </div>
+          {mode === "link" ? (
+            <ImportFromUrl
+              onImported={(materialId) => {
+                setOpen(false);
+                setMode("manual");
+                onCreated?.(materialId);
+              }}
+            />
+          ) : (
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="flex flex-col w-full justify-center items-center"
@@ -123,6 +173,7 @@ export const AddMaterialModal: FC = () => {
               </div>
             </div>
           </form>
+          )}
         </div>
       </Modal>
     </>

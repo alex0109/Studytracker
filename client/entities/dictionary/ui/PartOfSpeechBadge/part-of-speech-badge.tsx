@@ -19,6 +19,10 @@ const PART_OF_SPEECH_STYLES: Record<PartOfSpeechEnum, string> = {
   [PartOfSpeechEnum.Preposition]: "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300",
   [PartOfSpeechEnum.Conjunction]: "bg-teal-100 text-teal-700 dark:bg-teal-950/60 dark:text-teal-300",
   [PartOfSpeechEnum.Interjection]: "bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300",
+  [PartOfSpeechEnum.Phrase]: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300",
+  [PartOfSpeechEnum.Article]: "bg-lime-100 text-lime-700 dark:bg-lime-950/60 dark:text-lime-300",
+  [PartOfSpeechEnum.Numeral]: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950/60 dark:text-cyan-300",
+  [PartOfSpeechEnum.Determiner]: "bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-950/60 dark:text-fuchsia-300",
 };
 
 export const PartOfSpeechBadge: FC<PartOfSpeechBadgeProps> = ({

@@ -7,4 +7,8 @@ export enum PartOfSpeechEnum {
   Preposition = "Preposition",
   Conjunction = "Conjunction",
   Interjection = "Interjection",
+  Phrase = "Phrase",
+  Article = "Article",
+  Numeral = "Numeral",
+  Determiner = "Determiner",
 }

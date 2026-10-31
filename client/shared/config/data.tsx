@@ -8,6 +8,7 @@ export const links = [
 
 export const authorizedLinks = [
   { name: "home", hash: "/" },
+  { name: "today", hash: "/today" },
   { name: "materials", hash: "/materials" },
   { name: "library", hash: "/library" },
   { name: "statistics", hash: "/statistics" },

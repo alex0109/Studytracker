@@ -40,7 +40,7 @@ export const FlashcardsPractice: FC<FlashcardsPracticeProps> = ({
         queryKey: dictionaryKeys.detail(dictionaryId),
       });
     };
-  }, [dictionaryId]);
+  }, [dictionaryId, queryClient]);
 
   if (!session) {
     return (

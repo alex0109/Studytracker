@@ -10,7 +10,9 @@
       "materials": "Materials",
       "share": "Shared material",
       "statistics": "Statistics",
-      "library": "Library"
+      "library": "Library",
+      "today": "Today",
+      "account": "Account"
     }
   },
   "nav": {
@@ -26,7 +28,9 @@
     "streak_one": "Your streak: {{count}} day in a row",
     "streak_other": "Your streak: {{count}} days in a row",
     "streakNone": "No streak yet. Study today to start one",
-    "library": "Library"
+    "library": "Library",
+    "today": "Today",
+    "account": "Account"
   },
   "preferences": {
     "language": "Language",
@@ -34,7 +38,9 @@
     "lightTheme": "Switch to light theme"
   },
   "footer": {
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
   },
   "common": {
     "create": "Create",
@@ -361,6 +367,12 @@
       "fits_other": "Only {{count}} more questions fit into this material",
       "type": "Type",
       "mixed": "Mixed"
+    },
+    "review": {
+      "due": "Due for review",
+      "next": "Next review {{when}}",
+      "leech": "Tough one",
+      "leechHint": "Missed many times: try rewording or splitting it"
     }
   },
   "attempt": {
@@ -433,7 +445,16 @@
     },
     "noMistakes": "No mistakes, well done! 🎉",
     "noAnswers": "No answers",
-    "goToMaterials": "Go to Materials"
+    "goToMaterials": "Go to Materials",
+    "accept": "I answered correctly",
+    "acceptHint": "Automatic checking can miss a right answer worded differently. Count it as correct",
+    "accepted": "Accepted by you",
+    "acceptedHint": "You marked this answer as correct after the automatic check",
+    "acceptedToast": "Counted as correct",
+    "acceptError": "Could not count the answer, please try again",
+    "undo": "Undo",
+    "undone": "The original grade is back",
+    "undoError": "It can no longer be undone"
   },
   "flashcards": {
     "answers": {
@@ -587,6 +608,40 @@
         "🌙 Tired? Even five minutes keeps the streak and the forgetting curve at bay.",
         "✨ Mistakes are proof you're trying. Keep collecting them."
       ]
+    },
+    "import": {
+      "tabManual": "By hand",
+      "tabLink": "From a link",
+      "url": "Link to an article",
+      "privateNote": "The text is saved only for you. Videos can't be imported yet.",
+      "generateQuestions": "Make self-test questions right away",
+      "submit": "Import",
+      "pending": "Importing…",
+      "steps": {
+        "fetch": "Loading the page",
+        "extract": "Taking out the text",
+        "questions": "Preparing questions"
+      },
+      "done": "The article is in your materials",
+      "questions_one": "{{count}} question is ready",
+      "questions_other": "{{count}} questions are ready",
+      "questionsSkipped": {
+        "quota": "No questions: this month's AI limit is used up",
+        "unavailable": "No questions: AI isn't answering right now, try later from the material",
+        "failed": "No questions this time, try again from the material"
+      },
+      "errors": {
+        "InvalidUrl": "That doesn't look like a web address",
+        "BlockedAddress": "This address can't be opened",
+        "Unreachable": "The site can't be reached or doesn't give the page",
+        "Timeout": "The site took too long to answer",
+        "TooLarge": "The page is too large to import",
+        "NotHtml": "The link is not a web page",
+        "NotAnArticle": "No article text was found on this page",
+        "VideoNotSupported": "Videos can't be imported yet",
+        "tooMany": "Too many imports for now, try again in an hour",
+        "generic": "Couldn't import the article, try again"
+      }
     }
   },
   "limits": {
@@ -620,7 +675,9 @@
       "questions": "Questions",
       "notes": "Notes",
       "dictionaries": "Dictionaries",
-      "fullestDictionary": "Words in fullest dictionary"
+      "fullestDictionary": "Words in fullest dictionary",
+      "libraryCopies": "Copies from the library",
+      "perMaterialTextUnlimited": "Notes, questions and dictionaries of every material, with no word limit on your plan"
     }
   },
   "toasts": {
@@ -680,7 +737,8 @@
     "summaryTruncated": "Summary is ready. The material is very long, so only its first part was used",
     "summaryGenerated": "Summary has been generated!",
     "attemptNotFinished": "Attempt was not finished, please try again",
-    "tagCreatedText": "You can use it inside any material"
+    "tagCreatedText": "You can use it inside any material",
+    "noQuestions": "There are no questions to review right now"
   },
   "ai": {
     "errors": {
@@ -699,7 +757,8 @@
       "DictionaryGeneration": "Word generation",
       "AnswerGrading": "Answer checks by meaning",
       "SummaryGeneration": "Summary generation",
-      "MistakeExplanation": "Mistake explanations"
+      "MistakeExplanation": "Mistake explanations",
+      "WordLookup": "Words from the text"
     }
   },
   "share": {
@@ -861,7 +920,34 @@
       "Adverb": "adverb",
       "Preposition": "preposition",
       "Conjunction": "conjunction",
-      "Interjection": "interjection"
+      "Interjection": "interjection",
+      "Phrase": "phrase",
+      "Article": "article",
+      "Numeral": "numeral",
+      "Determiner": "determiner"
+    },
+    "fromReading": {
+      "button": "Add to dictionary",
+      "title": "Add to dictionary",
+      "dictionary": "Dictionary",
+      "noDictionary": "This material has no dictionary yet.",
+      "createDictionary": "Create a dictionary",
+      "defaultTitle": "Words from the text",
+      "term": "Word or phrase",
+      "alreadyIn": "Already in “{{dictionary}}”",
+      "example": "Example sentence",
+      "fill": "Fill in with AI",
+      "filling": "Looking it up…",
+      "translation": "Translation",
+      "transcription": "Transcription",
+      "duplicate": "This word is already in the dictionary. Put this sentence in as its example?",
+      "updateExample": "Update the example",
+      "added": "Added to the dictionary",
+      "exampleUpdated": "The example is updated",
+      "open": "Open",
+      "limit": "The dictionary is full, free some room first",
+      "error": "Couldn't save the word, try again",
+      "lookupError": "Couldn't look the word up, try again"
     }
   },
   "attempts": {
@@ -933,7 +1019,11 @@
       "longest_other": "Longest streak: {{count}} days",
       "todayDone": "today is done ✅",
       "todayNotYet": "nothing studied today yet",
-      "recent": "Last {{days}} days: {{count}} with study"
+      "recent": "Last {{days}} days: {{count}} with study",
+      "goal": "today {{done}} of {{goal}}",
+      "freezes_one": "{{count}} streak freeze left this month",
+      "freezes_other": "{{count}} streak freezes left this month",
+      "frozenDay": "Missed, a streak freeze kept the streak"
     }
   },
   "digest": {
@@ -952,7 +1042,9 @@
       "dueShort_other": "{{count}} to review",
       "newShort_one": "{{count}} new",
       "newShort_other": "{{count}} new",
-      "cta": "Open materials"
+      "cta": "Open Today",
+      "plusQuestions_one": "And {{count}} question to review.",
+      "plusQuestions_other": "And {{count}} questions to review."
     },
     "streak": {
       "title": "Streak",
@@ -980,7 +1072,9 @@
       "streak_other": "Your {{count}}-day streak was at risk",
       "weekly": "Weekly digest · {{range}}",
       "markAll_one": "Mark {{count}} as read",
-      "markAll_other": "Mark all {{count}} as read"
+      "markAll_other": "Mark all {{count}} as read",
+      "dailyQuestions_one": "{{count}} question was waiting for review",
+      "dailyQuestions_other": "{{count}} questions were waiting for review"
     },
     "settings": {
       "title": "Email reminders",
@@ -1078,7 +1172,8 @@
       "nicknameHint": "Shown to every reader. Your account and email stay private.",
       "comment": "Note for the reviewer (optional)",
       "commentPlaceholder": "Anything that helps with the review",
-      "send": "Send for review"
+      "send": "Send for review",
+      "copyrightWarning": "This material was imported from a website. Publish it only if you have the right to share this text."
     },
     "author": {
       "title": "Your material in the library",
@@ -1130,6 +1225,215 @@
       "nickname": "Use 2 to 40 letters, digits, spaces or _ . ' -",
       "notFound": "This material wasn't found",
       "generic": "Something went wrong, please try again"
+    }
+  },
+  "today": {
+    "title": "Today",
+    "subtitle": "Everything due for review, from every dictionary and material.",
+    "words_one": "{{count}} word",
+    "words_other": "{{count}} words",
+    "questions_one": "{{count}} question",
+    "questions_other": "{{count}} questions",
+    "minutes": "~{{count}} min",
+    "newWords_one": "incl. {{count}} new",
+    "newWords_other": "incl. {{count}} new",
+    "overdue_one": "{{count}} missed earlier",
+    "overdue_other": "{{count}} missed earlier",
+    "start": "Start",
+    "startWords": "Words",
+    "startQuestions": "Questions",
+    "sources": "From",
+    "phaseWords": "Step 1 · words",
+    "phaseQuestions": "Step 2 · questions",
+    "empty": {
+      "title": "All caught up",
+      "text": "Nothing is due today. Add a material or practise a dictionary to plant something new."
+    },
+    "done": {
+      "title": "Done for today",
+      "text": "Everything due is reviewed. What you answered will come back right when it starts to fade.",
+      "back": "Back to Today"
+    },
+    "question": {
+      "of": "{{index}} of {{total}}",
+      "correct": "Right",
+      "incorrect": "Not quite",
+      "correctAnswer": "Correct answer",
+      "next": "Next",
+      "finish": "Finish",
+      "check": "Check",
+      "again": "It comes back soon to fix it",
+      "nextReview": "Next review {{when}}"
+    },
+    "error": "Could not load the review queue",
+    "goal": {
+      "title": "Daily goal",
+      "progress": "{{done}} of {{goal}}"
+    },
+    "limit": {
+      "title": "That's your limit for today",
+      "text": "You've done as many reviews as you set for a day. The rest will wait until tomorrow.",
+      "settings": "Change the limit"
+    }
+  },
+  "account": {
+    "export": {
+      "title": "Your data",
+      "subtitle": "Download everything Studytracker keeps about you: materials, notes, questions, answers, dictionaries and review history. Words also come as a CSV for Anki.",
+      "button": "Export my data",
+      "pending": "Preparing the archive…",
+      "done": "The archive is downloaded",
+      "error": "Couldn't prepare the archive",
+      "tooOften": "Too many exports in a row, try again in a few minutes"
+    },
+    "delete": {
+      "sectionTitle": "Delete account",
+      "sectionText": "Removes the account and all your study data for good.",
+      "open": "Delete account",
+      "title": "Delete your account?",
+      "subtitle": "This can't be undone.",
+      "consequenceData": "Materials, notes, questions, dictionaries, attempts and all study history are deleted for good.",
+      "consequenceLibrary": "Your materials in the library stay there without the author's name: others already have copies.",
+      "consequenceFinal": "The account can't be restored. Export your data first if you want to keep it.",
+      "typeEmail": "Type {{email}} to confirm",
+      "button": "Delete for good",
+      "waitButton_one": "Delete in {{count}} s",
+      "waitButton_other": "Delete in {{count}} s",
+      "pending": "Deleting…",
+      "error": "Couldn't delete the account, try again",
+      "reauthTitle": "Confirm it's you",
+      "reauthText": "For safety, an account can only be deleted within a few minutes of signing in. Sign in again and you'll come straight back here.",
+      "reauthGoogle": "Sign in with Google",
+      "reauthEmail": "Send me a sign-in link",
+      "reauthSent": "Check your email",
+      "reauthSentText": "We sent a link to {{email}}. Open it and you'll come back here to finish.",
+      "reauthError": "Couldn't start the sign-in, try again",
+      "doneTitle": "Account deleted",
+      "doneText": "Your data is gone. A confirmation is on its way to your email."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Your time zone, languages and how you appear in the library. Changes save on their own.",
+    "timeZone": "Time zone",
+    "timeZoneHint": "Days, streaks and reminder hours are counted in it.",
+    "timeZoneUnknown": "Not set yet",
+    "useBrowserZone": "Use {{zone}}",
+    "interfaceLanguage": "Site language",
+    "explanationLanguage": "AI explanations in",
+    "explanationHint": "Explanations of mistakes come in this language, whatever language the material is in.",
+    "explanationAsInterface": "Site language ({{language}})",
+    "explanationAsQuestion": "The language of the question",
+    "nativeLanguage": "Native language",
+    "nativeLanguagePlaceholder": "e.g. Ukrainian",
+    "studyLanguage": "Language you study",
+    "studyLanguagePlaceholder": "e.g. Norwegian",
+    "nickname": "Nickname",
+    "nicknameHint": "Shown on materials you publish in the library.",
+    "dailyGoal": "Daily goal",
+    "dailyGoalHint": "Reviews a day; leave empty for no goal.",
+    "invalid": "This value can't be saved, check it",
+    "error": "Couldn't save the profile"
+  },
+  "learning": {
+    "title": "Learning",
+    "subtitle": "Your daily rhythm and reminders. The defaults suit most people.",
+    "dailyGoal": "Daily goal",
+    "dailyGoalHint": "Reviews a day. With a goal, a streak day counts once it's reached.",
+    "dailyReminder": "Review reminder",
+    "streakReminder": "Streak reminder",
+    "defaultHour": "Default ({{hour}})",
+    "noLimit": "No limit",
+    "advanced": "Advanced",
+    "retention": "How much you want to remember: {{percent}}%",
+    "retentionHint": "Higher means you review more often and forget less. Lower means fewer reviews and more forgotten words. It changes the next intervals only.",
+    "retentionLess": "Fewer reviews",
+    "retentionMore": "Remember more",
+    "retentionReset": "Back to the default ({{percent}}%)",
+    "newPerDay": "New words a day",
+    "maxPerDay": "Reviews a day at most",
+    "freezes": "Streak freezes a month",
+    "freezesHint": "Missed days that don't break your streak.",
+    "freezesDefault_one": "Default ({{count}})",
+    "freezesDefault_other": "Default ({{count}})",
+    "rescheduleHint": "Changed how much you want to remember? Recount the dates of all words and questions now, not only after their next review.",
+    "reschedule": "Reschedule",
+    "rescheduled_one": "{{count}} card rescheduled",
+    "rescheduled_other": "{{count}} cards rescheduled",
+    "rescheduleError": "Couldn't reschedule, try again",
+    "noGoal": "No goal"
+  },
+  "billing": {
+    "checkoutError": "Couldn't open the payment page, try again",
+    "endsOn": "Won't renew, ends on {{date}}",
+    "pastDue": "The last payment didn't go through: check your card in the payment email",
+    "trialUntil": "Free trial until {{date}}",
+    "activeUntil": "Active until {{date}}",
+    "activeNoEnd": "Active, no end date",
+    "manage": "Manage subscription",
+    "portalError": "Couldn't open subscription settings, try again",
+    "alreadyPaid": "You already have a plan: change it in subscription settings",
+    "activating": "Payment received. Switching your plan on, it takes a few seconds…",
+    "activationSlow": "Payment received, the plan will switch on shortly. Refresh the page in a minute",
+    "activated": "{{plan}} is on",
+    "checkoutCancelled": "Payment cancelled, nothing was charged",
+    "plans": {
+      "title": "Plans",
+      "text": "More materials and more AI",
+      "period": "Billing period",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "save": "−{{percent}}%",
+      "perMonth": "/ month",
+      "perYear": "/ year",
+      "monthlyEquivalent": "≈ {{price}} a month",
+      "materials": "Materials: {{count}}",
+      "words": "Words per dictionary: {{count}}",
+      "aiPerMonth": "{{feature}}: {{count}} a month",
+      "unlimited": "unlimited",
+      "current": "Your plan",
+      "choose": "Choose {{plan}}",
+      "note": "Payment goes through Stripe's secure page, we never see your card. Cancel any time, the plan stays until the paid period ends."
+    }
+  },
+  "consent": {
+    "title": "May we count visits?",
+    "text": "With your permission Google Analytics shows us which pages help and which don't. No ads, no names, no emails, and the site works the same either way.",
+    "more": "How we handle data",
+    "accept": "Allow",
+    "decline": "No, thanks"
+  },
+  "privacy": {
+    "title": "Privacy",
+    "updated": "Updated 31 October 2026",
+    "intro": "Studytracker keeps only what it needs to help you learn. Here is what that is, who helps run the site, and how to take your data with you or remove it.",
+    "data": {
+      "title": "What we keep",
+      "text": "Your email from signing in; what you create: materials, notes, drawings, questions, dictionaries, attempts and review history; and your settings such as time zone and languages. Nobody else sees your materials unless you share a link or publish to the library."
+    },
+    "analytics": {
+      "title": "Visit statistics",
+      "text": "Only if you allow it, Google Analytics counts which pages are opened, from what kind of device and roughly from which country. Shared links are sent without their secret part, and nothing that names you is sent. Advertising features are off. You can change your choice at any time with “Cookies” at the bottom of the page."
+    },
+    "errors": {
+      "title": "Errors and speed",
+      "text": "When something breaks, technical details of the error go to Sentry (servers in the EU) so we can fix it. Vercel Speed Insights measures how fast pages load, without cookies and without identifying you."
+    },
+    "ai": {
+      "title": "AI features",
+      "text": "When you use an AI feature, the text it needs (for example a material's content or your answer) is sent to the AI provider for that one request: Anthropic, OpenAI or Google."
+    },
+    "services": {
+      "title": "Who helps run the site",
+      "text": "Supabase (sign-in), Microsoft Azure (server and database), Vercel (website), Resend (emails), Sentry (error reports), Google (visit statistics, only with consent), Stripe (payments, only if you buy a plan; we never see card details) and the AI providers above."
+    },
+    "rights": {
+      "title": "Your data, your choice",
+      "text": "On the Account page you can download everything we keep about you or delete your account for good. Reminder emails can be turned off in the statistics page settings."
+    },
+    "contact": {
+      "title": "Questions",
+      "text": "Write to us through the feedback form on the home page."
     }
   }
 }

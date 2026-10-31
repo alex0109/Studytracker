@@ -11,6 +11,7 @@ import {
 } from "@/entities/material";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
+import { trackEvent } from "@/shared/lib/analytics";
 
 export const useMaterialCreate = () => {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ export const useMaterialCreate = () => {
     mutationFn: (body: IMaterialCreate) => createMaterial(token, body),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: materialKeys.list() });
+      trackEvent("create_material");
 
       toast({
         title: `🎉${t("toasts.materialCreated")}`,

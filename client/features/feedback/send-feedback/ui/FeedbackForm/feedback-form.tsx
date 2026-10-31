@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { LuSend } from "react-icons/lu";
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
@@ -24,7 +24,7 @@ export const FeedbackForm: FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     setValue,
     reset,
     formState: { errors },
@@ -32,8 +32,8 @@ export const FeedbackForm: FC = () => {
     defaultValues: { category: "Idea", email: user?.email ?? "" },
   });
 
-  const category = watch("category");
-  const messageLength = watch("message")?.length ?? 0;
+  const category = useWatch({ control, name: "category" });
+  const messageLength = useWatch({ control, name: "message" })?.length ?? 0;
 
   const onSubmit = async (values: IFeedbackCreate) => {
     try {

@@ -1,4 +1,3 @@
-import { getUser } from "@/entities/auth";
 import { createClientOnServer } from "@/entities/auth/api/server";
 import { NextResponse } from "next/server";
 import { getSafeRedirect } from "@/shared/lib/safe-redirect";
@@ -14,7 +13,6 @@ export async function GET(request: Request) {
 
   if (code) {
     await supabase.auth.exchangeCodeForSession(code);
-    const { user } = await getUser();
   }
 
   return NextResponse.redirect(`${requestUrl.origin}${redirectTo}`);

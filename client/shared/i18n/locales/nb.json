@@ -10,7 +10,9 @@
       "materials": "Materialer",
       "share": "Delt materiale",
       "statistics": "Statistikk",
-      "library": "Bibliotek"
+      "library": "Bibliotek",
+      "today": "I dag",
+      "account": "Konto"
     }
   },
   "nav": {
@@ -26,7 +28,9 @@
     "streak_one": "Din rekke: {{count}} dag på rad",
     "streak_other": "Din rekke: {{count}} dager på rad",
     "streakNone": "Ingen rekke ennå. Studer i dag for å starte en",
-    "library": "Bibliotek"
+    "library": "Bibliotek",
+    "today": "I dag",
+    "account": "Konto"
   },
   "preferences": {
     "language": "Språk",
@@ -34,7 +38,9 @@
     "lightTheme": "Bytt til lyst tema"
   },
   "footer": {
-    "rights": "Alle rettigheter forbeholdt."
+    "rights": "Alle rettigheter forbeholdt.",
+    "privacy": "Personvern",
+    "cookies": "Informasjonskapsler"
   },
   "common": {
     "create": "Opprett",
@@ -361,6 +367,12 @@
       "fits_other": "Bare {{count}} spørsmål til får plass i dette materialet",
       "type": "Type",
       "mixed": "Blandet"
+    },
+    "review": {
+      "due": "Klar for repetisjon",
+      "next": "Neste repetisjon {{when}}",
+      "leech": "Vanskelig spørsmål",
+      "leechHint": "Bommet mange ganger: prøv å omformulere eller dele det opp"
     }
   },
   "attempt": {
@@ -433,7 +445,16 @@
     },
     "noMistakes": "Ingen feil, godt jobbet! 🎉",
     "noAnswers": "Ingen svar",
-    "goToMaterials": "Til materialene"
+    "goToMaterials": "Til materialene",
+    "accept": "Jeg svarte riktig",
+    "acceptHint": "Den automatiske sjekken kan overse et riktig svar som er formulert annerledes. Godkjenn det",
+    "accepted": "Godkjent av deg",
+    "acceptedHint": "Du markerte dette svaret som riktig etter den automatiske sjekken",
+    "acceptedToast": "Godkjent som riktig",
+    "acceptError": "Kunne ikke godkjenne svaret, prøv igjen",
+    "undo": "Angre",
+    "undone": "Den opprinnelige vurderingen er tilbake",
+    "undoError": "Det kan ikke lenger angres"
   },
   "flashcards": {
     "answers": {
@@ -587,6 +608,40 @@
         "🌙 Trøtt? Selv fem minutter holder rekka i live og glemselskurven unna.",
         "✨ Feil er bevis på at du prøver. Fortsett å samle dem."
       ]
+    },
+    "import": {
+      "tabManual": "For hånd",
+      "tabLink": "Fra en lenke",
+      "url": "Lenke til en artikkel",
+      "privateNote": "Teksten lagres bare for deg. Videoer kan ikke importeres ennå.",
+      "generateQuestions": "Lag spørsmål til selvtest med en gang",
+      "submit": "Importer",
+      "pending": "Importerer…",
+      "steps": {
+        "fetch": "Laster siden",
+        "extract": "Henter ut teksten",
+        "questions": "Lager spørsmål"
+      },
+      "done": "Artikkelen ligger i materialene dine",
+      "questions_one": "{{count}} spørsmål er klart",
+      "questions_other": "{{count}} spørsmål er klare",
+      "questionsSkipped": {
+        "quota": "Ingen spørsmål: månedens KI-grense er brukt opp",
+        "unavailable": "Ingen spørsmål: KI svarer ikke nå, prøv senere fra materialet",
+        "failed": "Ingen spørsmål denne gangen, prøv igjen fra materialet"
+      },
+      "errors": {
+        "InvalidUrl": "Det ser ikke ut som en nettadresse",
+        "BlockedAddress": "Denne adressen kan ikke åpnes",
+        "Unreachable": "Nettstedet svarer ikke eller gir ikke siden",
+        "Timeout": "Nettstedet brukte for lang tid på å svare",
+        "TooLarge": "Siden er for stor til å importeres",
+        "NotHtml": "Lenken går ikke til en nettside",
+        "NotAnArticle": "Fant ingen artikkeltekst på denne siden",
+        "VideoNotSupported": "Videoer kan ikke importeres ennå",
+        "tooMany": "For mange importer nå, prøv igjen om en time",
+        "generic": "Kunne ikke importere artikkelen, prøv igjen"
+      }
     }
   },
   "limits": {
@@ -620,7 +675,9 @@
       "questions": "Spørsmål",
       "notes": "Notater",
       "dictionaries": "Ordlister",
-      "fullestDictionary": "Ord i den fulleste ordlisten"
+      "fullestDictionary": "Ord i den fulleste ordlisten",
+      "libraryCopies": "Kopier fra biblioteket",
+      "perMaterialTextUnlimited": "Notater, spørsmål og ordlister i hvert materiale, uten ordgrense på planen din"
     }
   },
   "toasts": {
@@ -680,7 +737,8 @@
     "summaryTruncated": "Sammendraget er klart. Materialet er veldig langt, så bare første del ble brukt",
     "summaryGenerated": "Sammendraget er generert!",
     "attemptNotFinished": "Forsøket ble ikke fullført, prøv igjen",
-    "tagCreatedText": "Du kan bruke den i alle materialer"
+    "tagCreatedText": "Du kan bruke den i alle materialer",
+    "noQuestions": "Det er ingen spørsmål å repetere nå"
   },
   "ai": {
     "errors": {
@@ -699,7 +757,8 @@
       "DictionaryGeneration": "Generering av ord",
       "AnswerGrading": "Sjekk av svar etter mening",
       "SummaryGeneration": "Generering av sammendrag",
-      "MistakeExplanation": "Forklaring av feil"
+      "MistakeExplanation": "Forklaring av feil",
+      "WordLookup": "Ord fra teksten"
     }
   },
   "share": {
@@ -861,7 +920,34 @@
       "Adverb": "adverb",
       "Preposition": "preposisjon",
       "Conjunction": "konjunksjon",
-      "Interjection": "interjeksjon"
+      "Interjection": "interjeksjon",
+      "Phrase": "frase",
+      "Article": "artikkel",
+      "Numeral": "tallord",
+      "Determiner": "determinativ"
+    },
+    "fromReading": {
+      "button": "Legg til i ordboka",
+      "title": "Legg til i ordboka",
+      "dictionary": "Ordbok",
+      "noDictionary": "Dette materialet har ingen ordbok ennå.",
+      "createDictionary": "Lag en ordbok",
+      "defaultTitle": "Ord fra teksten",
+      "term": "Ord eller uttrykk",
+      "alreadyIn": "Allerede i «{{dictionary}}»",
+      "example": "Eksempelsetning",
+      "fill": "Fyll ut med KI",
+      "filling": "Slår opp…",
+      "translation": "Oversettelse",
+      "transcription": "Transkripsjon",
+      "duplicate": "Dette ordet finnes allerede i ordboka. Bruke denne setningen som eksempel?",
+      "updateExample": "Oppdater eksempelet",
+      "added": "Lagt til i ordboka",
+      "exampleUpdated": "Eksempelet er oppdatert",
+      "open": "Åpne",
+      "limit": "Ordboka er full, frigjør litt plass først",
+      "error": "Kunne ikke lagre ordet, prøv igjen",
+      "lookupError": "Kunne ikke slå opp ordet, prøv igjen"
     }
   },
   "attempts": {
@@ -933,7 +1019,11 @@
       "longest_other": "Lengste rekke: {{count}} dager",
       "todayDone": "dagen i dag er unnagjort ✅",
       "todayNotYet": "ingenting studert i dag ennå",
-      "recent": "Siste {{days}} dager: {{count}} med studier"
+      "recent": "Siste {{days}} dager: {{count}} med studier",
+      "goal": "i dag {{done}} av {{goal}}",
+      "freezes_one": "{{count}} rekkefrys igjen denne måneden",
+      "freezes_other": "{{count}} rekkefrys igjen denne måneden",
+      "frozenDay": "Hoppet over, en rekkefrys holdt rekken"
     }
   },
   "digest": {
@@ -952,7 +1042,9 @@
       "dueShort_other": "{{count}} å repetere",
       "newShort_one": "{{count}} nytt",
       "newShort_other": "{{count}} nye",
-      "cta": "Åpne materialene"
+      "cta": "Åpne I dag",
+      "plusQuestions_one": "Og {{count}} spørsmål å repetere.",
+      "plusQuestions_other": "Og {{count}} spørsmål å repetere."
     },
     "streak": {
       "title": "Rekke",
@@ -980,7 +1072,9 @@
       "streak_other": "Rekka di på {{count}} dager var i fare",
       "weekly": "Ukesammendrag · {{range}}",
       "markAll_one": "Merk {{count}} som lest",
-      "markAll_other": "Merk alle {{count}} som lest"
+      "markAll_other": "Merk alle {{count}} som lest",
+      "dailyQuestions_one": "{{count}} spørsmål ventet på repetisjon",
+      "dailyQuestions_other": "{{count}} spørsmål ventet på repetisjon"
     },
     "settings": {
       "title": "Påminnelser på e-post",
@@ -1078,7 +1172,8 @@
       "nicknameHint": "Vises for alle lesere. Kontoen og e-posten din forblir private.",
       "comment": "Merknad til den som gjennomgår (valgfritt)",
       "commentPlaceholder": "Alt som hjelper med gjennomgangen",
-      "send": "Send til gjennomgang"
+      "send": "Send til gjennomgang",
+      "copyrightWarning": "Dette materialet er importert fra et nettsted. Publiser det bare hvis du har rett til å dele teksten."
     },
     "author": {
       "title": "Materialet ditt i biblioteket",
@@ -1130,6 +1225,215 @@
       "nickname": "Bruk 2 til 40 bokstaver, sifre, mellomrom eller _ . ' -",
       "notFound": "Materialet ble ikke funnet",
       "generic": "Noe gikk galt, prøv igjen"
+    }
+  },
+  "today": {
+    "title": "I dag",
+    "subtitle": "Alt som skal repeteres, fra alle ordlister og materialer.",
+    "words_one": "{{count}} ord",
+    "words_other": "{{count}} ord",
+    "questions_one": "{{count}} spørsmål",
+    "questions_other": "{{count}} spørsmål",
+    "minutes": "~{{count}} min",
+    "newWords_one": "inkl. {{count}} nytt",
+    "newWords_other": "inkl. {{count}} nye",
+    "overdue_one": "{{count}} hoppet over tidligere",
+    "overdue_other": "{{count}} hoppet over tidligere",
+    "start": "Start",
+    "startWords": "Ord",
+    "startQuestions": "Spørsmål",
+    "sources": "Fra",
+    "phaseWords": "Steg 1 · ord",
+    "phaseQuestions": "Steg 2 · spørsmål",
+    "empty": {
+      "title": "Alt er gjort",
+      "text": "Ingenting skal repeteres i dag. Legg til et materiale eller øv på en ordliste for å så noe nytt."
+    },
+    "done": {
+      "title": "Ferdig for i dag",
+      "text": "Alt som sto i kø er repetert. Svarene kommer tilbake akkurat når de begynner å blekne.",
+      "back": "Tilbake til I dag"
+    },
+    "question": {
+      "of": "{{index}} av {{total}}",
+      "correct": "Riktig",
+      "incorrect": "Ikke helt",
+      "correctAnswer": "Riktig svar",
+      "next": "Neste",
+      "finish": "Fullfør",
+      "check": "Sjekk",
+      "again": "Kommer snart tilbake så du får det til",
+      "nextReview": "Neste repetisjon {{when}}"
+    },
+    "error": "Kunne ikke laste repetisjonskøen",
+    "goal": {
+      "title": "Dagsmål",
+      "progress": "{{done}} av {{goal}}"
+    },
+    "limit": {
+      "title": "Det var dagens grense",
+      "text": "Du har tatt så mange repetisjoner som du satte for en dag. Resten venter til i morgen.",
+      "settings": "Endre grensen"
+    }
+  },
+  "account": {
+    "export": {
+      "title": "Dataene dine",
+      "subtitle": "Last ned alt Studytracker lagrer om deg: materialer, notater, spørsmål, svar, ordbøker og repetisjonshistorikk. Ordene kommer også som CSV for Anki.",
+      "button": "Eksporter dataene mine",
+      "pending": "Gjør klar arkivet…",
+      "done": "Arkivet er lastet ned",
+      "error": "Kunne ikke gjøre klar arkivet",
+      "tooOften": "For mange eksporter på rad, prøv igjen om noen minutter"
+    },
+    "delete": {
+      "sectionTitle": "Slett konto",
+      "sectionText": "Fjerner kontoen og alle læringsdataene dine for godt.",
+      "open": "Slett konto",
+      "title": "Slette kontoen?",
+      "subtitle": "Dette kan ikke angres.",
+      "consequenceData": "Materialer, notater, spørsmål, ordbøker, forsøk og all læringshistorikk slettes for godt.",
+      "consequenceLibrary": "Materialene dine i biblioteket blir liggende uten forfatternavn: andre har allerede kopier.",
+      "consequenceFinal": "Kontoen kan ikke gjenopprettes. Eksporter dataene først hvis du vil beholde dem.",
+      "typeEmail": "Skriv {{email}} for å bekrefte",
+      "button": "Slett for godt",
+      "waitButton_one": "Slett om {{count}} s",
+      "waitButton_other": "Slett om {{count}} s",
+      "pending": "Sletter…",
+      "error": "Kunne ikke slette kontoen, prøv igjen",
+      "reauthTitle": "Bekreft at det er deg",
+      "reauthText": "Av sikkerhetshensyn kan kontoen bare slettes noen minutter etter innlogging. Logg inn igjen, så kommer du rett tilbake hit.",
+      "reauthGoogle": "Logg inn med Google",
+      "reauthEmail": "Send meg en innloggingslenke",
+      "reauthSent": "Sjekk e-posten",
+      "reauthSentText": "Vi sendte en lenke til {{email}}. Åpne den, så kommer du tilbake hit for å fullføre.",
+      "reauthError": "Kunne ikke starte innloggingen, prøv igjen",
+      "doneTitle": "Kontoen er slettet",
+      "doneText": "Dataene dine er slettet. En bekreftelse er på vei til e-posten din."
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "subtitle": "Tidssone, språk og hvordan du vises i biblioteket. Endringer lagres av seg selv.",
+    "timeZone": "Tidssone",
+    "timeZoneHint": "Dager, rekker og påminnelsestimer regnes etter den.",
+    "timeZoneUnknown": "Ikke satt ennå",
+    "useBrowserZone": "Bruk {{zone}}",
+    "interfaceLanguage": "Språk på nettstedet",
+    "explanationLanguage": "AI-forklaringer på",
+    "explanationHint": "Forklaringer av feil kommer på dette språket, uansett hvilket språk materialet er på.",
+    "explanationAsInterface": "Nettstedets språk ({{language}})",
+    "explanationAsQuestion": "Spørsmålets språk",
+    "nativeLanguage": "Morsmål",
+    "nativeLanguagePlaceholder": "f.eks. Ukrainian",
+    "studyLanguage": "Språket du lærer",
+    "studyLanguagePlaceholder": "f.eks. Norwegian",
+    "nickname": "Kallenavn",
+    "nicknameHint": "Vises på materialer du publiserer i biblioteket.",
+    "dailyGoal": "Dagsmål",
+    "dailyGoalHint": "Repetisjoner om dagen; tomt betyr ingen mål.",
+    "invalid": "Denne verdien kan ikke lagres, sjekk den",
+    "error": "Kunne ikke lagre profilen"
+  },
+  "learning": {
+    "title": "Læring",
+    "subtitle": "Din daglige rytme og påminnelser. Standardverdiene passer de fleste.",
+    "dailyGoal": "Dagsmål",
+    "dailyGoalHint": "Repetisjoner om dagen. Med et mål teller en dag i rekken når målet er nådd.",
+    "dailyReminder": "Påminnelse om repetisjon",
+    "streakReminder": "Påminnelse om rekken",
+    "defaultHour": "Standard ({{hour}})",
+    "noLimit": "Ingen grense",
+    "advanced": "Avansert",
+    "retention": "Hvor mye du vil huske: {{percent}} %",
+    "retentionHint": "Høyere betyr oftere repetisjon og mindre glemt. Lavere betyr færre repetisjoner og flere glemte ord. Det endrer bare de neste intervallene.",
+    "retentionLess": "Færre repetisjoner",
+    "retentionMore": "Husk mer",
+    "retentionReset": "Tilbake til standard ({{percent}} %)",
+    "newPerDay": "Nye ord om dagen",
+    "maxPerDay": "Høyst repetisjoner om dagen",
+    "freezes": "Rekkefrys i måneden",
+    "freezesHint": "Dager du hopper over uten at rekken brytes.",
+    "freezesDefault_one": "Standard ({{count}})",
+    "freezesDefault_other": "Standard ({{count}})",
+    "rescheduleHint": "Endret du hvor mye du vil huske? Regn ut datoene for alle ord og spørsmål nå, ikke bare etter neste repetisjon.",
+    "reschedule": "Planlegg på nytt",
+    "rescheduled_one": "{{count}} kort planlagt på nytt",
+    "rescheduled_other": "{{count}} kort planlagt på nytt",
+    "rescheduleError": "Kunne ikke planlegge på nytt, prøv igjen",
+    "noGoal": "Ingen mål"
+  },
+  "billing": {
+    "checkoutError": "Kunne ikke åpne betalingssiden, prøv igjen",
+    "endsOn": "Fornyes ikke, slutter {{date}}",
+    "pastDue": "Siste betaling gikk ikke gjennom: sjekk kortet i betalingse-posten",
+    "trialUntil": "Gratis prøveperiode til {{date}}",
+    "activeUntil": "Aktiv til {{date}}",
+    "activeNoEnd": "Aktiv uten sluttdato",
+    "manage": "Administrer abonnementet",
+    "portalError": "Kunne ikke åpne abonnementsinnstillingene, prøv igjen",
+    "alreadyPaid": "Du har allerede et abonnement: endre det i abonnementsinnstillingene",
+    "activating": "Betalingen er mottatt. Abonnementet slås på, det tar noen sekunder …",
+    "activationSlow": "Betalingen er mottatt, abonnementet slås på om litt. Last inn siden på nytt om et minutt",
+    "activated": "{{plan}} er slått på",
+    "checkoutCancelled": "Betalingen ble avbrutt, ingenting er trukket",
+    "plans": {
+      "title": "Abonnementer",
+      "text": "Flere materialer og mer AI",
+      "period": "Betalingsperiode",
+      "monthly": "Månedlig",
+      "yearly": "Årlig",
+      "save": "−{{percent}} %",
+      "perMonth": "/ mnd",
+      "perYear": "/ år",
+      "monthlyEquivalent": "≈ {{price}} i måneden",
+      "materials": "Materialer: {{count}}",
+      "words": "Ord per ordliste: {{count}}",
+      "aiPerMonth": "{{feature}}: {{count}} i måneden",
+      "unlimited": "ubegrenset",
+      "current": "Ditt abonnement",
+      "choose": "Velg {{plan}}",
+      "note": "Betalingen skjer på Stripes sikre side, vi ser aldri kortet ditt. Si opp når som helst, abonnementet gjelder ut den betalte perioden."
+    }
+  },
+  "consent": {
+    "title": "Kan vi telle besøk?",
+    "text": "Med din tillatelse viser Google Analytics oss hvilke sider som hjelper og hvilke som ikke gjør det. Ingen reklame, ingen navn eller e-post, og nettstedet virker likt uansett hva du velger.",
+    "more": "Hvordan vi håndterer data",
+    "accept": "Tillat",
+    "decline": "Nei takk"
+  },
+  "privacy": {
+    "title": "Personvern",
+    "updated": "Oppdatert 31. oktober 2026",
+    "intro": "Studytracker lagrer bare det som trengs for å hjelpe deg å lære. Her er hva det er, hvem som hjelper til med å drive nettstedet, og hvordan du tar med eller sletter dataene dine.",
+    "data": {
+      "title": "Hva vi lagrer",
+      "text": "E-posten din fra innloggingen; det du lager: materialer, notater, tegninger, spørsmål, ordbøker, forsøk og repetisjonshistorikk; og innstillingene dine, som tidssone og språk. Ingen andre ser materialene dine med mindre du deler en lenke eller publiserer i biblioteket."
+    },
+    "analytics": {
+      "title": "Besøksstatistikk",
+      "text": "Bare hvis du tillater det, teller Google Analytics hvilke sider som åpnes, fra hva slags enhet og omtrent fra hvilket land. Delte lenker sendes uten den hemmelige delen, og ingenting som identifiserer deg sendes. Reklamefunksjoner er slått av. Du kan endre valget når som helst med «Informasjonskapsler» nederst på siden."
+    },
+    "errors": {
+      "title": "Feil og hastighet",
+      "text": "Når noe går galt, sendes tekniske detaljer om feilen til Sentry (servere i EU) slik at vi kan rette den. Vercel Speed Insights måler hvor raskt sidene lastes, uten informasjonskapsler og uten å identifisere deg."
+    },
+    "ai": {
+      "title": "KI-funksjoner",
+      "text": "Når du bruker en KI-funksjon, sendes teksten den trenger (for eksempel innholdet i et materiale eller svaret ditt) til KI-leverandøren bare for den ene forespørselen: Anthropic, OpenAI eller Google."
+    },
+    "services": {
+      "title": "Hvem som hjelper til",
+      "text": "Supabase (innlogging), Microsoft Azure (server og database), Vercel (nettsted), Resend (e-post), Sentry (feilrapporter), Google (besøksstatistikk, bare med samtykke), Stripe (betaling, bare hvis du kjøper et abonnement; vi ser aldri kortopplysningene) og KI-leverandørene over."
+    },
+    "rights": {
+      "title": "Dine data, ditt valg",
+      "text": "På Konto-siden kan du laste ned alt vi lagrer om deg eller slette kontoen for godt. Påminnelser på e-post slås av i innstillingene på statistikksiden."
+    },
+    "contact": {
+      "title": "Spørsmål",
+      "text": "Skriv til oss via tilbakemeldingsskjemaet på forsiden."
     }
   }
 }

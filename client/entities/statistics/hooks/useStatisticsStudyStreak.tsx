@@ -24,7 +24,7 @@ export const useStatisticsStudyStreak = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsStudyStreak.error]);
+  }, [statisticsStudyStreak.error, user?.id]);
 
   return {
     statisticsStudyStreakData: statisticsStudyStreak.data,

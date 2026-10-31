@@ -31,7 +31,7 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
     if (answer !== debouncedAnswerValue) {
       updateQuestion({ dataToUpdate: { answer: debouncedAnswerValue } });
     }
-  }, [id, answer, debouncedAnswerValue]);
+  }, [id, answer, debouncedAnswerValue, updateQuestion]);
 
   const onUpdateAnswer = (newAnswer: string) => {
     setAnswerValue(newAnswer);

@@ -12,10 +12,7 @@ interface AttemptHeaderProps {
   attemptId: string;
 }
 
-export const AttemptHeader: FC<AttemptHeaderProps> = ({
-  materialId,
-  attemptId,
-}) => {
+export const AttemptHeader: FC<AttemptHeaderProps> = ({ attemptId }) => {
   const { t } = useTranslation();
   const router = useRouter();
   return (

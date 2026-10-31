@@ -22,12 +22,7 @@ export const CountUp: FC<CountUpProps> = ({
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (!isInView) return;
-
-    if (reduceMotion) {
-      setDisplay(value);
-      return;
-    }
+    if (!isInView || reduceMotion) return;
 
     const controls = animate(0, value, {
       duration: 1.2,
@@ -38,9 +33,12 @@ export const CountUp: FC<CountUpProps> = ({
     return () => controls.stop();
   }, [isInView, value, reduceMotion]);
 
+  // Without motion the number simply appears once it is seen
+  const shown = reduceMotion && isInView ? value : display;
+
   return (
     <span ref={ref} className={className}>
-      {display.toFixed(decimals)}
+      {shown.toFixed(decimals)}
       {suffix}
     </span>
   );

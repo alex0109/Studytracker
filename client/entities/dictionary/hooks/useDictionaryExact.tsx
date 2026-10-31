@@ -24,7 +24,7 @@ export const useDictionaryExact = (dictionaryId: string) => {
         userID: user?.id,
       });
     }
-  }, [exactDictionary.error]);
+  }, [dictionaryId, exactDictionary.error, user?.id]);
 
   return {
     exactDictionaryData: exactDictionary.data,

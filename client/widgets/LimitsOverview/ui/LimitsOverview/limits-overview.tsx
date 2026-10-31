@@ -1,11 +1,14 @@
 "use client";
 
 import { FC } from "react";
-import { LuBookOpen, LuCrown, LuFolderOpen, LuSparkles } from "react-icons/lu";
+import { LuBookOpen, LuCrown, LuFolderOpen, LuGem, LuSparkles } from "react-icons/lu";
 import { Skeleton } from "@/shared/radix-ui";
 import { LimitBar } from "@/shared/ui";
 import { useLimits, useLimitsUsage } from "@/entities/limits";
 import { aiFeatureLabelKey, useAiUsage } from "@/entities/ai";
+import { useBillingStatus } from "@/entities/billing";
+import { PlanChooser } from "@/features/billing/upgrade-plan";
+import { ManageSubscriptionButton } from "@/features/billing/manage-subscription";
 import { Trans, useTranslation } from "@/shared/i18n";
 import { LimitsCard } from "../LimitsCard/limits-card";
 import { MaterialLimitsList } from "../MaterialLimitsList/material-limits-list";
@@ -22,6 +25,11 @@ export const LimitsOverview: FC = () => {
   const { limitsData } = useLimits();
   const { limitsUsageData, limitsUsageError } = useLimitsUsage();
   const { aiUsageData } = useAiUsage();
+  const { billingData } = useBillingStatus();
+
+  // A running paid plan is changed in Stripe's portal; plans are offered to everyone else
+  const hasPaidPlan = !!billingData?.canManage && billingData.tier !== "Free";
+  const offerPlans = !!billingData?.checkoutAvailable && !hasPaidPlan;
 
   if (limitsUsageError) {
     return (
@@ -53,8 +61,22 @@ export const LimitsOverview: FC = () => {
         {aiUsageData ? (
           <div className="flex flex-col gap-2">
             <span className="w-fit rounded-full bg-violet-100 px-3 py-1 text-sm font-semibold text-violet-700 dark:bg-violet-950 dark:text-violet-300">
-              {aiUsageData.tier}
+              {billingData?.tier ?? aiUsageData.tier}
             </span>
+            {/* Status and end of a paid or granted plan */}
+            {billingData?.status && billingData.tier !== "Free" && (
+              <p className="text-sm text-neutral-600 dark:text-neutral-300">
+                {billingData.cancelAtPeriodEnd || billingData.status === "Canceled"
+                  ? t("billing.endsOn", { date: billingData.currentPeriodEnd ? formatDate(billingData.currentPeriodEnd, i18n.language) : "—" })
+                  : billingData.status === "PastDue"
+                    ? t("billing.pastDue")
+                    : billingData.status === "Trialing" && billingData.trialEndsAt
+                      ? t("billing.trialUntil", { date: formatDate(billingData.trialEndsAt, i18n.language) })
+                      : billingData.currentPeriodEnd
+                        ? t("billing.activeUntil", { date: formatDate(billingData.currentPeriodEnd, i18n.language) })
+                        : t("billing.activeNoEnd")}
+              </p>
+            )}
             <p className="text-sm text-neutral-500">
               <Trans
                 i18nKey="limits.page.resets"
@@ -69,11 +91,24 @@ export const LimitsOverview: FC = () => {
                 {t("ai.off")}
               </p>
             )}
+            {billingData?.canManage && <ManageSubscriptionButton />}
           </div>
         ) : (
           <Skeleton className="h-16 w-full" />
         )}
       </LimitsCard>
+
+      {/* Only when payments are set up on the server */}
+      {offerPlans && (
+        <LimitsCard
+          title={t("billing.plans.title")}
+          subtitle={t("billing.plans.text")}
+          icon={<LuGem />}
+          className="md:col-span-2"
+        >
+          <PlanChooser currentTier={billingData.tier} />
+        </LimitsCard>
+      )}
 
       <LimitsCard
         title={t("limits.page.workspace")}
@@ -90,6 +125,14 @@ export const LimitsOverview: FC = () => {
           used={limitsUsageData.tags}
           max={limitsData.maxTags}
         />
+        {/* Library copies have their own room when they don't share the material limit */}
+        {limitsData.countLibraryImports === false && limitsData.maxLibraryImports !== undefined && (
+          <LimitBar
+            label={t("limits.page.libraryCopies")}
+            used={limitsUsageData.libraryCopies ?? 0}
+            max={limitsData.maxLibraryImports}
+          />
+        )}
       </LimitsCard>
 
       <LimitsCard
@@ -116,7 +159,11 @@ export const LimitsOverview: FC = () => {
 
       <LimitsCard
         title={t("limits.page.perMaterial")}
-        subtitle={t("limits.page.perMaterialText", { count: limitsData.maxEntriesPerDictionary })}
+        subtitle={
+          limitsData.maxEntriesPerDictionary === null
+            ? t("limits.page.perMaterialTextUnlimited")
+            : t("limits.page.perMaterialText", { count: limitsData.maxEntriesPerDictionary })
+        }
         icon={<LuBookOpen />}
         className="md:col-span-2"
       >

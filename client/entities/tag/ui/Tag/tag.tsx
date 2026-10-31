@@ -7,7 +7,7 @@ interface TagProps {
   name: string;
 }
 
-export const Tag: FC<TagProps> = ({ id, color, name }) => {
+export const Tag: FC<TagProps> = ({ color, name }) => {
   return (
     <div
       style={{ backgroundColor: color, color: getTextColor(color) }}

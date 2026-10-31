@@ -10,7 +10,9 @@ export interface IMaterialLimitsUsage {
 
 // What the user already uses, counted the same way the server checks limits
 export interface ILimitsUsage {
+  // Own materials; library copies are counted apart unless they share the material limit
   materials: number;
+  libraryCopies?: number;
   tags: number;
   materialsUsage: IMaterialLimitsUsage[];
 }

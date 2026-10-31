@@ -24,7 +24,7 @@ export const useStatisticsConfidenceCalibration = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsConfidenceCalibration.error]);
+  }, [statisticsConfidenceCalibration.error, user?.id]);
 
   return {
     statisticsConfidenceCalibrationData: statisticsConfidenceCalibration.data,

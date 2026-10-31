@@ -82,7 +82,15 @@ export const MaterialsSideBar: FC = () => {
         onValueChange={setAccordionOpenValue}
         collapsible
       >
-        <AddMaterialModal />
+        <AddMaterialModal
+          onCreated={(materialId) => {
+            setActiveMaterialId(materialId);
+            setActiveNoteId(undefined);
+            setActiveDictionary(undefined);
+            setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
+            setAccordionOpenValue(materialId);
+          }}
+        />
 
         {materialsIsPending && (
           <div className="flex flex-col w-full gap-4 justify-center items-center mt-5">
@@ -246,6 +254,14 @@ export const MaterialsSideBar: FC = () => {
     </div>
   );
 
+  // From the "added to dictionary" toast: the dictionary opens next to the text it came from
+  const openDictionary = (dictionary: IDictionaryResponse) => {
+    setActiveNoteId(undefined);
+    setActiveDictionary(dictionary);
+    setActiveSidebarSection(MaterialsSidebarSectionEnum.Dictionary);
+    setAccordionOpenValue(dictionary.materialId);
+  };
+
   const content =
     activeSidebarSection === MaterialsSidebarSectionEnum.Main &&
     activeMaterial ? (
@@ -263,6 +279,7 @@ export const MaterialsSideBar: FC = () => {
         isImported={activeMaterial.isImported}
         isFromLibrary={activeMaterial.isFromLibrary}
         importedAt={activeMaterial.importedAt}
+        onOpenDictionary={openDictionary}
       />
     ) : activeSidebarSection === MaterialsSidebarSectionEnum.Notes &&
       activeMaterial &&
@@ -273,6 +290,7 @@ export const MaterialsSideBar: FC = () => {
         assessmentId={activeMaterial.assessmentId}
         title={activeNote.title}
         type={activeNote.type}
+        onOpenDictionary={openDictionary}
       />
     ) : activeSidebarSection === MaterialsSidebarSectionEnum.Dictionary &&
       activeMaterial &&

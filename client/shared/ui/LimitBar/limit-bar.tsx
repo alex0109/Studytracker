@@ -4,7 +4,8 @@ import { cn } from "@/shared/lib/cn";
 interface LimitBarProps {
   label: string;
   used: number;
-  max: number;
+  // null: no limit on this plan
+  max: number | null;
   hint?: string;
   className?: string;
 }
@@ -17,8 +18,8 @@ export const LimitBar: FC<LimitBarProps> = ({
   hint,
   className,
 }) => {
-  const ratio = max > 0 ? Math.min(used / max, 1) : 1;
-  const isFull = used >= max;
+  const ratio = max === null ? 0 : max > 0 ? Math.min(used / max, 1) : 1;
+  const isFull = max !== null && used >= max;
 
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
@@ -32,14 +33,14 @@ export const LimitBar: FC<LimitBarProps> = ({
             isFull ? "text-red-600" : "text-neutral-500",
           )}
         >
-          {used} / {max}
+          {used} / {max ?? "∞"}
         </span>
       </div>
       <div
         role="progressbar"
         aria-label={label}
         aria-valuemin={0}
-        aria-valuemax={max}
+        aria-valuemax={max ?? undefined}
         aria-valuenow={used}
         className="h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700"
       >

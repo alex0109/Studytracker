@@ -9,3 +9,5 @@ export { updateDictionaryEntry } from "./updateDictionaryEntry";
 export { deleteDictionaryEntry } from "./deleteDictionaryEntry";
 export { reorderDictionaryEntries } from "./reorderDictionaryEntries";
 export { getDictionaryQuestions } from "./getDictionaryQuestions";
+export { lookupDictionaryEntry } from "./lookupDictionaryEntry";
+export type { IWordLookup, IWordLookupRequest } from "./lookupDictionaryEntry";

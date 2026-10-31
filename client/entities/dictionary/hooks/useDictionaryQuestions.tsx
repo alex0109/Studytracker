@@ -24,7 +24,7 @@ export const useDictionaryQuestions = (dictionaryId: string) => {
         userID: user?.id,
       });
     }
-  }, [questions.error]);
+  }, [dictionaryId, questions.error, user?.id]);
 
   return {
     dictionaryQuestionsData: questions.data,

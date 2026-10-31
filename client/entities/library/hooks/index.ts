@@ -21,7 +21,7 @@ export const useLibraryPage = (params: ILibraryPageParams) => {
 
   useEffect(() => {
     if (page.error) logExceptionError(page.error, { section: "library", userID: user?.id });
-  }, [page.error]);
+  }, [page.error, user?.id]);
 
   return {
     libraryPageData: page.data,
@@ -44,7 +44,7 @@ export const useLibraryItem = (itemId: string) => {
 
   useEffect(() => {
     if (item.error) logExceptionError(item.error, { section: `library/${itemId}`, userID: user?.id });
-  }, [item.error]);
+  }, [item.error, itemId, user?.id]);
 
   return {
     libraryItemData: item.data,
@@ -64,7 +64,7 @@ export const useMyLibraryRequests = () => {
 
   useEffect(() => {
     if (requests.error) logExceptionError(requests.error, { section: "library/requests", userID: user?.id });
-  }, [requests.error]);
+  }, [requests.error, user?.id]);
 
   return {
     libraryRequestsData: requests.data,

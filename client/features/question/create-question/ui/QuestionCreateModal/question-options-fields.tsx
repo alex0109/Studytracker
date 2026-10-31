@@ -6,8 +6,8 @@ import {
   Control,
   FieldErrors,
   UseFormRegister,
-  UseFormWatch,
   useFieldArray,
+  useWatch,
 } from "react-hook-form";
 import { LuCheck, LuPlus, LuX } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
@@ -18,14 +18,12 @@ import { IQuestionCreateForm } from "../../model";
 interface QuestionOptionsFieldsProps {
   control: Control<IQuestionCreateForm>;
   register: UseFormRegister<IQuestionCreateForm>;
-  watch: UseFormWatch<IQuestionCreateForm>;
   errors: FieldErrors<IQuestionCreateForm>;
 }
 
 export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
   control,
   register,
-  watch,
   errors,
 }) => {
   const { t } = useTranslation();
@@ -39,7 +37,7 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
     },
   });
 
-  const options = watch("options");
+  const options = useWatch({ control, name: "options" });
 
   return (
     <div className="flex flex-col gap-2 m-2">

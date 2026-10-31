@@ -25,7 +25,7 @@ export const useAiUsage = (enabled = true) => {
         userID: user?.id,
       });
     }
-  }, [usage.error]);
+  }, [usage.error, user?.id]);
 
   return {
     aiUsageData: usage.data,

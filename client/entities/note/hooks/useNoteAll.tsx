@@ -24,7 +24,7 @@ export const useNotesAll = (materialId: string) => {
         userID: user?.id,
       });
     }
-  }, [notes.error]);
+  }, [notes.error, user?.id]);
 
   return {
     notesData: notes.data,

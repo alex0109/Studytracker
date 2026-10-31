@@ -24,7 +24,7 @@ export const useSharedMaterialPreview = (shareToken: string) => {
         userID: user?.id,
       });
     }
-  }, [preview.error]);
+  }, [preview.error, shareToken, user?.id]);
 
   return {
     previewData: preview.data,

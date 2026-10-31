@@ -8,3 +8,4 @@ export { QuestionDifficultyEnum } from "./question-difficulty";
 export type { IOption } from "./option.type";
 export type { IQuestionResponse } from "./question-response.type";
 export type { IQuestionUpdate } from "./question-update.type";
+export type { IQuestionProgress } from "./question-progress.type";

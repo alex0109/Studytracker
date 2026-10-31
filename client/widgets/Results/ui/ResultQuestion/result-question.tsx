@@ -3,7 +3,9 @@
 import { FC, ReactNode } from "react";
 import { useTranslation } from "@/shared/i18n";
 import { isTrueFalseName } from "@/entities/question";
-import { LuCheck, LuLightbulb, LuSparkles, LuX } from "react-icons/lu";
+import { motion } from "framer-motion";
+import { LuCheck, LuLightbulb, LuSparkles, LuThumbsUp, LuX } from "react-icons/lu";
+import { AcceptAnswerButton } from "@/features/attempt/accept-answer";
 import { IResultResponse } from "@/entities/attempt";
 import { IOption, QuestionTypeEnum } from "@/entities/question";
 import { cn } from "@/shared/lib";
@@ -102,7 +104,7 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
   return (
     <article
       className={cn(
-        "flex w-full flex-col gap-3 rounded-2xl border border-l-4 border-neutral-200 bg-white p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-900",
+        "flex w-full flex-col gap-3 rounded-2xl border border-l-4 border-neutral-200 bg-white p-4 transition-colors duration-500 sm:p-5 dark:border-neutral-700 dark:bg-neutral-900",
         styles.card,
       )}
     >
@@ -116,7 +118,12 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
           </h3>
         </div>
         <div className="flex shrink-0 flex-wrap gap-1.5 pl-10 sm:pl-0">
-          <span
+          {/* Keyed by status, so an accepted answer pops from "wrong" to "correct" */}
+          <motion.span
+            key={status}
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 500, damping: 20 }}
             className={cn(
               "rounded-full px-2.5 py-0.5 text-xs font-semibold",
               styles.badge,
@@ -125,7 +132,15 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
             {status === "partly"
               ? `${t("results.status.partly")} · ${Math.round(result!.score)}%`
               : t(`results.status.${status}`)}
-          </span>
+          </motion.span>
+          {result?.method === "Manual" && (
+            <span
+              title={t("results.acceptedHint")}
+              className="inline-flex items-center gap-1 rounded-full bg-sky-100 px-2.5 py-0.5 text-xs font-semibold text-sky-700 dark:bg-sky-950 dark:text-sky-300"
+            >
+              <LuThumbsUp /> {t("results.accepted")}
+            </span>
+          )}
           {result?.method === "AI" && (
             <span
               title={t("results.aiCheckedHint")}
@@ -213,6 +228,10 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
             </AnswerBlock>
           )}
         </div>
+      )}
+
+      {result?.canAccept && (
+        <AcceptAnswerButton attemptId={result.attemptId} resultId={result.id} />
       )}
 
       {result?.confidenceLevel && result.confidenceLevel in CONFIDENCE_KEYS && (

@@ -1,13 +1,13 @@
 "use server";
 
+import { User } from "@supabase/supabase-js";
 import { createClientOnServer } from "../api/server";
 
-export const getUsers = async (): Promise<any> => {
+export const getUsers = async (): Promise<{ data: User[] }> => {
   const supabase = await createClientOnServer();
 
   const {
     data: { users },
-    error,
   } = await supabase.auth.admin.listUsers();
 
   return { data: users };

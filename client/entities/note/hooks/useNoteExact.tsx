@@ -24,7 +24,7 @@ export const useNoteExact = (materialId: string, noteId: string) => {
         userID: user?.id,
       });
     }
-  }, [exactNote.error]);
+  }, [exactNote.error, noteId, user?.id]);
 
   return {
     exactNoteData: exactNote.data,

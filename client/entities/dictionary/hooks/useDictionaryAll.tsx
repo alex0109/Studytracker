@@ -24,7 +24,7 @@ export const useDictionaryAll = (materialId: string, enabled = true) => {
         userID: user?.id,
       });
     }
-  }, [dictionaries.error]);
+  }, [dictionaries.error, materialId, user?.id]);
 
   return {
     dictionariesData: dictionaries.data,

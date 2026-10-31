@@ -1,32 +1,35 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuDices } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
+
+const subscribeToNothing = () => () => {};
 
 // Random line on every visit: funny, warm or simply true, so the empty page feels alive
 export const EmptySection = () => {
   const { t } = useTranslation();
   const lines = t("materials.emptySection.lines", { returnObjects: true }) as string[];
-  const [index, setIndex] = useState<number | null>(null);
 
-  // Picked after mount, so the server and the browser render the same first frame
-  useEffect(() => {
-    setIndex(Math.floor(Math.random() * lines.length));
-  }, [lines.length]);
+  // Shown only in the browser, so the server and the first browser frame render the same
+  const isBrowser = useSyncExternalStore(subscribeToNothing, () => true, () => false);
+  const [firstPick] = useState(() => Math.random());
+  const [rolled, setRolled] = useState<number | null>(null);
+  const index = rolled ?? (isBrowser ? Math.floor(firstPick * lines.length) : null);
 
   // Each roll turns the dice a little further
   const [turns, setTurns] = useState(0);
 
   const next = () => {
     setTurns((value) => value + 1);
-    setIndex((current) => {
-      if (lines.length < 2) return 0;
-      let value = current ?? 0;
-      while (value === current) value = Math.floor(Math.random() * lines.length);
-      return value;
-    });
+    if (lines.length < 2) {
+      setRolled(0);
+      return;
+    }
+    let value = index ?? 0;
+    while (value === index) value = Math.floor(Math.random() * lines.length);
+    setRolled(value);
   };
 
   return (

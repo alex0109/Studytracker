@@ -30,7 +30,7 @@ export const DictionaryDescription: FC<DictionaryDescriptionProps> = ({
         dataToUpdate: { description: debouncedDescriptionValue },
       });
     }
-  }, [dictionaryId, description, debouncedDescriptionValue]);
+  }, [dictionaryId, description, debouncedDescriptionValue, updateDictionary]);
 
   return (
     <div className="flex w-full justify-center items-start gap-2 mt-2">

@@ -6,6 +6,8 @@ export interface ToastItem {
   description?: string;
   variant?: ToastVariant;
   durationMs?: number;
+  // One button in the toast, e.g. undo
+  action?: { label: string; onClick: () => void };
 }
 
 type Listener = () => void;

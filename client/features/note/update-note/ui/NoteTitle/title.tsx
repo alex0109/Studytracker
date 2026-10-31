@@ -23,26 +23,18 @@ export const NoteTitle: FC<NoteTitleProps> = ({
   const { updateNote, updateNoteIsPending, updateNoteIsError } =
     useNoteUpdate(noteId);
 
-  const updateTitleHandler = (
-    materialId: string,
-    noteId: string,
-    title: string,
-  ): void => {
-    updateNote({
-      materialId: materialId,
-      noteId: noteId,
-      dataToUpdate: { title },
-    });
-  };
-
   const debouncedTitleValue = useDebounce(titleValue, 1500);
 
   // The field stays editable while it saves: disabling it threw the cursor out mid-word
   useEffect(() => {
     if (title !== debouncedTitleValue && debouncedTitleValue.trim()) {
-      updateTitleHandler(materialId, noteId, debouncedTitleValue);
+      updateNote({
+        materialId,
+        noteId,
+        dataToUpdate: { title: debouncedTitleValue },
+      });
     }
-  }, [materialId, noteId, title, debouncedTitleValue]);
+  }, [materialId, noteId, title, debouncedTitleValue, updateNote]);
 
   return (
     <div className="flex flex-col w-full gap-1 justify-center items-center">

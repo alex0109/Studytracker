@@ -24,7 +24,7 @@ export const useTagsAll = () => {
         userID: user?.id,
       });
     }
-  }, [tags.error]);
+  }, [tags.error, user?.id]);
 
   return {
     tagsData: tags.data,

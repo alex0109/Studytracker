@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
 import { useTranslation } from "@/shared/i18n";
 import { IQuestionCreateForm } from "../../model";
@@ -49,7 +49,6 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     register,
     control,
     setValue,
-    watch,
     formState: { errors },
     handleSubmit,
     reset,
@@ -58,7 +57,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     shouldUnregister: true,
   });
 
-  const isTrue = watch("isTrue");
+  const isTrue = useWatch({ control, name: "isTrue" });
 
   const { createOpenQuestion, createOpenQuestionIsPending } =
     useOpenQuestionCreate(materialId, noteId);
@@ -166,7 +165,6 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
               <QuestionOptionsFields
                 control={control}
                 register={register}
-                watch={watch}
                 errors={errors}
               />
             )}

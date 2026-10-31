@@ -4,7 +4,7 @@ import { useTranslation } from "@/shared/i18n";
 
 import { FC } from "react";
 import { motion } from "framer-motion";
-import { LuArrowLeft, LuRepeat } from "react-icons/lu";
+import { LuArrowLeft, LuRepeat, LuArrowRight } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { Subtitle, Title } from "@/shared/ui";
 import { cn } from "@/shared/lib";
@@ -18,6 +18,8 @@ interface FlashcardsSummaryProps {
   isRepeatPending: boolean;
   onRepeat: (entries: IDictionaryEntryResponse[]) => void;
   onRestart: () => void;
+  // Set when finishing leads on (the "Today" queue) instead of back to the start screen
+  continueLabel?: string;
 }
 
 export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
@@ -26,6 +28,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
   isRepeatPending,
   onRepeat,
   onRestart,
+  continueLabel,
 }) => {
   const { t } = useTranslation();
   const toRepeat = queue.filter(
@@ -117,7 +120,15 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
           className="flex-1"
           onClick={onRestart}
         >
-          <LuArrowLeft /> {t("flashcards.summary.back")}
+          {continueLabel ? (
+            <>
+              {continueLabel} <LuArrowRight />
+            </>
+          ) : (
+            <>
+              <LuArrowLeft /> {t("flashcards.summary.back")}
+            </>
+          )}
         </Button>
       </div>
     </motion.div>

@@ -17,7 +17,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const searchParams = useSearchParams();
   const redirect = searchParams!.get("redirect");
 
-  const [magicLinkState, magicLinkAction, pending] = useActionState<
+  const [magicLinkState, magicLinkAction] = useActionState<
     MagicLinkStateType,
     FormData
   >(signInWithMagicLink, {});
@@ -35,7 +35,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
       });
 
       setLoading(false);
-    } catch (error) {
+    } catch {
       return;
     }
   };

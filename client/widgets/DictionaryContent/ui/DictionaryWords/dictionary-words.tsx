@@ -47,8 +47,14 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
     limitsData?.maxEntriesPerDictionary,
   );
 
-  useEffect(() => {
+  // A new list from the server replaces the local order
+  const [shownEntries, setShownEntries] = useState(entries);
+  if (entries !== shownEntries) {
+    setShownEntries(entries);
     setOrderedEntries(entries);
+  }
+
+  useEffect(() => {
     orderedEntriesRef.current = entries;
   }, [entries]);
 

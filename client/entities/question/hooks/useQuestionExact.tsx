@@ -26,7 +26,7 @@ export const useQuestionExact = (materialId: string, id: string) => {
         userID: user?.id,
       });
     }
-  }, [questionExact.error]);
+  }, [id, materialId, questionExact.error, user?.id]);
 
   return {
     questionExact: questionExact.data,

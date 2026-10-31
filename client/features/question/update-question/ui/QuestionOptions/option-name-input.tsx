@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { useDebounce } from "@/shared/hooks";
+import { useDebounce, useLatest } from "@/shared/hooks";
 
 interface OptionNameInputProps {
   name: string;
@@ -15,12 +15,14 @@ export const OptionNameInput: FC<OptionNameInputProps> = ({
   const [nameValue, setNameValue] = useState(name);
 
   const debouncedNameValue = useDebounce(nameValue, 1500);
+  // The parent passes a new onRename on every render; only the typed name should trigger a save
+  const onRenameRef = useLatest(onRename);
 
   useEffect(() => {
     if (debouncedNameValue.trim() && debouncedNameValue.trim() !== name) {
-      onRename(debouncedNameValue.trim());
+      onRenameRef.current(debouncedNameValue.trim());
     }
-  }, [name, debouncedNameValue]);
+  }, [name, debouncedNameValue, onRenameRef]);
 
   return (
     <input

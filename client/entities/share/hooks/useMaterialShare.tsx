@@ -24,7 +24,7 @@ export const useMaterialShare = (materialId: string, enabled = true) => {
         userID: user?.id,
       });
     }
-  }, [share.error]);
+  }, [materialId, share.error, user?.id]);
 
   return {
     materialShareData: share.data,

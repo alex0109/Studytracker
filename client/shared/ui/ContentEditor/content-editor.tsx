@@ -105,8 +105,11 @@ const ContentEditor: FC<ContentEditorType> = ({
       }),
     ],
     content: initialContent,
-    // The loaded text as the editor spells it: opening a note is not an edit to save
+    // The loaded text as the editor spells it: opening a note is not an edit to save.
+    // An empty transaction first lets plugins settle the document (the trailing paragraph after a
+    // list or a heading), otherwise they do it on the first click or selection and that gets saved
     onCreate: ({ editor }) => {
+      editor.view.dispatch(editor.state.tr.setMeta("addToHistory", false));
       lastSent.current = JSON.stringify(editor.getJSON());
     },
     onUpdate: ({ editor }) => {

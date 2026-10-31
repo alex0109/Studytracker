@@ -24,7 +24,7 @@ export const useStatisticsAttemtTrend = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsAttemtTrend.error]);
+  }, [statisticsAttemtTrend.error, user?.id]);
 
   return {
     statisticsAttemtTrendData: statisticsAttemtTrend.data,

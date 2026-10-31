@@ -24,7 +24,7 @@ export const useLimitsUsage = () => {
         userID: user?.id,
       });
     }
-  }, [usage.error]);
+  }, [usage.error, user?.id]);
 
   return {
     limitsUsageData: usage.data,

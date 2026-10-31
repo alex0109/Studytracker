@@ -17,6 +17,8 @@ export interface IDailyReviewData {
   dueWords: number;
   newWords: number;
   dictionaries: IDictionaryDue[];
+  // Missing in reminders saved before questions had repetition
+  dueQuestions?: number;
 }
 
 export interface IStreakAtRiskData {
@@ -47,6 +49,7 @@ export interface ITodayDigest {
   localDate: string;
   dueWords: number;
   newWords: number;
+  dueQuestions?: number;
   dictionaries: IDictionaryDue[];
   streakDays: number;
   studiedToday: boolean;

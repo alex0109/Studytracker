@@ -72,6 +72,7 @@ export const ToastProvider: FC = () => {
             description,
             variant = "default",
             durationMs = 4000,
+            action,
           }) => (
             <Toast.Root
               key={id}
@@ -101,6 +102,15 @@ export const ToastProvider: FC = () => {
                     </Toast.Description>
                   )}
                 </div>
+                {action && (
+                  <Toast.Action
+                    altText={action.label}
+                    onClick={action.onClick}
+                    className="col-start-1 mt-2 justify-self-start rounded-lg bg-neutral-900 px-3 py-1 text-xs font-semibold text-white hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900"
+                  >
+                    {action.label}
+                  </Toast.Action>
+                )}
                 <Toast.Close
                   aria-label={t("common.close")}
                   className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 p-1 rounded-lg"

@@ -3,7 +3,7 @@ export const runtime = "nodejs";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PRIVATE_PATHS = ["/materials", "/library", "/statistics", "/limits"];
+const PRIVATE_PATHS = ["/materials", "/library", "/statistics", "/limits", "/today", "/account"];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -18,31 +18,15 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet: any) {
-          cookiesToSet.forEach(
-            ({
-              name,
-              value,
-              options,
-            }: {
-              name: any;
-              value: any;
-              options: any;
-            }) => request.cookies.set(name, value),
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({
             request,
           });
-          cookiesToSet.forEach(
-            ({
-              name,
-              value,
-              options,
-            }: {
-              name: any;
-              value: any;
-              options: any;
-            }) => supabaseResponse.cookies.set(name, value, options),
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },

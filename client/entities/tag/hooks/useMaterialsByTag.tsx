@@ -24,7 +24,7 @@ export const useMaterialsByTag = (tagId: string) => {
         userID: user?.id,
       });
     }
-  }, [materialsByTag.error]);
+  }, [materialsByTag.error, user?.id]);
 
   return {
     materialsByTagData: materialsByTag.data,

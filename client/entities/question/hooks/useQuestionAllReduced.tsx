@@ -26,7 +26,7 @@ export const useQuestionAllReduced = (materialId: string) => {
         userID: user?.id,
       });
     }
-  }, [questionsAllReduced.error]);
+  }, [materialId, questionsAllReduced.error, user?.id]);
 
   return {
     questionsAllReducedData: questionsAllReduced.data,

@@ -25,7 +25,7 @@ export const useFlashcardSession = (sessionId: string) => {
         userID: user?.id,
       });
     }
-  }, [session.error]);
+  }, [session.error, sessionId, user?.id]);
 
   return {
     flashcardSessionData: session.data,

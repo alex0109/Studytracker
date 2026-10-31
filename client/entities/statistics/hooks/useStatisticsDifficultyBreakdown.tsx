@@ -24,7 +24,7 @@ export const useStatisticsDifficultyBreakdown = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsDifficultyBreakdown.error]);
+  }, [statisticsDifficultyBreakdown.error, user?.id]);
 
   return {
     statisticsDifficultyBreakdownData: statisticsDifficultyBreakdown.data,

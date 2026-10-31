@@ -24,7 +24,7 @@ export const useTagExact = (id: string) => {
         userID: user?.id,
       });
     }
-  }, [exactTag.error]);
+  }, [exactTag.error, id, user?.id]);
 
   return {
     exactTagData: exactTag.data,

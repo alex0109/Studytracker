@@ -6,6 +6,7 @@ import ReactQueryClientProvider from "@/shared/context/query-client.provider";
 import { SessionProvider } from "@/shared/context/session.provider";
 import { MotionProvider } from "@/shared/context/motion.provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@/shared/ui/Analytics";
 import { BackgroundBlobs } from "./(client)/(home)";
 import { getUser } from "@/entities/auth";
 import { ToastProvider } from "@/shared/radix-ui";
@@ -85,6 +86,7 @@ const RootLayout = async ({
                 </SessionProvider>
                 <ToastProvider />
                 <SpeedInsights />
+                <Analytics />
               </ReactQueryClientProvider>
             </I18nProvider>
           </MotionProvider>

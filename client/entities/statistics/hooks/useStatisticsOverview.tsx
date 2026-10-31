@@ -24,7 +24,7 @@ export const useStatisticsOverview = () => {
         userID: user?.id,
       });
     }
-  }, [statisticsOverview.error]);
+  }, [statisticsOverview.error, user?.id]);
 
   return {
     statisticsOverviewData: statisticsOverview.data,

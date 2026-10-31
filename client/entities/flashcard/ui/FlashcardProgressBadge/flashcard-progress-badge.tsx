@@ -4,6 +4,7 @@ import { FC } from "react";
 import { useTranslation } from "@/shared/i18n";
 import moment from "moment";
 import { cn } from "@/shared/lib";
+import { useNow } from "@/shared/hooks";
 import { FlashcardStateEnum, IFlashcardProgress } from "../../model";
 
 interface FlashcardProgressBadgeProps {
@@ -23,9 +24,10 @@ export const FlashcardProgressBadge: FC<FlashcardProgressBadgeProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const now = useNow();
   const state = progress?.state ?? FlashcardStateEnum.New;
   const isNew = state === FlashcardStateEnum.New;
-  const isDue = !!progress && new Date(progress.due).getTime() <= Date.now();
+  const isDue = !!progress && new Date(progress.due).getTime() <= now;
 
   return (
     <span

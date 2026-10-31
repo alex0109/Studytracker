@@ -77,6 +77,7 @@ export const StudyDigest: FC = () => {
                 ? t("digest.today.onlyNew", { count: today.newWords })
                 : t("digest.today.clear")}
             {today.dueWords > 0 && today.newWords > 0 && ` ${t("digest.today.plusNew", { count: today.newWords })}`}
+            {(today.dueQuestions ?? 0) > 0 && ` ${t("digest.today.plusQuestions", { count: today.dueQuestions })}`}
           </p>
           {today.dictionaries.length > 0 && (
             <ul className="flex flex-col gap-1.5">
@@ -90,9 +91,9 @@ export const StudyDigest: FC = () => {
               ))}
             </ul>
           )}
-          {(today.dueWords > 0 || today.newWords > 0) && (
+          {(today.dueWords > 0 || today.newWords > 0 || (today.dueQuestions ?? 0) > 0) && (
             <Link
-              href="/materials"
+              href="/today"
               className="mt-auto inline-flex items-center gap-1 self-start text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400"
             >
               {t("digest.today.cta")} <LuArrowRight aria-hidden />
@@ -258,7 +259,9 @@ const NotificationText: FC<{ item: INotification }> = ({ item }) => {
 
   switch (item.type) {
     case NotificationTypeEnum.DailyReview:
-      return t("digest.inbox.daily", { count: item.data.dueWords });
+      return item.data.dueWords > 0 || !item.data.dueQuestions
+        ? t("digest.inbox.daily", { count: item.data.dueWords })
+        : t("digest.inbox.dailyQuestions", { count: item.data.dueQuestions });
     case NotificationTypeEnum.StreakAtRisk:
       return t("digest.inbox.streak", { count: item.data.streakDays });
     case NotificationTypeEnum.WeeklyDigest:
