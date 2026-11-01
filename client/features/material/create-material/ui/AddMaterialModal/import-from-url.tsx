@@ -3,11 +3,12 @@
 import { FC, FormEvent, useEffect, useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuCheck, LuDownload, LuFileText, LuLink, LuSparkles } from "react-icons/lu";
-import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { AiFeatureEnum, AiUsageHint } from "@/entities/ai";
 import { useMaterialImport } from "../../hooks/useMaterialImport";
+
+type MaterialImport = ReturnType<typeof useMaterialImport>;
 
 const STEPS = [
   { key: "fetch", icon: LuDownload },
@@ -16,17 +17,19 @@ const STEPS = [
 ] as const;
 
 interface ImportFromUrlProps {
-  onImported: (materialId: string) => void;
+  // The dialog's footer submits it through form={id}, and so the import itself lives in the dialog
+  id: string;
+  importMaterial: MaterialImport["importMaterial"];
+  importMaterialIsPending: boolean;
 }
 
 // One request does all of it; the steps follow the usual timing, so the wait has a shape
-export const ImportFromUrl: FC<ImportFromUrlProps> = ({ onImported }) => {
+export const ImportFromUrl: FC<ImportFromUrlProps> = ({ id, importMaterial, importMaterialIsPending }) => {
   const { t } = useTranslation();
   const ids = useId();
   const [url, setUrl] = useState("");
   const [generateQuestions, setGenerateQuestions] = useState(true);
   const [step, setStep] = useState(0);
-  const { importMaterial, importMaterialIsPending } = useMaterialImport(onImported);
 
   const steps = generateQuestions ? STEPS : STEPS.slice(0, 2);
   // Outside an import the list rests on its first step
@@ -61,8 +64,8 @@ export const ImportFromUrl: FC<ImportFromUrlProps> = ({ onImported }) => {
   };
 
   return (
-    <form onSubmit={submit} className="flex w-full flex-col gap-4">
-      <label htmlFor={`${ids}-url`} className="flex flex-col gap-1.5 text-sm font-medium">
+    <form id={id} onSubmit={submit} className="flex w-full flex-col gap-4">
+      <label htmlFor={`${ids}-url`} className="flex flex-col gap-1.5 text-sm font-medium text-neutral-700 dark:text-neutral-300">
         {t("materials.import.url")}
         <span className="relative">
           <LuLink aria-hidden className="absolute top-1/2 left-3 -translate-y-1/2 text-neutral-400" />
@@ -76,13 +79,13 @@ export const ImportFromUrl: FC<ImportFromUrlProps> = ({ onImported }) => {
             disabled={importMaterialIsPending}
             onChange={(event) => setUrl(event.target.value)}
             placeholder="https://"
-            className="h-11 w-full rounded-2xl border border-neutral-200 bg-white pr-3 pl-9 text-sm font-normal outline-none focus:border-neutral-400 dark:border-neutral-700 dark:bg-neutral-900"
+            className="h-10 w-full rounded-xl border border-neutral-200 bg-white pr-3 pl-9 text-[15px] font-normal text-neutral-900 outline-none transition placeholder:text-neutral-400 hover:border-neutral-300 focus-visible:border-neutral-400 focus-visible:ring-4 focus-visible:ring-neutral-900/5 disabled:opacity-60 dark:border-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-100"
           />
         </span>
-        <span className="text-xs font-normal text-neutral-500">{t("materials.import.privateNote")}</span>
+        <span className="text-xs font-normal text-neutral-500 dark:text-neutral-400">{t("materials.import.privateNote")}</span>
       </label>
 
-      <label className="flex items-start gap-2 text-sm">
+      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-neutral-200 p-3 text-sm dark:border-neutral-800">
         <input
           type="checkbox"
           checked={generateQuestions}
@@ -133,9 +136,6 @@ export const ImportFromUrl: FC<ImportFromUrlProps> = ({ onImported }) => {
         )}
       </AnimatePresence>
 
-      <Button size="lg" type="submit" disabled={importMaterialIsPending || !url.trim()} className="self-center">
-        {importMaterialIsPending ? t("materials.import.pending") : t("materials.import.submit")}
-      </Button>
     </form>
   );
 };

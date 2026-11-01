@@ -3,8 +3,9 @@
 import { useTranslation } from "@/shared/i18n";
 
 import { FC } from "react";
-import { Modal, Title } from "@/shared/ui";
-import { Separator } from "@/shared/radix-ui";
+import { LuBookPlus } from "react-icons/lu";
+import { Modal, Spinner } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui";
 import {
   DictionaryEntryForm,
   IDictionaryEntryForm,
@@ -33,19 +34,26 @@ export const AddEntryModal: FC<AddEntryModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px] max-h-[80vh] overflow-y-auto">
-        <div className="flex flex-col w-full justify-center">
-          <Title text={t("dictionary.addWordTitle")} />
-          <Separator className="mb-3" />
-          <DictionaryEntryForm
-            submitText={t("common.add")}
-            isPending={createEntryIsPending}
-            resetOnSubmit
-            onSubmit={onFormSubmit}
-          />
-        </div>
-      </div>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      size="lg"
+      icon={<LuBookPlus />}
+      title={t("dictionary.addWordTitle")}
+      description={t("dictionary.addWordText")}
+      footer={
+        <>
+          <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+            {t("common.cancel")}
+          </Button>
+          <Button size="lg" type="submit" form="add-dictionary-entry" disabled={createEntryIsPending}>
+            {createEntryIsPending && <Spinner />}
+            {t("common.add")}
+          </Button>
+        </>
+      }
+    >
+      <DictionaryEntryForm id="add-dictionary-entry" onSubmit={onFormSubmit} />
     </Modal>
   );
 };

@@ -1,19 +1,20 @@
 "use client";
 
 import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
-  Title,
+  ChoiceGroup,
   Modal,
-  CustomInput,
-  IsPendingLoader,
+  Field,
+  FieldInput,
+  Spinner,
   LimitCounter,
 } from "@/shared/ui";
 import { useLimits } from "@/entities/limits";
 import { isLimitReached } from "@/shared/lib";
 import { Button } from "@/shared/radix-ui";
-import { LuPlus } from "react-icons/lu";
-import { INoteCreate } from "@/entities/note/model";
+import { LuNotebookPen, LuPlus } from "react-icons/lu";
+import { INoteCreate, NoteTypeEnum } from "@/entities/note/model";
 import { useNoteCreate } from "../../hooks/useNoteCreate";
 import { useTranslation } from "@/shared/i18n";
 
@@ -35,10 +36,11 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
 
   const {
     register,
+    control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<INoteCreate>();
+  } = useForm<INoteCreate>({ defaultValues: { title: "", type: NoteTypeEnum.text } });
 
   const [open, setOpen] = useState(false);
   const { createNote, createNoteIsPending } = useNoteCreate(materialId);
@@ -71,51 +73,52 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
         />
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="md:w-[400px] w-[300px]">
-          <Title text={t("notes.addTitle")} />
-          <form
-            onSubmit={handleSubmit(onFormSubmit)}
-            className="flex flex-col w-full justify-center items-center"
-          >
-            <div className="w-full">
-              <CustomInput
-                label={t("materials.titleLabel")}
-                placeholder={t("materials.titlePlaceholder")}
-                {...register<"title">("title", { required: t("common.required") })}
-                error={errors.title?.message}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        icon={<LuNotebookPen />}
+        title={t("notes.addTitle")}
+        footer={
+          <>
+            <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+              {t("common.cancel")}
+            </Button>
+            <Button size="lg" type="submit" form="add-note" disabled={createNoteIsPending}>
+              {createNoteIsPending && <Spinner />}
+              {t("common.create")}
+            </Button>
+          </>
+        }
+      >
+        <form id="add-note" onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col gap-4" noValidate>
+          <Field label={t("materials.titleLabel")} required error={errors.title?.message}>
+            <FieldInput
+              placeholder={t("notes.titleExample")}
+              aria-invalid={!!errors.title}
+              {...register("title", {
+                required: t("common.required"),
+                validate: (value) => value.trim().length > 0 || t("common.required"),
+              })}
+            />
+          </Field>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <ChoiceGroup
+                label={t("notes.typeLabel")}
+                value={field.value}
+                onChange={field.onChange}
+                options={[
+                  { value: NoteTypeEnum.text, label: t("notes.types.text") },
+                  { value: NoteTypeEnum.drawing, label: t("notes.types.drawing") },
+                  // One summary per material
+                  ...(hasSummary ? [] : [{ value: NoteTypeEnum.summary, label: t("notes.types.summary") }]),
+                ]}
               />
-            </div>
-            <div className="flex gap-2 flex-col justify-center">
-              <select
-                {...register("type")}
-                className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
-              >
-                <option value="text">{t("notes.types.text")}</option>
-                <option value="drawing">{t("notes.types.drawing")}</option>
-                {!hasSummary && (
-                  <option value="summary">{t("notes.types.summary")}</option>
-                )}
-              </select>
-            </div>
-            <div className="flex w-full justify-center items-center">
-              <div className="flex-1" />
-              <div className="flex-1 my-5">
-                <Button
-                  size="lg"
-                  type="submit"
-                  className="w-30"
-                  disabled={createNoteIsPending}
-                >
-                  {t("common.create")}
-                </Button>
-              </div>
-              <div className="flex-1">
-                <IsPendingLoader isPending={createNoteIsPending} />
-              </div>
-            </div>
-          </form>
-        </div>
+            )}
+          />
+        </form>
       </Modal>
     </>
   );

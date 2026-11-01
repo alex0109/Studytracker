@@ -2,9 +2,8 @@
 
 import { FC, useState } from "react";
 import { LuSparkles } from "react-icons/lu";
-import { IsPendingLoader, Modal, Title } from "@/shared/ui";
-import { Button, Separator } from "@/shared/radix-ui";
-import { cn } from "@/shared/lib";
+import { ChoiceGroup, Modal, Spinner } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui";
 import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
 import { useTranslation } from "@/shared/i18n";
 import {
@@ -33,9 +32,6 @@ const TYPE_OPTIONS: (QuestionTypeEnum | undefined)[] = [
   QuestionTypeEnum.Options,
   QuestionTypeEnum.TrueFalse,
 ];
-
-const selectedStyles = "bg-violet-700 text-white";
-const unselectedStyles = "bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300";
 
 export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   materialId,
@@ -70,95 +66,58 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="lg:w-[600px] md:w-[500px] sm:w-[400px] w-[300px] max-h-[85vh] overflow-y-auto">
-        <div className="flex flex-col w-full justify-center gap-4">
-          <Title text={t("questions.generate.title")} />
-          <Separator />
-          <p className="text-sm text-neutral-500">
-            {noteId ? t("questions.generate.fromNote") : t("questions.generate.fromMaterial")}{" "}
-            {t("questions.generate.check")}
-          </p>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      size="md"
+      icon={<LuSparkles />}
+      tone="ai"
+      title={t("questions.generate.title")}
+      description={`${noteId ? t("questions.generate.fromNote") : t("questions.generate.fromMaterial")} ${t("questions.generate.check")}`}
+      footer={
+        <>
+          <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+            {t("common.cancel")}
+          </Button>
+          <Button
+            size="lg"
+            className="bg-violet-700 text-white hover:bg-violet-800"
+            onClick={onGenerate}
+            disabled={generateQuestionsIsPending || maxCount === 0 || !isAvailable}
+          >
+            {generateQuestionsIsPending ? <Spinner /> : <LuSparkles />}
+            {generateQuestionsIsPending ? t("ai.generating") : t("ai.generate")}
+          </Button>
+        </>
+      }
+    >
+      <div className="flex flex-col gap-4">
+        <ChoiceGroup
+          label={t("questions.generate.howMany")}
+          value={selectedCount}
+          onChange={setCount}
+          options={Array.from({ length: MAX_GENERATED }, (_, i) => i + 1).map((value) => ({
+            value,
+            label: value,
+            disabled: value > maxCount,
+          }))}
+          hint={
+            maxCount < MAX_GENERATED &&
+            (maxCount === 0 ? t("questions.generate.full") : t("questions.generate.fits", { count: maxCount }))
+          }
+        />
 
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">{t("questions.generate.howMany")}</span>
-            <div className="flex gap-2">
-              {Array.from({ length: MAX_GENERATED }, (_, i) => i + 1).map(
-                (value) => (
-                  <button
-                    key={value}
-                    type="button"
-                    disabled={value > maxCount}
-                    onClick={() => setCount(value)}
-                    className={cn(
-                      "flex-1 rounded-xl py-2 text-sm font-medium disabled:opacity-40",
-                      selectedCount === value
-                        ? selectedStyles
-                        : unselectedStyles,
-                    )}
-                  >
-                    {value}
-                  </button>
-                ),
-              )}
-            </div>
-            {maxCount < MAX_GENERATED && (
-              <span className="text-xs text-neutral-500">
-                {maxCount === 0
-                  ? t("questions.generate.full")
-                  : t("questions.generate.fits", { count: maxCount })}
-              </span>
-            )}
-          </div>
+        <ChoiceGroup
+          label={t("questions.generate.type")}
+          value={questionType ?? null}
+          onChange={(value) => setQuestionType(value ?? undefined)}
+          options={TYPE_OPTIONS.map((option) => ({
+            value: option ?? null,
+            label: option ? t(`questions.types.${questionTypeKeys[option]}`) : t("questions.generate.mixed"),
+          }))}
+        />
 
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">{t("questions.generate.type")}</span>
-            <div className="flex flex-wrap gap-2">
-              {TYPE_OPTIONS.map((option) => (
-                <button
-                  key={option ?? "mixed"}
-                  type="button"
-                  onClick={() => setQuestionType(option)}
-                  className={cn(
-                    "flex-1 rounded-xl px-3 py-2 text-sm font-medium",
-                    questionType === option ? selectedStyles : unselectedStyles,
-                  )}
-                >
-                  {option
-                    ? t(`questions.types.${questionTypeKeys[option]}`)
-                    : t("questions.generate.mixed")}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <AiUsageHint
-            feature={AiFeatureEnum.QuestionGeneration}
-            enabled={open}
-          />
-
-          <div className="flex w-full justify-center items-center my-2">
-            <div className="flex-1" />
-            <div className="flex flex-1 justify-center items-center">
-              <Button
-                size="lg"
-                className="w-50 bg-violet-700 hover:bg-violet-800"
-                onClick={onGenerate}
-                disabled={
-                  generateQuestionsIsPending || maxCount === 0 || !isAvailable
-                }
-              >
-                <LuSparkles />
-                {generateQuestionsIsPending
-                  ? t("ai.generating")
-                  : t("ai.generate")}
-              </Button>
-            </div>
-            <div className="flex-1">
-              <IsPendingLoader isPending={generateQuestionsIsPending} />
-            </div>
-          </div>
-        </div>
+        <AiUsageHint feature={AiFeatureEnum.QuestionGeneration} enabled={open} className="justify-center" />
       </div>
     </Modal>
   );

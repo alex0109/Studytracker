@@ -3,7 +3,7 @@
 import { FC, useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { LuLibrary } from "react-icons/lu";
-import { CustomInput, IsPendingLoader, Modal, TextArea, Title } from "@/shared/ui";
+import { Field, FieldInput, FieldSelect, FieldTextArea, Modal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { useMaterialAll } from "@/entities/material";
@@ -88,24 +88,31 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex max-h-[85vh] w-[300px] flex-col gap-3 overflow-y-auto sm:w-[420px]"
-      >
-        <span className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-emerald-100 text-xl text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
-          <LuLibrary aria-hidden />
-        </span>
-        <Title text={isUpdate ? t("library.submit.updateTitle") : t("library.submit.title")} />
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          {isUpdate ? t("library.submit.updateText") : t("library.submit.text")}
-        </p>
-
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      size="md"
+      icon={<LuLibrary />}
+      tone="success"
+      title={isUpdate ? t("library.submit.updateTitle") : t("library.submit.title")}
+      description={isUpdate ? t("library.submit.updateText") : t("library.submit.text")}
+      footer={
+        <>
+          <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+            {t("common.cancel")}
+          </Button>
+          <Button size="lg" type="submit" form="submit-to-library" disabled={createLibraryRequestIsPending}>
+            {createLibraryRequestIsPending && <Spinner />}
+            {t("library.submit.send")}
+          </Button>
+        </>
+      }
+    >
+      <form id="submit-to-library" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
         {!materialId && (
-          <label className="flex flex-col gap-1 text-sm font-medium">
-            {t("library.submit.material")}
-            <select
-              className="rounded-2xl bg-neutral-100 p-2 font-normal dark:bg-neutral-700"
+          <Field label={t("library.submit.material")} required error={errors.materialId?.message}>
+            <FieldSelect
+              aria-invalid={!!errors.materialId}
               {...register("materialId", { required: t("library.submit.chooseMaterial") })}
             >
               <option value="">{t("library.submit.chooseMaterial")}</option>
@@ -114,9 +121,8 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
                   {material.title}
                 </option>
               ))}
-            </select>
-            {errors.materialId && <span className="text-red-400">{errors.materialId.message}</span>}
-          </label>
+            </FieldSelect>
+          </Field>
         )}
 
         {fromTheWeb && (
@@ -125,36 +131,29 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
           </p>
         )}
 
-        <label className="flex flex-col text-sm font-medium">
-          {t("library.submit.nickname")}
-          <CustomInput
+        <Field
+          label={t("library.submit.nickname")}
+          hint={t("library.submit.nicknameHint")}
+          error={errors.nickname?.message}
+        >
+          <FieldInput
             placeholder={t("library.submit.nicknamePlaceholder")}
             maxLength={40}
+            aria-invalid={!!errors.nickname}
             {...register("nickname", {
               validate: (value) => isValidNickname(value) || t("library.errors.nickname"),
             })}
-            error={errors.nickname?.message}
           />
-          <span className="-mt-1 text-xs font-normal text-neutral-500">{t("library.submit.nicknameHint")}</span>
-        </label>
+        </Field>
 
-        <label className="flex flex-col text-sm font-medium">
-          {t("library.submit.comment")}
-          <TextArea
-            inputBlockStyles="mt-2"
-            inputStyles="h-[90px] px-4 py-2"
+        <Field label={t("library.submit.comment")}>
+          <FieldTextArea
             placeholder={t("library.submit.commentPlaceholder")}
             maxLength={500}
+            rows={3}
             {...register("comment")}
           />
-        </label>
-
-        <div className="mt-2 flex items-center justify-center gap-3">
-          <Button size="lg" type="submit" disabled={createLibraryRequestIsPending}>
-            {t("library.submit.send")}
-          </Button>
-          <IsPendingLoader isPending={createLibraryRequestIsPending} />
-        </div>
+        </Field>
       </form>
     </Modal>
   );

@@ -338,11 +338,11 @@
     "fromNote": "Fra notat {{id}}",
     "titleLabel": "Spørsmål",
     "addTitle": "Nytt spørsmål",
-    "titlePlaceholder": "*Spørsmål...",
-    "statementPlaceholder": "*Påstand som skal sjekkes...",
+    "titlePlaceholder": "F.eks. Hva er en closure?",
+    "statementPlaceholder": "F.eks. Jorden går rundt solen",
     "difficultyLabel": "Vanskelighetsgrad",
     "answerLabel": "Svar",
-    "answerPlaceholder": "*Skriv svaret her, opptil 1000 tegn...",
+    "answerPlaceholder": "Riktig svar, opptil 1000 tegn",
     "statementIs": "Denne påstanden er",
     "options": {
       "atLeastOne": "Minst ett alternativ må være riktig",
@@ -352,7 +352,7 @@
       "markOne": "Merk minst ett riktig alternativ",
       "markEvery": "Alternativer: merk alle riktige",
       "correct": "Riktig alternativ",
-      "placeholder": "*Alternativ {{number}}...",
+      "placeholder": "Alternativ {{number}}",
       "unique": "Alternativene må være unike",
       "add": "Legg til alternativ"
     },
@@ -373,7 +373,8 @@
       "next": "Neste repetisjon {{when}}",
       "leech": "Vanskelig spørsmål",
       "leechHint": "Bommet mange ganger: prøv å omformulere eller dele det opp"
-    }
+    },
+    "statementLabel": "Påstand"
   },
   "attempt": {
     "chooseAll": "Velg alle riktige svar",
@@ -542,7 +543,13 @@
     "newHere": "Ny her?",
     "haveAccount": "Har du allerede en konto?",
     "createAccountLink": "Opprett en konto",
-    "signInLink": "Logg inn"
+    "signInLink": "Logg inn",
+    "sessionExpired": {
+      "title": "Økten er avsluttet",
+      "text": "Du har vært borte en stund eller logget ut på en annen enhet, så endringer lagres ikke nå. Logg inn igjen, så kommer du tilbake hit.",
+      "signIn": "Logg inn igjen",
+      "later": "Senere"
+    }
   },
   "errors": {
     "notFound": "Ikke funnet",
@@ -642,7 +649,10 @@
         "tooMany": "For mange importer nå, prøv igjen om en time",
         "generic": "Kunne ikke importere artikkelen, prøv igjen"
       }
-    }
+    },
+    "addText": "Skriv ditt eget eller importer en artikkel fra en lenke.",
+    "deleteTitle": "Slette materialet?",
+    "titleExample": "F.eks. Grunnleggende React"
   },
   "limits": {
     "counter": {
@@ -807,8 +817,9 @@
     "limitReachedHint_one": "Grensen er nådd: {{count}} tagg. Slett én for å legge til en ny",
     "limitReachedHint_other": "Grensen er nådd: {{count}} tagger. Slett én for å legge til en ny",
     "name": "Navn",
-    "namePlaceholder": "*Navn...",
-    "color": "Farge"
+    "namePlaceholder": "F.eks. Engelsk",
+    "color": "Farge",
+    "addToMaterialText": "Trykk på en tagg for å legge den til eller fjerne den."
   },
   "editor": {
     "toolbar": "Tekstformatering",
@@ -859,7 +870,9 @@
       "replaceTitle": "Erstatte sammendraget?",
       "replaceText": "AI skriver et nytt sammendrag fra materialet, notatene og ordlistene. Den nåværende teksten i sammendraget blir erstattet.",
       "replace": "Erstatt"
-    }
+    },
+    "titleExample": "F.eks. Hovedpoenger",
+    "typeLabel": "Notattype"
   },
   "dictionary": {
     "generate": {
@@ -902,15 +915,21 @@
       "text": "Legg til ord for hånd, eller la AI plukke dem fra materialet eller et notat."
     },
     "form": {
-      "term": "*Ord...",
-      "translation": "*Oversettelse...",
-      "transcription": "Uttale...",
-      "partOfSpeech": "Ordklasse...",
-      "example": "Eksempel...",
-      "exampleTranslation": "Oversettelse av eksempelet...",
-      "grammar": "Grammatikk (f.eks. flertall: mice)...",
-      "synonyms": "Synonymer, skilt med komma...",
-      "note": "Merknad..."
+      "term": "Ord",
+      "translation": "Oversettelse",
+      "transcription": "Uttale",
+      "partOfSpeech": "Ordklasse",
+      "example": "Eksempel",
+      "exampleTranslation": "Oversettelse av eksempelet",
+      "grammar": "Grammatikk",
+      "synonyms": "Synonymer",
+      "note": "Merknad",
+      "transcriptionPlaceholder": "/ˈæp.əl/",
+      "partOfSpeechNone": "Ikke valgt",
+      "grammarHint": "F.eks. flertall: mice",
+      "synonymsHint": "Skilt med komma",
+      "more": "Flere detaljer",
+      "moreHint": "grammatikk, synonymer, merknad"
     },
     "partOfSpeech": {
       "Noun": "substantiv",
@@ -948,7 +967,11 @@
       "limit": "Ordboka er full, frigjør litt plass først",
       "error": "Kunne ikke lagre ordet, prøv igjen",
       "lookupError": "Kunne ikke slå opp ordet, prøv igjen"
-    }
+    },
+    "addText": "Ord for ett materiale: et tema, en leksjon eller et kapittel.",
+    "addWordText": "Bare ordet og oversettelsen er påkrevd, resten kan legges til senere.",
+    "deleteTitle": "Slette ordboken?",
+    "titlePlaceholder": "F.eks. Reise"
   },
   "attempts": {
     "title": "Forsøk {{id}}",
@@ -1024,6 +1047,16 @@
       "freezes_one": "{{count}} rekkefrys igjen denne måneden",
       "freezes_other": "{{count}} rekkefrys igjen denne måneden",
       "frozenDay": "Hoppet over, en rekkefrys holdt rekken"
+    },
+    "flashcards": {
+      "title": "Flashkort",
+      "subtitle": "Slik svarte du på kortene de siste {{days}} dagene",
+      "empty": "Bla gjennom flashkort i ordbøkene — her ser du hvilke ord du allerede kan og hvilke ikke ennå.",
+      "chartLabel": "Stolpediagram over svar på flashkort per dag",
+      "hardest": "Oftest «Kan ikke»",
+      "hardestHint": "Disse ordene er verdt å repetere først",
+      "noHard": "Ikke ett eneste «Kan ikke» i denne perioden 🎉",
+      "missedOf": "«Kan ikke» — {{count}} av {{answers}}"
     }
   },
   "digest": {

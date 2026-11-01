@@ -2,7 +2,8 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Title, Modal, CustomInput, LimitCounter } from "@/shared/ui";
+import { LuTag } from "react-icons/lu";
+import { Field, FieldInput, Modal, LimitCounter } from "@/shared/ui";
 import { ITagCreate, useTagsAll } from "@/entities/tag";
 import { useLimits } from "@/entities/limits";
 import { isLimitReached } from "@/shared/lib";
@@ -65,31 +66,40 @@ export const AddTag: FC = () => {
         />
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="md:w-[400px] w-[300px]">
-          <Title text={t("tags.addTitle")} />
-          <form onSubmit={handleSubmit(onFormSubmit)}>
-            <CustomInput
-              label={t("tags.name")}
-              placeholder={t("tags.namePlaceholder")}
-              inputBlockStyles="my-5"
-              maxLength={30}
-              {...register<"name">("name", { required: t("common.required") })}
-              error={errors.name?.message}
-            />
-            <ColorPicker onChange={setColor} />
-            <div className="flex w-full justify-center items-center my-5">
-              <Button
-                size="lg"
-                className="w-30"
-                type="submit"
-                onClick={() => setOpen(true)}
-              >
-                {t("common.create")}
-              </Button>
-            </div>
-          </form>
-        </div>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        icon={<LuTag />}
+        title={t("tags.addTitle")}
+        footer={
+          <>
+            <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+              {t("common.cancel")}
+            </Button>
+            <Button size="lg" type="submit" form="add-tag">
+              {t("common.create")}
+            </Button>
+          </>
+        }
+      >
+        <form id="add-tag" onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col gap-4" noValidate>
+          <Field label={t("tags.name")} required error={errors.name?.message}>
+            <span className="flex items-center gap-2">
+              {/* The tag as it will look */}
+              <span aria-hidden className="size-4 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+              <FieldInput
+                placeholder={t("tags.namePlaceholder")}
+                maxLength={30}
+                aria-invalid={!!errors.name}
+                {...register("name", {
+                  required: t("common.required"),
+                  validate: (value) => value.trim().length > 0 || t("common.required"),
+                })}
+              />
+            </span>
+          </Field>
+          <ColorPicker value={color} onChange={setColor} />
+        </form>
       </Modal>
     </>
   );

@@ -29,6 +29,7 @@ export const useFlashcardSessionFinish = (dictionaryId?: string | null) => {
       queryClient.invalidateQueries({ queryKey: reviewKeys.today() });
       // Reviewed cards count for the streak and the due words of today
       queryClient.invalidateQueries({ queryKey: statisticsKeys.studyStreak() });
+      queryClient.invalidateQueries({ queryKey: statisticsKeys.flashcardAnswersAll() });
       queryClient.invalidateQueries({ queryKey: notificationKeys.feed() });
     },
     onError: (error, sessionId) => {

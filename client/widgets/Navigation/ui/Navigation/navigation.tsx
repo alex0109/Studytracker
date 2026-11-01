@@ -2,12 +2,11 @@
 import { FC, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { LuMenu, LuX } from "react-icons/lu";
+import { LuLogOut, LuMenu, LuX } from "react-icons/lu";
 import { authorizedLinks, links } from "@/shared/config/data";
 import { useSession } from "@/shared/context/session.provider";
-import { Title, Modal } from "@/shared/ui";
+import { ConfirmModal } from "@/shared/ui";
 import { signOut } from "@/entities/auth";
-import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { PreferencesControls } from "@/features/preferences";
 import { StreakBadge } from "../StreakBadge/streak-badge";
@@ -179,14 +178,15 @@ export const Navigation: FC = () => {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="flex flex-col w-[220px] h-[200px] justify-center items-center gap-1">
-          <Title text={t("nav.signOutConfirm")} />
-          <Button size="lg" variant="destructive" onClick={handleLogOut}>
-            {t("nav.signOut")}
-          </Button>
-        </div>
-      </Modal>
+      <ConfirmModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onConfirm={handleLogOut}
+        icon={<LuLogOut />}
+        title={t("nav.signOutConfirm")}
+        description={user?.email}
+        confirmText={t("nav.signOut")}
+      />
     </header>
   );
 };

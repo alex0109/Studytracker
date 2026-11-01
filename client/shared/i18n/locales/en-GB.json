@@ -338,11 +338,11 @@
     "fromNote": "From note {{id}}",
     "titleLabel": "Question",
     "addTitle": "Add new question",
-    "titlePlaceholder": "*Question...",
-    "statementPlaceholder": "*Statement to check...",
+    "titlePlaceholder": "E.g. What is a closure?",
+    "statementPlaceholder": "E.g. The Earth orbits the Sun",
     "difficultyLabel": "Difficulty",
     "answerLabel": "Answer",
-    "answerPlaceholder": "*Type the answer here, up to 1000 characters...",
+    "answerPlaceholder": "The correct answer, up to 1000 characters",
     "statementIs": "This statement is",
     "options": {
       "atLeastOne": "At least one option must be correct",
@@ -352,7 +352,7 @@
       "markOne": "Mark at least one correct option",
       "markEvery": "Options: mark every correct one",
       "correct": "Correct option",
-      "placeholder": "*Option {{number}}...",
+      "placeholder": "Option {{number}}",
       "unique": "Options must be unique",
       "add": "Add option"
     },
@@ -373,7 +373,8 @@
       "next": "Next review {{when}}",
       "leech": "Tough one",
       "leechHint": "Missed many times: try rewording or splitting it"
-    }
+    },
+    "statementLabel": "Statement"
   },
   "attempt": {
     "chooseAll": "Choose all correct answers",
@@ -542,7 +543,13 @@
     "newHere": "New to our platform?",
     "haveAccount": "Already have an account?",
     "createAccountLink": "Create an account",
-    "signInLink": "Sign in"
+    "signInLink": "Sign in",
+    "sessionExpired": {
+      "title": "Your session has ended",
+      "text": "You've been away for a while or signed out on another device, so changes aren't being saved right now. Sign in again and you'll come back to this page.",
+      "signIn": "Sign in again",
+      "later": "Later"
+    }
   },
   "errors": {
     "notFound": "Not found",
@@ -642,7 +649,10 @@
         "tooMany": "Too many imports for now, try again in an hour",
         "generic": "Couldn't import the article, try again"
       }
-    }
+    },
+    "addText": "Write your own or import an article from a link.",
+    "deleteTitle": "Delete the material?",
+    "titleExample": "E.g. React basics"
   },
   "limits": {
     "counter": {
@@ -807,8 +817,9 @@
     "limitReachedHint_one": "Limit reached: {{count}} tag. Delete one to add a new one",
     "limitReachedHint_other": "Limit reached: {{count}} tags. Delete one to add a new one",
     "name": "Name",
-    "namePlaceholder": "*Name...",
-    "color": "Colour"
+    "namePlaceholder": "E.g. English",
+    "color": "Colour",
+    "addToMaterialText": "Tap a tag to add or remove it."
   },
   "editor": {
     "toolbar": "Text formatting",
@@ -859,7 +870,9 @@
       "replaceTitle": "Replace summary?",
       "replaceText": "AI writes a new summary from the material, its notes and dictionaries. The current text of this summary will be replaced.",
       "replace": "Replace"
-    }
+    },
+    "titleExample": "E.g. Key ideas",
+    "typeLabel": "Note type"
   },
   "dictionary": {
     "generate": {
@@ -902,15 +915,21 @@
       "text": "Add words by hand or let AI pick them from the material or a note."
     },
     "form": {
-      "term": "*Word...",
-      "translation": "*Translation...",
-      "transcription": "Transcription...",
-      "partOfSpeech": "Part of speech...",
-      "example": "Example...",
-      "exampleTranslation": "Example translation...",
-      "grammar": "Grammar info (e.g. plural: mice)...",
-      "synonyms": "Synonyms, comma separated...",
-      "note": "Note..."
+      "term": "Word",
+      "translation": "Translation",
+      "transcription": "Transcription",
+      "partOfSpeech": "Part of speech",
+      "example": "Example",
+      "exampleTranslation": "Example translation",
+      "grammar": "Grammar",
+      "synonyms": "Synonyms",
+      "note": "Note",
+      "transcriptionPlaceholder": "/ˈæp.əl/",
+      "partOfSpeechNone": "Not set",
+      "grammarHint": "E.g. plural: mice",
+      "synonymsHint": "Comma separated",
+      "more": "More details",
+      "moreHint": "grammar, synonyms, note"
     },
     "partOfSpeech": {
       "Noun": "noun",
@@ -948,7 +967,11 @@
       "limit": "The dictionary is full, free some room first",
       "error": "Couldn't save the word, try again",
       "lookupError": "Couldn't look the word up, try again"
-    }
+    },
+    "addText": "Words for one material: a topic, a lesson or a chapter.",
+    "addWordText": "Only the word and its translation are required, the rest can come later.",
+    "deleteTitle": "Delete the dictionary?",
+    "titlePlaceholder": "E.g. Travel"
   },
   "attempts": {
     "title": "Attempt {{id}}",
@@ -1024,6 +1047,16 @@
       "freezes_one": "{{count}} streak freeze left this month",
       "freezes_other": "{{count}} streak freezes left this month",
       "frozenDay": "Missed, a streak freeze kept the streak"
+    },
+    "flashcards": {
+      "title": "Flashcards",
+      "subtitle": "How you answered cards over the last {{days}} days",
+      "empty": "Flip some flashcards in your dictionaries — this will show which words you already know and which not yet.",
+      "chartLabel": "Bar chart of flashcard answers by day",
+      "hardest": "Most often “Don't know”",
+      "hardestHint": "These words are worth repeating first",
+      "noHard": "Not a single “Don't know” in this time 🎉",
+      "missedOf": "“Don't know” — {{count}} of {{answers}}"
     }
   },
   "digest": {

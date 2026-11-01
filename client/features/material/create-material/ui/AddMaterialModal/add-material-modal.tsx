@@ -4,18 +4,20 @@ import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import {
-  Title,
   Modal,
-  CustomInput,
-  IsPendingLoader,
+  Field,
+  FieldInput,
+  FieldSelect,
+  Spinner,
   LimitCounter,
 } from "@/shared/ui";
 import { IMaterialCreate, useMaterialAll } from "@/entities/material";
 import { useLimits } from "@/entities/limits";
 import { isLimitReached } from "@/shared/lib";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
+import { useMaterialImport } from "../../hooks/useMaterialImport";
 import { Button } from "@/shared/radix-ui";
-import { LuLink, LuPencil, LuPlus } from "react-icons/lu";
+import { LuFilePlus, LuLink, LuPencil, LuPlus } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
 import { MATERIAL_TYPES, MATERIAL_STATUSES } from "@/entities/material";
 import { cn } from "@/shared/lib";
@@ -49,6 +51,14 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<Mode>("manual");
 
+  const { importMaterial, importMaterialIsPending } = useMaterialImport((materialId) => {
+    setOpen(false);
+    setMode("manual");
+    onCreated?.(materialId);
+  });
+
+  const isPending = mode === "link" ? importMaterialIsPending : createMaterialIsPending;
+
   const onFormSubmit = (values: IMaterialCreate) => {
     createMaterial(values);
     setOpen(false);
@@ -80,10 +90,31 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
         </div>
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="md:w-[400px] w-[300px]">
-          <Title text={t("materials.addTitle")} />
-          <div role="tablist" className="mx-auto mb-4 flex w-fit rounded-full bg-neutral-200/70 p-1 dark:bg-neutral-800">
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        size="md"
+        icon={<LuFilePlus />}
+        title={t("materials.addTitle")}
+        description={t("materials.addText")}
+        footer={
+          <>
+            <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+              {t("common.cancel")}
+            </Button>
+            <Button size="lg" type="submit" form={`add-material-${mode}`} disabled={isPending}>
+              {isPending && <Spinner />}
+              {mode === "link"
+                ? importMaterialIsPending
+                  ? t("materials.import.pending")
+                  : t("materials.import.submit")
+                : t("common.create")}
+            </Button>
+          </>
+        }
+      >
+        <div className="flex flex-col gap-5">
+          <div role="tablist" className="flex rounded-xl bg-neutral-100 p-1 dark:bg-neutral-800">
             {([
               ["manual", LuPencil, t("materials.import.tabManual")],
               ["link", LuLink, t("materials.import.tabLink")],
@@ -93,16 +124,17 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
                 type="button"
                 role="tab"
                 aria-selected={mode === value}
+                disabled={isPending}
                 onClick={() => setMode(value)}
                 className={cn(
-                  "relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+                  "relative flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                   mode === value ? "text-neutral-900 dark:text-white" : "text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200",
                 )}
               >
                 {mode === value && (
                   <motion.span
                     layoutId="add-material-mode"
-                    className="absolute inset-0 rounded-full bg-white shadow-sm dark:bg-neutral-700"
+                    className="absolute inset-0 rounded-lg bg-white shadow-sm dark:bg-neutral-600"
                     transition={{ type: "spring", stiffness: 500, damping: 35 }}
                   />
                 )}
@@ -111,68 +143,46 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
               </button>
             ))}
           </div>
+
           {mode === "link" ? (
             <ImportFromUrl
-              onImported={(materialId) => {
-                setOpen(false);
-                setMode("manual");
-                onCreated?.(materialId);
-              }}
+              id="add-material-link"
+              importMaterial={importMaterial}
+              importMaterialIsPending={importMaterialIsPending}
             />
           ) : (
-          <form
-            onSubmit={handleSubmit(onFormSubmit)}
-            className="flex flex-col w-full justify-center items-center"
-          >
-            <div className="w-full">
-              <CustomInput
-                label={t("materials.titleLabel")}
-                placeholder={t("materials.titlePlaceholder")}
-                {...register<"title">("title", { required: t("common.required") })}
-                error={errors.title?.message}
-              />
-            </div>
-            <div className="flex gap-2 flex-col justify-center">
-              <select
-                {...register("type")}
-                className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
-              >
-                {MATERIAL_TYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {t(`materials.types.${type}`)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex gap-2 flex-col justify-center">
-              <select
-                {...register("status")}
-                className="bg-neutral-50 dark:bg-neutral-700 p-2 m-2 rounded-2xl"
-              >
-                {MATERIAL_STATUSES.map((status) => (
-                  <option key={status} value={status}>
-                    {t(`materials.statuses.${status}`)}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex w-full justify-center items-center">
-              <div className="flex-1" />
-              <div className="flex-1 my-5">
-                <Button
-                  size="lg"
-                  type="submit"
-                  className="w-30"
-                  disabled={createMaterialIsPending}
-                >
-                  {t("common.create")}
-                </Button>
+            <form id="add-material-manual" onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col gap-4" noValidate>
+              <Field label={t("materials.titleLabel")} required error={errors.title?.message}>
+                <FieldInput
+                  placeholder={t("materials.titleExample")}
+                  aria-invalid={!!errors.title}
+                  {...register("title", {
+                    required: t("common.required"),
+                    validate: (value) => value.trim().length > 0 || t("common.required"),
+                  })}
+                />
+              </Field>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label={t("materials.typeLabel")}>
+                  <FieldSelect {...register("type")}>
+                    {MATERIAL_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {t(`materials.types.${type}`)}
+                      </option>
+                    ))}
+                  </FieldSelect>
+                </Field>
+                <Field label={t("materials.statusLabel")}>
+                  <FieldSelect {...register("status")}>
+                    {MATERIAL_STATUSES.map((status) => (
+                      <option key={status} value={status}>
+                        {t(`materials.statuses.${status}`)}
+                      </option>
+                    ))}
+                  </FieldSelect>
+                </Field>
               </div>
-              <div className="flex-1">
-                <IsPendingLoader isPending={createMaterialIsPending} />
-              </div>
-            </div>
-          </form>
+            </form>
           )}
         </div>
       </Modal>

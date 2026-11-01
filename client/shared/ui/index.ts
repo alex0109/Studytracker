@@ -6,6 +6,7 @@ export * from "./EditableLink";
 export * from "./Footer";
 export * from "./Input";
 export * from "./Modal";
+export * from "./Field";
 export * from "./Pie";
 export * from "./Subtitle";
 export * from "./TextArea";

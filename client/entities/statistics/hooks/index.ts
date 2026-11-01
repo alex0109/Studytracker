@@ -4,3 +4,4 @@ export { useStatisticsDifficultyBreakdown } from "./useStatisticsDifficultyBreak
 export { useStatisticsOverview } from "./useStatisticsOverview";
 export { useStatisticsStudyStreak } from "./useStatisticsStudyStreak";
 export { useStatisticsTagPerformance } from "./useStatisticsTagPerformance";
+export { useStatisticsFlashcardAnswers } from "./useStatisticsFlashcardAnswers";

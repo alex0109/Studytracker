@@ -2,9 +2,8 @@
 
 import { FC, useState } from "react";
 import { LuSparkles } from "react-icons/lu";
-import { IsPendingLoader, Modal, Title } from "@/shared/ui";
-import { Button, Separator } from "@/shared/radix-ui";
-import { cn } from "@/shared/lib";
+import { ChoiceGroup, Field, FieldSelect, Modal, Spinner } from "@/shared/ui";
+import { Button } from "@/shared/radix-ui";
 import { useMaterialAll } from "@/entities/material";
 import { NoteTypeEnum } from "@/entities/note/model";
 import {
@@ -82,99 +81,76 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="lg:w-[600px] md:w-[500px] sm:w-[400px] w-[300px] max-h-[85vh] overflow-y-auto">
-        <div className="flex flex-col w-full justify-center gap-4">
-          <Title text={t("dictionary.generate.title")} />
-          <Separator />
-          <p className="text-sm text-neutral-500">{t("dictionary.generate.text")}</p>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      size="md"
+      icon={<LuSparkles />}
+      tone="ai"
+      title={t("dictionary.generate.title")}
+      description={t("dictionary.generate.text")}
+      footer={
+        <>
+          <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+            {t("common.cancel")}
+          </Button>
+          <Button
+            size="lg"
+            className="bg-violet-700 text-white hover:bg-violet-800"
+            onClick={onGenerate}
+            disabled={generateEntriesIsPending || maxCount === 0 || !isAvailable}
+          >
+            {generateEntriesIsPending ? <Spinner /> : <LuSparkles />}
+            {generateEntriesIsPending ? t("ai.generating") : t("ai.generate")}
+          </Button>
+        </>
+      }
+    >
+      <div className="flex flex-col gap-4">
+        <Field label={t("dictionary.generate.from")}>
+          <FieldSelect value={source} onChange={(e) => setSource(e.target.value)}>
+            <option value={MATERIAL_SOURCE}>{t("dictionary.generate.materialContent")}</option>
+            {textNotes.map((note) => (
+              <option key={note.id} value={note.id}>
+                {note.type === NoteTypeEnum.summary ? "📚" : "✍️"} {note.title}
+              </option>
+            ))}
+          </FieldSelect>
+        </Field>
 
-          <label className="flex flex-col gap-2 text-sm font-medium">
-            {t("dictionary.generate.from")}
-            <select
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-              className="bg-neutral-100 dark:bg-neutral-700 p-2 rounded-2xl font-normal"
-            >
-              <option value={MATERIAL_SOURCE}>{t("dictionary.generate.materialContent")}</option>
-              {textNotes.map((note) => (
-                <option key={note.id} value={note.id}>
-                  {note.type === NoteTypeEnum.summary ? "📚" : "✍️"}{" "}
-                  {note.title}
-                </option>
-              ))}
-            </select>
-          </label>
+        <Field label={t("dictionary.generate.translateInto")}>
+          <FieldSelect value={languageCode} onChange={(e) => setLanguageCode(e.target.value)}>
+            {TRANSLATION_LANGUAGE_CODES.map((code) => (
+              <option key={code} value={code}>
+                {languageName(code, i18n.language)}
+              </option>
+            ))}
+          </FieldSelect>
+        </Field>
 
-          <label className="flex flex-col gap-2 text-sm font-medium">
-            {t("dictionary.generate.translateInto")}
-            <select
-              value={languageCode}
-              onChange={(e) => setLanguageCode(e.target.value)}
-              className="bg-neutral-100 dark:bg-neutral-700 p-2 rounded-2xl font-normal"
-            >
-              {TRANSLATION_LANGUAGE_CODES.map((code) => (
-                <option key={code} value={code}>
-                  {languageName(code, i18n.language)}
-                </option>
-              ))}
-            </select>
-          </label>
+        <ChoiceGroup
+          label={t("dictionary.generate.upTo")}
+          // Fewer free places than the chosen number: the nearest choice stays marked, the hint says how many fit
+          value={COUNT_OPTIONS.find((value) => Math.min(value, maxCount) === selectedCount) ?? count}
+          onChange={setCount}
+          options={COUNT_OPTIONS.map((value) => ({
+            value,
+            label: value,
+            disabled: value > maxCount && value !== COUNT_OPTIONS[0],
+          }))}
+          hint={
+            maxCount < 20 &&
+            (maxCount === 0
+              ? t("dictionary.generate.full")
+              : t("dictionary.generate.fits", { count: maxCount }))
+          }
+        />
 
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">{t("dictionary.generate.upTo")}</span>
-            <div className="flex gap-2">
-              {COUNT_OPTIONS.map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  disabled={value > maxCount && value !== COUNT_OPTIONS[0]}
-                  onClick={() => setCount(value)}
-                  className={cn(
-                    "flex-1 rounded-xl py-2 text-sm font-medium disabled:opacity-40",
-                    selectedCount === Math.min(value, maxCount)
-                      ? "bg-violet-700 text-white"
-                      : "bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200",
-                  )}
-                >
-                  {value}
-                </button>
-              ))}
-            </div>
-            {maxCount < 20 && (
-              <span className="text-xs text-neutral-500">
-                {maxCount === 0
-                  ? t("dictionary.generate.full")
-                  : t("dictionary.generate.fits", { count: maxCount })}
-              </span>
-            )}
-          </div>
-
-          <AiUsageHint
-            feature={AiFeatureEnum.DictionaryGeneration}
-            enabled={open}
-          />
-
-          <div className="flex w-full justify-center items-center my-2">
-            <div className="flex-1" />
-            <div className="flex flex-1 justify-center items-center">
-              <Button
-                size="lg"
-                className="w-50 bg-violet-700 hover:bg-violet-800"
-                onClick={onGenerate}
-                disabled={
-                  generateEntriesIsPending || maxCount === 0 || !isAvailable
-                }
-              >
-                <LuSparkles />
-                {generateEntriesIsPending ? t("ai.generating") : t("ai.generate")}
-              </Button>
-            </div>
-            <div className="flex-1">
-              <IsPendingLoader isPending={generateEntriesIsPending} />
-            </div>
-          </div>
-        </div>
+        <AiUsageHint
+          feature={AiFeatureEnum.DictionaryGeneration}
+          enabled={open}
+          className="justify-center"
+        />
       </div>
     </Modal>
   );
