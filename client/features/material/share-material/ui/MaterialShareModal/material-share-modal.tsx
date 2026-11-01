@@ -5,7 +5,7 @@ import { useTranslation } from "@/shared/i18n";
 import { LuCheck, LuCopy, LuLink, LuShare2 } from "react-icons/lu";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button, Skeleton, toast } from "@/shared/radix-ui";
-import { IsPendingLoader, Modal, Title } from "@/shared/ui";
+import { Modal, Spinner } from "@/shared/ui";
 import { buildShareUrl, useMaterialShare } from "@/entities/share";
 import { useMaterialShareCreate } from "../../hooks/useMaterialShareCreate";
 import { useMaterialShareRevoke } from "../../hooks/useMaterialShareRevoke";
@@ -50,17 +50,52 @@ export const MaterialShareModal: FC<MaterialShareModalProps> = ({
         <LuShare2 aria-hidden /> {t("share.button")}
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="flex flex-col gap-4 md:w-[480px] w-[300px]">
-          <Title text={t("share.title")} />
-          <p className="text-sm text-neutral-500 text-center">{t("share.text")}</p>
-
-          {materialShareIsPending ? (
-            <Skeleton className="w-full h-12" />
-          ) : materialShareData ? (
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-2 rounded-2xl bg-neutral-100 dark:bg-neutral-700 p-2 pl-4">
-                <LuLink className="shrink-0 text-neutral-500" />
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        size="md"
+        icon={<LuShare2 />}
+        title={t("share.title")}
+        description={t("share.text")}
+        footer={
+          // Without a link yet the only step is to make one; with it, to stop sharing or close
+          !materialShareIsPending &&
+          (materialShareData ? (
+            <>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-red-600 hover:text-red-700 dark:text-red-400"
+                disabled={revokeShareIsPending}
+                onClick={() => revokeShare()}
+              >
+                {revokeShareIsPending && <Spinner />}
+                {t("share.stop")}
+              </Button>
+              <Button size="lg" onClick={() => setOpen(false)}>
+                {t("common.close")}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+                {t("common.cancel")}
+              </Button>
+              <Button size="lg" disabled={createShareIsPending} onClick={() => createShare()}>
+                {createShareIsPending ? <Spinner /> : <LuLink />}
+                {t("share.create")}
+              </Button>
+            </>
+          ))
+        }
+      >
+        {materialShareIsPending ? (
+          <Skeleton className="h-12 w-full rounded-2xl" />
+        ) : (
+          materialShareData && (
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2 rounded-2xl border border-neutral-200 bg-neutral-50 p-1.5 pl-4 dark:border-neutral-800 dark:bg-neutral-800/60">
+                <LuLink aria-hidden className="shrink-0 text-neutral-400" />
                 <input
                   readOnly
                   value={shareUrl}
@@ -68,7 +103,7 @@ export const MaterialShareModal: FC<MaterialShareModalProps> = ({
                   aria-label={t("share.linkLabel")}
                   className="min-w-0 flex-1 bg-transparent text-sm outline-none"
                 />
-                <Button size="sm" onClick={onCopy}>
+                <Button onClick={onCopy}>
                   {/* The icon turns into a check, so the copy is felt and not only read */}
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.span
@@ -85,34 +120,12 @@ export const MaterialShareModal: FC<MaterialShareModalProps> = ({
                   {isCopied ? t("share.copied") : t("share.copy")}
                 </Button>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-neutral-500">
-                  {t("share.imports", { count: materialShareData.importsCount })}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-red-500 hover:text-red-600"
-                  disabled={revokeShareIsPending}
-                  onClick={() => revokeShare()}
-                >
-                  {t("share.stop")}
-                </Button>
-              </div>
+              <p className="text-center text-xs text-neutral-500">
+                {t("share.imports", { count: materialShareData.importsCount })}
+              </p>
             </div>
-          ) : (
-            <div className="flex justify-center items-center gap-3">
-              <Button
-                size="lg"
-                disabled={createShareIsPending}
-                onClick={() => createShare()}
-              >
-                <LuLink /> {t("share.create")}
-              </Button>
-              <IsPendingLoader isPending={createShareIsPending} />
-            </div>
-          )}
-        </div>
+          )
+        )}
       </Modal>
     </>
   );

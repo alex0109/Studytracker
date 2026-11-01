@@ -3,8 +3,7 @@
 import { useTranslation } from "@/shared/i18n";
 
 import { FC } from "react";
-import { Modal, Title } from "@/shared/ui";
-import { Button } from "@/shared/radix-ui";
+import { ConfirmModal } from "@/shared/ui";
 import { useDictionaryDelete } from "../../hooks/useDictionaryDelete";
 
 interface DictionaryDeleteModalProps {
@@ -38,19 +37,14 @@ export const DictionaryDeleteModal: FC<DictionaryDeleteModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="flex flex-col w-[200px] h-[200px] justify-center items-center gap-1">
-        <Title text={t("common.areYouSure")} />
-        <p className="text-center text-sm text-neutral-500">{t("dictionary.deleteWarning")}</p>
-        <Button
-          size="lg"
-          variant="destructive"
-          disabled={deleteDictionaryIsPending}
-          onClick={() => handleDeleteDictionary()}
-        >
-          {t("common.delete")}
-        </Button>
-      </div>
-    </Modal>
+    <ConfirmModal
+      open={open}
+      onClose={() => setOpen(false)}
+      onConfirm={handleDeleteDictionary}
+      pending={deleteDictionaryIsPending}
+      title={t("dictionary.deleteTitle")}
+      description={t("dictionary.deleteWarning")}
+      confirmText={t("common.delete")}
+    />
   );
 };

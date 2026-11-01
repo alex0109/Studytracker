@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { LuLoaderCircle } from "react-icons/lu";
 
 interface IsPendingLoaderProps {
   isPending: boolean;
@@ -11,3 +12,6 @@ export const IsPendingLoader: FC<IsPendingLoaderProps> = ({ isPending }) => {
     )
   );
 };
+
+// Inside a button: the button keeps its place and size while its action runs
+export const Spinner = () => <LuLoaderCircle aria-hidden className="animate-spin" />;

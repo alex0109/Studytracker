@@ -2,9 +2,8 @@
 
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import { Modal, Title } from "@/shared/ui";
+import { ConfirmModal } from "@/shared/ui";
 import { useMaterialDelete } from "../../hooks/useMaterialDelete";
-import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 
 interface MaterialDeleteModalType {
@@ -23,23 +22,20 @@ export const MaterialDeleteModal: FC<MaterialDeleteModalType> = ({
 
   const { deleteMaterial } = useMaterialDelete(id);
 
+  // Always to the list, and replacing the page: "back" led wherever the visit began (often the
+  // home page), and the deleted material stayed in the history only to answer 404
   const handleDeleteMaterial = () => {
     deleteMaterial();
-    router.back();
+    router.replace("/materials");
   };
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="flex flex-col w-[240px] min-h-[200px] justify-center items-center gap-3 text-center">
-        <Title text={t("common.areYouSure")} />
-        <p className="text-sm text-neutral-500">{t("materials.deleteWarning")}</p>
-        <Button
-          size="lg"
-          variant="destructive"
-          onClick={() => handleDeleteMaterial()}
-        >
-          {t("common.delete")}
-        </Button>
-      </div>
-    </Modal>
+    <ConfirmModal
+      open={open}
+      onClose={() => setOpen(false)}
+      onConfirm={handleDeleteMaterial}
+      title={t("materials.deleteTitle")}
+      description={t("materials.deleteWarning")}
+      confirmText={t("common.delete")}
+    />
   );
 };

@@ -2,124 +2,95 @@
 
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { CustomInput, IsPendingLoader, TextArea } from "@/shared/ui";
-import { Button } from "@/shared/radix-ui";
+import { LuChevronDown } from "react-icons/lu";
+import { Field, FieldInput, FieldSelect, FieldTextArea } from "@/shared/ui";
 import { IDictionaryEntryForm } from "../../model";
 import { partOfSpeechOptions } from "../../lib";
 import { useTranslation } from "react-i18next";
 
 interface DictionaryEntryFormProps {
+  // The dialog's footer submits it through form={id}
+  id: string;
   defaultValues?: IDictionaryEntryForm;
-  submitText: string;
-  isPending: boolean;
-  resetOnSubmit?: boolean;
   onSubmit: (values: IDictionaryEntryForm) => void;
 }
 
-export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({
-  defaultValues,
-  submitText,
-  isPending,
-  resetOnSubmit,
-  onSubmit,
-}) => {
+// What a word needs first is on top, the rest waits under "More details": nine equal fields
+// in a grid made the word itself hard to find
+export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultValues, onSubmit }) => {
   const { t } = useTranslation();
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<IDictionaryEntryForm>({ defaultValues });
 
-  const onFormSubmit = (values: IDictionaryEntryForm) => {
-    onSubmit(values);
-    if (resetOnSubmit) reset();
+  const required = {
+    required: t("common.required"),
+    validate: (value?: string) => !!value?.trim() || t("common.required"),
   };
 
+  // Editing a word that already has them: the details are open, nothing is hidden
+  const hasDetails = !!(defaultValues?.grammarInfo || defaultValues?.synonyms || defaultValues?.note);
+
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)} className="flex flex-col">
-      <div className="grid md:grid-cols-2 grid-cols-1 md:gap-x-3">
-        <CustomInput
-          placeholder={t("dictionary.form.term")}
-          aria-label={t("dictionary.form.term")}
-          maxLength={200}
-          {...register<"term">("term", {
-            required: t("common.required"),
-            validate: (value) => value.trim().length > 0 || t("common.required"),
-          })}
-          error={errors.term?.message}
-        />
-        <CustomInput
-          placeholder={t("dictionary.form.translation")}
-          aria-label={t("dictionary.form.translation")}
-          maxLength={200}
-          {...register<"translation">("translation", {
-            required: t("common.required"),
-            validate: (value) => value.trim().length > 0 || t("common.required"),
-          })}
-          error={errors.translation?.message}
-        />
-        <CustomInput
-          placeholder={t("dictionary.form.transcription")}
-          aria-label={t("dictionary.form.transcription")}
-          maxLength={200}
-          {...register<"transcription">("transcription")}
-        />
-        <select
-          {...register("partOfSpeech")}
-          className="bg-neutral-100 dark:bg-neutral-700 px-4 py-2 my-2 rounded-2xl text-[15px] cursor-pointer"
-        >
-          <option value="">{t("dictionary.form.partOfSpeech")}</option>
-          {partOfSpeechOptions.map((option) => (
-            <option key={option} value={option}>
-              {t(`dictionary.partOfSpeech.${option}`)}
-            </option>
-          ))}
-        </select>
-        <CustomInput
-          placeholder={t("dictionary.form.example")}
-          aria-label={t("dictionary.form.example")}
-          maxLength={500}
-          {...register<"example">("example")}
-        />
-        <CustomInput
-          placeholder={t("dictionary.form.exampleTranslation")}
-          aria-label={t("dictionary.form.exampleTranslation")}
-          maxLength={500}
-          {...register<"exampleTranslation">("exampleTranslation")}
-        />
-        <CustomInput
-          placeholder={t("dictionary.form.grammar")}
-          aria-label={t("dictionary.form.grammar")}
-          maxLength={300}
-          {...register<"grammarInfo">("grammarInfo")}
-        />
-        <CustomInput
-          placeholder={t("dictionary.form.synonyms")}
-          aria-label={t("dictionary.form.synonyms")}
-          {...register<"synonyms">("synonyms")}
-        />
+    <form id={id} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={t("dictionary.form.term")} required error={errors.term?.message}>
+          <FieldInput maxLength={200} aria-invalid={!!errors.term} {...register("term", required)} />
+        </Field>
+        <Field label={t("dictionary.form.translation")} required error={errors.translation?.message}>
+          <FieldInput maxLength={200} aria-invalid={!!errors.translation} {...register("translation", required)} />
+        </Field>
+        <Field label={t("dictionary.form.transcription")}>
+          <FieldInput
+            maxLength={200}
+            placeholder={t("dictionary.form.transcriptionPlaceholder")}
+            {...register("transcription")}
+          />
+        </Field>
+        <Field label={t("dictionary.form.partOfSpeech")}>
+          <FieldSelect {...register("partOfSpeech")}>
+            <option value="">{t("dictionary.form.partOfSpeechNone")}</option>
+            {partOfSpeechOptions.map((option) => (
+              <option key={option} value={option}>
+                {t(`dictionary.partOfSpeech.${option}`)}
+              </option>
+            ))}
+          </FieldSelect>
+        </Field>
       </div>
-      <TextArea
-        inputBlockStyles="mt-2"
-        inputStyles="h-[120px] px-4 py-2"
-        placeholder={t("dictionary.form.note")}
-        aria-label={t("dictionary.form.note")}
-        maxLength={1000}
-        defaultValue={defaultValues?.note}
-        {...register<"note">("note")}
-      />
-      <div className="flex w-full justify-center items-center">
-        <div className="flex-1" />
-        <div className="flex flex-1 justify-center items-center">
-          <Button size="lg" type="submit" className="w-50" disabled={isPending}>
-            {submitText}
-          </Button>
-        </div>
-        <div className="flex-1">
-          <IsPendingLoader isPending={isPending} />
-        </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={t("dictionary.form.example")}>
+          <FieldInput maxLength={500} {...register("example")} />
+        </Field>
+        <Field label={t("dictionary.form.exampleTranslation")}>
+          <FieldInput maxLength={500} {...register("exampleTranslation")} />
+        </Field>
       </div>
+
+      <details
+        open={hasDetails}
+        className="group rounded-2xl border border-neutral-200 dark:border-neutral-800 [&>summary::-webkit-details-marker]:hidden"
+      >
+        <summary className="flex cursor-pointer list-none items-center gap-2 rounded-2xl px-4 py-3 text-sm select-none hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
+          <span className="font-medium text-neutral-700 dark:text-neutral-300">{t("dictionary.form.more")}</span>
+          <span className="truncate text-neutral-400">{t("dictionary.form.moreHint")}</span>
+          <LuChevronDown aria-hidden className="ml-auto size-4 shrink-0 text-neutral-400 transition group-open:rotate-180" />
+        </summary>
+        <div className="grid gap-4 px-4 pt-1 pb-4 sm:grid-cols-2">
+          <Field label={t("dictionary.form.grammar")} hint={t("dictionary.form.grammarHint")}>
+            <FieldInput maxLength={300} {...register("grammarInfo")} />
+          </Field>
+          <Field label={t("dictionary.form.synonyms")} hint={t("dictionary.form.synonymsHint")}>
+            <FieldInput {...register("synonyms")} />
+          </Field>
+          <Field label={t("dictionary.form.note")} className="sm:col-span-2">
+            <FieldTextArea maxLength={1000} rows={3} {...register("note")} />
+          </Field>
+        </div>
+      </details>
     </form>
   );
 };

@@ -12,6 +12,7 @@ import {
 import { LuCheck, LuPlus, LuX } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
+import { FieldInput } from "@/shared/ui";
 import { MAX_OPTIONS, MIN_OPTIONS } from "@/entities/question";
 import { IQuestionCreateForm } from "../../model";
 
@@ -40,8 +41,8 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
   const options = useWatch({ control, name: "options" });
 
   return (
-    <div className="flex flex-col gap-2 m-2">
-      <span className="text-sm text-neutral-500">
+    <div className="flex flex-col gap-2">
+      <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
         {t("questions.options.markEvery")}
       </span>
       {fields.map((field, index) => (
@@ -50,7 +51,7 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
             <label
               title={t("questions.options.correct")}
               className={cn(
-                "flex shrink-0 justify-center items-center size-8 rounded-lg border-2 cursor-pointer",
+                "flex shrink-0 justify-center items-center size-10 rounded-xl border-2 cursor-pointer transition",
                 options?.[index]?.isCorrect
                   ? "bg-emerald-700 border-emerald-700 text-white"
                   : "border-neutral-300 text-transparent hover:border-emerald-700 dark:border-neutral-600",
@@ -63,10 +64,11 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
               />
               <LuCheck />
             </label>
-            <input
+            <FieldInput
               placeholder={t("questions.options.placeholder", { number: index + 1 })}
               maxLength={500}
-              className="flex-1 text-[15px] bg-neutral-100 dark:bg-neutral-700 px-4 py-2 rounded-2xl"
+              aria-invalid={!!errors.options?.[index]?.name}
+              className="flex-1"
               {...register(`options.${index}.name`, {
                 validate: (value, formValues) => {
                   const name = value.trim().toLowerCase();
@@ -92,14 +94,14 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
             </Button>
           </div>
           {errors.options?.[index]?.name && (
-            <p className="text-red-400 px-12 text-sm">
+            <p role="alert" className="pt-1 pl-12 text-xs text-red-500">
               {errors.options[index]?.name?.message}
             </p>
           )}
         </div>
       ))}
       {errors.options?.root?.message && (
-        <p className="text-red-400 text-sm">{errors.options.root.message}</p>
+        <p role="alert" className="text-xs text-red-500">{errors.options.root.message}</p>
       )}
       <Button
         type="button"

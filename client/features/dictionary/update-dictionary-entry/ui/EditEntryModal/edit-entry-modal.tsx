@@ -3,8 +3,9 @@
 import { useTranslation } from "@/shared/i18n";
 
 import { FC } from "react";
-import { Modal, Title } from "@/shared/ui";
-import { Separator, toast } from "@/shared/radix-ui";
+import { LuPencil } from "react-icons/lu";
+import { Modal, Spinner } from "@/shared/ui";
+import { Button, toast } from "@/shared/radix-ui";
 import {
   DictionaryEntryForm,
   IDictionaryEntryForm,
@@ -51,22 +52,33 @@ export const EditEntryModal: FC<EditEntryModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)}>
-      <div className="lg:w-[800px] md:w-[600px] sm:w-[400px] w-[300px] max-h-[80vh] overflow-y-auto">
-        <div className="flex flex-col w-full justify-center">
-          <Title text={t("dictionary.editWord")} />
-          <Separator className="mb-3" />
-          {entry && (
-            <DictionaryEntryForm
-              key={`${entry.id}-${entry.updatedAt}`}
-              defaultValues={toEntryForm(entry)}
-              submitText={t("common.save")}
-              isPending={updateEntryIsPending}
-              onSubmit={onFormSubmit}
-            />
-          )}
-        </div>
-      </div>
+    <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      size="lg"
+      icon={<LuPencil />}
+      title={t("dictionary.editWord")}
+      description={entry?.term}
+      footer={
+        <>
+          <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
+            {t("common.cancel")}
+          </Button>
+          <Button size="lg" type="submit" form="edit-dictionary-entry" disabled={!entry || updateEntryIsPending}>
+            {updateEntryIsPending && <Spinner />}
+            {t("common.save")}
+          </Button>
+        </>
+      }
+    >
+      {entry && (
+        <DictionaryEntryForm
+          key={`${entry.id}-${entry.updatedAt}`}
+          id="edit-dictionary-entry"
+          defaultValues={toEntryForm(entry)}
+          onSubmit={onFormSubmit}
+        />
+      )}
     </Modal>
   );
 };

@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { LuSparkles } from "react-icons/lu";
-import { IsPendingLoader, Modal, Title } from "@/shared/ui";
+import { IsPendingLoader, ConfirmModal } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { INoteResponse } from "@/entities/note/model";
 import {
@@ -69,23 +69,16 @@ export const GenerateSummaryButton: FC<GenerateSummaryButtonProps> = ({
       </div>
       <AiUsageHint feature={AiFeatureEnum.SummaryGeneration} />
 
-      <Modal open={confirmOpen} onClose={() => setConfirmOpen(false)}>
-        <div className="md:w-[400px] w-[300px] flex flex-col gap-4">
-          <Title text={t("notes.summary.replaceTitle")} />
-          <p className="text-sm text-neutral-500">{t("notes.summary.replaceText")}</p>
-          <div className="flex justify-end gap-2">
-            <Button variant="ghost" onClick={() => setConfirmOpen(false)}>
-              {t("common.cancel")}
-            </Button>
-            <Button
-              className="bg-violet-700 hover:bg-violet-800"
-              onClick={generate}
-            >
-              {t("notes.summary.replace")}
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      <ConfirmModal
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={generate}
+        tone="ai"
+        icon={<LuSparkles />}
+        title={t("notes.summary.replaceTitle")}
+        description={t("notes.summary.replaceText")}
+        confirmText={t("notes.summary.replace")}
+      />
     </div>
   );
 };

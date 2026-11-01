@@ -3,6 +3,7 @@
 import { MotionConfig, motion } from "framer-motion";
 import { OverviewStamp } from "./OverviewStamp";
 import { AttemptTrendChart } from "./AttemptTrendChart";
+import { FlashcardAnswersCard } from "./FlashcardAnswersCard";
 import { DifficultyRings } from "./DifficultyRings";
 import { ConfidenceCalibrationBars } from "./ConfidenceCalibrationBars";
 import { TagPerformanceList } from "./TagPerformanceList";
@@ -20,6 +21,7 @@ export function StatisticsDashboard() {
       >
         <OverviewStamp />
         <AttemptTrendChart />
+        <FlashcardAnswersCard />
         <DifficultyRings />
         <ConfidenceCalibrationBars />
         <TagPerformanceList />

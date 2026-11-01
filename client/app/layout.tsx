@@ -5,12 +5,11 @@ import ActiveSectionContextProvider from "@/shared/context/active-section.provid
 // it re-exports, charts included, with every page
 import { Footer } from "@/shared/ui/Footer";
 import ReactQueryClientProvider from "@/shared/context/query-client.provider";
-import { SessionProvider } from "@/shared/context/session.provider";
 import { MotionProvider } from "@/shared/context/motion.provider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@/shared/ui/Analytics";
 import { BackgroundBlobs } from "./(client)/(home)";
-import { getUser } from "@/entities/auth";
+import { AuthSession, getUser } from "@/entities/auth";
 import { ToastProvider } from "@/shared/radix-ui";
 import { Geist } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
@@ -80,12 +79,12 @@ const RootLayout = async ({
             <I18nProvider language={language} messages={getServerMessages(language)}>
               <ReactQueryClientProvider>
                 <BackgroundBlobs />
-                <SessionProvider user={user} token={token}>
+                <AuthSession user={user} token={token}>
                   <ActiveSectionContextProvider>
                     <main className="min-h-[100vh]">{children}</main>
                     <Footer />
                   </ActiveSectionContextProvider>
-                </SessionProvider>
+                </AuthSession>
                 <ToastProvider />
                 <SpeedInsights />
                 <Analytics />

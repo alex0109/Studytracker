@@ -13,4 +13,9 @@ export const statisticsKeys = {
   studyStreak: () => [...statisticsKeys.all, "studyStreak"] as const,
 
   tagPerformance: () => [...statisticsKeys.all, "tagPerformance"] as const,
+
+  flashcardAnswersAll: () => [...statisticsKeys.all, "flashcardAnswers"] as const,
+
+  flashcardAnswers: (days: number) =>
+    [...statisticsKeys.flashcardAnswersAll(), days] as const,
 };

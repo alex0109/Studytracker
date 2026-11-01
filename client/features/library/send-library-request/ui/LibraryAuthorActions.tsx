@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import { LuHourglass, LuRefreshCw, LuTrash2 } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
-import { IsPendingLoader, Modal, Title } from "@/shared/ui";
+import { ConfirmModal } from "@/shared/ui";
 import { useTranslation } from "@/shared/i18n";
 import { LibraryRequestTypeEnum } from "@/entities/library";
 import { useLibraryRequestCreate } from "../hooks/useLibraryRequests";
@@ -69,21 +69,15 @@ export const LibraryAuthorActions: FC<LibraryAuthorActionsProps> = ({
         defaultNickname={nickname}
       />
 
-      <Modal open={removeOpen} onClose={() => setRemoveOpen(false)}>
-        <div className="flex w-[300px] flex-col gap-3 sm:w-[400px]">
-          <Title text={t("library.author.removeTitle")} />
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">{t("library.author.removeText")}</p>
-          <div className="flex items-center justify-center gap-3">
-            <Button variant="destructive" disabled={createLibraryRequestIsPending} onClick={askRemoval}>
-              {t("library.author.removeConfirm")}
-            </Button>
-            <Button variant="outline" onClick={() => setRemoveOpen(false)}>
-              {t("common.cancel")}
-            </Button>
-            <IsPendingLoader isPending={createLibraryRequestIsPending} />
-          </div>
-        </div>
-      </Modal>
+      <ConfirmModal
+        open={removeOpen}
+        onClose={() => setRemoveOpen(false)}
+        onConfirm={askRemoval}
+        pending={createLibraryRequestIsPending}
+        title={t("library.author.removeTitle")}
+        description={t("library.author.removeText")}
+        confirmText={t("library.author.removeConfirm")}
+      />
     </div>
   );
 };

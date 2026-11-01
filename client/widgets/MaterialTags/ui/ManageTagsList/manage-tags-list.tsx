@@ -1,8 +1,9 @@
 "use client";
 
 import { FC, useState } from "react";
+import { LuTags } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
-import { Modal, Title } from "@/shared/ui";
+import { Modal } from "@/shared/ui";
 import { ITagResponse, useTagsAll } from "@/entities/tag";
 import { ManageTagItem } from "../ManageTagItem/manage-tag-item";
 import { useAddTagToMaterial } from "@/features/material/add-tag-to-material";
@@ -48,35 +49,33 @@ export const ManageTagsList: FC<SelectTagProps> = ({
         {t("tags.manage")} +
       </Button>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className="w-[300px] sm:w-[400px]">
-          <Title text={t("tags.addToMaterial")} />
-
-          <div className="flex flex-wrap gap-2 p-2 m-2">
-            {!tagsData || tagsData.length === 0 ? (
-              <div className="w-full">
-                <p className="text-center text-neutral-500">
-                  {t("tags.noneYet")}
-                </p>
-              </div>
-            ) : (
-              tagsData?.map((tag) => (
-                <ManageTagItem
-                  key={tag.id}
-                  id={tag.id}
-                  name={tag.name}
-                  color={tag.color}
-                  selected={materialTags.some((item) => item.id === tag.id)}
-                  onAdd={handleAdd}
-                  onRemove={handleRemove}
-                />
-              ))
-            )}
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        icon={<LuTags />}
+        title={t("tags.addToMaterial")}
+        description={t("tags.addToMaterialText")}
+        footer={<AddTag />}
+      >
+        {!tagsData || tagsData.length === 0 ? (
+          <p className="rounded-2xl border border-dashed border-neutral-200 p-4 text-center text-sm text-neutral-500 dark:border-neutral-800">
+            {t("tags.noneYet")}
+          </p>
+        ) : (
+          <div className="flex flex-wrap justify-center gap-2">
+            {tagsData.map((tag) => (
+              <ManageTagItem
+                key={tag.id}
+                id={tag.id}
+                name={tag.name}
+                color={tag.color}
+                selected={materialTags.some((item) => item.id === tag.id)}
+                onAdd={handleAdd}
+                onRemove={handleRemove}
+              />
+            ))}
           </div>
-          <div className="flex w-full justify-center items-center my-5">
-            <AddTag />
-          </div>
-        </div>
+        )}
       </Modal>
     </>
   );

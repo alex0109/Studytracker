@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteMaterial, materialKeys } from "@/entities/material";
+import { deleteMaterial, IMaterialResponse, materialKeys } from "@/entities/material";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { toast } from "@/shared/radix-ui";
@@ -14,6 +14,15 @@ export const useMaterialDelete = (id: string) => {
 
   const deleteMaterialMutation = useMutation({
     mutationFn: () => deleteMaterial(token, id),
+    // The modal goes to the list at once: the material leaves it right away, not after the request
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: materialKeys.list() });
+      const previous = queryClient.getQueryData<IMaterialResponse[]>(materialKeys.list());
+      queryClient.setQueryData<IMaterialResponse[]>(materialKeys.list(), (list) =>
+        list?.filter((material) => material.id !== id),
+      );
+      return { previous };
+    },
     onSuccess: () => {
       // Its content and attempts are gone with it: drop them instead of refetching into a 404
       queryClient.removeQueries({ queryKey: materialKeys.detail(id) });
@@ -24,7 +33,9 @@ export const useMaterialDelete = (id: string) => {
         variant: "success",
       });
     },
-    onError: (error) => {
+    onError: (error, _, context) => {
+      if (context?.previous) queryClient.setQueryData(materialKeys.list(), context.previous);
+
       logExceptionError(error, {
         section: `materials/${id} (delete)`,
         userID: user?.id,

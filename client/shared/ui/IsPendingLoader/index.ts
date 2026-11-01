@@ -1,1 +1,1 @@
-export { IsPendingLoader } from "./is-pending-loader";
+export { IsPendingLoader, Spinner } from "./is-pending-loader";
