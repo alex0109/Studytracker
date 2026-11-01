@@ -5,6 +5,13 @@
     "node": "22.x"
   },
   "private": true,
+  "sideEffects": [
+    "*.css",
+    "./instrumentation-client.ts",
+    "./instrumentation.ts",
+    "./sentry.server.config.ts",
+    "./sentry.edge.config.ts"
+  ],
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --webpack",

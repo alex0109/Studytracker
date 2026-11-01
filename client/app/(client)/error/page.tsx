@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { ContainerColumn, Title } from "@/shared/ui";
+import { ContainerColumn } from "@/shared/ui/ContainerColumn";
+import { Title } from "@/shared/ui/Title";
 import { getServerT } from "@/shared/i18n/server";
 
 const ErrorPage: FC = async () => {

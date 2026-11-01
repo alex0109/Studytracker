@@ -1,6 +1,6 @@
 import { FC } from "react";
 import moment from "moment";
-import { Subtitle } from "@/shared/ui";
+import { Subtitle } from "@/shared/ui/Subtitle";
 import { IMaterialResponse, StatusBadge } from "@/entities/material";
 
 export const MaterialCarouselItem: FC<IMaterialResponse> = ({

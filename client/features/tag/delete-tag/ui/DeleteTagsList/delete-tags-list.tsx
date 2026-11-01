@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { ITagResponse } from "@/entities/tag";
 import { DeleteTagItem } from "../DeleteTagItem/delete-tag-item";
-import { Subtitle, Title } from "@/shared/ui";
+import { Subtitle } from "@/shared/ui/Subtitle";
+import { Title } from "@/shared/ui/Title";
 
 interface DeleteTagsListProps {
   tags: ITagResponse[] | undefined;

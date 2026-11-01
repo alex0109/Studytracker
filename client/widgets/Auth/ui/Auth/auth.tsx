@@ -4,7 +4,6 @@ import { useActionState, useState } from "react";
 import { Subtitle, Title } from "@/shared/ui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
 import { MagicLinkStateType, signInWithMagicLink } from "@/entities/auth";
 import { Button } from "@/shared/radix-ui";
 import { createClient } from "@/entities/auth/api/client";
@@ -43,21 +42,16 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   return (
     <div className="flex flex-col justify-center items-center h-[450px] w-[300px]">
       {magicLinkState.success ? (
-        <motion.div
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-        >
+        <div className="animate-in slide-in-from-top-4 duration-500 motion-reduce:animate-none">
           <div className="flex flex-col justify-center items-center h-[450px] w-[300px]">
             <Title text={t("auth.checkEmail")} />
             <Subtitle text={`✅${t("auth.magicLinkSent")}`} />
           </div>
-        </motion.div>
+        </div>
       ) : (
         <>
-          <motion.div
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-          >
+          {/* CSS slide without a fade: the greeting is in the server HTML and visible from the first frame */}
+          <div className="animate-in slide-in-from-top-4 duration-500 motion-reduce:animate-none">
             <div className="flex flex-col justify-center items-center w-full">
               <Title
                 text={
@@ -70,7 +64,7 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
                 }
               />
             </div>
-          </motion.div>
+          </div>
           <form action={magicLinkAction} className="flex flex-col w-full">
             {/* <div className="w-full">
               <CustomInput
