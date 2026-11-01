@@ -32,14 +32,15 @@ export const Navigation: FC = () => {
   return (
     <header className="z-40 relative">
       {user && <ProfileSync />}
-      <motion.div
-        className="z-40 fixed top-0 left-1/2 
+      {/* The bar and the menu slide in with CSS: the server HTML is visible at once, a phone no
+          longer waits for the scripts to see it. The bar is opaque, so no backdrop blur */}
+      <div
+        className="z-40 fixed top-0 left-1/2 -translate-x-1/2
         h-[4.5rem] w-full border-white bg-white shadow-lg 
-        shadow-black/[0.03] backdrop-blur-[0.5rem] 
+        shadow-black/[0.03]
         md:top-6 md:h-[3.25rem] md:w-[50rem] 
-        md:rounded-tl-[160px] md:rounded-br-[160px] md:rounded-bl-[16px] md:rounded-tr-[16px] dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-black/40"
-        initial={{ y: -100, x: "-50%", opacity: 0 }}
-        animate={{ y: 0, x: "-50%", opacity: 1 }}
+        md:rounded-tl-[160px] md:rounded-br-[160px] md:rounded-bl-[16px] md:rounded-tr-[16px] dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-black/40
+        animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
       />
 
       {/* On desktop the menu covers the bar exactly, so everything sits on its middle line.
@@ -57,11 +58,9 @@ export const Navigation: FC = () => {
 
         <ul className="hidden md:col-start-2 md:flex items-center justify-center gap-0.5 text-[0.9rem] font-medium">
           {mappedLinkList.map((link) => (
-            <motion.li
-              className="flex items-center justify-center"
+            <li
+              className="flex items-center justify-center animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
               key={link.hash}
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
             >
               <Link
                 className="flex items-center justify-center whitespace-nowrap px-2.5 py-2 text-neutral-700 hover:text-neutral-950 transition dark:text-neutral-300 dark:hover:text-white"
@@ -70,23 +69,22 @@ export const Navigation: FC = () => {
                 {t(`nav.${link.name}`)}
                 {link.name === "today" && <TodayCount />}
               </Link>
-            </motion.li>
+            </li>
           ))}
         </ul>
 
         {user && (
-          <motion.button
+          <button
             type="button"
             className="hidden md:col-start-3 md:flex md:justify-self-end
                       shrink-0 items-center justify-center h-9 px-3 cursor-pointer
                       whitespace-nowrap text-[0.9rem] font-medium rounded-full
-                      text-red-500 transition hover:text-red-600 dark:hover:text-red-400"
+                      text-red-500 transition hover:text-red-600 dark:hover:text-red-400
+                      animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
             onClick={() => setOpen(true)}
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
           >
             {t("nav.signOut")}
-          </motion.button>
+          </button>
         )}
 
         <div className="ml-auto flex items-center gap-2 md:hidden">
@@ -164,12 +162,11 @@ export const Navigation: FC = () => {
       </AnimatePresence>
 
       {user && (
-        <motion.div
+        <div
           className="z-40 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white 
           dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem] 
-          h-10 hidden md:flex md:w-[26rem] justify-center items-start pt-2"
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          h-10 hidden md:flex md:w-[26rem] justify-center items-start pt-2
+          animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
         >
           {/* The email opens the account page: export, deletion, later profile and learning settings */}
           <Link
@@ -179,7 +176,7 @@ export const Navigation: FC = () => {
           >
             {user?.email}
           </Link>
-        </motion.div>
+        </div>
       )}
 
       <Modal open={open} onClose={() => setOpen(false)}>

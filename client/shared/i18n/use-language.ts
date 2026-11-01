@@ -9,6 +9,7 @@ import {
   LANGUAGE_COOKIE,
   type Language,
 } from "./config";
+import { loadMessages } from "./load-messages";
 
 const YEAR_SECONDS = 60 * 60 * 24 * 365;
 
@@ -24,6 +25,9 @@ export const useLanguage = () => {
     document.cookie = `${LANGUAGE_COOKIE}=${next}; path=/; max-age=${YEAR_SECONDS}; samesite=lax`;
     document.documentElement.lang = next;
     moment.locale(next === "en-GB" ? "en-gb" : next);
+    if (!i18n.hasResourceBundle(next, "translation")) {
+      i18n.addResourceBundle(next, "translation", await loadMessages(next));
+    }
     await i18n.changeLanguage(next);
     // Server rendered parts read the cookie again
     router.refresh();

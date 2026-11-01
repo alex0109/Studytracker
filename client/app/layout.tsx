@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ActiveSectionContextProvider from "@/shared/context/active-section.provider";
-import { Footer } from "@/shared/ui";
+// Straight from its module: through the @/shared/ui barrel Next shipped every client component
+// it re-exports, charts included, with every page
+import { Footer } from "@/shared/ui/Footer";
 import ReactQueryClientProvider from "@/shared/context/query-client.provider";
 import { SessionProvider } from "@/shared/context/session.provider";
 import { MotionProvider } from "@/shared/context/motion.provider";
@@ -13,7 +15,7 @@ import { ToastProvider } from "@/shared/radix-ui";
 import { Geist } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
 import { I18nProvider } from "@/shared/i18n";
-import { getServerT } from "@/shared/i18n/server";
+import { getServerMessages, getServerT } from "@/shared/i18n/server";
 import { ThemeProvider } from "@/shared/theme";
 import { getServerTheme } from "@/shared/theme/server";
 import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config/site";
@@ -75,7 +77,7 @@ const RootLayout = async ({
       <body className="min-h-screen flex flex-col bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 relative">
         <ThemeProvider initialTheme={theme}>
           <MotionProvider>
-            <I18nProvider language={language}>
+            <I18nProvider language={language} messages={getServerMessages(language)}>
               <ReactQueryClientProvider>
                 <BackgroundBlobs />
                 <SessionProvider user={user} token={token}>

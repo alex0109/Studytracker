@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Title } from "@/shared/ui";
+import { Title } from "@/shared/ui/Title";
 import { getServerT } from "@/shared/i18n/server";
 
 const ErrorPage: FC = async () => {

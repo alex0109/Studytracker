@@ -2,7 +2,7 @@ import en from "./locales/en-GB.json";
 import nb from "./locales/nb.json";
 import uk from "./locales/uk.json";
 
-// All languages are bundled: texts are small and switching is instant
+// Every language, for the server. The browser gets only the current one from the layout
 export const resources = {
   "en-GB": { translation: en },
   nb: { translation: nb },

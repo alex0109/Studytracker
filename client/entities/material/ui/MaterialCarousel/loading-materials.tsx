@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Subtitle } from "@/shared/ui";
+import { Subtitle } from "@/shared/ui/Subtitle";
 import { IsPendingLoader } from "@/shared/ui";
 
 export const LoadingMaterials: FC = () => {

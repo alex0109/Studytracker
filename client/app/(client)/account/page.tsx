@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { BlockColumn, Title } from "@/shared/ui";
+import { BlockColumn } from "@/shared/ui/BlockColumn";
+import { Title } from "@/shared/ui/Title";
 import { AccountSettings } from "@/widgets/AccountSettings";
 import { getServerT } from "@/shared/i18n/server";
 

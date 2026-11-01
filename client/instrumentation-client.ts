@@ -15,14 +15,8 @@ Sentry.init({
     process.env.NODE_ENV === "production" ||
     process.env.NEXT_PUBLIC_SENTRY_ENABLED === "true",
 
-  // Add optional integrations for additional features
-  integrations: [
-    // Replays never show what people typed or wrote in their notes
-    Sentry.replayIntegration({ maskAllText: true, maskAllInputs: true, blockAllMedia: true }),
-  ],
-
-  // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
-  tracesSampleRate: 1,
+  // A fifth of page loads is enough to see trends; every trace costs the browser work and quota
+  tracesSampleRate: 0.2,
 
   // Define how likely Replay events are sampled.
   // This sets the sample rate to be 10%. You may want this to be 100% while
@@ -35,5 +29,24 @@ Sentry.init({
   // No PII, see sentry.data-collection.ts
   dataCollection,
 });
+
+// Replay is the heaviest part of the SDK: rrweb snapshots the page and watches every change, and with
+// replaysOnErrorSampleRate it does so in every session. On phones it held the first seconds of each
+// page, so they go without it; desktops load it once the page is idle
+const loadReplay = () => {
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+
+  const whenIdle = window.requestIdleCallback ?? ((run: () => void) => window.setTimeout(run, 3000));
+  whenIdle(() => {
+    import("./sentry.replay")
+      .then(({ replay }) => Sentry.addIntegration(replay()))
+      .catch(() => {
+        // Without replays errors are still reported
+      });
+  });
+};
+
+// Only when Sentry reports at all (the deployed site), never in local development
+if (typeof window !== "undefined" && Sentry.getClient()?.getOptions().enabled) loadReplay();
 
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;

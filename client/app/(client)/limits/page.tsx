@@ -1,5 +1,6 @@
 import { FC, Suspense } from "react";
-import { BlockColumn, Title } from "@/shared/ui";
+import { BlockColumn } from "@/shared/ui/BlockColumn";
+import { Title } from "@/shared/ui/Title";
 import { LimitsOverview } from "@/widgets/LimitsOverview";
 import { CheckoutReturn } from "@/features/billing/checkout-return";
 import { getServerT } from "@/shared/i18n/server";
