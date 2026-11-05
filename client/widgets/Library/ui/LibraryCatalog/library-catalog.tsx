@@ -1,7 +1,7 @@
 "use client";
 
-import { FC, useState } from "react";
-import { motion } from "framer-motion";
+import { FC, MouseEvent, ReactNode, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { LuChevronLeft, LuChevronRight, LuLibrary, LuSearch, LuSearchX, LuSend } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { EmptyState } from "@/shared/ui";
@@ -9,7 +9,7 @@ import { useDebounce } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { MaterialTypeEnum } from "@/entities/material/model/material-type.type";
-import { useLibraryPage } from "@/entities/library";
+import { ILibraryPage, useLibraryPage } from "@/entities/library";
 import { useRequireAuth } from "@/shared/hooks/use-require-auth";
 import { SubmitToLibraryModal } from "@/features/library/send-library-request";
 import { LibraryCard } from "./library-card";
@@ -22,39 +22,55 @@ const TYPES = [
   MaterialTypeEnum.test,
 ];
 
-export const LibraryCatalog: FC = () => {
+const pageHref = (page: number) => (page > 1 ? `/library?page=${page}` : "/library");
+
+export const LibraryCatalog: FC<{ initialPage?: ILibraryPage | null }> = ({ initialPage }) => {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [type, setType] = useState<MaterialTypeEnum | undefined>();
-  const [page, setPage] = useState(1);
   const [submitOpen, setSubmitOpen] = useState(false);
   const requireAuth = useRequireAuth();
   const debouncedSearch = useDebounce(search, 350);
 
-  // A new search or filter starts from the first page
-  const filter = `${debouncedSearch}|${type ?? ""}`;
-  const [pagedFilter, setPagedFilter] = useState(filter);
-  if (filter !== pagedFilter) {
-    setPagedFilter(filter);
-    setPage(1);
-  }
+  // The page lives in the address, so every one of them has a link a search engine can follow
+  const page = Math.max(1, Number(useSearchParams().get("page")) || 1);
+  const isFiltered = !!debouncedSearch.trim() || !!type;
 
-  const { libraryPageData, libraryPageIsPending, libraryPageIsFetching, libraryPageError } = useLibraryPage({
-    search: debouncedSearch.trim() || undefined,
-    type,
-    page,
-  });
+  // A new search or filter starts from the first page
+  const startFromFirstPage = () => {
+    if (page > 1) window.history.replaceState(null, "", pageHref(1));
+  };
+
+  const { libraryPageData, libraryPageIsPending, libraryPageIsFetching, libraryPageError } = useLibraryPage(
+    { search: debouncedSearch.trim() || undefined, type, page },
+    !isFiltered && initialPage?.page === page ? initialPage : undefined,
+  );
 
   const pages = libraryPageData ? Math.max(1, Math.ceil(libraryPageData.total / libraryPageData.pageSize)) : 1;
-  const isFiltered = !!debouncedSearch.trim() || !!type;
+
+  const openPage = (event: MouseEvent, target: number) => {
+    // A new tab is still the browser's business
+    if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+    event.preventDefault();
+    window.history.pushState(null, "", pageHref(target));
+  };
+
+  const pageLink = (target: number, disabled: boolean, rel: string, label: ReactNode) =>
+    disabled ? (
+      <Button variant="outline" size="sm" disabled>
+        {label}
+      </Button>
+    ) : (
+      <Button asChild variant="outline" size="sm">
+        <a href={pageHref(target)} rel={rel} onClick={(event) => openPage(event, target)}>
+          {label}
+        </a>
+      </Button>
+    );
 
   return (
     <div className="flex w-full max-w-6xl flex-col gap-6 px-3 sm:px-5">
-      <motion.header
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col gap-4 rounded-3xl bg-gradient-to-br from-emerald-50 to-white p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8 dark:from-emerald-950/40 dark:to-neutral-900"
-      >
+      <header className="flex flex-col gap-4 rounded-3xl bg-gradient-to-br from-emerald-50 to-white p-6 sm:flex-row sm:items-end sm:justify-between sm:p-8 dark:from-emerald-950/40 dark:to-neutral-900 animate-in fade-in slide-in-from-bottom-3 duration-500 motion-reduce:animate-none">
         <div className="flex max-w-2xl flex-col gap-2">
           <span className="flex items-center gap-2 text-sm font-medium text-emerald-700 dark:text-emerald-400">
             <LuLibrary aria-hidden /> {t("library.eyebrow")}
@@ -65,7 +81,7 @@ export const LibraryCatalog: FC = () => {
         <Button size="lg" onClick={() => requireAuth(() => setSubmitOpen(true))} className="self-start sm:self-auto">
           <LuSend aria-hidden /> {t("library.share")}
         </Button>
-      </motion.header>
+      </header>
 
       <LibraryRequests />
 
@@ -76,7 +92,10 @@ export const LibraryCatalog: FC = () => {
           <input
             type="search"
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              startFromFirstPage();
+            }}
             maxLength={100}
             placeholder={t("library.searchPlaceholder")}
             className="w-full rounded-2xl border border-neutral-200 bg-white py-2.5 pr-4 pl-11 outline-none focus:border-emerald-400 dark:border-neutral-700 dark:bg-neutral-900"
@@ -88,7 +107,10 @@ export const LibraryCatalog: FC = () => {
               key={value ?? "all"}
               type="button"
               aria-pressed={type === value}
-              onClick={() => setType(value)}
+              onClick={() => {
+                setType(value);
+                startFromFirstPage();
+              }}
               className={cn(
                 "rounded-full px-3 py-1.5 text-sm font-medium transition",
                 type === value
@@ -124,13 +146,9 @@ export const LibraryCatalog: FC = () => {
           </div>
           {pages > 1 && (
             <nav className="flex items-center justify-center gap-3" aria-label={t("library.pagination")}>
-              <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage(page - 1)}>
-                <LuChevronLeft aria-hidden /> {t("library.prev")}
-              </Button>
+              {pageLink(page - 1, page <= 1, "prev", <><LuChevronLeft aria-hidden /> {t("library.prev")}</>)}
               <span className="text-sm text-neutral-500">{t("library.page", { page, pages })}</span>
-              <Button variant="outline" size="sm" disabled={page >= pages} onClick={() => setPage(page + 1)}>
-                {t("library.next")} <LuChevronRight aria-hidden />
-              </Button>
+              {pageLink(page + 1, page >= pages, "next", <>{t("library.next")} <LuChevronRight aria-hidden /></>)}
             </nav>
           )}
         </>

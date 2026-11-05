@@ -3,6 +3,9 @@
     "description": "Grow knowledge, reinforce it and make it last.",
     "landingTitle": "Studytracker — grow knowledge, reinforce it, make it last",
     "landingDescription": "Turn study materials into notes, questions and flashcards. Self defending, FSRS spaced repetition and statistics show what you really remember.",
+    "libraryTitle": "Library of study materials: languages, programming, AI",
+    "libraryDescription": "Free, reviewed study materials: rules, vocabulary and tests for languages, programming and working with AI. Read without an account, or add them to yours and review.",
+    "libraryItemDescription": "{{title}}: a study material in the Studytracker library. Read it for free, add it to yours and review.",
     "titles": {
       "auth": "Sign in",
       "error": "Error",
@@ -1252,7 +1255,7 @@
       },
       "summary": "Summary",
       "noContent": "No text here.",
-      "demo": "For reading only: add the material to yours to answer the questions and practise the words.",
+      "demo": "Try answering right here: click an option. Nothing is saved, and to practise with spaced reviews, add the material to yours.",
       "showAnswer": "Show answer",
       "hideAnswer": "Hide answer",
       "answer": "Answer",
@@ -1260,7 +1263,22 @@
       "correct": "correct",
       "synonyms": "Synonyms: {{list}}",
       "unavailable": "This material isn't in the library",
-      "unavailableText": "It may have been taken down, or the link is wrong."
+      "unavailableText": "It may have been taken down, or the link is wrong.",
+      "about": "About this material",
+      "expandAll": "Expand all",
+      "collapseAll": "Collapse all",
+      "levels": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard"
+      },
+      "score": "Correct: {{correct}} of {{total}}",
+      "wrong": "incorrect",
+      "searchWords": "Find a word or translation",
+      "wordsFound": "Found: {{found}}",
+      "noWords": "No such word here",
+      "ctaTitle": "Turn this into your own practice",
+      "ctaText": "Add the material to yours: questions and words come back for review just as you start to forget them."
     },
     "toasts": {
       "imported": "Added to your materials!",

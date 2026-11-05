@@ -1,0 +1,49 @@
+/* Squared exercise-book paper under soft colour washes. It stays in place while the page scrolls.
+   Plain gradients, no blur filters: a large blur takes phone GPUs seconds to paint */
+.Backdrop {
+  --line: rgb(5 150 105 / 0.08);
+  --wash-one: rgb(167 243 208 / 0.65);
+  --wash-two: rgb(186 230 253 / 0.65);
+  --wash-three: rgb(221 214 254 / 0.6);
+  --paper: #f4f7f5;
+
+  background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 2rem 2rem,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 2rem 2rem,
+    radial-gradient(55rem 36rem at 5% -5%, var(--wash-one), transparent 70%),
+    radial-gradient(50rem 34rem at 100% 10%, var(--wash-two), transparent 70%),
+    radial-gradient(60rem 38rem at 75% 105%, var(--wash-three), transparent 70%),
+    var(--paper);
+}
+
+:global(.dark) .Backdrop {
+  --line: rgb(255 255 255 / 0.035);
+  --wash-one: rgb(6 95 70 / 0.4);
+  --wash-two: rgb(12 74 110 / 0.35);
+  --wash-three: rgb(76 29 149 / 0.3);
+  --paper: #0a0a0a;
+}
+
+/* Opening and closing glide where the browser can animate to an automatic height.
+   Elsewhere the section simply opens at once */
+.Disclosure {
+  interpolate-size: allow-keywords;
+}
+
+.Disclosure::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 240ms ease,
+    content-visibility 240ms allow-discrete;
+}
+
+.Disclosure[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Disclosure::details-content {
+    transition: none;
+  }
+}

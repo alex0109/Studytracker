@@ -30,11 +30,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
       type: "website",
       siteName: SITE_NAME,
       locale: OG_LOCALES[language],
-      url: "/",
+      url: "/home",
       title,
       description,
+      images: ["/opengraph-image"],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: ["/opengraph-image"] },
   };
 };
 
