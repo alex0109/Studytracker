@@ -76,6 +76,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   outputFileTracingRoot: projectRoot,
   turbopack: { root: projectRoot },
+  // Titles and canonical links always go in <head>: streamed later they land in <body>, which is
+  // not where every crawler looks for them. Library pages read them from a cached request
+  htmlLimitedBots: /.*/,
   // Old address of the "Today" page: bookmarks and links in sent emails keep working
   async redirects() {
     return [{ source: "/today", destination: "/app", permanent: true }];

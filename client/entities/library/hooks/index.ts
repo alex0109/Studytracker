@@ -8,12 +8,15 @@ import { getLibraryItem, getLibraryPage, getMyLibraryRequests } from "../api";
 import { libraryKeys } from "../lib";
 import { ILibraryItem, ILibraryPage, ILibraryPageParams, ILibraryRequest } from "../model";
 
-export const useLibraryPage = (params: ILibraryPageParams) => {
+export const useLibraryPage = (params: ILibraryPageParams, initialData?: ILibraryPage | null) => {
   const { token, user } = useSession();
 
   const page = useQuery<ILibraryPage, Error>({
     queryKey: libraryKeys.list(params),
     queryFn: () => getLibraryPage(token, params),
+    initialData: initialData ?? undefined,
+    // The server's page is the same for everyone: with an account it is asked again for what is yours
+    ...(token ? { staleTime: 0 } : {}),
     // The previous results stay while the next search or page loads
     placeholderData: keepPreviousData,
   });
@@ -30,15 +33,18 @@ export const useLibraryPage = (params: ILibraryPageParams) => {
   };
 };
 
-export const useLibraryItem = (itemId: string) => {
+export const useLibraryItem = (itemId: string, initialData?: ILibraryItem | null) => {
   const { token, user } = useSession();
+  const hasAnonymousCopy = !!initialData && !!token;
 
   const item = useQuery<ILibraryItem, Error>({
     queryKey: libraryKeys.detail(itemId),
     queryFn: () => getLibraryItem(token, itemId),
     enabled: !!itemId,
-    // Library content never changes in place, only through a reviewed request
-    staleTime: 5 * 60_000,
+    initialData: initialData ?? undefined,
+    // Library content never changes in place, only through a reviewed request. The server's copy is
+    // the same for everyone: with an account it is asked again for what is yours
+    staleTime: hasAnonymousCopy ? 0 : 5 * 60_000,
   });
 
   useEffect(() => {

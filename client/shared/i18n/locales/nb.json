@@ -3,6 +3,9 @@
     "description": "Bygg kunnskap, forsterk den og gjør den varig.",
     "landingTitle": "Studytracker — bygg kunnskap, forsterk den og gjør den varig",
     "landingDescription": "Gjør materialer om til notater, spørsmål og kort. Selvforsvar, spredt repetisjon med FSRS og statistikk viser hva du faktisk husker.",
+    "libraryTitle": "Bibliotek med læremateriell: språk, programmering, KI",
+    "libraryDescription": "Gratis, kontrollert læremateriell: regler, ord og tester i språk, programmering og arbeid med KI. Les uten konto, eller legg det til hos deg og repeter.",
+    "libraryItemDescription": "{{title}}: læremateriell i Studytracker-biblioteket. Les det gratis, legg det til hos deg og repeter.",
     "titles": {
       "auth": "Logg inn",
       "error": "Feil",
@@ -1252,7 +1255,7 @@
       },
       "summary": "Sammendrag",
       "noContent": "Ingen tekst her.",
-      "demo": "Bare for lesing: legg materialet til dine egne for å svare på spørsmålene og øve på ordene.",
+      "demo": "Prøv å svare her: trykk på et alternativ. Ingenting lagres, og for å øve med repetisjon legger du materialet til dine egne.",
       "showAnswer": "Vis svaret",
       "hideAnswer": "Skjul svaret",
       "answer": "Svar",
@@ -1260,7 +1263,22 @@
       "correct": "riktig",
       "synonyms": "Synonymer: {{list}}",
       "unavailable": "Dette materialet finnes ikke i biblioteket",
-      "unavailableText": "Det kan ha blitt fjernet, eller lenken er feil."
+      "unavailableText": "Det kan ha blitt fjernet, eller lenken er feil.",
+      "about": "Om materialet",
+      "expandAll": "Åpne alle",
+      "collapseAll": "Lukk alle",
+      "levels": {
+        "easy": "Lette",
+        "medium": "Middels",
+        "hard": "Vanskelige"
+      },
+      "score": "Riktig: {{correct}} av {{total}}",
+      "wrong": "feil",
+      "searchWords": "Finn et ord eller en oversettelse",
+      "wordsFound": "Funnet: {{found}}",
+      "noWords": "Fant ikke det ordet her",
+      "ctaTitle": "Gjør dette til din egen trening",
+      "ctaText": "Legg materialet til dine egne: spørsmål og ord kommer tilbake til repetisjon akkurat når du begynner å glemme dem."
     },
     "toasts": {
       "imported": "Lagt til i materialene dine!",

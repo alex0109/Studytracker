@@ -53,7 +53,7 @@ export const LibraryCard: FC<{ item: ILibraryItemSummary }> = ({ item }) => {
 
       <div className="flex items-center justify-between border-t border-neutral-100 pt-3 text-xs text-neutral-400 dark:border-neutral-800">
         <span>
-          {new Date(item.publishedAt).toLocaleDateString(i18n.language, { day: "numeric", month: "short", year: "numeric" })}
+          {new Date(item.publishedAt).toLocaleDateString(i18n.language, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })}
         </span>
         <span className="flex items-center gap-1">
           <LuDownload aria-hidden /> {t("library.imports", { count: item.importsCount })}
