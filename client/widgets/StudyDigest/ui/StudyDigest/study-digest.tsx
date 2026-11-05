@@ -109,7 +109,7 @@ export const StudyDigest: FC = () => {
           )}
           {(today.dueWords > 0 || today.newWords > 0 || (today.dueQuestions ?? 0) > 0) && (
             <Link
-              href="/today"
+              href="/app"
               className="mt-auto inline-flex items-center gap-1 self-start text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400"
             >
               {t("digest.today.cta")} <LuArrowRight aria-hidden />

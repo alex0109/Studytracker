@@ -1,5 +1,7 @@
 "use client";
 
+import { deadlineKeys } from "@/entities/deadline";
+import { attemptKeys } from "@/entities/attempt";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
@@ -16,6 +18,9 @@ export const useAttemptFinish = (attemptId: string) => {
     onSuccess: () => {
       // Scores, streak and "today" all change after a finished attempt
       queryClient.invalidateQueries({ queryKey: statisticsKeys.all });
+      queryClient.invalidateQueries({ queryKey: deadlineKeys.all });
+      // A timed attempt comes back with its unanswered questions added
+      queryClient.invalidateQueries({ queryKey: attemptKeys.detail(attemptId) });
       queryClient.invalidateQueries({ queryKey: notificationKeys.feed() });
     },
     onError: (error) => {

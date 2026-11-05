@@ -8,7 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: SITE_NAME,
     description:
       "Turn study materials into notes, questions and flashcards, and keep what you learn.",
-    start_url: "/",
+    start_url: "/app",
     display: "standalone",
     background_color: "#fafafa",
     theme_color: "#fafafa",

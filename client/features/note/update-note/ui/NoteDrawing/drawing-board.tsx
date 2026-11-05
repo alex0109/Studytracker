@@ -1,229 +1,221 @@
-import React, { FC, useEffect, useRef, useState } from "react";
-import { getStroke } from "perfect-freehand";
+import React, { FC, useEffect, useReducer, useRef, useState } from "react";
 import { Toolbar } from "./toolbar";
 import { Canvas } from "./canvas";
 import { Point, ILocalStroke, ITool } from "../../model";
-import { DEFAULT_COLOR, DEFAULT_SIZE, DEFAULT_TOOL } from "../../consts";
+import { DEFAULT_SIZES, DEFAULT_TOOL, MARKER_COLORS, PAPER, PEN_COLORS } from "../../consts";
 import { toDrawingContent } from "../../lib/to-drawing-content";
 import { fromDrawingContent } from "../../lib/from-drawing-content";
 import { IDrawingContent } from "@/entities/note/model";
-import { useDebounce, useLatest } from "@/shared/hooks";
+import { useLatest } from "@/shared/hooks";
 
-interface CanvasSize {
-  width: number;
-  height: number;
-}
+const SAVE_DELAY_MS = 800;
+const MAX_HISTORY = 100;
 
 interface DrawingBoardProps {
   materialId: string;
   noteId: string;
   initialContent?: IDrawingContent;
-  updateContentHandler: (
-    materialId: string,
-    content: IDrawingContent,
-    noteId?: string,
-  ) => void;
+  updateContentHandler: (materialId: string, content: IDrawingContent, noteId?: string) => void;
+  isSaving: boolean;
+  isSaveError: boolean;
 }
 
-function clamp01(v: number) {
-  return Math.min(1, Math.max(0, v));
+interface History {
+  past: ILocalStroke[][];
+  present: ILocalStroke[];
+  future: ILocalStroke[][];
 }
+
+type HistoryAction =
+  | { type: "add"; stroke: ILocalStroke }
+  | { type: "clear" }
+  | { type: "undo" }
+  | { type: "redo" };
+
+const historyReducer = (state: History, action: HistoryAction): History => {
+  const remember = () => [...state.past, state.present].slice(-MAX_HISTORY);
+
+  switch (action.type) {
+    case "add":
+      return { past: remember(), present: [...state.present, action.stroke], future: [] };
+    case "clear":
+      return state.present.length ? { past: remember(), present: [], future: [] } : state;
+    case "undo":
+      return state.past.length
+        ? {
+            past: state.past.slice(0, -1),
+            present: state.past[state.past.length - 1],
+            future: [state.present, ...state.future],
+          }
+        : state;
+    case "redo":
+      return state.future.length
+        ? { past: remember(), present: state.future[0], future: state.future.slice(1) }
+        : state;
+  }
+};
+
+const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
 export const DrawingBoard: FC<DrawingBoardProps> = ({
   materialId,
   noteId,
   initialContent,
   updateContentHandler,
+  isSaving,
+  isSaveError,
 }) => {
-  const [strokes, setStrokes] = useState<ILocalStroke[]>([]);
+  // A saved drawing keeps its own proportions; stretching it to the screen would distort it
+  const [paper] = useState(() =>
+    initialContent?.width && initialContent?.height
+      ? { width: initialContent.width, height: initialContent.height }
+      : PAPER,
+  );
+  const [history, dispatch] = useReducer(historyReducer, initialContent, (content): History => ({
+    past: [],
+    present: content ? fromDrawingContent(content) : [],
+    future: [],
+  }));
   const [currentStroke, setCurrentStroke] = useState<Point[]>([]);
-  const [isDrawing, setIsDrawing] = useState(false);
 
-  const [color, setColor] = useState(DEFAULT_COLOR);
-  const [size, setSize] = useState(DEFAULT_SIZE);
   const [tool, setTool] = useState<ITool>(DEFAULT_TOOL);
+  const [colors, setColors] = useState({ pen: PEN_COLORS[0], highlighter: MARKER_COLORS[0] });
+  const [sizes, setSizes] = useState(DEFAULT_SIZES);
 
-  const [canvasSize, setCanvasSize] = useState<CanvasSize>({
-    width: 0,
-    height: 0,
-  });
+  const color = tool === "highlighter" ? colors.highlighter : colors.pen;
+  const size = sizes[tool];
 
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const isHydrated = useRef(false);
-  const hasUserEdited = useRef(false);
+  // The finger or pen that is drawing right now: a palm or a second finger doesn't add to its line
+  const activePointer = useRef<number | null>(null);
+  const penSeen = useRef(false);
+
+  // Autosave after a pause. A note opened right after drawing still saves the last strokes
+  const latest = useLatest({ materialId, noteId, paper, strokes: history.present, updateContentHandler });
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isFirstRender = useRef(true);
+
+  const save = () => {
+    saveTimer.current = null;
+    const { materialId, noteId, paper, strokes, updateContentHandler } = latest.current;
+    updateContentHandler(materialId, toDrawingContent(strokes, paper), noteId);
+  };
+  const latestSave = useLatest(save);
 
   useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
-    const updateSize = () => {
-      const rect = svg.getBoundingClientRect();
-      setCanvasSize({ width: rect.width, height: rect.height });
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => latestSave.current(), SAVE_DELAY_MS);
+  }, [history.present, latestSave]);
+
+  useEffect(
+    () => () => {
+      if (!saveTimer.current) return;
+      clearTimeout(saveTimer.current);
+      latestSave.current();
+    },
+    [latestSave],
+  );
+
+  // Works anywhere on the page, except while typing in a field
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+
+      const key = event.key.toLowerCase();
+      if ((event.metaKey || event.ctrlKey) && key === "z") {
+        event.preventDefault();
+        dispatch({ type: event.shiftKey ? "redo" : "undo" });
+      } else if (!event.metaKey && !event.ctrlKey) {
+        const shortcuts: Record<string, ITool> = { p: "pen", h: "highlighter", e: "eraser" };
+        if (shortcuts[key]) setTool(shortcuts[key]);
+      }
     };
-    updateSize();
-    const observer = new ResizeObserver(updateSize);
-    observer.observe(svg);
-    return () => observer.disconnect();
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Read through a ref: a refetched note must not reset the drawing, and a new handler
-  // or a resize must not save it again
-  const latest = useLatest({
-    materialId,
-    noteId,
-    initialContent,
-    canvasSize,
-    updateContentHandler,
-  });
+  const toPaperPoint = (event: { clientX: number; clientY: number; pressure: number }): Point | null => {
+    const matrix = svgRef.current?.getScreenCTM();
+    if (!matrix) return null;
 
-  useEffect(() => {
-    const { initialContent } = latest.current;
-    if (initialContent && !isHydrated.current) {
-      setStrokes(fromDrawingContent(initialContent));
+    const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
+    return [clamp01(point.x / paper.width), clamp01(point.y / paper.height), event.pressure || 0.5];
+  };
+
+  const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
+    // On a tablet the pen draws and the resting hand doesn't
+    if (event.pointerType === "pen") penSeen.current = true;
+    if (event.pointerType === "touch" && penSeen.current) return;
+    if (event.button !== 0 || activePointer.current !== null) return;
+
+    const point = toPaperPoint(event);
+    if (!point) return;
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    activePointer.current = event.pointerId;
+    setCurrentStroke([point]);
+  };
+
+  const handlePointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
+    if (event.pointerId !== activePointer.current) return;
+
+    // Between two frames a fast hand gives several positions: without them curves turn into corners
+    const events = event.nativeEvent.getCoalescedEvents?.() ?? [];
+    const points = (events.length ? events : [event.nativeEvent])
+      .map(toPaperPoint)
+      .filter((point): point is Point => point !== null);
+
+    setCurrentStroke((prev) => [...prev, ...points]);
+  };
+
+  const finishStroke = (event: React.PointerEvent<SVGSVGElement>, keep: boolean) => {
+    if (event.pointerId !== activePointer.current) return;
+    activePointer.current = null;
+
+    if (keep && currentStroke.length > 0) {
+      dispatch({
+        type: "add",
+        stroke: { points: currentStroke, color, size: size / paper.width, tool },
+      });
     }
-    isHydrated.current = true;
-    hasUserEdited.current = false;
-  }, [noteId, latest]);
-
-  const debouncedStrokes = useDebounce(strokes, 800);
-
-  useEffect(() => {
-    if (!isHydrated.current || !hasUserEdited.current) return;
-
-    const { materialId, noteId, canvasSize, updateContentHandler } =
-      latest.current;
-    const drawingContent = toDrawingContent(debouncedStrokes, canvasSize);
-    updateContentHandler(materialId, drawingContent, noteId);
-  }, [debouncedStrokes, latest]);
-
-  function getSvgPath(points: number[][]) {
-    if (!points.length) return "";
-    const first = points[0];
-    let path = `M ${first[0]} ${first[1]}`;
-    for (let i = 1; i < points.length; i++) {
-      const point = points[i];
-      path += ` L ${point[0]} ${point[1]}`;
-    }
-    path += " Z";
-    return path;
-  }
-
-  function getPointerPosition(e: React.PointerEvent<SVGSVGElement>): Point {
-    const svg = svgRef.current;
-    if (!svg) return [0, 0, e.pressure || 0.5];
-
-    const rect = svg.getBoundingClientRect();
-    const x = rect.width ? (e.clientX - rect.left) / rect.width : 0;
-    const y = rect.height ? (e.clientY - rect.top) / rect.height : 0;
-
-    return [clamp01(x), clamp01(y), e.pressure || 0.5];
-  }
-
-  function handlePointerDown(e: React.PointerEvent<SVGSVGElement>) {
-    e.currentTarget.setPointerCapture(e.pointerId);
-    setIsDrawing(true);
-    setCurrentStroke([getPointerPosition(e)]);
-  }
-
-  function handlePointerMove(e: React.PointerEvent<SVGSVGElement>) {
-    if (!isDrawing) return;
-    setCurrentStroke((prev) => [...prev, getPointerPosition(e)]);
-  }
-
-  function handlePointerUp(e: React.PointerEvent<SVGSVGElement>) {
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    }
-
-    setIsDrawing(false);
-
-    if (currentStroke.length > 0) {
-      const rect = svgRef.current?.getBoundingClientRect();
-      const normalizedSize = rect?.width ? size / rect.width : size;
-
-      hasUserEdited.current = true;
-      setStrokes((prev) => [
-        ...prev,
-        { points: currentStroke, color, size: normalizedSize, tool },
-      ]);
-    }
-
     setCurrentStroke([]);
-  }
-
-  function handlePointerCancel(e: React.PointerEvent<SVGSVGElement>) {
-    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-      e.currentTarget.releasePointerCapture(e.pointerId);
-    }
-    setIsDrawing(false);
-    setCurrentStroke([]);
-  }
-
-  function handleUndo() {
-    setStrokes((prev) => {
-      if (prev.length === 0) return prev;
-      hasUserEdited.current = true;
-      return prev.slice(0, -1);
-    });
-  }
-
-  function handleClear() {
-    if (strokes.length > 0 || currentStroke.length > 0) {
-      hasUserEdited.current = true;
-    }
-    setStrokes([]);
-    setCurrentStroke([]);
-  }
-
-  function renderStroke(stroke: ILocalStroke, size: CanvasSize): string | null {
-    if (stroke.points.length === 0 || !size.width || !size.height) {
-      return null;
-    }
-
-    const pixelPoints = stroke.points.map(
-      ([x, y, pressure]) =>
-        [x * size.width, y * size.height, pressure] as Point,
-    );
-
-    const outline = getStroke(pixelPoints, {
-      size: stroke.size * size.width,
-      thinning: 0.5,
-      smoothing: 0.5,
-      streamline: 0.5,
-      easing: (t) => t,
-      start: { cap: true },
-      end: { cap: true },
-    });
-
-    return getSvgPath(outline);
-  }
-
-  const normalizedBrushSize = canvasSize.width ? size / canvasSize.width : size;
+  };
 
   return (
-    <div className="flex flex-3 flex-col gap-3 bg-transparent h-[1000px] rounded-2xl p-5">
+    <div className="flex w-full min-w-0 flex-col gap-3 p-2 sm:p-4">
       <Toolbar
-        strokes={strokes}
-        currentStroke={currentStroke}
-        handleClear={handleClear}
-        handleUndo={handleUndo}
+        tool={tool}
         color={color}
         size={size}
-        tool={tool}
-        onColorChange={setColor}
-        onSizeChange={setSize}
+        canUndo={history.past.length > 0}
+        canRedo={history.future.length > 0}
+        canClear={history.present.length > 0}
+        isSaving={isSaving}
+        isSaveError={isSaveError}
         onToolChange={setTool}
+        onColorChange={(next) => setColors((prev) => ({ ...prev, [tool === "highlighter" ? "highlighter" : "pen"]: next }))}
+        onSizeChange={(next) => setSizes((prev) => ({ ...prev, [tool]: next }))}
+        onUndo={() => dispatch({ type: "undo" })}
+        onRedo={() => dispatch({ type: "redo" })}
+        onClear={() => dispatch({ type: "clear" })}
       />
       <Canvas
         svgRef={svgRef}
-        strokes={strokes}
+        paper={paper}
+        strokes={history.present}
         currentStroke={currentStroke}
-        currentTool={{ color, size: normalizedBrushSize, tool }}
-        canvasSize={canvasSize}
-        handlePointerDown={handlePointerDown}
-        handlePointerMove={handlePointerMove}
-        handlePointerUp={handlePointerUp}
-        handlePointerCancel={handlePointerCancel}
-        renderStroke={renderStroke}
+        currentTool={{ color, size: size / paper.width, tool }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={(event) => finishStroke(event, true)}
+        onPointerCancel={(event) => finishStroke(event, false)}
       />
     </div>
   );

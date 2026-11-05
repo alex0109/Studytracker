@@ -5,12 +5,13 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { attemptKeys, startAttempt } from "@/entities/attempt";
 
-export const useAttemptStart = (assessmentId: string) => {
+// useTimer: the material's exam settings apply to an attempt started from the material, not from a note
+export const useAttemptStart = (assessmentId: string, useTimer: boolean) => {
   const queryClient = useQueryClient();
   const { token, user } = useSession();
 
   const startAttemptMutation = useMutation({
-    mutationFn: () => startAttempt(token, assessmentId),
+    mutationFn: () => startAttempt(token, assessmentId, useTimer),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: attemptKeys.all });
     },

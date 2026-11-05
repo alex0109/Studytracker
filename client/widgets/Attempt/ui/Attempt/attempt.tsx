@@ -13,6 +13,7 @@ import { IQuestionReduced } from "@/entities/question";
 import { useAttemptFinish } from "@/features/attempt/finish-attempt";
 import { useAttemptResults } from "@/entities/attempt";
 import { ISavedAnswer } from "../../model/saved-answer.type";
+import { AttemptTimer } from "../AttemptTimer/attempt-timer";
 import { useTranslation } from "@/shared/i18n";
 
 interface AttemptProps {
@@ -82,6 +83,20 @@ export const Attempt: FC<AttemptProps> = ({
     }
   };
 
+  // Time is up: whatever is answered counts, the server marks the rest as wrong. The toast says why
+  // the page moved on by itself
+  const handleTimeUp = async () => {
+    if (attemptResults?.attemptStatus === "Finished") return;
+
+    toast({ title: t("exam.timeUp"), variant: "error" });
+    try {
+      await finishAttempt();
+      navigate(`/materials/${materialId}/attempt/${attemptId}/results`);
+    } catch {
+      toast({ title: `❌${t("toasts.attemptNotFinished")}`, variant: "error" });
+    }
+  };
+
   return (
     <BlockColumn blockStyles="gap-4">
       <AttemptHeader materialId={materialId} attemptId={attemptId} />
@@ -125,6 +140,13 @@ export const Attempt: FC<AttemptProps> = ({
           )}
         </div>
         <div className="flex items-center gap-2">
+          {attemptResults?.timeLimitMinutes && (
+            <AttemptTimer
+              startedAt={attemptResults.startedAt}
+              minutes={attemptResults.timeLimitMinutes}
+              onExpired={handleTimeUp}
+            />
+          )}
           <Button
             size="lg"
             // Busy until the results page is open, not only until the request returns

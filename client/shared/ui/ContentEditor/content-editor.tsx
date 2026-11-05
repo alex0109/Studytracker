@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useLayoutEffect, useRef } from "react";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   useEditor,
   useEditorState,
@@ -39,6 +39,7 @@ import {
 } from "@/shared/radix-ui";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/shared/lib/cn";
+import { VoiceInputButton } from "../VoiceInput";
 
 // Links in notes come from users and from shared materials: only web and mail links are kept,
 // so a "javascript:" link can never run on click
@@ -79,6 +80,7 @@ const ContentEditor: FC<ContentEditorType> = ({
   updateContentHandler,
 }) => {
   const { t } = useTranslation();
+  const [spokenInterim, setSpokenInterim] = useState("");
 
   // Autosave without a re-render per keystroke: the document becomes JSON only once typing
   // pauses. It is compared with what was last sent, not with the server's answer, which
@@ -277,6 +279,15 @@ const ContentEditor: FC<ContentEditorType> = ({
     input.click();
   };
 
+  // Where the cursor is, with a space if it would run into the word before. A text node, not a string:
+  // a string is read as HTML
+  const insertSpoken = (text: string) => {
+    const { from } = editor.state.selection;
+    const before = editor.state.doc.textBetween(Math.max(0, from - 1), from);
+    const spaced = before && !/\s/.test(before) ? ` ${text}` : text;
+    editor.chain().focus().insertContent({ type: "text", text: spaced }).run();
+  };
+
   const mod = /Mac|iPhone|iPad/.test(navigator.userAgent) ? "⌘" : "Ctrl";
   const level = active?.headings.findIndex(Boolean) ?? -1;
   const styleLabel = level >= 0 ? t("editor.heading", { level: level + 1 }) : t("editor.paragraph");
@@ -372,7 +383,15 @@ const ContentEditor: FC<ContentEditorType> = ({
         {groups[2].map(toolButton)}
         {divider}
         {groups[3].map(toolButton)}
+        {divider}
+        <VoiceInputButton onText={insertSpoken} onInterim={setSpokenInterim} />
       </div>
+
+      {spokenInterim && (
+        <p aria-live="polite" className="truncate border-b border-neutral-100 px-4 py-1.5 text-xs text-neutral-500 italic dark:border-neutral-800">
+          {spokenInterim}
+        </p>
+      )}
 
       <div className="relative">
         {/* Not an extension: the empty state is already known from the editor */}

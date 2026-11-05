@@ -3,10 +3,11 @@ import axios from "axios";
 export const startAttempt = async (
   token: string | undefined,
   assessmentId: string,
+  useTimer: boolean,
 ): Promise<string> => {
   const res = await axios.post(
     `${process.env.NEXT_PUBLIC_API_HTTP}/attempts/start`,
-    { assessmentId: assessmentId },
+    { assessmentId, useTimer },
     {
       headers: { Authorization: `Bearer ${token}` },
     },

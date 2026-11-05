@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { AccordionContent, AccordionTrigger, TruncatedText } from "@/shared/ui";
 import { Button } from "@/shared/components/ui/button";
 import {
@@ -45,8 +46,32 @@ export const MaterialsSideBar: FC = () => {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const [activeSidebarSection, setActiveSidebarSection] =
-    useState<MaterialsSidebarSectionEnum>(MaterialsSidebarSectionEnum.Empty);
+  // What is open lives in the address: it survives a reload, Back works and it can be shared
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const activeMaterialId = searchParams.get("material") ?? undefined;
+  const activeNoteId = searchParams.get("note") ?? undefined;
+  const activeDictionaryId = searchParams.get("dictionary") ?? undefined;
+  const activeSidebarSection = activeDictionaryId
+    ? MaterialsSidebarSectionEnum.Dictionary
+    : activeNoteId
+      ? MaterialsSidebarSectionEnum.Notes
+      : activeMaterialId
+        ? MaterialsSidebarSectionEnum.Main
+        : MaterialsSidebarSectionEnum.Empty;
+
+  // pushState, not the router: it updates the search params without asking the server for the
+  // page again, and every choice is one step of Back. Choosing what is already open adds no step
+  const openInUrl = (next: { material?: string; note?: string; dictionary?: string }) => {
+    const params = new URLSearchParams();
+    if (next.material) params.set("material", next.material);
+    if (next.note) params.set("note", next.note);
+    if (next.dictionary) params.set("dictionary", next.dictionary);
+
+    const query = params.toString();
+    if (query === searchParams.toString()) return;
+    window.history.pushState(null, "", query ? `${pathname}?${query}` : pathname);
+  };
 
   const { materialsData, materialsIsPending } = useMaterialAll();
   const prefetchMaterial = usePrefetchMaterial();
@@ -54,20 +79,20 @@ export const MaterialsSideBar: FC = () => {
 
   // Ids, not copies: a copy taken at the click went stale after edits, so new tags,
   // titles and statuses didn't show until the material was clicked again
-  const [activeMaterialId, setActiveMaterialId] = useState<string>();
-  const [activeNoteId, setActiveNoteId] = useState<string>();
   const activeMaterial = materialsData?.find(
     (material) => material.id === activeMaterialId,
   );
   const activeNote = activeMaterial?.notes?.find(
     (note) => note.id === activeNoteId,
   );
-  const [activeDictionary, setActiveDictionary] = useState<
-    IDictionaryResponse | undefined
-  >(undefined);
-  const [accordionOpenValue, setAccordionOpenValue] = useState<
-    string | undefined
-  >();
+  const [accordionOpenValue, setAccordionOpenValue] = useState(activeMaterialId);
+
+  // Opened from the address or with Back: its row in the list opens too
+  const [shownMaterialId, setShownMaterialId] = useState(activeMaterialId);
+  if (activeMaterialId !== shownMaterialId) {
+    setShownMaterialId(activeMaterialId);
+    if (activeMaterialId) setAccordionOpenValue(activeMaterialId);
+  }
 
   const closeSheetIfMobile = () => {
     if (!isDesktop) setSheetOpen(false);
@@ -84,10 +109,7 @@ export const MaterialsSideBar: FC = () => {
       >
         <AddMaterialModal
           onCreated={(materialId) => {
-            setActiveMaterialId(materialId);
-            setActiveNoteId(undefined);
-            setActiveDictionary(undefined);
-            setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
+            openInUrl({ material: materialId });
             setAccordionOpenValue(materialId);
           }}
         />
@@ -125,12 +147,7 @@ export const MaterialsSideBar: FC = () => {
               <AccordionTrigger
                 onMouseEnter={() => prefetchMaterial(item.id)}
                 onFocus={() => prefetchMaterial(item.id)}
-                onClick={() => {
-                  setActiveMaterialId(item.id);
-                  setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
-                  setActiveNoteId(undefined);
-                  setActiveDictionary(undefined);
-                }}
+                onClick={() => openInUrl({ material: item.id })}
                 className={cn(
                   "flex w-full justify-start items-start rounded-xl transition-colors hover:bg-neutral-900/10 dark:hover:bg-white/10 px-1.5 py-1",
                   activeMaterial?.id === item.id &&
@@ -205,12 +222,7 @@ export const MaterialsSideBar: FC = () => {
                           onMouseEnter={() => prefetchNote(item.id, note.id)}
                           onFocus={() => prefetchNote(item.id, note.id)}
                           onClick={() => {
-                            setActiveMaterialId(item.id);
-                            setActiveNoteId(note.id);
-                            setActiveDictionary(undefined);
-                            setActiveSidebarSection(
-                              MaterialsSidebarSectionEnum.Notes,
-                            );
+                            openInUrl({ material: item.id, note: note.id });
                             closeSheetIfMobile();
                           }}
                           variant="ghost"
@@ -234,14 +246,9 @@ export const MaterialsSideBar: FC = () => {
                   <MaterialDictionaries
                     materialId={item.id}
                     enabled={accordionOpenValue === item.id}
-                    activeDictionaryId={activeDictionary?.id}
+                    activeDictionaryId={activeDictionaryId}
                     onSelect={(dictionary) => {
-                      setActiveMaterialId(item.id);
-                      setActiveNoteId(undefined);
-                      setActiveDictionary(dictionary);
-                      setActiveSidebarSection(
-                        MaterialsSidebarSectionEnum.Dictionary,
-                      );
+                      openInUrl({ material: item.id, dictionary: dictionary.id });
                       closeSheetIfMobile();
                     }}
                   />
@@ -255,9 +262,7 @@ export const MaterialsSideBar: FC = () => {
 
   // From the "added to dictionary" toast: the dictionary opens next to the text it came from
   const openDictionary = (dictionary: IDictionaryResponse) => {
-    setActiveNoteId(undefined);
-    setActiveDictionary(dictionary);
-    setActiveSidebarSection(MaterialsSidebarSectionEnum.Dictionary);
+    openInUrl({ material: dictionary.materialId, dictionary: dictionary.id });
     setAccordionOpenValue(dictionary.materialId);
   };
 
@@ -293,22 +298,19 @@ export const MaterialsSideBar: FC = () => {
       />
     ) : activeSidebarSection === MaterialsSidebarSectionEnum.Dictionary &&
       activeMaterial &&
-      activeDictionary ? (
+      activeDictionaryId ? (
       <DictionaryContent
-        key={activeDictionary.id}
+        key={activeDictionaryId}
         materialId={activeMaterial.id}
-        dictionaryId={activeDictionary.id}
-        onDeleted={() => {
-          setActiveDictionary(undefined);
-          setActiveSidebarSection(MaterialsSidebarSectionEnum.Main);
-        }}
+        dictionaryId={activeDictionaryId}
+        onDeleted={() => openInUrl({ material: activeMaterial.id })}
       />
     ) : (
       <EmptySection />
     );
 
   // Opening something else fades it in, so the pane doesn't just snap to new content
-  const contentKey = `${activeSidebarSection}:${activeMaterial?.id ?? ""}:${activeNote?.id ?? ""}:${activeDictionary?.id ?? ""}`;
+  const contentKey = `${activeSidebarSection}:${activeMaterial?.id ?? ""}:${activeNote?.id ?? ""}:${activeDictionaryId ?? ""}`;
   const animatedContent = (
     <motion.div
       key={contentKey}

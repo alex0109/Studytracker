@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getServerT } from "@/shared/i18n/server";
-import { NO_INDEX } from "@/shared/config/site";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const { t } = await getServerT();
@@ -8,7 +7,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
   return {
     title: `Studytracker | ${t("meta.titles.library")}`,
     description: t("meta.description"),
-    robots: NO_INDEX,
   };
 };
 

@@ -11,6 +11,7 @@ import { usePendingNavigation } from "@/shared/lib/use-pending-navigation";
 import { QuestionCreateModal } from "@/features/question/create-question/ui";
 import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
+import { ExamSettingsButton } from "@/features/assessment/exam-settings";
 import { questionInterface } from "../../lib/question-interface";
 import { useTranslation } from "@/shared/i18n";
 import { QuestionsAccordion } from "./questions-accordion";
@@ -46,7 +47,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
     limitsData?.maxQuestionsPerMaterial,
   );
 
-  const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId);
+  const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId, !noteId);
   // From the click until the attempt page is open: the attempt is created once
   const isStarting = startAttemptIsPending || isNavigating;
 
@@ -98,6 +99,13 @@ export const QuestionsContent: FC<QuestionsType> = ({
           </Button>
         ))}
       </div>
+
+      {/* Exam settings belong to the material as a whole, notes have none */}
+      {!noteId && (
+        <div className="-mt-2 mb-5 flex justify-center">
+          <ExamSettingsButton assessmentId={assessmentId} />
+        </div>
+      )}
 
       <div>
         {questionsIsPending ? (

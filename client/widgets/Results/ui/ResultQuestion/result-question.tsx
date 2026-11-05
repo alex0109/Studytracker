@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { LuCheck, LuLightbulb, LuSparkles, LuThumbsUp, LuX } from "react-icons/lu";
 import { AcceptAnswerButton } from "@/features/attempt/accept-answer";
 import { IResultResponse } from "@/entities/attempt";
+import { HesitationMark } from "@/entities/attempt/ui/HesitationMark/hesitation-mark";
 import { IOption, QuestionTypeEnum } from "@/entities/question";
 import { cn } from "@/shared/lib";
 
@@ -116,6 +117,9 @@ export const ResultQuestion: FC<ResultQuestionProps> = ({
           <h3 className="min-w-0 break-words text-lg font-semibold leading-snug">
             {title}
           </h3>
+          {(questionType === QuestionTypeEnum.Options || questionType === QuestionTypeEnum.TrueFalse) && (
+            <HesitationMark changes={result?.answerChangedCount ?? 0} />
+          )}
         </div>
         <div className="flex shrink-0 flex-wrap gap-1.5 pl-10 sm:pl-0">
           {/* Keyed by status, so an accepted answer pops from "wrong" to "correct" */}

@@ -11,10 +11,10 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/api/",
         "/materials",
-        "/library",
         "/statistics",
         "/limits",
-        "/today",
+        "/app",
+        "/calendar",
         "/account",
         "/share/",
         "/error",

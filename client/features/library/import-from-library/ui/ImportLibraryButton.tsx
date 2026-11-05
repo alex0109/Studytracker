@@ -4,6 +4,7 @@ import { FC } from "react";
 import { LuCheck, LuDownload } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
+import { useRequireAuth } from "@/shared/hooks/use-require-auth";
 import { Spinner } from "@/shared/ui";
 import { useLibraryImport } from "../hooks/useLibraryImport";
 
@@ -15,10 +16,11 @@ interface ImportLibraryButtonProps {
 export const ImportLibraryButton: FC<ImportLibraryButtonProps> = ({ itemId, isImported }) => {
   const { t } = useTranslation();
   const { importLibraryItem, importLibraryItemIsPending } = useLibraryImport(itemId);
+  const requireAuth = useRequireAuth();
 
   return (
     <div className="flex flex-col items-start gap-1">
-      <Button size="lg" disabled={importLibraryItemIsPending} onClick={() => importLibraryItem()}>
+      <Button size="lg" disabled={importLibraryItemIsPending} onClick={() => requireAuth(importLibraryItem)}>
         {importLibraryItemIsPending ? <Spinner /> : <LuDownload aria-hidden />}
         {importLibraryItemIsPending
           ? t("library.importing")

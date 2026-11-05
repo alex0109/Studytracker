@@ -30,58 +30,58 @@ export const Navigation: FC = () => {
   return (
     <header className="z-40 relative">
       {user && <ProfileSync />}
-      {/* The bar and the menu slide in with CSS: the server HTML is visible at once, a phone no
-          longer waits for the scripts to see it. The bar is opaque, so no backdrop blur */}
-      <div
-        className="z-40 fixed top-0 left-1/2 -translate-x-1/2
-        h-[4.5rem] w-full border-white bg-white shadow-lg
-        shadow-black/[0.03]
-        md:top-6 md:h-[3.25rem] md:w-[50rem]
-        md:rounded-tl-[160px] md:rounded-br-[160px] md:rounded-bl-[16px] md:rounded-tr-[16px] dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-black/40
-        animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
-      />
-
-      {/* On desktop the menu covers the bar exactly, so everything sits on its middle line.
+      {/* The bar slides in with CSS: the server HTML is visible at once, a phone no longer waits for
+          the scripts to see it. It is opaque, so no backdrop blur. On desktop it grows with what is
+          inside, so one more link or a longer language can't push anything out of it.
           Three columns: the links stay centred and the side items can't run into them */}
       <nav
         aria-label={t("nav.home")}
-        className="z-40 fixed inset-x-0 top-0 flex h-[4.5rem] w-full items-center
-        justify-between gap-2 px-4 md:inset-x-auto md:left-1/2
-        md:-translate-x-1/2 md:top-6 md:grid md:h-[3.25rem] md:w-[46rem]
-        md:max-w-[calc(100vw-2rem)] md:grid-cols-[1fr_auto_1fr] md:px-0"
+        className="z-40 fixed inset-x-0 top-0 flex h-[4.5rem] w-full items-center justify-between
+        gap-2 bg-white px-4 shadow-lg shadow-black/[0.03]
+        md:inset-x-auto md:left-1/2 md:top-6 md:grid md:h-[3.25rem] md:w-fit
+        md:min-w-[min(50rem,calc(100vw-2rem))] md:max-w-[calc(100vw-2rem)] md:-translate-x-1/2
+        md:grid-cols-[1fr_auto_1fr] md:px-8
+        md:rounded-tl-[160px] md:rounded-br-[160px] md:rounded-bl-[16px] md:rounded-tr-[16px]
+        dark:bg-neutral-900 dark:shadow-black/40
+        animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
       >
         {user && (
           <StreakBadge className="md:col-start-1 md:justify-self-start md:size-9" />
         )}
 
         <ul className="hidden md:col-start-2 md:flex items-center justify-center gap-0.5 text-[0.875rem] font-medium">
-          {mappedLinkList.map((link) => (
-            <li
-              className="flex items-center justify-center animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
-              key={link.hash}
-            >
-              <Link
-                aria-current={isActive(pathname, link.hash) ? "page" : undefined}
-                className={cn(
-                  "flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 transition",
-                  isActive(pathname, link.hash)
-                    ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
-                    : "text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white",
-                )}
-                href={link.hash}
-              >
-                <link.icon aria-hidden className="size-4 shrink-0" />
-                {t(`nav.${link.name}`)}
-                {link.name === "today" && <TodayCount />}
-              </Link>
-            </li>
-          ))}
+          {mappedLinkList.map((link) => {
+            const active = isActive(pathname, link.hash);
+            const label = t(`nav.${link.name}`);
+
+            return (
+              <li className="flex items-center justify-center" key={link.hash}>
+                <Link
+                  aria-current={active ? "page" : undefined}
+                  title={label}
+                  className={cn(
+                    "flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 transition",
+                    active
+                      ? "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-white"
+                      : "text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white",
+                  )}
+                  href={link.hash}
+                >
+                  <link.icon aria-hidden className="size-4 shrink-0" />
+                  {/* All the links of a signed-in user need a wide screen; on a narrower one only
+                      the current page keeps its word, the rest stay readable to screen readers */}
+                  <span className={cn(user && !active && "sr-only lg:not-sr-only")}>{label}</span>
+                  {link.name === "today" && <TodayCount />}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {user && (
           <SignOutButton
             variant="icon"
-            className="hidden md:col-start-3 md:flex md:justify-self-end animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
+            className="hidden md:col-start-3 md:flex md:justify-self-end"
           />
         )}
 
@@ -101,7 +101,7 @@ export const Navigation: FC = () => {
 
       {/* Desktop: account, language and theme in the top right corner of the page,
           on narrow desktops a row lower so they don't cover the menu */}
-      <div className="z-40 fixed md:top-[4.4rem] lg:top-6 right-6 hidden md:flex items-center gap-2">
+      <div className="z-40 fixed md:top-20 xl:top-6 right-6 hidden md:flex items-center gap-2">
         {user && <AccountLink />}
         <PreferencesControls />
       </div>
@@ -171,7 +171,7 @@ export const Navigation: FC = () => {
         <div
           className="z-30 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white
           dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem]
-          h-10 hidden md:flex md:w-[26rem] justify-center items-start pt-2
+          h-10 hidden md:flex lg:w-[26rem] justify-center items-start px-4 pt-2
           animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
         >
           <p className="max-w-[24rem] truncate text-center text-sm text-neutral-900 dark:text-neutral-300">

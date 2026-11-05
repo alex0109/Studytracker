@@ -24,3 +24,5 @@ export * from "./TitleInput";
 export * from "./SelectionAction";
 export * from "./Analytics";
 export * from "./TruncatedText";
+export * from "./DatePicker";
+export * from "./VoiceInput";

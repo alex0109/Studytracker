@@ -3,12 +3,12 @@ import { ILocalStroke } from "../model/local-stroke";
 
 export function toDrawingContent(
   strokes: ILocalStroke[],
-  canvasSize: { width: number; height: number },
+  paper: { width: number; height: number },
 ): IDrawingContent {
   return {
     version: 1,
     strokes: strokes.map((s) => ({ ...s, id: crypto.randomUUID() })),
-    width: canvasSize.width,
-    height: canvasSize.height,
+    width: paper.width,
+    height: paper.height,
   };
 }

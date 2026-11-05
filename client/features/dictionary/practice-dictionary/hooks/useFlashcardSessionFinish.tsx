@@ -1,5 +1,6 @@
 "use client";
 
+import { deadlineKeys } from "@/entities/deadline";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
@@ -30,6 +31,8 @@ export const useFlashcardSessionFinish = (dictionaryId?: string | null) => {
       // Reviewed cards count for the streak and the due words of today
       queryClient.invalidateQueries({ queryKey: statisticsKeys.studyStreak() });
       queryClient.invalidateQueries({ queryKey: statisticsKeys.flashcardAnswersAll() });
+      queryClient.invalidateQueries({ queryKey: statisticsKeys.calendarAll() });
+      queryClient.invalidateQueries({ queryKey: deadlineKeys.all });
       queryClient.invalidateQueries({ queryKey: notificationKeys.feed() });
     },
     onError: (error, sessionId) => {

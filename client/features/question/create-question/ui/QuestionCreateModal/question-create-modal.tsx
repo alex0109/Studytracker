@@ -6,7 +6,7 @@ import { LuCircleHelp } from "react-icons/lu";
 import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
 import { useTranslation } from "@/shared/i18n";
 import { IQuestionCreateForm } from "../../model";
-import { ChoiceGroup, Field, FieldInput, FieldTextArea, Modal, Spinner } from "@/shared/ui";
+import { ChoiceGroup, Field, FieldInput, FieldTextArea, Modal, Spinner, VoiceField } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { useOpenQuestionCreate } from "../../hooks/useOpenQuestionCreate";
 import { useOptionsQuestionCreate } from "../../hooks/useOptionsQuestionCreate";
@@ -51,6 +51,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
   });
 
   const isTrue = useWatch({ control, name: "isTrue" });
+  const answerValue = useWatch({ control, name: "answer" });
 
   const { createOpenQuestion, createOpenQuestionIsPending } =
     useOpenQuestionCreate(materialId, noteId);
@@ -149,13 +150,19 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
 
         {questionType === QuestionTypeEnum.Open && (
           <Field label={t("questions.answerLabel")} required error={errors.answer?.message}>
-            <FieldTextArea
-              placeholder={t("questions.answerPlaceholder")}
+            <VoiceField
+              value={answerValue ?? ""}
               maxLength={1000}
-              rows={5}
-              aria-invalid={!!errors.answer}
-              {...register("answer", { required: t("common.required") })}
-            />
+              onChange={(next) => setValue("answer", next, { shouldValidate: !!errors.answer })}
+            >
+              <FieldTextArea
+                placeholder={t("questions.answerPlaceholder")}
+                maxLength={1000}
+                rows={5}
+                aria-invalid={!!errors.answer}
+                {...register("answer", { required: t("common.required") })}
+              />
+            </VoiceField>
           </Field>
         )}
 

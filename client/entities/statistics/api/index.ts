@@ -5,3 +5,4 @@ export { getOverview } from "./getOverview";
 export { getStudyStreak } from "./getStudyStreak";
 export { getTagPerformance } from "./getTagPerformance";
 export { getFlashcardAnswers } from "./getFlashcardAnswers";
+export { getStudyCalendar } from "./getStudyCalendar";

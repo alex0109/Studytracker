@@ -11,4 +11,6 @@ export interface IAttempt {
   results: IResultResponse[];
   startedAt: Date;
   finishedAt?: Date;
+  // The time limit this attempt was started with, null when it has none
+  timeLimitMinutes?: number | null;
 }
