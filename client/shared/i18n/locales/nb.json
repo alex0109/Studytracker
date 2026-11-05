@@ -84,21 +84,6 @@
       "streak": "12 dager på rad",
       "lastTwoWeeks": "siste to uker"
     },
-    "samples": {
-      "butterfly": {
-        "translation": "sommerfugl",
-        "grammar": "der, flertall: die Schmetterlinge",
-        "example": "En sommerfugl sitter på blomsten."
-      },
-      "cozy": {
-        "translation": "koselig",
-        "example": "Kafeen er veldig koselig."
-      },
-      "run": {
-        "translation": "å løpe, å gå",
-        "example": "Jeg løper i parken hver morgen."
-      }
-    },
     "loop": {
       "eyebrow": "Ideen",
       "title": "Én sirkel. Tre verb.",
@@ -748,7 +733,9 @@
     "summaryGenerated": "Sammendraget er generert!",
     "attemptNotFinished": "Forsøket ble ikke fullført, prøv igjen",
     "tagCreatedText": "Du kan bruke den i alle materialer",
-    "noQuestions": "Det er ingen spørsmål å repetere nå"
+    "noQuestions": "Det er ingen spørsmål å repetere nå",
+    "tagDeleted": "Taggen er slettet",
+    "tagDeleteError": "Kunne ikke slette taggen"
   },
   "ai": {
     "errors": {
@@ -819,7 +806,11 @@
     "name": "Navn",
     "namePlaceholder": "F.eks. Engelsk",
     "color": "Farge",
-    "addToMaterialText": "Trykk på en tagg for å legge den til eller fjerne den."
+    "addToMaterialText": "Trykk på en tagg for å legge den til eller fjerne den.",
+    "delete": "Slett tagg",
+    "deleteNamed": "Slett taggen «{{name}}»",
+    "deleteTitle": "Slette taggen «{{name}}»?",
+    "deleteText": "Taggen forsvinner fra alle materialer. Selve materialene blir værende."
   },
   "editor": {
     "toolbar": "Tekstformatering",
@@ -833,7 +824,19 @@
     "orderedList": "Nummerert liste",
     "image": "Bilde",
     "linkPrompt": "Skriv inn lenken",
-    "linkInvalid": "Bare lenker som starter med http://, https:// eller mailto: kan legges til"
+    "linkInvalid": "Bare lenker som starter med http://, https:// eller mailto: kan legges til",
+    "textStyle": "Tekststil",
+    "paragraph": "Vanlig tekst",
+    "strike": "Gjennomstreket",
+    "quote": "Sitat",
+    "code": "Kode",
+    "undo": "Angre",
+    "redo": "Gjør om",
+    "placeholder": "Begynn å skrive her…",
+    "words_one": "{{count}} ord",
+    "words_few": "{{count}} ord",
+    "words_many": "{{count}} ord",
+    "words_other": "{{count}} ord"
   },
   "sections": {
     "Material": "Materiale",
@@ -1343,6 +1346,10 @@
       "reauthError": "Kunne ikke starte innloggingen, prøv igjen",
       "doneTitle": "Kontoen er slettet",
       "doneText": "Dataene dine er slettet. En bekreftelse er på vei til e-posten din."
+    },
+    "session": {
+      "title": "Innlogging",
+      "subtitle": "Du er logget inn som {{email}}"
     }
   },
   "profile": {
@@ -1467,6 +1474,8 @@
     "contact": {
       "title": "Spørsmål",
       "text": "Skriv til oss via tilbakemeldingsskjemaet på forsiden."
-    }
+    },
+    "contents": "Innhold",
+    "toAccount": "Gå til kontoen"
   }
 }

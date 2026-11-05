@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuChevronDown, LuRefreshCw } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
-import { SaveStatus } from "@/shared/ui";
+import { FieldSelect, SaveStatus } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { IProfileUpdate, useProfile } from "@/entities/profile";
@@ -99,18 +99,14 @@ export const LearningForm: FC = () => {
   );
 
   const hourSelect = (field: "dailyReminderHour" | "streakReminderHour", fallback: number) => (
-    <select
-      className={control}
-      value={profileData[field] ?? -1}
-      onChange={(event) => save(field, { [field]: Number(event.target.value) })}
-    >
-      <option value={-1}>{t("learning.defaultHour", { hour: hourLabel(fallback) })}</option>
-      {HOURS.map((hour) => (
-        <option key={hour} value={hour}>
-          {hourLabel(hour)}
-        </option>
-      ))}
-    </select>
+    <FieldSelect
+      value={String(profileData[field] ?? -1)}
+      onValueChange={(next) => save(field, { [field]: Number(next) })}
+      options={[
+        { value: "-1", label: t("learning.defaultHour", { hour: hourLabel(fallback) }) },
+        ...HOURS.map((hour) => ({ value: String(hour), label: hourLabel(hour) })),
+      ]}
+    />
   );
 
   const shownRetention = retention ?? defaults.desiredRetention;
@@ -202,22 +198,16 @@ export const LearningForm: FC = () => {
                   status={status("streakFreezesPerMonth")}
                   hint={t("learning.freezesHint")}
                 >
-                  <select
-                    className={control}
-                    value={profileData.streakFreezesPerMonth ?? -1}
-                    onChange={(event) =>
-                      save("streakFreezesPerMonth", { streakFreezesPerMonth: Number(event.target.value) })
+                  <FieldSelect
+                    value={String(profileData.streakFreezesPerMonth ?? -1)}
+                    onValueChange={(next) =>
+                      save("streakFreezesPerMonth", { streakFreezesPerMonth: Number(next) })
                     }
-                  >
-                    <option value={-1}>
-                      {t("learning.freezesDefault", { count: defaults.streakFreezesPerMonth })}
-                    </option>
-                    {Array.from({ length: 11 }, (_, count) => (
-                      <option key={count} value={count}>
-                        {count}
-                      </option>
-                    ))}
-                  </select>
+                    options={[
+                      { value: "-1", label: t("learning.freezesDefault", { count: defaults.streakFreezesPerMonth }) },
+                      ...Array.from({ length: 11 }, (_, count) => ({ value: String(count), label: String(count) })),
+                    ]}
+                  />
                 </Field>
               </div>
 

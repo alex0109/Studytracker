@@ -5,6 +5,7 @@ import { LuBookA } from "react-icons/lu";
 import { IDictionaryResponse, useDictionaryAll } from "@/entities/dictionary";
 import { Button } from "@/shared/components/ui/button";
 import { Skeleton } from "@/shared/radix-ui";
+import { TruncatedText } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
 interface MaterialDictionariesProps {
@@ -41,12 +42,13 @@ export const MaterialDictionaries: FC<MaterialDictionariesProps> = ({
               onClick={() => onSelect(dictionary)}
               variant="ghost"
               className={cn(
-                "w-full flex justify-start items-center hover:bg-neutral-900/10 dark:hover:bg-white/10",
-                activeDictionaryId === dictionary.id && "bg-neutral-900/5 dark:bg-white/5",
+                "h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal hover:bg-neutral-900/10 dark:hover:bg-white/10",
+                activeDictionaryId === dictionary.id && "bg-neutral-900/5 font-medium dark:bg-white/5",
               )}
             >
-              <LuBookA /> {dictionary.title}
-              <span className="ml-auto text-xs text-neutral-400">
+              <LuBookA />
+              <TruncatedText text={dictionary.title} />
+              <span className="ml-auto shrink-0 text-xs text-neutral-400">
                 {dictionary.entries?.length ?? 0}
               </span>
             </Button>

@@ -9,6 +9,7 @@ import { useMediaQuery } from "@/shared/hooks/use-media-query";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import type { TextSelectionInfo } from "@/shared/ui";
+import { SelectMenu } from "@/shared/ui";
 import {
   IDictionaryResponse,
   PartOfSpeechBadge,
@@ -213,21 +214,16 @@ export const AddWordPanel: FC<AddWordPanelProps> = ({ materialId, selection, onC
           </Button>
         </div>
       ) : (
-        <label htmlFor={`${ids}-dictionary`} className="flex flex-col gap-1 text-xs font-medium text-neutral-500">
+        <div className="flex flex-col gap-1 text-xs font-medium text-neutral-500">
           {t("dictionary.fromReading.dictionary")}
-          <select
-            id={`${ids}-dictionary`}
-            className={field}
+          <SelectMenu
+            aria-label={t("dictionary.fromReading.dictionary")}
+            triggerClassName={field}
             value={dictionaryId}
-            onChange={(event) => setDictionaryId(event.target.value)}
-          >
-            {dictionariesData?.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.title}
-              </option>
-            ))}
-          </select>
-        </label>
+            onValueChange={setDictionaryId}
+            options={dictionariesData?.map((item) => ({ value: item.id, label: item.title })) ?? []}
+          />
+        </div>
       )}
 
       <label htmlFor={`${ids}-term`} className="flex flex-col gap-1 text-xs font-medium text-neutral-500">

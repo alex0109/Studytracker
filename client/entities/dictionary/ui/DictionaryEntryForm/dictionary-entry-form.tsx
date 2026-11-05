@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { LuChevronDown } from "react-icons/lu";
 import { Field, FieldInput, FieldSelect, FieldTextArea } from "@/shared/ui";
 import { IDictionaryEntryForm } from "../../model";
@@ -21,6 +21,7 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultV
   const { t } = useTranslation();
   const {
     register,
+    control,
     formState: { errors },
     handleSubmit,
   } = useForm<IDictionaryEntryForm>({ defaultValues });
@@ -50,14 +51,23 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultV
           />
         </Field>
         <Field label={t("dictionary.form.partOfSpeech")}>
-          <FieldSelect {...register("partOfSpeech")}>
-            <option value="">{t("dictionary.form.partOfSpeechNone")}</option>
-            {partOfSpeechOptions.map((option) => (
-              <option key={option} value={option}>
-                {t(`dictionary.partOfSpeech.${option}`)}
-              </option>
-            ))}
-          </FieldSelect>
+          <Controller
+            control={control}
+            name="partOfSpeech"
+            render={({ field }) => (
+              <FieldSelect
+                value={field.value ?? ""}
+                onValueChange={field.onChange}
+                options={[
+                  { value: "", label: t("dictionary.form.partOfSpeechNone") },
+                  ...partOfSpeechOptions.map((option) => ({
+                    value: option,
+                    label: t(`dictionary.partOfSpeech.${option}`),
+                  })),
+                ]}
+              />
+            )}
+          />
         </Field>
       </div>
 

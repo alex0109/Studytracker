@@ -14,6 +14,8 @@ import { Navigation } from "@/widgets/Navigation";
 import { AccountDeletedNotice } from "@/features/account/delete-account";
 import { getServerT } from "@/shared/i18n/server";
 import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config/site";
+import { pickSampleWordIds } from "./(client)/(home)/lib/sample-words";
+import { SampleWordsProvider } from "./(client)/(home)/lib/sample-entries";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const { t, language } = await getServerT();
@@ -82,10 +84,13 @@ const Page = async () => {
       </Suspense>
       <ScrollTint />
       <div className="flex flex-col items-center gap-28 overflow-x-clip pt-36 pb-24 md:gap-36 md:pt-44">
-        <Hero />
-        <KnowledgeLoop />
-        <HowItWorks />
-        <WordsThatStick />
+        {/* New words on every visit: picked here, on the server, for the hero card and the deck */}
+        <SampleWordsProvider ids={pickSampleWordIds()}>
+          <Hero />
+          <KnowledgeLoop />
+          <HowItWorks />
+          <WordsThatStick />
+        </SampleWordsProvider>
         <Glossary />
         <FinalCta />
         <FeedbackSection />

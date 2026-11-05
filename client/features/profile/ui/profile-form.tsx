@@ -3,7 +3,7 @@
 import { FC, useMemo, useState } from "react";
 import { LuLocateFixed } from "react-icons/lu";
 import { Skeleton } from "@/shared/radix-ui";
-import { SaveStatus } from "@/shared/ui";
+import { FieldSelect, SaveStatus } from "@/shared/ui";
 import {
   isLanguage,
   LANGUAGE_LABELS,
@@ -92,18 +92,15 @@ export const ProfileForm: FC = () => {
         className="sm:col-span-2"
       >
         <div className="flex flex-col gap-2 sm:flex-row">
-          <select
-            className={control}
+          <FieldSelect
+            aria-label={t("profile.timeZone")}
             value={profileData.timeZone ?? ""}
-            onChange={(event) => save("timeZone", { timeZone: event.target.value })}
-          >
-            {!profileData.timeZone && <option value="">{t("profile.timeZoneUnknown")}</option>}
-            {timeZones.map((zone) => (
-              <option key={zone} value={zone}>
-                {zone.replaceAll("_", " ")}
-              </option>
-            ))}
-          </select>
+            onValueChange={(zone) => zone && save("timeZone", { timeZone: zone })}
+            options={[
+              ...(profileData.timeZone ? [] : [{ value: "", label: t("profile.timeZoneUnknown") }]),
+              ...timeZones.map((zone) => ({ value: zone, label: zone.replaceAll("_", " ") })),
+            ]}
+          />
           {browserZone && browserZone !== profileData.timeZone && (
             <button
               type="button"
@@ -118,22 +115,16 @@ export const ProfileForm: FC = () => {
       </Field>
 
       <Field label={t("profile.interfaceLanguage")} status={status("interfaceLanguage")}>
-        <select
-          className={control}
+        <FieldSelect
+          aria-label={t("profile.interfaceLanguage")}
           value={profileData.interfaceLanguage}
-          onChange={(event) => {
-            const next = event.target.value;
+          onValueChange={(next) => {
             if (!isLanguage(next)) return;
             save("interfaceLanguage", { interfaceLanguage: next });
             setLanguage(next);
           }}
-        >
-          {LANGUAGES.map((code) => (
-            <option key={code} value={code} lang={code}>
-              {LANGUAGE_LABELS[code].name}
-            </option>
-          ))}
-        </select>
+          options={LANGUAGES.map((code) => ({ value: code, label: LANGUAGE_LABELS[code].name, lang: code }))}
+        />
       </Field>
 
       <Field
@@ -141,19 +132,16 @@ export const ProfileForm: FC = () => {
         status={status("explanationLanguage")}
         hint={t("profile.explanationHint")}
       >
-        <select
-          className={control}
+        <FieldSelect
+          aria-label={t("profile.explanationLanguage")}
           value={profileData.explanationLanguage ?? ""}
-          onChange={(event) => save("explanationLanguage", { explanationLanguage: event.target.value })}
-        >
-          <option value="">{t("profile.explanationAsInterface", { language: interfaceName })}</option>
-          <option value={QUESTION_LANGUAGE}>{t("profile.explanationAsQuestion")}</option>
-          {EXPLANATION_LANGUAGES.map(({ code, name }) => (
-            <option key={code} value={code} lang={code}>
-              {name}
-            </option>
-          ))}
-        </select>
+          onValueChange={(next) => save("explanationLanguage", { explanationLanguage: next })}
+          options={[
+            { value: "", label: t("profile.explanationAsInterface", { language: interfaceName }) },
+            { value: QUESTION_LANGUAGE, label: t("profile.explanationAsQuestion") },
+            ...EXPLANATION_LANGUAGES.map(({ code, name }) => ({ value: code, label: name, lang: code })),
+          ]}
+        />
       </Field>
 
       <Field label={t("profile.nativeLanguage")} status={status("nativeLanguage")}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
-import { AccordionContent, AccordionTrigger } from "@/shared/ui";
+import { AccordionContent, AccordionTrigger, TruncatedText } from "@/shared/ui";
 import { Button } from "@/shared/components/ui/button";
 import {
   Sheet,
@@ -74,7 +74,7 @@ export const MaterialsSideBar: FC = () => {
   };
 
   const list = (
-    <div className="flex flex-col justify-center gap-2 p-5">
+    <div className="flex flex-col justify-center gap-2 p-2 lg:p-0">
       <Accordion.Root
         className={styles.Root}
         type="single"
@@ -132,7 +132,7 @@ export const MaterialsSideBar: FC = () => {
                   setActiveDictionary(undefined);
                 }}
                 className={cn(
-                  "flex w-full justify-start items-start rounded-xl transition-colors hover:bg-neutral-900/10 dark:hover:bg-white/10 p-2",
+                  "flex w-full justify-start items-start rounded-xl transition-colors hover:bg-neutral-900/10 dark:hover:bg-white/10 px-1.5 py-1",
                   activeMaterial?.id === item.id &&
                     "bg-neutral-900/5 dark:bg-white/5",
                 )}
@@ -147,14 +147,13 @@ export const MaterialsSideBar: FC = () => {
                       {`>`}
                     </motion.span>
                   ) : null}
-                  {/* Long titles wrap to two lines: on one line they were cut off,
-                      and focusing the item scrolled the start of the title away */}
-                  <span
-                    title={item.title}
-                    className="min-w-0 px-2 py-1 text-left text-sm font-medium break-words line-clamp-2 select-none"
-                  >
-                    {item.title}
-                  </span>
+                  {/* Two lines, then "…": on one line titles were cut off too soon. The whole
+                      title shows on hover, and only for a title that didn't fit */}
+                  <TruncatedText
+                    text={item.title}
+                    lines={2}
+                    className="px-1.5 py-1 text-left text-sm font-medium select-none"
+                  />
                   {item.isFromLibrary ? (
                     <LuLibrary
                       title={t("library.fromLibrary")}
@@ -172,7 +171,7 @@ export const MaterialsSideBar: FC = () => {
               </AccordionTrigger>
 
               <AccordionContent isOpen={accordionOpenValue === item.id}>
-                <div className="flex flex-col ml-5 pl-2 py-2 gap-2 border-l border-neutral-200 dark:border-neutral-700">
+                <div className="flex flex-col ml-3 pl-2 py-1.5 gap-0.5 border-l border-neutral-200 dark:border-neutral-700">
                   <div className="flex justify-between items-center">
                     <AddNoteModal
                       materialId={item.id}
@@ -216,8 +215,8 @@ export const MaterialsSideBar: FC = () => {
                           }}
                           variant="ghost"
                           className={cn(
-                            "w-full flex justify-start items-center hover:bg-neutral-900/10 dark:hover:bg-white/10",
-                            activeNote?.id === note.id && "bg-neutral-900/5 dark:bg-white/5",
+                            "h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal hover:bg-neutral-900/10 dark:hover:bg-white/10",
+                            activeNote?.id === note.id && "bg-neutral-900/5 font-medium dark:bg-white/5",
                           )}
                         >
                           {note.type === "text" ? (
@@ -226,8 +225,8 @@ export const MaterialsSideBar: FC = () => {
                             <LuPencil />
                           ) : note.type === "summary" ? (
                             <LuScrollText />
-                          ) : null}{" "}
-                          {note.title}
+                          ) : null}
+                          <TruncatedText text={note.title} />
                         </Button>
                       </div>
                     ))}
@@ -326,8 +325,11 @@ export const MaterialsSideBar: FC = () => {
     <div className="my-3 bg-neutral-100 rounded-xl h-full border-3 border-neutral-50 w-full min-w-0 lg:w-[90%] dark:bg-neutral-900 dark:border-neutral-800">
       {isDesktop ? (
         <div className="flex w-full min-w-0">
-          <div className="flex-1 min-h-[500px] p-3">{list}</div>
-          <div className="flex flex-3 min-w-0 justify-center items-start">
+          {/* A fixed narrow column: a quarter of a wide screen was far more than titles need */}
+          <div className="w-60 xl:w-64 shrink-0 min-h-[500px] p-2 border-r border-neutral-200 dark:border-neutral-800">
+            {list}
+          </div>
+          <div className="flex flex-1 min-w-0 justify-center items-start">
             {animatedContent}
           </div>
         </div>

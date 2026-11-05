@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   Modal,
   Field,
@@ -37,7 +37,10 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IMaterialCreate>();
+    control,
+  } = useForm<IMaterialCreate>({
+    defaultValues: { title: "", type: MATERIAL_TYPES[0] as IMaterialCreate["type"], status: MATERIAL_STATUSES[0] as IMaterialCreate["status"] },
+  });
 
   const { createMaterial, createMaterialIsPending } = useMaterialCreate();
   const { materialsData } = useMaterialAll();
@@ -60,9 +63,13 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
   const isPending = mode === "link" ? importMaterialIsPending : createMaterialIsPending;
 
   const onFormSubmit = (values: IMaterialCreate) => {
-    createMaterial(values);
-    setOpen(false);
-    reset();
+    // Open with a spinner until it is saved, so the click shows and can't repeat
+    createMaterial(values, {
+      onSuccess: () => {
+        setOpen(false);
+        reset();
+      },
+    });
   };
 
   return (
@@ -164,22 +171,33 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
               </Field>
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label={t("materials.typeLabel")}>
-                  <FieldSelect {...register("type")}>
-                    {MATERIAL_TYPES.map((type) => (
-                      <option key={type} value={type}>
-                        {t(`materials.types.${type}`)}
-                      </option>
-                    ))}
-                  </FieldSelect>
+                  <Controller
+                    control={control}
+                    name="type"
+                    render={({ field }) => (
+                      <FieldSelect
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        options={MATERIAL_TYPES.map((type) => ({ value: type, label: t(`materials.types.${type}`) }))}
+                      />
+                    )}
+                  />
                 </Field>
                 <Field label={t("materials.statusLabel")}>
-                  <FieldSelect {...register("status")}>
-                    {MATERIAL_STATUSES.map((status) => (
-                      <option key={status} value={status}>
-                        {t(`materials.statuses.${status}`)}
-                      </option>
-                    ))}
-                  </FieldSelect>
+                  <Controller
+                    control={control}
+                    name="status"
+                    render={({ field }) => (
+                      <FieldSelect
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        options={MATERIAL_STATUSES.map((status) => ({
+                          value: status,
+                          label: t(`materials.statuses.${status}`),
+                        }))}
+                      />
+                    )}
+                  />
                 </Field>
               </div>
             </form>

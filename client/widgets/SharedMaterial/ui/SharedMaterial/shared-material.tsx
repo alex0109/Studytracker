@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePendingNavigation } from "@/shared/lib/use-pending-navigation";
 import { motion } from "framer-motion";
 import {
   LuBookA,
@@ -16,7 +16,7 @@ import { useMaterialImport } from "@/features/material/import-material";
 import { useSession } from "@/shared/context/session.provider";
 import { routes } from "@/shared/config/routes";
 import { Button, Skeleton } from "@/shared/radix-ui";
-import { BlockColumn, IsPendingLoader, Subtitle, Title } from "@/shared/ui";
+import { BlockColumn, Spinner, Subtitle, Title } from "@/shared/ui";
 import { useTranslation } from "@/shared/i18n";
 
 interface SharedMaterialProps {
@@ -25,7 +25,7 @@ interface SharedMaterialProps {
 
 export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
   const { t } = useTranslation();
-  const router = useRouter();
+  const { navigate, isNavigating } = usePendingNavigation();
   const { user } = useSession();
   const { previewData, previewIsPending, previewError } =
     useSharedMaterialPreview(shareToken);
@@ -34,7 +34,7 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
 
   const onImport = () => {
     importMaterial(undefined, {
-      onSuccess: () => router.push(routes.materials),
+      onSuccess: () => navigate(routes.materials),
     });
   };
 
@@ -165,12 +165,12 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white"
-                disabled={importMaterialIsPending}
+                // Until the materials page is open: one click, one copy
+                disabled={importMaterialIsPending || isNavigating}
                 onClick={onImport}
               >
-                <LuDownload /> {t("share.preview.import")}
+                {importMaterialIsPending || isNavigating ? <Spinner /> : <LuDownload />} {t("share.preview.import")}
               </Button>
-              <IsPendingLoader isPending={importMaterialIsPending} />
             </div>
           </div>
         )}

@@ -108,24 +108,29 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
     >
       <div className="flex flex-col gap-4">
         <Field label={t("dictionary.generate.from")}>
-          <FieldSelect value={source} onChange={(e) => setSource(e.target.value)}>
-            <option value={MATERIAL_SOURCE}>{t("dictionary.generate.materialContent")}</option>
-            {textNotes.map((note) => (
-              <option key={note.id} value={note.id}>
-                {note.type === NoteTypeEnum.summary ? "📚" : "✍️"} {note.title}
-              </option>
-            ))}
-          </FieldSelect>
+          <FieldSelect
+            value={source}
+            onValueChange={setSource}
+            options={[
+              { value: MATERIAL_SOURCE, label: t("dictionary.generate.materialContent") },
+              ...textNotes.map((note) => ({
+                value: note.id,
+                label: `${note.type === NoteTypeEnum.summary ? "📚" : "✍️"} ${note.title}`,
+              })),
+            ]}
+          />
         </Field>
 
         <Field label={t("dictionary.generate.translateInto")}>
-          <FieldSelect value={languageCode} onChange={(e) => setLanguageCode(e.target.value)}>
-            {TRANSLATION_LANGUAGE_CODES.map((code) => (
-              <option key={code} value={code}>
-                {languageName(code, i18n.language)}
-              </option>
-            ))}
-          </FieldSelect>
+          <FieldSelect
+            value={languageCode}
+            onValueChange={setLanguageCode}
+            options={TRANSLATION_LANGUAGE_CODES.map((code) => ({
+              value: code,
+              label: languageName(code, i18n.language),
+              lang: code,
+            }))}
+          />
         </Field>
 
         <ChoiceGroup

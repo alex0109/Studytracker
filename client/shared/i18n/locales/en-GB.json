@@ -84,21 +84,6 @@
       "streak": "12-day streak",
       "lastTwoWeeks": "last two weeks"
     },
-    "samples": {
-      "butterfly": {
-        "translation": "butterfly",
-        "grammar": "der, plural: die Schmetterlinge",
-        "example": "A butterfly is sitting on the flower."
-      },
-      "cozy": {
-        "translation": "cosy",
-        "example": "The café is very cosy."
-      },
-      "run": {
-        "translation": "to run, to walk",
-        "example": "I run in the park every morning."
-      }
-    },
     "loop": {
       "eyebrow": "The idea",
       "title": "One loop. Three verbs.",
@@ -748,7 +733,9 @@
     "summaryGenerated": "Summary has been generated!",
     "attemptNotFinished": "Attempt was not finished, please try again",
     "tagCreatedText": "You can use it inside any material",
-    "noQuestions": "There are no questions to review right now"
+    "noQuestions": "There are no questions to review right now",
+    "tagDeleted": "Tag deleted",
+    "tagDeleteError": "Couldn't delete the tag"
   },
   "ai": {
     "errors": {
@@ -819,7 +806,11 @@
     "name": "Name",
     "namePlaceholder": "E.g. English",
     "color": "Colour",
-    "addToMaterialText": "Tap a tag to add or remove it."
+    "addToMaterialText": "Tap a tag to add or remove it.",
+    "delete": "Delete tag",
+    "deleteNamed": "Delete the “{{name}}” tag",
+    "deleteTitle": "Delete the “{{name}}” tag?",
+    "deleteText": "The tag will disappear from every material. The materials themselves stay."
   },
   "editor": {
     "toolbar": "Text formatting",
@@ -833,7 +824,19 @@
     "orderedList": "Numbered list",
     "image": "Image",
     "linkPrompt": "Enter the link",
-    "linkInvalid": "Only links starting with http://, https:// or mailto: can be added"
+    "linkInvalid": "Only links starting with http://, https:// or mailto: can be added",
+    "textStyle": "Text style",
+    "paragraph": "Normal text",
+    "strike": "Strikethrough",
+    "quote": "Quote",
+    "code": "Code",
+    "undo": "Undo",
+    "redo": "Redo",
+    "placeholder": "Start writing here…",
+    "words_one": "{{count}} word",
+    "words_few": "{{count}} words",
+    "words_many": "{{count}} words",
+    "words_other": "{{count}} words"
   },
   "sections": {
     "Material": "Material",
@@ -1343,6 +1346,10 @@
       "reauthError": "Couldn't start the sign-in, try again",
       "doneTitle": "Account deleted",
       "doneText": "Your data is gone. A confirmation is on its way to your email."
+    },
+    "session": {
+      "title": "Signed in",
+      "subtitle": "You're signed in as {{email}}"
     }
   },
   "profile": {
@@ -1467,6 +1474,8 @@
     "contact": {
       "title": "Questions",
       "text": "Write to us through the feedback form on the home page."
-    }
+    },
+    "contents": "Contents",
+    "toAccount": "Go to your account"
   }
 }

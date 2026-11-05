@@ -1,10 +1,9 @@
 // SHARED-UI
 import { ComponentProps, FC, ReactNode } from "react";
-import { LuChevronDown } from "react-icons/lu";
 import { cn } from "@/shared/lib/cn";
 
 // One look for every text field, select and textarea in dialogs and forms
-const control =
+export const fieldControl =
   "w-full min-w-0 rounded-xl border border-neutral-200 bg-white px-3.5 text-[15px] text-neutral-900 outline-none transition " +
   "placeholder:text-neutral-400 hover:border-neutral-300 focus-visible:border-neutral-400 focus-visible:ring-4 focus-visible:ring-neutral-900/5 " +
   "disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-red-400 aria-invalid:focus-visible:ring-red-500/10 " +
@@ -50,31 +49,11 @@ export const Field: FC<FieldProps> = ({ label, required, hint, error, aside, cla
 );
 
 export const FieldInput = ({ className, ...props }: ComponentProps<"input">) => (
-  <input className={cn(control, "h-10", className)} {...props} />
+  <input className={cn(fieldControl, "h-10", className)} {...props} />
 );
 
 export const FieldTextArea = ({ className, ...props }: ComponentProps<"textarea">) => (
-  <textarea className={cn(control, "min-h-24 resize-none py-2.5 leading-relaxed", className)} {...props} />
-);
-
-// The native list stays (phones show their own picker), only the arrow is drawn to match the fields
-export const FieldSelect = ({ className, children, ...props }: ComponentProps<"select">) => (
-  <span className="relative flex">
-    <select
-      className={cn(
-        control,
-        "h-10 cursor-pointer appearance-none pr-9 [&>option]:bg-white dark:[&>option]:bg-neutral-800",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </select>
-    <LuChevronDown
-      aria-hidden
-      className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-neutral-400"
-    />
-  </span>
+  <textarea className={cn(fieldControl, "min-h-24 resize-none py-2.5 leading-relaxed", className)} {...props} />
 );
 
 interface ChoiceOption<T> {

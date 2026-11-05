@@ -47,5 +47,6 @@ export const useTagCreate = () => {
   return {
     createTag: createTagMutation.mutate,
     createTagData: createTagMutation.data,
+    createTagIsPending: createTagMutation.isPending,
   };
 };

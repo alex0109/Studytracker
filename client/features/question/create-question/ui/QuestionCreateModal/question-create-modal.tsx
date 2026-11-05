@@ -64,6 +64,14 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     createOptionsQuestionIsPending ||
     createTrueFalseQuestionIsPending;
 
+  // Open with a spinner until it is saved, so the click shows and can't repeat
+  const created = {
+    onSuccess: () => {
+      setOpen(false);
+      reset(QUESTION_CREATE_DEFAULTS);
+    },
+  };
+
   const onFormSubmit = (values: IQuestionCreateForm) => {
     const base = {
       title: values.title.trim(),
@@ -77,19 +85,16 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
           name: option.name.trim(),
           isCorrect: option.isCorrect,
         })),
-      });
+      }, created);
     } else if (questionType === QuestionTypeEnum.TrueFalse) {
       // Hidden input may hand the value back as a string
       createTrueFalseQuestion({
         ...base,
         isTrue: String(values.isTrue) === "true",
-      });
+      }, created);
     } else {
-      createOpenQuestion({ ...base, materialId, answer: values.answer });
+      createOpenQuestion({ ...base, materialId, answer: values.answer }, created);
     }
-
-    setOpen(false);
-    reset(QUESTION_CREATE_DEFAULTS);
   };
 
   return (

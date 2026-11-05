@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuTag } from "react-icons/lu";
-import { Field, FieldInput, Modal, LimitCounter } from "@/shared/ui";
+import { Field, FieldInput, Modal, LimitCounter, Spinner } from "@/shared/ui";
 import { ITagCreate, useTagsAll } from "@/entities/tag";
 import { useLimits } from "@/entities/limits";
 import { isLimitReached } from "@/shared/lib";
@@ -21,7 +21,7 @@ export const AddTag: FC = () => {
     reset,
   } = useForm<ITagCreate>();
 
-  const { createTag } = useTagCreate();
+  const { createTag, createTagIsPending } = useTagCreate();
   const { tagsData } = useTagsAll();
   const { limitsData } = useLimits();
 
@@ -32,12 +32,16 @@ export const AddTag: FC = () => {
   const [color, setColor] = useState("#64748B");
 
   const onFormSubmit = (values: ITagCreate) => {
-    createTag({
-      ...values,
-      color,
-    });
-    setOpen(false);
-    reset();
+    // Open with a spinner until it is saved, so the click shows and can't repeat
+    createTag(
+      { ...values, color },
+      {
+        onSuccess: () => {
+          setOpen(false);
+          reset();
+        },
+      },
+    );
   };
 
   return (
@@ -76,7 +80,8 @@ export const AddTag: FC = () => {
             <Button size="lg" variant="outline" onClick={() => setOpen(false)}>
               {t("common.cancel")}
             </Button>
-            <Button size="lg" type="submit" form="add-tag">
+            <Button size="lg" type="submit" form="add-tag" disabled={createTagIsPending}>
+              {createTagIsPending && <Spinner />}
               {t("common.create")}
             </Button>
           </>
