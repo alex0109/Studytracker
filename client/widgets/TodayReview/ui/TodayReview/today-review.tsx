@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { LuBookA, LuCircleCheckBig, LuClock, LuListChecks, LuPlay, LuSprout } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
+import { Spinner } from "@/shared/ui";
 import { FlashcardSessionModeEnum, IFlashcardSessionResponse } from "@/entities/flashcard";
 import { IQuestionReviewSession, useReviewToday } from "@/entities/review";
 import { FlashcardsDeck } from "@/features/dictionary/practice-dictionary";
@@ -185,7 +186,7 @@ export const TodayReview: FC = () => {
 
               <div className="flex flex-col gap-2 sm:flex-row">
                 <Button size="lg" className="flex-1" onClick={start} disabled={startWordsIsPending || startQuestionsIsPending}>
-                  <LuPlay aria-hidden /> {t("today.start")}
+                  {startWordsIsPending || startQuestionsIsPending ? <Spinner /> : <LuPlay aria-hidden />} {t("today.start")}
                 </Button>
                 {hasWords && hasQuestions && (
                   <Button size="lg" variant="outline" onClick={goQuestions} disabled={startQuestionsIsPending}>

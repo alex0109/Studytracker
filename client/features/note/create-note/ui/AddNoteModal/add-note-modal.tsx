@@ -46,9 +46,13 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
   const { createNote, createNoteIsPending } = useNoteCreate(materialId);
 
   const onFormSubmit = (values: INoteCreate) => {
-    setOpen(false);
-    createNote(values);
-    reset();
+    // Open with a spinner until it is saved, so the click shows and can't repeat
+    createNote(values, {
+      onSuccess: () => {
+        setOpen(false);
+        reset();
+      },
+    });
   };
 
   return (
@@ -57,13 +61,13 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
         onClick={() => setOpen(true)}
         disabled={isFull}
         variant="ghost"
-        className="w-full flex justify-start items-center hover:bg-neutral-900/10 dark:hover:bg-white/10 px-3"
+        className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
       >
         <div>
           <LuPlus />
         </div>
-        <div>
-          <p>{isFull ? t("notes.limitReached") : t("notes.add")}</p>
+        <div className="min-w-0">
+          <p className="truncate">{isFull ? t("notes.limitReached") : t("notes.add")}</p>
         </div>
         <LimitCounter
           used={notesCount}

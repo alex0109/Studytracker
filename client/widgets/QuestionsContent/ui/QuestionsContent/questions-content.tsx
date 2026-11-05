@@ -1,15 +1,17 @@
 "use client";
 
 import { FC, useState } from "react";
-import { LimitCounter } from "@/shared/ui";
+import { LimitCounter, Spinner } from "@/shared/ui";
 import { useLimits } from "@/entities/limits";
 import { Button } from "@/shared/radix-ui";
 import { cn, isLimitReached } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { usePendingNavigation } from "@/shared/lib/use-pending-navigation";
 import { QuestionCreateModal } from "@/features/question/create-question/ui";
 import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { useAttemptStart } from "@/features/attempt/start-attempt";
+import { ExamSettingsButton } from "@/features/assessment/exam-settings";
 import { questionInterface } from "../../lib/question-interface";
 import { useTranslation } from "@/shared/i18n";
 import { QuestionsAccordion } from "./questions-accordion";
@@ -31,7 +33,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
   const [open, setOpen] = useState<boolean>(false);
   const [generateIsOpen, setGenerateIsOpen] = useState(false);
 
-  const router = useRouter();
+  const { navigate, isNavigating } = usePendingNavigation();
   const path = usePathname();
 
   const { questionsData, questionsIsPending } = useQuestionAll(materialId);
@@ -45,12 +47,14 @@ export const QuestionsContent: FC<QuestionsType> = ({
     limitsData?.maxQuestionsPerMaterial,
   );
 
-  const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId);
+  const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId, !noteId);
+  // From the click until the attempt page is open: the attempt is created once
+  const isStarting = startAttemptIsPending || isNavigating;
 
   const startAttemptHandler = async () => {
     const attempt = await attemptStart();
 
-    router.push(`${path}/${materialId}/attempt/${attempt}`);
+    navigate(`${path}/${materialId}/attempt/${attempt}`);
   };
 
   const onClickhandlers = {
@@ -63,9 +67,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
     "open-modal": isQuestionsFull,
     generate: isQuestionsFull,
     start:
-      questionsData && questionsData.length > 0 && !startAttemptIsPending
-        ? false
-        : true,
+      questionsData && questionsData.length > 0 && !isStarting ? false : true,
   };
 
   const questionsAfterFilter = noteId
@@ -83,7 +85,7 @@ export const QuestionsContent: FC<QuestionsType> = ({
             disabled={disabledHandlers[item.key]}
             className={`lg:w-[250px] md:w-[180px] sm:w-[180px] w-full ${cn(item.styles)}`}
           >
-            {item.icon}{" "}
+            {item.key === "start" && isStarting ? <Spinner /> : item.icon}{" "}
             {item.key === "open-modal" && isQuestionsFull
               ? t("questions.limitReached")
               : t(`questions.actions.${item.title}`)}
@@ -97,6 +99,13 @@ export const QuestionsContent: FC<QuestionsType> = ({
           </Button>
         ))}
       </div>
+
+      {/* Exam settings belong to the material as a whole, notes have none */}
+      {!noteId && (
+        <div className="-mt-2 mb-5 flex justify-center">
+          <ExamSettingsButton assessmentId={assessmentId} />
+        </div>
+      )}
 
       <div>
         {questionsIsPending ? (

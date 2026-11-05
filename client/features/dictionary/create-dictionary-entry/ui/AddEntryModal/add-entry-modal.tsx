@@ -29,8 +29,8 @@ export const AddEntryModal: FC<AddEntryModalProps> = ({
     useDictionaryEntryCreate(dictionaryId);
 
   const onFormSubmit = (values: IDictionaryEntryForm) => {
-    createEntry(toEntryCreate(values));
-    setOpen(false);
+    // Open with a spinner until the word is saved, so the click shows and can't repeat
+    createEntry(toEntryCreate(values), { onSuccess: () => setOpen(false) });
   };
 
   return (

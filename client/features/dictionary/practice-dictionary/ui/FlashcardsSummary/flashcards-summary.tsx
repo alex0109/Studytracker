@@ -2,6 +2,7 @@
 
 import { useTranslation } from "@/shared/i18n";
 
+import { Spinner } from "@/shared/ui";
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { LuArrowLeft, LuRepeat, LuArrowRight } from "react-icons/lu";
@@ -112,7 +113,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
           disabled={toRepeat.length === 0 || isRepeatPending}
           onClick={() => onRepeat(toRepeat)}
         >
-          <LuRepeat /> {t("flashcards.summary.repeat", { count: toRepeat.length })}
+          {isRepeatPending ? <Spinner /> : <LuRepeat />} {t("flashcards.summary.repeat", { count: toRepeat.length })}
         </Button>
         <Button
           size="lg"

@@ -43,7 +43,7 @@ export const LastOpened: FC = () => {
             size="lg"
             variant="outline"
             className="w-[250px] text-black font-semibold"
-            onClick={() => router.push(`/materials/${exactMaterialData.id}`)}
+            onClick={() => router.push(`/materials?material=${exactMaterialData.id}`)}
           >
             Continue
           </Button>

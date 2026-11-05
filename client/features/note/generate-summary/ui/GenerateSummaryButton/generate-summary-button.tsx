@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { LuSparkles } from "react-icons/lu";
-import { IsPendingLoader, ConfirmModal } from "@/shared/ui";
+import { ConfirmModal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { INoteResponse } from "@/entities/note/model";
 import {
@@ -60,12 +60,11 @@ export const GenerateSummaryButton: FC<GenerateSummaryButtonProps> = ({
           disabled={generateSummaryIsPending || !isAvailable}
           onClick={() => (hasContent ? setConfirmOpen(true) : generate())}
         >
-          <LuSparkles />
+          {generateSummaryIsPending ? <Spinner /> : <LuSparkles />}
           {generateSummaryIsPending
             ? t("notes.summary.generating")
             : t("notes.summary.generate")}
         </Button>
-        <IsPendingLoader isPending={generateSummaryIsPending} />
       </div>
       <AiUsageHint feature={AiFeatureEnum.SummaryGeneration} />
 

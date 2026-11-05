@@ -9,7 +9,7 @@ import {
 } from "@/entities/material";
 import { useTranslation } from "@/shared/i18n";
 import { useDebounce } from "@/shared/hooks";
-import { SaveStatus, Subtitle } from "@/shared/ui";
+import { SaveStatus, SelectMenu, Subtitle } from "@/shared/ui";
 import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 
 interface MaterialStatusProps {
@@ -74,20 +74,16 @@ export const MaterialStatus: FC<MaterialStatusProps> = ({
       <motion.span animate={badge} className="relative inline-flex">
         <StatusBadgeSelect status={statusValue}>
           {/* Bound to the state, so the current status is shown, not the first option */}
-          <select
+          <SelectMenu
             value={statusValue}
             aria-label={t("materials.statusLabel")}
-            className="text-white bg-transparent outline-none cursor-pointer [&>option]:text-neutral-900 dark:[&>option]:bg-neutral-900 dark:[&>option]:text-white"
-            onChange={(e) =>
-              onUpdateStatus(e.target.value as MaterialStatusEnum)
-            }
-          >
-            {MATERIAL_STATUSES.map((status) => (
-              <option key={status} value={status}>
-                {t(`materials.statuses.${status}`)}
-              </option>
-            ))}
-          </select>
+            triggerClassName="gap-1 text-white bg-transparent outline-none"
+            onValueChange={(next) => onUpdateStatus(next as MaterialStatusEnum)}
+            options={MATERIAL_STATUSES.map((status) => ({
+              value: status,
+              label: t(`materials.statuses.${status}`),
+            }))}
+          />
         </StatusBadgeSelect>
         {sparks > 0 && <Sparks key={sparks} />}
       </motion.span>

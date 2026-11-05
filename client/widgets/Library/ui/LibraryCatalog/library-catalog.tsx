@@ -10,6 +10,7 @@ import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { MaterialTypeEnum } from "@/entities/material/model/material-type.type";
 import { useLibraryPage } from "@/entities/library";
+import { useRequireAuth } from "@/shared/hooks/use-require-auth";
 import { SubmitToLibraryModal } from "@/features/library/send-library-request";
 import { LibraryCard } from "./library-card";
 import { LibraryRequests } from "./library-requests";
@@ -27,6 +28,7 @@ export const LibraryCatalog: FC = () => {
   const [type, setType] = useState<MaterialTypeEnum | undefined>();
   const [page, setPage] = useState(1);
   const [submitOpen, setSubmitOpen] = useState(false);
+  const requireAuth = useRequireAuth();
   const debouncedSearch = useDebounce(search, 350);
 
   // A new search or filter starts from the first page
@@ -60,7 +62,7 @@ export const LibraryCatalog: FC = () => {
           <h1 className="font-serif text-4xl text-neutral-900 dark:text-neutral-50">{t("library.title")}</h1>
           <p className="text-neutral-600 dark:text-neutral-300">{t("library.subtitle")}</p>
         </div>
-        <Button size="lg" onClick={() => setSubmitOpen(true)} className="self-start sm:self-auto">
+        <Button size="lg" onClick={() => requireAuth(() => setSubmitOpen(true))} className="self-start sm:self-auto">
           <LuSend aria-hidden /> {t("library.share")}
         </Button>
       </motion.header>
@@ -140,7 +142,7 @@ export const LibraryCatalog: FC = () => {
           title={t("library.empty.title")}
           text={t("library.empty.text")}
           action={
-            <Button className="mt-2" onClick={() => setSubmitOpen(true)}>
+            <Button className="mt-2" onClick={() => requireAuth(() => setSubmitOpen(true))}>
               <LuSend aria-hidden /> {t("library.share")}
             </Button>
           }

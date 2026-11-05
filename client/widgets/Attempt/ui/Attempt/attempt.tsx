@@ -1,9 +1,9 @@
 "use client";
 
 import { FC, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePendingNavigation } from "@/shared/lib/use-pending-navigation";
 import { LuFlag } from "react-icons/lu";
-import { BlockColumn, IsPendingLoader } from "@/shared/ui";
+import { BlockColumn, Spinner } from "@/shared/ui";
 import { AttemptHeader } from "@/entities/attempt/ui";
 import { Button, toast } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
@@ -13,6 +13,7 @@ import { IQuestionReduced } from "@/entities/question";
 import { useAttemptFinish } from "@/features/attempt/finish-attempt";
 import { useAttemptResults } from "@/entities/attempt";
 import { ISavedAnswer } from "../../model/saved-answer.type";
+import { AttemptTimer } from "../AttemptTimer/attempt-timer";
 import { useTranslation } from "@/shared/i18n";
 
 interface AttemptProps {
@@ -36,7 +37,7 @@ export const Attempt: FC<AttemptProps> = ({
   // Questions that had no answer when Finish was pressed
   const [highlightedIds, setHighlightedIds] = useState<string[]>([]);
 
-  const router = useRouter();
+  const { navigate, isNavigating } = usePendingNavigation();
 
   const { finishAttempt, finishAttemptIsPending } = useAttemptFinish(attemptId);
   const { attemptResults } = useAttemptResults(attemptId);
@@ -73,12 +74,26 @@ export const Attempt: FC<AttemptProps> = ({
 
     try {
       await finishAttempt();
-      router.push(`/materials/${materialId}/attempt/${attemptId}/results`);
+      navigate(`/materials/${materialId}/attempt/${attemptId}/results`);
     } catch {
       toast({
         title: `❌${t("toasts.attemptNotFinished")}`,
         variant: "error",
       });
+    }
+  };
+
+  // Time is up: whatever is answered counts, the server marks the rest as wrong. The toast says why
+  // the page moved on by itself
+  const handleTimeUp = async () => {
+    if (attemptResults?.attemptStatus === "Finished") return;
+
+    toast({ title: t("exam.timeUp"), variant: "error" });
+    try {
+      await finishAttempt();
+      navigate(`/materials/${materialId}/attempt/${attemptId}/results`);
+    } catch {
+      toast({ title: `❌${t("toasts.attemptNotFinished")}`, variant: "error" });
     }
   };
 
@@ -125,10 +140,17 @@ export const Attempt: FC<AttemptProps> = ({
           )}
         </div>
         <div className="flex items-center gap-2">
-          <IsPendingLoader isPending={finishAttemptIsPending} />
+          {attemptResults?.timeLimitMinutes && (
+            <AttemptTimer
+              startedAt={attemptResults.startedAt}
+              minutes={attemptResults.timeLimitMinutes}
+              onExpired={handleTimeUp}
+            />
+          )}
           <Button
             size="lg"
-            disabled={finishAttemptIsPending}
+            // Busy until the results page is open, not only until the request returns
+            disabled={finishAttemptIsPending || isNavigating}
             onClick={handleFinishAttempt}
             className={cn(
               "w-full sm:w-44",
@@ -137,7 +159,7 @@ export const Attempt: FC<AttemptProps> = ({
                 : "bg-neutral-800 hover:bg-neutral-900",
             )}
           >
-            <LuFlag /> {t("attempt.finish")}
+            {finishAttemptIsPending || isNavigating ? <Spinner /> : <LuFlag />} {t("attempt.finish")}
           </Button>
         </div>
       </div>

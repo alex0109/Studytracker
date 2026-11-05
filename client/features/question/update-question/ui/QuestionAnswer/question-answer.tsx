@@ -5,7 +5,7 @@ import { useDebounce } from "@/shared/hooks";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
 import { Button } from "@/shared/radix-ui";
 import { LuTrash2 } from "react-icons/lu";
-import { AccordionContent } from "@/shared/ui";
+import { AccordionContent, VoiceField } from "@/shared/ui";
 
 interface QuestionAnswerProps {
   materialId: string;
@@ -52,13 +52,15 @@ export const QuestionAnswer: FC<QuestionAnswerProps> = ({
         </Button>
       }
     >
-      <textarea
-        value={answerValue}
-        className="border-0 w-full resize-none pr-3
+      <VoiceField value={answerValue} maxLength={1000} onChange={onUpdateAnswer}>
+        <textarea
+          value={answerValue}
+          className="border-0 w-full resize-none pr-3
                   wrap-break-word overflow-hidden outline-none"
-        onChange={(e) => onUpdateAnswer(e.target.value)}
-        maxLength={1000}
-      />
+          onChange={(e) => onUpdateAnswer(e.target.value)}
+          maxLength={1000}
+        />
+      </VoiceField>
     </AccordionContent>
   );
 };

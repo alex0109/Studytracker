@@ -2,7 +2,8 @@
 
 import { useTranslation } from "@/shared/i18n";
 
-import { FC } from "react";
+import { FC, useState } from "react";
+import { Spinner } from "@/shared/ui";
 import { motion } from "framer-motion";
 import { LuPlay, LuShuffle } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
@@ -26,6 +27,12 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
   onStart,
 }) => {
   const { t } = useTranslation();
+  // The spinner goes on the button that was pressed
+  const [pressed, setPressed] = useState<FlashcardSessionModeEnum>();
+  const start = (body: Parameters<typeof onStart>[0]) => {
+    setPressed(body.mode);
+    onStart(body);
+  };
   const { flashcardStatsData, flashcardStatsIsPending } =
     useFlashcardStats(dictionaryId);
 
@@ -106,22 +113,22 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
           className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
           disabled={isPending || reviewCount === 0}
           onClick={() =>
-            onStart({
+            start({
               mode: FlashcardSessionModeEnum.Due,
               limit: DEFAULT_SESSION_SIZE,
             })
           }
         >
-          <LuPlay /> {t("flashcards.start.reviewButton", { count: reviewCount })}
+          {isPending && pressed === FlashcardSessionModeEnum.Due ? <Spinner /> : <LuPlay />} {t("flashcards.start.reviewButton", { count: reviewCount })}
         </Button>
         <Button
           size="lg"
           variant="outline"
           className="flex-1"
           disabled={isPending}
-          onClick={() => onStart({ mode: FlashcardSessionModeEnum.All })}
+          onClick={() => start({ mode: FlashcardSessionModeEnum.All })}
         >
-          <LuShuffle /> {t("flashcards.start.allButton", { count: allCount })}
+          {isPending && pressed === FlashcardSessionModeEnum.All ? <Spinner /> : <LuShuffle />} {t("flashcards.start.allButton", { count: allCount })}
         </Button>
       </div>
     </motion.div>

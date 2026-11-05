@@ -8,9 +8,9 @@ import {
 } from "../model";
 import { IMaterialResponse } from "@/entities/material/model";
 
-const auth = (token: string | undefined) => ({
-  headers: { Authorization: `Bearer ${token}` },
-});
+// The catalog and its materials are open to guests: no token, no header
+const auth = (token: string | undefined) =>
+  token ? { headers: { Authorization: `Bearer ${token}` } } : {};
 
 export const LIBRARY_PAGE_SIZE = 24;
 

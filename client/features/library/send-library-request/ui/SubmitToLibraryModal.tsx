@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { LuLibrary } from "react-icons/lu";
 import { Field, FieldInput, FieldSelect, FieldTextArea, Modal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
@@ -111,17 +111,20 @@ export const SubmitToLibraryModal: FC<SubmitToLibraryModalProps> = ({
       <form id="submit-to-library" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
         {!materialId && (
           <Field label={t("library.submit.material")} required error={errors.materialId?.message}>
-            <FieldSelect
-              aria-invalid={!!errors.materialId}
-              {...register("materialId", { required: t("library.submit.chooseMaterial") })}
-            >
-              <option value="">{t("library.submit.chooseMaterial")}</option>
-              {ownMaterials.map((material) => (
-                <option key={material.id} value={material.id}>
-                  {material.title}
-                </option>
-              ))}
-            </FieldSelect>
+            <Controller
+              control={control}
+              name="materialId"
+              rules={{ required: t("library.submit.chooseMaterial") }}
+              render={({ field }) => (
+                <FieldSelect
+                  value={field.value || undefined}
+                  onValueChange={field.onChange}
+                  invalid={!!errors.materialId}
+                  placeholder={t("library.submit.chooseMaterial")}
+                  options={ownMaterials.map((material) => ({ value: material.id, label: material.title }))}
+                />
+              )}
+            />
           </Field>
         )}
 

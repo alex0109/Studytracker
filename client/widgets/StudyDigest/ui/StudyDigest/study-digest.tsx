@@ -34,12 +34,35 @@ export const StudyDigest: FC = () => {
   const { feedData, feedIsPending } = useNotificationFeed();
   const { markRead, markAllRead, markAllReadIsPending } = useNotificationsRead();
 
+  const heading = (
+    <div>
+      <h2 className="text-2xl! font-semibold! text-neutral-900 dark:text-neutral-50">{t("digest.title")}</h2>
+      <p className="text-sm text-neutral-500">{t("digest.subtitle")}</p>
+    </div>
+  );
+
+  // The title is there at once and the cards keep their shape while the numbers load,
+  // so the block is seen loading instead of the page jumping when it arrives
   if (feedIsPending || !feedData) {
     return (
-      <div className="grid w-full gap-4 md:grid-cols-3">
-        <Skeleton className="h-44 rounded-2xl" />
-        <Skeleton className="h-44 rounded-2xl" />
-        <Skeleton className="h-44 rounded-2xl" />
+      <div aria-busy="true" aria-label={t("common.loading")} className="flex w-full max-w-5xl flex-col gap-4">
+        {heading}
+        <div className="grid gap-4 md:grid-cols-3">
+          {[0, 1, 2].map((card) => (
+            <div
+              key={card}
+              className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none"
+            >
+              <div className="flex items-center gap-2">
+                <Skeleton className="size-8 rounded-xl" />
+                <Skeleton className="h-3.5 w-24 rounded-full" />
+              </div>
+              <Skeleton className="h-10 w-16 rounded-xl" />
+              <Skeleton className="h-3.5 w-full rounded-full" />
+              <Skeleton className="h-3.5 w-2/3 rounded-full" />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -56,14 +79,7 @@ export const StudyDigest: FC = () => {
       animate={{ opacity: 1, y: 0 }}
       className="flex w-full max-w-5xl flex-col gap-4"
     >
-      <div className="flex items-end justify-between gap-3">
-        <div>
-          <h2 className="text-2xl! font-semibold! text-neutral-900 dark:text-neutral-50">
-            {t("digest.title")}
-          </h2>
-          <p className="text-sm text-neutral-500">{t("digest.subtitle")}</p>
-        </div>
-      </div>
+      <div className="flex items-end justify-between gap-3">{heading}</div>
 
       <div className="grid gap-4 md:grid-cols-3">
         <DigestCard icon={<LuBookA aria-hidden />} title={t("digest.today.title")} accent="emerald">
@@ -93,7 +109,7 @@ export const StudyDigest: FC = () => {
           )}
           {(today.dueWords > 0 || today.newWords > 0 || (today.dueQuestions ?? 0) > 0) && (
             <Link
-              href="/today"
+              href="/app"
               className="mt-auto inline-flex items-center gap-1 self-start text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400"
             >
               {t("digest.today.cta")} <LuArrowRight aria-hidden />

@@ -1,5 +1,6 @@
 "use client";
 
+import { deadlineKeys } from "@/entities/deadline";
 import { isAxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/shared/context/session.provider";
@@ -88,6 +89,8 @@ export const useQuestionReviewFinish = () => {
       queryClient.invalidateQueries({ queryKey: reviewKeys.today() });
       queryClient.invalidateQueries({ queryKey: questionKeys.all });
       queryClient.invalidateQueries({ queryKey: statisticsKeys.studyStreak() });
+      queryClient.invalidateQueries({ queryKey: statisticsKeys.calendarAll() });
+      queryClient.invalidateQueries({ queryKey: deadlineKeys.all });
       queryClient.invalidateQueries({ queryKey: notificationKeys.feed() });
     },
     onError: (error, sessionId) => {

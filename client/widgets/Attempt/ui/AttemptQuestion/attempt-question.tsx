@@ -1,14 +1,15 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { LuCheck, LuCircleCheck, LuX } from "react-icons/lu";
-import { TextArea } from "@/shared/ui";
+import { TextArea, VoiceField } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useAttemptSubmitAnswer } from "@/features/attempt/submit-answer";
 import { IOption, QuestionTypeEnum } from "@/entities/question";
 import { IConfidenceLevel } from "@/entities/attempt/model/confidence-level";
+import { HesitationMark } from "@/entities/attempt/ui/HesitationMark/hesitation-mark";
 import { ISavedAnswer } from "../../model/saved-answer.type";
 import { useTranslation } from "@/shared/i18n";
 import { isTrueFalseName } from "@/entities/question";
@@ -59,6 +60,10 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
   const [text, setText] = useState("");
   const [confidence, setConfidence] = useState<IConfidenceLevel>();
   const [error, setError] = useState<string>();
+  // Changes of mind since the last save. Options the user took back are remembered, so going back
+  // and forth between them counts each time, while simply ticking several correct ones doesn't
+  const [changes, setChanges] = useState(0);
+  const removedOptions = useRef(new Set<string>());
 
   const { submitAnswer, submitAnswerIsPending } =
     useAttemptSubmitAnswer(attemptId);
@@ -77,15 +82,22 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
     setError(undefined);
 
     if (!isChoice || isTrueFalse) {
+      if (selectedOptionIds.length > 0 && !selectedOptionIds.includes(optionId)) {
+        setChanges((prev) => prev + 1);
+      }
       setSelectedOptionIds([optionId]);
       return;
     }
 
-    setSelectedOptionIds((prev) =>
-      prev.includes(optionId)
-        ? prev.filter((id) => id !== optionId)
-        : [...prev, optionId],
-    );
+    if (selectedOptionIds.includes(optionId)) {
+      removedOptions.current.add(optionId);
+      setChanges((prev) => prev + 1);
+      setSelectedOptionIds(selectedOptionIds.filter((id) => id !== optionId));
+      return;
+    }
+
+    if (removedOptions.current.has(optionId)) setChanges((prev) => prev + 1);
+    setSelectedOptionIds([...selectedOptionIds, optionId]);
   };
 
   const onSubmit = async () => {
@@ -108,6 +120,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
               questionId,
               userAnswerOptionIds: selectedOptionIds,
               confidenceLevel: confidence,
+              answerChanges: changes,
             }
           : {
               questionId,
@@ -116,11 +129,23 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
             },
       );
 
+      // Counted like the server: saving the same answer again is not a change
+      const isSameAnswer =
+        !!savedAnswer &&
+        (isChoice
+          ? savedAnswer.optionIds.length === selectedOptionIds.length &&
+            savedAnswer.optionIds.every((id) => selectedOptionIds.includes(id))
+          : savedAnswer.text === text.trim());
+
       onAnswered({
         text: isChoice ? undefined : text.trim(),
         optionIds: isChoice ? selectedOptionIds : [],
-        changes: savedAnswer ? savedAnswer.changes + 1 : 0,
+        changes: savedAnswer
+          ? savedAnswer.changes + Math.max(isSameAnswer ? 0 : 1, changes)
+          : changes,
       });
+      setChanges(0);
+      removedOptions.current.clear();
     } catch {
       // The hook already tells the user
     }
@@ -167,6 +192,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
             {t(TYPE_HINTS[questionType])}
           </span>
         </div>
+        {isChoice && <HesitationMark changes={(savedAnswer?.changes ?? 0) + changes} />}
       </header>
 
       {isTrueFalse ? (
@@ -236,17 +262,27 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
           })}
         </div>
       ) : (
-        <TextArea
+        <VoiceField
           value={text}
-          onChange={(e) => {
-            setError(undefined);
-            setText(e.target.value);
-          }}
-          placeholder={t("attempt.answerPlaceholder")}
-          aria-label={t("attempt.answerLabel")}
-          inputStyles="h-40 w-full bg-neutral-100 p-4 dark:bg-neutral-800"
           maxLength={1000}
-        />
+          className="-mt-5"
+          onChange={(next) => {
+            setError(undefined);
+            setText(next);
+          }}
+        >
+          <TextArea
+            value={text}
+            onChange={(e) => {
+              setError(undefined);
+              setText(e.target.value);
+            }}
+            placeholder={t("attempt.answerPlaceholder")}
+            aria-label={t("attempt.answerLabel")}
+            inputStyles="h-40 w-full bg-neutral-100 p-4 dark:bg-neutral-800"
+            maxLength={1000}
+          />
+        </VoiceField>
       )}
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -296,7 +332,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
         <div className="flex flex-col gap-2 rounded-xl bg-emerald-50 p-3 dark:bg-emerald-950/40">
           <p className="flex items-center gap-1.5 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
             <LuCircleCheck /> {t("attempt.saved")}
-            {savedAnswer.changes > 0 && (
+            {!isChoice && savedAnswer.changes > 0 && (
               <span className="font-normal text-emerald-700/70 dark:text-emerald-300/70">
                 · {t("attempt.changed", { count: savedAnswer.changes })}
               </span>

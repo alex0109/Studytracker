@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuArrowRight, LuCheck, LuCircleCheck, LuCircleX, LuX } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
-import { TextArea } from "@/shared/ui";
+import { TextArea, VoiceField } from "@/shared/ui";
 import { cn } from "@/shared/lib/cn";
 import { useTranslation } from "@/shared/i18n";
 import { isTrueFalseName, QuestionTypeEnum } from "@/entities/question";
@@ -150,18 +150,29 @@ export const ReviewQuestionCard: FC<ReviewQuestionCardProps> = ({
           })}
         </div>
       ) : (
-        <TextArea
+        <VoiceField
           value={text}
-          disabled={!!result}
-          onChange={(e) => {
-            setError(undefined);
-            setText(e.target.value);
-          }}
-          placeholder={t("attempt.answerPlaceholder")}
-          aria-label={t("attempt.answerLabel")}
-          inputStyles="h-32 w-full bg-neutral-100 p-4 dark:bg-neutral-800"
           maxLength={1000}
-        />
+          disabled={!!result}
+          className="-mt-5"
+          onChange={(next) => {
+            setError(undefined);
+            setText(next);
+          }}
+        >
+          <TextArea
+            value={text}
+            disabled={!!result}
+            onChange={(e) => {
+              setError(undefined);
+              setText(e.target.value);
+            }}
+            placeholder={t("attempt.answerPlaceholder")}
+            aria-label={t("attempt.answerLabel")}
+            inputStyles="h-32 w-full bg-neutral-100 p-4 dark:bg-neutral-800"
+            maxLength={1000}
+          />
+        </VoiceField>
       )}
 
       {!result && (

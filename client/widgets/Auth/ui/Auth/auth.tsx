@@ -1,18 +1,20 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { Subtitle, Title } from "@/shared/ui";
+import { Spinner, Subtitle, Title } from "@/shared/ui";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { MagicLinkStateType, signInWithMagicLink } from "@/entities/auth";
 import { Button } from "@/shared/radix-ui";
 import { createClient } from "@/entities/auth/api/client";
 import { getSafeRedirect } from "@/shared/lib";
+import { useLeavingPage } from "@/shared/lib/use-leaving-page";
 import { useTranslation } from "@/shared/i18n";
 
 export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+  const { leaving, leave } = useLeavingPage();
   const searchParams = useSearchParams();
   const redirect = searchParams!.get("redirect");
 
@@ -21,22 +23,22 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
     FormData
   >(signInWithMagicLink, {});
 
-  const handleGoogleSignIn = () => {
+  // Busy from the click until Google's page opens: a second click would start a second sign in.
+  // The address is taken first and opened here, so a failed request gives the button back
+  const handleGoogleSignIn = async () => {
     const redirectTo = `${process.env.NEXT_PUBLIC_HOME}/api/auth/callback`;
     setLoading(true);
-    const supabase = createClient();
-    try {
-      supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${redirectTo}?redirect=${encodeURIComponent(getSafeRedirect(redirect))}`,
-        },
-      });
 
-      setLoading(false);
-    } catch {
-      return;
-    }
+    const { data, error } = await createClient().auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${redirectTo}?redirect=${encodeURIComponent(getSafeRedirect(redirect))}`,
+        skipBrowserRedirect: true,
+      },
+    });
+
+    setLoading(false);
+    if (!error && data.url) leave(data.url, true);
   };
 
   return (
@@ -88,8 +90,9 @@ export const Auth = ({ mode = "signin" }: { mode?: "signin" | "signup" }) => {
               size="lg"
               type="button"
               onClick={handleGoogleSignIn}
-              disabled={loading}
+              disabled={loading || !!leaving}
             >
+              {(loading || leaving) && <Spinner />}
               {t("auth.google")}
             </Button>
           </form>

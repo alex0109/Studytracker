@@ -14,7 +14,7 @@ export const NoteDrawing: FC<NoteDrawingProps> = ({
   propNoteId,
   drawingContent,
 }) => {
-  const { updateNote } = useNoteUpdate(propNoteId);
+  const { updateNote, updateNoteIsPending, updateNoteIsError } = useNoteUpdate(propNoteId);
 
   const updateContentHandler = (
     materialId: string,
@@ -33,6 +33,8 @@ export const NoteDrawing: FC<NoteDrawingProps> = ({
       noteId={propNoteId}
       initialContent={drawingContent}
       updateContentHandler={updateContentHandler}
+      isSaving={updateNoteIsPending}
+      isSaveError={updateNoteIsError}
     />
   );
 };

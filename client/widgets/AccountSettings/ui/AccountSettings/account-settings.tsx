@@ -1,18 +1,30 @@
 "use client";
 
 import { FC, Suspense } from "react";
-import { LuDatabase, LuGraduationCap, LuTriangleAlert, LuUserRound } from "react-icons/lu";
+import { LuDatabase, LuGraduationCap, LuKeyRound, LuTriangleAlert, LuUserRound } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
 import { LearningForm, ProfileForm } from "@/features/profile";
 import { ExportAccountButton } from "@/features/account/export-account";
 import { DeleteAccountButton } from "@/features/account/delete-account";
+import { SignOutButton } from "@/features/account/sign-out";
+import { useSession } from "@/shared/context/session.provider";
 import { AccountSection } from "./account-section";
 
 export const AccountSettings: FC = () => {
   const { t } = useTranslation();
+  const { user } = useSession();
 
   return (
     <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+      <AccountSection
+        title={t("account.session.title")}
+        subtitle={t("account.session.subtitle", { email: user?.email })}
+        icon={<LuKeyRound />}
+        className="md:col-span-2"
+      >
+        <SignOutButton className="self-start" />
+      </AccountSection>
+
       <AccountSection
         title={t("profile.title")}
         subtitle={t("profile.subtitle")}

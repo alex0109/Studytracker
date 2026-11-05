@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { LuSparkles } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
-import { IsPendingLoader } from "@/shared/ui";
+import { Spinner } from "@/shared/ui";
 import { IResultResponse } from "@/entities/attempt";
 import {
   AiFeatureEnum,
@@ -48,14 +48,13 @@ export const ExplainMistakesButton: FC<ExplainMistakesButtonProps> = ({
           disabled={explainMistakesIsPending || isExplained || !isAvailable}
           onClick={() => explainMistakes()}
         >
-          <LuSparkles />
+          {explainMistakesIsPending ? <Spinner /> : <LuSparkles />}
           {explainMistakesIsPending
             ? t("results.explain.pending")
             : isExplained
               ? t("results.explain.done")
               : t("results.explain.button", { count: notExplained.length })}
         </Button>
-        <IsPendingLoader isPending={explainMistakesIsPending} />
       </div>
       {!isExplained && (
         <AiUsageHint feature={AiFeatureEnum.MistakeExplanation} />

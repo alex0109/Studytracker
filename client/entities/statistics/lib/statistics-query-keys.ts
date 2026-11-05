@@ -14,6 +14,10 @@ export const statisticsKeys = {
 
   tagPerformance: () => [...statisticsKeys.all, "tagPerformance"] as const,
 
+  calendarAll: () => [...statisticsKeys.all, "calendar"] as const,
+
+  calendar: (from: string, to: string) => [...statisticsKeys.calendarAll(), from, to] as const,
+
   flashcardAnswersAll: () => [...statisticsKeys.all, "flashcardAnswers"] as const,
 
   flashcardAnswers: (days: number) =>

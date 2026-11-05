@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useLayoutEffect, useRef } from "react";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   useEditor,
   useEditorState,
@@ -14,24 +14,32 @@ import Highlight from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
 import {
   LuBold,
+  LuCheck,
+  LuChevronDown,
+  LuCode,
   LuItalic,
   LuUnderline,
   LuListOrdered,
   LuList,
-  LuHeading1,
-  LuHeading2,
-  LuHeading3,
-  LuHeading4,
-  LuHeading5,
-  LuHeading6,
   LuLink,
   LuHighlighter,
   LuImage,
+  LuQuote,
+  LuRedo2,
+  LuStrikethrough,
+  LuUndo2,
 } from "react-icons/lu";
+import type { IconType } from "react-icons";
 import { RichTextDocument } from "@/shared/types";
-import { Separator } from "@/shared/radix-ui";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/shared/radix-ui";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/shared/lib/cn";
+import { VoiceInputButton } from "../VoiceInput";
 
 // Links in notes come from users and from shared materials: only web and mail links are kept,
 // so a "javascript:" link can never run on click
@@ -40,6 +48,19 @@ const isSafeLink = (url: string) => SAFE_LINK.test(url.trim());
 
 const SAVE_DELAY_MS = 500;
 const HEADING_LEVELS = [1, 2, 3, 4, 5, 6] as const;
+// The menu offers three levels; deeper ones from older notes still show and are named
+const MENU_LEVELS = [1, 2, 3] as const;
+
+interface Tool {
+  key: string;
+  icon: IconType;
+  label: string;
+  // Shown in the tooltip, with the platform's modifier key
+  keys?: string;
+  active?: boolean;
+  disabled?: boolean;
+  run: () => void;
+}
 
 interface ContentEditorType {
   materailId: string;
@@ -59,6 +80,7 @@ const ContentEditor: FC<ContentEditorType> = ({
   updateContentHandler,
 }) => {
   const { t } = useTranslation();
+  const [spokenInterim, setSpokenInterim] = useState("");
 
   // Autosave without a re-render per keystroke: the document becomes JSON only once typing
   // pauses. It is compared with what was last sent, not with the server's answer, which
@@ -120,7 +142,11 @@ const ContentEditor: FC<ContentEditorType> = ({
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl dark:prose-invert focus:outline-none min-h-[250px] border-none outline-none " +
+          // One comfortable reading size: prose-2xl on wide screens made notes look like posters
+          "prose prose-neutral sm:prose-base max-w-none dark:prose-invert focus:outline-none min-h-[280px] border-none outline-none " +
+          "px-5 py-5 sm:px-8 sm:py-6 leading-relaxed [&_p]:my-2 [&_h1]:mt-6 [&_h2]:mt-5 [&_h3]:mt-4 [&_h1:first-child]:mt-0 " +
+          "[&_blockquote]:border-l-4 [&_blockquote]:border-neutral-300 [&_blockquote]:pl-4 [&_blockquote]:not-italic dark:[&_blockquote]:border-neutral-600 " +
+          "[&_code]:rounded [&_code]:bg-neutral-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:before:content-none [&_code]:after:content-none dark:[&_code]:bg-neutral-800 " +
           "[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-6 [&_ol]:pl-6 [&_li]:my-1 " +
           "[&_a]:text-blue-600 [&_a]:underline [&_a]:cursor-pointer dark:[&_a]:text-blue-400 " +
           "[&_mark]:bg-yellow-200 [&_mark]:rounded-sm [&_mark]:px-0.5 dark:[&_mark]:bg-yellow-500/40 " +
@@ -183,6 +209,13 @@ const ContentEditor: FC<ContentEditorType> = ({
       link: current?.isActive("link") ?? false,
       bulletList: current?.isActive("bulletList") ?? false,
       orderedList: current?.isActive("orderedList") ?? false,
+      strike: current?.isActive("strike") ?? false,
+      blockquote: current?.isActive("blockquote") ?? false,
+      code: current?.isActive("code") ?? false,
+      canUndo: current?.can().undo() ?? false,
+      canRedo: current?.can().redo() ?? false,
+      isEmpty: current?.isEmpty ?? true,
+      words: current?.state.doc.textContent.split(/\s+/).filter(Boolean).length ?? 0,
     }),
   });
 
@@ -246,65 +279,136 @@ const ContentEditor: FC<ContentEditorType> = ({
     input.click();
   };
 
-  const headingIcons = [LuHeading1, LuHeading2, LuHeading3, LuHeading4, LuHeading5, LuHeading6];
+  // Where the cursor is, with a space if it would run into the word before. A text node, not a string:
+  // a string is read as HTML
+  const insertSpoken = (text: string) => {
+    const { from } = editor.state.selection;
+    const before = editor.state.doc.textBetween(Math.max(0, from - 1), from);
+    const spaced = before && !/\s/.test(before) ? ` ${text}` : text;
+    editor.chain().focus().insertContent({ type: "text", text: spaced }).run();
+  };
 
-  const tools = [
-    ...headingIcons.map((Icon, index) => {
-      const level = (index + 1) as 1 | 2 | 3 | 4 | 5 | 6;
-      return {
-        key: `h${level}`,
-        icon: Icon,
-        label: t("editor.heading", { level }),
-        active: active?.headings[index] ?? false,
-        run: () => editor.chain().focus().toggleHeading({ level }).run(),
-        separatorAfter: level === 6,
-      };
-    }),
-    { key: "bold", icon: LuBold, label: t("editor.bold"), active: active?.bold ?? false, run: () => editor.chain().focus().toggleBold().run() },
-    { key: "italic", icon: LuItalic, label: t("editor.italic"), active: active?.italic ?? false, run: () => editor.chain().focus().toggleItalic().run() },
-    { key: "underline", icon: LuUnderline, label: t("editor.underline"), active: active?.underline ?? false, run: () => editor.chain().focus().toggleUnderline().run() },
-    { key: "highlight", icon: LuHighlighter, label: t("editor.highlight"), active: active?.highlight ?? false, run: () => editor.chain().focus().toggleHighlight().run() },
-    { key: "link", icon: LuLink, label: t("editor.link"), active: active?.link ?? false, run: setLink, separatorAfter: true },
-    { key: "bullets", icon: LuList, label: t("editor.bulletList"), active: active?.bulletList ?? false, run: () => editor.chain().focus().toggleBulletList().run() },
-    { key: "numbers", icon: LuListOrdered, label: t("editor.orderedList"), active: active?.orderedList ?? false, run: () => editor.chain().focus().toggleOrderedList().run() },
-    { key: "image", icon: LuImage, label: t("editor.image"), active: false, run: addImageFromFile },
+  const mod = /Mac|iPhone|iPad/.test(navigator.userAgent) ? "⌘" : "Ctrl";
+  const level = active?.headings.findIndex(Boolean) ?? -1;
+  const styleLabel = level >= 0 ? t("editor.heading", { level: level + 1 }) : t("editor.paragraph");
+
+  // Grouped by what they change: history, letters, blocks, inserts
+  const groups: Tool[][] = [
+    [
+      { key: "undo", icon: LuUndo2, label: t("editor.undo"), keys: `${mod}+Z`, disabled: !active?.canUndo, run: () => editor.chain().focus().undo().run() },
+      { key: "redo", icon: LuRedo2, label: t("editor.redo"), keys: `${mod}+Shift+Z`, disabled: !active?.canRedo, run: () => editor.chain().focus().redo().run() },
+    ],
+    [
+      { key: "bold", icon: LuBold, label: t("editor.bold"), keys: `${mod}+B`, active: active?.bold, run: () => editor.chain().focus().toggleBold().run() },
+      { key: "italic", icon: LuItalic, label: t("editor.italic"), keys: `${mod}+I`, active: active?.italic, run: () => editor.chain().focus().toggleItalic().run() },
+      { key: "underline", icon: LuUnderline, label: t("editor.underline"), keys: `${mod}+U`, active: active?.underline, run: () => editor.chain().focus().toggleUnderline().run() },
+      { key: "strike", icon: LuStrikethrough, label: t("editor.strike"), keys: `${mod}+Shift+S`, active: active?.strike, run: () => editor.chain().focus().toggleStrike().run() },
+      { key: "highlight", icon: LuHighlighter, label: t("editor.highlight"), keys: `${mod}+Shift+H`, active: active?.highlight, run: () => editor.chain().focus().toggleHighlight().run() },
+    ],
+    [
+      { key: "bullets", icon: LuList, label: t("editor.bulletList"), keys: `${mod}+Shift+8`, active: active?.bulletList, run: () => editor.chain().focus().toggleBulletList().run() },
+      { key: "numbers", icon: LuListOrdered, label: t("editor.orderedList"), keys: `${mod}+Shift+7`, active: active?.orderedList, run: () => editor.chain().focus().toggleOrderedList().run() },
+      { key: "quote", icon: LuQuote, label: t("editor.quote"), keys: `${mod}+Shift+B`, active: active?.blockquote, run: () => editor.chain().focus().toggleBlockquote().run() },
+      { key: "code", icon: LuCode, label: t("editor.code"), keys: `${mod}+E`, active: active?.code, run: () => editor.chain().focus().toggleCode().run() },
+    ],
+    [
+      { key: "link", icon: LuLink, label: t("editor.link"), active: active?.link, run: setLink },
+      { key: "image", icon: LuImage, label: t("editor.image"), run: addImageFromFile },
+    ],
   ];
 
+  const toolButton = (tool: Tool) => (
+    <button
+      key={tool.key}
+      type="button"
+      onClick={tool.run}
+      disabled={tool.disabled}
+      title={tool.keys ? `${tool.label} (${tool.keys})` : tool.label}
+      aria-label={tool.label}
+      aria-pressed={tool.active === undefined ? undefined : tool.active}
+      className={cn(
+        "flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-neutral-600 transition",
+        "hover:bg-neutral-100 hover:text-neutral-900 disabled:cursor-default disabled:opacity-35 disabled:hover:bg-transparent",
+        "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white",
+        tool.active && "bg-neutral-900 text-white hover:bg-neutral-800 hover:text-white dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 dark:hover:text-neutral-900",
+      )}
+    >
+      <tool.icon className="size-4" />
+    </button>
+  );
+
+  const divider = <span aria-hidden className="mx-1 h-5 w-px shrink-0 bg-neutral-200 dark:bg-neutral-700" />;
+
   return (
-    <div className="flex flex-col w-full rounded-xl my-2">
-      <div className="w-full p-2">
-        <div
-          role="toolbar"
-          aria-label={t("editor.toolbar")}
-          className="flex flex-wrap gap-1 mb-2 bg-neutral-200 rounded-xl p-2 dark:bg-neutral-800"
-        >
-          {tools.map((tool) => (
-            <span key={tool.key} className="contents">
-              <button
-                type="button"
-                onClick={tool.run}
-                title={tool.label}
-                aria-label={tool.label}
-                aria-pressed={tool.active}
+    // One card: the toolbar stays under the menu bar while a long note scrolls
+    <div className="my-2 flex w-full min-w-0 flex-col rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+      <div
+        role="toolbar"
+        aria-label={t("editor.toolbar")}
+        className="sticky top-[4.75rem] z-10 flex items-center gap-0.5 overflow-x-auto rounded-t-2xl border-b border-neutral-200 bg-white/95 px-2 py-1.5 backdrop-blur md:top-28 dark:border-neutral-800 dark:bg-neutral-900/95"
+      >
+        {groups[0].map(toolButton)}
+        {divider}
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            title={t("editor.textStyle")}
+            className="flex h-8 shrink-0 items-center gap-1 rounded-lg px-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+          >
+            <span className="whitespace-nowrap">{styleLabel}</span>
+            <LuChevronDown aria-hidden className="size-3.5 opacity-60" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="min-w-44">
+            <DropdownMenuItem onSelect={() => editor.chain().focus().setParagraph().run()}>
+              {t("editor.paragraph")}
+              {level < 0 && <LuCheck aria-hidden className="ml-auto" />}
+            </DropdownMenuItem>
+            {MENU_LEVELS.map((menuLevel) => (
+              <DropdownMenuItem
+                key={menuLevel}
+                onSelect={() => editor.chain().focus().toggleHeading({ level: menuLevel }).run()}
                 className={cn(
-                  "p-2 cursor-pointer rounded-lg text-neutral-800 hover:bg-neutral-300 dark:text-neutral-200 dark:hover:bg-neutral-700",
-                  tool.active && "bg-neutral-300 dark:bg-neutral-700",
+                  "font-semibold",
+                  menuLevel === 1 ? "text-lg" : menuLevel === 2 ? "text-base" : "text-sm",
                 )}
               >
-                <tool.icon />
-              </button>
-              {"separatorAfter" in tool && tool.separatorAfter && (
-                <span className="w-px bg-neutral-400/50 mx-1" />
-              )}
-            </span>
-          ))}
-        </div>
-        <EditorContent
-          editor={editor}
-          className="p-2 rounded-2xl bg-neutral-100 break-words min-w-0 dark:bg-neutral-800/60 dark:text-neutral-100"
-        />
+                {t("editor.heading", { level: menuLevel })}
+                {level === menuLevel - 1 && <LuCheck aria-hidden className="ml-auto" />}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        {divider}
+        {groups[1].map(toolButton)}
+        {divider}
+        {groups[2].map(toolButton)}
+        {divider}
+        {groups[3].map(toolButton)}
+        {divider}
+        <VoiceInputButton onText={insertSpoken} onInterim={setSpokenInterim} />
       </div>
-      <Separator />
+
+      {spokenInterim && (
+        <p aria-live="polite" className="truncate border-b border-neutral-100 px-4 py-1.5 text-xs text-neutral-500 italic dark:border-neutral-800">
+          {spokenInterim}
+        </p>
+      )}
+
+      <div className="relative">
+        {/* Not an extension: the empty state is already known from the editor */}
+        {active?.isEmpty && (
+          <p
+            aria-hidden
+            className="pointer-events-none absolute top-5 left-5 text-neutral-400 sm:top-6 sm:left-8 sm:text-base dark:text-neutral-500"
+          >
+            {t("editor.placeholder")}
+          </p>
+        )}
+        <EditorContent editor={editor} className="min-w-0 break-words text-neutral-900 dark:text-neutral-100" />
+      </div>
+
+      <div className="flex items-center justify-end gap-3 rounded-b-2xl border-t border-neutral-100 px-4 py-2 text-xs text-neutral-400 dark:border-neutral-800">
+        <span className="tabular-nums">{t("editor.words", { count: active?.words ?? 0 })}</span>
+      </div>
     </div>
   );
 };

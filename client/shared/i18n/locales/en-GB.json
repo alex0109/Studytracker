@@ -12,7 +12,8 @@
       "statistics": "Statistics",
       "library": "Library",
       "today": "Today",
-      "account": "Account"
+      "account": "Account",
+      "calendar": "Calendar"
     }
   },
   "nav": {
@@ -30,7 +31,8 @@
     "streakNone": "No streak yet. Study today to start one",
     "library": "Library",
     "today": "Today",
-    "account": "Account"
+    "account": "Account",
+    "calendar": "Calendar"
   },
   "preferences": {
     "language": "Language",
@@ -83,21 +85,6 @@
       "weights": "hard ×3 · medium ×2 · easy ×1",
       "streak": "12-day streak",
       "lastTwoWeeks": "last two weeks"
-    },
-    "samples": {
-      "butterfly": {
-        "translation": "butterfly",
-        "grammar": "der, plural: die Schmetterlinge",
-        "example": "A butterfly is sitting on the flower."
-      },
-      "cozy": {
-        "translation": "cosy",
-        "example": "The café is very cosy."
-      },
-      "run": {
-        "translation": "to run, to walk",
-        "example": "I run in the park every morning."
-      }
     },
     "loop": {
       "eyebrow": "The idea",
@@ -407,7 +394,17 @@
     "saved": "Your answer is saved",
     "changed_one": "changed {{count}} time",
     "changed_other": "changed {{count}} times",
-    "canChange": "You can change it until you finish the attempt."
+    "canChange": "You can change it until you finish the attempt.",
+    "hesitation": {
+      "label": "The answer was changed",
+      "changed_one": "The answer was changed {{count}} time.",
+      "changed_few": "The answer was changed {{count}} times.",
+      "changed_many": "The answer was changed {{count}} times.",
+      "changed_other": "The answer was changed {{count}} times.",
+      "slight": "This counts as slight uncertainty.",
+      "clear": "This counts as clear uncertainty.",
+      "strong": "This counts as strong uncertainty."
+    }
   },
   "results": {
     "correctAnswer": "Correct answer",
@@ -748,7 +745,9 @@
     "summaryGenerated": "Summary has been generated!",
     "attemptNotFinished": "Attempt was not finished, please try again",
     "tagCreatedText": "You can use it inside any material",
-    "noQuestions": "There are no questions to review right now"
+    "noQuestions": "There are no questions to review right now",
+    "tagDeleted": "Tag deleted",
+    "tagDeleteError": "Couldn't delete the tag"
   },
   "ai": {
     "errors": {
@@ -819,7 +818,11 @@
     "name": "Name",
     "namePlaceholder": "E.g. English",
     "color": "Colour",
-    "addToMaterialText": "Tap a tag to add or remove it."
+    "addToMaterialText": "Tap a tag to add or remove it.",
+    "delete": "Delete tag",
+    "deleteNamed": "Delete the “{{name}}” tag",
+    "deleteTitle": "Delete the “{{name}}” tag?",
+    "deleteText": "The tag will disappear from every material. The materials themselves stay."
   },
   "editor": {
     "toolbar": "Text formatting",
@@ -833,7 +836,19 @@
     "orderedList": "Numbered list",
     "image": "Image",
     "linkPrompt": "Enter the link",
-    "linkInvalid": "Only links starting with http://, https:// or mailto: can be added"
+    "linkInvalid": "Only links starting with http://, https:// or mailto: can be added",
+    "textStyle": "Text style",
+    "paragraph": "Normal text",
+    "strike": "Strikethrough",
+    "quote": "Quote",
+    "code": "Code",
+    "undo": "Undo",
+    "redo": "Redo",
+    "placeholder": "Start writing here…",
+    "words_one": "{{count}} word",
+    "words_few": "{{count}} words",
+    "words_many": "{{count}} words",
+    "words_other": "{{count}} words"
   },
   "sections": {
     "Material": "Material",
@@ -861,7 +876,12 @@
       "color": "Colour",
       "size": "Brush size",
       "undo": "Undo",
-      "clear": "Clear"
+      "clear": "Clear",
+      "redo": "Redo",
+      "customColor": "Custom colour",
+      "hint": "Draw here with a mouse, a finger or a stylus",
+      "canvas": "Drawing sheet",
+      "toolbar": "Drawing tools"
     },
     "summary": {
       "hint": "A short retelling of the whole material. Write it yourself, or let AI write it from the material, its notes and dictionaries.",
@@ -1343,6 +1363,10 @@
       "reauthError": "Couldn't start the sign-in, try again",
       "doneTitle": "Account deleted",
       "doneText": "Your data is gone. A confirmation is on its way to your email."
+    },
+    "session": {
+      "title": "Signed in",
+      "subtitle": "You're signed in as {{email}}"
     }
   },
   "profile": {
@@ -1438,7 +1462,7 @@
   },
   "privacy": {
     "title": "Privacy",
-    "updated": "Updated 31 October 2026",
+    "updated": "Updated 5 November 2026",
     "intro": "Studytracker keeps only what it needs to help you learn. Here is what that is, who helps run the site, and how to take your data with you or remove it.",
     "data": {
       "title": "What we keep",
@@ -1458,7 +1482,7 @@
     },
     "services": {
       "title": "Who helps run the site",
-      "text": "Supabase (sign-in), Microsoft Azure (server and database), Vercel (website), Resend (emails), Sentry (error reports), Google (visit statistics, only with consent), Stripe (payments, only if you buy a plan; we never see card details) and the AI providers above."
+      "text": "Supabase (sign-in), Microsoft Azure (server and database), Vercel (website), Resend (emails), Sentry (error reports), Google (visit statistics, only with consent), Stripe (payments, only if you buy a plan; we never see card details) and the AI providers above. Voice input uses your browser's speech recognition: to turn speech into text the browser may send the audio to its provider (Google in Chrome). We never receive or store the audio, only the finished text."
     },
     "rights": {
       "title": "Your data, your choice",
@@ -1467,6 +1491,116 @@
     "contact": {
       "title": "Questions",
       "text": "Write to us through the feedback form on the home page."
+    },
+    "contents": "Contents",
+    "toAccount": "Go to your account"
+  },
+  "calendar": {
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "inWeek": "In a week",
+    "inTwoWeeks": "In 2 weeks",
+    "inMonth": "In a month",
+    "clear": "Remove date",
+    "title": "Calendar",
+    "subtitle": "The days you studied, your streak and your deadlines",
+    "previous": "Back",
+    "next": "Forward",
+    "today": "Today",
+    "viewLabel": "What to show",
+    "view": {
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "legend": {
+      "none": "No study",
+      "studied": "Studied",
+      "streak": "Current streak",
+      "deadline": "Deadline"
+    },
+    "status": {
+      "none": "No study",
+      "studied": "Studied",
+      "streak": "Part of the current streak"
+    },
+    "daysStudied_one": "{{count}} day of study",
+    "daysStudied_few": "{{count}} days of study",
+    "daysStudied_many": "{{count}} days of study",
+    "daysStudied_other": "{{count}} days of study"
+  },
+  "deadline": {
+    "title": "Deadline",
+    "add": "Add a deadline",
+    "change": "Change",
+    "saveError": "Couldn't save the deadline",
+    "isToday": "The deadline is today",
+    "isTomorrow": "The deadline is tomorrow",
+    "daysLeft_one": "{{count}} day to the deadline",
+    "daysLeft_few": "{{count}} days to the deadline",
+    "daysLeft_many": "{{count}} days to the deadline",
+    "daysLeft_other": "{{count}} days to the deadline",
+    "daysAgo_one": "The deadline passed {{count}} day ago",
+    "daysAgo_few": "The deadline passed {{count}} days ago",
+    "daysAgo_many": "The deadline passed {{count}} days ago",
+    "daysAgo_other": "The deadline passed {{count}} days ago",
+    "daysShort": "days",
+    "minutesToday_one": "≈ {{count}} min today",
+    "minutesToday_few": "≈ {{count}} min today",
+    "minutesToday_many": "≈ {{count}} min today",
+    "minutesToday_other": "≈ {{count}} min today",
+    "words_one": "{{count}} word",
+    "words_few": "{{count}} words",
+    "words_many": "{{count}} words",
+    "words_other": "{{count}} words",
+    "questions_one": "{{count}} question",
+    "questions_few": "{{count}} questions",
+    "questions_many": "{{count}} questions",
+    "questions_other": "{{count}} questions",
+    "reviewToday": "Review {{items}} today.",
+    "learnToday": "Learn something new: {{items}}. New items left in total: {{left}}.",
+    "weak": "Weak spots to watch: {{items}}.",
+    "attempt": "Run Self Defending: it shows what doesn't stick yet.",
+    "perDay_one": "On average {{count}} review a day is planned up to the date.",
+    "perDay_few": "On average {{count}} reviews a day are planned up to the date.",
+    "perDay_many": "On average {{count}} reviews a day are planned up to the date.",
+    "perDay_other": "On average {{count}} reviews a day are planned up to the date.",
+    "tight": "Time is short: today takes over an hour. Start with the reviews.",
+    "ready": "Everything is learned and nothing is due today. Keep it up until the date.",
+    "empty": "Nothing to review yet. Add questions or words to this material and the plan appears here.",
+    "passed": "The date has passed. Choose a new one or remove the deadline.",
+    "startToday": "Start today's review",
+    "sectionTitle": "Deadlines",
+    "sectionSubtitle": "What to review and by when, the closest on top",
+    "sectionEmpty": "No deadlines. Add the date you want to be ready by on a material's page.",
+    "readyShort": "Everything is learned",
+    "emptyShort": "No questions or words",
+    "todayShort": "Today: {{review}} to review, {{learn}} new"
+  },
+  "exam": {
+    "settings": "Exam settings",
+    "settingsText": "They apply to this material only, not to its notes.",
+    "timer": "Timer",
+    "timerHint": "When time runs out the attempt ends by itself. Unanswered questions count as wrong.",
+    "duration": "Minutes for an attempt",
+    "customMinutes": "Or your own number of minutes",
+    "minutesRange": "From {{min}} to {{max}} minutes",
+    "minutes_one": "{{count}} min",
+    "minutes_few": "{{count}} min",
+    "minutes_many": "{{count}} min",
+    "minutes_other": "{{count}} min",
+    "saveError": "Couldn't save the settings",
+    "timeUp": "Time is up, the attempt is finished",
+    "timeLeft": "Time left"
+  },
+  "voice": {
+    "start": "Dictate by voice",
+    "stop": "Stop dictating",
+    "language": "Dictation language",
+    "errors": {
+      "notAllowed": "No access to the microphone. Allow it in your browser settings",
+      "network": "Speech recognition isn't available right now: check your connection",
+      "failed": "Couldn't recognise the speech, try again"
     }
   }
 }

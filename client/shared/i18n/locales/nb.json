@@ -12,7 +12,8 @@
       "statistics": "Statistikk",
       "library": "Bibliotek",
       "today": "I dag",
-      "account": "Konto"
+      "account": "Konto",
+      "calendar": "Kalender"
     }
   },
   "nav": {
@@ -30,7 +31,8 @@
     "streakNone": "Ingen rekke ennå. Studer i dag for å starte en",
     "library": "Bibliotek",
     "today": "I dag",
-    "account": "Konto"
+    "account": "Konto",
+    "calendar": "Kalender"
   },
   "preferences": {
     "language": "Språk",
@@ -83,21 +85,6 @@
       "weights": "vanskelig ×3 · middels ×2 · lett ×1",
       "streak": "12 dager på rad",
       "lastTwoWeeks": "siste to uker"
-    },
-    "samples": {
-      "butterfly": {
-        "translation": "sommerfugl",
-        "grammar": "der, flertall: die Schmetterlinge",
-        "example": "En sommerfugl sitter på blomsten."
-      },
-      "cozy": {
-        "translation": "koselig",
-        "example": "Kafeen er veldig koselig."
-      },
-      "run": {
-        "translation": "å løpe, å gå",
-        "example": "Jeg løper i parken hver morgen."
-      }
     },
     "loop": {
       "eyebrow": "Ideen",
@@ -407,7 +394,17 @@
     "saved": "Svaret ditt er lagret",
     "changed_one": "endret {{count}} gang",
     "changed_other": "endret {{count}} ganger",
-    "canChange": "Du kan endre det til du fullfører forsøket."
+    "canChange": "Du kan endre det til du fullfører forsøket.",
+    "hesitation": {
+      "label": "Svaret ble endret",
+      "changed_one": "Svaret ble endret {{count}} gang.",
+      "changed_few": "Svaret ble endret {{count}} ganger.",
+      "changed_many": "Svaret ble endret {{count}} ganger.",
+      "changed_other": "Svaret ble endret {{count}} ganger.",
+      "slight": "Dette regnes som litt usikkerhet.",
+      "clear": "Dette regnes som tydelig usikkerhet.",
+      "strong": "Dette regnes som stor usikkerhet."
+    }
   },
   "results": {
     "correctAnswer": "Riktig svar",
@@ -748,7 +745,9 @@
     "summaryGenerated": "Sammendraget er generert!",
     "attemptNotFinished": "Forsøket ble ikke fullført, prøv igjen",
     "tagCreatedText": "Du kan bruke den i alle materialer",
-    "noQuestions": "Det er ingen spørsmål å repetere nå"
+    "noQuestions": "Det er ingen spørsmål å repetere nå",
+    "tagDeleted": "Taggen er slettet",
+    "tagDeleteError": "Kunne ikke slette taggen"
   },
   "ai": {
     "errors": {
@@ -819,7 +818,11 @@
     "name": "Navn",
     "namePlaceholder": "F.eks. Engelsk",
     "color": "Farge",
-    "addToMaterialText": "Trykk på en tagg for å legge den til eller fjerne den."
+    "addToMaterialText": "Trykk på en tagg for å legge den til eller fjerne den.",
+    "delete": "Slett tagg",
+    "deleteNamed": "Slett taggen «{{name}}»",
+    "deleteTitle": "Slette taggen «{{name}}»?",
+    "deleteText": "Taggen forsvinner fra alle materialer. Selve materialene blir værende."
   },
   "editor": {
     "toolbar": "Tekstformatering",
@@ -833,7 +836,19 @@
     "orderedList": "Nummerert liste",
     "image": "Bilde",
     "linkPrompt": "Skriv inn lenken",
-    "linkInvalid": "Bare lenker som starter med http://, https:// eller mailto: kan legges til"
+    "linkInvalid": "Bare lenker som starter med http://, https:// eller mailto: kan legges til",
+    "textStyle": "Tekststil",
+    "paragraph": "Vanlig tekst",
+    "strike": "Gjennomstreket",
+    "quote": "Sitat",
+    "code": "Kode",
+    "undo": "Angre",
+    "redo": "Gjør om",
+    "placeholder": "Begynn å skrive her…",
+    "words_one": "{{count}} ord",
+    "words_few": "{{count}} ord",
+    "words_many": "{{count}} ord",
+    "words_other": "{{count}} ord"
   },
   "sections": {
     "Material": "Materiale",
@@ -861,7 +876,12 @@
       "color": "Farge",
       "size": "Penselstørrelse",
       "undo": "Angre",
-      "clear": "Tøm"
+      "clear": "Tøm",
+      "redo": "Gjør om",
+      "customColor": "Egen farge",
+      "hint": "Tegn her med mus, finger eller penn",
+      "canvas": "Tegneark",
+      "toolbar": "Tegneverktøy"
     },
     "summary": {
       "hint": "En kort gjenfortelling av hele materialet. Skriv den selv, eller la AI skrive den fra materialet, notatene og ordlistene.",
@@ -1343,6 +1363,10 @@
       "reauthError": "Kunne ikke starte innloggingen, prøv igjen",
       "doneTitle": "Kontoen er slettet",
       "doneText": "Dataene dine er slettet. En bekreftelse er på vei til e-posten din."
+    },
+    "session": {
+      "title": "Innlogging",
+      "subtitle": "Du er logget inn som {{email}}"
     }
   },
   "profile": {
@@ -1438,7 +1462,7 @@
   },
   "privacy": {
     "title": "Personvern",
-    "updated": "Oppdatert 31. oktober 2026",
+    "updated": "Oppdatert 5. november 2026",
     "intro": "Studytracker lagrer bare det som trengs for å hjelpe deg å lære. Her er hva det er, hvem som hjelper til med å drive nettstedet, og hvordan du tar med eller sletter dataene dine.",
     "data": {
       "title": "Hva vi lagrer",
@@ -1458,7 +1482,7 @@
     },
     "services": {
       "title": "Hvem som hjelper til",
-      "text": "Supabase (innlogging), Microsoft Azure (server og database), Vercel (nettsted), Resend (e-post), Sentry (feilrapporter), Google (besøksstatistikk, bare med samtykke), Stripe (betaling, bare hvis du kjøper et abonnement; vi ser aldri kortopplysningene) og KI-leverandørene over."
+      "text": "Supabase (innlogging), Microsoft Azure (server og database), Vercel (nettsted), Resend (e-post), Sentry (feilrapporter), Google (besøksstatistikk, bare med samtykke), Stripe (betaling, bare hvis du kjøper et abonnement; vi ser aldri kortopplysningene) og KI-leverandørene over. Taleinndata bruker talegjenkjenningen i nettleseren din: for å gjøre tale om til tekst kan nettleseren sende lyden til leverandøren sin (Google i Chrome). Vi mottar eller lagrer aldri lyden, bare den ferdige teksten."
     },
     "rights": {
       "title": "Dine data, ditt valg",
@@ -1467,6 +1491,116 @@
     "contact": {
       "title": "Spørsmål",
       "text": "Skriv til oss via tilbakemeldingsskjemaet på forsiden."
+    },
+    "contents": "Innhold",
+    "toAccount": "Gå til kontoen"
+  },
+  "calendar": {
+    "previousMonth": "Forrige måned",
+    "nextMonth": "Neste måned",
+    "inWeek": "Om en uke",
+    "inTwoWeeks": "Om 2 uker",
+    "inMonth": "Om en måned",
+    "clear": "Fjern dato",
+    "title": "Kalender",
+    "subtitle": "Dagene du studerte, rekken din og fristene dine",
+    "previous": "Tilbake",
+    "next": "Fram",
+    "today": "I dag",
+    "viewLabel": "Hva som vises",
+    "view": {
+      "week": "Uke",
+      "month": "Måned",
+      "year": "År"
+    },
+    "legend": {
+      "none": "Ingen studier",
+      "studied": "Studert",
+      "streak": "Nåværende rekke",
+      "deadline": "Frist"
+    },
+    "status": {
+      "none": "Ingen studier",
+      "studied": "Studert",
+      "streak": "Del av den nåværende rekken"
+    },
+    "daysStudied_one": "{{count}} dag med studier",
+    "daysStudied_few": "{{count}} dager med studier",
+    "daysStudied_many": "{{count}} dager med studier",
+    "daysStudied_other": "{{count}} dager med studier"
+  },
+  "deadline": {
+    "title": "Frist",
+    "add": "Legg til frist",
+    "change": "Endre",
+    "saveError": "Kunne ikke lagre fristen",
+    "isToday": "Fristen er i dag",
+    "isTomorrow": "Fristen er i morgen",
+    "daysLeft_one": "{{count}} dag til fristen",
+    "daysLeft_few": "{{count}} dager til fristen",
+    "daysLeft_many": "{{count}} dager til fristen",
+    "daysLeft_other": "{{count}} dager til fristen",
+    "daysAgo_one": "Fristen gikk ut for {{count}} dag siden",
+    "daysAgo_few": "Fristen gikk ut for {{count}} dager siden",
+    "daysAgo_many": "Fristen gikk ut for {{count}} dager siden",
+    "daysAgo_other": "Fristen gikk ut for {{count}} dager siden",
+    "daysShort": "dager",
+    "minutesToday_one": "≈ {{count}} min i dag",
+    "minutesToday_few": "≈ {{count}} min i dag",
+    "minutesToday_many": "≈ {{count}} min i dag",
+    "minutesToday_other": "≈ {{count}} min i dag",
+    "words_one": "{{count}} ord",
+    "words_few": "{{count}} ord",
+    "words_many": "{{count}} ord",
+    "words_other": "{{count}} ord",
+    "questions_one": "{{count}} spørsmål",
+    "questions_few": "{{count}} spørsmål",
+    "questions_many": "{{count}} spørsmål",
+    "questions_other": "{{count}} spørsmål",
+    "reviewToday": "Repeter {{items}} i dag.",
+    "learnToday": "Lær noe nytt: {{items}}. Nytt som gjenstår: {{left}}.",
+    "weak": "Svake punkter å følge med på: {{items}}.",
+    "attempt": "Ta et selvforsvar: det viser hva som ennå ikke sitter.",
+    "perDay_one": "I snitt er {{count}} repetisjon om dagen planlagt fram til datoen.",
+    "perDay_few": "I snitt er {{count}} repetisjoner om dagen planlagt fram til datoen.",
+    "perDay_many": "I snitt er {{count}} repetisjoner om dagen planlagt fram til datoen.",
+    "perDay_other": "I snitt er {{count}} repetisjoner om dagen planlagt fram til datoen.",
+    "tight": "Det er knapt med tid: i dag tar over en time. Start med repetisjonene.",
+    "ready": "Alt er lært, og ingenting skal repeteres i dag. Fortsett slik fram til datoen.",
+    "empty": "Ingenting å repetere ennå. Legg til spørsmål eller ord i materialet, så dukker planen opp her.",
+    "passed": "Datoen er passert. Velg en ny eller fjern fristen.",
+    "startToday": "Start dagens repetisjon",
+    "sectionTitle": "Frister",
+    "sectionSubtitle": "Hva som skal repeteres og innen når, de nærmeste øverst",
+    "sectionEmpty": "Ingen frister. Legg til datoen du vil være klar til på siden til et materiale.",
+    "readyShort": "Alt er lært",
+    "emptyShort": "Ingen spørsmål eller ord",
+    "todayShort": "I dag: {{review}} å repetere, {{learn}} nye"
+  },
+  "exam": {
+    "settings": "Eksamensinnstillinger",
+    "settingsText": "De gjelder bare dette materialet, ikke notatene.",
+    "timer": "Tidtaker",
+    "timerHint": "Når tiden er ute, avsluttes forsøket av seg selv. Ubesvarte spørsmål regnes som feil.",
+    "duration": "Minutter per forsøk",
+    "customMinutes": "Eller eget antall minutter",
+    "minutesRange": "Fra {{min}} til {{max}} minutter",
+    "minutes_one": "{{count}} min",
+    "minutes_few": "{{count}} min",
+    "minutes_many": "{{count}} min",
+    "minutes_other": "{{count}} min",
+    "saveError": "Kunne ikke lagre innstillingene",
+    "timeUp": "Tiden er ute, forsøket er avsluttet",
+    "timeLeft": "Tid igjen"
+  },
+  "voice": {
+    "start": "Dikter med stemmen",
+    "stop": "Stopp diktering",
+    "language": "Dikteringsspråk",
+    "errors": {
+      "notAllowed": "Ingen tilgang til mikrofonen. Tillat den i nettleserinnstillingene",
+      "network": "Talegjenkjenning er ikke tilgjengelig nå: sjekk nettet",
+      "failed": "Kunne ikke gjenkjenne talen, prøv igjen"
     }
   }
 }

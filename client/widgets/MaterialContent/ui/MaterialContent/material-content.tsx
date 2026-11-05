@@ -23,6 +23,7 @@ import { MaterialDeleteModal } from "@/features/material/delete-material/ui";
 import { MaterialShareModal } from "@/features/material/share-material";
 import { useActiveSectionContext } from "@/shared/context/active-section.provider";
 import { QuestionsContent } from "@/widgets/QuestionsContent";
+import { DeadlinePlanCard } from "@/widgets/Deadlines";
 import { AttemptsContent } from "@/widgets/AttemptsContent";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { LuDownload, LuLibrary, LuTrash2 } from "react-icons/lu";
@@ -110,6 +111,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
           </div>
         </div>
         <MaterialTitle id={id} title={title} />
+        <DeadlinePlanCard materialId={id} />
       </header>
       <SwitchInterface switchInterface={materialInterface} />
       {activeSection === MaterialInterfaceEnum.Questions ? (

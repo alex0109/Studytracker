@@ -3,7 +3,7 @@ export const runtime = "nodejs";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PRIVATE_PATHS = ["/materials", "/library", "/statistics", "/limits", "/today", "/account"];
+const PRIVATE_PATHS = ["/materials", "/statistics", "/limits", "/app", "/calendar", "/account"];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -40,6 +40,19 @@ export async function updateSession(request: NextRequest) {
 
   // Private pages are closed by default: guests go to sign in and come back after it
   const { pathname, search } = request.nextUrl;
+
+  // The site's root has no page of its own: the app for those signed in, the landing page for guests
+  if (pathname === "/") {
+    const target = request.nextUrl.clone();
+    target.pathname = user ? "/app" : "/home";
+
+    const redirectResponse = NextResponse.redirect(target);
+    supabaseResponse.cookies
+      .getAll()
+      .forEach((cookie) => redirectResponse.cookies.set(cookie));
+    return redirectResponse;
+  }
+
   const isPrivate = PRIVATE_PATHS.some(
     (path) => pathname === path || pathname.startsWith(`${path}/`),
   );

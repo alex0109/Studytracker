@@ -6,7 +6,7 @@ import { LuCircleHelp } from "react-icons/lu";
 import { QuestionTypeEnum, questionTypeKeys } from "@/entities/question";
 import { useTranslation } from "@/shared/i18n";
 import { IQuestionCreateForm } from "../../model";
-import { ChoiceGroup, Field, FieldInput, FieldTextArea, Modal, Spinner } from "@/shared/ui";
+import { ChoiceGroup, Field, FieldInput, FieldTextArea, Modal, Spinner, VoiceField } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { useOpenQuestionCreate } from "../../hooks/useOpenQuestionCreate";
 import { useOptionsQuestionCreate } from "../../hooks/useOptionsQuestionCreate";
@@ -51,6 +51,7 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
   });
 
   const isTrue = useWatch({ control, name: "isTrue" });
+  const answerValue = useWatch({ control, name: "answer" });
 
   const { createOpenQuestion, createOpenQuestionIsPending } =
     useOpenQuestionCreate(materialId, noteId);
@@ -63,6 +64,14 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
     createOpenQuestionIsPending ||
     createOptionsQuestionIsPending ||
     createTrueFalseQuestionIsPending;
+
+  // Open with a spinner until it is saved, so the click shows and can't repeat
+  const created = {
+    onSuccess: () => {
+      setOpen(false);
+      reset(QUESTION_CREATE_DEFAULTS);
+    },
+  };
 
   const onFormSubmit = (values: IQuestionCreateForm) => {
     const base = {
@@ -77,19 +86,16 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
           name: option.name.trim(),
           isCorrect: option.isCorrect,
         })),
-      });
+      }, created);
     } else if (questionType === QuestionTypeEnum.TrueFalse) {
       // Hidden input may hand the value back as a string
       createTrueFalseQuestion({
         ...base,
         isTrue: String(values.isTrue) === "true",
-      });
+      }, created);
     } else {
-      createOpenQuestion({ ...base, materialId, answer: values.answer });
+      createOpenQuestion({ ...base, materialId, answer: values.answer }, created);
     }
-
-    setOpen(false);
-    reset(QUESTION_CREATE_DEFAULTS);
   };
 
   return (
@@ -144,13 +150,19 @@ export const QuestionCreateModal: FC<QuestionCreateModalProps> = ({
 
         {questionType === QuestionTypeEnum.Open && (
           <Field label={t("questions.answerLabel")} required error={errors.answer?.message}>
-            <FieldTextArea
-              placeholder={t("questions.answerPlaceholder")}
+            <VoiceField
+              value={answerValue ?? ""}
               maxLength={1000}
-              rows={5}
-              aria-invalid={!!errors.answer}
-              {...register("answer", { required: t("common.required") })}
-            />
+              onChange={(next) => setValue("answer", next, { shouldValidate: !!errors.answer })}
+            >
+              <FieldTextArea
+                placeholder={t("questions.answerPlaceholder")}
+                maxLength={1000}
+                rows={5}
+                aria-invalid={!!errors.answer}
+                {...register("answer", { required: t("common.required") })}
+              />
+            </VoiceField>
           </Field>
         )}
 

@@ -14,7 +14,6 @@ export const useLibraryPage = (params: ILibraryPageParams) => {
   const page = useQuery<ILibraryPage, Error>({
     queryKey: libraryKeys.list(params),
     queryFn: () => getLibraryPage(token, params),
-    enabled: !!token,
     // The previous results stay while the next search or page loads
     placeholderData: keepPreviousData,
   });
@@ -37,7 +36,7 @@ export const useLibraryItem = (itemId: string) => {
   const item = useQuery<ILibraryItem, Error>({
     queryKey: libraryKeys.detail(itemId),
     queryFn: () => getLibraryItem(token, itemId),
-    enabled: !!token && !!itemId,
+    enabled: !!itemId,
     // Library content never changes in place, only through a reviewed request
     staleTime: 5 * 60_000,
   });
