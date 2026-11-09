@@ -5,6 +5,8 @@ export interface IDictionaryEntryUpdate {
   translation?: string;
   transcription?: string;
   partOfSpeech?: PartOfSpeechEnum;
+  // Empty clears it; nouns only
+  article?: string;
   grammarInfo?: string;
   example?: string;
   exampleTranslation?: string;

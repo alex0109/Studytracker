@@ -1,6 +1,7 @@
 import { PartOfSpeechEnum } from "../model";
 
-// Labels are translation keys under "dictionary.partOfSpeech"
+// Labels are translation keys under "dictionary.partOfSpeech". No "article": it is a field of a noun,
+// not a word of its own; older words that have it keep it
 export const partOfSpeechOptions: PartOfSpeechEnum[] = [
   PartOfSpeechEnum.Noun,
   PartOfSpeechEnum.Pronoun,
@@ -11,7 +12,6 @@ export const partOfSpeechOptions: PartOfSpeechEnum[] = [
   PartOfSpeechEnum.Conjunction,
   PartOfSpeechEnum.Interjection,
   PartOfSpeechEnum.Phrase,
-  PartOfSpeechEnum.Article,
   PartOfSpeechEnum.Numeral,
   PartOfSpeechEnum.Determiner,
 ];

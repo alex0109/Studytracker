@@ -29,15 +29,11 @@
     "signOutConfirm": "Точно вийти?",
     "openMenu": "Відкрити меню",
     "closeMenu": "Закрити меню",
-    "streak_one": "Твоя серія: {{count}} день поспіль",
-    "streak_few": "Твоя серія: {{count}} дні поспіль",
-    "streak_many": "Твоя серія: {{count}} днів поспіль",
-    "streak_other": "Твоя серія: {{count}} дня поспіль",
-    "streakNone": "Серії ще немає. Повчися сьогодні, щоб її почати",
     "library": "Бібліотека",
     "today": "Сьогодні",
     "account": "Акаунт",
-    "calendar": "Календар"
+    "calendar": "Календар",
+    "landing": "Studytracker: головна сторінка"
   },
   "preferences": {
     "language": "Мова",
@@ -319,7 +315,6 @@
       "medium": "Середнє",
       "hard": "Складне"
     },
-    "limitReached": "Ліміт питань вичерпано",
     "actions": {
       "add": "Додати питання",
       "generate": "Згенерувати",
@@ -357,11 +352,6 @@
       "fromMaterial": "AI складе питання зі змісту цього матеріалу.",
       "check": "Переглянь їх, перш ніж почати самозахист.",
       "howMany": "Скільки",
-      "full": "Ліміт питань цього матеріалу вичерпано",
-      "fits_one": "У цей матеріал вміститься ще лише {{count}} питання",
-      "fits_few": "У цей матеріал вмістяться ще лише {{count}} питання",
-      "fits_many": "У цей матеріал вміститься ще лише {{count}} питань",
-      "fits_other": "У цей матеріал вміститься ще лише {{count}} питання",
       "type": "Тип",
       "mixed": "Змішані"
     },
@@ -515,6 +505,15 @@
       "nextReview": "Наступне повторення: {{date}}",
       "notReviewed": "Ще не повторювалося",
       "dueNow": "час повторити"
+    },
+    "quiz": {
+      "badge": "Перевір себе",
+      "pickTranslation": "Обери переклад",
+      "pickSynonym": "Обери синонім",
+      "wrong": "Ні, спробуй ще раз",
+      "right": "Правильно!",
+      "next": "Далі",
+      "keysHint": "Цифри 1–4 — вибрати варіант"
     }
   },
   "feedback": {
@@ -577,11 +576,6 @@
   "materials": {
     "add": "Додати матеріал",
     "addTitle": "Новий матеріал",
-    "limitReached": "Ліміт матеріалів вичерпано",
-    "limitReachedHint_one": "Ліміт вичерпано: {{count}} матеріал. Видали один, щоб додати новий",
-    "limitReachedHint_few": "Ліміт вичерпано: {{count}} матеріали. Видали один, щоб додати новий",
-    "limitReachedHint_many": "Ліміт вичерпано: {{count}} матеріалів. Видали один, щоб додати новий",
-    "limitReachedHint_other": "Ліміт вичерпано: {{count}} матеріалу. Видали один, щоб додати новий",
     "titleLabel": "Назва",
     "titlePlaceholder": "*Назва...",
     "typeLabel": "Тип",
@@ -676,41 +670,13 @@
     "titleExample": "Напр. Основи React"
   },
   "limits": {
-    "counter": {
-      "materials": "матеріалів",
-      "tags": "тегів",
-      "notes": "нотаток у цьому матеріалі",
-      "questions": "питань у цьому матеріалі",
-      "dictionaries": "словників у цьому матеріалі",
-      "words": "слів у цьому словнику"
-    },
     "reachedToast": "Ліміт вичерпано. Звільни трохи місця і спробуй ще раз",
-    "counterUsed": "Використано {{used}} з {{max}} {{label}}",
-    "counterFull": "Ліміт вичерпано: {{max}} {{label}}",
     "page": {
-      "loadError": "Не вдалося завантажити ліміти, онови сторінку.",
       "plan": "Твій план",
       "planText": "Ліміти AI залежать від плану",
       "resets": "AI-запити рахуються за місяць і скидаються <b>{{date}}</b>. Невдалі запити не враховуються.",
-      "workspace": "Робочий простір",
-      "workspaceText": "Спільні для всіх твоїх матеріалів",
-      "materials": "Матеріали",
-      "tags": "Теги",
       "aiMonth": "AI цього місяця",
-      "aiMonthText": "Скільки AI-запитів залишилось",
-      "perMaterial": "У кожному матеріалі",
-      "perMaterialText_one": "У кожен словник вміщується до {{count}} слова",
-      "perMaterialText_few": "У кожен словник вміщується до {{count}} слів",
-      "perMaterialText_many": "У кожен словник вміщується до {{count}} слів",
-      "perMaterialText_other": "У кожен словник вміщується до {{count}} слова",
-      "noMaterials": "Матеріалів ще немає.",
-      "createFirst": "Створи перший",
-      "questions": "Питання",
-      "notes": "Нотатки",
-      "dictionaries": "Словники",
-      "fullestDictionary": "Слів у найповнішому словнику",
-      "libraryCopies": "Копії з бібліотеки",
-      "perMaterialTextUnlimited": "Нотатки, питання й словники кожного матеріалу, без ліміту слів на твоєму тарифі"
+      "aiMonthText": "Скільки AI-запитів залишилось"
     }
   },
   "toasts": {
@@ -777,7 +743,8 @@
     "tagCreatedText": "Його можна використовувати в будь-якому матеріалі",
     "noQuestions": "Зараз немає питань на повторення",
     "tagDeleted": "Тег видалено",
-    "tagDeleteError": "Не вдалося видалити тег"
+    "tagDeleteError": "Не вдалося видалити тег",
+    "attemptNotStarted": "Спробу не розпочато, спробуй ще раз"
   },
   "ai": {
     "errors": {
@@ -852,11 +819,6 @@
     "none": "Немає тегів",
     "new": "Новий тег",
     "addTitle": "Новий тег",
-    "limitReached": "Ліміт тегів вичерпано",
-    "limitReachedHint_one": "Ліміт вичерпано: {{count}} тег. Видали один, щоб додати новий",
-    "limitReachedHint_few": "Ліміт вичерпано: {{count}} теги. Видали один, щоб додати новий",
-    "limitReachedHint_many": "Ліміт вичерпано: {{count}} тегів. Видали один, щоб додати новий",
-    "limitReachedHint_other": "Ліміт вичерпано: {{count}} тегу. Видали один, щоб додати новий",
     "name": "Назва",
     "namePlaceholder": "Напр. Англійська",
     "color": "Колір",
@@ -903,7 +865,6 @@
   "notes": {
     "add": "Додати нотатку",
     "addTitle": "Нова нотатка",
-    "limitReached": "Ліміт нотаток вичерпано",
     "types": {
       "text": "✍️ Текст",
       "drawing": "🖌️ Малюнок",
@@ -943,16 +904,10 @@
       "from": "Джерело",
       "materialContent": "📄 Зміст матеріалу",
       "translateInto": "Перекласти на",
-      "upTo": "До",
-      "full": "Ліміт слів цього словника вичерпано",
-      "fits_one": "У цей словник вміститься ще лише {{count}} слово",
-      "fits_few": "У цей словник вмістяться ще лише {{count}} слова",
-      "fits_many": "У цей словник вміститься ще лише {{count}} слів",
-      "fits_other": "У цей словник вміститься ще лише {{count}} слова"
+      "upTo": "До"
     },
     "add": "Додати словник",
     "addTitle": "Новий словник",
-    "limitReached": "Ліміт словників вичерпано",
     "description": "Опис",
     "descriptionPlaceholder": "Опис...",
     "descriptionAdd": "Додай короткий опис...",
@@ -960,11 +915,6 @@
     "addWordTitle": "Нове слово",
     "editWord": "Редагувати слово",
     "deleteWord": "Видалити слово",
-    "wordsLimitReached": "Ліміт слів вичерпано",
-    "wordsLimitHint_one": "Ліміт вичерпано: {{count}} слово в одному словнику",
-    "wordsLimitHint_few": "Ліміт вичерпано: {{count}} слова в одному словнику",
-    "wordsLimitHint_many": "Ліміт вичерпано: {{count}} слів в одному словнику",
-    "wordsLimitHint_other": "Ліміт вичерпано: {{count}} слова в одному словнику",
     "dragToReorder": "Перетягни, щоб змінити порядок",
     "loadError": "Не вдалося завантажити словник...",
     "wordsCount_one": "{{count}} слово",
@@ -999,7 +949,10 @@
       "grammarHint": "Напр. множина: mice",
       "synonymsHint": "Через кому",
       "more": "Більше деталей",
-      "moreHint": "граматика, синоніми, нотатка"
+      "moreHint": "граматика, синоніми, нотатка",
+      "article": "Артикль",
+      "articleHint": "Необовʼязково. Покажеться перед словом",
+      "articlePlaceholder": "der, la, en…"
     },
     "partOfSpeech": {
       "Noun": "іменник",
@@ -1768,8 +1721,7 @@
       "aiQuotas": "AI на місяць",
       "termsLink": "Умови й скасування",
       "usageTitle": "Використання",
-      "usageText": "Квоти AI оновлюються щомісяця, а місця для матеріалів однаково на всіх тарифах",
-      "perMaterialShow": "Показати по матеріалах",
+      "usageText": "Квоти AI оновлюються щомісяця",
       "faqTitle": "Часті питання",
       "allTerms": "Усі умови",
       "faq": {
@@ -1921,17 +1873,30 @@
     "todayShort": "Сьогодні: {{review}} повторити, {{learn}} нового"
   },
   "exam": {
-    "settings": "Налаштування іспиту",
-    "settingsText": "Діють лише для цього матеріалу. На нотатки не поширюються.",
-    "timer": "Таймер",
-    "timerHint": "Коли час вийде, спроба завершиться сама. Питання без відповіді стануть неправильними.",
-    "duration": "Хвилин на спробу",
-    "customMinutes": "Або своя кількість хвилин",
+    "title": "Налаштуй тест",
+    "subtitle": "Запамʼятаємо вибір на наступний раз",
+    "difficulty": "Складність",
+    "lastDifficulty": "Потрібен хоча б один рівень",
+    "questions": "Питань",
+    "all": "Усі ({{count}})",
+    "custom": "Своя",
+    "ofTotal": "з {{count}}",
+    "countRange": "Від {{min}} до {{max}}",
+    "timerMinutes": "Таймер, хв",
+    "noTimer": "Без",
+    "minutesUnit": "хв",
     "minutesRange": "Від {{min}} до {{max}} хвилин",
-    "minutes_one": "{{count}} хв",
-    "minutes_few": "{{count}} хв",
-    "minutes_many": "{{count}} хв",
-    "minutes_other": "{{count}} хв",
+    "start": "Почати",
+    "startWith_one": "Почати · {{count}} питання",
+    "startWith_few": "Почати · {{count}} питання",
+    "startWith_many": "Почати · {{count}} питань",
+    "startWith_other": "Почати · {{count}} питання",
+    "questionsCount_one": "{{count}} питання",
+    "questionsCount_few": "{{count}} питання",
+    "questionsCount_many": "{{count}} питань",
+    "questionsCount_other": "{{count}} питання",
+    "noQuestions": "Немає активних питань такої складності",
+    "noQuestionsToStart": "Немає активних питань, що підходять під налаштування іспиту",
     "saveError": "Не вдалося зберегти налаштування",
     "timeUp": "Час вийшов, спробу завершено",
     "timeLeft": "Залишилось часу"

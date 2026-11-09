@@ -7,6 +7,7 @@ import { cn } from "@/shared/lib";
 import { useTranslation } from "react-i18next";
 import { IDictionaryEntryResponse } from "../../model";
 import { PartOfSpeechBadge } from "../PartOfSpeechBadge/part-of-speech-badge";
+import { EntryTerm } from "../EntryTerm/entry-term";
 
 interface DictionaryFlipCardProps {
   entry: IDictionaryEntryResponse;
@@ -56,7 +57,7 @@ export const DictionaryFlipCard: FC<DictionaryFlipCardProps> = ({
           </div>
           <div className="flex flex-1 flex-col justify-center items-center gap-2 text-center min-h-0">
             <p className="text-3xl md:text-4xl font-bold break-words max-w-full">
-              {entry.term}
+              <EntryTerm term={entry.term} article={entry.article} />
             </p>
             {entry.transcription && (
               <p className="text-lg text-neutral-500">{entry.transcription}</p>

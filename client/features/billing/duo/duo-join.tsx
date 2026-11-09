@@ -11,7 +11,6 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys } from "@/entities/ai";
-import { limitsKeys } from "@/entities/limits";
 import { billingKeys, joinDuo, previewDuoInvite } from "@/entities/billing";
 
 const status = (error: unknown) => (isAxiosError(error) ? error.response?.status : undefined);
@@ -37,7 +36,6 @@ export const DuoJoin: FC = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: billingKeys.duo() });
       queryClient.invalidateQueries({ queryKey: billingKeys.status() });
-      queryClient.invalidateQueries({ queryKey: limitsKeys.all });
       queryClient.invalidateQueries({ queryKey: aiKeys.usage() });
       toast({ title: t("duo.join.done"), variant: "success" });
       router.push("/limits");

@@ -9,7 +9,6 @@ import { useSession } from "@/shared/context/session.provider";
 import { logExceptionError } from "@/shared/lib/exeption.sentry";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys } from "@/entities/ai";
-import { limitsKeys } from "@/entities/limits";
 import {
   billingKeys,
   cancelDuoInvite,
@@ -36,7 +35,6 @@ export const DuoPanel: FC<{ duo: IDuoStatus }> = ({ duo }) => {
   const refresh = () => {
     queryClient.invalidateQueries({ queryKey: billingKeys.duo() });
     queryClient.invalidateQueries({ queryKey: billingKeys.status() });
-    queryClient.invalidateQueries({ queryKey: limitsKeys.all });
     queryClient.invalidateQueries({ queryKey: aiKeys.usage() });
   };
 

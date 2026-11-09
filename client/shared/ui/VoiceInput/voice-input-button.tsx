@@ -13,33 +13,7 @@ import {
 import { toast } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib/cn";
 import { useSpeechRecognition } from "./use-speech-recognition";
-
-const STORAGE_KEY = "voice-input-language";
-
-const VOICE_LANGUAGES = [
-  "uk-UA", "en-GB", "nb-NO", "de-DE", "fr-FR", "es-ES", "it-IT", "pl-PL",
-  "pt-PT", "sv-SE", "da-DK", "nl-NL", "fi-FI", "tr-TR", "ja-JP", "ko-KR",
-];
-
-const DEFAULT_BY_INTERFACE: Record<string, string> = { uk: "uk-UA", "en-GB": "en-GB", nb: "nb-NO" };
-
-// People often dictate in the language they study, not the one of the interface, so the choice is
-// remembered. Storage can be blocked: then it starts from the interface language each time
-const readSavedLanguage = () => {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return null;
-  }
-};
-
-const saveLanguage = (language: string) => {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, language);
-  } catch {
-    // Works without it for this visit
-  }
-};
+import { useVoiceLanguage, VOICE_LANGUAGES } from "./use-voice-language";
 
 interface VoiceInputButtonProps {
   // Each finished phrase
@@ -53,10 +27,7 @@ interface VoiceInputButtonProps {
 // A microphone with its language. Shows nothing where the browser can't recognise speech
 export const VoiceInputButton: FC<VoiceInputButtonProps> = ({ onText, onInterim, disabled, className }) => {
   const { t, i18n } = useTranslation();
-  const [language, setLanguage] = useState(() => {
-    const saved = typeof window === "undefined" ? null : readSavedLanguage();
-    return saved && VOICE_LANGUAGES.includes(saved) ? saved : (DEFAULT_BY_INTERFACE[i18n.language] ?? "en-GB");
-  });
+  const [language, setLanguage] = useVoiceLanguage(i18n.language);
 
   const { isSupported, isListening, start, stop } = useSpeechRecognition({
     lang: language,
@@ -103,10 +74,7 @@ export const VoiceInputButton: FC<VoiceInputButtonProps> = ({ onText, onInterim,
             <DropdownMenuItem
               key={code}
               lang={code}
-              onSelect={() => {
-                setLanguage(code);
-                saveLanguage(code);
-              }}
+              onSelect={() => setLanguage(code)}
               className="flex items-center justify-between gap-3 capitalize"
             >
               {nameOf(code)}

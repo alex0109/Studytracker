@@ -51,10 +51,15 @@ export const SelectionAction: FC<SelectionActionProps> = ({
         return;
       }
 
+      // Outside the text nothing is read: a selection across the whole page is long to turn into text
       const range = current.getRangeAt(0);
+      if (!container.contains(range.commonAncestorContainer)) {
+        setSelection(null);
+        return;
+      }
+
       const text = range.toString().replace(/\s+/g, " ").trim();
-      const inside = container.contains(range.commonAncestorContainer);
-      if (!inside || !text || text.length > MAX_LENGTH || wordCount(text) > maxWords) {
+      if (!text || text.length > MAX_LENGTH || wordCount(text) > maxWords) {
         setSelection(null);
         return;
       }

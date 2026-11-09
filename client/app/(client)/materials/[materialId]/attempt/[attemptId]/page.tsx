@@ -1,5 +1,7 @@
+import { isAxiosError } from "axios";
+import { notFound } from "next/navigation";
 import { getUser } from "@/entities/auth/model/get-current-user.supabase";
-import { getActiveReducedQuestions } from "@/entities/question";
+import { getAttemptQuestions } from "@/entities/attempt";
 import { Attempt } from "@/widgets/Attempt/ui";
 
 const AttemptPage = async ({
@@ -10,14 +12,14 @@ const AttemptPage = async ({
   const { materialId, attemptId } = await params;
   const { token } = await getUser();
 
-  const questionsActiveReduced = await getActiveReducedQuestions(
-    token,
-    materialId,
-  );
+  const questions = await getAttemptQuestions(token, attemptId).catch((error) => {
+    if (isAxiosError(error) && error.response?.status === 404) notFound();
+    throw error;
+  });
 
   return (
     <Attempt
-      questionsActiveReduced={questionsActiveReduced}
+      questions={questions}
       materialId={materialId}
       attemptId={attemptId}
     />

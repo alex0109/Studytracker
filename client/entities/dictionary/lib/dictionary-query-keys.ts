@@ -16,4 +16,6 @@ export const dictionaryKeys = {
   entries: () => [...dictionaryKeys.all, "entry"] as const,
 
   entry: (entryId: string) => [...dictionaryKeys.entries(), entryId] as const,
+
+  quiz: (entryId: string) => [...dictionaryKeys.entry(entryId), "quiz"] as const,
 };

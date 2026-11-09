@@ -10,6 +10,7 @@ import {
   DictionaryEntryForm,
   IDictionaryEntryForm,
   IDictionaryEntryResponse,
+  termWithArticle,
   toEntryForm,
   toEntryUpdate,
 } from "@/entities/dictionary";
@@ -58,7 +59,7 @@ export const EditEntryModal: FC<EditEntryModalProps> = ({
       size="lg"
       icon={<LuPencil />}
       title={t("dictionary.editWord")}
-      description={entry?.term}
+      description={entry && termWithArticle(entry)}
       footer={
         <>
           <Button size="lg" variant="outline" onClick={() => setOpen(false)}>

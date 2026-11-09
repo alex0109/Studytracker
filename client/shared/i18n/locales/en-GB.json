@@ -29,13 +29,11 @@
     "signOutConfirm": "Are you sure?",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "streak_one": "Your streak: {{count}} day in a row",
-    "streak_other": "Your streak: {{count}} days in a row",
-    "streakNone": "No streak yet. Study today to start one",
     "library": "Library",
     "today": "Today",
     "account": "Account",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "landing": "Studytracker home page"
   },
   "preferences": {
     "language": "Language",
@@ -315,7 +313,6 @@
       "medium": "Medium",
       "hard": "Hard"
     },
-    "limitReached": "Questions limit reached",
     "actions": {
       "add": "Add Question",
       "generate": "Generate it",
@@ -353,9 +350,6 @@
       "fromMaterial": "AI writes questions from the content of this material.",
       "check": "Check them before you start Self Defending.",
       "howMany": "How many",
-      "full": "Questions limit of this material is reached",
-      "fits_one": "Only {{count}} more question fits into this material",
-      "fits_other": "Only {{count}} more questions fit into this material",
       "type": "Type",
       "mixed": "Mixed"
     },
@@ -501,6 +495,15 @@
       "nextReview": "Next review: {{date}}",
       "notReviewed": "Not reviewed yet",
       "dueNow": "due now"
+    },
+    "quiz": {
+      "badge": "Check yourself",
+      "pickTranslation": "Pick the translation",
+      "pickSynonym": "Pick the synonym",
+      "wrong": "Not quite, try again",
+      "right": "Correct!",
+      "next": "Next",
+      "keysHint": "Keys 1–4 pick a choice"
     }
   },
   "feedback": {
@@ -561,9 +564,6 @@
   "materials": {
     "add": "Add Material",
     "addTitle": "Add new material",
-    "limitReached": "Materials limit reached",
-    "limitReachedHint_one": "Limit reached: {{count}} material. Delete one to add a new one",
-    "limitReachedHint_other": "Limit reached: {{count}} materials. Delete one to add a new one",
     "titleLabel": "Title",
     "titlePlaceholder": "*Title...",
     "typeLabel": "Type",
@@ -656,39 +656,13 @@
     "titleExample": "E.g. React basics"
   },
   "limits": {
-    "counter": {
-      "materials": "materials",
-      "tags": "tags",
-      "notes": "notes in this material",
-      "questions": "questions in this material",
-      "dictionaries": "dictionaries in this material",
-      "words": "words in this dictionary"
-    },
     "reachedToast": "Limit reached. Free up some space and try again",
-    "counterUsed": "{{used}} of {{max}} {{label}} used",
-    "counterFull": "Limit reached: {{max}} {{label}}",
     "page": {
-      "loadError": "Could not load your limits, please refresh the page.",
       "plan": "Your plan",
       "planText": "AI limits depend on the plan",
       "resets": "AI requests are counted per month and reset on <b>{{date}}</b>. Requests that failed are not counted.",
-      "workspace": "Workspace",
-      "workspaceText": "Shared by all your materials",
-      "materials": "Materials",
-      "tags": "Tags",
       "aiMonth": "AI this month",
-      "aiMonthText": "How many AI requests are left",
-      "perMaterial": "Inside every material",
-      "perMaterialText_one": "Every dictionary holds up to {{count}} word",
-      "perMaterialText_other": "Every dictionary holds up to {{count}} words",
-      "noMaterials": "No materials yet.",
-      "createFirst": "Create the first one",
-      "questions": "Questions",
-      "notes": "Notes",
-      "dictionaries": "Dictionaries",
-      "fullestDictionary": "Words in fullest dictionary",
-      "libraryCopies": "Copies from the library",
-      "perMaterialTextUnlimited": "Notes, questions and dictionaries of every material, with no word limit on your plan"
+      "aiMonthText": "How many AI requests are left"
     }
   },
   "toasts": {
@@ -751,7 +725,8 @@
     "tagCreatedText": "You can use it inside any material",
     "noQuestions": "There are no questions to review right now",
     "tagDeleted": "Tag deleted",
-    "tagDeleteError": "Couldn't delete the tag"
+    "tagDeleteError": "Couldn't delete the tag",
+    "attemptNotStarted": "The attempt didn't start, try again"
   },
   "ai": {
     "errors": {
@@ -816,9 +791,6 @@
     "none": "No tags",
     "new": "New tag",
     "addTitle": "Add new tag",
-    "limitReached": "Tags limit reached",
-    "limitReachedHint_one": "Limit reached: {{count}} tag. Delete one to add a new one",
-    "limitReachedHint_other": "Limit reached: {{count}} tags. Delete one to add a new one",
     "name": "Name",
     "namePlaceholder": "E.g. English",
     "color": "Colour",
@@ -865,7 +837,6 @@
   "notes": {
     "add": "Add Note",
     "addTitle": "Add new note",
-    "limitReached": "Notes limit reached",
     "types": {
       "text": "✍️ Text",
       "drawing": "🖌️ Drawing",
@@ -905,14 +876,10 @@
       "from": "From",
       "materialContent": "📄 Material content",
       "translateInto": "Translate into",
-      "upTo": "Up to",
-      "full": "Words limit of this dictionary is reached",
-      "fits_one": "Only {{count}} more word fits into this dictionary",
-      "fits_other": "Only {{count}} more words fit into this dictionary"
+      "upTo": "Up to"
     },
     "add": "Add Dictionary",
     "addTitle": "Add new dictionary",
-    "limitReached": "Dictionaries limit reached",
     "description": "Description",
     "descriptionPlaceholder": "Description...",
     "descriptionAdd": "Add a short description...",
@@ -920,9 +887,6 @@
     "addWordTitle": "Add new word",
     "editWord": "Edit word",
     "deleteWord": "Delete word",
-    "wordsLimitReached": "Words limit reached",
-    "wordsLimitHint_one": "Limit reached: {{count}} word in one dictionary",
-    "wordsLimitHint_other": "Limit reached: {{count}} words in one dictionary",
     "dragToReorder": "Drag to reorder",
     "loadError": "Dictionary could not be loaded...",
     "wordsCount_one": "{{count}} word",
@@ -953,7 +917,10 @@
       "grammarHint": "E.g. plural: mice",
       "synonymsHint": "Comma separated",
       "more": "More details",
-      "moreHint": "grammar, synonyms, note"
+      "moreHint": "grammar, synonyms, note",
+      "article": "Article",
+      "articleHint": "Optional. Shown before the word",
+      "articlePlaceholder": "der, la, en…"
     },
     "partOfSpeech": {
       "Noun": "noun",
@@ -1668,8 +1635,7 @@
       "aiQuotas": "AI per month",
       "termsLink": "Terms and cancelling",
       "usageTitle": "Usage",
-      "usageText": "AI quotas renew every month, and the room for materials is the same on every plan",
-      "perMaterialShow": "Show per material",
+      "usageText": "AI quotas renew every month",
       "faqTitle": "Common questions",
       "allTerms": "All terms",
       "faq": {
@@ -1821,17 +1787,26 @@
     "todayShort": "Today: {{review}} to review, {{learn}} new"
   },
   "exam": {
-    "settings": "Exam settings",
-    "settingsText": "They apply to this material only, not to its notes.",
-    "timer": "Timer",
-    "timerHint": "When time runs out the attempt ends by itself. Unanswered questions count as wrong.",
-    "duration": "Minutes for an attempt",
-    "customMinutes": "Or your own number of minutes",
+    "title": "Set up the test",
+    "subtitle": "We'll remember your choice for next time",
+    "difficulty": "Difficulty",
+    "lastDifficulty": "At least one level is needed",
+    "questions": "Questions",
+    "all": "All ({{count}})",
+    "custom": "Custom",
+    "ofTotal": "of {{count}}",
+    "countRange": "From {{min}} to {{max}}",
+    "timerMinutes": "Timer, min",
+    "noTimer": "Off",
+    "minutesUnit": "min",
     "minutesRange": "From {{min}} to {{max}} minutes",
-    "minutes_one": "{{count}} min",
-    "minutes_few": "{{count}} min",
-    "minutes_many": "{{count}} min",
-    "minutes_other": "{{count}} min",
+    "start": "Start",
+    "startWith_one": "Start · {{count}} question",
+    "startWith_other": "Start · {{count}} questions",
+    "questionsCount_one": "{{count}} question",
+    "questionsCount_other": "{{count}} questions",
+    "noQuestions": "No active questions of this difficulty",
+    "noQuestionsToStart": "No active questions match the exam settings",
     "saveError": "Couldn't save the settings",
     "timeUp": "Time is up, the attempt is finished",
     "timeLeft": "Time left"

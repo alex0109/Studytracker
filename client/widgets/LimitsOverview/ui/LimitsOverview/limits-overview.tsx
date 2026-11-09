@@ -1,10 +1,9 @@
 "use client";
 
 import { FC } from "react";
-import { LuChevronDown, LuFolderOpen, LuSparkles, LuUsers } from "react-icons/lu";
+import { LuSparkles, LuUsers } from "react-icons/lu";
 import { Skeleton } from "@/shared/radix-ui";
 import { LimitBar } from "@/shared/ui";
-import { useLimits, useLimitsUsage } from "@/entities/limits";
 import { aiFeatureLabelKey, useAiUsage } from "@/entities/ai";
 import { SubscriptionTierName, useBillingStatus, useDuoStatus } from "@/entities/billing";
 import { PlanChooser, PlanChooserMode } from "@/features/billing/upgrade-plan";
@@ -12,7 +11,6 @@ import { ManageSubscriptionButton, useSubscriptionPortal } from "@/features/bill
 import { DuoPanel } from "@/features/billing/duo";
 import { Trans, useTranslation } from "@/shared/i18n";
 import { LimitsCard } from "../LimitsCard/limits-card";
-import { MaterialLimitsList } from "../MaterialLimitsList/material-limits-list";
 import { PlanHero } from "../PlanHero/plan-hero";
 import { BillingFaq } from "../BillingFaq/billing-faq";
 
@@ -23,11 +21,10 @@ const formatDate = (value: string, language: string) =>
     year: "numeric",
   });
 
-// The plan in force, the plans to choose from, the Duo, what is used, and the usual questions
+// The plan in force, the plans to choose from, the Duo, the AI used this month, and the usual questions.
+// Room for materials, questions and words is the same for everyone and not shown: its caps only stop scripts
 export const LimitsOverview: FC = () => {
   const { t, i18n } = useTranslation();
-  const { limitsData } = useLimits();
-  const { limitsUsageData, limitsUsageError } = useLimitsUsage();
   const { aiUsageData } = useAiUsage();
   const { billingData } = useBillingStatus();
   const { duoData } = useDuoStatus();
@@ -46,11 +43,7 @@ export const LimitsOverview: FC = () => {
         : "checkout";
   const tier = (billingData?.tier ?? aiUsageData?.tier ?? "Free") as SubscriptionTierName;
 
-  if (limitsUsageError) {
-    return <p className="py-10 text-center text-neutral-500">{t("limits.page.loadError")}</p>;
-  }
-
-  if (!limitsData || !limitsUsageData || !billingData) {
+  if (!billingData) {
     return (
       <div className="flex w-full flex-col gap-6">
         <Skeleton className="h-64 w-full rounded-3xl" />
@@ -63,8 +56,6 @@ export const LimitsOverview: FC = () => {
     );
   }
 
-  // grid-cols-1 is minmax(0, 1fr): without it the phone column grew to fit a long
-  // material title and the page got wider than the screen
   return (
     <div className="flex w-full flex-col gap-12">
       <PlanHero
@@ -99,62 +90,32 @@ export const LimitsOverview: FC = () => {
           <p className="text-neutral-600 dark:text-neutral-400">{t("billing.page.usageText")}</p>
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
-          <LimitsCard title={t("limits.page.aiMonth")} subtitle={t("limits.page.aiMonthText")} icon={<LuSparkles />} tone="emerald">
-            {aiUsageData ? (
-              <>
-                <div className="flex flex-col gap-4">
-                  {aiUsageData.features.map((item) => (
-                    <LimitBar
-                      key={item.feature}
-                      label={t(aiFeatureLabelKey(item.feature), { defaultValue: item.feature })}
-                      used={item.used}
-                      max={item.limit}
-                    />
-                  ))}
-                </div>
-                <p className="text-sm text-neutral-500">
-                  <Trans
-                    i18nKey="limits.page.resets"
-                    values={{ date: formatDate(aiUsageData.resetsAt, i18n.language) }}
-                    components={{ b: <span className="font-medium text-neutral-700 dark:text-neutral-200" /> }}
+        <LimitsCard title={t("limits.page.aiMonth")} subtitle={t("limits.page.aiMonthText")} icon={<LuSparkles />} tone="emerald">
+          {aiUsageData ? (
+            <>
+              <div className="flex flex-col gap-4">
+                {aiUsageData.features.map((item) => (
+                  <LimitBar
+                    key={item.feature}
+                    label={t(aiFeatureLabelKey(item.feature), { defaultValue: item.feature })}
+                    used={item.used}
+                    max={item.limit}
                   />
-                </p>
-                {!aiUsageData.isEnabled && <p className="text-sm text-amber-600">{t("ai.off")}</p>}
-              </>
-            ) : (
-              <Skeleton className="h-48 w-full" />
-            )}
-          </LimitsCard>
-
-          <LimitsCard title={t("limits.page.workspace")} subtitle={t("limits.page.workspaceText")} icon={<LuFolderOpen />} tone="sky">
-            <div className="flex flex-col gap-4">
-              <LimitBar label={t("limits.page.materials")} used={limitsUsageData.materials} max={limitsData.maxMaterials} />
-              <LimitBar label={t("limits.page.tags")} used={limitsUsageData.tags} max={limitsData.maxTags} />
-              {/* Library copies have their own room when they don't share the material limit */}
-              {limitsData.countLibraryImports === false && limitsData.maxLibraryImports !== undefined && (
-                <LimitBar
-                  label={t("limits.page.libraryCopies")}
-                  used={limitsUsageData.libraryCopies ?? 0}
-                  max={limitsData.maxLibraryImports}
-                />
-              )}
-            </div>
-
-            <details className="group border-t border-neutral-200 pt-3 dark:border-neutral-800">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg py-1 text-sm font-medium text-neutral-700 focus-visible:outline-2 focus-visible:outline-emerald-500 dark:text-neutral-200 [&::-webkit-details-marker]:hidden">
-                {t("billing.page.perMaterialShow")}
-                <LuChevronDown
-                  aria-hidden
-                  className="shrink-0 text-neutral-400 transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
-                />
-              </summary>
-              <div className="pt-4">
-                <MaterialLimitsList materials={limitsUsageData.materialsUsage} limits={limitsData} />
+                ))}
               </div>
-            </details>
-          </LimitsCard>
-        </div>
+              <p className="text-sm text-neutral-500">
+                <Trans
+                  i18nKey="limits.page.resets"
+                  values={{ date: formatDate(aiUsageData.resetsAt, i18n.language) }}
+                  components={{ b: <span className="font-medium text-neutral-700 dark:text-neutral-200" /> }}
+                />
+              </p>
+              {!aiUsageData.isEnabled && <p className="text-sm text-amber-600">{t("ai.off")}</p>}
+            </>
+          ) : (
+            <Skeleton className="h-48 w-full" />
+          )}
+        </LimitsCard>
       </section>
 
       <BillingFaq />

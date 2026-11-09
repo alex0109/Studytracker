@@ -3,10 +3,8 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuTag } from "react-icons/lu";
-import { Field, FieldInput, Modal, LimitCounter, Spinner } from "@/shared/ui";
-import { ITagCreate, useTagsAll } from "@/entities/tag";
-import { useLimits } from "@/entities/limits";
-import { isLimitReached } from "@/shared/lib";
+import { Field, FieldInput, Modal, Spinner } from "@/shared/ui";
+import { ITagCreate } from "@/entities/tag";
 import { useTagCreate } from "../../hooks/useTagCreate";
 import { ColorPicker } from "../ColorPicker/color-picker";
 import { Button } from "@/shared/radix-ui";
@@ -22,11 +20,6 @@ export const AddTag: FC = () => {
   } = useForm<ITagCreate>();
 
   const { createTag, createTagIsPending } = useTagCreate();
-  const { tagsData } = useTagsAll();
-  const { limitsData } = useLimits();
-
-  const tagsCount = tagsData?.length ?? 0;
-  const isFull = isLimitReached(tagsCount, limitsData?.maxTags);
 
   const [open, setOpen] = useState(false);
   const [color, setColor] = useState("#64748B");
@@ -53,22 +46,7 @@ export const AddTag: FC = () => {
         <span className="absolute top-0.5 left-[33%] text-white">+</span>
       </div> */}
 
-      <Button
-        onClick={() => setOpen(true)}
-        disabled={isFull}
-        title={
-          isFull
-            ? t("tags.limitReachedHint", { count: limitsData?.maxTags })
-            : undefined
-        }
-      >
-        {isFull ? t("tags.limitReached") : t("tags.new")}
-        <LimitCounter
-          used={tagsCount}
-          max={limitsData?.maxTags}
-          label={t("limits.counter.tags")}
-        />
-      </Button>
+      <Button onClick={() => setOpen(true)}>{t("tags.new")}</Button>
 
       <Modal
         open={open}

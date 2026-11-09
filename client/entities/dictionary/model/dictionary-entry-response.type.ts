@@ -8,6 +8,7 @@ export interface IDictionaryEntryResponse {
   translation: string;
   transcription?: string;
   partOfSpeech?: PartOfSpeechEnum;
+  article?: string | null;
   grammarInfo?: string;
   example?: string;
   exampleTranslation?: string;

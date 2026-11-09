@@ -29,13 +29,11 @@
     "signOutConfirm": "Er du sikker?",
     "openMenu": "Åpne meny",
     "closeMenu": "Lukk meny",
-    "streak_one": "Din rekke: {{count}} dag på rad",
-    "streak_other": "Din rekke: {{count}} dager på rad",
-    "streakNone": "Ingen rekke ennå. Studer i dag for å starte en",
     "library": "Bibliotek",
     "today": "I dag",
     "account": "Konto",
-    "calendar": "Kalender"
+    "calendar": "Kalender",
+    "landing": "Studytracker: forsiden"
   },
   "preferences": {
     "language": "Språk",
@@ -315,7 +313,6 @@
       "medium": "Middels",
       "hard": "Vanskelig"
     },
-    "limitReached": "Grensen for spørsmål er nådd",
     "actions": {
       "add": "Legg til spørsmål",
       "generate": "Generer",
@@ -353,9 +350,6 @@
       "fromMaterial": "AI skriver spørsmål fra innholdet i dette materialet.",
       "check": "Se over dem før du starter selvforsvar.",
       "howMany": "Hvor mange",
-      "full": "Grensen for spørsmål i dette materialet er nådd",
-      "fits_one": "Bare {{count}} spørsmål til får plass i dette materialet",
-      "fits_other": "Bare {{count}} spørsmål til får plass i dette materialet",
       "type": "Type",
       "mixed": "Blandet"
     },
@@ -501,6 +495,15 @@
       "nextReview": "Neste repetisjon: {{date}}",
       "notReviewed": "Ikke repetert ennå",
       "dueNow": "klar nå"
+    },
+    "quiz": {
+      "badge": "Sjekk deg selv",
+      "pickTranslation": "Velg oversettelsen",
+      "pickSynonym": "Velg synonymet",
+      "wrong": "Ikke helt, prøv igjen",
+      "right": "Riktig!",
+      "next": "Neste",
+      "keysHint": "Tastene 1–4 velger et svar"
     }
   },
   "feedback": {
@@ -561,9 +564,6 @@
   "materials": {
     "add": "Legg til materiale",
     "addTitle": "Nytt materiale",
-    "limitReached": "Grensen for materialer er nådd",
-    "limitReachedHint_one": "Grensen er nådd: {{count}} materiale. Slett ett for å legge til et nytt",
-    "limitReachedHint_other": "Grensen er nådd: {{count}} materialer. Slett ett for å legge til et nytt",
     "titleLabel": "Tittel",
     "titlePlaceholder": "*Tittel...",
     "typeLabel": "Type",
@@ -656,39 +656,13 @@
     "titleExample": "F.eks. Grunnleggende React"
   },
   "limits": {
-    "counter": {
-      "materials": "materialer",
-      "tags": "tagger",
-      "notes": "notater i dette materialet",
-      "questions": "spørsmål i dette materialet",
-      "dictionaries": "ordlister i dette materialet",
-      "words": "ord i denne ordlisten"
-    },
     "reachedToast": "Grensen er nådd. Frigjør litt plass og prøv igjen",
-    "counterUsed": "{{used}} av {{max}} {{label}} brukt",
-    "counterFull": "Grensen er nådd: {{max}} {{label}}",
     "page": {
-      "loadError": "Kunne ikke laste grensene dine, last inn siden på nytt.",
       "plan": "Abonnementet ditt",
       "planText": "AI-grensene avhenger av abonnementet",
       "resets": "AI-forespørsler telles per måned og nullstilles <b>{{date}}</b>. Forespørsler som feilet, telles ikke.",
-      "workspace": "Arbeidsområde",
-      "workspaceText": "Delt av alle materialene dine",
-      "materials": "Materialer",
-      "tags": "Tagger",
       "aiMonth": "AI denne måneden",
-      "aiMonthText": "Hvor mange AI-forespørsler som er igjen",
-      "perMaterial": "I hvert materiale",
-      "perMaterialText_one": "Hver ordliste rommer opptil {{count}} ord",
-      "perMaterialText_other": "Hver ordliste rommer opptil {{count}} ord",
-      "noMaterials": "Ingen materialer ennå.",
-      "createFirst": "Opprett det første",
-      "questions": "Spørsmål",
-      "notes": "Notater",
-      "dictionaries": "Ordlister",
-      "fullestDictionary": "Ord i den fulleste ordlisten",
-      "libraryCopies": "Kopier fra biblioteket",
-      "perMaterialTextUnlimited": "Notater, spørsmål og ordlister i hvert materiale, uten ordgrense på planen din"
+      "aiMonthText": "Hvor mange AI-forespørsler som er igjen"
     }
   },
   "toasts": {
@@ -751,7 +725,8 @@
     "tagCreatedText": "Du kan bruke den i alle materialer",
     "noQuestions": "Det er ingen spørsmål å repetere nå",
     "tagDeleted": "Taggen er slettet",
-    "tagDeleteError": "Kunne ikke slette taggen"
+    "tagDeleteError": "Kunne ikke slette taggen",
+    "attemptNotStarted": "Forsøket startet ikke, prøv igjen"
   },
   "ai": {
     "errors": {
@@ -816,9 +791,6 @@
     "none": "Ingen tagger",
     "new": "Ny tagg",
     "addTitle": "Ny tagg",
-    "limitReached": "Grensen for tagger er nådd",
-    "limitReachedHint_one": "Grensen er nådd: {{count}} tagg. Slett én for å legge til en ny",
-    "limitReachedHint_other": "Grensen er nådd: {{count}} tagger. Slett én for å legge til en ny",
     "name": "Navn",
     "namePlaceholder": "F.eks. Engelsk",
     "color": "Farge",
@@ -865,7 +837,6 @@
   "notes": {
     "add": "Legg til notat",
     "addTitle": "Nytt notat",
-    "limitReached": "Grensen for notater er nådd",
     "types": {
       "text": "✍️ Tekst",
       "drawing": "🖌️ Tegning",
@@ -905,14 +876,10 @@
       "from": "Fra",
       "materialContent": "📄 Innholdet i materialet",
       "translateInto": "Oversett til",
-      "upTo": "Opptil",
-      "full": "Grensen for ord i denne ordlisten er nådd",
-      "fits_one": "Bare {{count}} ord til får plass i denne ordlisten",
-      "fits_other": "Bare {{count}} ord til får plass i denne ordlisten"
+      "upTo": "Opptil"
     },
     "add": "Legg til ordliste",
     "addTitle": "Ny ordliste",
-    "limitReached": "Grensen for ordlister er nådd",
     "description": "Beskrivelse",
     "descriptionPlaceholder": "Beskrivelse...",
     "descriptionAdd": "Legg til en kort beskrivelse...",
@@ -920,9 +887,6 @@
     "addWordTitle": "Nytt ord",
     "editWord": "Rediger ord",
     "deleteWord": "Slett ord",
-    "wordsLimitReached": "Grensen for ord er nådd",
-    "wordsLimitHint_one": "Grensen er nådd: {{count}} ord i én ordliste",
-    "wordsLimitHint_other": "Grensen er nådd: {{count}} ord i én ordliste",
     "dragToReorder": "Dra for å endre rekkefølgen",
     "loadError": "Ordlisten kunne ikke lastes...",
     "wordsCount_one": "{{count}} ord",
@@ -953,7 +917,10 @@
       "grammarHint": "F.eks. flertall: mice",
       "synonymsHint": "Skilt med komma",
       "more": "Flere detaljer",
-      "moreHint": "grammatikk, synonymer, merknad"
+      "moreHint": "grammatikk, synonymer, merknad",
+      "article": "Artikkel",
+      "articleHint": "Valgfritt. Vises foran ordet",
+      "articlePlaceholder": "der, la, en…"
     },
     "partOfSpeech": {
       "Noun": "substantiv",
@@ -1668,8 +1635,7 @@
       "aiQuotas": "AI per måned",
       "termsLink": "Vilkår og oppsigelse",
       "usageTitle": "Bruk",
-      "usageText": "AI-kvotene fornyes hver måned, og plassen til materialer er lik på alle planer",
-      "perMaterialShow": "Vis per materiale",
+      "usageText": "AI-kvotene fornyes hver måned",
       "faqTitle": "Vanlige spørsmål",
       "allTerms": "Alle vilkår",
       "faq": {
@@ -1821,17 +1787,26 @@
     "todayShort": "I dag: {{review}} å repetere, {{learn}} nye"
   },
   "exam": {
-    "settings": "Eksamensinnstillinger",
-    "settingsText": "De gjelder bare dette materialet, ikke notatene.",
-    "timer": "Tidtaker",
-    "timerHint": "Når tiden er ute, avsluttes forsøket av seg selv. Ubesvarte spørsmål regnes som feil.",
-    "duration": "Minutter per forsøk",
-    "customMinutes": "Eller eget antall minutter",
+    "title": "Sett opp testen",
+    "subtitle": "Vi husker valget til neste gang",
+    "difficulty": "Vanskelighetsgrad",
+    "lastDifficulty": "Minst ett nivå må være valgt",
+    "questions": "Spørsmål",
+    "all": "Alle ({{count}})",
+    "custom": "Egen",
+    "ofTotal": "av {{count}}",
+    "countRange": "Fra {{min}} til {{max}}",
+    "timerMinutes": "Tidtaker, min",
+    "noTimer": "Av",
+    "minutesUnit": "min",
     "minutesRange": "Fra {{min}} til {{max}} minutter",
-    "minutes_one": "{{count}} min",
-    "minutes_few": "{{count}} min",
-    "minutes_many": "{{count}} min",
-    "minutes_other": "{{count}} min",
+    "start": "Start",
+    "startWith_one": "Start · {{count}} spørsmål",
+    "startWith_other": "Start · {{count}} spørsmål",
+    "questionsCount_one": "{{count}} spørsmål",
+    "questionsCount_other": "{{count}} spørsmål",
+    "noQuestions": "Ingen aktive spørsmål med denne vanskelighetsgraden",
+    "noQuestionsToStart": "Ingen aktive spørsmål passer til eksamensinnstillingene",
     "saveError": "Kunne ikke lagre innstillingene",
     "timeUp": "Tiden er ute, forsøket er avsluttet",
     "timeLeft": "Tid igjen"

@@ -10,8 +10,8 @@ import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { PreferencesControls } from "@/features/preferences";
 import { SignOutButton } from "@/features/account/sign-out";
-import { StreakBadge } from "../StreakBadge/streak-badge";
 import { AccountLink } from "../AccountLink/account-link";
+import { LogoLink } from "../LogoLink/logo-link";
 import { ProfileSync } from "@/features/profile";
 import { TodayCount } from "./today-count";
 
@@ -45,9 +45,7 @@ export const Navigation: FC = () => {
         dark:bg-neutral-900 dark:shadow-black/40
         animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
       >
-        {user && (
-          <StreakBadge className="md:col-start-1 md:justify-self-start md:size-9" />
-        )}
+        <LogoLink className="md:col-start-1 md:justify-self-start md:size-9" />
 
         <ul className="hidden md:col-start-2 md:flex items-center justify-center gap-0.5 text-[0.875rem] font-medium">
           {mappedLinkList.map((link) => {
@@ -166,10 +164,10 @@ export const Navigation: FC = () => {
       </AnimatePresence>
 
       {/* Only who is signed in; the account itself opens from the icon next to the language.
-          Under the menu bar, so the streak tooltip of the bar shows above it */}
+          Above the menu bar, so its edge doesn't cover the top of the pill */}
       {user && (
         <div
-          className="z-30 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white
+          className="z-50 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white
           dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem]
           h-10 hidden md:flex lg:w-[26rem] justify-center items-start px-4 pt-2
           animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"

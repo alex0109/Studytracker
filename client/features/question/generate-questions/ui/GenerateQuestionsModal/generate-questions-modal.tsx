@@ -18,8 +18,6 @@ interface GenerateQuestionsModalProps {
   materialId: string;
   // Questions are generated from this note when set, otherwise from the material
   noteId?: string;
-  // Free places for questions in the material
-  freeSlots: number;
   open: boolean;
   setOpen: (isOpen: boolean) => void;
 }
@@ -36,12 +34,10 @@ const TYPE_OPTIONS: (QuestionTypeEnum | undefined)[] = [
 export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   materialId,
   noteId,
-  freeSlots,
   open,
   setOpen,
 }) => {
   const { t } = useTranslation();
-  const maxCount = Math.max(0, Math.min(MAX_GENERATED, freeSlots));
 
   const [count, setCount] = useState(3);
   const [questionType, setQuestionType] = useState<QuestionTypeEnum>();
@@ -54,11 +50,9 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   const { generateQuestions, generateQuestionsIsPending } =
     useQuestionsGenerate(materialId);
 
-  const selectedCount = Math.min(count, maxCount);
-
   const onGenerate = async () => {
     try {
-      await generateQuestions({ noteId, count: selectedCount, questionType });
+      await generateQuestions({ noteId, count, questionType });
       setOpen(false);
     } catch {
       // The hook already shows the reason
@@ -83,7 +77,7 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
             size="lg"
             className="bg-violet-700 text-white hover:bg-violet-800"
             onClick={onGenerate}
-            disabled={generateQuestionsIsPending || maxCount === 0 || !isAvailable}
+            disabled={generateQuestionsIsPending || !isAvailable}
           >
             {generateQuestionsIsPending ? <Spinner /> : <LuSparkles />}
             {generateQuestionsIsPending ? t("ai.generating") : t("ai.generate")}
@@ -94,17 +88,9 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
       <div className="flex flex-col gap-4">
         <ChoiceGroup
           label={t("questions.generate.howMany")}
-          value={selectedCount}
+          value={count}
           onChange={setCount}
-          options={Array.from({ length: MAX_GENERATED }, (_, i) => i + 1).map((value) => ({
-            value,
-            label: value,
-            disabled: value > maxCount,
-          }))}
-          hint={
-            maxCount < MAX_GENERATED &&
-            (maxCount === 0 ? t("questions.generate.full") : t("questions.generate.fits", { count: maxCount }))
-          }
+          options={Array.from({ length: MAX_GENERATED }, (_, i) => i + 1).map((value) => ({ value, label: value }))}
         />
 
         <ChoiceGroup

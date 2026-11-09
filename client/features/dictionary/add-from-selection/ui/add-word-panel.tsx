@@ -48,6 +48,7 @@ export const AddWordPanel: FC<AddWordPanelProps> = ({ materialId, selection, onC
   const [transcription, setTranscription] = useState("");
   const [extra, setExtra] = useState<{
     partOfSpeech?: PartOfSpeechEnum;
+    article?: string;
     grammarInfo?: string;
     exampleTranslation?: string;
   }>({});
@@ -87,6 +88,7 @@ export const AddWordPanel: FC<AddWordPanelProps> = ({ materialId, selection, onC
       setTranscription(result.transcription ?? "");
       setExtra({
         partOfSpeech: result.partOfSpeech ?? undefined,
+        article: result.article ?? undefined,
         grammarInfo: result.grammarInfo ?? undefined,
         exampleTranslation: result.exampleTranslation ?? undefined,
       });
@@ -125,6 +127,7 @@ export const AddWordPanel: FC<AddWordPanelProps> = ({ materialId, selection, onC
           translation: translation.trim(),
           transcription: transcription.trim() || undefined,
           partOfSpeech: extra.partOfSpeech,
+          article: extra.article,
           grammarInfo: extra.grammarInfo,
           example: example.trim() || undefined,
           exampleTranslation: extra.exampleTranslation,
@@ -299,6 +302,7 @@ export const AddWordPanel: FC<AddWordPanelProps> = ({ materialId, selection, onC
       {(extra.partOfSpeech || extra.grammarInfo) && (
         <p className="flex flex-wrap items-center gap-2 text-xs text-neutral-500">
           <PartOfSpeechBadge partOfSpeech={extra.partOfSpeech} />
+          {extra.article && <span className="font-medium text-neutral-700 dark:text-neutral-300">{extra.article}</span>}
           {extra.grammarInfo}
         </p>
       )}

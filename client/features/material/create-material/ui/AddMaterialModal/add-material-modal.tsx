@@ -3,17 +3,8 @@
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
-import {
-  Modal,
-  Field,
-  FieldInput,
-  FieldSelect,
-  Spinner,
-  LimitCounter,
-} from "@/shared/ui";
-import { IMaterialCreate, useMaterialAll } from "@/entities/material";
-import { useLimits } from "@/entities/limits";
-import { isLimitReached } from "@/shared/lib";
+import { Modal, Field, FieldInput, FieldSelect, Spinner } from "@/shared/ui";
+import { IMaterialCreate } from "@/entities/material";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { useMaterialImport } from "../../hooks/useMaterialImport";
 import { Button } from "@/shared/radix-ui";
@@ -43,13 +34,6 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
   });
 
   const { createMaterial, createMaterialIsPending } = useMaterialCreate();
-  const { materialsData } = useMaterialAll();
-  const { limitsData } = useLimits();
-
-  // Counted like the server: library copies take places only when the plan says so
-  const materialsCount =
-    materialsData?.filter((m) => limitsData?.countLibraryImports !== false || !m.isFromLibrary).length ?? 0;
-  const isFull = isLimitReached(materialsCount, limitsData?.maxMaterials);
 
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<Mode>("manual");
@@ -76,25 +60,10 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
     <>
       <Button
         onClick={() => setOpen(true)}
-        disabled={isFull}
-        title={
-          isFull
-            ? t("materials.limitReachedHint", { count: limitsData?.maxMaterials })
-            : undefined
-        }
         className="w-full flex justify-between items-center"
       >
-        <div>
-          <p>{isFull ? t("materials.limitReached") : t("materials.add")}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <LimitCounter
-            used={materialsCount}
-            max={limitsData?.maxMaterials}
-            label={t("limits.counter.materials")}
-          />
-          <LuPlus />
-        </div>
+        <p>{t("materials.add")}</p>
+        <LuPlus />
       </Button>
 
       <Modal

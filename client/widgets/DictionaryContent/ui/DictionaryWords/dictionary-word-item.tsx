@@ -6,6 +6,7 @@ import { FC, memo } from "react";
 import { Reorder, useDragControls } from "framer-motion";
 import { LuGripVertical, LuPencil } from "react-icons/lu";
 import {
+  EntryTerm,
   IDictionaryEntryResponse,
   PartOfSpeechBadge,
 } from "@/entities/dictionary";
@@ -55,7 +56,7 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = memo(function Dic
 
       <div className="flex flex-1 flex-col min-w-0 gap-1">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-lg font-bold break-words">{entry.term}</span>
+          <EntryTerm term={entry.term} article={entry.article} className="text-lg font-bold break-words" />
           {entry.transcription && (
             <span className="text-sm text-neutral-500">
               {entry.transcription}

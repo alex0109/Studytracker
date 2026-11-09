@@ -314,7 +314,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
           size="lg"
           onClick={onSubmit}
           disabled={submitAnswerIsPending}
-          className="w-full bg-emerald-700 hover:bg-emerald-800 sm:w-auto"
+          className="w-full bg-emerald-700 text-white hover:bg-emerald-800 sm:w-auto"
         >
           {submitAnswerIsPending
             ? isChoice

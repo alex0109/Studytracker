@@ -15,6 +15,7 @@ export interface IWordLookup {
   translation: string;
   transcription: string | null;
   partOfSpeech: PartOfSpeechEnum | null;
+  article: string | null;
   grammarInfo: string | null;
   example: string | null;
   exampleTranslation: string | null;

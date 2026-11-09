@@ -7,12 +7,12 @@ export const questionInterface: questionInterfaceType[] = [
     key: "generate",
     title: "generate",
     icon: <LuBrain />,
-    styles: "bg-violet-700 hover:bg-violet-800",
+    styles: "bg-violet-700 text-white hover:bg-violet-800",
   },
   {
     key: "start",
     title: "start",
     icon: <LuPlay />,
-    styles: "bg-emerald-600 hover:bg-emerald-700",
+    styles: "bg-emerald-600 text-white hover:bg-emerald-700",
   },
 ];

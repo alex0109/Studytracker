@@ -4,40 +4,18 @@ import { useTranslation } from "@/shared/i18n";
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Modal,
-  Field,
-  FieldInput,
-  FieldTextArea,
-  Spinner,
-  LimitCounter,
-} from "@/shared/ui";
+import { Modal, Field, FieldInput, FieldTextArea, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { LuBookA, LuPlus } from "react-icons/lu";
-import { IDictionaryCreate, useDictionaryAll } from "@/entities/dictionary";
-import { useLimits } from "@/entities/limits";
-import { isLimitReached } from "@/shared/lib";
+import { IDictionaryCreate } from "@/entities/dictionary";
 import { useDictionaryCreate } from "../../hooks/useDictionaryCreate";
 
 interface AddDictionaryModalProps {
   materialId: string;
-  // Dictionaries are loaded only for the opened material
-  enabled: boolean;
 }
 
-export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
-  materialId,
-  enabled,
-}) => {
+export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({ materialId }) => {
   const { t } = useTranslation();
-  const { dictionariesData } = useDictionaryAll(materialId, enabled);
-  const { limitsData } = useLimits();
-
-  const dictionariesCount = dictionariesData?.length ?? 0;
-  const isFull = isLimitReached(
-    dictionariesCount,
-    limitsData?.maxDictionariesPerMaterial,
-  );
 
   const {
     register,
@@ -70,7 +48,6 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
     <>
       <Button
         onClick={() => setOpen(true)}
-        disabled={isFull}
         variant="ghost"
         className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
       >
@@ -78,16 +55,8 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({
           <LuPlus />
         </div>
         <div className="min-w-0">
-          <p className="truncate">{isFull ? t("dictionary.limitReached") : t("dictionary.add")}</p>
+          <p className="truncate">{t("dictionary.add")}</p>
         </div>
-        {dictionariesData && (
-          <LimitCounter
-            used={dictionariesCount}
-            max={limitsData?.maxDictionariesPerMaterial}
-            label={t("limits.counter.dictionaries")}
-            className="ml-auto"
-          />
-        )}
       </Button>
 
       <Modal

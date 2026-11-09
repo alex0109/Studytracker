@@ -9,7 +9,7 @@ import { LuArrowLeft, LuRepeat, LuArrowRight } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { Subtitle, Title } from "@/shared/ui";
 import { cn } from "@/shared/lib";
-import { IDictionaryEntryResponse } from "@/entities/dictionary";
+import { EntryTerm, IDictionaryEntryResponse } from "@/entities/dictionary";
 import { FlashcardAnswerEnum } from "../../model";
 import { FLASHCARD_ANSWER_OPTIONS } from "../../consts";
 
@@ -96,7 +96,7 @@ export const FlashcardsSummary: FC<FlashcardsSummaryProps> = ({
                       : "bg-amber-500",
                   )}
                 />
-                <span className="font-semibold truncate">{entry.term}</span>
+                <EntryTerm term={entry.term} article={entry.article} className="font-semibold truncate" />
               </div>
               <span className="text-neutral-500 truncate">
                 {entry.translation}
