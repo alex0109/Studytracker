@@ -45,7 +45,8 @@
   "footer": {
     "rights": "All rights reserved.",
     "privacy": "Privacy",
-    "cookies": "Cookies"
+    "cookies": "Cookies",
+    "terms": "Terms"
   },
   "common": {
     "create": "Create",
@@ -1438,6 +1439,176 @@
     "rescheduleError": "Couldn't reschedule, try again",
     "noGoal": "No goal"
   },
+  "duo": {
+    "title": "Duo",
+    "ownerText": "Plus for you and one more person",
+    "memberText": "Someone shares their plan with you",
+    "inviteText": "Create a link and send it to the person you share Duo with. It works once and lasts 7 days. It's shown only now, so if you lose it, create a new one.",
+    "makeLink": "Create link",
+    "newLink": "New link",
+    "cancelLink": "Cancel link",
+    "linkLabel": "Invite link",
+    "copy": "Copy",
+    "copied": "Copied",
+    "linkUntil": "The link works until {{date}}",
+    "joined": "On Duo since {{date}}",
+    "remove": "Remove",
+    "removeConfirm": "Remove this person from Duo?",
+    "removeText": "{{email}} goes back to Free; all their materials stay where they are.",
+    "lapsed": "Duo isn't active right now: the other person comes back when you take Duo again.",
+    "memberOf": "You're on Duo from {{email}}: you have everything in Plus.",
+    "memberLapsed": "Duo from {{email}} isn't active right now, so you're on Free. The plan comes back when the subscription is renewed.",
+    "leave": "Leave Duo",
+    "leaveConfirm": "Leave Duo?",
+    "leaveText": "You'll go back to Free. Your materials stay, and coming back takes a new link.",
+    "error": "That didn't work, try again",
+    "join": {
+      "title": "Duo invite",
+      "invited": "{{email}} invites you to Duo",
+      "invitedNoEmail": "You're invited to Duo",
+      "text": "You get everything in Plus, and the person who invited you pays. If the subscription ends, you go back to Free and your materials stay. You'll see each other's email.",
+      "accept": "Join",
+      "done": "Done, you're on Duo",
+      "gone": "This link doesn't work any more: it has expired or has been used. Ask for a new one.",
+      "own": "This is your own invite. Send it to the person you want to share Duo with.",
+      "conflict": "You already have a subscription of your own or another Duo. Cancel it or leave that Duo first.",
+      "toLimits": "To plans"
+    }
+  },
+  "terms": {
+    "title": "Terms of service",
+    "updated": "Updated 8 November 2026",
+    "intro": "How Studytracker, its plans, payment and cancelling work. In plain words, without small print.",
+    "contents": "Contents",
+    "summary": {
+      "free": {
+        "title": "Free, for good",
+        "text": "Everything for studying, with no payment and no end date."
+      },
+      "cancel": {
+        "title": "Cancel any time",
+        "text": "Two clicks, and the plan lasts to the end of the paid period."
+      },
+      "content": {
+        "title": "Yours stays yours",
+        "text": "Nothing is deleted or locked after you cancel."
+      },
+      "payment": {
+        "title": "Safe payment",
+        "text": "Through Stripe and Link, tax included; we never see your card."
+      }
+    },
+    "table": {
+      "plan": "Plan",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "free": "Free of charge",
+      "note": "Prices include tax. Stripe's payment page shows the final amount and currency.",
+      "soon": "Prices of the paid plans appear here as soon as payments are on."
+    },
+    "service": {
+      "title": "What Studytracker is",
+      "items": [
+        "Studytracker is a web app for studying: materials, notes, questions, dictionaries, reviews and statistics. It is provided by Oleksii Slipokurov (Norway), \"we\" below.",
+        "You need an account to use it. You sign in with an email link or with Google, so keep your email account safe. One account is for one person.",
+        "By using Studytracker you agree to these terms and the privacy policy."
+      ]
+    },
+    "plans": {
+      "title": "Plans",
+      "items": [
+        "Free is free for good: everything for studying and monthly AI quotas.",
+        "Plus raises the AI quotas for one account. Duo gives the same to two people: each has their own account, materials and quotas.",
+        "Room for materials, notes and words doesn't depend on the plan: everyone has the same very high caps, which only protect the service from scripts.",
+        "AI quotas count per calendar month and renew on the first day."
+      ]
+    },
+    "payment": {
+      "title": "Payment",
+      "items": [
+        "Paid plans are sold by Stripe through its Link service as the merchant of record. You pay on Stripe's secure page; we never see your card.",
+        "Prices include VAT and other taxes, which Stripe works out by where the buyer is. In Norway you pay in kroner, in the US in dollars, elsewhere in your local currency at Stripe's rate.",
+        "Link sends receipts and invoices. On your statement the payment shows as LINK.COM* STUDYTRACKER.",
+        "If there is a free trial, the payment page shows it, and Link reminds you before it ends."
+      ]
+    },
+    "cancel": {
+      "title": "Renewal and cancelling",
+      "items": [
+        "A subscription renews by itself every month or year until you cancel it.",
+        "You can cancel any time: Plan and limits → Manage subscription, or on link.com. The plan lasts to the end of the paid period and nothing more is charged.",
+        "After that your account moves to Free. Nothing is deleted or locked; only the AI quotas get smaller.",
+        "The same place lets you switch between Plus and Duo, change your card or download invoices.",
+        "If a payment fails, Stripe tries again a few times, and the plan keeps working for 7 more days."
+      ]
+    },
+    "refunds": {
+      "title": "Refunds",
+      "items": [
+        "If you are a consumer in Norway, the EU or the EEA, you can withdraw from your first purchase within 14 days. Write to us and we refund the payment. If you already used the plan in those days, the law lets us keep a part for the time used.",
+        "Later, the current period is usually not refunded, but cancelling stops all further charges.",
+        "Link support also helps with payments and refunds: support.link.com.",
+        "These terms don't limit your rights as a consumer under the law."
+      ]
+    },
+    "duo": {
+      "title": "Duo",
+      "items": [
+        "One person, the payer, takes and pays for Duo. They invite one more person with a link that lasts 7 days and works once.",
+        "The member has everything in Plus while the payer's Duo is active. If the payer cancels Duo, moves to Plus or stops paying, both go back to Free.",
+        "The payer can remove the member, and the member can leave. You see each other's email, and each person's materials stay private."
+      ]
+    },
+    "content": {
+      "title": "Your content",
+      "items": [
+        "Everything you create belongs to you. You let us store and process it only to run the service: for example, to show you a material or send text to an AI feature.",
+        "Materials are private until you share a link or publish them in the library. Anyone can see and copy what you publish, and copies stay with people after the material leaves the library.",
+        "Only publish what you have the rights to. We may remove a material from the library if it breaks these terms or someone else's rights.",
+        "You can download all your data or delete your account on the Account page."
+      ]
+    },
+    "ai": {
+      "title": "AI features",
+      "items": [
+        "AI writes questions, dictionaries and summaries, checks answers and explains mistakes. The text it needs goes to AI providers, listed in the privacy policy.",
+        "AI can be wrong, also when the mistake is already in your material or a saved answer. Check what matters, especially before an exam.",
+        "AI quotas depend on your plan; failed requests don't count."
+      ]
+    },
+    "rules": {
+      "title": "Rules",
+      "items": [
+        "Don't break the law or other people's rights, publish offensive or harmful content, try to break the service, get around quotas, create content in bulk with scripts or resell access.",
+        "If the rules are broken, we may limit features or close the account; where we can, we warn first."
+      ]
+    },
+    "changes": {
+      "title": "Changes",
+      "items": [
+        "We keep developing Studytracker and may change features. We tell you about a new price for a running subscription at least 30 days ahead; it applies from the next period, and you can cancel before then.",
+        "We announce important changes to these terms on the site or by email.",
+        "If we ever close the service, we tell you in advance and give you time to download your data."
+      ]
+    },
+    "law": {
+      "title": "Liability and law",
+      "items": [
+        "We do our best to keep Studytracker running well, but we can't promise it will never stop or make a mistake.",
+        "As far as the law allows, we aren't liable for indirect losses, such as an exam result. This doesn't limit liability the law doesn't let us limit, or your rights as a consumer.",
+        "Norwegian law applies. Let's try to settle things directly first; a consumer can also turn to Forbrukerrådet or a court where they live."
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "items": [
+        "Questions about these terms, payment or refunds: write to us through the feedback form on the home page."
+      ]
+    },
+    "toFeedback": "Write to us",
+    "toPrivacy": "Privacy policy",
+    "toPlan": "My plan"
+  },
   "billing": {
     "checkoutError": "Couldn't open the payment page, try again",
     "endsOn": "Won't renew, ends on {{date}}",
@@ -1454,7 +1625,7 @@
     "checkoutCancelled": "Payment cancelled, nothing was charged",
     "plans": {
       "title": "Plans",
-      "text": "More materials and more AI",
+      "text": "More AI for studying; Duo is for two",
       "period": "Billing period",
       "monthly": "Monthly",
       "yearly": "Yearly",
@@ -1468,7 +1639,61 @@
       "unlimited": "unlimited",
       "current": "Your plan",
       "choose": "Choose {{plan}}",
-      "note": "Payment goes through Stripe's secure page, we never see your card. Cancel any time, the plan stays until the paid period ends."
+      "note": "Payment goes through Stripe's secure page, we never see your card. Cancel any time, the plan stays until the paid period ends.",
+      "forOne": "For one account",
+      "forTwo": "For you and one more person: each gets their own Plus",
+      "keepsContent": "Your materials stay yours after cancelling"
+    },
+    "page": {
+      "title": "Plan and limits",
+      "subtitle": "What your plan includes and how much you've used",
+      "yourPlan": "Your plan",
+      "tiers": {
+        "Free": "Everything for studying, with basic AI quotas",
+        "Plus": "More AI for studying",
+        "Duo": "Plus for you and one more person",
+        "Pro": "Extended AI quotas"
+      },
+      "duoFrom": "Duo from {{email}}",
+      "seePlans": "See plans",
+      "aiThisMonth": "AI this month",
+      "resetsOn": "Renews on {{date}}",
+      "plansEyebrow": "Plans",
+      "plansTitle": "More AI when you need it",
+      "plansText": "Free stays free for good. Paid plans add AI quotas, and Duo shares it all between two people.",
+      "freeLine": "Everything for studying: materials, reviews, statistics",
+      "forTwo": "For two",
+      "perPerson": "≈ {{price}} per person",
+      "switchTo": "Switch to {{plan}}",
+      "aiQuotas": "AI per month",
+      "termsLink": "Terms and cancelling",
+      "usageTitle": "Usage",
+      "usageText": "AI quotas renew every month, and the room for materials is the same on every plan",
+      "perMaterialShow": "Show per material",
+      "faqTitle": "Common questions",
+      "allTerms": "All terms",
+      "faq": {
+        "cancel": {
+          "q": "What happens if I cancel?",
+          "a": "The plan lasts to the end of the paid period, then your account moves to Free. Materials, notes and words stay; only the AI quotas get smaller."
+        },
+        "duo": {
+          "q": "How does Duo work?",
+          "a": "The payer invites one more person with a link. Each has their own account, materials and AI quotas, and one person pays."
+        },
+        "change": {
+          "q": "Can I change my plan?",
+          "a": "Yes, in Manage subscription: between Plus and Duo, and between monthly and yearly. Stripe works out the difference."
+        },
+        "currency": {
+          "q": "Which currency, and is tax included?",
+          "a": "Prices include tax. In Norway you pay in kroner, in the US in dollars, elsewhere in your local currency at Stripe's rate."
+        },
+        "refund": {
+          "q": "How do I get a refund?",
+          "a": "Within 14 days of your first payment, write to us and we refund it. The terms of service have the details."
+        }
+      }
     }
   },
   "consent": {

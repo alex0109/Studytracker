@@ -1,1 +1,1 @@
-export { PlanChooser } from "./plan-chooser";
+export { PlanChooser, type PlanChooserMode } from "./plan-chooser";

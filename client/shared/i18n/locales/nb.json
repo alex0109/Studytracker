@@ -45,7 +45,8 @@
   "footer": {
     "rights": "Alle rettigheter forbeholdt.",
     "privacy": "Personvern",
-    "cookies": "Informasjonskapsler"
+    "cookies": "Informasjonskapsler",
+    "terms": "Vilkår"
   },
   "common": {
     "create": "Opprett",
@@ -1438,6 +1439,176 @@
     "rescheduleError": "Kunne ikke planlegge på nytt, prøv igjen",
     "noGoal": "Ingen mål"
   },
+  "duo": {
+    "title": "Duo",
+    "ownerText": "Plus for deg og én person til",
+    "memberText": "Noen deler abonnementet sitt med deg",
+    "inviteText": "Lag en lenke og send den til personen du deler Duo med. Den virker én gang og gjelder i 7 dager. Den vises bare nå, så lag en ny hvis du mister den.",
+    "makeLink": "Lag lenke",
+    "newLink": "Ny lenke",
+    "cancelLink": "Avbryt lenken",
+    "linkLabel": "Invitasjonslenke",
+    "copy": "Kopier",
+    "copied": "Kopiert",
+    "linkUntil": "Lenken gjelder til {{date}}",
+    "joined": "Med i Duo siden {{date}}",
+    "remove": "Fjern",
+    "removeConfirm": "Fjerne personen fra Duo?",
+    "removeText": "{{email}} går tilbake til Free; alle materialene blir der de er.",
+    "lapsed": "Duo er ikke aktiv nå: den andre personen kommer tilbake når du tar Duo igjen.",
+    "memberOf": "Du er med i Duo fra {{email}}: du har alt i Plus.",
+    "memberLapsed": "Duo fra {{email}} er ikke aktiv nå, så du har Free. Planen kommer tilbake når abonnementet fornyes.",
+    "leave": "Forlat Duo",
+    "leaveConfirm": "Forlate Duo?",
+    "leaveText": "Du går tilbake til Free. Materialene blir, og for å komme tilbake trengs en ny lenke.",
+    "error": "Det gikk ikke, prøv igjen",
+    "join": {
+      "title": "Invitasjon til Duo",
+      "invited": "{{email}} inviterer deg til Duo",
+      "invitedNoEmail": "Du er invitert til Duo",
+      "text": "Du får alt i Plus, og den som inviterte deg betaler. Hvis abonnementet tar slutt, går du tilbake til Free, og materialene blir. Dere ser hverandres e-post.",
+      "accept": "Bli med",
+      "done": "Ferdig, du er med i Duo",
+      "gone": "Lenken virker ikke lenger: den er utløpt eller allerede brukt. Be om en ny.",
+      "own": "Dette er din egen invitasjon. Send den til personen du vil dele Duo med.",
+      "conflict": "Du har allerede ditt eget abonnement eller en annen Duo. Si det opp eller forlat den Duo-en først.",
+      "toLimits": "Til planene"
+    }
+  },
+  "terms": {
+    "title": "Brukervilkår",
+    "updated": "Oppdatert 8. november 2026",
+    "intro": "Hvordan Studytracker, planene, betaling og oppsigelse fungerer. Med enkle ord, uten liten skrift.",
+    "contents": "Innhold",
+    "summary": {
+      "free": {
+        "title": "Free, for alltid",
+        "text": "Alt for læring, uten betaling og uten sluttdato."
+      },
+      "cancel": {
+        "title": "Si opp når som helst",
+        "text": "To klikk, og planen varer ut den betalte perioden."
+      },
+      "content": {
+        "title": "Ditt forblir ditt",
+        "text": "Ingenting slettes eller låses etter oppsigelse."
+      },
+      "payment": {
+        "title": "Trygg betaling",
+        "text": "Via Stripe og Link, med mva. i prisen; vi ser aldri kortet ditt."
+      }
+    },
+    "table": {
+      "plan": "Plan",
+      "monthly": "Månedlig",
+      "yearly": "Årlig",
+      "free": "Gratis",
+      "note": "Prisene inkluderer mva. Stripes betalingsside viser endelig beløp og valuta.",
+      "soon": "Prisene på de betalte planene vises her så snart betaling er på plass."
+    },
+    "service": {
+      "title": "Hva Studytracker er",
+      "items": [
+        "Studytracker er en nettapp for læring: materialer, notater, spørsmål, ordlister, repetisjon og statistikk. Tjenesten leveres av Oleksii Slipokurov (Norge), heretter «vi».",
+        "Du trenger en konto for å bruke den. Du logger inn med en lenke på e-post eller med Google, så pass godt på e-postkontoen din. Én konto er for én person.",
+        "Ved å bruke Studytracker godtar du disse vilkårene og personvernerklæringen."
+      ]
+    },
+    "plans": {
+      "title": "Planer",
+      "items": [
+        "Free er gratis for alltid: alt for læring og månedlige KI-kvoter.",
+        "Plus gir større KI-kvoter for én konto. Duo gir det samme til to personer: hver har sin egen konto, sine materialer og kvoter.",
+        "Plassen til materialer, notater og ord avhenger ikke av planen: alle har de samme svært høye grensene, som bare beskytter tjenesten mot skript.",
+        "KI-kvoter telles per kalendermåned og fornyes den første."
+      ]
+    },
+    "payment": {
+      "title": "Betaling",
+      "items": [
+        "Betalte planer selges av Stripe gjennom tjenesten Link som selger (merchant of record). Du betaler på Stripes sikre side; vi ser aldri kortet ditt.",
+        "Prisene inkluderer mva. og andre avgifter, som Stripe beregner ut fra hvor kjøperen er. I Norge betaler du i kroner, i USA i dollar, ellers i lokal valuta etter Stripes kurs.",
+        "Link sender kvitteringer og fakturaer. På kontoutskriften står betalingen som LINK.COM* STUDYTRACKER.",
+        "Hvis det finnes en prøveperiode, vises den på betalingssiden, og Link minner deg på før den slutter."
+      ]
+    },
+    "cancel": {
+      "title": "Fornyelse og oppsigelse",
+      "items": [
+        "Abonnementet fornyes av seg selv hver måned eller hvert år til du sier det opp.",
+        "Du kan si opp når som helst: Plan og grenser → Administrer abonnement, eller på link.com. Planen varer ut den betalte perioden, og det trekkes ikke mer.",
+        "Deretter går kontoen over til Free. Ingenting slettes eller låses; bare KI-kvotene blir mindre.",
+        "Samme sted kan du bytte mellom Plus og Duo, endre kort eller laste ned fakturaer.",
+        "Hvis en betaling feiler, prøver Stripe igjen noen ganger, og planen virker i 7 dager til."
+      ]
+    },
+    "refunds": {
+      "title": "Refusjon",
+      "items": [
+        "Er du forbruker i Norge, EU eller EØS, kan du gå fra ditt første kjøp innen 14 dager (angrerett). Skriv til oss, så refunderer vi betalingen. Har du allerede brukt planen i disse dagene, lar loven oss beholde en del for tiden som er brukt.",
+        "Senere refunderes den løpende perioden vanligvis ikke, men oppsigelse stopper alle videre trekk.",
+        "Link sin kundeservice hjelper også med betaling og refusjon: support.link.com.",
+        "Disse vilkårene begrenser ikke dine rettigheter som forbruker etter loven."
+      ]
+    },
+    "duo": {
+      "title": "Duo",
+      "items": [
+        "Én person, betaleren, tegner og betaler for Duo. Hen inviterer én person til med en lenke som gjelder i 7 dager og virker én gang.",
+        "Medlemmet har alt i Plus så lenge betalerens Duo er aktiv. Sier betaleren opp Duo, bytter til Plus eller slutter å betale, går begge tilbake til Free.",
+        "Betaleren kan fjerne medlemmet, og medlemmet kan gå ut selv. Dere ser hverandres e-post, og hver persons materialer forblir private."
+      ]
+    },
+    "content": {
+      "title": "Innholdet ditt",
+      "items": [
+        "Alt du lager, tilhører deg. Du lar oss lagre og behandle det bare for å drive tjenesten: for eksempel for å vise deg et materiale eller sende tekst til en KI-funksjon.",
+        "Materialer er private til du deler en lenke eller publiserer dem i biblioteket. Alle kan se og kopiere det du publiserer, og kopiene blir værende hos folk etter at materialet er fjernet fra biblioteket.",
+        "Publiser bare det du har rettigheter til. Vi kan fjerne et materiale fra biblioteket hvis det bryter disse vilkårene eller andres rettigheter.",
+        "Du kan laste ned alle dataene dine eller slette kontoen på siden Konto."
+      ]
+    },
+    "ai": {
+      "title": "KI-funksjoner",
+      "items": [
+        "KI lager spørsmål, ordlister og sammendrag, sjekker svar og forklarer feil. Teksten den trenger, sendes til KI-leverandører, som er nevnt i personvernerklæringen.",
+        "KI kan ta feil, også når feilen allerede finnes i materialet eller et lagret svar. Sjekk det som er viktig, særlig før en eksamen.",
+        "KI-kvotene avhenger av planen; mislykkede forespørsler telles ikke."
+      ]
+    },
+    "rules": {
+      "title": "Regler",
+      "items": [
+        "Det er ikke lov å bryte loven eller andres rettigheter, publisere krenkende eller skadelig innhold, prøve å bryte seg inn i tjenesten, omgå kvoter, lage innhold i massevis med skript eller videreselge tilgang.",
+        "Brytes reglene, kan vi begrense funksjoner eller stenge kontoen; der vi kan, varsler vi først."
+      ]
+    },
+    "changes": {
+      "title": "Endringer",
+      "items": [
+        "Vi utvikler Studytracker videre og kan endre funksjoner. En ny pris for et løpende abonnement varsler vi minst 30 dager i forveien; den gjelder fra neste periode, og du kan si opp før det.",
+        "Viktige endringer i disse vilkårene varsler vi på nettstedet eller på e-post.",
+        "Skulle vi legge ned tjenesten, varsler vi i god tid og gir deg tid til å laste ned dataene dine."
+      ]
+    },
+    "law": {
+      "title": "Ansvar og lov",
+      "items": [
+        "Vi gjør vårt beste for at Studytracker skal fungere godt, men kan ikke love at den aldri stopper eller tar feil.",
+        "Så langt loven tillater, er vi ikke ansvarlige for indirekte tap, for eksempel et eksamensresultat. Dette begrenser ikke ansvar som loven ikke lar oss begrense, eller dine rettigheter som forbruker.",
+        "Norsk lov gjelder. La oss først prøve å løse saken direkte; som forbruker kan du også kontakte Forbrukerrådet eller domstolen der du bor."
+      ]
+    },
+    "contact": {
+      "title": "Kontakt",
+      "items": [
+        "Spørsmål om vilkår, betaling eller refusjon: skriv til oss via tilbakemeldingsskjemaet på forsiden."
+      ]
+    },
+    "toFeedback": "Skriv til oss",
+    "toPrivacy": "Personvernerklæring",
+    "toPlan": "Min plan"
+  },
   "billing": {
     "checkoutError": "Kunne ikke åpne betalingssiden, prøv igjen",
     "endsOn": "Fornyes ikke, slutter {{date}}",
@@ -1454,7 +1625,7 @@
     "checkoutCancelled": "Betalingen ble avbrutt, ingenting er trukket",
     "plans": {
       "title": "Abonnementer",
-      "text": "Flere materialer og mer AI",
+      "text": "Mer KI for læring; Duo er for to",
       "period": "Betalingsperiode",
       "monthly": "Månedlig",
       "yearly": "Årlig",
@@ -1468,7 +1639,61 @@
       "unlimited": "ubegrenset",
       "current": "Ditt abonnement",
       "choose": "Velg {{plan}}",
-      "note": "Betalingen skjer på Stripes sikre side, vi ser aldri kortet ditt. Si opp når som helst, abonnementet gjelder ut den betalte perioden."
+      "note": "Betalingen skjer på Stripes sikre side, vi ser aldri kortet ditt. Si opp når som helst, abonnementet gjelder ut den betalte perioden.",
+      "forOne": "For én konto",
+      "forTwo": "For deg og én person til: hver får sin egen Plus",
+      "keepsContent": "Materialene dine er dine også etter oppsigelse"
+    },
+    "page": {
+      "title": "Plan og grenser",
+      "subtitle": "Hva planen din inneholder og hvor mye du har brukt",
+      "yourPlan": "Din plan",
+      "tiers": {
+        "Free": "Alt for læring, med grunnleggende AI-kvoter",
+        "Plus": "Mer AI for læring",
+        "Duo": "Plus for deg og én person til",
+        "Pro": "Utvidede AI-kvoter"
+      },
+      "duoFrom": "Duo fra {{email}}",
+      "seePlans": "Se planer",
+      "aiThisMonth": "AI denne måneden",
+      "resetsOn": "Fornyes {{date}}",
+      "plansEyebrow": "Planer",
+      "plansTitle": "Mer AI når du trenger det",
+      "plansText": "Free er gratis for alltid. Betalte planer gir mer AI, og Duo deler alt på to.",
+      "freeLine": "Alt for læring: materialer, repetisjon, statistikk",
+      "forTwo": "For to",
+      "perPerson": "≈ {{price}} per person",
+      "switchTo": "Bytt til {{plan}}",
+      "aiQuotas": "AI per måned",
+      "termsLink": "Vilkår og oppsigelse",
+      "usageTitle": "Bruk",
+      "usageText": "AI-kvotene fornyes hver måned, og plassen til materialer er lik på alle planer",
+      "perMaterialShow": "Vis per materiale",
+      "faqTitle": "Vanlige spørsmål",
+      "allTerms": "Alle vilkår",
+      "faq": {
+        "cancel": {
+          "q": "Hva skjer hvis jeg sier opp?",
+          "a": "Planen varer ut den betalte perioden, deretter går kontoen over til Free. Materialer, notater og ord blir; bare AI-kvotene blir mindre."
+        },
+        "duo": {
+          "q": "Hvordan fungerer Duo?",
+          "a": "Betaleren inviterer én person til med en lenke. Hver har sin egen konto, sine materialer og AI-kvoter, og én betaler."
+        },
+        "change": {
+          "q": "Kan jeg bytte plan?",
+          "a": "Ja, under Administrer abonnement: mellom Plus og Duo, og mellom månedlig og årlig. Stripe regner ut differansen."
+        },
+        "currency": {
+          "q": "Hvilken valuta, og er mva. inkludert?",
+          "a": "Prisene inkluderer mva. I Norge betaler du i kroner, i USA i dollar, ellers i lokal valuta etter Stripes kurs."
+        },
+        "refund": {
+          "q": "Hvordan får jeg pengene tilbake?",
+          "a": "Innen 14 dager etter første betaling: skriv til oss, så refunderer vi. Detaljene står i brukervilkårene."
+        }
+      }
     }
   },
   "consent": {

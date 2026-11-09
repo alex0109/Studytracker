@@ -39,7 +39,7 @@ export const MaterialLimitsList: FC<MaterialLimitsListProps> = ({
           className="flex flex-col gap-3 py-4 first:pt-0 last:pb-0"
         >
           <p className="truncate font-medium">{material.title}</p>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2">
             <LimitBar
               label={t("limits.page.questions")}
               used={material.questions}

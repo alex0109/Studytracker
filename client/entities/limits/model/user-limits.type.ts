@@ -1,6 +1,6 @@
 // Limits of the user's plan, same values as the backend; null means no limit
 export interface IUserLimits {
-  tier?: "Free" | "Plus" | "Pro";
+  tier?: "Free" | "Plus" | "Pro" | "Duo";
   maxMaterials: number | null;
   maxTags: number | null;
   maxQuestionsPerMaterial: number | null;
