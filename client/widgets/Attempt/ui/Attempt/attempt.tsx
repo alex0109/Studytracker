@@ -7,7 +7,6 @@ import { BlockColumn, Spinner } from "@/shared/ui";
 import { AttemptHeader } from "@/entities/attempt/ui";
 import { Button, toast } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
-import { shuffleQuestions } from "@/widgets/Attempt/lib/shuffle-questions";
 import { AttemptQuestion } from "@/widgets/Attempt/ui/AttemptQuestion/attempt-question";
 import { IQuestionReduced } from "@/entities/question";
 import { useAttemptFinish } from "@/features/attempt/finish-attempt";
@@ -17,20 +16,18 @@ import { AttemptTimer } from "../AttemptTimer/attempt-timer";
 import { useTranslation } from "@/shared/i18n";
 
 interface AttemptProps {
-  questionsActiveReduced: IQuestionReduced[];
+  // Drawn and ordered by the server when the attempt started
+  questions: IQuestionReduced[];
   materialId: string;
   attemptId: string;
 }
 
 export const Attempt: FC<AttemptProps> = ({
-  questionsActiveReduced,
+  questions,
   materialId,
   attemptId,
 }) => {
   const { t } = useTranslation();
-  const [questions] = useState(() =>
-    shuffleQuestions([...questionsActiveReduced]),
-  );
   const [savedAnswers, setSavedAnswers] = useState<
     Record<string, ISavedAnswer>
   >({});
@@ -153,7 +150,7 @@ export const Attempt: FC<AttemptProps> = ({
             disabled={finishAttemptIsPending || isNavigating}
             onClick={handleFinishAttempt}
             className={cn(
-              "w-full sm:w-44",
+              "w-full text-white sm:w-44",
               unanswered.length === 0
                 ? "bg-emerald-600 hover:bg-emerald-700"
                 : "bg-neutral-800 hover:bg-neutral-900",

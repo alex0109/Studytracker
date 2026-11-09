@@ -1,7 +1,8 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 import { isAuthRetryableFetchError, User } from "@supabase/supabase-js";
 import { SessionProvider } from "@/shared/context/session.provider";
 import { createClient } from "../../api/client";
@@ -51,9 +52,19 @@ export const AuthSession = ({ user, token, children }: AuthSessionProps) => {
   const [session, setSession] = useState({ loaded: token, token });
   const [expired, setExpired] = useState(false);
   const userId = user?.id;
+  const queryClient = useQueryClient();
+  const shownFor = useRef(userId);
 
   // A new page load brings a new token from the server, and it wins
   if (session.loaded !== token) setSession({ loaded: token, token });
+
+  // Query keys don't name the user: after signing out and in as someone else in the same tab,
+  // the cache would still show the previous person's streak and statistics
+  useEffect(() => {
+    if (shownFor.current === userId) return;
+    shownFor.current = userId;
+    void queryClient.resetQueries();
+  }, [userId, queryClient]);
 
   useEffect(() => {
     if (!userId) return;

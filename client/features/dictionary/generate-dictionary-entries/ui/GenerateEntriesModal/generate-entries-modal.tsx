@@ -23,8 +23,6 @@ import { useTranslation } from "@/shared/i18n";
 interface GenerateEntriesModalProps {
   dictionaryId: string;
   materialId: string;
-  // Free places for words in the dictionary
-  freeSlots: number;
   open: boolean;
   setOpen: (isOpen: boolean) => void;
 }
@@ -35,7 +33,6 @@ const MATERIAL_SOURCE = "material";
 export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
   dictionaryId,
   materialId,
-  freeSlots,
   open,
   setOpen,
 }) => {
@@ -64,14 +61,11 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
   const { generateEntries, generateEntriesIsPending } =
     useDictionaryEntriesGenerate(dictionaryId);
 
-  const maxCount = Math.max(0, Math.min(20, freeSlots));
-  const selectedCount = Math.min(count, maxCount);
-
   const onGenerate = async () => {
     try {
       await generateEntries({
         noteId: source === MATERIAL_SOURCE ? undefined : source,
-        count: selectedCount,
+        count,
         language: languageName(languageCode, "en"),
       });
       setOpen(false);
@@ -98,7 +92,7 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
             size="lg"
             className="bg-violet-700 text-white hover:bg-violet-800"
             onClick={onGenerate}
-            disabled={generateEntriesIsPending || maxCount === 0 || !isAvailable}
+            disabled={generateEntriesIsPending || !isAvailable}
           >
             {generateEntriesIsPending ? <Spinner /> : <LuSparkles />}
             {generateEntriesIsPending ? t("ai.generating") : t("ai.generate")}
@@ -135,20 +129,9 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
 
         <ChoiceGroup
           label={t("dictionary.generate.upTo")}
-          // Fewer free places than the chosen number: the nearest choice stays marked, the hint says how many fit
-          value={COUNT_OPTIONS.find((value) => Math.min(value, maxCount) === selectedCount) ?? count}
+          value={count}
           onChange={setCount}
-          options={COUNT_OPTIONS.map((value) => ({
-            value,
-            label: value,
-            disabled: value > maxCount && value !== COUNT_OPTIONS[0],
-          }))}
-          hint={
-            maxCount < 20 &&
-            (maxCount === 0
-              ? t("dictionary.generate.full")
-              : t("dictionary.generate.fits", { count: maxCount }))
-          }
+          options={COUNT_OPTIONS.map((value) => ({ value, label: value }))}
         />
 
         <AiUsageHint

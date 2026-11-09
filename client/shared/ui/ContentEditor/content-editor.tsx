@@ -47,6 +47,18 @@ const SAFE_LINK = /^(https?:\/\/|mailto:)/i;
 const isSafeLink = (url: string) => SAFE_LINK.test(url.trim());
 
 const SAVE_DELAY_MS = 500;
+
+// Words of a document. ProseMirror documents never change in place: a selection change keeps the
+// same one, so the count is taken again only after an edit, not on every move of the cursor
+const wordCounts = new WeakMap<object, number>();
+const countWords = (doc: { textContent: string }) => {
+  let words = wordCounts.get(doc);
+  if (words === undefined) {
+    words = doc.textContent.split(/\s+/).filter(Boolean).length;
+    wordCounts.set(doc, words);
+  }
+  return words;
+};
 const HEADING_LEVELS = [1, 2, 3, 4, 5, 6] as const;
 // The menu offers three levels; deeper ones from older notes still show and are named
 const MENU_LEVELS = [1, 2, 3] as const;
@@ -141,6 +153,9 @@ const ContentEditor: FC<ContentEditorType> = ({
     immediatelyRender: false,
     editorProps: {
       attributes: {
+        // Page translators must not write into the text: the editor took their words for edits,
+        // fought them on every change and saved them. Translating a selected word still works
+        translate: "no",
         class:
           // One comfortable reading size: prose-2xl on wide screens made notes look like posters
           "prose prose-neutral sm:prose-base max-w-none dark:prose-invert focus:outline-none min-h-[280px] border-none outline-none " +
@@ -150,7 +165,7 @@ const ContentEditor: FC<ContentEditorType> = ({
           "[&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-6 [&_ol]:pl-6 [&_li]:my-1 " +
           "[&_a]:text-blue-600 [&_a]:underline [&_a]:cursor-pointer dark:[&_a]:text-blue-400 " +
           "[&_mark]:bg-yellow-200 [&_mark]:rounded-sm [&_mark]:px-0.5 dark:[&_mark]:bg-yellow-500/40 " +
-          "[&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-2",
+          "[&_img]:max-w-full [&_img]:h-auto [&_img]:rounded-lg [&_img]:my-2 notranslate",
       },
       handlePaste: (view, event) => {
         const items = Array.from(event.clipboardData?.items ?? []);
@@ -215,7 +230,7 @@ const ContentEditor: FC<ContentEditorType> = ({
       canUndo: current?.can().undo() ?? false,
       canRedo: current?.can().redo() ?? false,
       isEmpty: current?.isEmpty ?? true,
-      words: current?.state.doc.textContent.split(/\s+/).filter(Boolean).length ?? 0,
+      words: current ? countWords(current.state.doc) : 0,
     }),
   });
 

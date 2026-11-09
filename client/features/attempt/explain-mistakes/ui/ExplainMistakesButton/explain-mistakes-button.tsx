@@ -44,7 +44,7 @@ export const ExplainMistakesButton: FC<ExplainMistakesButtonProps> = ({
       <div className="flex items-center gap-3">
         <Button
           size="lg"
-          className="h-12 rounded-2xl bg-violet-700 hover:bg-violet-800"
+          className="h-12 rounded-2xl bg-violet-700 text-white hover:bg-violet-800"
           disabled={explainMistakesIsPending || isExplained || !isAvailable}
           onClick={() => explainMistakes()}
         >

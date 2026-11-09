@@ -8,7 +8,6 @@ import { LuLoaderCircle } from "react-icons/lu";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { useBillingStatus } from "@/entities/billing";
-import { limitsKeys } from "@/entities/limits";
 import { aiKeys } from "@/entities/ai";
 
 const POLL_MS = 2_000;
@@ -41,8 +40,7 @@ export const CheckoutReturn: FC = () => {
     } else if (activatedTier) {
       announced.current = true;
       toast({ title: t("billing.activated", { plan: activatedTier }), variant: "success" });
-      // The new plan brings its own limits and AI quotas
-      queryClient.invalidateQueries({ queryKey: limitsKeys.all });
+      // The new plan brings its own AI quotas
       queryClient.invalidateQueries({ queryKey: aiKeys.usage() });
     } else {
       return;

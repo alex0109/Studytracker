@@ -11,3 +11,4 @@ export { reorderDictionaryEntries } from "./reorderDictionaryEntries";
 export { getDictionaryQuestions } from "./getDictionaryQuestions";
 export { lookupDictionaryEntry } from "./lookupDictionaryEntry";
 export type { IWordLookup, IWordLookupRequest } from "./lookupDictionaryEntry";
+export { getWordQuiz } from "./getWordQuiz";

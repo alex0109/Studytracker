@@ -3,4 +3,5 @@ export enum SubscriptionTierEnum {
   Free = "Free",
   Plus = "Plus",
   Pro = "Pro",
+  Duo = "Duo",
 }

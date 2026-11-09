@@ -1,17 +1,15 @@
 "use client";
 
 import { FC, useState } from "react";
-import { LimitCounter, Spinner } from "@/shared/ui";
-import { useLimits } from "@/entities/limits";
+import { Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
-import { cn, isLimitReached } from "@/shared/lib";
+import { cn } from "@/shared/lib";
 import { useQuestionAll } from "@/entities/question";
 import { usePathname } from "next/navigation";
 import { usePendingNavigation } from "@/shared/lib/use-pending-navigation";
 import { QuestionCreateModal } from "@/features/question/create-question/ui";
 import { GenerateQuestionsModal } from "@/features/question/generate-questions";
-import { useAttemptStart } from "@/features/attempt/start-attempt";
-import { ExamSettingsButton } from "@/features/assessment/exam-settings";
+import { StartAttemptModal } from "@/features/attempt/start-attempt";
 import { questionInterface } from "../../lib/question-interface";
 import { useTranslation } from "@/shared/i18n";
 import { QuestionsAccordion } from "./questions-accordion";
@@ -32,43 +30,22 @@ export const QuestionsContent: FC<QuestionsType> = ({
   const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [generateIsOpen, setGenerateIsOpen] = useState(false);
+  const [startIsOpen, setStartIsOpen] = useState(false);
 
   const { navigate, isNavigating } = usePendingNavigation();
   const path = usePathname();
 
   const { questionsData, questionsIsPending } = useQuestionAll(materialId);
-  const { limitsData } = useLimits();
-
-  // Limit is per material, so notes share it with the material itself
-  const activeQuestionsCount =
-    questionsData?.filter((item) => item.isActive).length ?? 0;
-  const isQuestionsFull = isLimitReached(
-    activeQuestionsCount,
-    limitsData?.maxQuestionsPerMaterial,
-  );
-
-  const { attemptStart, startAttemptIsPending } = useAttemptStart(assessmentId, !noteId);
-  // From the click until the attempt page is open: the attempt is created once
-  const isStarting = startAttemptIsPending || isNavigating;
-
-  const startAttemptHandler = async () => {
-    const attempt = await attemptStart();
-
-    navigate(`${path}/${materialId}/attempt/${attempt}`);
-  };
 
   const onClickhandlers = {
     "open-modal": () => setOpen(true),
     generate: () => setGenerateIsOpen(true),
-    start: () => startAttemptHandler(),
+    // The test is set up before every start
+    start: () => setStartIsOpen(true),
   };
 
-  const disabledHandlers = {
-    "open-modal": isQuestionsFull,
-    generate: isQuestionsFull,
-    start:
-      questionsData && questionsData.length > 0 && !isStarting ? false : true,
-  };
+  // The server draws only from active questions
+  const canStart = !!questionsData?.some((item) => item.isActive) && !isNavigating;
 
   const questionsAfterFilter = noteId
     ? questionsData?.filter((item) => item.noteId)
@@ -82,30 +59,14 @@ export const QuestionsContent: FC<QuestionsType> = ({
             size="lg"
             key={item.key}
             onClick={onClickhandlers[item.key]}
-            disabled={disabledHandlers[item.key]}
+            disabled={item.key === "start" && !canStart}
             className={`lg:w-[250px] md:w-[180px] sm:w-[180px] w-full ${cn(item.styles)}`}
           >
-            {item.key === "start" && isStarting ? <Spinner /> : item.icon}{" "}
-            {item.key === "open-modal" && isQuestionsFull
-              ? t("questions.limitReached")
-              : t(`questions.actions.${item.title}`)}
-            {item.key === "open-modal" && (
-              <LimitCounter
-                used={activeQuestionsCount}
-                max={limitsData?.maxQuestionsPerMaterial}
-                label={t("limits.counter.questions")}
-              />
-            )}
+            {item.key === "start" && isNavigating ? <Spinner /> : item.icon}{" "}
+            {t(`questions.actions.${item.title}`)}
           </Button>
         ))}
       </div>
-
-      {/* Exam settings belong to the material as a whole, notes have none */}
-      {!noteId && (
-        <div className="-mt-2 mb-5 flex justify-center">
-          <ExamSettingsButton assessmentId={assessmentId} />
-        </div>
-      )}
 
       <div>
         {questionsIsPending ? (
@@ -131,13 +92,17 @@ export const QuestionsContent: FC<QuestionsType> = ({
         open={open}
         setOpen={setOpen}
       />
+      <StartAttemptModal
+        open={startIsOpen}
+        onClose={() => setStartIsOpen(false)}
+        materialId={materialId}
+        assessmentId={assessmentId}
+        isOpening={isNavigating}
+        onStarted={(attemptId) => navigate(`${path}/${materialId}/attempt/${attemptId}`)}
+      />
       <GenerateQuestionsModal
         materialId={materialId}
         noteId={noteId}
-        freeSlots={
-          (limitsData?.maxQuestionsPerMaterial ?? Infinity) -
-          activeQuestionsCount
-        }
         open={generateIsOpen}
         setOpen={setGenerateIsOpen}
       />

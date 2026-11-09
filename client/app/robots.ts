@@ -16,6 +16,7 @@ export default function robots(): MetadataRoute.Robots {
         "/app",
         "/calendar",
         "/account",
+        "/duo",
         "/share/",
         "/error",
       ],

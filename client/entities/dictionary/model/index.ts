@@ -7,3 +7,4 @@ export type { IDictionaryEntryUpdate } from "./dictionary-entry-update.type";
 export type { IDictionaryEntriesReorder } from "./dictionary-entries-reorder.type";
 export type { IDictionaryEntryForm } from "./dictionary-entry-form.type";
 export { PartOfSpeechEnum } from "./part-of-speech.type";
+export type { IWordQuiz, IWordQuizOption, WordQuizKind } from "./word-quiz.type";

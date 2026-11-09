@@ -7,6 +7,7 @@ import { LuUndo2 } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { useLatest } from "@/shared/hooks";
 import { IFlashcardSessionResponse } from "@/entities/flashcard";
+import { IDictionaryEntryResponse } from "@/entities/dictionary";
 import {
   FlashcardAnswerEnum,
   IDeckAnswer,
@@ -16,6 +17,7 @@ import { ANSWER_RATINGS } from "../../consts";
 import { useFlashcardReviewSync } from "../../hooks/useFlashcardReviewSync";
 import { SwipeableCard } from "../SwipeableCard/swipeable-card";
 import { FlashcardsSummary } from "../FlashcardsSummary/flashcards-summary";
+import { WordQuiz } from "../WordQuiz/word-quiz";
 import { FlashcardsProgress } from "./flashcards-progress";
 import { AnswerButtons } from "./answer-buttons";
 
@@ -46,6 +48,8 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, IDeckAnswer>>({});
   const [isFlipped, setIsFlipped] = useState(false);
+  // A word answered "don't know" or "not sure" is checked with a small quiz before the next one
+  const [quizEntry, setQuizEntry] = useState<IDictionaryEntryResponse | null>(null);
 
   const cardRef = useRef<ISwipeableCardHandle>(null);
   // Set when each card shows up, see the effect on index below
@@ -78,8 +82,15 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
     });
 
     setAnswers((prev) => ({ ...prev, [current.id]: { answer, reviewId } }));
-    setIndex((prev) => prev + 1);
     setIsFlipped(false);
+
+    if (answer === FlashcardAnswerEnum.Know) setIndex((prev) => prev + 1);
+    else setQuizEntry(current);
+  };
+
+  const handleQuizDone = () => {
+    setQuizEntry(null);
+    setIndex((prev) => prev + 1);
   };
 
   const handleUndo = () => {
@@ -111,7 +122,8 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   }, [isFinished, finishRef]);
 
   useEffect(() => {
-    if (!current) return;
+    // The quiz has keys of its own
+    if (!current || quizEntry) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
@@ -136,7 +148,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [current]);
+  }, [current, quizEntry]);
 
   if (isFinished) {
     return (
@@ -171,26 +183,31 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
         {remaining > 1 && (
           <div className="absolute inset-0 translate-y-3 scale-95 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-sm opacity-80" />
         )}
-        <SwipeableCard
-          key={current.id}
-          ref={cardRef}
-          entry={current}
-          isFlipped={isFlipped}
-          onFlip={() => setIsFlipped((prev) => !prev)}
-          onAnswer={handleAnswer}
-        />
+        {quizEntry ? (
+          <WordQuiz key={quizEntry.id} entry={quizEntry} onDone={handleQuizDone} />
+        ) : (
+          <SwipeableCard
+            key={current.id}
+            ref={cardRef}
+            entry={current}
+            isFlipped={isFlipped}
+            onFlip={() => setIsFlipped((prev) => !prev)}
+            onAnswer={handleAnswer}
+          />
+        )}
       </div>
 
-      <AnswerButtons onAnswer={(answer) => cardRef.current?.swipe(answer)} />
+      {/* Only the right choice in the quiz lets the next word come */}
+      {!quizEntry && <AnswerButtons onAnswer={(answer) => cardRef.current?.swipe(answer)} />}
 
       <div className="flex w-full max-w-[460px] justify-between items-center gap-3">
         <p className="text-xs text-neutral-400">
-          {t("flashcards.keysHint")}
+          {quizEntry ? t("flashcards.quiz.keysHint") : t("flashcards.keysHint")}
         </p>
         <Button
           variant="ghost"
           size="sm"
-          disabled={index === 0}
+          disabled={index === 0 || !!quizEntry}
           onClick={(e) => {
             e.currentTarget.blur();
             handleUndo();

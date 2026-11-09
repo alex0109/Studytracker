@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { ILibrarySnapshot } from "@/entities/library";
-import { PartOfSpeechBadge } from "@/entities/dictionary/ui";
+import { EntryTerm, PartOfSpeechBadge } from "@/entities/dictionary";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { LibraryDisclosure } from "./library-disclosure";
@@ -22,7 +22,7 @@ const Word: FC<{ entry: Entry }> = ({ entry }) => {
   return (
     <li className="flex flex-col gap-1 rounded-xl bg-neutral-50 p-3.5 dark:bg-neutral-800/50">
       <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <span className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-50">{entry.term}</span>
+        <EntryTerm term={entry.term} article={entry.article} className="font-serif text-lg font-semibold text-neutral-900 dark:text-neutral-50" />
         {entry.transcription && <span className="text-sm text-neutral-500">{entry.transcription}</span>}
         <PartOfSpeechBadge partOfSpeech={entry.partOfSpeech ?? undefined} />
       </div>

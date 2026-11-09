@@ -15,6 +15,9 @@ export const Footer: FC = () => {
         &copy; 2026 Oleksii Slipokurov. {t("footer.rights")}
       </small>
       <nav className="mt-3 flex justify-center gap-4 text-sm text-neutral-400">
+        <Link href="/terms" className="hover:text-neutral-100">
+          {t("footer.terms")}
+        </Link>
         <Link href="/privacy" className="hover:text-neutral-100">
           {t("footer.privacy")}
         </Link>

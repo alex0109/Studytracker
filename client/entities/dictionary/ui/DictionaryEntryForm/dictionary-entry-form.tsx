@@ -1,10 +1,10 @@
 "use client";
 
 import { FC } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { LuChevronDown } from "react-icons/lu";
 import { Field, FieldInput, FieldSelect, FieldTextArea } from "@/shared/ui";
-import { IDictionaryEntryForm } from "../../model";
+import { IDictionaryEntryForm, PartOfSpeechEnum } from "../../model";
 import { partOfSpeechOptions } from "../../lib";
 import { useTranslation } from "react-i18next";
 
@@ -25,6 +25,13 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultV
     formState: { errors },
     handleSubmit,
   } = useForm<IDictionaryEntryForm>({ defaultValues });
+  const isNoun = useWatch({ control, name: "partOfSpeech" }) === PartOfSpeechEnum.Noun;
+
+  // "Article" is no longer offered, but a word saved with it still shows it
+  const partsOfSpeech =
+    defaultValues?.partOfSpeech === PartOfSpeechEnum.Article
+      ? [...partOfSpeechOptions, PartOfSpeechEnum.Article]
+      : partOfSpeechOptions;
 
   const required = {
     required: t("common.required"),
@@ -60,7 +67,7 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultV
                 onValueChange={field.onChange}
                 options={[
                   { value: "", label: t("dictionary.form.partOfSpeechNone") },
-                  ...partOfSpeechOptions.map((option) => ({
+                  ...partsOfSpeech.map((option) => ({
                     value: option,
                     label: t(`dictionary.partOfSpeech.${option}`),
                   })),
@@ -69,6 +76,16 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultV
             )}
           />
         </Field>
+        {isNoun && (
+          <Field label={t("dictionary.form.article")} hint={t("dictionary.form.articleHint")}>
+            <FieldInput
+              maxLength={20}
+              placeholder={t("dictionary.form.articlePlaceholder")}
+              autoComplete="off"
+              {...register("article")}
+            />
+          </Field>
+        )}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

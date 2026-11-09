@@ -11,9 +11,6 @@ import { GenerateEntriesModal } from "@/features/dictionary/generate-dictionary-
 import { EditEntryModal } from "@/features/dictionary/update-dictionary-entry";
 import { useDictionaryEntriesReorder } from "@/features/dictionary/reorder-dictionary-entries";
 import { Button } from "@/shared/radix-ui";
-import { LimitCounter } from "@/shared/ui";
-import { isLimitReached } from "@/shared/lib";
-import { useLimits } from "@/entities/limits";
 import { DictionaryWordItem } from "./dictionary-word-item";
 import { EmptyWords } from "./empty-words";
 
@@ -40,12 +37,6 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
   const orderedEntriesRef = useRef(entries);
 
   const { reorderEntries } = useDictionaryEntriesReorder(dictionaryId);
-  const { limitsData } = useLimits();
-
-  const isWordsFull = isLimitReached(
-    entries.length,
-    limitsData?.maxEntriesPerDictionary,
-  );
 
   // A new list from the server replaces the local order
   const [shownEntries, setShownEntries] = useState(entries);
@@ -82,25 +73,13 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
         <Button
           size="lg"
           className="lg:w-[250px] md:w-[180px] sm:w-[180px] w-full"
-          disabled={isWordsFull}
-          title={
-            isWordsFull
-              ? t("dictionary.wordsLimitHint", { count: limitsData?.maxEntriesPerDictionary })
-              : undefined
-          }
           onClick={() => setAddOpen(true)}
         >
-          <LuPlus /> {isWordsFull ? t("dictionary.wordsLimitReached") : t("dictionary.addWord")}
-          <LimitCounter
-            used={entries.length}
-            max={limitsData?.maxEntriesPerDictionary}
-            label={t("limits.counter.words")}
-          />
+          <LuPlus /> {t("dictionary.addWord")}
         </Button>
         <Button
           size="lg"
-          className="lg:w-[250px] md:w-[180px] sm:w-[180px] w-full bg-violet-700 hover:bg-violet-800"
-          disabled={isWordsFull}
+          className="lg:w-[250px] md:w-[180px] sm:w-[180px] w-full bg-violet-700 text-white hover:bg-violet-800"
           onClick={() => setGenerateOpen(true)}
         >
           <LuSparkles /> {t("dictionary.generate.title")}
@@ -136,9 +115,6 @@ export const DictionaryWords: FC<DictionaryWordsProps> = ({
       <GenerateEntriesModal
         dictionaryId={dictionaryId}
         materialId={materialId}
-        freeSlots={
-          (limitsData?.maxEntriesPerDictionary ?? Infinity) - entries.length
-        }
         open={generateOpen}
         setOpen={setGenerateOpen}
       />

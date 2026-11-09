@@ -192,7 +192,6 @@ export const MaterialsSideBar: FC = () => {
                   <div className="flex justify-between items-center">
                     <AddNoteModal
                       materialId={item.id}
-                      notesCount={item.notes?.length ?? 0}
                       hasSummary={
                         item.notes?.some((note) => note.type === "summary") ??
                         false
@@ -200,10 +199,7 @@ export const MaterialsSideBar: FC = () => {
                     />
                   </div>
                   <div className="flex justify-between items-center">
-                    <AddDictionaryModal
-                      materialId={item.id}
-                      enabled={accordionOpenValue === item.id}
-                    />
+                    <AddDictionaryModal materialId={item.id} />
                   </div>
 
                   {(item.notes?.length ?? 0) === 0 && (

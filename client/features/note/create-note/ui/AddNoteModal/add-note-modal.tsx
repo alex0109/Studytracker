@@ -2,16 +2,7 @@
 
 import { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import {
-  ChoiceGroup,
-  Modal,
-  Field,
-  FieldInput,
-  Spinner,
-  LimitCounter,
-} from "@/shared/ui";
-import { useLimits } from "@/entities/limits";
-import { isLimitReached } from "@/shared/lib";
+import { ChoiceGroup, Modal, Field, FieldInput, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { LuNotebookPen, LuPlus } from "react-icons/lu";
 import { INoteCreate, NoteTypeEnum } from "@/entities/note/model";
@@ -20,19 +11,15 @@ import { useTranslation } from "@/shared/i18n";
 
 interface AddNoteModalProps {
   materialId: string;
-  notesCount: number;
   // A material has at most one summary
   hasSummary: boolean;
 }
 
 export const AddNoteModal: FC<AddNoteModalProps> = ({
   materialId,
-  notesCount,
   hasSummary,
 }) => {
   const { t } = useTranslation();
-  const { limitsData } = useLimits();
-  const isFull = isLimitReached(notesCount, limitsData?.maxNotesPerMaterial);
 
   const {
     register,
@@ -59,7 +46,6 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
     <>
       <Button
         onClick={() => setOpen(true)}
-        disabled={isFull}
         variant="ghost"
         className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
       >
@@ -67,14 +53,8 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
           <LuPlus />
         </div>
         <div className="min-w-0">
-          <p className="truncate">{isFull ? t("notes.limitReached") : t("notes.add")}</p>
+          <p className="truncate">{t("notes.add")}</p>
         </div>
-        <LimitCounter
-          used={notesCount}
-          max={limitsData?.maxNotesPerMaterial}
-          label={t("limits.counter.notes")}
-          className="ml-auto"
-        />
       </Button>
 
       <Modal

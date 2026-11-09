@@ -10,8 +10,8 @@ import { useTranslation } from "@/shared/i18n";
 import { createPortal } from "@/entities/billing";
 import { useLeavingPage } from "@/shared/lib/use-leaving-page";
 
-// Stripe's own page: card, invoices, switching between Plus and Pro, cancelling
-export const ManageSubscriptionButton: FC = () => {
+// Stripe's own page: card, invoices, switching between Plus and Duo, cancelling
+export const useSubscriptionPortal = () => {
   const { t, i18n } = useTranslation();
   const { token, user } = useSession();
   const { leaving, leave } = useLeavingPage();
@@ -27,9 +27,16 @@ export const ManageSubscriptionButton: FC = () => {
     },
   });
 
+  return { openPortal: () => portal.mutate(), portalPending: portal.isPending || !!leaving };
+};
+
+export const ManageSubscriptionButton: FC = () => {
+  const { t } = useTranslation();
+  const { openPortal, portalPending } = useSubscriptionPortal();
+
   return (
-    <Button variant="outline" onClick={() => portal.mutate()} disabled={portal.isPending || !!leaving} className="self-start">
-      {portal.isPending || leaving ? <LuLoaderCircle aria-hidden className="animate-spin" /> : <LuSettings2 aria-hidden />}
+    <Button variant="outline" size="lg" onClick={openPortal} disabled={portalPending}>
+      {portalPending ? <LuLoaderCircle aria-hidden className="animate-spin" /> : <LuSettings2 aria-hidden />}
       {t("billing.manage")}
     </Button>
   );

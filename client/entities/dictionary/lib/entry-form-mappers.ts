@@ -3,6 +3,7 @@ import {
   IDictionaryEntryForm,
   IDictionaryEntryResponse,
   IDictionaryEntryUpdate,
+  PartOfSpeechEnum,
 } from "../model";
 
 const parseSynonyms = (synonyms?: string): string[] =>
@@ -11,6 +12,10 @@ const parseSynonyms = (synonyms?: string): string[] =>
     .map((s) => s.trim())
     .filter(Boolean);
 
+// The field stays in the form when the part of speech changes, but only a noun keeps it
+const articleOf = (values: IDictionaryEntryForm) =>
+  values.partOfSpeech === PartOfSpeechEnum.Noun ? values.article?.trim() ?? "" : "";
+
 export const toEntryCreate = (
   values: IDictionaryEntryForm,
 ): IDictionaryEntryCreate => ({
@@ -18,6 +23,7 @@ export const toEntryCreate = (
   translation: values.translation.trim(),
   transcription: values.transcription?.trim() || undefined,
   partOfSpeech: values.partOfSpeech || undefined,
+  article: articleOf(values) || undefined,
   grammarInfo: values.grammarInfo?.trim() || undefined,
   example: values.example?.trim() || undefined,
   exampleTranslation: values.exampleTranslation?.trim() || undefined,
@@ -33,6 +39,7 @@ export const toEntryUpdate = (
   translation: values.translation.trim(),
   transcription: values.transcription?.trim() ?? "",
   partOfSpeech: values.partOfSpeech || undefined,
+  article: articleOf(values),
   grammarInfo: values.grammarInfo?.trim() ?? "",
   example: values.example?.trim() ?? "",
   exampleTranslation: values.exampleTranslation?.trim() ?? "",
@@ -47,6 +54,7 @@ export const toEntryForm = (
   translation: entry.translation,
   transcription: entry.transcription ?? "",
   partOfSpeech: entry.partOfSpeech ?? "",
+  article: entry.article ?? "",
   grammarInfo: entry.grammarInfo ?? "",
   example: entry.example ?? "",
   exampleTranslation: entry.exampleTranslation ?? "",

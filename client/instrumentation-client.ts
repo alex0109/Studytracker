@@ -18,23 +18,25 @@ Sentry.init({
   // A fifth of page loads is enough to see trends; every trace costs the browser work and quota
   tracesSampleRate: 0.2,
 
-  // Define how likely Replay events are sampled.
-  // This sets the sample rate to be 10%. You may want this to be 100% while
-  // in development and sample at a lower rate in production
-  replaysSessionSampleRate: 0.1,
+  // Which sessions are recorded is decided before Replay is even downloaded, see loadReplay
+  replaysSessionSampleRate: 1.0,
 
-  // Define how likely Replay events are sampled when an error occurs.
-  replaysOnErrorSampleRate: 1.0,
+  // No replays "on error": they need the recorder running in the background of every session,
+  // watching every change of the page. Translation extensions change it on each selected word,
+  // and the page froze for seconds while the recorder caught up
+  replaysOnErrorSampleRate: 0,
 
   // No PII, see sentry.data-collection.ts
   dataCollection,
 });
 
-// Replay is the heaviest part of the SDK: rrweb snapshots the page and watches every change, and with
-// replaysOnErrorSampleRate it does so in every session. On phones it held the first seconds of each
-// page, so they go without it; desktops load it once the page is idle
+// Replay is the heaviest part of the SDK: rrweb snapshots the page and watches every change. Only a
+// small share of desktop sessions get it at all, the rest never download it. On phones it held the
+// first seconds of each page, so they go without it; desktops load it once the page is idle
+const REPLAY_SHARE = 0.05;
+
 const loadReplay = () => {
-  if (window.matchMedia("(pointer: coarse)").matches) return;
+  if (window.matchMedia("(pointer: coarse)").matches || Math.random() >= REPLAY_SHARE) return;
 
   const whenIdle = window.requestIdleCallback ?? ((run: () => void) => window.setTimeout(run, 3000));
   whenIdle(() => {
