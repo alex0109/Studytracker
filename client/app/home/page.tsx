@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {
+  Features,
   FeedbackSection,
   FinalCta,
   Glossary,
@@ -90,6 +91,7 @@ const Page = async () => {
           <Hero />
           <KnowledgeLoop />
           <HowItWorks />
+          <Features />
           <WordsThatStick />
         </SampleWordsProvider>
         <Glossary />

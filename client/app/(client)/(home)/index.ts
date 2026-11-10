@@ -7,3 +7,5 @@ export * from "./ui/KnowledgeLoop";
 export * from "./ui/ScrollTint";
 export * from "./ui/WordsThatStick";
 export * from "./ui/Feedback";
+export * from "./ui/Features";
+export * from "./ui/BrandEmblem";

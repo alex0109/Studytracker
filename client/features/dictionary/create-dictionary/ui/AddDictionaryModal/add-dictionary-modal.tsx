@@ -12,9 +12,11 @@ import { useDictionaryCreate } from "../../hooks/useDictionaryCreate";
 
 interface AddDictionaryModalProps {
   materialId: string;
+  // "icon": a small plus for a section header, "row": a full-width list row
+  variant?: "row" | "icon";
 }
 
-export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({ materialId }) => {
+export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({ materialId, variant = "row" }) => {
   const { t } = useTranslation();
 
   const {
@@ -46,18 +48,31 @@ export const AddDictionaryModal: FC<AddDictionaryModalProps> = ({ materialId }) 
 
   return (
     <>
-      <Button
-        onClick={() => setOpen(true)}
-        variant="ghost"
-        className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
-      >
-        <div>
+      {variant === "icon" ? (
+        <Button
+          onClick={() => setOpen(true)}
+          variant="ghost"
+          size="icon"
+          aria-label={t("dictionary.add")}
+          title={t("dictionary.add")}
+          className="size-7 rounded-lg text-neutral-500 hover:bg-neutral-900/10 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-white/10 dark:hover:text-white"
+        >
           <LuPlus />
-        </div>
-        <div className="min-w-0">
-          <p className="truncate">{t("dictionary.add")}</p>
-        </div>
-      </Button>
+        </Button>
+      ) : (
+        <Button
+          onClick={() => setOpen(true)}
+          variant="ghost"
+          className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
+        >
+          <div>
+            <LuPlus />
+          </div>
+          <div className="min-w-0">
+            <p className="truncate">{t("dictionary.add")}</p>
+          </div>
+        </Button>
+      )}
 
       <Modal
         open={open}

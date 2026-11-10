@@ -54,6 +54,8 @@ export interface ILibrarySnapshot {
     type: NoteTypeEnum;
     textContent?: RichTextDocument | null;
     drawingContent?: IDrawingContent | null;
+    // Essays only
+    essayTask?: string | null;
   }[];
   questions: {
     title: string;

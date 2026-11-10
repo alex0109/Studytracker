@@ -16,6 +16,7 @@ export const useNoteUpdate = (noteId: string) => {
   const { token, user } = useSession();
 
   const updateNoteMutation = useMutation({
+    mutationKey: notesKeys.update(noteId),
     mutationFn: ({
       materialId,
       noteId,

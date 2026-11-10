@@ -3,10 +3,11 @@
 import { FC } from "react";
 import { LuBookA } from "react-icons/lu";
 import { IDictionaryResponse, useDictionaryAll } from "@/entities/dictionary";
-import { Button } from "@/shared/components/ui/button";
+import { AddDictionaryModal } from "@/features/dictionary/create-dictionary";
 import { Skeleton } from "@/shared/radix-ui";
-import { TruncatedText } from "@/shared/ui";
-import { cn } from "@/shared/lib/utils";
+import { useTranslation } from "@/shared/i18n";
+import { SidebarSection } from "../SidebarSection/sidebar-section";
+import { SidebarLink } from "../SidebarSection/sidebar-link";
 
 interface MaterialDictionariesProps {
   materialId: string;
@@ -21,39 +22,37 @@ export const MaterialDictionaries: FC<MaterialDictionariesProps> = ({
   activeDictionaryId,
   onSelect,
 }) => {
-  const { dictionariesData, dictionariesIsPending } = useDictionaryAll(
-    materialId,
-    enabled,
-  );
-
-  if (enabled && dictionariesIsPending) {
-    return <Skeleton className="w-full h-8" />;
-  }
+  const { t } = useTranslation();
+  const { dictionariesData, dictionariesIsPending } = useDictionaryAll(materialId, enabled);
 
   return (
-    <>
-      {dictionariesData &&
+    <SidebarSection
+      label={t("materials.sidebar.dictionaries")}
+      count={dictionariesData?.length}
+      action={<AddDictionaryModal materialId={materialId} variant="icon" />}
+    >
+      {enabled && dictionariesIsPending ? (
+        <Skeleton className="h-8 w-full" />
+      ) : !dictionariesData || dictionariesData.length === 0 ? (
+        <p className="px-2 pb-1 text-xs text-neutral-400 dark:text-neutral-500">
+          {t("materials.sidebar.noDictionaries")}
+        </p>
+      ) : (
         dictionariesData.map((dictionary) => (
-          <div
+          <SidebarLink
             key={dictionary.id}
-            className="flex justify-between items-center"
-          >
-            <Button
-              onClick={() => onSelect(dictionary)}
-              variant="ghost"
-              className={cn(
-                "h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal hover:bg-neutral-900/10 dark:hover:bg-white/10",
-                activeDictionaryId === dictionary.id && "bg-neutral-900/5 font-medium dark:bg-white/5",
-              )}
-            >
-              <LuBookA />
-              <TruncatedText text={dictionary.title} />
-              <span className="ml-auto shrink-0 text-xs text-neutral-400">
+            icon={LuBookA}
+            label={dictionary.title}
+            isActive={activeDictionaryId === dictionary.id}
+            onSelect={() => onSelect(dictionary)}
+            trailing={
+              <span className="shrink-0 text-xs tabular-nums text-neutral-400">
                 {dictionary.entries?.length ?? 0}
               </span>
-            </Button>
-          </div>
-        ))}
-    </>
+            }
+          />
+        ))
+      )}
+    </SidebarSection>
   );
 };

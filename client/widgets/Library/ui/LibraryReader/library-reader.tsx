@@ -8,6 +8,7 @@ import {
   LuBookOpen,
   LuCircleHelp,
   LuExternalLink,
+  LuFeather,
   LuLibrary,
   LuNotebookPen,
   LuPencil,
@@ -33,6 +34,7 @@ const NOTE_ICONS = {
   [NoteTypeEnum.text]: LuNotebookPen,
   [NoteTypeEnum.drawing]: LuPencil,
   [NoteTypeEnum.summary]: LuScrollText,
+  [NoteTypeEnum.essay]: LuFeather,
 } as Record<string, typeof LuNotebookPen>;
 
 const TONES = {
@@ -230,7 +232,14 @@ export const LibraryReader: FC<{ itemId: string; initialItem?: ILibraryItem | nu
                           <DrawingViewer content={note.drawingContent} title={note.title} />
                         ) : null
                       ) : note.textContent ? (
-                        <RichTextStatic content={note.textContent} className={flushText} />
+                        <>
+                          {note.type === NoteTypeEnum.essay && note.essayTask && (
+                            <p className="mb-3 rounded-xl bg-violet-50 p-3 text-sm text-violet-800 dark:bg-violet-950/40 dark:text-violet-300">
+                              <span className="font-semibold">{t("notes.essay.taskLabel")}:</span> {note.essayTask}
+                            </p>
+                          )}
+                          <RichTextStatic content={note.textContent} className={flushText} />
+                        </>
                       ) : (
                         <p className="text-sm text-neutral-500">{t("library.reader.noContent")}</p>
                       )}
