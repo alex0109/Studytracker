@@ -8,7 +8,8 @@ import {
   LuLayers,
   LuNotebookPen,
   LuShieldCheck,
-  LuTag,
+  LuBookMarked,
+  LuFeather,
 } from "react-icons/lu";
 
 // Texts are translation keys under "landing.glossary.items.<key>"
@@ -22,7 +23,8 @@ export interface IGlossaryItem {
     | "selfDefending"
     | "score"
     | "statistics"
-    | "tag";
+    | "tag"
+    | "essay";
   icon: IconType;
 }
 
@@ -34,6 +36,10 @@ export const glossary: IGlossaryItem[] = [
   {
     key: "note",
     icon: LuNotebookPen,
+  },
+  {
+    key: "essay",
+    icon: LuFeather,
   },
   {
     key: "question",
@@ -61,6 +67,6 @@ export const glossary: IGlossaryItem[] = [
   },
   {
     key: "tag",
-    icon: LuTag,
+    icon: LuBookMarked,
   },
 ];

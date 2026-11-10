@@ -1,4 +1,3 @@
-export type { CarouselProps } from "./material-carousel.type";
 export type { MaterialStatusEnum } from "./material-status.type";
 export type { MaterialTypeEnum } from "./material-type.type";
 export type { Node } from "../../../shared/types/rich-text-document.type";

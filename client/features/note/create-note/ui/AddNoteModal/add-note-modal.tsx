@@ -13,11 +13,14 @@ interface AddNoteModalProps {
   materialId: string;
   // A material has at most one summary
   hasSummary: boolean;
+  // "icon": a small plus for a section header, "row": a full-width list row
+  variant?: "row" | "icon";
 }
 
 export const AddNoteModal: FC<AddNoteModalProps> = ({
   materialId,
   hasSummary,
+  variant = "row",
 }) => {
   const { t } = useTranslation();
 
@@ -44,18 +47,31 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
 
   return (
     <>
-      <Button
-        onClick={() => setOpen(true)}
-        variant="ghost"
-        className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
-      >
-        <div>
+      {variant === "icon" ? (
+        <Button
+          onClick={() => setOpen(true)}
+          variant="ghost"
+          size="icon"
+          aria-label={t("notes.add")}
+          title={t("notes.add")}
+          className="size-7 rounded-lg text-neutral-500 hover:bg-neutral-900/10 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-white/10 dark:hover:text-white"
+        >
           <LuPlus />
-        </div>
-        <div className="min-w-0">
-          <p className="truncate">{t("notes.add")}</p>
-        </div>
-      </Button>
+        </Button>
+      ) : (
+        <Button
+          onClick={() => setOpen(true)}
+          variant="ghost"
+          className="h-8 w-full min-w-0 flex justify-start items-center px-2 font-normal text-neutral-600 hover:bg-neutral-900/10 dark:text-neutral-300 dark:hover:bg-white/10"
+        >
+          <div>
+            <LuPlus />
+          </div>
+          <div className="min-w-0">
+            <p className="truncate">{t("notes.add")}</p>
+          </div>
+        </Button>
+      )}
 
       <Modal
         open={open}
@@ -96,6 +112,7 @@ export const AddNoteModal: FC<AddNoteModalProps> = ({
                 options={[
                   { value: NoteTypeEnum.text, label: t("notes.types.text") },
                   { value: NoteTypeEnum.drawing, label: t("notes.types.drawing") },
+                  { value: NoteTypeEnum.essay, label: t("notes.types.essay") },
                   // One summary per material
                   ...(hasSummary ? [] : [{ value: NoteTypeEnum.summary, label: t("notes.types.summary") }]),
                 ]}

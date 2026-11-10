@@ -5,3 +5,4 @@ export type { IQuestionGenerate } from "./question-generate.type";
 export type { IDictionaryEntriesGenerate } from "./dictionary-entries-generate.type";
 export type { ISummaryGenerateResponse } from "./summary-generate-response.type";
 export type { IResultExplanation } from "./result-explanation.type";
+export type { IEssayReviewResponse } from "./essay-review-response.type";

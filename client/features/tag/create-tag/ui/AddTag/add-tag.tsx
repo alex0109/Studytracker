@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { LuTag } from "react-icons/lu";
+import { LuBookMarked } from "react-icons/lu";
 import { Field, FieldInput, Modal, Spinner } from "@/shared/ui";
 import { ITagCreate } from "@/entities/tag";
 import { useTagCreate } from "../../hooks/useTagCreate";
@@ -51,7 +51,7 @@ export const AddTag: FC = () => {
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        icon={<LuTag />}
+        icon={<LuBookMarked />}
         title={t("tags.addTitle")}
         footer={
           <>

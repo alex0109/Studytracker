@@ -1,4 +1,11 @@
 export type { IDrawingContent } from "./drawing-content.type";
+export type {
+  EssayCorrectionCategory,
+  EssayCriterion,
+  IEssayCorrection,
+  IEssayCriterionScore,
+  IEssayReview,
+} from "./essay-review.type";
 export type { INoteCreate } from "./note-create.type";
 export type { INoteResponse } from "./note-response.type";
 export { NoteTypeEnum } from "./note-type.type";

@@ -50,7 +50,9 @@ export const GenerateEntriesModal: FC<GenerateEntriesModalProps> = ({
       ?.find((material) => material.id === materialId)
       ?.notes?.filter(
         (note) =>
-          note.type === NoteTypeEnum.text || note.type === NoteTypeEnum.summary,
+          note.type === NoteTypeEnum.text ||
+          note.type === NoteTypeEnum.summary ||
+          note.type === NoteTypeEnum.essay,
       ) ?? [];
 
   const { aiUsageData } = useAiUsage(open);

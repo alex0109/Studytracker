@@ -33,7 +33,8 @@
     "today": "Today",
     "account": "Account",
     "calendar": "Calendar",
-    "landing": "Studytracker home page"
+    "landing": "Studytracker home page",
+    "guide": "Guide"
   },
   "preferences": {
     "language": "Language",
@@ -75,7 +76,7 @@
       "line1": "Grow knowledge.",
       "line2": "Reinforce it.",
       "line3": "Make it last.",
-      "text": "Studytracker is a system that grows, reinforces and strengthens what you learn. Collect materials, turn them into questions and flashcards, defend what you know and see exactly where it still cracks.",
+      "text": "Studytracker is a system that grows, reinforces and strengthens what you learn. Collect materials, turn them into questions and flashcards, write essays and get them checked, defend your knowledge and see exactly where it still cracks.",
       "openMaterials": "Open my materials",
       "start": "Start growing",
       "howItWorks": "See how it works"
@@ -129,7 +130,7 @@
         "material": {
           "label": "Add a material",
           "title": "Everything starts with a material",
-          "text": "An article, a video, a practice task or a test. Give it a status and tags, then attach notes, questions and a dictionary to it."
+          "text": "An article, a video, a practice task or a test. Give it a status and a subject, then attach notes, questions and a dictionary to it."
         },
         "questions": {
           "label": "Create questions",
@@ -149,7 +150,7 @@
         "statistics": {
           "label": "Watch it grow",
           "title": "See what is getting stronger",
-          "text": "Statistics follow you over time: score trend, study streak, accuracy by difficulty, how well your confidence matches reality and which tags are your weakest."
+          "text": "Statistics follow you over time: score trend, study streak, accuracy by difficulty, how well your confidence matches reality and which subjects are your weakest."
         }
       }
     },
@@ -159,7 +160,7 @@
         "title": "Photosynthesis",
         "status": "In process",
         "tagBiology": "biology",
-        "tagExam": "exam",
+        "tagExam": "botany",
         "attachments": {
           "lightReactions": {
             "title": "Light reactions",
@@ -229,7 +230,7 @@
         "streakDays": "12 days",
         "calibration": "How often you are right when you feel…",
         "weakest": "Weakest topic",
-        "weakestTag": "#chemistry",
+        "weakestTag": "Chemistry",
         "next": "Next thing to strengthen"
       }
     },
@@ -254,11 +255,11 @@
     "glossary": {
       "eyebrow": "Glossary",
       "title": "Every piece, in one line",
-      "text": "Nine ideas are all you need to know to feel at home.",
+      "text": "Ten ideas and you'll feel at home.",
       "items": {
         "material": {
           "name": "Material",
-          "text": "Anything you study: an article, video, practice or test. Has a status and tags."
+          "text": "Anything you study: an article, video, practice or test. Has a status and one or more subjects."
         },
         "note": {
           "name": "Note",
@@ -289,14 +290,101 @@
           "text": "Trend, streak, accuracy, confidence calibration and your weakest topics over time."
         },
         "tag": {
-          "name": "Tag",
-          "text": "A label that groups materials and shows which topics need the most work."
+          "name": "Subject",
+          "text": "Groups materials by subject and shows which subjects need the most work."
+        },
+        "essay": {
+          "name": "Essay",
+          "text": "A note written for a task. AI scores it on four criteria from 0 to 100 and shows specific corrections."
         }
       }
     },
     "cta": {
       "title": "Plant the first seed today.",
-      "text": "Add one material, ask yourself three questions and defend them tomorrow. In a week you will see what you really know, and what to grow next."
+      "text": "Add one material, ask yourself three questions and defend them tomorrow. In a week you will see what you really know, and what to grow next.",
+      "emblem": "Knowledge that earned its wreath"
+    },
+    "features": {
+      "eyebrow": "Features",
+      "title": "Everything that makes knowledge stick",
+      "text": "From the first word to the exam: Studytracker takes care of the routine and leaves you the learning.",
+      "new": "New",
+      "guideLink": "Open the full guide",
+      "items": {
+        "essay": {
+          "title": "Essay check",
+          "text": "Paste the task, write your essay and get an honest review: scores for task response, logic, vocabulary and grammar, plus specific corrections."
+        },
+        "today": {
+          "title": "Daily review",
+          "text": "One queue a day from every dictionary and material: exactly what is due."
+        },
+        "ai": {
+          "title": "AI helper",
+          "text": "Draft questions from a text, answers checked by meaning, mistakes explained and summaries."
+        },
+        "lookup": {
+          "title": "Words from any text",
+          "text": "Select a word in a material or note: translation, grammar and adding it to a dictionary in one click."
+        },
+        "deadlines": {
+          "title": "Deadlines and calendar",
+          "text": "Set the exam date and see how much time is left and when you studied."
+        },
+        "library": {
+          "title": "Library",
+          "text": "Ready materials with questions and dictionaries: add one and start learning right away."
+        },
+        "import": {
+          "title": "Import from a link",
+          "text": "Paste a link to an article: its text becomes a material and, if you like, questions appear straight away."
+        },
+        "share": {
+          "title": "Share and learn together",
+          "text": "A link gives a friend their own copy of a material. With the Duo plan you learn as a pair."
+        }
+      },
+      "demo": {
+        "essay": {
+          "task": "Some people think cities are better places to live than the countryside. Discuss both views."
+        },
+        "today": {
+          "progress": "{{done}} of {{total}} reviewed"
+        },
+        "ai": {
+          "questions": "Questions from the material's text",
+          "grading": "Answers checked by meaning",
+          "explain": "Mistakes explained after self-defending",
+          "summary": "A summary of the whole material"
+        },
+        "lookup": {
+          "translation": "dog · noun",
+          "add": "Add to dictionary",
+          "added": "Added"
+        },
+        "deadlines": {
+          "exam_one": "Biology exam in {{count}} day",
+          "exam_other": "Biology exam in {{count}} days"
+        },
+        "library": {
+          "meta": "{{words}} words · {{questions}} questions",
+          "add": "Add to my materials",
+          "added": "Added"
+        },
+        "import": {
+          "fetch": "Loading the page",
+          "extract": "Taking out the article's text",
+          "questions": "Preparing self-test questions"
+        },
+        "share": {
+          "copy": "Copy",
+          "copied": "Copied",
+          "notes": "Notes",
+          "dictionaries": "Dictionaries",
+          "questions": "Questions",
+          "attempts": "Your attempts"
+        }
+      }
     }
   },
   "questions": {
@@ -584,7 +672,20 @@
     "sidebar": {
       "emptyTitle": "No materials yet",
       "emptyText": "Add your first one: an article, a video or a test. Then attach notes, questions and words to it.",
-      "noNotes": "No notes yet"
+      "noNotes": "No notes yet",
+      "search": "Search materials and notes",
+      "clearSearch": "Clear search",
+      "subjectsFilter": "Filter by subject",
+      "allSubjects": "All",
+      "noResults": "Nothing found",
+      "clearFilters": "Clear search and filter",
+      "notes": "Notes",
+      "dictionaries": "Dictionaries",
+      "noDictionaries": "No dictionaries yet",
+      "collapse": "Collapse the list",
+      "expand": "Expand the list",
+      "sheetText": "Pick a material, note or dictionary",
+      "breadcrumb": "Where you are"
     },
     "emptySection": {
       "hint": "Pick a material on the left or add a new one.",
@@ -668,8 +769,8 @@
   "toasts": {
     "materialCreated": "Material has been created!",
     "materialCreateError": "Error occurred while creating material",
-    "tagAddedToMaterial": "Tag has been added to the material",
-    "tagAddError": "Error occurred while adding the tag to the material",
+    "tagAddedToMaterial": "Subject added to the material",
+    "tagAddError": "Couldn't add the subject to the material",
     "materialDeleted": "Material has been deleted!",
     "materialDeleteError": "Error occurred while deleting material",
     "shareDisabled": "Link is disabled, nobody can import it anymore",
@@ -677,11 +778,11 @@
     "shareCreateError": "Error occurred while creating the share link",
     "materialImported": "Material has been added to your materials!",
     "materialImportError": "Error occurred while importing material",
-    "tagRemoved": "Tag has been removed",
-    "tagRemoveError": "Error occurred while removing the tag",
+    "tagRemoved": "Subject removed",
+    "tagRemoveError": "Couldn't remove the subject",
     "materialUpdateError": "Error occurred while updating material",
-    "tagCreated": "Tag has been created",
-    "tagCreateError": "Error occurred while creating tag",
+    "tagCreated": "Subject created",
+    "tagCreateError": "Couldn't create the subject",
     "noteCreated": "Note has been created!",
     "noteCreateError": "Error occurred while creating note",
     "noteUpdateError": "Error occurred while updating note",
@@ -724,9 +825,11 @@
     "attemptNotFinished": "Attempt was not finished, please try again",
     "tagCreatedText": "You can use it inside any material",
     "noQuestions": "There are no questions to review right now",
-    "tagDeleted": "Tag deleted",
-    "tagDeleteError": "Couldn't delete the tag",
-    "attemptNotStarted": "The attempt didn't start, try again"
+    "tagDeleted": "Subject deleted",
+    "tagDeleteError": "Couldn't delete the subject",
+    "attemptNotStarted": "The attempt didn't start, try again",
+    "essayChecked": "Essay checked",
+    "essayCheckError": "Couldn't check the essay"
   },
   "ai": {
     "errors": {
@@ -746,13 +849,14 @@
       "AnswerGrading": "Answer checks by meaning",
       "SummaryGeneration": "Summary generation",
       "MistakeExplanation": "Mistake explanations",
-      "WordLookup": "Words from the text"
+      "WordLookup": "Words from the text",
+      "EssayReview": "Essay checks"
     }
   },
   "share": {
     "button": "Share",
     "title": "Share material",
-    "text": "Anyone with the link gets a full copy: notes, dictionaries and questions. Tags and attempts stay with you, and changes in their copy never touch yours.",
+    "text": "Anyone with the link gets a full copy: notes, dictionaries and questions. Subjects and attempts stay with you, and changes in their copy never touch yours.",
     "linkLabel": "Share link",
     "copy": "Copy",
     "copied": "Copied",
@@ -776,7 +880,7 @@
         "words_one": "word",
         "words_other": "words"
       },
-      "copyNote": "You get your own copy to edit and learn from. Tags, attempts and the owner's progress are not copied.",
+      "copyNote": "You get your own copy to edit and learn from. Subjects, attempts and the owner's progress are not copied.",
       "signIn": "Sign in to get this material",
       "yours": "This is your material.",
       "alreadyImported": "You already have a copy. Importing again creates another one.",
@@ -784,21 +888,21 @@
     }
   },
   "tags": {
-    "label": "Tags",
-    "manage": "Manage tags",
-    "addToMaterial": "Tags of this material",
-    "noneYet": "No tags yet. Create the first one below.",
-    "none": "No tags",
-    "new": "New tag",
-    "addTitle": "Add new tag",
+    "label": "Subjects",
+    "manage": "Manage subjects",
+    "addToMaterial": "Subjects of this material",
+    "noneYet": "No subjects yet. Create the first one below.",
+    "none": "No subjects",
+    "new": "New subject",
+    "addTitle": "New subject",
     "name": "Name",
     "namePlaceholder": "E.g. English",
     "color": "Colour",
-    "addToMaterialText": "Tap a tag to add or remove it.",
-    "delete": "Delete tag",
-    "deleteNamed": "Delete the “{{name}}” tag",
-    "deleteTitle": "Delete the “{{name}}” tag?",
-    "deleteText": "The tag will disappear from every material. The materials themselves stay."
+    "addToMaterialText": "Tap a subject to add or remove it.",
+    "delete": "Delete subject",
+    "deleteNamed": "Delete the “{{name}}” subject",
+    "deleteTitle": "Delete the “{{name}}” subject?",
+    "deleteText": "The subject will disappear from every material. The materials themselves stay."
   },
   "editor": {
     "toolbar": "Text formatting",
@@ -840,7 +944,8 @@
     "types": {
       "text": "✍️ Text",
       "drawing": "🖌️ Drawing",
-      "summary": "📚 Summary"
+      "summary": "📚 Summary",
+      "essay": "🪶 Essay"
     },
     "drawing": {
       "tools": {
@@ -867,7 +972,57 @@
       "replace": "Replace"
     },
     "titleExample": "E.g. Key ideas",
-    "typeLabel": "Note type"
+    "typeLabel": "Note type",
+    "essay": {
+      "taskLabel": "Task",
+      "taskPlaceholder": "Paste the topic or the wording of the task. E.g.: “Should university education be free? Discuss both views and give your own opinion.”",
+      "taskHint": "The check looks at how well the essay answers exactly this task. Without one, at how clearly it develops its own topic.",
+      "check": "Check essay",
+      "checkAgain": "Check again",
+      "checking": "Checking the essay…",
+      "wordsLabel_one": "word",
+      "wordsLabel_other": "words",
+      "words_one": "{{count}} word",
+      "words_other": "{{count}} words",
+      "needMore_one": "Write {{count}} more word to check it",
+      "needMore_other": "Write {{count}} more words to check it",
+      "empty": {
+        "title": "Write an essay, get an honest review",
+        "text": "The check scores four things from 0 to 100, shows what works and what to improve, and lists specific mistakes with corrections. Only the writing is judged, never your opinion."
+      },
+      "criteria": {
+        "TaskResponse": "Task response",
+        "Coherence": "Logic and flow",
+        "Vocabulary": "Vocabulary",
+        "Grammar": "Grammar"
+      },
+      "levels": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "adequate": "Adequate",
+        "partial": "Partly there",
+        "weak": "Needs work"
+      },
+      "categories": {
+        "Grammar": "Grammar",
+        "Vocabulary": "Vocabulary",
+        "Spelling": "Spelling",
+        "Punctuation": "Punctuation",
+        "Style": "Style"
+      },
+      "result": {
+        "title": "Essay check result",
+        "overall": "Overall score",
+        "checkedAt": "Checked {{date}}",
+        "truncated": "The essay is very long, so only its first part was checked.",
+        "strengths": "What works",
+        "improvements": "What to improve",
+        "corrections": "Corrections",
+        "noCorrections": "No mistakes worth correcting were found.",
+        "showAll": "Show all ({{count}})",
+        "showLess": "Show less"
+      }
+    }
   },
   "dictionary": {
     "generate": {
@@ -1012,8 +1167,8 @@
     },
     "tags": {
       "title": "Focus areas",
-      "subtitle": "Weakest topics first",
-      "empty": "Add tags to your materials to see which topics need more work.",
+      "subtitle": "Weakest subjects first",
+      "empty": "Add subjects to your materials to see which ones need more work.",
       "accuracyOf": "Accuracy for {{tag}}"
     },
     "calibration": {
@@ -1819,6 +1974,367 @@
       "notAllowed": "No access to the microphone. Allow it in your browser settings",
       "network": "Speech recognition isn't available right now: check your connection",
       "failed": "Couldn't recognise the speech, try again"
+    }
+  },
+  "guide": {
+    "meta": {
+      "title": "Guide: how to use Studytracker",
+      "description": "A visual guide to Studytracker: materials, notes, essays with checks, questions, self-defending, flashcards, daily review and how it all works under the hood."
+    },
+    "hero": {
+      "eyebrow": "Guide",
+      "title": "Everything about Studytracker,",
+      "accent": "shown, not told",
+      "text": "How it all fits together, where to find things and why they work the way they do. The demos are live: tap, switch, try.",
+      "toc": "Guide contents"
+    },
+    "quick": {
+      "step": "Step {{step}}",
+      "add": {
+        "title": "Add a material",
+        "text": "An article, a video, a test or anything you study."
+      },
+      "ask": {
+        "title": "Create questions",
+        "text": "Yourself or with AI, from the text of a material or note."
+      },
+      "defend": {
+        "title": "Defend your knowledge",
+        "text": "Take a self-defending round and see what still cracks."
+      }
+    },
+    "chapters": {
+      "basics": "Basics",
+      "check": "Testing yourself",
+      "words": "Words",
+      "daily": "Every day",
+      "together": "Together and with AI",
+      "more": "More"
+    },
+    "labels": {
+      "how": "How",
+      "where": "Where",
+      "why": "Why"
+    },
+    "notes": {
+      "text": "Formatted text",
+      "drawing": "Mouse, finger or stylus",
+      "summary": "A short retelling by AI",
+      "essay": "Writing for a task, checked",
+      "voice": "Speak and the text appears"
+    },
+    "sections": {
+      "start": {
+        "short": "Materials",
+        "eyebrow": "Basics",
+        "title": "A material is the heart of it all",
+        "lead": "Everything you study lives in a material: its text, notes, dictionaries, questions and attempts.",
+        "how": "Press “+” in the materials list, give it a name, pick a type and status. Paste the text yourself or import an article from a link.",
+        "where": "Materials → “+” at the top of the list.",
+        "why": "When everything about one topic sits together, reviewing and testing yourself is far easier.",
+        "tips": [
+          "Give a material a subject: the list is easier to filter and statistics show your weakest subjects.",
+          "Search by the name of a material, note or subject; the / key puts the cursor straight into the search.",
+          "Fold the list away to give the text more room."
+        ]
+      },
+      "notes": {
+        "short": "Notes",
+        "eyebrow": "Basics",
+        "title": "Four kinds of notes",
+        "lead": "Text, drawing, summary and essay, for different ways of thinking.",
+        "how": "In an open material, press “+” next to “Notes” and pick a type. Everything saves by itself as soon as you pause.",
+        "where": "Materials list → open a material → “Notes”.",
+        "why": "What you write in your own words sticks better, and every note can have its own questions.",
+        "tips": [
+          "AI writes the summary from the whole material, its notes and dictionaries; one per material.",
+          "Dictate instead of typing: voice input remembers the language you chose.",
+          "Paste a screenshot straight into a note with Ctrl/⌘ + V."
+        ]
+      },
+      "essay": {
+        "short": "Essays",
+        "eyebrow": "Basics · new",
+        "title": "Essays with an honest check",
+        "lead": "Write an essay for a task and AI scores it on four criteria from 0 to 100, with specific corrections.",
+        "how": "Create an “Essay” note, paste the wording of the task, write the text (30 words or more) and press “Check essay”.",
+        "where": "A material's notes → “+” → “Essay”.",
+        "why": "You see more than a score: exactly what holds it back, be it task response, logic, vocabulary or grammar.",
+        "tips": [
+          "Only the quality of the writing is judged; your opinion never affects the score.",
+          "The last result is kept with the essay and is still there after a reload.",
+          "Fixed the mistakes? Press “Check again” and compare."
+        ]
+      },
+      "questions": {
+        "short": "Questions",
+        "eyebrow": "Testing yourself",
+        "title": "Questions that really test you",
+        "lead": "Three types cover almost everything: open, options (one or several correct) and true/false.",
+        "how": "Add questions yourself or ask AI to draft some from the text of a material or note, then edit them to suit you.",
+        "where": "A material or note → the “Questions” tab.",
+        "why": "Answering from memory does more than re-reading: it is what makes knowledge stick.",
+        "tips": [
+          "Be honest about difficulty: hard questions weigh three times as much.",
+          "Add an explanation to a question; it helps when you get it wrong."
+        ]
+      },
+      "defend": {
+        "short": "Self-defending",
+        "eyebrow": "Testing yourself",
+        "title": "Self-defending instead of cramming",
+        "lead": "A quiz from the material's questions: random order, shuffled options and your confidence next to every answer.",
+        "how": "Press “Start Self Defending”, choose the difficulty and the number of questions, and go.",
+        "where": "A material → “Questions” → “Start Self Defending”.",
+        "why": "Confidence next to an answer shows where you are wrong even when you feel sure.",
+        "tips": [
+          "After an attempt AI briefly explains every mistake.",
+          "Questions you answered unsure come back for review."
+        ]
+      },
+      "score": {
+        "short": "Score",
+        "eyebrow": "Testing yourself",
+        "title": "An honest score from 0 to 100",
+        "lead": "Every answer gets a score, and the attempt score is a weighted average where hard questions count more.",
+        "how": "Open answers are first compared word for word, then fuzzily (a typo costs nothing), and AI checks the ones that say the same in other words.",
+        "where": "The results after each attempt, and statistics.",
+        "why": "The score reflects understanding, not perfect spelling.",
+        "tips": [
+          "Options with several correct ones give partial credit for a partly right choice.",
+          "Exactly how an answer is checked is shown step by step below, under “Under the hood”."
+        ]
+      },
+      "words": {
+        "short": "Dictionaries",
+        "eyebrow": "Words",
+        "title": "Dictionaries and flashcards",
+        "lead": "Words with translation, transcription, article, examples and synonyms, and cards that come back just in time.",
+        "how": "Create a dictionary in a material, add words yourself or with AI and practise them with flashcards.",
+        "where": "A material → a dictionary → the “Flashcards” tab.",
+        "why": "Spaced repetition shows a word right when you are about to forget it.",
+        "tips": [
+          "“Don't know” or “Unsure” opens a mini quiz: the next word comes once you answer it right.",
+          "Swipe the cards or press ← ↓ →; space flips the card."
+        ]
+      },
+      "lookup": {
+        "short": "Words from text",
+        "eyebrow": "Words",
+        "title": "Any word into your dictionary",
+        "lead": "Select an unknown word in a material or note and its translation, grammar and an example appear right next to it.",
+        "how": "Select a word or phrase, check the suggestion and press “Add to dictionary”. The sentence it came from becomes the example.",
+        "where": "Any text of a material or note.",
+        "why": "Words learnt from context stay longer than words from a list.",
+        "tips": [
+          "If the word is already in the dictionary, Studytracker says so and won't add it twice.",
+          "Translations are in the language set in your profile."
+        ]
+      },
+      "today": {
+        "short": "Today",
+        "eyebrow": "Every day",
+        "title": "Daily review",
+        "lead": "One queue a day: the questions and words from all your materials that are due.",
+        "how": "Open “Today”, press “Start” and go through everything that is waiting.",
+        "where": "Navigation → “Today”. The number next to it shows how much is waiting.",
+        "why": "A few minutes a day keep knowledge better than a night before the exam.",
+        "tips": [
+          "Your streak grows when you review every day, and freezes save a missed day.",
+          "Email reminders are set up in your account."
+        ]
+      },
+      "deadlines": {
+        "short": "Calendar",
+        "eyebrow": "Every day",
+        "title": "Deadlines and calendar",
+        "lead": "Give a material the date of an exam or a hand-in and see how much time is left.",
+        "how": "Set a deadline in the material; the calendar shows it together with the days you studied.",
+        "where": "Navigation → “Calendar”.",
+        "why": "With the date in sight, reviews are easier to spread out instead of squeezing them into the last evening.",
+        "tips": [
+          "A few days before the exam, run self-defending with only the hard questions."
+        ]
+      },
+      "statistics": {
+        "short": "Statistics",
+        "eyebrow": "Every day",
+        "title": "Statistics that give you hints",
+        "lead": "Score trend, streak, accuracy by difficulty, confidence calibration and your weakest subjects.",
+        "how": "Just learn: statistics gather themselves from every attempt and review.",
+        "where": "Navigation → “Statistics”.",
+        "why": "You see not only how much you studied but what to work on next.",
+        "tips": [
+          "“Focus areas” lists the subjects with the lowest accuracy; start with those."
+        ]
+      },
+      "library": {
+        "short": "Library",
+        "eyebrow": "Together",
+        "title": "A library of ready materials",
+        "lead": "Languages, programming and more: materials with questions and dictionaries that you can add in one click.",
+        "how": "Open the library, look through a material and add it: you get your own copy.",
+        "where": "Navigation → “Library”. It is open even without signing in.",
+        "why": "No need to start from scratch: take something ready and practise right away.",
+        "tips": [
+          "You can also propose your own material for the library."
+        ]
+      },
+      "share": {
+        "short": "Sharing",
+        "eyebrow": "Together",
+        "title": "Share and learn together",
+        "lead": "A link gives a friend a full copy of a material: notes, dictionaries and questions. Your attempts and progress stay yours.",
+        "how": "In a material, press “Share” and copy the link.",
+        "where": "An open material → “Share”.",
+        "why": "Learning as a pair is more fun, and on the Duo plan each of you has your own AI quotas.",
+        "tips": [
+          "Changes in someone else's copy never touch yours."
+        ]
+      },
+      "ai": {
+        "short": "AI and limits",
+        "eyebrow": "Together",
+        "title": "AI that helps, not decides",
+        "lead": "Questions from text, answers checked by meaning, mistakes explained, summaries, words and essays, whenever you press the button.",
+        "how": "Look for buttons with a sparkle ✨: next to them you see how many requests are left this month.",
+        "where": "Questions, dictionaries, summaries, essays and attempt results.",
+        "why": "AI takes the routine, the thinking stays yours.",
+        "tips": [
+          "Limits renew on the first day of every month, and failed requests are not counted.",
+          "You can choose the language of AI explanations in your profile."
+        ]
+      }
+    },
+    "hood": {
+      "short": "Under the hood",
+      "eyebrow": "Under the hood",
+      "title": "How it all works inside",
+      "text": "No magic: here is what happens to your answer, your memory and your data.",
+      "score": {
+        "title": "From an answer to a score",
+        "text": "An open answer goes through several checks and stops at the first one that gives a sure result.",
+        "question": "Question:",
+        "pick": "Pick an answer",
+        "steps": {
+          "exact": {
+            "title": "Exact match",
+            "text": "Word for word, ignoring case and spaces."
+          },
+          "fuzzy": {
+            "title": "Fuzzy match",
+            "text": "Catches typos and small differences."
+          },
+          "ai": {
+            "title": "AI by meaning",
+            "text": "Only for the “grey zone”: close, but in other words."
+          },
+          "score": {
+            "title": "Score",
+            "text": "From 0 to 100, then into the attempt score."
+          }
+        },
+        "examples": {
+          "exact": "Word for word: 100 straight away and nothing else is checked.",
+          "typo": "One typo: the fuzzy match recognises the word and the score is nearly full.",
+          "meaning": "Other words, same meaning: the answer is in the grey zone, so AI judges the meaning itself.",
+          "wrong": "Not it at all: a score of 0, AI isn't even asked, and the question comes back for review."
+        }
+      },
+      "memory": {
+        "title": "Reviews at the right moment",
+        "text": "The FSRS algorithm tracks how fast you forget each word and question and schedules a review when your chance of recalling it drops to about 90%. The better you know it, the less often you see it.",
+        "target": "90%: time to review",
+        "day": "day {{day}}",
+        "chart": "A forgetting curve that falls more slowly after every review",
+        "caption": "Every review makes the curve flatter, so the gaps grow: days, a week, several weeks. The 90% goal can be changed in your learning settings."
+      },
+      "trust": {
+        "title": "Your data, under your control",
+        "ai": {
+          "title": "AI only when you ask",
+          "text": "Text goes to AI only when you press the button, and only what that task needs."
+        },
+        "quota": {
+          "title": "Fair limits",
+          "text": "AI requests are counted per month and failed ones are not taken off. How many are left shows next to every button."
+        },
+        "autosave": {
+          "title": "Autosave",
+          "text": "Notes, essays and drawings save themselves as soon as you pause."
+        },
+        "export": {
+          "title": "Export any time",
+          "text": "Download all your data from your account: a ZIP with JSON and a word table for Anki."
+        }
+      }
+    },
+    "tips": {
+      "short": "Tips",
+      "eyebrow": "Tips",
+      "title": "Small things that save time",
+      "text": "Keys and tricks worth knowing from day one.",
+      "items": {
+        "search": {
+          "title": "Quick search",
+          "text": "In the materials list press / and search by name, note or subject."
+        },
+        "flashcards": {
+          "title": "Flashcards from the keyboard",
+          "text": "← don't know, ↓ unsure, → know; space flips the card."
+        },
+        "links": {
+          "title": "Links in notes",
+          "text": "Hold Ctrl or ⌘ and click a link to open it in a new tab."
+        },
+        "paste": {
+          "title": "Images from the clipboard",
+          "text": "Copy a screenshot and paste it straight into a note."
+        },
+        "voice": {
+          "title": "Voice input",
+          "text": "Dictate notes and answers; the recognition language you pick is remembered."
+        },
+        "select": {
+          "title": "A word into the dictionary",
+          "text": "Select a word in a material or note and a translation appears next to it with an “Add” button."
+        },
+        "install": {
+          "title": "Like an app",
+          "text": "Install Studytracker from your browser's menu and it opens in its own window like any other app."
+        },
+        "theme": {
+          "title": "Theme and language",
+          "text": "Light or dark theme and the interface language switch at the top of the page."
+        }
+      }
+    },
+    "faq": {
+      "short": "FAQ",
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions",
+      "items": {
+        "free": {
+          "q": "Is Studytracker free?",
+          "a": "Yes, the Free plan costs nothing. AI features have monthly limits, and Plus and Duo give more AI requests and more room for materials."
+        },
+        "private": {
+          "q": "Who can see my materials?",
+          "a": "Only you. You can share with a link that gives a separate copy, or propose a material for the library."
+        },
+        "quota": {
+          "q": "What if my AI limit runs out?",
+          "a": "Everything else works as usual: notes, questions, self-defending, flashcards. Limits renew on the first of the month, and the “Limits” page shows how many are left."
+        },
+        "export": {
+          "q": "How do I take my data with me?",
+          "a": "Your account has an export: a ZIP with all your materials, notes, questions and dictionaries, plus a word table for Anki."
+        },
+        "languages": {
+          "q": "Which languages does Studytracker speak?",
+          "a": "The interface is in Ukrainian, English and Norwegian. AI explanations come in any of 11 languages, and you can learn anything."
+        }
+      }
     }
   }
 }

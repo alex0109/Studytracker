@@ -1,4 +1,4 @@
-import type { INoteResponse } from "@/entities/note/model";
+import type { INoteResponse } from "@/entities/note/@x/ai";
 
 export interface ISummaryGenerateResponse {
   note: INoteResponse;

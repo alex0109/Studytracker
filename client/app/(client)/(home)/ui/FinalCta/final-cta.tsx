@@ -2,11 +2,12 @@
 
 import { FC } from "react";
 import Link from "next/link";
-import { LuArrowRight, LuSprout } from "react-icons/lu";
+import { LuArrowRight } from "react-icons/lu";
 import { useSession } from "@/shared/context/session.provider";
 import { routes } from "@/shared/config/routes";
 import { useTranslation } from "@/shared/i18n";
 import { Reveal } from "../Reveal";
+import { BrandEmblem } from "../BrandEmblem";
 
 export const FinalCta: FC = () => {
   const { t } = useTranslation();
@@ -21,8 +22,9 @@ export const FinalCta: FC = () => {
             className="absolute -top-40 left-1/2 h-[26rem] w-[44rem] -translate-x-1/2 rounded-full bg-linear-to-r from-emerald-500/40 via-sky-500/40 to-violet-500/40 blur-3xl"
           />
           <div className="relative flex flex-col items-center gap-6">
-            <span className="flex size-14 items-center justify-center rounded-2xl bg-white/10 text-2xl text-emerald-300 backdrop-blur">
-              <LuSprout />
+            <BrandEmblem onDark className="size-36 md:size-44" />
+            <span className="text-xs font-medium uppercase tracking-[0.25em] text-neutral-400">
+              {t("landing.cta.emblem")}
             </span>
             <h2 className="text-3xl! md:text-5xl! font-semibold! tracking-tight text-balance">
               {t("landing.cta.title")}

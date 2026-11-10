@@ -150,6 +150,12 @@ const ContentEditor: FC<ContentEditorType> = ({
       if (saveTimer.current) clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(() => save(editor), SAVE_DELAY_MS);
     },
+    // Leaving the text, for example to press a button that reads the saved note, saves it at once
+    onBlur: ({ editor }) => {
+      if (!saveTimer.current) return;
+      clearTimeout(saveTimer.current);
+      save(editor);
+    },
     immediatelyRender: false,
     editorProps: {
       attributes: {

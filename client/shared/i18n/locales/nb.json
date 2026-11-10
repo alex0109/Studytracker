@@ -33,7 +33,8 @@
     "today": "I dag",
     "account": "Konto",
     "calendar": "Kalender",
-    "landing": "Studytracker: forsiden"
+    "landing": "Studytracker: forsiden",
+    "guide": "Veiledning"
   },
   "preferences": {
     "language": "Språk",
@@ -75,7 +76,7 @@
       "line1": "Bygg kunnskap.",
       "line2": "Forsterk den.",
       "line3": "Gjør den varig.",
-      "text": "Studytracker er et system som bygger, forsterker og styrker det du lærer. Samle materialer, gjør dem om til spørsmål og kort, forsvar det du kan og se nøyaktig hvor det fortsatt slår sprekker.",
+      "text": "Studytracker er et system som bygger opp, forsterker og styrker det du lærer. Samle materialer, gjør dem om til spørsmål og flashkort, skriv essay og få dem sjekket, forsvar kunnskapen din og se nøyaktig hvor den fortsatt sprekker.",
       "openMaterials": "Åpne materialene mine",
       "start": "Begynn å vokse",
       "howItWorks": "Se hvordan det fungerer"
@@ -129,7 +130,7 @@
         "material": {
           "label": "Legg til et materiale",
           "title": "Alt starter med et materiale",
-          "text": "En artikkel, en video, en praktisk oppgave eller en prøve. Gi det en status og tagger, og legg til notater, spørsmål og en ordliste."
+          "text": "En artikkel, en video, en praktisk oppgave eller en prøve. Gi det en status og et fag, og legg til notater, spørsmål og en ordliste."
         },
         "questions": {
           "label": "Lag spørsmål",
@@ -149,7 +150,7 @@
         "statistics": {
           "label": "Se det vokse",
           "title": "Se hva som blir sterkere",
-          "text": "Statistikken følger deg over tid: poengutvikling, studierekke, treffsikkerhet etter vanskelighetsgrad, hvor godt selvtilliten stemmer med virkeligheten og hvilke tagger som er svakest."
+          "text": "Statistikken følger deg over tid: poengutvikling, studierekke, treffsikkerhet etter vanskelighetsgrad, hvor godt selvtilliten stemmer med virkeligheten og hvilke fag som er svakest."
         }
       }
     },
@@ -159,7 +160,7 @@
         "title": "Fotosyntese",
         "status": "Pågår",
         "tagBiology": "biologi",
-        "tagExam": "eksamen",
+        "tagExam": "botanikk",
         "attachments": {
           "lightReactions": {
             "title": "Lysreaksjoner",
@@ -229,7 +230,7 @@
         "streakDays": "12 dager",
         "calibration": "Hvor ofte du har rett når du føler deg…",
         "weakest": "Svakeste tema",
-        "weakestTag": "#kjemi",
+        "weakestTag": "Kjemi",
         "next": "Neste ting å styrke"
       }
     },
@@ -254,11 +255,11 @@
     "glossary": {
       "eyebrow": "Ordliste",
       "title": "Hver del, på én linje",
-      "text": "Ni ideer er alt du trenger for å føle deg hjemme.",
+      "text": "Ti ideer, så føler du deg hjemme.",
       "items": {
         "material": {
           "name": "Materiale",
-          "text": "Alt du studerer: en artikkel, video, øvelse eller prøve. Har status og tagger."
+          "text": "Alt du studerer: en artikkel, video, øvelse eller prøve. Har status og ett eller flere fag."
         },
         "note": {
           "name": "Notat",
@@ -289,14 +290,101 @@
           "text": "Utvikling, rekke, treffsikkerhet, kalibrering av selvtillit og de svakeste temaene dine over tid."
         },
         "tag": {
-          "name": "Tagg",
-          "text": "En merkelapp som grupperer materialer og viser hvilke temaer som trenger mest arbeid."
+          "name": "Fag",
+          "text": "Grupperer materialer etter fag og viser hvilke fag som trenger mest arbeid."
+        },
+        "essay": {
+          "name": "Essay",
+          "text": "Et notat skrevet til en oppgave. KI gir poeng fra 0 til 100 på fire kriterier og viser konkrete rettelser."
         }
       }
     },
     "cta": {
       "title": "Plant det første frøet i dag.",
-      "text": "Legg til ett materiale, still deg selv tre spørsmål og forsvar dem i morgen. Om en uke ser du hva du virkelig kan, og hva du bør bygge videre på."
+      "text": "Legg til ett materiale, still deg selv tre spørsmål og forsvar dem i morgen. Om en uke ser du hva du virkelig kan, og hva du bør bygge videre på.",
+      "emblem": "Kunnskap som har fortjent kransen"
+    },
+    "features": {
+      "eyebrow": "Funksjoner",
+      "title": "Alt som får kunnskap til å sitte",
+      "text": "Fra første ord til eksamen: Studytracker tar seg av rutinen og lar deg konsentrere deg om læringen.",
+      "new": "Nytt",
+      "guideLink": "Åpne hele veiledningen",
+      "items": {
+        "essay": {
+          "title": "Essaysjekk",
+          "text": "Lim inn oppgaven, skriv essayet og få en ærlig gjennomgang: poeng for svar på oppgaven, logikk, ordforråd og grammatikk, pluss konkrete rettelser."
+        },
+        "today": {
+          "title": "Daglig repetisjon",
+          "text": "Én kø om dagen fra alle ordlister og materialer: akkurat det som skal repeteres."
+        },
+        "ai": {
+          "title": "KI-hjelper",
+          "text": "Utkast til spørsmål fra tekst, svar sjekket etter mening, forklarte feil og sammendrag."
+        },
+        "lookup": {
+          "title": "Ord fra hvilken som helst tekst",
+          "text": "Marker et ord i et materiale eller notat: oversettelse, grammatikk og lagring i ordlisten med ett klikk."
+        },
+        "deadlines": {
+          "title": "Frister og kalender",
+          "text": "Sett eksamensdatoen og se hvor mye tid som er igjen og når du studerte."
+        },
+        "library": {
+          "title": "Bibliotek",
+          "text": "Ferdige materialer med spørsmål og ordlister: legg til og begynn å lære med en gang."
+        },
+        "import": {
+          "title": "Import fra lenke",
+          "text": "Lim inn en lenke til en artikkel: teksten blir et materiale, og om du vil kommer spørsmålene med en gang."
+        },
+        "share": {
+          "title": "Del og lær sammen",
+          "text": "En lenke gir en venn sin egen kopi av et materiale. Med Duo-planen lærer dere i par."
+        }
+      },
+      "demo": {
+        "essay": {
+          "task": "Noen mener at byen er et bedre sted å bo enn bygda. Drøft begge synene."
+        },
+        "today": {
+          "progress": "{{done}} av {{total}} repetert"
+        },
+        "ai": {
+          "questions": "Spørsmål fra materialets tekst",
+          "grading": "Svar sjekket etter mening",
+          "explain": "Forklarte feil etter selvforsvar",
+          "summary": "Sammendrag av hele materialet"
+        },
+        "lookup": {
+          "translation": "hund · substantiv",
+          "add": "Legg til i ordlisten",
+          "added": "Lagt til"
+        },
+        "deadlines": {
+          "exam_one": "Biologieksamen om {{count}} dag",
+          "exam_other": "Biologieksamen om {{count}} dager"
+        },
+        "library": {
+          "meta": "{{words}} ord · {{questions}} spørsmål",
+          "add": "Legg til hos meg",
+          "added": "Lagt til"
+        },
+        "import": {
+          "fetch": "Laster inn siden",
+          "extract": "Henter ut teksten i artikkelen",
+          "questions": "Lager spørsmål til selvtest"
+        },
+        "share": {
+          "copy": "Kopier",
+          "copied": "Kopiert",
+          "notes": "Notater",
+          "dictionaries": "Ordlister",
+          "questions": "Spørsmål",
+          "attempts": "Dine forsøk"
+        }
+      }
     }
   },
   "questions": {
@@ -584,7 +672,20 @@
     "sidebar": {
       "emptyTitle": "Ingen materialer ennå",
       "emptyText": "Legg til det første: en artikkel, en video eller en prøve. Legg så til notater, spørsmål og ord.",
-      "noNotes": "Ingen notater ennå"
+      "noNotes": "Ingen notater ennå",
+      "search": "Søk i materialer og notater",
+      "clearSearch": "Tøm søket",
+      "subjectsFilter": "Filtrer etter fag",
+      "allSubjects": "Alle",
+      "noResults": "Fant ingenting",
+      "clearFilters": "Nullstill søk og filter",
+      "notes": "Notater",
+      "dictionaries": "Ordlister",
+      "noDictionaries": "Ingen ordlister ennå",
+      "collapse": "Skjul listen",
+      "expand": "Vis listen",
+      "sheetText": "Velg et materiale, notat eller en ordliste",
+      "breadcrumb": "Hvor du er"
     },
     "emptySection": {
       "hint": "Velg et materiale til venstre eller legg til et nytt.",
@@ -668,8 +769,8 @@
   "toasts": {
     "materialCreated": "Materialet er opprettet!",
     "materialCreateError": "Kunne ikke opprette materialet",
-    "tagAddedToMaterial": "Taggen er lagt til materialet",
-    "tagAddError": "Kunne ikke legge taggen til materialet",
+    "tagAddedToMaterial": "Faget er lagt til materialet",
+    "tagAddError": "Kunne ikke legge faget til materialet",
     "materialDeleted": "Materialet er slettet!",
     "materialDeleteError": "Kunne ikke slette materialet",
     "shareDisabled": "Lenken er slått av, ingen kan importere den lenger",
@@ -677,11 +778,11 @@
     "shareCreateError": "Kunne ikke opprette delingslenken",
     "materialImported": "Materialet er lagt til i materialene dine!",
     "materialImportError": "Kunne ikke importere materialet",
-    "tagRemoved": "Taggen er fjernet",
-    "tagRemoveError": "Kunne ikke fjerne taggen",
+    "tagRemoved": "Faget er fjernet",
+    "tagRemoveError": "Kunne ikke fjerne faget",
     "materialUpdateError": "Kunne ikke oppdatere materialet",
-    "tagCreated": "Taggen er opprettet",
-    "tagCreateError": "Kunne ikke opprette taggen",
+    "tagCreated": "Faget er opprettet",
+    "tagCreateError": "Kunne ikke opprette faget",
     "noteCreated": "Notatet er opprettet!",
     "noteCreateError": "Kunne ikke opprette notatet",
     "noteUpdateError": "Kunne ikke oppdatere notatet",
@@ -724,9 +825,11 @@
     "attemptNotFinished": "Forsøket ble ikke fullført, prøv igjen",
     "tagCreatedText": "Du kan bruke den i alle materialer",
     "noQuestions": "Det er ingen spørsmål å repetere nå",
-    "tagDeleted": "Taggen er slettet",
-    "tagDeleteError": "Kunne ikke slette taggen",
-    "attemptNotStarted": "Forsøket startet ikke, prøv igjen"
+    "tagDeleted": "Faget er slettet",
+    "tagDeleteError": "Kunne ikke slette faget",
+    "attemptNotStarted": "Forsøket startet ikke, prøv igjen",
+    "essayChecked": "Essayet er sjekket",
+    "essayCheckError": "Kunne ikke sjekke essayet"
   },
   "ai": {
     "errors": {
@@ -746,13 +849,14 @@
       "AnswerGrading": "Sjekk av svar etter mening",
       "SummaryGeneration": "Generering av sammendrag",
       "MistakeExplanation": "Forklaring av feil",
-      "WordLookup": "Ord fra teksten"
+      "WordLookup": "Ord fra teksten",
+      "EssayReview": "Essaysjekker"
     }
   },
   "share": {
     "button": "Del",
     "title": "Del materiale",
-    "text": "Alle med lenken får en full kopi: notater, ordlister og spørsmål. Tagger og forsøk blir hos deg, og endringer i deres kopi rører aldri din.",
+    "text": "Alle med lenken får en full kopi: notater, ordlister og spørsmål. Fag og forsøk blir hos deg, og endringer i deres kopi rører aldri din.",
     "linkLabel": "Delingslenke",
     "copy": "Kopier",
     "copied": "Kopiert",
@@ -776,7 +880,7 @@
         "words_one": "ord",
         "words_other": "ord"
       },
-      "copyNote": "Du får din egen kopi som du kan redigere og lære av. Tagger, forsøk og eierens fremgang kopieres ikke.",
+      "copyNote": "Du får din egen kopi som du kan redigere og lære av. Fag, forsøk og eierens fremgang kopieres ikke.",
       "signIn": "Logg inn for å få dette materialet",
       "yours": "Dette er ditt materiale.",
       "alreadyImported": "Du har allerede en kopi. En ny import lager en til.",
@@ -784,21 +888,21 @@
     }
   },
   "tags": {
-    "label": "Tagger",
-    "manage": "Administrer tagger",
-    "addToMaterial": "Tagger for dette materialet",
-    "noneYet": "Ingen tagger ennå. Opprett den første nedenfor.",
-    "none": "Ingen tagger",
-    "new": "Ny tagg",
-    "addTitle": "Ny tagg",
+    "label": "Fag",
+    "manage": "Administrer fag",
+    "addToMaterial": "Fag for dette materialet",
+    "noneYet": "Ingen fag ennå. Opprett det første nedenfor.",
+    "none": "Ingen fag",
+    "new": "Nytt fag",
+    "addTitle": "Nytt fag",
     "name": "Navn",
     "namePlaceholder": "F.eks. Engelsk",
     "color": "Farge",
-    "addToMaterialText": "Trykk på en tagg for å legge den til eller fjerne den.",
-    "delete": "Slett tagg",
-    "deleteNamed": "Slett taggen «{{name}}»",
-    "deleteTitle": "Slette taggen «{{name}}»?",
-    "deleteText": "Taggen forsvinner fra alle materialer. Selve materialene blir værende."
+    "addToMaterialText": "Trykk på et fag for å legge det til eller fjerne det.",
+    "delete": "Slett fag",
+    "deleteNamed": "Slett faget «{{name}}»",
+    "deleteTitle": "Slette faget «{{name}}»?",
+    "deleteText": "Faget forsvinner fra alle materialer. Selve materialene blir værende."
   },
   "editor": {
     "toolbar": "Tekstformatering",
@@ -840,7 +944,8 @@
     "types": {
       "text": "✍️ Tekst",
       "drawing": "🖌️ Tegning",
-      "summary": "📚 Sammendrag"
+      "summary": "📚 Sammendrag",
+      "essay": "🪶 Essay"
     },
     "drawing": {
       "tools": {
@@ -867,7 +972,57 @@
       "replace": "Erstatt"
     },
     "titleExample": "F.eks. Hovedpoenger",
-    "typeLabel": "Notattype"
+    "typeLabel": "Notattype",
+    "essay": {
+      "taskLabel": "Oppgave",
+      "taskPlaceholder": "Lim inn temaet eller ordlyden i oppgaven. F.eks.: «Bør høyere utdanning være gratis? Drøft begge syn og gi din egen mening.»",
+      "taskHint": "Sjekken ser på hvor godt essayet svarer på akkurat denne oppgaven. Uten oppgave: hvor tydelig det utvikler sitt eget tema.",
+      "check": "Sjekk essayet",
+      "checkAgain": "Sjekk igjen",
+      "checking": "Sjekker essayet …",
+      "wordsLabel_one": "ord",
+      "wordsLabel_other": "ord",
+      "words_one": "{{count}} ord",
+      "words_other": "{{count}} ord",
+      "needMore_one": "Skriv {{count}} ord til for å sjekke",
+      "needMore_other": "Skriv {{count}} ord til for å sjekke",
+      "empty": {
+        "title": "Skriv et essay, få en ærlig gjennomgang",
+        "text": "Sjekken gir poeng fra 0 til 100 på fire områder, viser hva som fungerer og hva som kan bli bedre, og lister konkrete feil med rettelser. Bare skrivingen vurderes, aldri meningen din."
+      },
+      "criteria": {
+        "TaskResponse": "Svar på oppgaven",
+        "Coherence": "Logikk og sammenheng",
+        "Vocabulary": "Ordforråd",
+        "Grammar": "Grammatikk"
+      },
+      "levels": {
+        "excellent": "Utmerket",
+        "good": "Bra",
+        "adequate": "Tilstrekkelig",
+        "partial": "Delvis",
+        "weak": "Trenger arbeid"
+      },
+      "categories": {
+        "Grammar": "Grammatikk",
+        "Vocabulary": "Ordvalg",
+        "Spelling": "Rettskriving",
+        "Punctuation": "Tegnsetting",
+        "Style": "Stil"
+      },
+      "result": {
+        "title": "Resultat av essaysjekken",
+        "overall": "Samlet poeng",
+        "checkedAt": "Sjekket {{date}}",
+        "truncated": "Essayet er svært langt, så bare den første delen ble sjekket.",
+        "strengths": "Dette fungerer",
+        "improvements": "Dette kan bli bedre",
+        "corrections": "Rettelser",
+        "noCorrections": "Fant ingen feil som bør rettes.",
+        "showAll": "Vis alle ({{count}})",
+        "showLess": "Vis færre"
+      }
+    }
   },
   "dictionary": {
     "generate": {
@@ -1012,8 +1167,8 @@
     },
     "tags": {
       "title": "Fokusområder",
-      "subtitle": "Svakeste temaer først",
-      "empty": "Legg til tagger på materialene dine for å se hvilke temaer som trenger mer arbeid.",
+      "subtitle": "Svakeste fag først",
+      "empty": "Legg til fag på materialene dine for å se hvilke som trenger mer arbeid.",
       "accuracyOf": "Treffsikkerhet for {{tag}}"
     },
     "calibration": {
@@ -1819,6 +1974,367 @@
       "notAllowed": "Ingen tilgang til mikrofonen. Tillat den i nettleserinnstillingene",
       "network": "Talegjenkjenning er ikke tilgjengelig nå: sjekk nettet",
       "failed": "Kunne ikke gjenkjenne talen, prøv igjen"
+    }
+  },
+  "guide": {
+    "meta": {
+      "title": "Veiledning: slik bruker du Studytracker",
+      "description": "En visuell veiledning til Studytracker: materialer, notater, essay med sjekk, spørsmål, selvforsvar, flashkort, daglig repetisjon og hvordan alt fungerer under panseret."
+    },
+    "hero": {
+      "eyebrow": "Veiledning",
+      "title": "Alt om Studytracker,",
+      "accent": "vist i stedet for fortalt",
+      "text": "Hvordan alt henger sammen, hvor du finner ting og hvorfor de fungerer som de gjør. Demoene er levende: trykk, bytt, prøv.",
+      "toc": "Innhold i veiledningen"
+    },
+    "quick": {
+      "step": "Steg {{step}}",
+      "add": {
+        "title": "Legg til et materiale",
+        "text": "En artikkel, en video, en prøve eller hva du enn studerer."
+      },
+      "ask": {
+        "title": "Lag spørsmål",
+        "text": "Selv eller med KI, fra teksten i et materiale eller notat."
+      },
+      "defend": {
+        "title": "Forsvar kunnskapen",
+        "text": "Ta en runde selvforsvar og se hva som fortsatt sprekker."
+      }
+    },
+    "chapters": {
+      "basics": "Grunnleggende",
+      "check": "Test deg selv",
+      "words": "Ord",
+      "daily": "Hver dag",
+      "together": "Sammen og med KI",
+      "more": "Mer"
+    },
+    "labels": {
+      "how": "Hvordan",
+      "where": "Hvor",
+      "why": "Hvorfor"
+    },
+    "notes": {
+      "text": "Formatert tekst",
+      "drawing": "Mus, finger eller penn",
+      "summary": "Kort gjenfortelling fra KI",
+      "essay": "Tekst til en oppgave, sjekket",
+      "voice": "Snakk, så kommer teksten"
+    },
+    "sections": {
+      "start": {
+        "short": "Materialer",
+        "eyebrow": "Grunnleggende",
+        "title": "Materialet er hjertet i alt",
+        "lead": "Alt du studerer, bor i et materiale: tekst, notater, ordlister, spørsmål og forsøk.",
+        "how": "Trykk «+» i materiallisten, gi det et navn, velg type og status. Lim inn teksten selv eller importer en artikkel fra en lenke.",
+        "where": "Materialer → «+» øverst i listen.",
+        "why": "Når alt om ett tema ligger samlet, er det mye enklere å repetere og teste seg selv.",
+        "tips": [
+          "Gi materialet et fag: listen blir lettere å filtrere, og statistikken viser de svakeste fagene.",
+          "Søk etter navnet på et materiale, notat eller fag; tasten / setter markøren rett i søket.",
+          "Listen kan skjules for å gi teksten mer plass."
+        ]
+      },
+      "notes": {
+        "short": "Notater",
+        "eyebrow": "Grunnleggende",
+        "title": "Fire typer notater",
+        "lead": "Tekst, tegning, sammendrag og essay, for ulike måter å tenke på.",
+        "how": "I et åpent materiale trykker du «+» ved «Notater» og velger type. Alt lagres av seg selv så snart du tar en pause.",
+        "where": "Materiallisten → åpne et materiale → «Notater».",
+        "why": "Det du skriver med egne ord, huskes bedre, og hvert notat kan ha egne spørsmål.",
+        "tips": [
+          "KI skriver sammendraget ut fra hele materialet, notatene og ordlistene; ett per materiale.",
+          "Dikter i stedet for å skrive: taleinndata husker språket du valgte.",
+          "Lim inn et skjermbilde rett i notatet med Ctrl/⌘ + V."
+        ]
+      },
+      "essay": {
+        "short": "Essay",
+        "eyebrow": "Grunnleggende · nytt",
+        "title": "Essay med en ærlig sjekk",
+        "lead": "Skriv et essay til en oppgave, så gir KI poeng fra 0 til 100 på fire kriterier og viser konkrete rettelser.",
+        "how": "Lag et «Essay»-notat, lim inn ordlyden i oppgaven, skriv teksten (minst 30 ord) og trykk «Sjekk essayet».",
+        "where": "Materialets notater → «+» → «Essay».",
+        "why": "Du ser mer enn et tall: nøyaktig hva som trekker ned, enten det er svar på oppgaven, logikk, ordforråd eller grammatikk.",
+        "tips": [
+          "Bare kvaliteten på skrivingen vurderes; meningen din påvirker aldri poengene.",
+          "Det siste resultatet lagres med essayet og er der også etter en omlasting.",
+          "Rettet feilene? Trykk «Sjekk igjen» og sammenlign."
+        ]
+      },
+      "questions": {
+        "short": "Spørsmål",
+        "eyebrow": "Test deg selv",
+        "title": "Spørsmål som virkelig tester",
+        "lead": "Tre typer dekker nesten alt: åpne, alternativer (ett eller flere riktige) og sant/usant.",
+        "how": "Legg til spørsmål selv eller be KI lage et utkast fra teksten i et materiale eller notat, og rediger det etter eget ønske.",
+        "where": "Et materiale eller notat → fanen «Spørsmål».",
+        "why": "Å svare fra hukommelsen gir mer enn å lese på nytt: det er slik kunnskap fester seg.",
+        "tips": [
+          "Vær ærlig om vanskelighetsgraden: vanskelige spørsmål teller tre ganger så mye.",
+          "Legg til en forklaring på spørsmålet; den hjelper når du svarer feil."
+        ]
+      },
+      "defend": {
+        "short": "Selvforsvar",
+        "eyebrow": "Test deg selv",
+        "title": "Selvforsvar i stedet for pugging",
+        "lead": "En quiz fra materialets spørsmål: tilfeldig rekkefølge, stokkede alternativer og hvor sikker du er ved hvert svar.",
+        "how": "Trykk «Start selvforsvar», velg vanskelighetsgrad og antall spørsmål, og sett i gang.",
+        "where": "Et materiale → «Spørsmål» → «Start selvforsvar».",
+        "why": "Hvor sikker du er ved siden av svaret, viser hvor du tar feil selv når du føler deg trygg.",
+        "tips": [
+          "Etter et forsøk forklarer KI kort hver feil.",
+          "Spørsmål du svarte usikkert på, kommer tilbake til repetisjon."
+        ]
+      },
+      "score": {
+        "short": "Poeng",
+        "eyebrow": "Test deg selv",
+        "title": "Ærlige poeng fra 0 til 100",
+        "lead": "Hvert svar får poeng, og forsøkets poeng er et vektet snitt der vanskelige spørsmål teller mer.",
+        "how": "Åpne svar sammenlignes først ord for ord, så omtrentlig (en skrivefeil koster ingenting), og KI sjekker dem som sier det samme med andre ord.",
+        "where": "Resultatene etter hvert forsøk, og statistikken.",
+        "why": "Poengene viser forståelse, ikke perfekt rettskriving.",
+        "tips": [
+          "Alternativer med flere riktige gir delpoeng for et delvis riktig valg.",
+          "Nøyaktig hvordan et svar sjekkes, vises steg for steg nedenfor, under «Under panseret»."
+        ]
+      },
+      "words": {
+        "short": "Ordlister",
+        "eyebrow": "Ord",
+        "title": "Ordlister og flashkort",
+        "lead": "Ord med oversettelse, uttale, artikkel, eksempler og synonymer, og kort som kommer tilbake akkurat i tide.",
+        "how": "Lag en ordliste i et materiale, legg til ord selv eller med KI, og øv på dem med flashkort.",
+        "where": "Et materiale → en ordliste → fanen «Kort».",
+        "why": "Repetisjon med mellomrom viser et ord akkurat når du er i ferd med å glemme det.",
+        "tips": [
+          "«Vet ikke» eller «Usikker» åpner en miniquiz: neste ord kommer når du svarer riktig.",
+          "Sveip kortene eller trykk ← ↓ →; mellomrom snur kortet."
+        ]
+      },
+      "lookup": {
+        "short": "Ord fra tekst",
+        "eyebrow": "Ord",
+        "title": "Hvilket som helst ord i ordlisten",
+        "lead": "Marker et ukjent ord i et materiale eller notat, så dukker oversettelse, grammatikk og et eksempel opp rett ved siden av.",
+        "how": "Marker et ord eller uttrykk, sjekk forslaget og trykk «Legg til i ordboka». Setningen det kom fra, blir eksempelet.",
+        "where": "All tekst i et materiale eller notat.",
+        "why": "Ord lært i sammenheng sitter bedre enn ord fra en liste.",
+        "tips": [
+          "Finnes ordet allerede i ordlisten, sier Studytracker fra og legger det ikke inn to ganger.",
+          "Oversettelsen er på språket som er satt i profilen din."
+        ]
+      },
+      "today": {
+        "short": "I dag",
+        "eyebrow": "Hver dag",
+        "title": "Daglig repetisjon",
+        "lead": "Én kø om dagen: spørsmålene og ordene fra alle materialene dine som skal repeteres.",
+        "how": "Åpne «I dag», trykk «Start» og gå gjennom alt som venter.",
+        "where": "Navigasjonen → «I dag». Tallet ved siden av viser hvor mye som venter.",
+        "why": "Noen minutter hver dag holder kunnskapen bedre enn en natt før eksamen.",
+        "tips": [
+          "Rekka vokser når du repeterer hver dag, og frysinger redder en dag du hoppet over.",
+          "E-postpåminnelser stiller du inn i kontoen."
+        ]
+      },
+      "deadlines": {
+        "short": "Kalender",
+        "eyebrow": "Hver dag",
+        "title": "Frister og kalender",
+        "lead": "Gi materialet datoen for en eksamen eller innlevering og se hvor mye tid som er igjen.",
+        "how": "Sett en frist i materialet; kalenderen viser den sammen med dagene du studerte.",
+        "where": "Navigasjonen → «Kalender».",
+        "why": "Når datoen er synlig, er det lettere å spre repetisjonen i stedet for å presse alt inn den siste kvelden.",
+        "tips": [
+          "Noen dager før eksamen kan du ta selvforsvar med bare de vanskelige spørsmålene."
+        ]
+      },
+      "statistics": {
+        "short": "Statistikk",
+        "eyebrow": "Hver dag",
+        "title": "Statistikk som gir hint",
+        "lead": "Poengutvikling, rekke, treffsikkerhet etter vanskelighetsgrad, hvor godt selvtilliten stemmer og de svakeste fagene.",
+        "how": "Bare lær: statistikken samler seg selv fra hvert forsøk og hver repetisjon.",
+        "where": "Navigasjonen → «Statistikk».",
+        "why": "Du ser ikke bare hvor mye du har studert, men hva du bør jobbe med videre.",
+        "tips": [
+          "«Fokusområder» viser fagene med lavest treffsikkerhet; begynn med dem."
+        ]
+      },
+      "library": {
+        "short": "Bibliotek",
+        "eyebrow": "Sammen",
+        "title": "Et bibliotek med ferdige materialer",
+        "lead": "Språk, programmering og mer: materialer med spørsmål og ordlister som du kan legge til med ett klikk.",
+        "how": "Åpne biblioteket, se gjennom et materiale og legg det til: du får din egen kopi.",
+        "where": "Navigasjonen → «Bibliotek». Det er åpent også uten innlogging.",
+        "why": "Du trenger ikke begynne fra null: ta noe ferdig og øv med en gang.",
+        "tips": [
+          "Du kan også foreslå ditt eget materiale til biblioteket."
+        ]
+      },
+      "share": {
+        "short": "Deling",
+        "eyebrow": "Sammen",
+        "title": "Del og lær sammen",
+        "lead": "En lenke gir en venn en full kopi av et materiale: notater, ordlister og spørsmål. Dine forsøk og din fremgang forblir dine.",
+        "how": "I et materiale trykker du «Del» og kopierer lenken.",
+        "where": "Et åpent materiale → «Del».",
+        "why": "Det er morsommere å lære i par, og med Duo-planen har hver av dere egne KI-kvoter.",
+        "tips": [
+          "Endringer i andres kopi rører aldri din."
+        ]
+      },
+      "ai": {
+        "short": "KI og grenser",
+        "eyebrow": "Sammen",
+        "title": "KI som hjelper, ikke bestemmer",
+        "lead": "Spørsmål fra tekst, svar sjekket etter mening, forklarte feil, sammendrag, ord og essay, når du selv trykker på knappen.",
+        "how": "Se etter knapper med en gnist ✨: ved siden av ser du hvor mange forespørsler som er igjen denne måneden.",
+        "where": "Spørsmål, ordlister, sammendrag, essay og resultater av forsøk.",
+        "why": "KI tar rutinen, tenkingen er fortsatt din.",
+        "tips": [
+          "Grensene fornyes den første hver måned, og mislykkede forespørsler telles ikke.",
+          "Du kan velge språket for KI-forklaringer i profilen."
+        ]
+      }
+    },
+    "hood": {
+      "short": "Under panseret",
+      "eyebrow": "Under panseret",
+      "title": "Hvordan alt fungerer innvendig",
+      "text": "Ingen magi: dette skjer med svaret ditt, hukommelsen din og dataene dine.",
+      "score": {
+        "title": "Fra svar til poeng",
+        "text": "Et åpent svar går gjennom flere sjekker og stopper ved den første som gir et sikkert resultat.",
+        "question": "Spørsmål:",
+        "pick": "Velg et svar",
+        "steps": {
+          "exact": {
+            "title": "Eksakt treff",
+            "text": "Ord for ord, uten hensyn til store bokstaver og mellomrom."
+          },
+          "fuzzy": {
+            "title": "Omtrentlig treff",
+            "text": "Fanger skrivefeil og små forskjeller."
+          },
+          "ai": {
+            "title": "KI etter mening",
+            "text": "Bare for «gråsonen»: nær, men med andre ord."
+          },
+          "score": {
+            "title": "Poeng",
+            "text": "Fra 0 til 100, og så inn i forsøkets poeng."
+          }
+        },
+        "examples": {
+          "exact": "Ord for ord: 100 med en gang, og ingenting annet sjekkes.",
+          "typo": "Én skrivefeil: det omtrentlige treffet kjenner igjen ordet, og poengene er nesten fulle.",
+          "meaning": "Andre ord, samme mening: svaret er i gråsonen, så KI vurderer selve meningen.",
+          "wrong": "Helt feil: 0 poeng, KI blir ikke engang spurt, og spørsmålet kommer tilbake til repetisjon."
+        }
+      },
+      "memory": {
+        "title": "Repetisjon i riktig øyeblikk",
+        "text": "FSRS-algoritmen følger hvor fort du glemmer hvert ord og spørsmål og setter opp repetisjon når sjansen for å huske faller til rundt 90 %. Jo bedre du kan det, jo sjeldnere ser du det.",
+        "target": "90 %: tid for repetisjon",
+        "day": "dag {{day}}",
+        "chart": "En glemselskurve som faller saktere etter hver repetisjon",
+        "caption": "Hver repetisjon gjør kurven slakere, så intervallene vokser: dager, en uke, flere uker. Målet på 90 % kan endres i læringsinnstillingene."
+      },
+      "trust": {
+        "title": "Dataene dine, under din kontroll",
+        "ai": {
+          "title": "KI bare når du ber om det",
+          "text": "Tekst går til KI bare når du trykker på knappen, og bare det oppgaven trenger."
+        },
+        "quota": {
+          "title": "Rettferdige grenser",
+          "text": "KI-forespørsler telles per måned, og mislykkede trekkes ikke fra. Hvor mange som er igjen, vises ved hver knapp."
+        },
+        "autosave": {
+          "title": "Automatisk lagring",
+          "text": "Notater, essay og tegninger lagres av seg selv så snart du tar en pause."
+        },
+        "export": {
+          "title": "Eksport når som helst",
+          "text": "Last ned alle dataene dine fra kontoen: en ZIP med JSON og en ordtabell for Anki."
+        }
+      }
+    },
+    "tips": {
+      "short": "Tips",
+      "eyebrow": "Tips",
+      "title": "Småting som sparer tid",
+      "text": "Taster og knep som er verdt å kunne fra første dag.",
+      "items": {
+        "search": {
+          "title": "Raskt søk",
+          "text": "I materiallisten trykker du / og søker etter navn, notat eller fag."
+        },
+        "flashcards": {
+          "title": "Flashkort med tastaturet",
+          "text": "← vet ikke, ↓ usikker, → kan det; mellomrom snur kortet."
+        },
+        "links": {
+          "title": "Lenker i notater",
+          "text": "Hold inne Ctrl eller ⌘ og klikk på en lenke for å åpne den i en ny fane."
+        },
+        "paste": {
+          "title": "Bilder fra utklippstavlen",
+          "text": "Kopier et skjermbilde og lim det rett inn i et notat."
+        },
+        "voice": {
+          "title": "Taleinndata",
+          "text": "Dikter notater og svar; språket du velger for gjenkjenning, huskes."
+        },
+        "select": {
+          "title": "Et ord i ordlisten",
+          "text": "Marker et ord i et materiale eller notat, så dukker en oversettelse opp med en «Legg til»-knapp."
+        },
+        "install": {
+          "title": "Som en app",
+          "text": "Installer Studytracker fra nettlesermenyen, så åpnes den i et eget vindu som et vanlig program."
+        },
+        "theme": {
+          "title": "Tema og språk",
+          "text": "Lyst eller mørkt tema og grensesnittspråket byttes øverst på siden."
+        }
+      }
+    },
+    "faq": {
+      "short": "Vanlige spørsmål",
+      "eyebrow": "FAQ",
+      "title": "Vanlige spørsmål",
+      "items": {
+        "free": {
+          "q": "Er Studytracker gratis?",
+          "a": "Ja, Free-planen koster ingenting. KI-funksjonene har månedlige grenser, og Plus og Duo gir flere KI-forespørsler og mer plass til materialer."
+        },
+        "private": {
+          "q": "Hvem kan se materialene mine?",
+          "a": "Bare du. Du kan dele med en lenke som gir en egen kopi, eller foreslå et materiale til biblioteket."
+        },
+        "quota": {
+          "q": "Hva skjer når KI-grensen er brukt opp?",
+          "a": "Alt annet fungerer som vanlig: notater, spørsmål, selvforsvar, flashkort. Grensene fornyes den første i måneden, og siden «Grenser» viser hvor mange som er igjen."
+        },
+        "export": {
+          "q": "Hvordan tar jeg med meg dataene mine?",
+          "a": "Kontoen har eksport: en ZIP med alle materialer, notater, spørsmål og ordlister, pluss en ordtabell for Anki."
+        },
+        "languages": {
+          "q": "Hvilke språk snakker Studytracker?",
+          "a": "Grensesnittet finnes på ukrainsk, engelsk og norsk. KI-forklaringer kan komme på ett av 11 språk, og du kan lære hva som helst."
+        }
+      }
     }
   }
 }

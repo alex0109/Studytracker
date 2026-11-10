@@ -5,5 +5,7 @@ export interface INoteUpdate {
   title?: string;
   textContent?: RichTextDocument;
   drawingContent?: IDrawingContent;
+  // Essays only; an empty string removes the task
+  essayTask?: string;
   order?: number;
 }

@@ -1,0 +1,60 @@
+/* The laurel monogram is a mask: the brand gradient shows through its shape and a light
+   sweeps across it from time to time */
+.emblem {
+  /* Deep colours on a light page, soft ones on a dark page or a dark block */
+  --emblem-from: #059669;
+  --emblem-via: #0284c7;
+  --emblem-to: #7c3aed;
+  mask: url("/brand/studytracker-logo.svg") center / contain no-repeat;
+  -webkit-mask: url("/brand/studytracker-logo.svg") center / contain no-repeat;
+  background-image:
+    linear-gradient(115deg, transparent 40%, rgb(255 255 255 / 0.7) 50%, transparent 60%),
+    linear-gradient(135deg, var(--emblem-from) 0%, var(--emblem-via) 50%, var(--emblem-to) 100%);
+  background-size: 250% 100%, 100% 100%;
+  background-position: 120% 0, 0 0;
+  background-repeat: no-repeat;
+}
+
+:global(.dark) .emblem,
+.onDark .emblem {
+  --emblem-from: #34d399;
+  --emblem-via: #38bdf8;
+  --emblem-to: #a78bfa;
+}
+
+.glow {
+  background: radial-gradient(closest-side, rgb(56 189 248 / 0.35), rgb(167 139 250 / 0.2), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .emblem {
+    animation: sweep 7s ease-in-out infinite;
+  }
+
+  .glow {
+    animation: breathe 6s ease-in-out infinite;
+  }
+}
+
+@keyframes sweep {
+  0%,
+  55% {
+    background-position: 120% 0, 0 0;
+  }
+  85%,
+  100% {
+    background-position: -120% 0, 0 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}

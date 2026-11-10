@@ -19,9 +19,11 @@ type Mode = "manual" | "link";
 interface AddMaterialModalProps {
   // Opens the new material, e.g. right after an article was imported
   onCreated?: (materialId: string) => void;
+  // "icon": a small square plus for a header, "full": a wide button with text
+  variant?: "full" | "icon";
 }
 
-export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
+export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated, variant = "full" }) => {
   const { t } = useTranslation();
   const {
     register,
@@ -58,13 +60,25 @@ export const AddMaterialModal: FC<AddMaterialModalProps> = ({ onCreated }) => {
 
   return (
     <>
-      <Button
-        onClick={() => setOpen(true)}
-        className="w-full flex justify-between items-center"
-      >
-        <p>{t("materials.add")}</p>
-        <LuPlus />
-      </Button>
+      {variant === "icon" ? (
+        <Button
+          onClick={() => setOpen(true)}
+          size="icon"
+          aria-label={t("materials.add")}
+          title={t("materials.add")}
+          className="size-9 shrink-0 rounded-xl"
+        >
+          <LuPlus />
+        </Button>
+      ) : (
+        <Button
+          onClick={() => setOpen(true)}
+          className="w-full flex justify-between items-center"
+        >
+          <p>{t("materials.add")}</p>
+          <LuPlus />
+        </Button>
+      )}
 
       <Modal
         open={open}

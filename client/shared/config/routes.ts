@@ -5,4 +5,5 @@ export const routes = {
   materials: "/materials",
   stats: "/stats",
   auth: "/sign-in",
+  guide: "/guide",
 };

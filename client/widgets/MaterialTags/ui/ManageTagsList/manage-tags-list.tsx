@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState } from "react";
-import { LuTags } from "react-icons/lu";
+import { LuBookCopy } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { Modal } from "@/shared/ui";
 import { ITagResponse, useTagsAll } from "@/entities/tag";
@@ -52,7 +52,7 @@ export const ManageTagsList: FC<SelectTagProps> = ({
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        icon={<LuTags />}
+        icon={<LuBookCopy />}
         title={t("tags.addToMaterial")}
         description={t("tags.addToMaterialText")}
         footer={<AddTag />}
