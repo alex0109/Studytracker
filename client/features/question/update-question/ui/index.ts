@@ -1,4 +1,6 @@
-export { QuestionAnswer } from "./QuestionAnswer/question-answer";
-export { QuestionTitle } from "./QuestionTitle/question-title";
-export { QuestionOptions } from "./QuestionOptions/question-options";
-export { QuestionTrueFalse } from "./QuestionTrueFalse/question-true-false";
+export { QuestionTitleField } from "./QuestionTitleField/question-title-field";
+export { QuestionAnswerField } from "./QuestionAnswerField/question-answer-field";
+export { QuestionOptionsField } from "./QuestionOptionsField/question-options-field";
+export { QuestionTrueFalseField } from "./QuestionTrueFalseField/question-true-false-field";
+export { QuestionDifficultyField } from "./QuestionDifficultyField/question-difficulty-field";
+export { QuestionExplanationField } from "./QuestionExplanationField/question-explanation-field";

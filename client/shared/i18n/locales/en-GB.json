@@ -130,7 +130,7 @@
         "material": {
           "label": "Add a material",
           "title": "Everything starts with a material",
-          "text": "An article, a video, a practice task or a test. Give it a status and a subject, then attach notes, questions and a dictionary to it."
+          "text": "A lecture, an exam topic, a book, an article, a video or a test. Give it a status and a subject, then attach notes, questions and a dictionary to it."
         },
         "questions": {
           "label": "Create questions",
@@ -259,7 +259,7 @@
       "items": {
         "material": {
           "name": "Material",
-          "text": "Anything you study: an article, video, practice or test. Has a status and one or more subjects."
+          "text": "Anything you study: a lecture, topic, book, article, video or test. Has a status and one or more subjects."
         },
         "note": {
           "name": "Note",
@@ -447,7 +447,23 @@
       "leech": "Tough one",
       "leechHint": "Missed many times: try rewording or splitting it"
     },
-    "statementLabel": "Statement"
+    "statementLabel": "Statement",
+    "editor": {
+      "title": "Questions",
+      "add": "Add",
+      "search": "Find a question or answer",
+      "nothingFound": "Nothing found",
+      "fromNote": "from a note",
+      "autosave": "Changes save by themselves",
+      "delete": "Delete question",
+      "deleteTitle": "Delete this question?",
+      "deleteText": "The question leaves the list and your reviews. Attempts it was already part of stay.",
+      "explanation": "Explanation",
+      "explanationPlaceholder": "Why this is the answer: shown when you get it wrong",
+      "options": "Options · mark the correct ones",
+      "undoHint": "Bring back the answer as it was before your changes",
+      "undo": "Back"
+    }
   },
   "attempt": {
     "chooseAll": "Choose all correct answers",
@@ -662,7 +678,13 @@
       "article": "📄 Article",
       "video": "▶️ Video",
       "practice": "📝 Practice",
-      "test": "✏️ Test"
+      "test": "✏️ Test",
+      "lecture": "🎓 Lecture",
+      "topic": "🧠 Topic",
+      "book": "📖 Book",
+      "document": "📑 Document / PDF",
+      "podcast": "🎧 Podcast",
+      "course": "🧑‍💻 Online course"
     },
     "statuses": {
       "tolearn": "Want to learn",
@@ -754,7 +776,10 @@
     },
     "addText": "Write your own or import an article from a link.",
     "deleteTitle": "Delete the material?",
-    "titleExample": "E.g. React basics"
+    "titleExample": "E.g. React basics",
+    "createdOn": "Created {{date}}",
+    "moreActions": "More actions",
+    "delete": "Delete material"
   },
   "limits": {
     "reachedToast": "Limit reached. Free up some space and try again",
@@ -850,7 +875,8 @@
       "SummaryGeneration": "Summary generation",
       "MistakeExplanation": "Mistake explanations",
       "WordLookup": "Words from the text",
-      "EssayReview": "Essay checks"
+      "EssayReview": "Essay checks",
+      "WordExplanation": "Word explanations"
     }
   },
   "share": {
@@ -902,7 +928,8 @@
     "delete": "Delete subject",
     "deleteNamed": "Delete the “{{name}}” subject",
     "deleteTitle": "Delete the “{{name}}” subject?",
-    "deleteText": "The subject will disappear from every material. The materials themselves stay."
+    "deleteText": "The subject will disappear from every material. The materials themselves stay.",
+    "add": "Add a subject"
   },
   "editor": {
     "toolbar": "Text formatting",
@@ -1020,7 +1047,8 @@
         "corrections": "Corrections",
         "noCorrections": "No mistakes worth correcting were found.",
         "showAll": "Show all ({{count}})",
-        "showLess": "Show less"
+        "showLess": "Show less",
+        "disclaimer": "This essay was checked by AI. Scores can vary slightly from one check to the next, but not by much, so go by the overall picture and the specific corrections."
       }
     }
   },
@@ -1117,7 +1145,18 @@
     "addText": "Words for one material: a topic, a lesson or a chapter.",
     "addWordText": "Only the word and its translation are required, the rest can come later.",
     "deleteTitle": "Delete the dictionary?",
-    "titlePlaceholder": "E.g. Travel"
+    "titlePlaceholder": "E.g. Travel",
+    "archived": "archived",
+    "explain": {
+      "button": "Explain the word with examples",
+      "loading": "AI is finding everyday examples…",
+      "inLife": "In everyday life",
+      "collocations": "Often used with",
+      "tip": "Tip",
+      "more": "Other examples",
+      "error": "Couldn't explain the word. Try again.",
+      "disclaimer": "The examples were written by AI and are not saved."
+    }
   },
   "attempts": {
     "title": "Attempt {{id}}",
@@ -1939,7 +1978,8 @@
     "sectionEmpty": "No deadlines. Add the date you want to be ready by on a material's page.",
     "readyShort": "Everything is learned",
     "emptyShort": "No questions or words",
-    "todayShort": "Today: {{review}} to review, {{learn}} new"
+    "todayShort": "Today: {{review}} to review, {{learn}} new",
+    "todayPlan": "Today's plan"
   },
   "exam": {
     "title": "Set up the test",
@@ -2115,7 +2155,8 @@
         "why": "Spaced repetition shows a word right when you are about to forget it.",
         "tips": [
           "“Don't know” or “Unsure” opens a mini quiz: the next word comes once you answer it right.",
-          "Swipe the cards or press ← ↓ →; space flips the card."
+          "Swipe the cards or press ← ↓ →; space flips the card.",
+          "The ✨ button next to a word shows how it is used in everyday life: examples with translations, common combinations and a tip."
         ]
       },
       "lookup": {

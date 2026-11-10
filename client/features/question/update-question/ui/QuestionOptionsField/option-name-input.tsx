@@ -29,7 +29,7 @@ export const OptionNameInput: FC<OptionNameInputProps> = ({
       value={nameValue}
       maxLength={500}
       onChange={(e) => setNameValue(e.target.value)}
-      className="flex-1 min-w-0 border-0 outline-none bg-transparent wrap-break-word"
+      className="h-8 min-w-0 flex-1 border-0 bg-transparent text-[15px] outline-none wrap-break-word"
     />
   );
 };

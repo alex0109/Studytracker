@@ -130,7 +130,7 @@
         "material": {
           "label": "Legg til et materiale",
           "title": "Alt starter med et materiale",
-          "text": "En artikkel, en video, en praktisk oppgave eller en prøve. Gi det en status og et fag, og legg til notater, spørsmål og en ordliste."
+          "text": "En forelesning, et eksamenstema, en bok, en artikkel, en video eller en prøve. Gi det en status og et fag, og legg til notater, spørsmål og en ordliste."
         },
         "questions": {
           "label": "Lag spørsmål",
@@ -259,7 +259,7 @@
       "items": {
         "material": {
           "name": "Materiale",
-          "text": "Alt du studerer: en artikkel, video, øvelse eller prøve. Har status og ett eller flere fag."
+          "text": "Alt du studerer: en forelesning, et tema, en bok, en artikkel, en video eller en prøve. Har status og ett eller flere fag."
         },
         "note": {
           "name": "Notat",
@@ -447,7 +447,23 @@
       "leech": "Vanskelig spørsmål",
       "leechHint": "Bommet mange ganger: prøv å omformulere eller dele det opp"
     },
-    "statementLabel": "Påstand"
+    "statementLabel": "Påstand",
+    "editor": {
+      "title": "Spørsmål",
+      "add": "Legg til",
+      "search": "Finn et spørsmål eller svar",
+      "nothingFound": "Fant ingenting",
+      "fromNote": "fra et notat",
+      "autosave": "Endringer lagres av seg selv",
+      "delete": "Slett spørsmålet",
+      "deleteTitle": "Slette dette spørsmålet?",
+      "deleteText": "Spørsmålet forsvinner fra listen og repetisjonene. Forsøk det allerede var med i, blir værende.",
+      "explanation": "Forklaring",
+      "explanationPlaceholder": "Hvorfor svaret er slik: vises når du svarer feil",
+      "options": "Alternativer · marker de riktige",
+      "undoHint": "Hent tilbake svaret slik det var før endringene",
+      "undo": "Tilbake"
+    }
   },
   "attempt": {
     "chooseAll": "Velg alle riktige svar",
@@ -662,7 +678,13 @@
       "article": "📄 Artikkel",
       "video": "▶️ Video",
       "practice": "📝 Øvelse",
-      "test": "✏️ Prøve"
+      "test": "✏️ Prøve",
+      "lecture": "🎓 Forelesning",
+      "topic": "🧠 Tema",
+      "book": "📖 Bok",
+      "document": "📑 Dokument / PDF",
+      "podcast": "🎧 Podkast",
+      "course": "🧑‍💻 Nettkurs"
     },
     "statuses": {
       "tolearn": "Vil lære",
@@ -754,7 +776,10 @@
     },
     "addText": "Skriv ditt eget eller importer en artikkel fra en lenke.",
     "deleteTitle": "Slette materialet?",
-    "titleExample": "F.eks. Grunnleggende React"
+    "titleExample": "F.eks. Grunnleggende React",
+    "createdOn": "Opprettet {{date}}",
+    "moreActions": "Flere handlinger",
+    "delete": "Slett materialet"
   },
   "limits": {
     "reachedToast": "Grensen er nådd. Frigjør litt plass og prøv igjen",
@@ -850,7 +875,8 @@
       "SummaryGeneration": "Generering av sammendrag",
       "MistakeExplanation": "Forklaring av feil",
       "WordLookup": "Ord fra teksten",
-      "EssayReview": "Essaysjekker"
+      "EssayReview": "Essaysjekker",
+      "WordExplanation": "Ordforklaringer"
     }
   },
   "share": {
@@ -902,7 +928,8 @@
     "delete": "Slett fag",
     "deleteNamed": "Slett faget «{{name}}»",
     "deleteTitle": "Slette faget «{{name}}»?",
-    "deleteText": "Faget forsvinner fra alle materialer. Selve materialene blir værende."
+    "deleteText": "Faget forsvinner fra alle materialer. Selve materialene blir værende.",
+    "add": "Legg til fag"
   },
   "editor": {
     "toolbar": "Tekstformatering",
@@ -1020,7 +1047,8 @@
         "corrections": "Rettelser",
         "noCorrections": "Fant ingen feil som bør rettes.",
         "showAll": "Vis alle ({{count}})",
-        "showLess": "Vis færre"
+        "showLess": "Vis færre",
+        "disclaimer": "Essayet er sjekket av KI. Poengene kan variere litt fra sjekk til sjekk, men ikke mye, så se på helheten og de konkrete rettelsene."
       }
     }
   },
@@ -1117,7 +1145,18 @@
     "addText": "Ord for ett materiale: et tema, en leksjon eller et kapittel.",
     "addWordText": "Bare ordet og oversettelsen er påkrevd, resten kan legges til senere.",
     "deleteTitle": "Slette ordboken?",
-    "titlePlaceholder": "F.eks. Reise"
+    "titlePlaceholder": "F.eks. Reise",
+    "archived": "arkivert",
+    "explain": {
+      "button": "Forklar ordet med eksempler",
+      "loading": "KI finner eksempler fra hverdagen …",
+      "inLife": "I hverdagen",
+      "collocations": "Brukes ofte med",
+      "tip": "Tips",
+      "more": "Andre eksempler",
+      "error": "Kunne ikke forklare ordet. Prøv igjen.",
+      "disclaimer": "Eksemplene er skrevet av KI og lagres ikke."
+    }
   },
   "attempts": {
     "title": "Forsøk {{id}}",
@@ -1939,7 +1978,8 @@
     "sectionEmpty": "Ingen frister. Legg til datoen du vil være klar til på siden til et materiale.",
     "readyShort": "Alt er lært",
     "emptyShort": "Ingen spørsmål eller ord",
-    "todayShort": "I dag: {{review}} å repetere, {{learn}} nye"
+    "todayShort": "I dag: {{review}} å repetere, {{learn}} nye",
+    "todayPlan": "Plan for i dag"
   },
   "exam": {
     "title": "Sett opp testen",
@@ -2115,7 +2155,8 @@
         "why": "Repetisjon med mellomrom viser et ord akkurat når du er i ferd med å glemme det.",
         "tips": [
           "«Vet ikke» eller «Usikker» åpner en miniquiz: neste ord kommer når du svarer riktig.",
-          "Sveip kortene eller trykk ← ↓ →; mellomrom snur kortet."
+          "Sveip kortene eller trykk ← ↓ →; mellomrom snur kortet.",
+          "✨-knappen ved et ord viser hvordan det brukes i hverdagen: eksempler med oversettelse, vanlige ordforbindelser og et tips."
         ]
       },
       "lookup": {

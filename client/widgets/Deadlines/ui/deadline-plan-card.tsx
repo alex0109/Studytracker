@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import type { TFunction } from "i18next";
 import Link from "next/link";
 import {
@@ -8,6 +8,7 @@ import {
   LuBrain,
   LuCalendarClock,
   LuCalendarPlus,
+  LuChevronDown,
   LuCircleCheck,
   LuClock,
   LuPencil,
@@ -74,10 +75,18 @@ const planSteps = (current: IDeadlinePlan, words: ReturnType<typeof useDeadlineT
   ].filter((step) => !!step);
 };
 
+interface DeadlinePlanCardProps {
+  materialId: string;
+  // Under a material's properties: the date is picked there, so here only today's plan,
+  // folded to one line until it is opened, and nothing at all without a date
+  compact?: boolean;
+}
+
 // The date and what it asks for today, on the material's page. Without a date only a quiet
 // button: a deadline is optional and most materials don't need one
-export const DeadlinePlanCard: FC<{ materialId: string }> = ({ materialId }) => {
+export const DeadlinePlanCard: FC<DeadlinePlanCardProps> = ({ materialId, compact = false }) => {
   const { t, i18n } = useTranslation();
+  const [expanded, setExpanded] = useState(false);
   const { deadlinePlanData: plan, deadlinePlanIsPending } = useDeadlinePlan(materialId);
   const { setDeadline, setDeadlineIsPending } = useMaterialDeadline(materialId);
   const text = useDeadlineText();
@@ -88,6 +97,8 @@ export const DeadlinePlanCard: FC<{ materialId: string }> = ({ materialId }) => 
     max: addDaysIso(today, 365 * MAX_YEARS_AHEAD),
     onChange: (iso: string) => setDeadline(iso),
   };
+
+  if (compact && (deadlinePlanIsPending || !plan)) return null;
 
   if (deadlinePlanIsPending) return <Skeleton className="h-10 w-full rounded-2xl" />;
 
@@ -104,6 +115,58 @@ export const DeadlinePlanCard: FC<{ materialId: string }> = ({ materialId }) => 
 
   const steps = planSteps(plan, text, t);
   const tone = daysLeftTone(plan.daysLeft);
+  const canStart =
+    plan.dueWords + plan.dueQuestions + plan.newWordsToday + plan.newQuestionsToday > 0 && plan.pace !== "Passed";
+
+  if (compact) {
+    return (
+      <section
+        aria-label={t("deadline.title")}
+        className="rounded-2xl border border-neutral-200 bg-white/70 dark:border-neutral-800 dark:bg-neutral-900/70"
+      >
+        <button
+          type="button"
+          aria-expanded={expanded}
+          onClick={() => setExpanded((value) => !value)}
+          className="flex w-full items-center gap-3 px-3 py-2.5 text-left"
+        >
+          <span className={cn("flex size-8 shrink-0 items-center justify-center rounded-lg", tone.badge)}>
+            <LuCalendarClock aria-hidden className="size-4" />
+          </span>
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="text-sm font-medium text-neutral-900 dark:text-neutral-50">{t("deadline.todayPlan")}</span>
+            <span className="truncate text-xs text-neutral-500">
+              {plan.minutesToday > 0 ? t("deadline.minutesToday", { count: plan.minutesToday }) : steps[0]?.text}
+            </span>
+          </span>
+          <LuChevronDown
+            aria-hidden
+            className={cn("size-4 shrink-0 text-neutral-400 transition-transform duration-200", expanded && "rotate-180")}
+          />
+        </button>
+        {expanded && (
+          <div className="flex flex-col gap-3 border-t border-neutral-100 px-3 py-3 dark:border-neutral-800">
+            <ul className="flex flex-col gap-2">
+              {steps.map((step) => (
+                <li key={step.key} className="flex items-start gap-2.5 text-sm text-neutral-700 dark:text-neutral-300">
+                  <step.icon aria-hidden className={cn("mt-0.5 size-4 shrink-0", step.iconClass ?? "text-neutral-400")} />
+                  <span>{step.text}</span>
+                </li>
+              ))}
+            </ul>
+            {canStart && (
+              <Link
+                href="/app"
+                className="inline-flex items-center gap-1 self-start text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400"
+              >
+                {t("deadline.startToday")} <LuArrowRight aria-hidden />
+              </Link>
+            )}
+          </div>
+        )}
+      </section>
+    );
+  }
 
   return (
     <section
@@ -145,7 +208,7 @@ export const DeadlinePlanCard: FC<{ materialId: string }> = ({ materialId }) => 
         </ul>
       )}
 
-      {plan.dueWords + plan.dueQuestions + plan.newWordsToday + plan.newQuestionsToday > 0 && plan.pace !== "Passed" && (
+      {canStart && (
         <Link
           href="/app"
           className="inline-flex items-center gap-1 self-start text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400"

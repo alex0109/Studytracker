@@ -3,10 +3,11 @@
 import { FC, ReactNode, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { LuChevronRight, LuMenu, LuPanelLeftClose, LuPanelLeftOpen } from "react-icons/lu";
+import { LuChevronRight, LuMenu, LuPanelLeftClose, LuPanelLeftOpen, LuX } from "react-icons/lu";
 import { Button } from "@/shared/components/ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
@@ -87,7 +88,7 @@ export const MaterialsSideBar: FC = () => {
     closeSheetIfMobile();
   };
 
-  const list = (listenForShortcut: boolean, headerActions?: ReactNode) => (
+  const list = (listenForShortcut: boolean, headerActions?: ReactNode, closeAction?: ReactNode) => (
     <SidebarList
       materials={materialsData}
       isPending={materialsIsPending}
@@ -108,6 +109,7 @@ export const MaterialsSideBar: FC = () => {
         closeSheetIfMobile();
       }}
       headerActions={headerActions}
+      closeAction={closeAction}
       listenForShortcut={listenForShortcut}
     />
   );
@@ -225,12 +227,29 @@ export const MaterialsSideBar: FC = () => {
                   <LuMenu /> {t("nav.materials")}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[88%] overflow-y-auto p-0 sm:max-w-sm">
+              {/* The sheet's own corner cross sat on top of "add"; the list's header closes it instead */}
+              <SheetContent side="left" showCloseButton={false} className="w-[88%] overflow-y-auto p-0 sm:max-w-sm">
                 <SheetHeader className="sr-only">
                   <SheetTitle>{t("nav.materials")}</SheetTitle>
                   <SheetDescription>{t("materials.sidebar.sheetText")}</SheetDescription>
                 </SheetHeader>
-                <div className="p-4 pt-5">{list(false)}</div>
+                <div className="p-4 pt-5">
+                  {list(
+                    false,
+                    undefined,
+                    <SheetClose asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        aria-label={t("nav.closeMenu")}
+                        title={t("nav.closeMenu")}
+                        className="size-9 rounded-xl text-neutral-500"
+                      >
+                        <LuX />
+                      </Button>
+                    </SheetClose>,
+                  )}
+                </div>
               </SheetContent>
             </Sheet>
 

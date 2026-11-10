@@ -9,12 +9,13 @@ import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 interface MaterialTitleProps {
   id: string;
   title: string;
+  className?: string;
 }
 
 // Same limit as the database column
 const MAX_TITLE = 70;
 
-export const MaterialTitle: FC<MaterialTitleProps> = ({ id, title }) => {
+export const MaterialTitle: FC<MaterialTitleProps> = ({ id, title, className }) => {
   const { t } = useTranslation();
   const [titleValue, setTitleValue] = useState(title);
 
@@ -37,6 +38,7 @@ export const MaterialTitle: FC<MaterialTitleProps> = ({ id, title }) => {
         onChange={setTitleValue}
         maxLength={MAX_TITLE}
         ariaLabel={t("materials.titleLabel")}
+        className={className}
       />
       <SaveStatus
         isPending={updateMaterialIsPending}

@@ -2,7 +2,7 @@
 
 import { useTranslation } from "@/shared/i18n";
 import { FC, useState } from "react";
-import { LuCheck, LuPlus, LuTrash2, LuX } from "react-icons/lu";
+import { LuCheck, LuPlus, LuX } from "react-icons/lu";
 import {
   IOption,
   IOptionRequest,
@@ -10,32 +10,29 @@ import {
   MIN_OPTIONS,
 } from "@/entities/question";
 import { Button } from "@/shared/radix-ui";
-import { AccordionContent, IsPendingLoader } from "@/shared/ui";
+import { SaveStatus } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";
 import { OptionNameInput } from "./option-name-input";
+import { FieldLabel } from "../FieldLabel/field-label";
 
-interface QuestionOptionsProps {
+interface QuestionOptionsFieldProps {
   materialId: string;
   id: string;
   options: IOption[];
-  deleteQuestion: (id: string) => void;
-  openValue: boolean;
 }
 
 const toRequest = (options: IOption[]): IOptionRequest[] =>
   options.map(({ id, name, isCorrect }) => ({ id, name, isCorrect }));
 
-export const QuestionOptions: FC<QuestionOptionsProps> = ({
+export const QuestionOptionsField: FC<QuestionOptionsFieldProps> = ({
   materialId,
   id,
   options,
-  deleteQuestion,
-  openValue,
 }) => {
   const { t } = useTranslation();
   const [newOptionName, setNewOptionName] = useState("");
-  const { updateQuestion, updateQuestionIsPending } = useQuestionUpdate(
+  const { updateQuestion, updateQuestionIsPending, updateQuestionIsError } = useQuestionUpdate(
     materialId,
     id,
   );
@@ -87,52 +84,43 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
   };
 
   return (
-    <AccordionContent
-      isOpen={openValue}
-      className="overflow-hidden text-base pl-[15px]
-    data-[state=open]:animate-slideDown
-    data-[state=closed]:animate-slideUp"
-      actions={
-        <Button
-          size="lg"
-          variant="destructive"
-          onClick={() => deleteQuestion(id)}
-        >
-          <LuTrash2 />
-        </Button>
-      }
-    >
-      <div className="flex flex-col gap-2 pr-3">
+    <div className="flex flex-col gap-1.5">
+      <FieldLabel aside={<SaveStatus isPending={updateQuestionIsPending} isError={updateQuestionIsError} />}>
+        {t("questions.editor.options")}
+      </FieldLabel>
+      <div className="flex flex-col gap-1.5">
         {options.map((option, index) => (
-          <div key={option.id} className="flex items-center gap-2">
+          <div
+            key={option.id}
+            className={cn(
+              "flex items-center gap-2 rounded-xl border px-2 py-1.5 transition-colors",
+              option.isCorrect
+                ? "border-emerald-200 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/30"
+                : "border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950",
+            )}
+          >
             <button
               type="button"
+              aria-pressed={option.isCorrect}
+              aria-label={t("questions.options.toggleCorrect")}
               title={
                 option.isCorrect && correctCount === 1
                   ? t("questions.options.atLeastOne")
                   : t("questions.options.toggleCorrect")
               }
-              disabled={
-                updateQuestionIsPending ||
-                (option.isCorrect && correctCount === 1)
-              }
+              disabled={updateQuestionIsPending || (option.isCorrect && correctCount === 1)}
               onClick={() => onToggleCorrect(option.id)}
               className={cn(
-                "flex shrink-0 justify-center items-center size-7 rounded-lg border-2",
+                "flex size-7 shrink-0 items-center justify-center rounded-lg border-2 transition-colors",
                 option.isCorrect
-                  ? "bg-emerald-700 border-emerald-700 text-white"
-                  : "border-neutral-300 text-transparent hover:border-emerald-700 dark:border-neutral-600",
+                  ? "border-emerald-600 bg-emerald-600 text-white"
+                  : "border-neutral-300 text-transparent hover:border-emerald-600 dark:border-neutral-600",
               )}
             >
               <LuCheck />
             </button>
-            <span className="text-sm text-neutral-500 w-4">
-              {String.fromCharCode(65 + index)}.
-            </span>
-            <OptionNameInput
-              name={option.name}
-              onRename={(name) => onRename(option.id, name)}
-            />
+            <span className="w-4 text-sm text-neutral-400">{String.fromCharCode(65 + index)}</span>
+            <OptionNameInput name={option.name} onRename={(name) => onRename(option.id, name)} />
             <Button
               variant="ghost"
               size="icon"
@@ -140,6 +128,7 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
               aria-label={t("questions.options.remove")}
               disabled={options.length <= MIN_OPTIONS || updateQuestionIsPending}
               onClick={() => onRemove(option.id)}
+              className="size-8 text-neutral-400 hover:text-neutral-700"
             >
               <LuX />
             </Button>
@@ -147,10 +136,12 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
         ))}
 
         {options.length < MAX_OPTIONS && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 rounded-xl border border-dashed border-neutral-300 px-2 py-1 dark:border-neutral-700">
+            <LuPlus aria-hidden className="ml-1.5 shrink-0 text-neutral-400" />
             <input
               value={newOptionName}
               placeholder={t("questions.options.newPlaceholder")}
+              aria-label={t("questions.options.add")}
               maxLength={500}
               onChange={(e) => setNewOptionName(e.target.value)}
               onKeyDown={(e) => {
@@ -159,22 +150,19 @@ export const QuestionOptions: FC<QuestionOptionsProps> = ({
                   onAdd();
                 }
               }}
-              className="flex-1 text-[15px] bg-neutral-100 dark:bg-neutral-700 px-4 py-2 rounded-2xl"
+              className="h-9 min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-neutral-400"
             />
             <Button
               variant="ghost"
+              size="sm"
               disabled={!newOptionName.trim() || updateQuestionIsPending}
               onClick={onAdd}
             >
-              <LuPlus /> {t("common.add")}
+              {t("common.add")}
             </Button>
           </div>
         )}
-
-        <div className="h-9">
-          <IsPendingLoader isPending={updateQuestionIsPending} />
-        </div>
       </div>
-    </AccordionContent>
+    </div>
   );
 };

@@ -4,3 +4,4 @@ export { generateDictionaryEntries } from "./generateDictionaryEntries";
 export { generateSummary } from "./generateSummary";
 export { explainMistakes } from "./explainMistakes";
 export { reviewEssay } from "./reviewEssay";
+export { explainWord } from "./explainWord";

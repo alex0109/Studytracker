@@ -6,3 +6,4 @@ export type { IDictionaryEntriesGenerate } from "./dictionary-entries-generate.t
 export type { ISummaryGenerateResponse } from "./summary-generate-response.type";
 export type { IResultExplanation } from "./result-explanation.type";
 export type { IEssayReviewResponse } from "./essay-review-response.type";
+export type { IWordExplanation, IWordUsageExample } from "./word-explanation.type";

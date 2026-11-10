@@ -7,6 +7,7 @@ import {
   LuCircleCheck,
   LuInfo,
   LuLightbulb,
+  LuSparkles,
   LuSpellCheck,
 } from "react-icons/lu";
 import { cn } from "@/shared/lib";
@@ -244,6 +245,12 @@ export const EssayReviewCard: FC<EssayReviewCardProps> = ({ review, className })
           </button>
         )}
       </div>
+
+      {/* Scores come from a model, so they are never exact to the point */}
+      <p className="flex items-start gap-2 border-t border-neutral-100 pt-4 text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
+        <LuSparkles aria-hidden className="mt-0.5 shrink-0 text-violet-500" />
+        {t("notes.essay.result.disclaimer")}
+      </p>
     </section>
   );
 };

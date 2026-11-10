@@ -31,6 +31,7 @@ const AI_FEATURES = [
   "SummaryGeneration",
   "EssayReview",
   "WordLookup",
+  "WordExplanation",
 ] as const;
 
 const PLAN_LOOK: Record<string, { icon: IconType; tile: string }> = {
