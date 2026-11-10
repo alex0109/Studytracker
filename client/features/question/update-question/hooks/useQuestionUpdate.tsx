@@ -43,5 +43,6 @@ export const useQuestionUpdate = (materialId: string, id: string) => {
   return {
     updateQuestion: updateQuestionMutation.mutate,
     updateQuestionIsPending: updateQuestionMutation.isPending,
+    updateQuestionIsError: updateQuestionMutation.isError,
   };
 };

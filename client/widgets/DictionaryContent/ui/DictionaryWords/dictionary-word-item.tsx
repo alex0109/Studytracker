@@ -13,6 +13,7 @@ import {
 import { ArchiveEntryButton } from "@/features/dictionary/update-dictionary-entry";
 import { DeleteEntryButton } from "@/features/dictionary/delete-dictionary-entry";
 import { ResetProgressButton } from "@/features/dictionary/reset-entry-progress";
+import { ExplainWordButton } from "@/features/dictionary/explain-word";
 import { FlashcardProgressBadge } from "@/entities/flashcard";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
@@ -40,8 +41,9 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = memo(function Dic
       dragListener={false}
       dragControls={controls}
       onDragEnd={onDragEnd}
+      // On a phone the buttons move under the word instead of squeezing it
       className={cn(
-        "flex items-center gap-3 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3",
+        "flex flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-3",
         entry.isArchived && "opacity-60",
       )}
     >
@@ -54,7 +56,7 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = memo(function Dic
         <LuGripVertical />
       </button>
 
-      <div className="flex flex-1 flex-col min-w-0 gap-1">
+      <div className="flex min-w-0 flex-1 basis-[calc(100%-3rem)] flex-col gap-1 sm:basis-0">
         <div className="flex flex-wrap items-center gap-2">
           <EntryTerm term={entry.term} article={entry.article} className="text-lg font-bold break-words" />
           {entry.transcription && (
@@ -68,7 +70,7 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = memo(function Dic
           )}
           {entry.isArchived && (
             <span className="rounded-xl bg-neutral-200 dark:bg-neutral-700 px-2 py-0.5 text-xs text-neutral-600 dark:text-neutral-300">
-              archived
+              {t("dictionary.archived")}
             </span>
           )}
         </div>
@@ -82,7 +84,8 @@ export const DictionaryWordItem: FC<DictionaryWordItemProps> = memo(function Dic
         )}
       </div>
 
-      <div className="flex items-center gap-1 shrink-0">
+      <div className="ml-auto flex shrink-0 items-center gap-1">
+        <ExplainWordButton entry={entry} />
         <Button
           variant="ghost"
           size="icon"

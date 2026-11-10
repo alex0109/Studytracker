@@ -7,4 +7,5 @@ export enum AiFeatureEnum {
   MistakeExplanation = "MistakeExplanation",
   WordLookup = "WordLookup",
   EssayReview = "EssayReview",
+  WordExplanation = "WordExplanation",
 }

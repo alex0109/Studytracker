@@ -46,8 +46,9 @@ export const MaterialShareModal: FC<MaterialShareModalProps> = ({
 
   return (
     <>
-      <Button variant="outline" onClick={() => setOpen(true)}>
-        <LuShare2 aria-hidden /> {t("share.button")}
+      {/* Only the icon on a phone, so the title row keeps its room */}
+      <Button variant="outline" onClick={() => setOpen(true)} aria-label={t("share.button")} title={t("share.button")}>
+        <LuShare2 aria-hidden /> <span className="hidden sm:inline">{t("share.button")}</span>
       </Button>
 
       <Modal

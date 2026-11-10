@@ -8,19 +8,15 @@ import { EmptyState } from "@/shared/ui";
 import { useDebounce } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
-import { MaterialTypeEnum } from "@/entities/material/model/material-type.type";
+import { MATERIAL_TYPES, MaterialTypeEnum } from "@/entities/material";
 import { ILibraryPage, useLibraryPage } from "@/entities/library";
 import { useRequireAuth } from "@/shared/hooks/use-require-auth";
 import { SubmitToLibraryModal } from "@/features/library/send-library-request";
 import { LibraryCard } from "./library-card";
 import { LibraryRequests } from "./library-requests";
 
-const TYPES = [
-  MaterialTypeEnum.article,
-  MaterialTypeEnum.video,
-  MaterialTypeEnum.practice,
-  MaterialTypeEnum.test,
-];
+// Every type, in the order the material forms use
+const TYPES = MATERIAL_TYPES as readonly string[] as readonly MaterialTypeEnum[];
 
 const pageHref = (page: number) => (page > 1 ? `/library?page=${page}` : "/library");
 
@@ -101,7 +97,12 @@ export const LibraryCatalog: FC<{ initialPage?: ILibraryPage | null }> = ({ init
             className="w-full rounded-2xl border border-neutral-200 bg-white py-2.5 pr-4 pl-11 outline-none focus:border-emerald-400 dark:border-neutral-700 dark:bg-neutral-900"
           />
         </label>
-        <div className="flex flex-wrap gap-2" role="group" aria-label={t("materials.typeLabel")}>
+        {/* Ten types and "all": one swipeable row on a phone, wrapped lines on wider screens */}
+        <div
+          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+          role="group"
+          aria-label={t("materials.typeLabel")}
+        >
           {[undefined, ...TYPES].map((value) => (
             <button
               key={value ?? "all"}
@@ -112,7 +113,7 @@ export const LibraryCatalog: FC<{ initialPage?: ILibraryPage | null }> = ({ init
                 startFromFirstPage();
               }}
               className={cn(
-                "rounded-full px-3 py-1.5 text-sm font-medium transition",
+                "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition",
                 type === value
                   ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
                   : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700",

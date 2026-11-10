@@ -28,6 +28,8 @@ interface SidebarListProps {
   onCreated: (materialId: string) => void;
   // Extra buttons next to "add", like folding the list
   headerActions?: ReactNode;
+  // Closing the list on a phone: the last button of the header, after "add"
+  closeAction?: ReactNode;
   // "/" focuses the search; only one list on the page should listen
   listenForShortcut?: boolean;
 }
@@ -49,6 +51,7 @@ export const SidebarList: FC<SidebarListProps> = ({
   onOpenDictionary,
   onCreated,
   headerActions,
+  closeAction,
   listenForShortcut = false,
 }) => {
   const { t } = useTranslation();
@@ -100,6 +103,12 @@ export const SidebarList: FC<SidebarListProps> = ({
         <div className="flex items-center gap-1">
           {headerActions}
           <AddMaterialModal variant="icon" onCreated={onCreated} />
+          {closeAction && (
+            <>
+              <span aria-hidden className="mx-1 h-6 w-px bg-neutral-200 dark:bg-neutral-800" />
+              {closeAction}
+            </>
+          )}
         </div>
       </div>
 
