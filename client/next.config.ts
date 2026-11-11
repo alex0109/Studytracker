@@ -25,6 +25,8 @@ const contentSecurityPolicy = [
   // Notes can hold images from any https site; avatars come from Google
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
+  // Podcast MP3s are played straight from Azure Blob Storage through short-lived links
+  "media-src 'self' https://*.blob.core.windows.net",
   [
     "connect-src 'self'",
     apiOrigin,

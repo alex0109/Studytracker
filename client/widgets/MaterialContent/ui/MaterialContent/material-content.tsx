@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/shared/i18n";
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import {
   MaterialStatusEnum,
   MaterialTypeEnum,
@@ -22,6 +22,7 @@ import { AddFromSelection } from "@/features/dictionary/add-from-selection";
 import { IDictionaryResponse } from "@/entities/dictionary";
 import { MaterialActions } from "../MaterialActions/material-actions";
 import { MaterialProperties } from "../MaterialProperties/material-properties";
+import { MaterialPodcast } from "../MaterialPodcast/material-podcast";
 
 interface MaterialContentType {
   id: string;
@@ -57,6 +58,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
   const { t, i18n } = useTranslation();
   const { activeSection } = useActiveSectionContext();
   const textRef = useRef<HTMLDivElement>(null);
+  const [podcastOpen, setPodcastOpen] = useState(false);
   // The list has no content: the text is loaded for the opened material only
   const { exactMaterialData, exactMaterialError } = useMaterialExact(id);
 
@@ -82,11 +84,18 @@ export const MaterialContent: FC<MaterialContentType> = ({
             </p>
             <MaterialTitle id={id} title={title} className="-ml-2 px-2 pr-8 text-left text-2xl sm:text-3xl" />
           </div>
-          <MaterialActions materialId={id} isFromLibrary={isFromLibrary} />
+          <MaterialActions
+            materialId={id}
+            isFromLibrary={isFromLibrary}
+            isPodcastOpen={podcastOpen}
+            onTogglePodcast={() => setPodcastOpen((value) => !value)}
+          />
         </div>
 
         <MaterialProperties id={id} type={type} status={status} tags={tags} />
         <DeadlinePlanCard materialId={id} compact />
+        {/* Stays open while switching tabs, so listening goes on next to the questions */}
+        {podcastOpen && <MaterialPodcast materialId={id} title={title} />}
       </header>
       <SwitchInterface switchInterface={materialInterface} />
       {activeSection === MaterialInterfaceEnum.Questions ? (

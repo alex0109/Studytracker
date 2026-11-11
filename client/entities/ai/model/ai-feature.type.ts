@@ -8,4 +8,5 @@ export enum AiFeatureEnum {
   WordLookup = "WordLookup",
   EssayReview = "EssayReview",
   WordExplanation = "WordExplanation",
+  PodcastGeneration = "PodcastGeneration",
 }

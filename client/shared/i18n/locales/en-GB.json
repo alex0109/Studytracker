@@ -641,8 +641,6 @@
     }
   },
   "auth": {
-    "checkEmail": "Check your email!",
-    "magicLinkSent": "We have sent you a magic link to sign in to your account",
     "welcomeBack": "Welcome back!",
     "createAccount": "Create your account",
     "signInText": "Sign in to continue to your account.",
@@ -657,6 +655,25 @@
       "text": "You've been away for a while or signed out on another device, so changes aren't being saved right now. Sign in again and you'll come back to this page.",
       "signIn": "Sign in again",
       "later": "Later"
+    },
+    "email": {
+      "label": "Email",
+      "placeholder": "you@example.com",
+      "send": "Continue with email",
+      "noPassword": "No password: we'll email you a code and a sign-in button.",
+      "or": "or",
+      "codeTitle": "Check your email",
+      "codeText": "We sent an email to {{email}}. Enter the code from it, or just press the button in the email.",
+      "codeLabel": "Code from the email",
+      "verify": "Sign in",
+      "resend": "Send again",
+      "resendIn": "Send again in {{seconds}} s",
+      "otherEmail": "Another email",
+      "invalidEmail": "Check the email address.",
+      "rate": "Too many attempts. Wait a minute and try again.",
+      "failed": "Couldn't send the email. Try again.",
+      "wrongCode": "The code is wrong or has expired. Check it or send a new one.",
+      "linkFailed": "The link from the email was already used or has expired. Enter your email again and we'll send a new one."
     }
   },
   "errors": {
@@ -876,7 +893,8 @@
       "MistakeExplanation": "Mistake explanations",
       "WordLookup": "Words from the text",
       "EssayReview": "Essay checks",
-      "WordExplanation": "Word explanations"
+      "WordExplanation": "Word explanations",
+      "PodcastGeneration": "Podcasts"
     }
   },
   "share": {
@@ -2243,7 +2261,8 @@
         "why": "AI takes the routine, the thinking stays yours.",
         "tips": [
           "Limits renew on the first day of every month, and failed requests are not counted.",
-          "You can choose the language of AI explanations in your profile."
+          "You can choose the language of AI explanations in your profile.",
+          "The “Podcast” button in a material voices it and all its notes with two hosts, so you can listen on the go."
         ]
       }
     },
@@ -2376,6 +2395,52 @@
           "a": "The interface is in Ukrainian, English and Norwegian. AI explanations come in any of 11 languages, and you can learn anything."
         }
       }
+    }
+  },
+  "podcast": {
+    "title": "Podcast",
+    "chapters_one": "{{count}} chapter",
+    "chapters_other": "{{count}} chapters",
+    "create": "Create a podcast",
+    "recreate": "Create again",
+    "empty": {
+      "title": "Listen to the material as a podcast",
+      "text": "Two hosts talk through the material and all its notes, chapter by chapter, in the language you choose. The podcast is saved, so you can listen on the go."
+    },
+    "recording_one": "Recording {{count}} chapter…",
+    "recording_other": "Recording {{count}} chapters…",
+    "recordingHint": "This takes a few minutes. You can close the page, the podcast will be saved.",
+    "failed": "The podcast couldn't be recorded. The script is saved: try again, it won't use your limit.",
+    "retry": "Try again",
+    "truncated": "The material is very long, so only its first part went into the podcast.",
+    "errors": {
+      "generate": "Couldn't create the podcast"
+    },
+    "modal": {
+      "title": "New podcast",
+      "text": "AI writes a script from the material and all its notes and voices it with two hosts.",
+      "language": "Podcast language",
+      "voices": "Two hosts: one explains, the other asks what a student would ask.",
+      "chapters": "Chapters follow your notes, up to ~10 minutes. The script takes up to a minute, the voices a few more.",
+      "replaces": "The current podcast of this material will be replaced.",
+      "create": "Create",
+      "writing": "Writing the script…"
+    },
+    "player": {
+      "play": "Play",
+      "pause": "Pause",
+      "chapter": "Chapter {{number}} of {{total}}",
+      "position": "Position in the podcast",
+      "back": "Back {{seconds}} s",
+      "forward": "Forward {{seconds}} s",
+      "speed": "Speed",
+      "text": "Text",
+      "download": "Download MP3",
+      "host": "Host",
+      "guest": "Guest",
+      "material": "Material",
+      "aiVoices": "Written and voiced by AI, so it may contain mistakes.",
+      "error": "Couldn't play the audio. Check your connection and try again."
     }
   }
 }
