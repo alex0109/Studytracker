@@ -29,6 +29,7 @@ const AI_FEATURES = [
   "MistakeExplanation",
   "DictionaryGeneration",
   "SummaryGeneration",
+  "PodcastGeneration",
   "EssayReview",
   "WordLookup",
   "WordExplanation",

@@ -641,8 +641,6 @@
     }
   },
   "auth": {
-    "checkEmail": "Sjekk e-posten din!",
-    "magicLinkSent": "Vi har sendt deg en magisk lenke for å logge inn",
     "welcomeBack": "Velkommen tilbake!",
     "createAccount": "Opprett kontoen din",
     "signInText": "Logg inn for å fortsette til kontoen din.",
@@ -657,6 +655,25 @@
       "text": "Du har vært borte en stund eller logget ut på en annen enhet, så endringer lagres ikke nå. Logg inn igjen, så kommer du tilbake hit.",
       "signIn": "Logg inn igjen",
       "later": "Senere"
+    },
+    "email": {
+      "label": "E-post",
+      "placeholder": "deg@eksempel.no",
+      "send": "Fortsett med e-post",
+      "noPassword": "Uten passord: vi sender deg en kode og en innloggingsknapp på e-post.",
+      "or": "eller",
+      "codeTitle": "Sjekk e-posten",
+      "codeText": "Vi sendte en e-post til {{email}}. Skriv inn koden derfra, eller trykk på knappen i e-posten.",
+      "codeLabel": "Kode fra e-posten",
+      "verify": "Logg inn",
+      "resend": "Send på nytt",
+      "resendIn": "Send på nytt om {{seconds}} s",
+      "otherEmail": "En annen e-post",
+      "invalidEmail": "Sjekk e-postadressen.",
+      "rate": "For mange forsøk. Vent et minutt og prøv igjen.",
+      "failed": "Kunne ikke sende e-posten. Prøv igjen.",
+      "wrongCode": "Koden er feil eller utløpt. Sjekk den eller send en ny.",
+      "linkFailed": "Lenken fra e-posten er allerede brukt eller utløpt. Skriv inn e-posten igjen, så sender vi en ny."
     }
   },
   "errors": {
@@ -876,7 +893,8 @@
       "MistakeExplanation": "Forklaring av feil",
       "WordLookup": "Ord fra teksten",
       "EssayReview": "Essaysjekker",
-      "WordExplanation": "Ordforklaringer"
+      "WordExplanation": "Ordforklaringer",
+      "PodcastGeneration": "Podkaster"
     }
   },
   "share": {
@@ -2243,7 +2261,8 @@
         "why": "KI tar rutinen, tenkingen er fortsatt din.",
         "tips": [
           "Grensene fornyes den første hver måned, og mislykkede forespørsler telles ikke.",
-          "Du kan velge språket for KI-forklaringer i profilen."
+          "Du kan velge språket for KI-forklaringer i profilen.",
+          "«Podkast»-knappen i et materiale leser det og alle notatene inn med to stemmer, så du kan lytte på farten."
         ]
       }
     },
@@ -2376,6 +2395,52 @@
           "a": "Grensesnittet finnes på ukrainsk, engelsk og norsk. KI-forklaringer kan komme på ett av 11 språk, og du kan lære hva som helst."
         }
       }
+    }
+  },
+  "podcast": {
+    "title": "Podkast",
+    "chapters_one": "{{count}} kapittel",
+    "chapters_other": "{{count}} kapitler",
+    "create": "Lag en podkast",
+    "recreate": "Lag på nytt",
+    "empty": {
+      "title": "Hør materialet som en podkast",
+      "text": "To programledere går gjennom materialet og alle notatene, kapittel for kapittel, på språket du velger. Podkasten lagres, så du kan lytte når du er på farten."
+    },
+    "recording_one": "Spiller inn {{count}} kapittel …",
+    "recording_other": "Spiller inn {{count}} kapitler …",
+    "recordingHint": "Dette tar noen minutter. Du kan lukke siden, podkasten blir lagret.",
+    "failed": "Podkasten kunne ikke spilles inn. Manuset er lagret: prøv igjen, det bruker ikke grensen din.",
+    "retry": "Prøv igjen",
+    "truncated": "Materialet er svært langt, så bare den første delen kom med i podkasten.",
+    "errors": {
+      "generate": "Kunne ikke lage podkasten"
+    },
+    "modal": {
+      "title": "Ny podkast",
+      "text": "KI skriver et manus fra materialet og alle notatene og leser det inn med to stemmer.",
+      "language": "Språk i podkasten",
+      "voices": "To programledere: den ene forklarer, den andre spør det en student ville spurt om.",
+      "chapters": "Kapitler etter notatene, opptil ~10 minutter. Manuset tar opptil et minutt, innlesingen noen til.",
+      "replaces": "Den nåværende podkasten for dette materialet blir erstattet.",
+      "create": "Lag",
+      "writing": "Skriver manuset …"
+    },
+    "player": {
+      "play": "Spill av",
+      "pause": "Pause",
+      "chapter": "Kapittel {{number}} av {{total}}",
+      "position": "Posisjon i podkasten",
+      "back": "Tilbake {{seconds}} s",
+      "forward": "Fram {{seconds}} s",
+      "speed": "Hastighet",
+      "text": "Tekst",
+      "download": "Last ned MP3",
+      "host": "Vert",
+      "guest": "Gjest",
+      "material": "Materiale",
+      "aiVoices": "Skrevet og lest inn av KI, så det kan inneholde feil.",
+      "error": "Kunne ikke spille av lyden. Sjekk tilkoblingen og prøv igjen."
     }
   }
 }

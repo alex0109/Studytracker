@@ -12,7 +12,7 @@ export const Footer: FC = () => {
   return (
     <footer className="py-30 px-4 mt-10 text-center text-neutral-200 bg-neutral-800 dark:bg-neutral-900 dark:border-t dark:border-neutral-800">
       <small className="mb-2 block text-sm">
-        &copy; 2026 Oleksii Slipokurov. {t("footer.rights")}
+        &copy; 2026 Studytracker. {t("footer.rights")}
       </small>
       <nav className="mt-3 flex justify-center gap-4 text-sm text-neutral-400">
         <Link href="/terms" className="hover:text-neutral-100">
