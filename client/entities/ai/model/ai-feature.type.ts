@@ -9,4 +9,5 @@ export enum AiFeatureEnum {
   EssayReview = "EssayReview",
   WordExplanation = "WordExplanation",
   PodcastGeneration = "PodcastGeneration",
+  VideoTranscript = "VideoTranscript",
 }

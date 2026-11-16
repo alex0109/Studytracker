@@ -45,7 +45,13 @@
     "rights": "All rights reserved.",
     "privacy": "Privacy",
     "cookies": "Cookies",
-    "terms": "Terms"
+    "terms": "Terms",
+    "study": "Study",
+    "help": "Help",
+    "legal": "Legal",
+    "about": "About Studytracker",
+    "quickLinks": "Quick links",
+    "feedback": "Send feedback"
   },
   "common": {
     "create": "Create",
@@ -430,7 +436,9 @@
       "correct": "Correct option",
       "placeholder": "Option {{number}}",
       "unique": "Options must be unique",
-      "add": "Add option"
+      "add": "Add option",
+      "count": "{{current}} of {{max}}",
+      "limitReached": "That's the maximum: a question can have up to {{max}} options. Remove one to add another."
     },
     "generate": {
       "title": "Generate Questions",
@@ -439,7 +447,8 @@
       "check": "Check them before you start Self Defending.",
       "howMany": "How many",
       "type": "Type",
-      "mixed": "Mixed"
+      "mixed": "Mixed",
+      "fromVideo": "The AI writes questions from the video's subtitles, each showing the moment the answer is said."
     },
     "review": {
       "due": "Due for review",
@@ -724,7 +733,8 @@
       "collapse": "Collapse the list",
       "expand": "Expand the list",
       "sheetText": "Pick a material, note or dictionary",
-      "breadcrumb": "Where you are"
+      "breadcrumb": "Where you are",
+      "myMaterials": "My materials"
     },
     "emptySection": {
       "hint": "Pick a material on the left or add a new one.",
@@ -760,8 +770,8 @@
     "import": {
       "tabManual": "By hand",
       "tabLink": "From a link",
-      "url": "Link to an article",
-      "privateNote": "The text is saved only for you. Videos can't be imported yet.",
+      "url": "Link to an article or a YouTube video",
+      "privateNote": "The text is kept for you only. A YouTube video becomes a material with a player: make its subtitles and quiz on its page.",
       "generateQuestions": "Make self-test questions right away",
       "submit": "Import",
       "pending": "Importing…",
@@ -786,10 +796,12 @@
         "TooLarge": "The page is too large to import",
         "NotHtml": "The link is not a web page",
         "NotAnArticle": "No article text was found on this page",
-        "VideoNotSupported": "Videos can't be imported yet",
+        "VideoNotSupported": "Only YouTube videos are supported for now",
         "tooMany": "Too many imports for now, try again in an hour",
         "generic": "Couldn't import the article, try again"
-      }
+      },
+      "videoDone": "The video is in your materials",
+      "videoNext": "Make its subtitles to read along and build a quiz."
     },
     "addText": "Write your own or import an article from a link.",
     "deleteTitle": "Delete the material?",
@@ -894,7 +906,8 @@
       "WordLookup": "Words from the text",
       "EssayReview": "Essay checks",
       "WordExplanation": "Word explanations",
-      "PodcastGeneration": "Podcasts"
+      "PodcastGeneration": "Podcasts",
+      "VideoTranscript": "Video subtitles"
     }
   },
   "share": {
@@ -1067,6 +1080,63 @@
         "showAll": "Show all ({{count}})",
         "showLess": "Show less",
         "disclaimer": "This essay was checked by AI. Scores can vary slightly from one check to the next, but not by much, so go by the overall picture and the specific corrections."
+      },
+      "topicsButton": "Choose a topic",
+      "topicsTitle": "Essay topics",
+      "topicsText": "Pick a topic and it becomes the essay task. You can still edit the task afterwards.",
+      "topicLevel": "Level",
+      "topicLevels": {
+        "A2": "Simple topics about yourself and everyday life",
+        "B1": "Experiences, opinions and plans",
+        "B2": "Argument: pros and cons, problems and solutions"
+      },
+      "topics": {
+        "A2": [
+          "Describe your usual day. What do you do in the morning, afternoon and evening?",
+          "Write about your family or your best friend. What are they like, and what do you do together?",
+          "Describe the town or village where you live. What do you like and dislike about it?",
+          "What is your favourite food? Describe it and say when you usually eat it.",
+          "How did you spend last weekend? What was the most interesting part?",
+          "Describe your hobby. Why do you enjoy it, and how much time do you spend on it?",
+          "Write a letter to someone close to you and invite them to your birthday party. Say where, when and what you will do.",
+          "What is your favourite season? What do you like to do at that time of year?",
+          "Describe your room or flat. What is in it, and what would be worth changing?",
+          "Write about your school or job. What do you like, and what do you find difficult?"
+        ],
+        "B1": [
+          "Write about the trip you remember best. What happened, and why is it important to you?",
+          "Describe a person who has influenced your life. How exactly did they inspire you?",
+          "How has the internet changed the way people communicate? Give examples from your own life.",
+          "Is it better to live in a city or in the countryside? Explain your opinion.",
+          "Describe a goal you want to reach in the next few years and how you plan to achieve it.",
+          "Is it worth learning foreign languages when online translators exist? Explain your view.",
+          "Describe a film or book that impressed you. What is it about, and why did you like it?",
+          "How do you usually relax after a hard week? Give advice on the best ways to recharge.",
+          "Describe a situation that did not go to plan. What happened, and what did it teach you?",
+          "Should pupils wear school uniforms? Give arguments and your own opinion."
+        ],
+        "B2": [
+          "Some people believe university education should be free for everyone. Others think students should pay for their own studies. Discuss both views and give your own opinion.",
+          "Remote work is becoming more and more common. What are its advantages and disadvantages for employees and companies?",
+          "Should governments limit the time children spend on social media? Give arguments for and against.",
+          "Artificial intelligence is changing the job market. Which professions will suffer most, and which new ones will appear? Justify your opinion.",
+          "Should popular tourist cities limit the number of visitors? Discuss the benefits and risks of such a decision.",
+          "Some people think climate change should be tackled by governments, others by every individual. Who should bear the main responsibility?",
+          "Should public transport in cities be free? Analyse the possible consequences.",
+          "Celebrities have a strong influence on young people. Is it more helpful or harmful? Give examples.",
+          "Is studying online better than studying in a classroom? Compare both formats and draw a conclusion.",
+          "Some people believe money is the main measure of success. Do you agree? Give your arguments.",
+          "Should companies limit advertising aimed at children? Discuss the arguments for and against.",
+          "An ageing population is a challenge for many countries. What problems does it create, and how can they be solved?",
+          "Should cars be banned from historic city centres? Discuss the consequences for residents and businesses.",
+          "Should schools teach more practical skills (personal finance, cooking, first aid) than academic subjects? Give your opinion.",
+          "Fast fashion makes clothes cheap but harms the environment. Should this industry be restricted?",
+          "Some people think athletes and entertainers earn too much. Is this fair? Justify your position.",
+          "Should voting in elections be compulsory? Consider the arguments for and against.",
+          "Does technology make people lonelier or more connected? Give and support your opinion.",
+          "Should young people take a gap year between school and university? Discuss the advantages and disadvantages.",
+          "Some people think space exploration is a waste of money when there are so many problems on Earth. Discuss both views and give your own opinion."
+        ]
       }
     }
   },
@@ -2441,6 +2511,35 @@
       "material": "Material",
       "aiVoices": "Written and voiced by AI, so it may contain mistakes.",
       "error": "Couldn't play the audio. Check your connection and try again."
+    }
+  },
+  "video": {
+    "title": "Video",
+    "playerTitle": "YouTube video: {{title}}",
+    "openOnYouTube": "The player didn't load. Open the video on YouTube",
+    "linkLabel": "YouTube video link",
+    "linkHint": "Paste a link to a public video: it will play here, and the AI can make subtitles and a quiz.",
+    "linkInvalid": "That doesn't look like a YouTube video link",
+    "changeLink": "Change the video link",
+    "subtitles": "Subtitles",
+    "empty": {
+      "title": "Subtitles and a quiz for the video",
+      "text": "The AI watches the video and writes down everything said, with timestamps. Then you can read along, make a quiz and add words to the dictionary. The first 30 minutes of a public video are processed."
+    },
+    "process": "Make subtitles",
+    "processing": "Watching the video… this can take up to 2–3 minutes",
+    "processed_one": "Done: {{count}} subtitle line",
+    "processed_other": "Done: {{count}} subtitle lines",
+    "quiz": "Video quiz",
+    "redo": "Make the subtitles again",
+    "redoTitle": "Make the subtitles again?",
+    "redoText": "The AI watches the video again and the new subtitles replace these. It uses one more video from your monthly limit.",
+    "selectHint": "Select a word in the subtitles to translate it and add it to the dictionary.",
+    "clipped": "The subtitles cover only the first 30 minutes.",
+    "momentTitle": "Play from {{time}}",
+    "errors": {
+      "failed": "The video couldn't be processed. Make sure it's public and try again.",
+      "noSpeech": "No speech was found in this video, so there are no subtitles."
     }
   }
 }

@@ -20,7 +20,8 @@ const supabaseOrigin = originOf(process.env.NEXT_PUBLIC_SUPABASE_URL);
 // and sending data anywhere except our API, Supabase and Sentry (tunnelled through /monitoring)
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ""}`,
+  // youtube.com: the IFrame Player API of video materials
+  `script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com https://www.youtube.com${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   // Notes can hold images from any https site; avatars come from Google
   "img-src 'self' data: blob: https:",
@@ -40,7 +41,8 @@ const contentSecurityPolicy = [
     .filter(Boolean)
     .join(" "),
   "worker-src 'self' blob:",
-  "frame-src 'self'",
+  // Video materials play in YouTube's privacy-enhanced player
+  "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

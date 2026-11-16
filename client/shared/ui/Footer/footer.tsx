@@ -1,37 +1,79 @@
 // SHARED-UI
 "use client";
 
-import { FC } from "react";
+import { FC, ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/shared/i18n";
 import { GA_MEASUREMENT_ID, OPEN_CONSENT_EVENT } from "@/shared/lib/analytics";
 
+const linkClass = "text-sm text-neutral-400 transition-colors hover:text-white";
+
+const Column: FC<{ title: string; children: ReactNode }> = ({ title, children }) => (
+  <div className="flex flex-col gap-3">
+    <h2 className="text-xs! font-semibold! uppercase tracking-wider text-neutral-500">{title}</h2>
+    <ul className="flex flex-col gap-2">{children}</ul>
+  </div>
+);
+
+const FooterLink: FC<{ href: string; children: ReactNode }> = ({ href, children }) => (
+  <li>
+    <Link href={href} className={linkClass}>
+      {children}
+    </Link>
+  </li>
+);
+
+// Quick links to every main page; private ones send a signed-out visitor to sign in first
 export const Footer: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="py-30 px-4 mt-10 text-center text-neutral-200 bg-neutral-800 dark:bg-neutral-900 dark:border-t dark:border-neutral-800">
-      <small className="mb-2 block text-sm">
-        &copy; 2026 Studytracker. {t("footer.rights")}
-      </small>
-      <nav className="mt-3 flex justify-center gap-4 text-sm text-neutral-400">
-        <Link href="/terms" className="hover:text-neutral-100">
-          {t("footer.terms")}
-        </Link>
-        <Link href="/privacy" className="hover:text-neutral-100">
-          {t("footer.privacy")}
-        </Link>
-        {/* The analytics choice can be changed at any time */}
-        {GA_MEASUREMENT_ID && (
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_EVENT))}
-            className="hover:text-neutral-100"
-          >
-            {t("footer.cookies")}
-          </button>
-        )}
+    <footer className="mt-10 bg-neutral-800 px-4 pt-14 pb-8 text-neutral-200 dark:border-t dark:border-neutral-800 dark:bg-neutral-900">
+      <nav aria-label={t("footer.quickLinks")} className="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+        <div className="col-span-2 flex max-w-sm flex-col gap-3 lg:col-span-1">
+          <Link href="/home" className="flex items-center gap-2.5 self-start text-lg font-semibold text-white hover:opacity-80">
+            <Image src="/brand/studytracker-logo.svg" alt="" width={32} height={32} unoptimized className="size-8 invert" />
+            Studytracker
+          </Link>
+          <p className="text-sm text-pretty text-neutral-400">{t("meta.description")}</p>
+        </div>
+
+        <Column title={t("footer.study")}>
+          <FooterLink href="/app">{t("nav.today")}</FooterLink>
+          <FooterLink href="/materials">{t("nav.materials")}</FooterLink>
+          <FooterLink href="/library">{t("nav.library")}</FooterLink>
+          <FooterLink href="/statistics">{t("nav.statistics")}</FooterLink>
+          <FooterLink href="/calendar">{t("nav.calendar")}</FooterLink>
+        </Column>
+
+        <Column title={t("footer.help")}>
+          <FooterLink href="/guide">{t("nav.guide")}</FooterLink>
+          <FooterLink href="/limits">{t("nav.limits")}</FooterLink>
+          <FooterLink href="/account">{t("nav.account")}</FooterLink>
+          <FooterLink href="/home#feedback">{t("footer.feedback")}</FooterLink>
+          <FooterLink href="/home">{t("footer.about")}</FooterLink>
+        </Column>
+
+        <Column title={t("footer.legal")}>
+          <FooterLink href="/terms">{t("footer.terms")}</FooterLink>
+          <FooterLink href="/privacy">{t("footer.privacy")}</FooterLink>
+          {/* The analytics choice can be changed at any time */}
+          {GA_MEASUREMENT_ID && (
+            <li>
+              <button type="button" onClick={() => window.dispatchEvent(new Event(OPEN_CONSENT_EVENT))} className={linkClass}>
+                {t("footer.cookies")}
+              </button>
+            </li>
+          )}
+        </Column>
       </nav>
+
+      <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-6">
+        <small className="block text-xs text-neutral-500">
+          &copy; 2026 Studytracker. {t("footer.rights")}
+        </small>
+      </div>
     </footer>
   );
 };

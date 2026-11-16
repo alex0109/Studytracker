@@ -3,7 +3,7 @@
 import { FC, ReactNode, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { LuChevronRight, LuMenu, LuPanelLeftClose, LuPanelLeftOpen, LuX } from "react-icons/lu";
+import { LuChevronRight, LuPanelLeftClose, LuPanelLeftOpen, LuX } from "react-icons/lu";
 import { Button } from "@/shared/components/ui/button";
 import {
   Sheet,
@@ -218,13 +218,22 @@ export const MaterialsSideBar: FC = () => {
           </aside>
           <div className="flex min-w-0 flex-1 items-start justify-center">{animatedContent}</div>
         </div>
+      ) : activeSidebarSection === MaterialsSidebarSectionEnum.Empty ? (
+        // Nothing open on a phone: the list itself is the page, not a hint to find a hidden one
+        <div className="min-w-0 p-3 sm:p-4">{list(false)}</div>
       ) : (
         <div className="flex w-full min-w-0 flex-col">
           <div className="flex min-w-0 items-center gap-2 border-b border-neutral-200 p-3 dark:border-neutral-800">
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              {/* Not a hamburger: that icon is the site menu, and the two were mixed up */}
               <SheetTrigger asChild>
-                <Button variant="outline" className="shrink-0 rounded-xl">
-                  <LuMenu /> {t("nav.materials")}
+                <Button className="shrink-0 rounded-xl">
+                  <LuPanelLeftOpen /> {t("materials.sidebar.myMaterials")}
+                  {!!materialsData?.length && (
+                    <span className="rounded-full bg-white/20 px-1.5 text-xs tabular-nums dark:bg-neutral-900/15">
+                      {materialsData.length}
+                    </span>
+                  )}
                 </Button>
               </SheetTrigger>
               {/* The sheet's own corner cross sat on top of "add"; the list's header closes it instead */}

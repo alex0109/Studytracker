@@ -33,9 +33,13 @@ export const useMaterialImport = (onImported: (materialId: string) => void) => {
       queryClient.invalidateQueries({ queryKey: materialKeys.list() });
       if (body.generateQuestions) queryClient.invalidateQueries({ queryKey: aiKeys.usage() });
 
+      // A YouTube link becomes a video: its questions come from the subtitles, made on its page
+      const isVideo = result.material.type === "video";
       toast({
-        title: `🎉${t("materials.import.done")}`,
-        description: body.generateQuestions
+        title: `🎉${t(isVideo ? "materials.import.videoDone" : "materials.import.done")}`,
+        description: isVideo
+          ? t("materials.import.videoNext")
+          : body.generateQuestions
           ? result.questionsCreated > 0
             ? t("materials.import.questions", { count: result.questionsCreated })
             : t(`materials.import.questionsSkipped.${result.questionsSkipped ?? "failed"}`)
@@ -43,7 +47,7 @@ export const useMaterialImport = (onImported: (materialId: string) => void) => {
         variant: "success",
         durationMs: 6000,
       });
-      trackEvent("import_article", { with_questions: body.generateQuestions });
+      trackEvent(isVideo ? "import_video" : "import_article", { with_questions: body.generateQuestions });
       onImported(result.material.id);
     },
     onError: (error) => {
