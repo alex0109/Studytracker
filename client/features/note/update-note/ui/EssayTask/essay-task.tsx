@@ -1,13 +1,14 @@
 "use client";
 
 import { FC, useEffect, useRef, useState } from "react";
-import { LuTarget } from "react-icons/lu";
+import { LuLightbulb, LuTarget } from "react-icons/lu";
 import { useDebounce } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
 import { SaveStatus } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import { ESSAY_TASK_MAX_LENGTH } from "@/entities/note";
 import { useNoteUpdate } from "../../hooks/useNoteUpdate";
+import { EssayTopicsModal } from "./essay-topics-modal";
 
 interface EssayTaskProps {
   materialId: string;
@@ -22,6 +23,7 @@ const COUNTER_FROM = ESSAY_TASK_MAX_LENGTH - 200;
 export const EssayTask: FC<EssayTaskProps> = ({ materialId, noteId, task }) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(task ?? "");
+  const [topicsOpen, setTopicsOpen] = useState(false);
   const lastSent = useRef(task ?? "");
   const { updateNote, updateNoteIsPending, updateNoteIsError } = useNoteUpdate(noteId);
 
@@ -29,6 +31,13 @@ export const EssayTask: FC<EssayTaskProps> = ({ materialId, noteId, task }) => {
     if (next.trim() === lastSent.current.trim()) return;
     lastSent.current = next;
     updateNote({ materialId, noteId, dataToUpdate: { essayTask: next.trim() } });
+  };
+
+  // A ready topic is saved at once: nothing is typed, so there is no pause to wait for
+  const pickTopic = (topic: string) => {
+    setValue(topic);
+    save(topic);
+    setTopicsOpen(false);
   };
 
   const debounced = useDebounce(value, 1000);
@@ -45,7 +54,16 @@ export const EssayTask: FC<EssayTaskProps> = ({ materialId, noteId, task }) => {
           <LuTarget aria-hidden />
           {t("notes.essay.taskLabel")}
         </label>
-        <SaveStatus isPending={updateNoteIsPending} isError={updateNoteIsError} />
+        <div className="flex items-center gap-2">
+          <SaveStatus isPending={updateNoteIsPending} isError={updateNoteIsError} />
+          <button
+            type="button"
+            onClick={() => setTopicsOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-white px-3 py-1 text-xs font-medium text-violet-700 transition hover:border-violet-400 hover:text-violet-900 dark:border-violet-900 dark:bg-neutral-950 dark:text-violet-300 dark:hover:text-violet-100"
+          >
+            <LuLightbulb aria-hidden /> {t("notes.essay.topicsButton")}
+          </button>
+        </div>
       </div>
       <textarea
         id={`essay-task-${noteId}`}
@@ -70,6 +88,7 @@ export const EssayTask: FC<EssayTaskProps> = ({ materialId, noteId, task }) => {
           </span>
         )}
       </div>
+      <EssayTopicsModal open={topicsOpen} onClose={() => setTopicsOpen(false)} onPick={pickTopic} />
     </div>
   );
 };

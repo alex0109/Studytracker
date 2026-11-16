@@ -6,3 +6,4 @@ export { questionTypeKeys, isTrueFalseName } from "./lib/question-type-labels";
 export { toQuestionDifficulty } from "./lib/question-difficulty";
 export * from "./consts";
 export { QuestionReviewBadge } from "./ui/QuestionReviewBadge/question-review-badge";
+export { OptionsCount, OptionsLimitNote } from "./ui/OptionsLimit/options-limit";

@@ -23,6 +23,7 @@ import { IDictionaryResponse } from "@/entities/dictionary";
 import { MaterialActions } from "../MaterialActions/material-actions";
 import { MaterialProperties } from "../MaterialProperties/material-properties";
 import { MaterialPodcast } from "../MaterialPodcast/material-podcast";
+import { MaterialVideo } from "../MaterialVideo/material-video";
 
 interface MaterialContentType {
   id: string;
@@ -45,6 +46,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
   id,
   noteId,
   assessmentId,
+  link,
   tags,
   status,
   title,
@@ -96,6 +98,8 @@ export const MaterialContent: FC<MaterialContentType> = ({
         <DeadlinePlanCard materialId={id} compact />
         {/* Stays open while switching tabs, so listening goes on next to the questions */}
         {podcastOpen && <MaterialPodcast materialId={id} title={title} />}
+        {/* Above the tabs too: a question's moment plays the video without leaving the questions */}
+        <MaterialVideo materialId={id} title={title} type={type} link={link} onOpenDictionary={onOpenDictionary} />
       </header>
       <SwitchInterface switchInterface={materialInterface} />
       {activeSection === MaterialInterfaceEnum.Questions ? (

@@ -13,7 +13,7 @@ import { LuCheck, LuPlus, LuX } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { FieldInput } from "@/shared/ui";
-import { MAX_OPTIONS, MIN_OPTIONS } from "@/entities/question";
+import { MAX_OPTIONS, MIN_OPTIONS, OptionsCount, OptionsLimitNote } from "@/entities/question";
 import { IQuestionCreateForm } from "../../model";
 
 interface QuestionOptionsFieldsProps {
@@ -42,9 +42,12 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-        {t("questions.options.markEvery")}
-      </span>
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          {t("questions.options.markEvery")}
+        </span>
+        <OptionsCount count={fields.length} />
+      </div>
       {fields.map((field, index) => (
         <div key={field.id} className="flex flex-col">
           <div className="flex items-center gap-2">
@@ -103,15 +106,18 @@ export const QuestionOptionsFields: FC<QuestionOptionsFieldsProps> = ({
       {errors.options?.root?.message && (
         <p role="alert" className="text-xs text-red-500">{errors.options.root.message}</p>
       )}
-      <Button
-        type="button"
-        variant="ghost"
-        className="self-start"
-        disabled={fields.length >= MAX_OPTIONS}
-        onClick={() => append({ name: "", isCorrect: false })}
-      >
-        <LuPlus /> {t("questions.options.add")}
-      </Button>
+      {fields.length >= MAX_OPTIONS ? (
+        <OptionsLimitNote />
+      ) : (
+        <Button
+          type="button"
+          variant="ghost"
+          className="self-start"
+          onClick={() => append({ name: "", isCorrect: false })}
+        >
+          <LuPlus /> {t("questions.options.add")}
+        </Button>
+      )}
     </div>
   );
 };

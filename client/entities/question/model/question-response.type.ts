@@ -13,6 +13,8 @@ export interface IQuestionResponse {
   options: IOption[];
   questionDifficulty: QuestionDifficultyEnum;
   explanation?: string;
+  // Second of the material's video where the answer is said
+  videoSeconds?: number | null;
   version: number;
   isActive: boolean;
   createdAt: Date;

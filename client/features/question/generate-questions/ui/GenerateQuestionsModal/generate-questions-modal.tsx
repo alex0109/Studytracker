@@ -18,6 +18,8 @@ interface GenerateQuestionsModalProps {
   materialId: string;
   // Questions are generated from this note when set, otherwise from the material
   noteId?: string;
+  // From the subtitles of the material's video instead; every question gets its moment
+  fromVideo?: boolean;
   open: boolean;
   setOpen: (isOpen: boolean) => void;
 }
@@ -34,6 +36,7 @@ const TYPE_OPTIONS: (QuestionTypeEnum | undefined)[] = [
 export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
   materialId,
   noteId,
+  fromVideo,
   open,
   setOpen,
 }) => {
@@ -52,7 +55,7 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
 
   const onGenerate = async () => {
     try {
-      await generateQuestions({ noteId, count, questionType });
+      await generateQuestions(fromVideo ? { fromVideo, count, questionType } : { noteId, count, questionType });
       setOpen(false);
     } catch {
       // The hook already shows the reason
@@ -67,7 +70,7 @@ export const GenerateQuestionsModal: FC<GenerateQuestionsModalProps> = ({
       icon={<LuSparkles />}
       tone="ai"
       title={t("questions.generate.title")}
-      description={`${noteId ? t("questions.generate.fromNote") : t("questions.generate.fromMaterial")} ${t("questions.generate.check")}`}
+      description={`${fromVideo ? t("questions.generate.fromVideo") : noteId ? t("questions.generate.fromNote") : t("questions.generate.fromMaterial")} ${t("questions.generate.check")}`}
       footer={
         <>
           <Button size="lg" variant="outline" onClick={() => setOpen(false)}>

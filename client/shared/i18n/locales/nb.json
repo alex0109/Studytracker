@@ -45,7 +45,13 @@
     "rights": "Alle rettigheter forbeholdt.",
     "privacy": "Personvern",
     "cookies": "Informasjonskapsler",
-    "terms": "Vilkår"
+    "terms": "Vilkår",
+    "study": "Læring",
+    "help": "Hjelp",
+    "legal": "Juridisk",
+    "about": "Om Studytracker",
+    "quickLinks": "Snarveier",
+    "feedback": "Gi tilbakemelding"
   },
   "common": {
     "create": "Opprett",
@@ -430,7 +436,9 @@
       "correct": "Riktig alternativ",
       "placeholder": "Alternativ {{number}}",
       "unique": "Alternativene må være unike",
-      "add": "Legg til alternativ"
+      "add": "Legg til alternativ",
+      "count": "{{current}} av {{max}}",
+      "limitReached": "Det er maksimum: et spørsmål kan ha opptil {{max}} alternativer. Fjern ett for å legge til et nytt."
     },
     "generate": {
       "title": "Generer spørsmål",
@@ -439,7 +447,8 @@
       "check": "Se over dem før du starter selvforsvar.",
       "howMany": "Hvor mange",
       "type": "Type",
-      "mixed": "Blandet"
+      "mixed": "Blandet",
+      "fromVideo": "KI lager spørsmål fra videoens undertekster, og hvert viser øyeblikket svaret blir sagt."
     },
     "review": {
       "due": "Klar for repetisjon",
@@ -724,7 +733,8 @@
       "collapse": "Skjul listen",
       "expand": "Vis listen",
       "sheetText": "Velg et materiale, notat eller en ordliste",
-      "breadcrumb": "Hvor du er"
+      "breadcrumb": "Hvor du er",
+      "myMaterials": "Mine materialer"
     },
     "emptySection": {
       "hint": "Velg et materiale til venstre eller legg til et nytt.",
@@ -760,8 +770,8 @@
     "import": {
       "tabManual": "For hånd",
       "tabLink": "Fra en lenke",
-      "url": "Lenke til en artikkel",
-      "privateNote": "Teksten lagres bare for deg. Videoer kan ikke importeres ennå.",
+      "url": "Lenke til en artikkel eller en YouTube-video",
+      "privateNote": "Teksten lagres bare for deg. En YouTube-video blir et materiale med spiller: undertekster og quiz lager du på siden til den.",
       "generateQuestions": "Lag spørsmål til selvtest med en gang",
       "submit": "Importer",
       "pending": "Importerer…",
@@ -786,10 +796,12 @@
         "TooLarge": "Siden er for stor til å importeres",
         "NotHtml": "Lenken går ikke til en nettside",
         "NotAnArticle": "Fant ingen artikkeltekst på denne siden",
-        "VideoNotSupported": "Videoer kan ikke importeres ennå",
+        "VideoNotSupported": "Foreløpig støttes bare YouTube-videoer",
         "tooMany": "For mange importer nå, prøv igjen om en time",
         "generic": "Kunne ikke importere artikkelen, prøv igjen"
-      }
+      },
+      "videoDone": "Videoen ligger i materialene dine",
+      "videoNext": "Lag undertekster for å lese med og lage en quiz."
     },
     "addText": "Skriv ditt eget eller importer en artikkel fra en lenke.",
     "deleteTitle": "Slette materialet?",
@@ -894,7 +906,8 @@
       "WordLookup": "Ord fra teksten",
       "EssayReview": "Essaysjekker",
       "WordExplanation": "Ordforklaringer",
-      "PodcastGeneration": "Podkaster"
+      "PodcastGeneration": "Podkaster",
+      "VideoTranscript": "Videoundertekster"
     }
   },
   "share": {
@@ -1067,6 +1080,63 @@
         "showAll": "Vis alle ({{count}})",
         "showLess": "Vis færre",
         "disclaimer": "Essayet er sjekket av KI. Poengene kan variere litt fra sjekk til sjekk, men ikke mye, så se på helheten og de konkrete rettelsene."
+      },
+      "topicsButton": "Velg et tema",
+      "topicsTitle": "Essaytemaer",
+      "topicsText": "Velg et tema, så blir det oppgaven for essayet. Du kan fortsatt endre oppgaven etterpå.",
+      "topicLevel": "Nivå",
+      "topicLevels": {
+        "A2": "Enkle temaer om deg selv og hverdagen",
+        "B1": "Opplevelser, meninger og planer",
+        "B2": "Argumentasjon: for og imot, problemer og løsninger"
+      },
+      "topics": {
+        "A2": [
+          "Beskriv en vanlig dag for deg. Hva gjør du om morgenen, på dagen og om kvelden?",
+          "Skriv om familien din eller din beste venn. Hvordan er de, og hva gjør dere sammen?",
+          "Beskriv byen eller bygda der du bor. Hva liker du, og hva liker du ikke?",
+          "Hva er favorittmaten din? Beskriv den og fortell når du pleier å spise den.",
+          "Hvordan var den siste helgen din? Hva var det mest interessante?",
+          "Beskriv hobbyen din. Hvorfor liker du den, og hvor mye tid bruker du på den?",
+          "Skriv et brev til en du er glad i, og inviter vedkommende til bursdagen din. Fortell hvor, når og hva dere skal gjøre.",
+          "Hvilken årstid liker du best? Hva liker du å gjøre på den tiden av året?",
+          "Beskriv rommet eller leiligheten din. Hva er det der, og hva kunne det vært lurt å endre?",
+          "Skriv om skolen eller jobben din. Hva liker du, og hva synes du er vanskelig?"
+        ],
+        "B1": [
+          "Skriv om en reise du husker spesielt godt. Hva skjedde, og hvorfor er den viktig for deg?",
+          "Beskriv en person som har påvirket livet ditt. Hvordan har denne personen inspirert deg?",
+          "Hvordan har internett endret måten folk kommuniserer på? Gi eksempler fra ditt eget liv.",
+          "Er det bedre å bo i byen eller på landet? Forklar hva du mener.",
+          "Beskriv et mål du vil nå de neste årene, og hvordan du planlegger å nå det.",
+          "Er det verdt å lære fremmedspråk når det finnes oversettelsestjenester på nett? Forklar synspunktet ditt.",
+          "Beskriv en film eller en bok som gjorde inntrykk på deg. Hva handler den om, og hvorfor likte du den?",
+          "Hvordan pleier du å slappe av etter en travel uke? Gi råd om gode måter å hente seg inn på.",
+          "Beskriv en situasjon som ikke gikk som planlagt. Hva skjedde, og hva lærte du av den?",
+          "Bør elever bruke skoleuniform? Gi argumenter og si hva du selv mener."
+        ],
+        "B2": [
+          "Noen mener at høyere utdanning bør være gratis for alle. Andre mener at studentene selv bør betale. Drøft begge synspunktene og gi din egen mening.",
+          "Hjemmekontor blir stadig vanligere. Hvilke fordeler og ulemper har det for ansatte og bedrifter?",
+          "Bør myndighetene begrense hvor mye tid barn bruker på sosiale medier? Gi argumenter for og imot.",
+          "Kunstig intelligens endrer arbeidsmarkedet. Hvilke yrker vil bli mest rammet, og hvilke nye vil oppstå? Begrunn synspunktet ditt.",
+          "Bør populære turistbyer begrense antall besøkende? Drøft fordeler og risikoer ved et slikt tiltak.",
+          "Noen mener at klimaendringene må løses av myndighetene, andre at hver enkelt har ansvaret. Hvem bør bære hovedansvaret?",
+          "Bør kollektivtransporten i byene være gratis? Analyser mulige konsekvenser.",
+          "Kjendiser har stor innflytelse på unge mennesker. Er det mest positivt eller negativt? Gi eksempler.",
+          "Er nettundervisning bedre enn undervisning i klasserommet? Sammenlign de to formene og trekk en konklusjon.",
+          "Noen mener at penger er det viktigste målet på suksess. Er du enig? Begrunn svaret ditt.",
+          "Bør bedrifter begrense reklame rettet mot barn? Drøft argumentene for og imot.",
+          "En aldrende befolkning er en utfordring for mange land. Hvilke problemer skaper det, og hvordan kan de løses?",
+          "Bør biler forbys i historiske bysentre? Drøft konsekvensene for innbyggere og næringsliv.",
+          "Bør skolen lære bort flere praktiske ferdigheter (privatøkonomi, matlaging, førstehjelp) enn teoretiske fag? Gi din mening.",
+          "Hurtigmote gjør klær billige, men skader miljøet. Bør denne bransjen begrenses?",
+          "Noen mener at idrettsutøvere og underholdningsartister tjener for mye. Er det rettferdig? Begrunn standpunktet ditt.",
+          "Bør det være stemmeplikt ved valg? Vurder argumentene for og imot.",
+          "Gjør teknologien oss mer ensomme eller mer tilkoblet? Gi og begrunn din mening.",
+          "Bør unge ta et friår mellom videregående skole og universitetet? Drøft fordeler og ulemper.",
+          "Noen mener at romforskning er sløsing med penger når det finnes så mange problemer på jorda. Drøft begge synspunktene og gi din egen mening."
+        ]
       }
     }
   },
@@ -2441,6 +2511,35 @@
       "material": "Materiale",
       "aiVoices": "Skrevet og lest inn av KI, så det kan inneholde feil.",
       "error": "Kunne ikke spille av lyden. Sjekk tilkoblingen og prøv igjen."
+    }
+  },
+  "video": {
+    "title": "Video",
+    "playerTitle": "YouTube-video: {{title}}",
+    "openOnYouTube": "Spilleren ble ikke lastet. Åpne videoen på YouTube",
+    "linkLabel": "Lenke til YouTube-video",
+    "linkHint": "Lim inn en lenke til en offentlig video: den spilles her, og KI kan lage undertekster og en quiz.",
+    "linkInvalid": "Det ser ikke ut som en lenke til en YouTube-video",
+    "changeLink": "Endre lenken til videoen",
+    "subtitles": "Undertekster",
+    "empty": {
+      "title": "Undertekster og quiz til videoen",
+      "text": "KI ser videoen og skriver ned alt som blir sagt, med tidskoder. Så kan du lese med, lage en quiz og legge ord i ordboken. De første 30 minuttene av en offentlig video behandles."
+    },
+    "process": "Lag undertekster",
+    "processing": "Ser på videoen … dette kan ta opptil 2–3 minutter",
+    "processed_one": "Ferdig: {{count}} undertekstlinje",
+    "processed_other": "Ferdig: {{count}} undertekstlinjer",
+    "quiz": "Quiz til videoen",
+    "redo": "Lag undertekstene på nytt",
+    "redoTitle": "Lage undertekstene på nytt?",
+    "redoText": "KI ser videoen på nytt, og de nye undertekstene erstatter disse. Det bruker én video til av månedsgrensen.",
+    "selectHint": "Marker et ord i undertekstene for å oversette det og legge det i ordboken.",
+    "clipped": "Undertekstene dekker bare de første 30 minuttene.",
+    "momentTitle": "Spill av fra {{time}}",
+    "errors": {
+      "failed": "Videoen kunne ikke behandles. Sjekk at den er offentlig, og prøv igjen.",
+      "noSpeech": "Det ble ikke funnet tale i denne videoen, så det finnes ingen undertekster."
     }
   }
 }

@@ -1,2 +1,2 @@
 export { podcastKeys } from "./podcast-query-keys";
-export { formatPlayTime } from "./format-time";
+export { formatPlayTime } from "@/shared/lib/play-time";

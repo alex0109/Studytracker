@@ -209,6 +209,7 @@ export const TodayReview: FC = () => {
             onRepeat={(entryIds) => goWords(entryIds)}
             onRestart={() => (hasQuestions ? goQuestions() : setPhase("done"))}
             continueLabel={hasQuestions ? t("today.startQuestions") : t("today.question.finish")}
+            canUndo={false}
           />
         </Fade>
       )}

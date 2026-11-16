@@ -27,6 +27,9 @@ interface FlashcardsDeckProps {
   onRepeat: (entryIds: string[]) => void;
   onRestart: () => void;
   continueLabel?: string;
+  // Off where answers count for the schedule: taking back a wrong answer until it is right
+  // would make every word look known
+  canUndo?: boolean;
 }
 
 const KEY_ANSWERS: Record<string, FlashcardAnswerEnum> = {
@@ -41,6 +44,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   onRepeat,
   onRestart,
   continueLabel,
+  canUndo = true,
 }) => {
   const { t } = useTranslation();
   const queue = session.cards;
@@ -204,17 +208,19 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
         <p className="text-xs text-neutral-400">
           {quizEntry ? t("flashcards.quiz.keysHint") : t("flashcards.keysHint")}
         </p>
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled={index === 0 || !!quizEntry}
-          onClick={(e) => {
-            e.currentTarget.blur();
-            handleUndo();
-          }}
-        >
-          <LuUndo2 /> {t("flashcards.undo")}
-        </Button>
+        {canUndo && (
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={index === 0 || !!quizEntry}
+            onClick={(e) => {
+              e.currentTarget.blur();
+              handleUndo();
+            }}
+          >
+            <LuUndo2 /> {t("flashcards.undo")}
+          </Button>
+        )}
       </div>
     </div>
   );

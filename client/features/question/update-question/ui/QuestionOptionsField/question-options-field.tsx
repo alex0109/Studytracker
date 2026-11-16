@@ -8,6 +8,8 @@ import {
   IOptionRequest,
   MAX_OPTIONS,
   MIN_OPTIONS,
+  OptionsCount,
+  OptionsLimitNote,
 } from "@/entities/question";
 import { Button } from "@/shared/radix-ui";
 import { SaveStatus } from "@/shared/ui";
@@ -85,7 +87,14 @@ export const QuestionOptionsField: FC<QuestionOptionsFieldProps> = ({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <FieldLabel aside={<SaveStatus isPending={updateQuestionIsPending} isError={updateQuestionIsError} />}>
+      <FieldLabel
+        aside={
+          <span className="flex items-center gap-2">
+            <SaveStatus isPending={updateQuestionIsPending} isError={updateQuestionIsError} />
+            <OptionsCount count={options.length} />
+          </span>
+        }
+      >
         {t("questions.editor.options")}
       </FieldLabel>
       <div className="flex flex-col gap-1.5">
@@ -135,7 +144,9 @@ export const QuestionOptionsField: FC<QuestionOptionsFieldProps> = ({
           </div>
         ))}
 
-        {options.length < MAX_OPTIONS && (
+        {options.length >= MAX_OPTIONS ? (
+          <OptionsLimitNote />
+        ) : (
           <div className="flex items-center gap-2 rounded-xl border border-dashed border-neutral-300 px-2 py-1 dark:border-neutral-700">
             <LuPlus aria-hidden className="ml-1.5 shrink-0 text-neutral-400" />
             <input
