@@ -6,11 +6,13 @@ import {
   LuBug,
   LuChartColumn,
   LuDatabase,
+  LuMail,
   LuMessageCircle,
   LuServer,
   LuShieldCheck,
   LuSparkles,
 } from "react-icons/lu";
+import { OPERATOR } from "@/shared/config/site";
 import { getServerT } from "@/shared/i18n/server";
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -89,8 +91,17 @@ const Privacy = async () => {
                   {t(`privacy.${key}.title`)}
                 </h2>
                 <p className="leading-relaxed text-pretty text-neutral-700 dark:text-neutral-300">
-                  {t(`privacy.${key}.text`)}
+                  {t(`privacy.${key}.text`, OPERATOR)}
                 </p>
+                {key === "contact" && (
+                  <a
+                    href={`mailto:${OPERATOR.email}`}
+                    className="mt-1 inline-flex items-center gap-1.5 self-start text-sm font-medium text-emerald-700 underline-offset-4 hover:underline dark:text-emerald-400"
+                  >
+                    <LuMail aria-hidden />
+                    {OPERATOR.email}
+                  </a>
+                )}
                 {key === "rights" && (
                   <Link
                     href="/account"
