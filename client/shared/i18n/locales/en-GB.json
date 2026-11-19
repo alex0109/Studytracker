@@ -43,6 +43,7 @@
   },
   "footer": {
     "rights": "All rights reserved.",
+    "operator": "Run by {{name}}, org. no. {{orgNumber}}, Norway",
     "privacy": "Privacy",
     "cookies": "Cookies",
     "terms": "Terms",
@@ -1726,7 +1727,7 @@
   },
   "terms": {
     "title": "Terms of service",
-    "updated": "Updated 8 November 2026",
+    "updated": "Updated 19 November 2026",
     "intro": "How Studytracker, its plans, payment and cancelling work. In plain words, without small print.",
     "contents": "Contents",
     "summary": {
@@ -1851,7 +1852,8 @@
     "contact": {
       "title": "Contact",
       "items": [
-        "Questions about these terms, payment or refunds: write to us through the feedback form on the home page."
+        "Studytracker is run by {{name}}, a sole proprietorship (enkeltpersonforetak) registered in Norway, organisation number {{orgNumber}}.",
+        "Questions about these terms, payment or refunds: email us or write through the feedback form on the home page."
       ]
     },
     "toFeedback": "Write to us",
@@ -1953,7 +1955,7 @@
   },
   "privacy": {
     "title": "Privacy",
-    "updated": "Updated 5 November 2026",
+    "updated": "Updated 19 November 2026",
     "intro": "Studytracker keeps only what it needs to help you learn. Here is what that is, who helps run the site, and how to take your data with you or remove it.",
     "data": {
       "title": "What we keep",
@@ -1981,7 +1983,7 @@
     },
     "contact": {
       "title": "Questions",
-      "text": "Write to us through the feedback form on the home page."
+      "text": "The data controller is {{name}}, a sole proprietorship (enkeltpersonforetak) registered in Norway, organisation number {{orgNumber}}. Questions about your data: email us or write through the feedback form on the home page."
     },
     "contents": "Contents",
     "toAccount": "Go to your account"

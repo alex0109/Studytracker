@@ -9,6 +9,7 @@ import {
   LuFolderHeart,
   LuHandCoins,
   LuLayers,
+  LuMail,
   LuMessageCircle,
   LuPencilLine,
   LuRefreshCw,
@@ -19,6 +20,7 @@ import {
   LuUserRound,
   LuUsers,
 } from "react-icons/lu";
+import { OPERATOR } from "@/shared/config/site";
 import { getServerT } from "@/shared/i18n/server";
 import { cn } from "@/shared/lib/cn";
 import { fetchBillingPlans } from "@/entities/billing/api/server";
@@ -196,7 +198,7 @@ const Terms = async () => {
                   </span>
                   {t(`terms.${key}.title`)}
                 </h2>
-                {(t(`terms.${key}.items`, { returnObjects: true }) as string[]).map((item) => (
+                {(t(`terms.${key}.items`, { returnObjects: true, ...OPERATOR }) as string[]).map((item) => (
                   <p key={item} className="leading-relaxed text-pretty text-neutral-700 dark:text-neutral-300">
                     {item}
                   </p>
@@ -223,6 +225,9 @@ const Terms = async () => {
                 )}
                 {key === "contact" && (
                   <div className="flex flex-wrap gap-x-5 gap-y-2">
+                    <a href={`mailto:${OPERATOR.email}`} className={linkClass}>
+                      <LuMail aria-hidden /> {OPERATOR.email}
+                    </a>
                     <Link href="/home#feedback" className={linkClass}>
                       {t("terms.toFeedback")} <LuArrowRight aria-hidden />
                     </Link>

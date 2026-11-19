@@ -43,6 +43,7 @@
   },
   "footer": {
     "rights": "Alle rettigheter forbeholdt.",
+    "operator": "Drives av {{name}}, org.nr. {{orgNumber}}, Norge",
     "privacy": "Personvern",
     "cookies": "Informasjonskapsler",
     "terms": "Vilkår",
@@ -1726,7 +1727,7 @@
   },
   "terms": {
     "title": "Brukervilkår",
-    "updated": "Oppdatert 8. november 2026",
+    "updated": "Oppdatert 19. november 2026",
     "intro": "Hvordan Studytracker, planene, betaling og oppsigelse fungerer. Med enkle ord, uten liten skrift.",
     "contents": "Innhold",
     "summary": {
@@ -1851,7 +1852,8 @@
     "contact": {
       "title": "Kontakt",
       "items": [
-        "Spørsmål om vilkår, betaling eller refusjon: skriv til oss via tilbakemeldingsskjemaet på forsiden."
+        "Studytracker drives av {{name}}, et enkeltpersonforetak registrert i Norge, organisasjonsnummer {{orgNumber}}.",
+        "Spørsmål om vilkår, betaling eller refusjon: send oss en e-post eller skriv via tilbakemeldingsskjemaet på forsiden."
       ]
     },
     "toFeedback": "Skriv til oss",
@@ -1953,7 +1955,7 @@
   },
   "privacy": {
     "title": "Personvern",
-    "updated": "Oppdatert 5. november 2026",
+    "updated": "Oppdatert 19. november 2026",
     "intro": "Studytracker lagrer bare det som trengs for å hjelpe deg å lære. Her er hva det er, hvem som hjelper til med å drive nettstedet, og hvordan du tar med eller sletter dataene dine.",
     "data": {
       "title": "Hva vi lagrer",
@@ -1981,7 +1983,7 @@
     },
     "contact": {
       "title": "Spørsmål",
-      "text": "Skriv til oss via tilbakemeldingsskjemaet på forsiden."
+      "text": "Behandlingsansvarlig er {{name}}, et enkeltpersonforetak registrert i Norge, organisasjonsnummer {{orgNumber}}. Spørsmål om dataene dine: send oss en e-post eller skriv via tilbakemeldingsskjemaet på forsiden."
     },
     "contents": "Innhold",
     "toAccount": "Gå til kontoen"

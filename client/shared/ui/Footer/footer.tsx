@@ -4,6 +4,7 @@
 import { FC, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { OPERATOR } from "@/shared/config/site";
 import { useTranslation } from "@/shared/i18n";
 import { GA_MEASUREMENT_ID, OPEN_CONSENT_EVENT } from "@/shared/lib/analytics";
 
@@ -69,9 +70,16 @@ export const Footer: FC = () => {
         </Column>
       </nav>
 
-      <div className="mx-auto mt-12 max-w-6xl border-t border-white/10 pt-6">
-        <small className="block text-xs text-neutral-500">
+      {/* The registered business, so customers and payment providers can see who runs the site */}
+      <div className="mx-auto mt-12 flex max-w-6xl flex-col gap-1.5 border-t border-white/10 pt-6 text-xs text-neutral-500">
+        <small className="text-xs">
           &copy; 2026 Studytracker. {t("footer.rights")}
+        </small>
+        <small className="text-xs">
+          {t("footer.operator", OPERATOR)} ·{" "}
+          <a href={`mailto:${OPERATOR.email}`} className="transition-colors hover:text-white">
+            {OPERATOR.email}
+          </a>
         </small>
       </div>
     </footer>
