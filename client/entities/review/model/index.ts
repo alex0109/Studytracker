@@ -1,4 +1,4 @@
-import type { IOption, QuestionTypeEnum } from "@/entities/question";
+import type { IOption, QuestionTypeEnum } from "@/entities/question/@x/review";
 
 // Same shapes as the backend "Today" queue
 export interface IDictionaryDueToday {
@@ -54,6 +54,8 @@ export interface IQuestionReviewSession {
 export interface IReviewAnswerResult {
   questionId: string;
   isCorrect: boolean;
+  // The AI answer check's quota is used up: the plain check decided
+  smartCheckLimitReached?: boolean;
   score: number;
   method: string;
   rating: string;

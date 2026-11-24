@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 import styles from "./library-reader.module.css";
 
 // Covers the site-wide colour washes, which end after the first screen of a long page

@@ -1,4 +1,4 @@
-import type { MaterialTypeEnum } from "@/entities/material/model/material-type.type";
+import type { MaterialTypeEnum } from "@/entities/material/@x/share";
 
 export interface ISharedMaterialPreview {
   token: string;

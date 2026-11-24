@@ -4,7 +4,7 @@
 import { ReactNode } from "react";
 import { Select as SelectPrimitive } from "radix-ui";
 import { LuCheck, LuChevronDown } from "react-icons/lu";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 import { fieldControl } from "./field";
 
 // Radix keeps "" for "nothing chosen", so an option that means "none" travels under this name
@@ -102,7 +102,7 @@ type FieldSelectProps = Omit<SelectMenuProps, "triggerClassName" | "icon"> & { c
 export const FieldSelect = ({ className, ...props }: FieldSelectProps) => (
   <SelectMenu
     {...props}
-    triggerClassName={cn(fieldControl, "h-10 data-placeholder:text-neutral-400", className)}
+    triggerClassName={cn(fieldControl, "h-11 sm:h-10 data-placeholder:text-neutral-400", className)}
   />
 );
 
@@ -114,6 +114,6 @@ export const menuSurface =
   "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95";
 
 export const menuItem =
-  "relative flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none select-none " +
+  "relative flex cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-sm outline-none select-none max-sm:min-h-11 max-sm:px-3 " +
   "data-highlighted:bg-neutral-100 data-[state=checked]:font-medium data-disabled:pointer-events-none data-disabled:opacity-50 " +
   "dark:data-highlighted:bg-neutral-800";

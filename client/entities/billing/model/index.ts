@@ -43,7 +43,10 @@ export interface IBillingPlan {
   tier: SubscriptionTierName;
   prices: IBillingPrice[];
   limits: ITierLimits;
+  // Per person per billing period: requests, words, podcasts or video minutes
   aiPerMonth: Record<string, number>;
+  // Once per account (Free's media)
+  aiTrial: Record<string, number>;
 }
 
 export type DuoRoleName = "None" | "Owner" | "Member";
@@ -75,4 +78,50 @@ export interface IBillingPlans {
   // Prices came from the provider, so a plan can be bought
   checkoutAvailable: boolean;
   plans: IBillingPlan[];
+}
+
+// Prepaid AI credits. Prices are in major units (3 = $3), in the pack's currency
+export interface ICreditPack {
+  id: string;
+  credits: number;
+  price: number;
+  currency: string;
+}
+
+// What one block of a feature costs; block: units (words, video minutes) one charge covers
+export interface ICreditPrice {
+  feature: string;
+  bucket: "Study" | "Media";
+  credits: number;
+  block: number;
+}
+
+export interface ICreditPricing {
+  checkoutAvailable: boolean;
+  packs: ICreditPack[];
+  prices: ICreditPrice[];
+}
+
+export interface ICreditWallet {
+  balance: number;
+  autoUseForStudy: boolean;
+}
+
+export type CreditReasonName = "Purchase" | "Spend" | "Return" | "Refund" | "Adjustment";
+
+export interface ICreditTransaction {
+  id: string;
+  delta: number;
+  reason: CreditReasonName;
+  feature: string | null;
+  packId: string | null;
+  note: string | null;
+  createdAt: string;
+}
+
+export interface ICreditHistory {
+  items: ICreditTransaction[];
+  total: number;
+  page: number;
+  pageSize: number;
 }

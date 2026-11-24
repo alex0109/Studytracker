@@ -4,7 +4,7 @@ import { FC, ReactNode, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { LuCheck } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 interface SaveStatusProps {
   isPending: boolean;

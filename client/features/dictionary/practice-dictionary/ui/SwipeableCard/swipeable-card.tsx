@@ -20,6 +20,8 @@ import { getSwipeAnswer } from "../../lib";
 
 interface SwipeableCardProps {
   entry: IDictionaryEntryResponse;
+  // The translation on the front
+  reversed?: boolean;
   isFlipped: boolean;
   onFlip: () => void;
   onAnswer: (answer: FlashcardAnswerEnum) => void;
@@ -37,7 +39,7 @@ const stampStyles =
 export const SwipeableCard = forwardRef<
   ISwipeableCardHandle,
   SwipeableCardProps
->(({ entry, isFlipped, onFlip, onAnswer }, ref) => {
+>(({ entry, reversed, isFlipped, onFlip, onAnswer }, ref) => {
     const { t } = useTranslation();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -102,7 +104,7 @@ export const SwipeableCard = forwardRef<
       animate={{ scale: 1 }}
       transition={{ duration: 0.2 }}
     >
-      <DictionaryFlipCard entry={entry} isFlipped={isFlipped} />
+      <DictionaryFlipCard entry={entry} isFlipped={isFlipped} reversed={reversed} />
 
       <motion.div
         style={{ opacity: knowOpacity }}

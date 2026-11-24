@@ -2,8 +2,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "@/shared/i18n";
-import moment from "moment";
-import { cn } from "@/shared/lib";
+import { cn, formatDateTime, formatTimeUntil } from "@/shared/lib";
 import { useNow } from "@/shared/hooks";
 import { FlashcardStateEnum, IFlashcardProgress } from "../../model";
 
@@ -23,7 +22,7 @@ export const FlashcardProgressBadge: FC<FlashcardProgressBadgeProps> = ({
   progress,
   className,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const now = useNow();
   const state = progress?.state ?? FlashcardStateEnum.New;
   const isNew = state === FlashcardStateEnum.New;
@@ -33,7 +32,7 @@ export const FlashcardProgressBadge: FC<FlashcardProgressBadgeProps> = ({
     <span
       title={
         progress
-          ? t("flashcards.badge.nextReview", { date: moment(progress.due).format("DD MMM YYYY, HH:mm") })
+          ? t("flashcards.badge.nextReview", { date: formatDateTime(progress.due, i18n.language) })
           : t("flashcards.badge.notReviewed")
       }
       className={cn(
@@ -45,7 +44,7 @@ export const FlashcardProgressBadge: FC<FlashcardProgressBadgeProps> = ({
       {t(`flashcards.state.${state}`)}
       {!isNew &&
         progress &&
-        (isDue ? ` · ${t("flashcards.badge.dueNow")}` : ` · ${moment(progress.due).fromNow()}`)}
+        (isDue ? ` · ${t("flashcards.badge.dueNow")}` : ` · ${formatTimeUntil(progress.due, i18n.language, now)}`)}
     </span>
   );
 };

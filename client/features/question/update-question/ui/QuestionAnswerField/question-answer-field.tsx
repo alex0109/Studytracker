@@ -49,7 +49,7 @@ export const QuestionAnswerField: FC<QuestionAnswerFieldProps> = ({ materialId, 
                   exit={{ opacity: 0 }}
                   onClick={restore}
                   title={t("questions.editor.undoHint")}
-                  className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
+                  className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs text-neutral-400 sm:px-1.5 sm:py-0.5 sm:text-[11px] transition hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
                 >
                   <LuUndo2 aria-hidden className="size-3" />
                   {t("questions.editor.undo")}

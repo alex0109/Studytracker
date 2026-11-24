@@ -7,5 +7,7 @@ export interface INoteUpdate {
   drawingContent?: IDrawingContent;
   // Essays only; an empty string removes the task
   essayTask?: string;
+  // "Ielts/B2/Letter"; an empty string makes it a general essay
+  essayFormat?: string;
   order?: number;
 }

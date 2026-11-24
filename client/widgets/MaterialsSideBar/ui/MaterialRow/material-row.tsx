@@ -5,7 +5,7 @@ import * as Accordion from "@radix-ui/react-accordion";
 import { motion, useReducedMotion } from "framer-motion";
 import { LuChevronRight, LuDownload, LuLibrary } from "react-icons/lu";
 import { TruncatedText } from "@/shared/ui";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { IMaterialResponse, usePrefetchMaterial } from "@/entities/material";
 import { IDictionaryResponse } from "@/entities/dictionary";

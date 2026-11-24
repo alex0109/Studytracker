@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAuthRetryableFetchError, User } from "@supabase/supabase-js";
-import { SessionProvider } from "@/shared/context/session.provider";
+import { SessionProvider } from "@/shared/context";
 import { createClient } from "../../api/client";
 import { SessionExpiredModal } from "./session-expired-modal";
 

@@ -2,9 +2,9 @@
 
 import { FC, ReactNode } from "react";
 import type { IconType } from "react-icons";
-import { LuArrowDown, LuCalendarClock, LuCrown, LuSparkles, LuSprout, LuUsers } from "react-icons/lu";
+import { LuArrowRight, LuCalendarClock, LuCrown, LuSparkles, LuSprout, LuUsers } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
-import { cn } from "@/shared/lib";
+import { cn, formatDate } from "@/shared/lib";
 import { IAiUsage } from "@/entities/ai";
 import { IBillingStatus, IDuoStatus, SubscriptionTierName } from "@/entities/billing";
 
@@ -31,28 +31,59 @@ const TIER_LOOK: Record<SubscriptionTierName, { icon: IconType; surface: string;
   },
 };
 
-// The three quotas people reach first
-const KEY_FEATURES = ["QuestionGeneration", "AnswerGrading", "WordLookup"] as const;
-
-const formatDate = (value: string, language: string) =>
-  new Date(value).toLocaleDateString(language, { day: "numeric", month: "long", year: "numeric" });
-
 interface PlanHeroProps {
   tier: SubscriptionTierName;
   billing?: IBillingStatus;
   duo?: IDuoStatus;
   ai?: IAiUsage;
-  // Shown under the plan: managing a paid plan, or a way down to the plans
+  // Shown under the plan: managing a paid plan, or a way to the plans
   actions?: ReactNode;
   showPlansLink: boolean;
+  // Opens the tab a glance tile is about
+  onOpen: (tab: "usage" | "plans" | "credits") => void;
 }
 
+// One number at a glance; a click opens its tab
+const Glance: FC<{ label: string; value: string; hint: string; tone?: "warn" | "ai"; onClick: () => void }> = ({ label, value, hint, tone, onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="group flex min-w-0 flex-col items-start gap-0.5 rounded-2xl bg-white/75 p-3 text-left sm:p-4 backdrop-blur-sm transition hover:bg-white hover:shadow-sm focus-visible:outline-2 focus-visible:outline-emerald-500 dark:bg-neutral-900/70 dark:hover:bg-neutral-900"
+  >
+    <span className="text-xs font-medium text-neutral-500">{label}</span>
+    <span
+      className={cn(
+        "text-base font-semibold tabular-nums sm:text-xl",
+        tone === "warn" && "text-amber-600 dark:text-amber-400",
+        tone === "ai" && "text-violet-700 dark:text-violet-300",
+      )}
+    >
+      {value}
+    </span>
+    <span className="text-xs text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300">{hint}</span>
+  </button>
+);
+
 // The plan in force, its state and this month's AI at a glance
-export const PlanHero: FC<PlanHeroProps> = ({ tier, billing, duo, ai, actions, showPlansLink }) => {
+export const PlanHero: FC<PlanHeroProps> = ({ tier, billing, duo, ai, actions, showPlansLink, onOpen }) => {
   const { t, i18n } = useTranslation();
   const look = TIER_LOOK[tier] ?? TIER_LOOK.Free;
   const Icon = look.icon;
   const date = (value: string | null) => (value ? formatDate(value, i18n.language) : "—");
+
+  // The period's AI in three numbers: study quotas used on average, media left, credits
+  const glance = ai && (() => {
+    const study = ai.features.filter((x) => x.bucket === "Study" && x.limit > 0);
+    const studyPercent = study.length
+      ? Math.round((study.reduce((sum, x) => sum + Math.min(x.used / x.limit, 1), 0) / study.length) * 100)
+      : 0;
+    const left = (feature: string) => {
+      const item = ai.features.find((x) => x.feature === feature);
+      if (!item) return 0;
+      return item.limit > 0 ? Math.max(0, item.limit - item.used) : Math.max(0, item.trialLimit - item.trialUsed);
+    };
+    return { studyPercent, media: `${left("PodcastGeneration")} · ${left("VideoTranscript")} ${t("ai.units.VideoTranscript")}` };
+  })();
 
   // Status and end of a paid or granted plan; someone on another person's Duo sees whose it is
   const status =
@@ -108,44 +139,23 @@ export const PlanHero: FC<PlanHeroProps> = ({ tier, billing, duo, ai, actions, s
             <div className="flex flex-wrap gap-2">
               {actions}
               {showPlansLink && (
-                <a
-                  href="#plans"
+                <button
+                  type="button"
+                  onClick={() => onOpen("plans")}
                   className="inline-flex h-10 items-center gap-2 rounded-2xl bg-neutral-900 px-5 text-sm font-medium text-white transition hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
                 >
-                  {t("billing.page.seePlans")} <LuArrowDown aria-hidden />
-                </a>
+                  {t("billing.page.seePlans")} <LuArrowRight aria-hidden />
+                </button>
               )}
             </div>
           )}
         </div>
 
-        {ai && (
-          <div className="flex w-full flex-col gap-3 rounded-2xl bg-white/70 p-4 backdrop-blur-sm lg:max-w-sm dark:bg-neutral-900/70">
-            <div className="flex items-baseline justify-between gap-3">
-              <p className="text-sm font-semibold">{t("billing.page.aiThisMonth")}</p>
-              <p className="text-xs text-neutral-500">{t("billing.page.resetsOn", { date: formatDate(ai.resetsAt, i18n.language) })}</p>
-            </div>
-            {KEY_FEATURES.map((feature) => {
-              const usage = ai.features.find((x) => x.feature === feature);
-              if (!usage) return null;
-              const ratio = usage.limit > 0 ? Math.min(usage.used / usage.limit, 1) : 1;
-              return (
-                <div key={feature} className="flex flex-col gap-1">
-                  <div className="flex items-baseline justify-between gap-3 text-sm">
-                    <span className="truncate text-neutral-600 dark:text-neutral-300">{t(`ai.features.${feature}`)}</span>
-                    <span className="shrink-0 font-medium tabular-nums">
-                      {usage.used} / {usage.limit.toLocaleString(i18n.language)}
-                    </span>
-                  </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-700">
-                    <div
-                      className={cn("h-full rounded-full", ratio >= 1 ? "bg-red-500" : ratio >= 0.8 ? "bg-amber-500" : "bg-emerald-500")}
-                      style={{ width: `${ratio * 100}%` }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+        {glance && ai && (
+          <div className="grid w-full grid-cols-3 gap-2 lg:max-w-md">
+            <Glance label={t("billing.compare.study")} value={`${glance.studyPercent}%`} hint={t("billing.glance.used")} tone={glance.studyPercent >= 90 ? "warn" : undefined} onClick={() => onOpen("usage")} />
+            <Glance label={t("billing.compare.media")} value={glance.media} hint={t("billing.glance.mediaHint")} onClick={() => onOpen("usage")} />
+            <Glance label={t("credits.title")} value={ai.creditBalance.toLocaleString(i18n.language)} hint={t("billing.glance.topUp")} tone="ai" onClick={() => onOpen("credits")} />
           </div>
         )}
       </div>

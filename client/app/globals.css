@@ -189,3 +189,12 @@ h6 {
     @apply font-sans;
   }
 }
+
+/* Phones: small print one step larger. Tailwind's text-xs and text-sm read these, so every
+   label, hint and button grows a pixel without touching the desktop sizes */
+@media (max-width: 639.98px) {
+  :root {
+    --text-xs: 0.8125rem;
+    --text-sm: 0.9375rem;
+  }
+}

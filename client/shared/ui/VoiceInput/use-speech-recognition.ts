@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { useLatest } from "@/shared/hooks/use-latest";
+import { useLatest } from "@/shared/hooks";
 
 // The browser's Web Speech API, which TypeScript's DOM types don't fully cover
 interface RecognitionResultEvent {

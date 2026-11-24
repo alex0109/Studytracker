@@ -65,17 +65,8 @@
     "saving": "Saving…",
     "saved": "Saved",
     "required": "Required",
-    "tryAgain": "Please try again",
-    "yes": "Yes",
-    "no": "No",
-    "edit": "Edit",
     "add": "Add",
-    "send": "Send",
-    "update": "Update",
-    "comingSoon": "Coming soon",
-    "areYouSure": "Are you sure?",
-    "sidebar": "Sidebar",
-    "sidebarText": "Materials and their sections"
+    "customNumber": "Custom"
   },
   "landing": {
     "hero": {
@@ -328,7 +319,7 @@
         },
         "ai": {
           "title": "AI helper",
-          "text": "Draft questions from a text, answers checked by meaning, mistakes explained and summaries."
+          "text": "Questions from a text, answers checked by meaning, mistakes and words explained, and summaries."
         },
         "lookup": {
           "title": "Words from any text",
@@ -348,7 +339,27 @@
         },
         "share": {
           "title": "Share and learn together",
-          "text": "A link gives a friend their own copy of a material. With the Duo plan you learn as a pair."
+          "text": "A link gives a friend their own copy of a material. With Duo, each of you gets a full Plus."
+        },
+        "podcast": {
+          "title": "A podcast from a material",
+          "text": "One button turns a material and its notes into a talk of two voices, with chapters. Listen on the go."
+        },
+        "video": {
+          "title": "YouTube videos",
+          "text": "Paste a link: subtitles follow the video, a quiz points to its moments and words from the subtitles go straight into a dictionary."
+        },
+        "puzzle": {
+          "title": "Words that don't fade",
+          "text": "Word explanations with examples, random cards and a small challenge: build the word from its letters after a review."
+        },
+        "reminders": {
+          "title": "Reminders and digests",
+          "text": "What's due for review, when your streak is at risk, and a weekly summary — in the app and by email."
+        },
+        "plans": {
+          "title": "Free for good, more when you need it",
+          "text": "Everything for studying is free. Plus and Duo give more AI, and credits cover you when a quota runs out."
         }
       },
       "demo": {
@@ -390,6 +401,57 @@
           "dictionaries": "Dictionaries",
           "questions": "Questions",
           "attempts": "Your attempts"
+        },
+        "podcast": {
+          "play": "Play",
+          "pause": "Pause",
+          "host": "Host",
+          "guest": "Guest",
+          "host1": "Today we're unpacking photosynthesis: how a plant lives on light.",
+          "guest1": "Let's start with chlorophyll — it's what catches the sunlight.",
+          "host2": "Now let's quickly recap the key points.",
+          "chapters": {
+            "intro": "Intro",
+            "main": "How it works",
+            "recap": "Recap"
+          }
+        },
+        "video": {
+          "line1": "Plants take their energy from light.",
+          "line2": "Chlorophyll absorbs the sunlight.",
+          "line3": "That's how sugar and oxygen are made.",
+          "quiz": "Quiz with moments",
+          "words": "Words to a dictionary"
+        },
+        "puzzle": {
+          "word": "lys",
+          "translation": "light",
+          "hint": "Build the word for:",
+          "solved": "Correct!",
+          "reset": "Try again"
+        },
+        "reminders": {
+          "review": "12 words and 3 questions are due today",
+          "streak": "Your 14-day streak is at risk — 5 minutes will save it",
+          "weekly": "Your week: 5 study days, 82% accuracy (+6%)"
+        },
+        "plans": {
+          "free": {
+            "title": "Free",
+            "text": "Everything for studying"
+          },
+          "plus": {
+            "title": "Plus",
+            "text": "×10 AI, podcasts and video"
+          },
+          "duo": {
+            "title": "Duo",
+            "text": "Plus for two"
+          },
+          "credits": {
+            "title": "Credits",
+            "text": "When a quota runs out"
+          }
         }
       }
     }
@@ -588,7 +650,8 @@
       "next_other": "Next session: {{count}} cards",
       "nothing": "Nothing to review right now, come back later or practise all words",
       "reviewButton": "Review {{count}}",
-      "allButton": "Practise all {{count}}"
+      "allButton": "Practise all {{count}}",
+      "randomButton": "Random cards"
     },
     "summary": {
       "title": "Round finished",
@@ -618,6 +681,33 @@
       "right": "Correct!",
       "next": "Next",
       "keysHint": "Keys 1–4 pick a choice"
+    },
+    "random": {
+      "title": "Random cards",
+      "text": "Cards from the whole dictionary in any order, new and learned together. Choose how many to go through.",
+      "count": "How many cards",
+      "all": "All ({{count}})",
+      "ofTotal": "of {{count}}",
+      "range": "From {{min}} to {{max}} cards",
+      "start": "Start",
+      "startWith_one": "Start: {{count}} card",
+      "startWith_other": "Start: {{count}} cards"
+    },
+    "spell": {
+      "badge": "Spell it",
+      "prompt": "Put the letters in order to spell the word for",
+      "hint": "Hint",
+      "wrong": "Almost! The red letters are in the wrong places",
+      "keysHint": "Type the letters, Backspace takes one back",
+      "letter": "Letter {{letter}}",
+      "placedLetter": "Letter {{letter}}, press to take it back",
+      "emptyPlace": "Empty place {{number}}"
+    },
+    "direction": {
+      "label": "Show first:",
+      "term": "Word",
+      "translation": "Translation",
+      "mixed": "Mixed"
     }
   },
   "feedback": {
@@ -816,9 +906,7 @@
     "page": {
       "plan": "Your plan",
       "planText": "AI limits depend on the plan",
-      "resets": "AI requests are counted per month and reset on <b>{{date}}</b>. Requests that failed are not counted.",
-      "aiMonth": "AI this month",
-      "aiMonthText": "How many AI requests are left"
+      "resets": "AI is counted per billing period (calendar month on Free) and renews on <b>{{date}}</b>. Requests that failed are not counted."
     }
   },
   "toasts": {
@@ -891,12 +979,14 @@
       "badRequest": "There isn't enough suitable text for this. Add more content and try again",
       "limit": "The limit here is reached. Free up some space and try again",
       "nothing": "AI couldn't make anything from this content. Try another one",
-      "quota": "Your AI limit for this month is used up",
-      "unavailable": "AI is not responding right now, please try again later"
+      "quota": "Your AI quota for this is used up for this period",
+      "unavailable": "AI is not responding right now, please try again later",
+      "credits": "Not enough credits for this request",
+      "trialUsed": "The free trial is already used",
+      "inputTooLarge": "The text is too long for one AI request: at most {{max}} characters"
     },
     "generate": "Generate",
     "generating": "Generating...",
-    "usageHint": "{{left}} of {{limit}} AI requests left this month on {{tier}}, resets {{date}}",
     "off": "AI features are turned off right now",
     "features": {
       "QuestionGeneration": "Question generation",
@@ -909,6 +999,25 @@
       "WordExplanation": "Word explanations",
       "PodcastGeneration": "Podcasts",
       "VideoTranscript": "Video subtitles"
+    },
+    "units": {
+      "QuestionGeneration": "",
+      "DictionaryGeneration": "",
+      "AnswerGrading": "",
+      "SummaryGeneration": "",
+      "MistakeExplanation": "",
+      "WordLookup": "words",
+      "EssayReview": "",
+      "WordExplanation": "",
+      "PodcastGeneration": "",
+      "VideoTranscript": "min"
+    },
+    "cost": {
+      "quota": "{{left}} of {{limit}}{{unit}} left until {{date}}",
+      "trial": "Free trial: {{left}}{{unit}} left",
+      "credits": "Quota used up · {{credits}} credits a request (you have {{balance}})",
+      "creditsPerBlock": "Quota used up · {{credits}} credits per {{block}}{{unit}} (you have {{balance}})",
+      "none": "Quota used up until {{date}}"
     }
   },
   "share": {
@@ -1047,7 +1156,8 @@
       "needMore_other": "Write {{count}} more words to check it",
       "empty": {
         "title": "Write an essay, get an honest review",
-        "text": "The check scores four things from 0 to 100, shows what works and what to improve, and lists specific mistakes with corrections. Only the writing is judged, never your opinion."
+        "text": "The check scores four things from 0 to 100, shows what works and what to improve, and lists specific mistakes with corrections. Only the writing is judged, never your opinion.",
+        "textExam": "A check by the {{exam}} requirements: four criteria from 0 to 100, an estimated result on the exam's scale, what went well, what to improve and specific mistakes with corrections."
       },
       "criteria": {
         "TaskResponse": "Task response",
@@ -1080,11 +1190,16 @@
         "noCorrections": "No mistakes worth correcting were found.",
         "showAll": "Show all ({{count}})",
         "showLess": "Show less",
-        "disclaimer": "This essay was checked by AI. Scores can vary slightly from one check to the next, but not by much, so go by the overall picture and the specific corrections."
+        "disclaimer": "This essay was checked by AI. Scores can vary slightly from one check to the next, but not by much, so go by the overall picture and the specific corrections.",
+        "band": "Band {{band}}",
+        "below": "below {{level}}",
+        "examBand": "Estimated {{exam}} band",
+        "examLevel": "Estimated {{exam}} level",
+        "examDisclaimer": "The result on the exam's scale is an estimate, not an official {{exam}} result."
       },
       "topicsButton": "Choose a topic",
-      "topicsTitle": "Essay topics",
-      "topicsText": "Pick a topic and it becomes the essay task. You can still edit the task afterwards.",
+      "topicsTitle": "Topics for essays and letters",
+      "topicsText": "Pick a topic and it becomes the task. A topic from an exam is checked by that exam's requirements.",
       "topicLevel": "Level",
       "topicLevels": {
         "A2": "Simple topics about yourself and everyday life",
@@ -1138,6 +1253,59 @@
           "Should young people take a gap year between school and university? Discuss the advantages and disadvantages.",
           "Some people think space exploration is a waste of money when there are so many problems on Earth. Discuss both views and give your own opinion."
         ]
+      },
+      "taskPlaceholderOwn": "Or paste your own task or topic…",
+      "taskHintExam": "The check looks at how well the text does this very task by the exam's requirements. You can edit the task.",
+      "changeTopic": "Another topic",
+      "pickTitle": "Not sure what to write about?",
+      "pickText": "Pick a ready topic: a general one or one from Deutsch-Test für Zuwanderer, Deutsch-Test für den Beruf, Norskprøve or IELTS.",
+      "topicsSource": "Where the topic comes from",
+      "topicsGeneral": "General",
+      "topicsGeneralSub": "Any language",
+      "kind": "Type of text",
+      "kinds": {
+        "Dtz": {
+          "Letter": "Letter or e-mail",
+          "Essay": "Essay"
+        },
+        "Norskprove": {
+          "Letter": "Message or e-mail",
+          "Essay": "Text on a topic"
+        },
+        "Ielts": {
+          "Letter": "Letter (Task 1)",
+          "Essay": "Essay (Task 2)"
+        },
+        "Dtb": {
+          "Letter": "Work e-mail",
+          "Essay": "Essay"
+        }
+      },
+      "minWords_one": "at least {{count}} word",
+      "minWords_other": "at least {{count}} words",
+      "minutes": "about {{count}} min",
+      "ofWords_one": "of {{count}} word",
+      "ofWords_other": "of {{count}} words",
+      "minimumReached": "Minimum reached",
+      "wordsProgress": "Word count",
+      "examMinimum_one": "{{exam}} asks for at least {{count}} word.",
+      "examMinimum_other": "{{exam}} asks for at least {{count}} words.",
+      "exams": {
+        "Dtz": {
+          "about": "A letter or e-mail in about 30 minutes: an everyday situation and four points to cover. The result is A2 or B1."
+        },
+        "Norskprove": {
+          "about": "Messages, e-mails and texts on familiar topics; at B1–B2, arguing for your own view. The result is a level from A1 to B2."
+        },
+        "Ielts": {
+          "about": "General Training: Task 1 is a letter of 150+ words in 20 minutes, Task 2 an essay of 250+ words in 40 minutes. The result is a band from 0 to 9."
+        },
+        "notAffiliated": "Topics and the check follow the exam's public descriptions; they aren't connected with its owners and don't replace an official result.",
+        "checkedBy": "Checked by the {{exam}} requirements, with an estimated result on its scale.",
+        "clear": "General check, no exam",
+        "Dtb": {
+          "about": "German B2 after the integration course (telc). A semi-formal work e-mail in about 30 minutes, to a colleague, a manager or a customer, with several points to cover. The result is B2 or B1."
+        }
       }
     }
   },
@@ -1192,7 +1360,9 @@
       "moreHint": "grammar, synonyms, note",
       "article": "Article",
       "articleHint": "Optional. Shown before the word",
-      "articlePlaceholder": "der, la, en…"
+      "articlePlaceholder": "der, la, en…",
+      "autoTranslated": "Auto-translated: tap to change or delete",
+      "autoTranslatePlus": "Automatic word translation is part of Plus"
     },
     "partOfSpeech": {
       "Noun": "noun",
@@ -1245,7 +1415,8 @@
       "more": "Other examples",
       "error": "Couldn't explain the word. Try again.",
       "disclaimer": "The examples were written by AI and are not saved."
-    }
+    },
+    "term": "Word"
   },
   "attempts": {
     "title": "Attempt {{id}}",
@@ -1253,7 +1424,6 @@
     "seeResults": "See results",
     "empty": {
       "material": "No attempts on this material yet",
-      "note": "No attempts on this note yet",
       "text": "Start Self Defending in the Questions tab: your finished attempts with scores will appear here."
     }
   },
@@ -1381,7 +1551,13 @@
       "markAll_one": "Mark {{count}} as read",
       "markAll_other": "Mark all {{count}} as read",
       "dailyQuestions_one": "{{count}} question was waiting for review",
-      "dailyQuestions_other": "{{count}} questions were waiting for review"
+      "dailyQuestions_other": "{{count}} questions were waiting for review",
+      "showMore": "Show {{count}} more",
+      "showLess": "Show less",
+      "delete": "Delete notification",
+      "clearAll": "Clear all",
+      "clearConfirm": "Clear them all?",
+      "deleteError": "Couldn't delete, please try again"
     },
     "settings": {
       "title": "Email reminders",
@@ -1547,7 +1723,10 @@
       "nickname": "Use 2 to 40 letters, digits, spaces or _ . ' -",
       "notFound": "This material wasn't found",
       "generic": "Something went wrong, please try again"
-    }
+    },
+    "clearSearch": "Clear search",
+    "found_one": "{{count}} material found",
+    "found_other": "{{count}} materials found"
   },
   "today": {
     "title": "Today",
@@ -1574,7 +1753,10 @@
     "done": {
       "title": "Done for today",
       "text": "Everything due is reviewed. What you answered will come back right when it starts to fade.",
-      "back": "Back to Today"
+      "back": "Back to Today",
+      "statsTitle": "See how you're growing",
+      "statsText": "Your streak, accuracy and weakest topics: statistics show what has stuck and what to work on.",
+      "statsButton": "View statistics"
     },
     "question": {
       "of": "{{index}} of {{total}}",
@@ -1663,7 +1845,7 @@
   },
   "learning": {
     "title": "Learning",
-    "subtitle": "Your daily rhythm and reminders. The defaults suit most people.",
+    "subtitle": "Your review rhythm, reminders and help with words.",
     "dailyGoal": "Daily goal",
     "dailyGoalHint": "Reviews a day. With a goal, a streak day counts once it's reached.",
     "dailyReminder": "Review reminder",
@@ -1678,16 +1860,34 @@
     "retentionReset": "Back to the default ({{percent}}%)",
     "newPerDay": "New words a day",
     "maxPerDay": "Reviews a day at most",
-    "freezes": "Streak freezes a month",
-    "freezesHint": "Missed days that don't break your streak.",
-    "freezesDefault_one": "Default ({{count}})",
-    "freezesDefault_other": "Default ({{count}})",
     "rescheduleHint": "Changed how much you want to remember? Recount the dates of all words and questions now, not only after their next review.",
     "reschedule": "Reschedule",
     "rescheduled_one": "{{count}} card rescheduled",
     "rescheduled_other": "{{count}} cards rescheduled",
     "rescheduleError": "Couldn't reschedule, try again",
-    "noGoal": "No goal"
+    "noGoal": "No goal",
+    "groups": {
+      "rhythm": {
+        "title": "Daily rhythm",
+        "text": "How much to review each day and when to remind you."
+      },
+      "words": {
+        "title": "Words and translation",
+        "text": "Help while you add new words."
+      },
+      "advanced": {
+        "text": "Review intervals and daily limits. The defaults suit most people."
+      }
+    },
+    "perDay": "a day",
+    "reminders": "Reminders",
+    "retentionTitle": "How much you want to remember",
+    "autoTranslate": {
+      "title": "Auto-translate words",
+      "text": "When you add a word to a dictionary, its translation appears in the field by itself: accept it or fix it.",
+      "quota": "Uses the “{{feature}}” limit and never spends credits.",
+      "plus": "Available on Plus and Duo"
+    }
   },
   "duo": {
     "title": "Duo",
@@ -1893,7 +2093,8 @@
       "note": "Payment goes through Stripe's secure page, we never see your card. Cancel any time, the plan stays until the paid period ends.",
       "forOne": "For one account",
       "forTwo": "For you and one more person: each gets their own Plus",
-      "keepsContent": "Your materials stay yours after cancelling"
+      "keepsContent": "Your materials stay yours after cancelling",
+      "promo": "Got a promo code? Enter it on the payment page under “Add promotion code”. A card is asked for even with a free code: you’re only charged after the free period, and you can cancel any time."
     },
     "page": {
       "title": "Plan and limits",
@@ -1907,19 +2108,13 @@
       },
       "duoFrom": "Duo from {{email}}",
       "seePlans": "See plans",
-      "aiThisMonth": "AI this month",
-      "resetsOn": "Renews on {{date}}",
-      "plansEyebrow": "Plans",
       "plansTitle": "More AI when you need it",
       "plansText": "Free stays free for good. Paid plans add AI quotas, and Duo shares it all between two people.",
       "freeLine": "Everything for studying: materials, reviews, statistics",
       "forTwo": "For two",
       "perPerson": "≈ {{price}} per person",
       "switchTo": "Switch to {{plan}}",
-      "aiQuotas": "AI per month",
       "termsLink": "Terms and cancelling",
-      "usageTitle": "Usage",
-      "usageText": "AI quotas renew every month",
       "faqTitle": "Common questions",
       "allTerms": "All terms",
       "faq": {
@@ -1943,7 +2138,68 @@
           "q": "How do I get a refund?",
           "a": "Within 14 days of your first payment, write to us and we refund it. The terms of service have the details."
         }
+      },
+      "recommended": "Recommended",
+      "freeForever": "Free for good",
+      "perks": {
+        "aiTaste": "A little AI to try every feature",
+        "study": "×{{times}} the Study AI of Free",
+        "studyEach": "×{{times}} the Study AI of Free — each",
+        "media": "Podcasts: {{podcasts}} · video: {{videos}} min a month",
+        "duoSaving": "{{percent}}% less than two Plus plans",
+        "ownAccounts": "Separate accounts: each keeps their own materials and quotas",
+        "trial": "Try once: {{podcasts}} podcast and {{videos}} video minutes"
       }
+    },
+    "changePlan": "Change plan",
+    "compare": {
+      "text": "How much AI each plan gives a month. Everything for studying is the same for everyone.",
+      "perMonth": "Per month",
+      "perSeat": "each person",
+      "study": "Study AI",
+      "media": "Media",
+      "basics": "For everyone",
+      "accounts": "Accounts",
+      "everything": "Everything for studying",
+      "everythingText": "Materials, notes, dictionaries, questions, reviews, statistics",
+      "included": "Included",
+      "features": {
+        "QuestionGeneration": "5 questions from a material at a time",
+        "AnswerGrading": "AI checks an open answer by its meaning",
+        "MistakeExplanation": "Why an answer was wrong and what is right",
+        "DictionaryGeneration": "Up to 20 words from a text straight into a dictionary",
+        "SummaryGeneration": "A summary of a material",
+        "EssayReview": "Scores and corrections for your essay",
+        "WordLookup": "Translate a word right from the text",
+        "WordExplanation": "Examples and an explanation of a word",
+        "PodcastGeneration": "An audio walkthrough of a material",
+        "VideoTranscript": "Minutes of YouTube video: subtitles and a quiz"
+      },
+      "once": "{{count}} once",
+      "credits": "AI credits beyond the quota",
+      "creditsText": "Packs from 250 credits, never expire",
+      "show": "Compare all limits",
+      "hide": "Hide the comparison"
+    },
+    "usage": {
+      "details": "Details per feature",
+      "studyText": "{{percent}}% of the quotas used on average",
+      "podcasts": "Podcasts",
+      "video": "Video, min",
+      "trial": "one-time trial",
+      "credits": "Credits: {{count}}"
+    },
+    "tabs": {
+      "usage": "Usage",
+      "plans": "Plans",
+      "credits": "Credits",
+      "onDuo": "You're on someone else's Duo: your plan is already active, there's nothing to choose.",
+      "noCheckout": "Payments aren't set up yet. Plans will appear here as soon as they are."
+    },
+    "glance": {
+      "used": "of quotas used",
+      "mediaHint": "podcasts · video left",
+      "topUp": "credits · top up"
     }
   },
   "consent": {
@@ -2078,7 +2334,6 @@
     "lastDifficulty": "At least one level is needed",
     "questions": "Questions",
     "all": "All ({{count}})",
-    "custom": "Custom",
     "ofTotal": "of {{count}}",
     "countRange": "From {{min}} to {{max}}",
     "timerMinutes": "Timer, min",
@@ -2139,7 +2394,8 @@
       "words": "Words",
       "daily": "Every day",
       "together": "Together and with AI",
-      "more": "More"
+      "more": "More",
+      "media": "Audio and video"
     },
     "labels": {
       "how": "How",
@@ -2271,7 +2527,7 @@
         "where": "Navigation → “Today”. The number next to it shows how much is waiting.",
         "why": "A few minutes a day keep knowledge better than a night before the exam.",
         "tips": [
-          "Your streak grows when you review every day, and freezes save a missed day.",
+          "Your streak grows when you review every day, and two freezes a month save missed days.",
           "Email reminders are set up in your account."
         ]
       },
@@ -2332,9 +2588,75 @@
         "where": "Questions, dictionaries, summaries, essays and attempt results.",
         "why": "AI takes the routine, the thinking stays yours.",
         "tips": [
-          "Limits renew on the first day of every month, and failed requests are not counted.",
+          "Quotas renew with each billing period (monthly on Free), and failed requests are not counted.",
           "You can choose the language of AI explanations in your profile.",
-          "The “Podcast” button in a material voices it and all its notes with two hosts, so you can listen on the go."
+          "When a quota runs out, AI can be paid with credits — see the “Plan and limits” page."
+        ]
+      },
+      "practice": {
+        "short": "Explanations and challenges",
+        "eyebrow": "Words",
+        "title": "Words that stay with you",
+        "lead": "A word explained with examples and collocations, random cards from a dictionary and a small challenge: build the word from its letters.",
+        "how": "In a dictionary press “Explain the word with examples”; in the “Flashcards” tab press “Random cards” and pick how many. The challenge appears by itself after a review in “Today”.",
+        "where": "Material dictionaries, the “Flashcards” tab and the “Today” page.",
+        "why": "A word met in real examples and different exercises sticks better than a word on a list.",
+        "tips": [
+          "Explaining the same word again doesn't use your quota while the page is open.",
+          "Random cards are an easy way to go over everything a little, without a queue."
+        ]
+      },
+      "video": {
+        "short": "YouTube videos",
+        "eyebrow": "Audio and video",
+        "title": "Videos you can learn from",
+        "lead": "A material with a YouTube link gets a player with subtitles that follow the video, a quiz pointing to its moments and words from the subtitles for a dictionary.",
+        "how": "Create a “Video” material with a YouTube link and press “Make subtitles”. Clicking a line jumps the video there.",
+        "where": "The video tab of a material.",
+        "why": "A video stops being passive watching: you test yourself and keep the new words.",
+        "tips": [
+          "The first 30 minutes of a video are processed; the quota is counted in minutes.",
+          "Subtitles are in the video's language, questions in your interface language."
+        ]
+      },
+      "podcast": {
+        "short": "Podcasts",
+        "eyebrow": "Audio and video",
+        "title": "A material you can listen to",
+        "lead": "The “Podcast” button turns a material and its notes into a talk of two hosts with chapters — for the commute, a walk or the gym.",
+        "how": "In a material press “Podcast”, choose the language and wait a minute or two for the recording. Chapters lead to the notes they came from.",
+        "where": "Any material with text or notes.",
+        "why": "Listening is one more way to review when your eyes are busy.",
+        "tips": [
+          "A new podcast replaces the old one for the same material.",
+          "Free includes one free try; after that it's Plus, Duo or credits."
+        ]
+      },
+      "reminders": {
+        "short": "Reminders",
+        "eyebrow": "Every day",
+        "title": "Reminders that don't nag",
+        "lead": "In the morning, what's due; in the evening, if your streak is at risk; on Monday, a weekly summary. In the app and by email, as you choose.",
+        "how": "On the “Statistics” page, in “Reminders and digests”, switch on the ones you want and pick the time. Remove what you don't need with × or “Clear all”.",
+        "where": "“Statistics” → “Reminders and digests”.",
+        "why": "Regularity matters more than length: a short nudge at the right moment keeps the habit.",
+        "tips": [
+          "Reminders follow your time zone.",
+          "A deleted notification won't come back for the same day."
+        ]
+      },
+      "plans": {
+        "short": "Plans and credits",
+        "eyebrow": "Together",
+        "title": "Free, Plus, Duo and credits",
+        "lead": "Everything for studying is free for good. Plus gives more AI, podcasts and video; Duo is Plus for two separate accounts; credits cover you when a quota runs out.",
+        "how": "On the “Plan and limits” page: “Usage” shows what's left, “Plans” compares them and “Credits” has the packs and the history.",
+        "where": "Menu → “Plan and limits”.",
+        "why": "You pay only for extra AI, never for access to your own knowledge.",
+        "tips": [
+          "Quotas renew with each billing period (monthly on Free); failed requests aren't counted.",
+          "A promo code is entered on Stripe's payment page.",
+          "Credits never expire; podcasts and video always ask before spending credits."
         ]
       }
     },
@@ -2389,7 +2711,7 @@
         },
         "quota": {
           "title": "Fair limits",
-          "text": "AI requests are counted per month and failed ones are not taken off. How many are left shows next to every button."
+          "text": "AI is counted per billing period, failed requests aren't taken off, and credits come back if a request fails. What's left shows next to every button."
         },
         "autosave": {
           "title": "Autosave",
@@ -2448,7 +2770,7 @@
       "items": {
         "free": {
           "q": "Is Studytracker free?",
-          "a": "Yes, the Free plan costs nothing. AI features have monthly limits, and Plus and Duo give more AI requests and more room for materials."
+          "a": "Yes, everything for studying is free for good on Free. AI has quotas; Plus and Duo give more AI, podcasts and video, and credits cover you when a quota runs out."
         },
         "private": {
           "q": "Who can see my materials?",
@@ -2456,7 +2778,7 @@
         },
         "quota": {
           "q": "What if my AI limit runs out?",
-          "a": "Everything else works as usual: notes, questions, self-defending, flashcards. Limits renew on the first of the month, and the “Limits” page shows how many are left."
+          "a": "Everything else works as usual: notes, questions, self-defending, flashcards. The quota renews with the next period, and until then AI can be paid with credits. The “Plan and limits” page shows what's left."
         },
         "export": {
           "q": "How do I take my data with me?",
@@ -2543,5 +2865,53 @@
       "failed": "The video couldn't be processed. Make sure it's public and try again.",
       "noSpeech": "No speech was found in this video, so there are no subtitles."
     }
+  },
+  "credits": {
+    "upsell": {
+      "titleQuota": "Quota used up",
+      "titleTrial": "Free trial used",
+      "titleCredits": "Not enough credits",
+      "titleTooLarge": "The text is too long",
+      "useText": "You can pay with credits: this costs {{credits}}, you have {{balance}}.",
+      "buyText": "This costs {{credits}} credits and you have {{balance}}. Buy a credit pack or choose a plan with bigger quotas.",
+      "upgradeText": "The quota renews next period. Plus and Duo give more.",
+      "tooLargeText": "One AI request takes up to {{max}} characters. Shorten the text or split it into parts.",
+      "use": "Use {{credits}} credits",
+      "auto": "Don't ask again for Study AI",
+      "buy": "Buy credits",
+      "upgrade": "See plans",
+      "cancel": "Cancel",
+      "ok": "Got it"
+    },
+    "title": "AI credits",
+    "text": "When a quota runs out, AI can be paid with credits. Credits never expire; each person on a Duo has their own.",
+    "balance": "Balance",
+    "unit": "credits",
+    "buyPack": "Buy",
+    "bestValue": "Best value",
+    "packNote": "Prices include VAT. You pay on Stripe's secure page.",
+    "prices": "What things cost in credits",
+    "perRequest": "{{credits}} a request",
+    "perBlock": "{{credits}} per {{block}}{{unit}}",
+    "auto": "Pay for Study AI with credits automatically when its quota runs out",
+    "autoHint": "Podcasts and videos always ask before paying",
+    "history": "Credit history",
+    "historyEmpty": "Nothing yet",
+    "more": "Show more",
+    "reasons": {
+      "Purchase": "Pack bought",
+      "Spend": "Spent",
+      "Return": "Returned: the request failed",
+      "Refund": "Refund",
+      "Adjustment": "Adjustment"
+    },
+    "unavailable": "Payments aren't set up yet",
+    "checkoutError": "Couldn't open the payment page, please try again",
+    "added": "Credits added",
+    "arriving": "Payment done, your credits are on their way",
+    "cancelled": "Credit payment cancelled"
+  },
+  "review": {
+    "smartCheckLimit": "Smart check limit reached — using the standard check"
   }
 }

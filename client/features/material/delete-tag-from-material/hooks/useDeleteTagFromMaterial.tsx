@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { logExceptionError } from "@/shared/lib";
 import { deleteTagFromMaterial, materialKeys } from "@/entities/material";
 import { toast } from "@/shared/radix-ui";

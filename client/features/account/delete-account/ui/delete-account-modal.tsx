@@ -4,7 +4,7 @@ import { FC, FormEvent, useEffect, useState } from "react";
 import { LuMailCheck, LuShieldAlert, LuTrash2 } from "react-icons/lu";
 import { Field, FieldInput, Modal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { useTranslation } from "@/shared/i18n";
 import { useAccountDelete } from "../hooks/useAccountDelete";
 import { useReauth } from "../hooks/useReauth";

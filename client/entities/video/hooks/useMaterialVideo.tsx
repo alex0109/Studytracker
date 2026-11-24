@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { IMaterialVideo } from "../model";
 import { videoKeys } from "../lib";
 import { getMaterialVideo } from "../api";

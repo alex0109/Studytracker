@@ -2,8 +2,8 @@
 
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError, trackEvent } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import {
@@ -15,7 +15,6 @@ import {
   updateDictionaryEntry,
 } from "@/entities/dictionary";
 import { aiKeys, getAiErrorMessage } from "@/entities/ai";
-import { trackEvent } from "@/shared/lib/analytics";
 
 // Id of the word that already has this term, from the 409 answer
 export const existingEntryIdOf = (error: unknown): string | null =>
@@ -35,6 +34,7 @@ export const useWordLookup = () => {
     onSettled: () => queryClient.invalidateQueries({ queryKey: aiKeys.usage() }),
     onError: (error) => {
       const message = getAiErrorMessage(error, t);
+      if (message === "") return;
       if (!message) logExceptionError(error, { section: "dictionaries/entries/lookup", userID: user?.id });
       toast({ title: `⚠️${message ?? t("dictionary.fromReading.lookupError")}`, variant: "error" });
     },

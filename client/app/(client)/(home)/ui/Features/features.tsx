@@ -4,7 +4,7 @@ import { FC } from "react";
 import Link from "next/link";
 import { LuArrowRight, LuCompass } from "react-icons/lu";
 import { cn } from "@/shared/lib";
-import { routes } from "@/shared/config/routes";
+import { routes } from "@/shared/config";
 import { useTranslation } from "@/shared/i18n";
 import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";

@@ -14,7 +14,7 @@ import {
 } from "@/features/dictionary/update-dictionary";
 import { DictionaryDeleteModal } from "@/features/dictionary/delete-dictionary";
 import { FlashcardsPractice } from "@/features/dictionary/practice-dictionary";
-import { useActiveSectionContext } from "@/shared/context/active-section.provider";
+import { useActiveSectionContext } from "@/shared/context";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { Subtitle } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";

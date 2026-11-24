@@ -19,7 +19,8 @@ export const AnswerButtons: FC<AnswerButtonsProps> = ({ onAnswer }) => {
         <Button
           key={value}
           size="lg"
-          className={cn("flex-1 text-white", styles)}
+          // On phones the icon sits over the label: three wide buttons with "Not sure" would not fit in a row
+          className={cn("flex-1 text-white max-sm:h-16 max-sm:flex-col max-sm:gap-1 max-sm:[&_svg:not([class*='size-'])]:size-5", styles)}
           onClick={(e) => {
             // Drop focus so Space flips the card instead of pressing the button again
             e.currentTarget.blur();

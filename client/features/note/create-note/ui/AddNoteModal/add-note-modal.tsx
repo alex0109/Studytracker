@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { ChoiceGroup, Modal, Field, FieldInput, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { LuNotebookPen, LuPlus } from "react-icons/lu";
-import { INoteCreate, NoteTypeEnum } from "@/entities/note/model";
+import { INoteCreate, NoteTypeEnum } from "@/entities/note";
 import { useNoteCreate } from "../../hooks/useNoteCreate";
 import { useTranslation } from "@/shared/i18n";
 

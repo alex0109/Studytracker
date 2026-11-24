@@ -19,9 +19,8 @@ import { EmptyState, RichTextStatic } from "@/shared/ui";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { ILibraryItem, useLibraryItem } from "@/entities/library";
-import { DrawingViewer } from "@/entities/note/ui";
-import { NoteTypeEnum } from "@/entities/note/model";
-import { QuestionTypeEnum } from "@/entities/question/model";
+import { DrawingViewer, ESSAY_EXAMS, NoteTypeEnum, parseEssayFormat } from "@/entities/note";
+import { QuestionTypeEnum } from "@/entities/question";
 import { ImportLibraryButton } from "@/features/library/import-from-library";
 import { LibraryAuthorActions } from "@/features/library/send-library-request";
 import { LibraryContents, LibraryContentsSection } from "./library-contents";
@@ -29,6 +28,12 @@ import { LibraryDictionaries } from "./library-dictionaries";
 import { LibraryDisclosure } from "./library-disclosure";
 import { LibraryQuestions, questionLevels } from "./library-questions";
 import { LibrarySection } from "./library-section";
+
+// "IELTS · B2", or nothing for a general essay
+const essayExamLabel = (code?: string | null) => {
+  const format = parseEssayFormat(code);
+  return format ? `${ESSAY_EXAMS[format.exam].short} · ${format.level}` : null;
+};
 
 const NOTE_ICONS = {
   [NoteTypeEnum.text]: LuNotebookPen,
@@ -234,9 +239,13 @@ export const LibraryReader: FC<{ itemId: string; initialItem?: ILibraryItem | nu
                       ) : note.textContent ? (
                         <>
                           {note.type === NoteTypeEnum.essay && note.essayTask && (
-                            <p className="mb-3 rounded-xl bg-violet-50 p-3 text-sm text-violet-800 dark:bg-violet-950/40 dark:text-violet-300">
-                              <span className="font-semibold">{t("notes.essay.taskLabel")}:</span> {note.essayTask}
-                            </p>
+                            <div className="mb-3 flex flex-col gap-1 rounded-xl bg-orange-50 p-3 text-sm text-orange-900 dark:bg-orange-950/40 dark:text-orange-200">
+                              <span className="font-semibold">
+                                {t("notes.essay.taskLabel")}
+                                {essayExamLabel(note.essayFormat) && ` · ${essayExamLabel(note.essayFormat)}`}
+                              </span>
+                              <p className="whitespace-pre-line">{note.essayTask}</p>
+                            </div>
                           )}
                           <RichTextStatic content={note.textContent} className={flushText} />
                         </>

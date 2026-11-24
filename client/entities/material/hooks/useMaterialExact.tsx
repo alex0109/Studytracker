@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMaterial } from "../api";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { IMaterialResponse } from "../model";
 import { materialKeys } from "../lib";
 

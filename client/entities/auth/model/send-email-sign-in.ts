@@ -2,7 +2,7 @@
 
 import z from "zod";
 import { createClientOnServer } from "../api/server";
-import { getSafeRedirect } from "@/shared/lib/safe-redirect";
+import { getSafeRedirect } from "@/shared/lib";
 
 export type EmailSignInResult = { ok: true } | { ok: false; error: "invalid" | "rate" | "failed" };
 

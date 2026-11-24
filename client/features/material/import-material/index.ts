@@ -1,1 +1,1 @@
-export { useMaterialImport } from "./hooks/useMaterialImport";
+export { useSharedMaterialImport } from "./hooks/useSharedMaterialImport";

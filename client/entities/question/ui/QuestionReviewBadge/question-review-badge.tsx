@@ -3,22 +3,10 @@
 import { FC } from "react";
 import { LuFlame, LuRepeat } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
-import { cn } from "@/shared/lib/cn";
+import { cn, formatTimeUntil } from "@/shared/lib";
 import { useNow } from "@/shared/hooks";
 import { IQuestionProgress } from "../../model/question-progress.type";
 
-const HOUR = 60 * 60 * 1000;
-const DAY = 24 * HOUR;
-
-// "in 3 days" / "через 3 дні" in the interface language, without our own plural rules
-const relative = (due: Date, now: number, language: string) => {
-  const format = new Intl.RelativeTimeFormat(language, { numeric: "auto" });
-  const diff = due.getTime() - now;
-
-  return diff < DAY
-    ? format.format(Math.max(1, Math.round(diff / HOUR)), "hour")
-    : format.format(Math.round(diff / DAY), "day");
-};
 
 // Small mark under a question: when it comes back, or that it is due now, or that it keeps failing
 export const QuestionReviewBadge: FC<{ progress?: IQuestionProgress | null }> = ({
@@ -44,7 +32,7 @@ export const QuestionReviewBadge: FC<{ progress?: IQuestionProgress | null }> = 
         <LuRepeat aria-hidden />
         {isDue
           ? t("questions.review.due")
-          : t("questions.review.next", { when: relative(due, now, i18n.language) })}
+          : t("questions.review.next", { when: formatTimeUntil(due, i18n.language, now) })}
       </span>
       {progress.isLeech && (
         <span

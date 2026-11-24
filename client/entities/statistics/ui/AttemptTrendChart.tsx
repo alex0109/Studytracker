@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ChartLine, TrendingDown, TrendingUp } from "lucide-react";
+import { LuChartLine, LuTrendingDown, LuTrendingUp } from "react-icons/lu";
 import { useStatisticsAttemtTrend, useStatisticsOverview } from "../hooks";
 import { Card, CardEmpty, CardSkeleton, TooltipShell } from "./primitives";
 import { COLORS, formatShortDate, useChartColors } from "./tokens";
@@ -63,7 +63,7 @@ export function AttemptTrendChart() {
     return (
       <CardEmpty
         className="h-72 md:col-span-2"
-        icon={<ChartLine className="h-8 w-8" aria-hidden />}
+        icon={<LuChartLine className="h-8 w-8" aria-hidden />}
         text={t("statistics.trend.empty")}
       />
     );
@@ -104,9 +104,9 @@ export function AttemptTrendChart() {
             }`}
           >
             {up ? (
-              <TrendingUp className="h-4 w-4" aria-hidden />
+              <LuTrendingUp className="h-4 w-4" aria-hidden />
             ) : (
-              <TrendingDown className="h-4 w-4" aria-hidden />
+              <LuTrendingDown className="h-4 w-4" aria-hidden />
             )}
             {up ? "+" : ""}
             {t("statistics.trend.delta", { delta: delta.toFixed(1) })}

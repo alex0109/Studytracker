@@ -12,6 +12,8 @@ export interface IEssayCriterionScore {
   criterion: EssayCriterion;
   score: number;
   comment: string;
+  // IELTS checks only, 0-9
+  band?: number | null;
 }
 
 export interface IEssayCorrection {
@@ -33,4 +35,7 @@ export interface IEssayReview {
   // Very long essays are checked by their first part
   isTextTruncated: boolean;
   checkedAt: string;
+  // Exam checks only: the format checked for and the estimate on the exam's scale ("6.5", "B1", "below_A2")
+  format?: string | null;
+  examResult?: string | null;
 }

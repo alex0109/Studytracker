@@ -2,8 +2,8 @@
 
 import { isAxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys, getAiErrorMessage } from "@/entities/ai";
@@ -29,8 +29,8 @@ export const useVideoProcess = (materialId: string) => {
           : status === 422
             ? t("video.errors.noSpeech")
             : getAiErrorMessage(error, t);
-      if (message) {
-        toast({ title: `⚠️${message}`, variant: "error" });
+      if (message !== null) {
+        if (message) toast({ title: `⚠️${message}`, variant: "error" });
         return;
       }
       logExceptionError(error, { section: `ai/materials/${materialId}/video`, userID: user?.id });

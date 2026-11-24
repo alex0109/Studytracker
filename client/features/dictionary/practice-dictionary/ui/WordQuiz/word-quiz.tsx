@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { LuArrowRight, LuCheck, LuSparkles, LuX } from "react-icons/lu";
 import { EntryTerm, IDictionaryEntryResponse, IWordQuizOption } from "@/entities/dictionary";
@@ -24,7 +24,7 @@ const PROMPT_KEYS = {
 
 const optionStyle = (isWrong: boolean, isRight: boolean, isSolved: boolean) =>
   cn(
-    "flex w-full min-w-0 items-center gap-2 rounded-xl border-2 px-3 py-2.5 text-left text-sm font-medium transition-colors",
+    "flex min-h-12 w-full min-w-0 items-center gap-2 rounded-xl border-2 px-3 py-3 text-left text-base font-medium transition-colors sm:min-h-0 sm:py-2.5 sm:text-sm",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 disabled:cursor-default",
     isRight
       ? "border-emerald-600 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-100"
@@ -43,6 +43,12 @@ export const WordQuiz: FC<WordQuizProps> = ({ entry, onDone }) => {
   const [wrong, setWrong] = useState<string[]>([]);
   const [isSolved, setIsSolved] = useState(false);
   const done = useLatest(onDone);
+  const nextButton = useRef<HTMLButtonElement>(null);
+
+  // autoFocus doesn't reach a button that appears in a re-render: focused here, Next takes Enter
+  useEffect(() => {
+    if (isSolved) nextButton.current?.focus();
+  }, [isSolved]);
 
   const options = quizData?.options ?? [];
   // Too few words to choose from, or no answer from the server: the word isn't held back
@@ -96,7 +102,7 @@ export const WordQuiz: FC<WordQuizProps> = ({ entry, onDone }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
       aria-labelledby={`quiz-${entry.id}`}
-      className="absolute inset-0 flex flex-col gap-4 overflow-y-auto rounded-2xl border-3 border-white bg-neutral-50 p-5 shadow-md md:p-6 dark:border-neutral-800 dark:bg-neutral-900"
+      className="relative flex min-h-[340px] flex-col gap-4 rounded-2xl border-3 border-white bg-neutral-50 p-5 shadow-md md:min-h-[380px] md:p-6 dark:border-neutral-800 dark:bg-neutral-900"
     >
       <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300">
         <LuSparkles aria-hidden /> {t("flashcards.quiz.badge")}
@@ -140,7 +146,7 @@ export const WordQuiz: FC<WordQuizProps> = ({ entry, onDone }) => {
           {isSolved ? t("flashcards.quiz.right") : wrong.length > 0 ? t("flashcards.quiz.wrong") : ""}
         </p>
         {isSolved && (
-          <Button autoFocus onClick={onDone} className="bg-emerald-600 text-white hover:bg-emerald-700">
+          <Button ref={nextButton} onClick={onDone} className="bg-emerald-600 text-white hover:bg-emerald-700">
             {t("flashcards.quiz.next")} <LuArrowRight aria-hidden />
           </Button>
         )}

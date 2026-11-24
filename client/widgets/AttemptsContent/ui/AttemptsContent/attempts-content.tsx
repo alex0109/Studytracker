@@ -2,23 +2,14 @@
 
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import moment from "moment";
 import { LuChevronRight, LuHistory } from "react-icons/lu";
 import { useFinishedAttempts } from "@/entities/attempt";
 import { EmptyState } from "@/shared/ui";
-import { cn } from "@/shared/lib";
+import { cn, formatDateTime } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 
-interface AttemptsContentProps {
-  materialId: string;
-  noteId?: string;
-}
-
-export const AttemptsContent: FC<AttemptsContentProps> = ({
-  materialId,
-  noteId,
-}) => {
-  const { t } = useTranslation();
+export const AttemptsContent: FC<{ materialId: string }> = ({ materialId }) => {
+  const { t, i18n } = useTranslation();
   const router = useRouter();
 
   const { finishedAttempts } = useFinishedAttempts(materialId);
@@ -27,7 +18,7 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
     return (
       <EmptyState
         icon={<LuHistory aria-hidden />}
-        title={noteId ? t("attempts.empty.note") : t("attempts.empty.material")}
+        title={t("attempts.empty.material")}
         text={t("attempts.empty.text")}
       />
     );
@@ -66,7 +57,7 @@ export const AttemptsContent: FC<AttemptsContentProps> = ({
                   {t("attempts.title", { id: item.id.split("-")[0] })}
                 </span>
                 <span className="text-sm text-neutral-500">
-                  {moment(item.finishedAt).format("D MMMM YYYY, HH:mm")} ·{" "}
+                  {formatDateTime(item.finishedAt ?? item.startedAt, i18n.language, { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })} ·{" "}
                   {t("attempts.correctOf", {
                     correct: item.correctAnswers,
                     total: item.correctAnswers + item.wrongAnswers,

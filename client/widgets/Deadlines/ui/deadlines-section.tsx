@@ -6,8 +6,7 @@ import { LuCalendarClock, LuChevronRight, LuClock } from "react-icons/lu";
 import { useDeadlines } from "@/entities/deadline";
 import { Skeleton } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
-import { formatIsoDate } from "@/shared/lib/dates";
-import { cn } from "@/shared/lib";
+import { formatIsoDate, cn } from "@/shared/lib";
 import { daysLeftTone, useDeadlineText } from "../lib/deadline-text";
 
 // Everything with a date, the least time left on top

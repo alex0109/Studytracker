@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuMenu, LuUserRound, LuX } from "react-icons/lu";
-import { authorizedLinks, links } from "@/shared/config/data";
-import { useSession } from "@/shared/context/session.provider";
+import { authorizedLinks, links } from "@/shared/config";
+import { useSession } from "@/shared/context";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { PreferencesControls } from "@/features/preferences";
@@ -68,7 +68,8 @@ export const Navigation: FC = () => {
                   <link.icon aria-hidden className="size-4 shrink-0" />
                   {/* All the links of a signed-in user need a wide screen; on a narrower one only
                       the current page keeps its word, the rest stay readable to screen readers */}
-                  <span className={cn(user && !active && "sr-only lg:not-sr-only")}>{label}</span>
+                  {/* Non-breaking spaces: "not-sr-only" brings back normal wrapping, and "I dag" broke in two */}
+                  <span className={cn(user && !active && "sr-only lg:not-sr-only")}>{label.replace(/ /g, "\u00a0")}</span>
                   {link.name === "today" && <TodayCount />}
                 </Link>
               </li>
@@ -113,7 +114,7 @@ export const Navigation: FC = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <ul className="flex flex-col items-center py-4 gap-1 text-[0.95rem] font-medium">
+            <ul className="flex flex-col items-center py-4 gap-1 text-base font-medium">
               {/* The account first: on a phone there is no room for its icon next to the language */}
               {user && (
                 <li className="w-full px-6 pb-2 mb-1 border-b border-neutral-200 dark:border-neutral-700">
@@ -138,7 +139,7 @@ export const Navigation: FC = () => {
                   <Link
                     aria-current={isActive(pathname, link.hash) ? "page" : undefined}
                     className={cn(
-                      "flex w-full items-center justify-center gap-2 px-3 py-3 transition",
+                      "flex min-h-12 w-full items-center justify-center gap-2.5 px-3 py-3 transition",
                       isActive(pathname, link.hash)
                         ? "text-neutral-950 dark:text-white"
                         : "text-neutral-600 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white",
@@ -146,7 +147,7 @@ export const Navigation: FC = () => {
                     href={link.hash}
                     onClick={closeMobile}
                   >
-                    <link.icon aria-hidden className="size-[1.1rem] shrink-0" />
+                    <link.icon aria-hidden className="size-5 shrink-0" />
                     {t(`nav.${link.name}`)}
                     {link.name === "today" && <TodayCount />}
                   </Link>

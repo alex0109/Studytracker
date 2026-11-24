@@ -1,7 +1,7 @@
-import type { MaterialTypeEnum } from "@/entities/material/model";
-import type { NoteTypeEnum, IDrawingContent } from "@/entities/note/model";
-import type { QuestionTypeEnum } from "@/entities/question/model";
-import type { PartOfSpeechEnum } from "@/entities/dictionary/model";
+import type { MaterialTypeEnum } from "@/entities/material/@x/library";
+import type { NoteTypeEnum, IDrawingContent } from "@/entities/note/@x/library";
+import type { QuestionTypeEnum } from "@/entities/question/@x/library";
+import type { PartOfSpeechEnum } from "@/entities/dictionary/@x/library";
 import type { RichTextDocument } from "@/shared/types";
 
 // Same values as the backend enums
@@ -56,6 +56,8 @@ export interface ILibrarySnapshot {
     drawingContent?: IDrawingContent | null;
     // Essays only
     essayTask?: string | null;
+    // The exam it was written for, like "Ielts/B2/Letter"
+    essayFormat?: string | null;
   }[];
   questions: {
     title: string;

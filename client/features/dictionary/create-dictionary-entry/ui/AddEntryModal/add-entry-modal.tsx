@@ -3,7 +3,8 @@
 import { useTranslation } from "@/shared/i18n";
 
 import { FC } from "react";
-import { LuBookPlus } from "react-icons/lu";
+import Link from "next/link";
+import { LuBookPlus, LuSparkles } from "react-icons/lu";
 import { Modal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import {
@@ -12,6 +13,7 @@ import {
   toEntryCreate,
 } from "@/entities/dictionary";
 import { useDictionaryEntryCreate } from "../../hooks/useDictionaryEntryCreate";
+import { useTranslationSuggestion } from "../../hooks/useTranslationSuggestion";
 
 interface AddEntryModalProps {
   dictionaryId: string;
@@ -27,6 +29,7 @@ export const AddEntryModal: FC<AddEntryModalProps> = ({
   const { t } = useTranslation();
   const { createEntry, createEntryIsPending } =
     useDictionaryEntryCreate(dictionaryId);
+  const autoTranslate = useTranslationSuggestion();
 
   const onFormSubmit = (values: IDictionaryEntryForm) => {
     // Open with a spinner until the word is saved, so the click shows and can't repeat
@@ -53,7 +56,18 @@ export const AddEntryModal: FC<AddEntryModalProps> = ({
         </>
       }
     >
-      <DictionaryEntryForm id="add-dictionary-entry" onSubmit={onFormSubmit} />
+      <DictionaryEntryForm
+        id="add-dictionary-entry"
+        onSubmit={onFormSubmit}
+        suggestTranslation={autoTranslate.enabled ? autoTranslate.suggest : undefined}
+        translationHint={
+          autoTranslate.showPlusHint && (
+            <Link href="/limits#plans" className="flex items-center gap-1 text-xs text-neutral-500 hover:text-violet-700 dark:hover:text-violet-300">
+              <LuSparkles aria-hidden className="text-violet-500" /> {t("dictionary.form.autoTranslatePlus")}
+            </Link>
+          )
+        }
+      />
     </Modal>
   );
 };

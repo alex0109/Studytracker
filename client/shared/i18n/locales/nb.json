@@ -65,17 +65,8 @@
     "saving": "Lagrer…",
     "saved": "Lagret",
     "required": "Påkrevd",
-    "tryAgain": "Prøv igjen",
-    "yes": "Ja",
-    "no": "Nei",
-    "edit": "Rediger",
     "add": "Legg til",
-    "send": "Send",
-    "update": "Oppdater",
-    "comingSoon": "Kommer snart",
-    "areYouSure": "Er du sikker?",
-    "sidebar": "Sidepanel",
-    "sidebarText": "Materialer og delene deres"
+    "customNumber": "Egen"
   },
   "landing": {
     "hero": {
@@ -328,7 +319,7 @@
         },
         "ai": {
           "title": "KI-hjelper",
-          "text": "Utkast til spørsmål fra tekst, svar sjekket etter mening, forklarte feil og sammendrag."
+          "text": "Spørsmål fra en tekst, svar sjekket etter innhold, feil og ord forklart, og sammendrag."
         },
         "lookup": {
           "title": "Ord fra hvilken som helst tekst",
@@ -348,7 +339,27 @@
         },
         "share": {
           "title": "Del og lær sammen",
-          "text": "En lenke gir en venn sin egen kopi av et materiale. Med Duo-planen lærer dere i par."
+          "text": "En lenke gir en venn sin egen kopi av et materiale. Med Duo får dere hver deres Plus."
+        },
+        "podcast": {
+          "title": "En podkast fra et materiale",
+          "text": "Én knapp gjør et materiale og notatene til en samtale med to stemmer og kapitler. Lytt på farten."
+        },
+        "video": {
+          "title": "YouTube-videoer",
+          "text": "Lim inn en lenke: undertekstene følger videoen, en quiz peker til øyeblikkene, og ord fra undertekstene går rett i ordboken."
+        },
+        "puzzle": {
+          "title": "Ord som ikke blekner",
+          "text": "Ordforklaringer med eksempler, tilfeldige kort og en liten utfordring: sett sammen ordet av bokstavene etter en repetisjon."
+        },
+        "reminders": {
+          "title": "Påminnelser og oppsummeringer",
+          "text": "Hva som skal repeteres, når rekken er i fare, og en ukesoppsummering — i appen og på e-post."
+        },
+        "plans": {
+          "title": "Gratis for alltid, mer når du trenger det",
+          "text": "Alt for læring er gratis. Plus og Duo gir mer KI, og kreditter dekker deg når en kvote er brukt opp."
         }
       },
       "demo": {
@@ -390,6 +401,57 @@
           "dictionaries": "Ordlister",
           "questions": "Spørsmål",
           "attempts": "Dine forsøk"
+        },
+        "podcast": {
+          "play": "Spill av",
+          "pause": "Pause",
+          "host": "Vert",
+          "guest": "Gjest",
+          "host1": "I dag ser vi på fotosyntese: hvordan en plante lever av lys.",
+          "guest1": "Vi begynner med klorofyll — det er det som fanger sollyset.",
+          "host2": "Nå oppsummerer vi det viktigste.",
+          "chapters": {
+            "intro": "Intro",
+            "main": "Slik fungerer det",
+            "recap": "Oppsummering"
+          }
+        },
+        "video": {
+          "line1": "Planter henter energi fra lys.",
+          "line2": "Klorofyll tar opp sollyset.",
+          "line3": "Slik dannes sukker og oksygen.",
+          "quiz": "Quiz med øyeblikk",
+          "words": "Ord til ordboken"
+        },
+        "puzzle": {
+          "word": "light",
+          "translation": "lys",
+          "hint": "Sett sammen ordet for:",
+          "solved": "Riktig!",
+          "reset": "Prøv igjen"
+        },
+        "reminders": {
+          "review": "12 ord og 3 spørsmål skal repeteres i dag",
+          "streak": "Rekken på 14 dager er i fare — 5 minutter redder den",
+          "weekly": "Uken din: 5 læringsdager, 82 % treffsikkerhet (+6 %)"
+        },
+        "plans": {
+          "free": {
+            "title": "Free",
+            "text": "Alt for læring"
+          },
+          "plus": {
+            "title": "Plus",
+            "text": "×10 KI, podkaster og video"
+          },
+          "duo": {
+            "title": "Duo",
+            "text": "Plus for to"
+          },
+          "credits": {
+            "title": "Kreditter",
+            "text": "Når en kvote er brukt opp"
+          }
         }
       }
     }
@@ -588,7 +650,8 @@
       "next_other": "Neste økt: {{count}} kort",
       "nothing": "Ingenting å repetere akkurat nå, kom tilbake senere eller øv på alle ordene",
       "reviewButton": "Repeter {{count}}",
-      "allButton": "Øv på alle {{count}}"
+      "allButton": "Øv på alle {{count}}",
+      "randomButton": "Tilfeldige kort"
     },
     "summary": {
       "title": "Runden er ferdig",
@@ -618,6 +681,33 @@
       "right": "Riktig!",
       "next": "Neste",
       "keysHint": "Tastene 1–4 velger et svar"
+    },
+    "random": {
+      "title": "Tilfeldige kort",
+      "text": "Kort fra hele ordboken i tilfeldig rekkefølge, nye og lærte sammen. Velg hvor mange du vil ta.",
+      "count": "Hvor mange kort",
+      "all": "Alle ({{count}})",
+      "ofTotal": "av {{count}}",
+      "range": "Fra {{min}} til {{max}} kort",
+      "start": "Start",
+      "startWith_one": "Start: {{count}} kort",
+      "startWith_other": "Start: {{count}} kort"
+    },
+    "spell": {
+      "badge": "Sett sammen ordet",
+      "prompt": "Sett bokstavene i riktig rekkefølge til ordet for",
+      "hint": "Hint",
+      "wrong": "Nesten! De røde bokstavene står på feil plass",
+      "keysHint": "Skriv bokstavene, Backspace tar én tilbake",
+      "letter": "Bokstaven {{letter}}",
+      "placedLetter": "Bokstaven {{letter}}, trykk for å ta den tilbake",
+      "emptyPlace": "Tom plass {{number}}"
+    },
+    "direction": {
+      "label": "Vis først:",
+      "term": "Ord",
+      "translation": "Oversettelse",
+      "mixed": "Blandet"
     }
   },
   "feedback": {
@@ -816,9 +906,7 @@
     "page": {
       "plan": "Abonnementet ditt",
       "planText": "AI-grensene avhenger av abonnementet",
-      "resets": "AI-forespørsler telles per måned og nullstilles <b>{{date}}</b>. Forespørsler som feilet, telles ikke.",
-      "aiMonth": "AI denne måneden",
-      "aiMonthText": "Hvor mange AI-forespørsler som er igjen"
+      "resets": "KI telles per betalingsperiode (kalendermåned på Free) og fornyes <b>{{date}}</b>. Forespørsler som feilet, telles ikke."
     }
   },
   "toasts": {
@@ -891,12 +979,14 @@
       "badRequest": "Det er ikke nok egnet tekst til dette. Legg til mer innhold og prøv igjen",
       "limit": "Grensen her er nådd. Frigjør litt plass og prøv igjen",
       "nothing": "AI fikk ikke laget noe av dette innholdet. Prøv et annet",
-      "quota": "AI-grensen din for denne måneden er brukt opp",
-      "unavailable": "AI svarer ikke akkurat nå, prøv igjen senere"
+      "quota": "AI-kvoten for dette er brukt opp for denne perioden",
+      "unavailable": "AI svarer ikke akkurat nå, prøv igjen senere",
+      "credits": "Ikke nok kreditter for denne forespørselen",
+      "trialUsed": "Gratisprøven er allerede brukt",
+      "inputTooLarge": "Teksten er for lang for én AI-forespørsel: høyst {{max}} tegn"
     },
     "generate": "Generer",
     "generating": "Genererer...",
-    "usageHint": "{{left}} av {{limit}} AI-forespørsler igjen denne måneden på {{tier}}, nullstilles {{date}}",
     "off": "AI-funksjoner er slått av akkurat nå",
     "features": {
       "QuestionGeneration": "Generering av spørsmål",
@@ -909,6 +999,25 @@
       "WordExplanation": "Ordforklaringer",
       "PodcastGeneration": "Podkaster",
       "VideoTranscript": "Videoundertekster"
+    },
+    "units": {
+      "QuestionGeneration": "",
+      "DictionaryGeneration": "",
+      "AnswerGrading": "",
+      "SummaryGeneration": "",
+      "MistakeExplanation": "",
+      "WordLookup": "ord",
+      "EssayReview": "",
+      "WordExplanation": "",
+      "PodcastGeneration": "",
+      "VideoTranscript": "min"
+    },
+    "cost": {
+      "quota": "{{left}} av {{limit}}{{unit}} igjen til {{date}}",
+      "trial": "Gratis prøve: {{left}}{{unit}} igjen",
+      "credits": "Kvoten er brukt opp · {{credits}} kreditter per forespørsel (du har {{balance}})",
+      "creditsPerBlock": "Kvoten er brukt opp · {{credits}} kreditter per {{block}}{{unit}} (du har {{balance}})",
+      "none": "Kvoten er brukt opp til {{date}}"
     }
   },
   "share": {
@@ -1047,7 +1156,8 @@
       "needMore_other": "Skriv {{count}} ord til for å sjekke",
       "empty": {
         "title": "Skriv et essay, få en ærlig gjennomgang",
-        "text": "Sjekken gir poeng fra 0 til 100 på fire områder, viser hva som fungerer og hva som kan bli bedre, og lister konkrete feil med rettelser. Bare skrivingen vurderes, aldri meningen din."
+        "text": "Sjekken gir poeng fra 0 til 100 på fire områder, viser hva som fungerer og hva som kan bli bedre, og lister konkrete feil med rettelser. Bare skrivingen vurderes, aldri meningen din.",
+        "textExam": "En vurdering etter kravene i {{exam}}: fire kriterier fra 0 til 100, et anslått resultat på prøvens skala, hva som fungerer, hva du kan forbedre, og konkrete feil med rettelser."
       },
       "criteria": {
         "TaskResponse": "Svar på oppgaven",
@@ -1080,11 +1190,16 @@
         "noCorrections": "Fant ingen feil som bør rettes.",
         "showAll": "Vis alle ({{count}})",
         "showLess": "Vis færre",
-        "disclaimer": "Essayet er sjekket av KI. Poengene kan variere litt fra sjekk til sjekk, men ikke mye, så se på helheten og de konkrete rettelsene."
+        "disclaimer": "Essayet er sjekket av KI. Poengene kan variere litt fra sjekk til sjekk, men ikke mye, så se på helheten og de konkrete rettelsene.",
+        "band": "Bånd {{band}}",
+        "below": "under {{level}}",
+        "examBand": "Anslått bånd i {{exam}}",
+        "examLevel": "Anslått nivå i {{exam}}",
+        "examDisclaimer": "Resultatet på prøvens skala er et anslag, ikke et offisielt resultat fra {{exam}}."
       },
       "topicsButton": "Velg et tema",
-      "topicsTitle": "Essaytemaer",
-      "topicsText": "Velg et tema, så blir det oppgaven for essayet. Du kan fortsatt endre oppgaven etterpå.",
+      "topicsTitle": "Temaer for tekster og brev",
+      "topicsText": "Velg et tema, så blir det oppgaven. Et tema fra en prøve vurderes etter kravene i den prøven.",
       "topicLevel": "Nivå",
       "topicLevels": {
         "A2": "Enkle temaer om deg selv og hverdagen",
@@ -1138,6 +1253,59 @@
           "Bør unge ta et friår mellom videregående skole og universitetet? Drøft fordeler og ulemper.",
           "Noen mener at romforskning er sløsing med penger når det finnes så mange problemer på jorda. Drøft begge synspunktene og gi din egen mening."
         ]
+      },
+      "taskPlaceholderOwn": "Eller lim inn din egen oppgave eller ditt eget tema …",
+      "taskHintExam": "Vurderingen ser på hvor godt teksten løser akkurat denne oppgaven etter kravene i prøven. Du kan endre oppgaveteksten.",
+      "changeTopic": "Annet tema",
+      "pickTitle": "Vet du ikke hva du skal skrive om?",
+      "pickText": "Velg et ferdig tema: et generelt eller et fra Deutsch-Test für Zuwanderer, Deutsch-Test für den Beruf, Norskprøven eller IELTS.",
+      "topicsSource": "Hvor temaet kommer fra",
+      "topicsGeneral": "Generelle",
+      "topicsGeneralSub": "Alle språk",
+      "kind": "Teksttype",
+      "kinds": {
+        "Dtz": {
+          "Letter": "Brev eller e-post",
+          "Essay": "Tekst"
+        },
+        "Norskprove": {
+          "Letter": "Melding eller e-post",
+          "Essay": "Tekst om et tema"
+        },
+        "Ielts": {
+          "Letter": "Brev (Task 1)",
+          "Essay": "Essay (Task 2)"
+        },
+        "Dtb": {
+          "Letter": "E-post på jobben",
+          "Essay": "Tekst"
+        }
+      },
+      "minWords_one": "minst {{count}} ord",
+      "minWords_other": "minst {{count}} ord",
+      "minutes": "ca. {{count}} min",
+      "ofWords_one": "av {{count}} ord",
+      "ofWords_other": "av {{count}} ord",
+      "minimumReached": "Minimum nådd",
+      "wordsProgress": "Antall ord",
+      "examMinimum_one": "{{exam}} krever minst {{count}} ord.",
+      "examMinimum_other": "{{exam}} krever minst {{count}} ord.",
+      "exams": {
+        "Dtz": {
+          "about": "Et brev eller en e-post på ca. 30 minutter: en hverdagssituasjon og fire punkter du må skrive om. Resultatet er A2 eller B1."
+        },
+        "Norskprove": {
+          "about": "Meldinger, e-poster og tekster om kjente temaer; på B1–B2 skal du argumentere for ditt syn. Resultatet er et nivå fra A1 til B2."
+        },
+        "Ielts": {
+          "about": "General Training: Task 1 er et brev på minst 150 ord på 20 minutter, Task 2 et essay på minst 250 ord på 40 minutter. Resultatet er et bånd fra 0 til 9."
+        },
+        "notAffiliated": "Temaene og vurderingen bygger på offentlige beskrivelser av prøven, er ikke knyttet til eierne av prøven og erstatter ikke et offisielt resultat.",
+        "checkedBy": "Vurderes etter kravene i {{exam}}, med et anslått resultat på prøvens skala.",
+        "clear": "Vanlig vurdering uten prøve",
+        "Dtb": {
+          "about": "Tysk B2 etter integreringskurset (telc). En halvformell e-post i en arbeidssituasjon på ca. 30 minutter, til en kollega, en leder eller en kunde, med flere punkter du må skrive om. Resultatet er B2 eller B1."
+        }
       }
     }
   },
@@ -1192,7 +1360,9 @@
       "moreHint": "grammatikk, synonymer, merknad",
       "article": "Artikkel",
       "articleHint": "Valgfritt. Vises foran ordet",
-      "articlePlaceholder": "der, la, en…"
+      "articlePlaceholder": "der, la, en…",
+      "autoTranslated": "Automatisk oversatt: trykk for å endre eller slette",
+      "autoTranslatePlus": "Automatisk ordoversettelse er en del av Plus"
     },
     "partOfSpeech": {
       "Noun": "substantiv",
@@ -1245,7 +1415,8 @@
       "more": "Andre eksempler",
       "error": "Kunne ikke forklare ordet. Prøv igjen.",
       "disclaimer": "Eksemplene er skrevet av KI og lagres ikke."
-    }
+    },
+    "term": "Ord"
   },
   "attempts": {
     "title": "Forsøk {{id}}",
@@ -1253,7 +1424,6 @@
     "seeResults": "Se resultater",
     "empty": {
       "material": "Ingen forsøk på dette materialet ennå",
-      "note": "Ingen forsøk på dette notatet ennå",
       "text": "Start selvforsvar i fanen Spørsmål: fullførte forsøk med poengsum dukker opp her."
     }
   },
@@ -1381,7 +1551,13 @@
       "markAll_one": "Merk {{count}} som lest",
       "markAll_other": "Merk alle {{count}} som lest",
       "dailyQuestions_one": "{{count}} spørsmål ventet på repetisjon",
-      "dailyQuestions_other": "{{count}} spørsmål ventet på repetisjon"
+      "dailyQuestions_other": "{{count}} spørsmål ventet på repetisjon",
+      "showMore": "Vis {{count}} til",
+      "showLess": "Vis færre",
+      "delete": "Slett varselet",
+      "clearAll": "Fjern alle",
+      "clearConfirm": "Fjerne alle?",
+      "deleteError": "Kunne ikke slette, prøv igjen"
     },
     "settings": {
       "title": "Påminnelser på e-post",
@@ -1547,7 +1723,10 @@
       "nickname": "Bruk 2 til 40 bokstaver, sifre, mellomrom eller _ . ' -",
       "notFound": "Materialet ble ikke funnet",
       "generic": "Noe gikk galt, prøv igjen"
-    }
+    },
+    "clearSearch": "Tøm søket",
+    "found_one": "{{count}} materiale funnet",
+    "found_other": "{{count}} materialer funnet"
   },
   "today": {
     "title": "I dag",
@@ -1574,7 +1753,10 @@
     "done": {
       "title": "Ferdig for i dag",
       "text": "Alt som sto i kø er repetert. Svarene kommer tilbake akkurat når de begynner å blekne.",
-      "back": "Tilbake til I dag"
+      "back": "Tilbake til I dag",
+      "statsTitle": "Se hvordan du utvikler deg",
+      "statsText": "Rekke, treffsikkerhet og svake emner: statistikken viser hva som sitter, og hva du bør jobbe med.",
+      "statsButton": "Se statistikken"
     },
     "question": {
       "of": "{{index}} av {{total}}",
@@ -1663,7 +1845,7 @@
   },
   "learning": {
     "title": "Læring",
-    "subtitle": "Din daglige rytme og påminnelser. Standardverdiene passer de fleste.",
+    "subtitle": "Repetisjonsrytme, påminnelser og hjelp med ord.",
     "dailyGoal": "Dagsmål",
     "dailyGoalHint": "Repetisjoner om dagen. Med et mål teller en dag i rekken når målet er nådd.",
     "dailyReminder": "Påminnelse om repetisjon",
@@ -1678,16 +1860,34 @@
     "retentionReset": "Tilbake til standard ({{percent}} %)",
     "newPerDay": "Nye ord om dagen",
     "maxPerDay": "Høyst repetisjoner om dagen",
-    "freezes": "Rekkefrys i måneden",
-    "freezesHint": "Dager du hopper over uten at rekken brytes.",
-    "freezesDefault_one": "Standard ({{count}})",
-    "freezesDefault_other": "Standard ({{count}})",
     "rescheduleHint": "Endret du hvor mye du vil huske? Regn ut datoene for alle ord og spørsmål nå, ikke bare etter neste repetisjon.",
     "reschedule": "Planlegg på nytt",
     "rescheduled_one": "{{count}} kort planlagt på nytt",
     "rescheduled_other": "{{count}} kort planlagt på nytt",
     "rescheduleError": "Kunne ikke planlegge på nytt, prøv igjen",
-    "noGoal": "Ingen mål"
+    "noGoal": "Ingen mål",
+    "groups": {
+      "rhythm": {
+        "title": "Daglig rytme",
+        "text": "Hvor mye du vil repetere hver dag og når du skal minnes på det."
+      },
+      "words": {
+        "title": "Ord og oversettelse",
+        "text": "Hjelp når du legger til nye ord."
+      },
+      "advanced": {
+        "text": "Repetisjonsintervaller og daglige grenser. Standardverdiene passer de fleste."
+      }
+    },
+    "perDay": "per dag",
+    "reminders": "Påminnelser",
+    "retentionTitle": "Hvor mye du vil huske",
+    "autoTranslate": {
+      "title": "Automatisk oversettelse",
+      "text": "Når du legger et ord i en ordbok, dukker oversettelsen opp i feltet av seg selv – godta den eller rett den.",
+      "quota": "Bruker grensen «{{feature}}» og bruker aldri kreditter.",
+      "plus": "Tilgjengelig med Plus og Duo"
+    }
   },
   "duo": {
     "title": "Duo",
@@ -1893,7 +2093,8 @@
       "note": "Betalingen skjer på Stripes sikre side, vi ser aldri kortet ditt. Si opp når som helst, abonnementet gjelder ut den betalte perioden.",
       "forOne": "For én konto",
       "forTwo": "For deg og én person til: hver får sin egen Plus",
-      "keepsContent": "Materialene dine er dine også etter oppsigelse"
+      "keepsContent": "Materialene dine er dine også etter oppsigelse",
+      "promo": "Har du en kampanjekode? Skriv den inn på betalingssiden, i feltet for kampanjekode. Du må oppgi kort også med en gratiskode: du belastes først etter gratisperioden, og du kan si opp når som helst."
     },
     "page": {
       "title": "Plan og grenser",
@@ -1907,19 +2108,13 @@
       },
       "duoFrom": "Duo fra {{email}}",
       "seePlans": "Se planer",
-      "aiThisMonth": "AI denne måneden",
-      "resetsOn": "Fornyes {{date}}",
-      "plansEyebrow": "Planer",
       "plansTitle": "Mer AI når du trenger det",
       "plansText": "Free er gratis for alltid. Betalte planer gir mer AI, og Duo deler alt på to.",
       "freeLine": "Alt for læring: materialer, repetisjon, statistikk",
       "forTwo": "For to",
       "perPerson": "≈ {{price}} per person",
       "switchTo": "Bytt til {{plan}}",
-      "aiQuotas": "AI per måned",
       "termsLink": "Vilkår og oppsigelse",
-      "usageTitle": "Bruk",
-      "usageText": "AI-kvotene fornyes hver måned",
       "faqTitle": "Vanlige spørsmål",
       "allTerms": "Alle vilkår",
       "faq": {
@@ -1943,7 +2138,68 @@
           "q": "Hvordan får jeg pengene tilbake?",
           "a": "Innen 14 dager etter første betaling: skriv til oss, så refunderer vi. Detaljene står i brukervilkårene."
         }
+      },
+      "recommended": "Anbefalt",
+      "freeForever": "Gratis for alltid",
+      "perks": {
+        "aiTaste": "Litt KI for å prøve hver funksjon",
+        "study": "×{{times}} så mye KI for læring som Free",
+        "studyEach": "×{{times}} så mye KI for læring som Free — hver",
+        "media": "Podkaster: {{podcasts}} · video: {{videos}} min i måneden",
+        "duoSaving": "{{percent}} % billigere enn to Plus",
+        "ownAccounts": "Egne kontoer: hver har sine egne materialer og kvoter",
+        "trial": "Prøv én gang: {{podcasts}} podkast og {{videos}} videominutter"
       }
+    },
+    "changePlan": "Bytt plan",
+    "compare": {
+      "text": "Hvor mye KI hvert abonnement gir i måneden. Alt for læring er likt for alle.",
+      "perMonth": "Per måned",
+      "perSeat": "per person",
+      "study": "KI for læring",
+      "media": "Media",
+      "basics": "For alle",
+      "accounts": "Kontoer",
+      "everything": "Alt for læring",
+      "everythingText": "Materialer, notater, ordbøker, spørsmål, repetisjon, statistikk",
+      "included": "Inkludert",
+      "features": {
+        "QuestionGeneration": "5 spørsmål fra et materiale om gangen",
+        "AnswerGrading": "KI sjekker et åpent svar etter innholdet",
+        "MistakeExplanation": "Hvorfor et svar var feil og hva som er riktig",
+        "DictionaryGeneration": "Opptil 20 ord fra en tekst rett i ordboken",
+        "SummaryGeneration": "Et sammendrag av et materiale",
+        "EssayReview": "Vurdering og rettelser av teksten din",
+        "WordLookup": "Oversett et ord rett fra teksten",
+        "WordExplanation": "Eksempler og forklaring av et ord",
+        "PodcastGeneration": "En lydgjennomgang av et materiale",
+        "VideoTranscript": "Minutter YouTube-video: undertekster og quiz"
+      },
+      "once": "{{count}} én gang",
+      "credits": "KI-kreditter utover kvoten",
+      "creditsText": "Pakker fra 250 kreditter, utløper aldri",
+      "show": "Sammenlign alle grenser",
+      "hide": "Skjul sammenligningen"
+    },
+    "usage": {
+      "details": "Detaljer per funksjon",
+      "studyText": "{{percent}} % av kvotene brukt i snitt",
+      "podcasts": "Podkaster",
+      "video": "Video, min",
+      "trial": "engangsprøve",
+      "credits": "Kreditter: {{count}}"
+    },
+    "tabs": {
+      "usage": "Bruk",
+      "plans": "Abonnementer",
+      "credits": "Kreditter",
+      "onDuo": "Du er på en annens Duo: abonnementet er allerede aktivt, det er ingenting å velge.",
+      "noCheckout": "Betaling er ikke satt opp ennå. Abonnementene dukker opp her så snart det er gjort."
+    },
+    "glance": {
+      "used": "av kvotene brukt",
+      "mediaHint": "podkaster · video igjen",
+      "topUp": "kreditter · fyll på"
     }
   },
   "consent": {
@@ -2078,7 +2334,6 @@
     "lastDifficulty": "Minst ett nivå må være valgt",
     "questions": "Spørsmål",
     "all": "Alle ({{count}})",
-    "custom": "Egen",
     "ofTotal": "av {{count}}",
     "countRange": "Fra {{min}} til {{max}}",
     "timerMinutes": "Tidtaker, min",
@@ -2139,7 +2394,8 @@
       "words": "Ord",
       "daily": "Hver dag",
       "together": "Sammen og med KI",
-      "more": "Mer"
+      "more": "Mer",
+      "media": "Lyd og video"
     },
     "labels": {
       "how": "Hvordan",
@@ -2271,7 +2527,7 @@
         "where": "Navigasjonen → «I dag». Tallet ved siden av viser hvor mye som venter.",
         "why": "Noen minutter hver dag holder kunnskapen bedre enn en natt før eksamen.",
         "tips": [
-          "Rekka vokser når du repeterer hver dag, og frysinger redder en dag du hoppet over.",
+          "Rekka vokser når du repeterer hver dag, og to frysinger i måneden redder dager du hoppet over.",
           "E-postpåminnelser stiller du inn i kontoen."
         ]
       },
@@ -2332,9 +2588,75 @@
         "where": "Spørsmål, ordlister, sammendrag, essay og resultater av forsøk.",
         "why": "KI tar rutinen, tenkingen er fortsatt din.",
         "tips": [
-          "Grensene fornyes den første hver måned, og mislykkede forespørsler telles ikke.",
+          "Kvotene fornyes med hver betalingsperiode (månedlig på Free), og mislykkede forespørsler telles ikke.",
           "Du kan velge språket for KI-forklaringer i profilen.",
-          "«Podkast»-knappen i et materiale leser det og alle notatene inn med to stemmer, så du kan lytte på farten."
+          "Når en kvote er brukt opp, kan KI betales med kreditter — se siden «Plan og grenser»."
+        ]
+      },
+      "practice": {
+        "short": "Forklaringer og utfordringer",
+        "eyebrow": "Ord",
+        "title": "Ord som blir værende",
+        "lead": "Et ord forklart med eksempler og faste uttrykk, tilfeldige kort fra en ordbok og en liten utfordring: sett sammen ordet av bokstavene.",
+        "how": "I en ordbok trykker du «Forklar ordet med eksempler»; i fanen «Kort» trykker du «Tilfeldige kort» og velger hvor mange. Utfordringen dukker opp av seg selv etter en repetisjon i «I dag».",
+        "where": "Ordbøkene i materialer, fanen «Kort» og siden «I dag».",
+        "why": "Et ord du møter i ekte eksempler og ulike øvelser, sitter bedre enn et ord på en liste.",
+        "tips": [
+          "Å forklare det samme ordet igjen bruker ikke kvoten mens siden er åpen.",
+          "Tilfeldige kort er en enkel måte å gå gjennom litt av alt, uten kø."
+        ]
+      },
+      "video": {
+        "short": "YouTube-videoer",
+        "eyebrow": "Lyd og video",
+        "title": "Videoer du kan lære av",
+        "lead": "Et materiale med en YouTube-lenke får en spiller med undertekster som følger videoen, en quiz som peker til øyeblikk, og ord fra undertekstene til en ordbok.",
+        "how": "Lag et materiale av typen «Video» med en YouTube-lenke og trykk «Lag undertekster». Klikk på en linje for å hoppe dit i videoen.",
+        "where": "Videofanen i et materiale.",
+        "why": "Video blir mer enn passiv titting: du tester deg selv og tar vare på de nye ordene.",
+        "tips": [
+          "De første 30 minuttene av en video behandles; kvoten telles i minutter.",
+          "Undertekstene er på videoens språk, spørsmålene på språket i grensesnittet ditt."
+        ]
+      },
+      "podcast": {
+        "short": "Podkaster",
+        "eyebrow": "Lyd og video",
+        "title": "Et materiale du kan lytte til",
+        "lead": "Knappen «Podkast» gjør et materiale og notatene til en samtale mellom to verter med kapitler — til pendling, tur eller treningssenteret.",
+        "how": "Trykk «Podkast» i et materiale, velg språk og vent et par minutter på opptaket. Kapitlene fører til notatene de er laget av.",
+        "where": "Alle materialer med tekst eller notater.",
+        "why": "Lytting er enda en måte å repetere på når øynene er opptatt.",
+        "tips": [
+          "En ny podkast erstatter den gamle for samme materiale.",
+          "Free har ett gratis forsøk; deretter Plus, Duo eller kreditter."
+        ]
+      },
+      "reminders": {
+        "short": "Påminnelser",
+        "eyebrow": "Hver dag",
+        "title": "Påminnelser som ikke maser",
+        "lead": "Om morgenen, hva som skal repeteres; om kvelden, om rekken er i fare; på mandag, en ukesoppsummering. I appen og på e-post, slik du vil.",
+        "how": "På siden «Statistikk», i «Påminnelser og sammendrag», slår du på de du vil ha og velger tid. Fjern det du ikke trenger med × eller «Fjern alle».",
+        "where": "«Statistikk» → «Påminnelser og sammendrag».",
+        "why": "Regelmessighet betyr mer enn lengde: et kort dytt i rett øyeblikk holder vanen.",
+        "tips": [
+          "Påminnelsene følger tidssonen din.",
+          "Et slettet varsel kommer ikke tilbake for samme dag."
+        ]
+      },
+      "plans": {
+        "short": "Abonnementer og kreditter",
+        "eyebrow": "Sammen",
+        "title": "Free, Plus, Duo og kreditter",
+        "lead": "Alt for læring er gratis for alltid. Plus gir mer KI, podkaster og video; Duo er Plus for to separate kontoer; kreditter dekker deg når en kvote er brukt opp.",
+        "how": "På siden «Plan og grenser»: «Bruk» viser hva som er igjen, «Abonnementer» sammenligner dem og «Kreditter» har pakkene og historikken.",
+        "where": "Menyen → «Plan og grenser».",
+        "why": "Du betaler bare for ekstra KI, aldri for tilgang til din egen kunnskap.",
+        "tips": [
+          "Kvotene fornyes med hver betalingsperiode (månedlig på Free); mislykkede forespørsler telles ikke.",
+          "En kampanjekode legges inn på Stripes betalingsside.",
+          "Kreditter utløper aldri; podkaster og video spør alltid før de bruker kreditter."
         ]
       }
     },
@@ -2389,7 +2711,7 @@
         },
         "quota": {
           "title": "Rettferdige grenser",
-          "text": "KI-forespørsler telles per måned, og mislykkede trekkes ikke fra. Hvor mange som er igjen, vises ved hver knapp."
+          "text": "KI telles per betalingsperiode, mislykkede forespørsler trekkes ikke, og kreditter kommer tilbake hvis en forespørsel feiler. Hva som er igjen, vises ved hver knapp."
         },
         "autosave": {
           "title": "Automatisk lagring",
@@ -2448,15 +2770,15 @@
       "items": {
         "free": {
           "q": "Er Studytracker gratis?",
-          "a": "Ja, Free-planen koster ingenting. KI-funksjonene har månedlige grenser, og Plus og Duo gir flere KI-forespørsler og mer plass til materialer."
+          "a": "Ja, alt for læring er gratis for alltid på Free. KI har kvoter; Plus og Duo gir mer KI, podkaster og video, og kreditter dekker deg når en kvote er brukt opp."
         },
         "private": {
           "q": "Hvem kan se materialene mine?",
           "a": "Bare du. Du kan dele med en lenke som gir en egen kopi, eller foreslå et materiale til biblioteket."
         },
         "quota": {
-          "q": "Hva skjer når KI-grensen er brukt opp?",
-          "a": "Alt annet fungerer som vanlig: notater, spørsmål, selvforsvar, flashkort. Grensene fornyes den første i måneden, og siden «Grenser» viser hvor mange som er igjen."
+          "q": "Hva om KI-grensen min er brukt opp?",
+          "a": "Alt annet fungerer som vanlig: notater, spørsmål, selvforsvar, kort. Kvoten fornyes i neste periode, og frem til da kan KI betales med kreditter. Siden «Plan og grenser» viser hva som er igjen."
         },
         "export": {
           "q": "Hvordan tar jeg med meg dataene mine?",
@@ -2543,5 +2865,53 @@
       "failed": "Videoen kunne ikke behandles. Sjekk at den er offentlig, og prøv igjen.",
       "noSpeech": "Det ble ikke funnet tale i denne videoen, så det finnes ingen undertekster."
     }
+  },
+  "credits": {
+    "upsell": {
+      "titleQuota": "Kvoten er brukt opp",
+      "titleTrial": "Gratisprøven er brukt",
+      "titleCredits": "Ikke nok kreditter",
+      "titleTooLarge": "Teksten er for lang",
+      "useText": "Du kan betale med kreditter: dette koster {{credits}}, du har {{balance}}.",
+      "buyText": "Dette koster {{credits}} kreditter, og du har {{balance}}. Kjøp en kredittpakke eller velg et abonnement med større kvoter.",
+      "upgradeText": "Kvoten fornyes neste periode. Plus og Duo gir mer.",
+      "tooLargeText": "Én AI-forespørsel tar opptil {{max}} tegn. Kort ned teksten eller del den opp.",
+      "use": "Bruk {{credits}} kreditter",
+      "auto": "Ikke spør igjen for KI for læring",
+      "buy": "Kjøp kreditter",
+      "upgrade": "Se abonnementer",
+      "cancel": "Avbryt",
+      "ok": "Skjønner"
+    },
+    "title": "KI-kreditter",
+    "text": "Når en kvote er brukt opp, kan KI betales med kreditter. Kreditter utløper aldri; hver person på Duo har sine egne.",
+    "balance": "Saldo",
+    "unit": "kreditter",
+    "buyPack": "Kjøp",
+    "bestValue": "Best verdi",
+    "packNote": "Prisene inkluderer mva. Du betaler på Stripes sikre side.",
+    "prices": "Hva ting koster i kreditter",
+    "perRequest": "{{credits}} per forespørsel",
+    "perBlock": "{{credits}} per {{block}}{{unit}}",
+    "auto": "Betal automatisk med kreditter for KI for læring når kvoten er brukt opp",
+    "autoHint": "Podkaster og video spør alltid før betaling",
+    "history": "Kreditthistorikk",
+    "historyEmpty": "Ingenting ennå",
+    "more": "Vis mer",
+    "reasons": {
+      "Purchase": "Pakke kjøpt",
+      "Spend": "Brukt",
+      "Return": "Returnert: forespørselen mislyktes",
+      "Refund": "Refusjon",
+      "Adjustment": "Justering"
+    },
+    "unavailable": "Betaling er ikke satt opp ennå",
+    "checkoutError": "Kunne ikke åpne betalingssiden, prøv igjen",
+    "added": "Kreditter lagt til",
+    "arriving": "Betalingen er gjennomført, kredittene kommer straks",
+    "cancelled": "Kredittbetalingen ble avbrutt"
+  },
+  "review": {
+    "smartCheckLimit": "Grensen for smart sjekk er nådd — vanlig sjekk brukes"
   }
 }

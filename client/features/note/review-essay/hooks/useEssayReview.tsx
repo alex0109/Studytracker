@@ -1,8 +1,8 @@
 "use client";
 
 import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { notesKeys } from "@/entities/note";
@@ -39,8 +39,8 @@ export const useEssayReview = (materialId: string, noteId: string) => {
     onError: (error) => {
       // Quota, AI down or a text too short: tell why, this is not a bug to report
       const aiMessage = getAiErrorMessage(error, t);
-      if (aiMessage) {
-        toast({ title: `⚠️${aiMessage}`, variant: "error" });
+      if (aiMessage !== null) {
+        if (aiMessage) toast({ title: `⚠️${aiMessage}`, variant: "error" });
         return;
       }
 

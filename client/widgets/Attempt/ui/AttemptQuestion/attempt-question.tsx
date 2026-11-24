@@ -2,17 +2,16 @@
 
 import { FC, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { LuCheck, LuCircleCheck, LuX } from "react-icons/lu";
+import { LuCheck, LuCircleCheck } from "react-icons/lu";
 import { TextArea, VoiceField } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { cn } from "@/shared/lib";
 import { useAttemptSubmitAnswer } from "@/features/attempt/submit-answer";
-import { IOption, QuestionTypeEnum } from "@/entities/question";
-import { IConfidenceLevel } from "@/entities/attempt/model/confidence-level";
-import { HesitationMark } from "@/entities/attempt/ui/HesitationMark/hesitation-mark";
+import { IOption, QuestionTypeEnum, isTrueFalseName } from "@/entities/question";
+import { ConfidencePicker, IConfidenceLevel, HesitationMark } from "@/entities/attempt";
 import { ISavedAnswer } from "../../model/saved-answer.type";
+import { AnswerChoices } from "./answer-choices";
 import { useTranslation } from "@/shared/i18n";
-import { isTrueFalseName } from "@/entities/question";
 
 interface AttemptQuestionProps {
   questionId: string;
@@ -27,12 +26,6 @@ interface AttemptQuestionProps {
   onAnswered: (answer: ISavedAnswer) => void;
 }
 
-// Labels are translation keys under "attempt.confidence"
-const CONFIDENCE_OPTIONS = [
-  { value: IConfidenceLevel.Low, key: "low" },
-  { value: IConfidenceLevel.Medium, key: "medium" },
-  { value: IConfidenceLevel.High, key: "high" },
-] as const;
 
 const TYPE_HINTS = {
   [QuestionTypeEnum.Open]: "attempt.hints.open",
@@ -195,72 +188,13 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
         {isChoice && <HesitationMark changes={(savedAnswer?.changes ?? 0) + changes} />}
       </header>
 
-      {isTrueFalse ? (
-        <div className="flex flex-wrap gap-2">
-          {options.map((option) => {
-            const isTrue = option.name.toLowerCase() === "true";
-            const isSelected = selectedOptionIds.includes(option.id);
-
-            return (
-              <button
-                key={option.id}
-                type="button"
-                aria-pressed={isSelected}
-                onClick={() => onSelectOption(option.id)}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-full border-2 px-5 py-2 text-sm font-semibold transition-colors",
-                  isSelected
-                    ? isTrue
-                      ? "border-emerald-600 bg-emerald-600 text-white"
-                      : "border-rose-600 bg-rose-600 text-white"
-                    : "border-neutral-300 bg-white text-neutral-700 hover:border-neutral-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200",
-                )}
-              >
-                {isTrue ? <LuCheck /> : <LuX />}
-                {isTrueFalseName(option.name)
-                  ? t(isTrue ? "questions.true" : "questions.false")
-                  : option.name}
-              </button>
-            );
-          })}
-        </div>
-      ) : isChoice ? (
-        <div className="flex flex-col gap-2">
-          {options.map((option, optionIndex) => {
-            const isSelected = selectedOptionIds.includes(option.id);
-
-            return (
-              <button
-                key={option.id}
-                type="button"
-                aria-pressed={isSelected}
-                onClick={() => onSelectOption(option.id)}
-                className={cn(
-                  "flex w-full items-center gap-3 rounded-xl border-2 px-3 py-2.5 text-left transition-colors",
-                  isSelected
-                    ? "border-emerald-600 bg-emerald-50 text-emerald-950 dark:bg-emerald-950/40 dark:text-emerald-100"
-                    : "border-neutral-200 bg-white hover:border-neutral-400 dark:border-neutral-700 dark:bg-neutral-800",
-                )}
-              >
-                <span
-                  className={cn(
-                    "flex size-7 shrink-0 items-center justify-center rounded-md text-xs font-bold",
-                    isSelected
-                      ? "bg-emerald-600 text-white"
-                      : "bg-neutral-100 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-200",
-                  )}
-                >
-                  {isSelected ? (
-                    <LuCheck />
-                  ) : (
-                    String.fromCharCode(65 + optionIndex)
-                  )}
-                </span>
-                <span className="break-words">{option.name}</span>
-              </button>
-            );
-          })}
-        </div>
+      {isChoice ? (
+        <AnswerChoices
+          options={options}
+          isTrueFalse={isTrueFalse}
+          selectedIds={selectedOptionIds}
+          onSelect={onSelectOption}
+        />
       ) : (
         <VoiceField
           value={text}
@@ -286,29 +220,7 @@ export const AttemptQuestion: FC<AttemptQuestionProps> = ({
       )}
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col gap-1.5">
-          <span className="text-xs text-neutral-500">
-            {t("attempt.confidenceShort")}
-          </span>
-          <div className="inline-flex w-fit rounded-full bg-neutral-100 p-1 dark:bg-neutral-800">
-            {CONFIDENCE_OPTIONS.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                aria-pressed={confidence === option.value}
-                onClick={() => setConfidence(option.value)}
-                className={cn(
-                  "rounded-full px-3 py-1 text-xs font-medium transition-colors",
-                  confidence === option.value
-                    ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-600 dark:text-white"
-                    : "text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200",
-                )}
-              >
-                {t(`attempt.confidence.${option.key}`)}
-              </button>
-            ))}
-          </div>
-        </div>
+        <ConfidencePicker value={confidence} onChange={setConfidence} />
 
         <Button
           size="lg"

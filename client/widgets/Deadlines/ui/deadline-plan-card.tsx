@@ -22,8 +22,7 @@ import { useMaterialDeadline } from "@/features/material/set-deadline";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { DatePicker, Spinner } from "@/shared/ui";
 import { useTranslation } from "@/shared/i18n";
-import { addDaysIso, formatIsoDate, todayIso } from "@/shared/lib/dates";
-import { cn } from "@/shared/lib";
+import { addDaysIso, formatIsoDate, todayIso, cn } from "@/shared/lib";
 import { daysLeftTone, useDeadlineText } from "../lib/deadline-text";
 
 const MAX_YEARS_AHEAD = 5;

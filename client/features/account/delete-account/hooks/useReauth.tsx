@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useSession } from "@/shared/context/session.provider";
-import { createClient } from "@/entities/auth/api/client";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { createClient } from "@/entities/auth";
+import { logExceptionError } from "@/shared/lib";
 
 // Back on the account page with the delete dialog open, signed in a moment ago
 const RETURN_PATH = "/account?delete=1";

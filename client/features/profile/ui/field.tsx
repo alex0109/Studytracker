@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import { cn } from "@/shared/lib";
 
 export const control =
-  "h-10 w-full rounded-xl border border-neutral-200 bg-white px-3 text-sm outline-none transition-colors focus:border-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:focus:border-neutral-500";
+  "h-11 w-full rounded-xl border border-neutral-200 bg-white px-3 text-base outline-none sm:h-10 sm:text-sm transition-colors focus:border-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 dark:focus:border-neutral-500";
 
 export const Field: FC<{
   label: string;

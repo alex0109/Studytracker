@@ -3,8 +3,8 @@
 import { deadlineKeys } from "@/entities/deadline";
 import { isAxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError, trackEvent } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import type { IFlashcardSessionCreate } from "@/entities/flashcard";
@@ -19,7 +19,6 @@ import {
   startQuestionReview,
   startTodayWords,
 } from "@/entities/review";
-import { trackEvent } from "@/shared/lib/analytics";
 
 // 409 means the queue emptied in the meantime: not a bug, just nothing to review
 const isEmptyQueue = (error: unknown) => isAxiosError(error) && error.response?.status === 409;

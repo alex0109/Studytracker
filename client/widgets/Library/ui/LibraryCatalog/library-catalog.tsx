@@ -2,15 +2,14 @@
 
 import { FC, MouseEvent, ReactNode, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { LuChevronLeft, LuChevronRight, LuLibrary, LuSearch, LuSearchX, LuSend } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuLibrary, LuSearch, LuSearchX, LuSend, LuX } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { EmptyState } from "@/shared/ui";
-import { useDebounce } from "@/shared/hooks";
+import { useDebounce, useRequireAuth } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { MATERIAL_TYPES, MaterialTypeEnum } from "@/entities/material";
 import { ILibraryPage, useLibraryPage } from "@/entities/library";
-import { useRequireAuth } from "@/shared/hooks/use-require-auth";
 import { SubmitToLibraryModal } from "@/features/library/send-library-request";
 import { LibraryCard } from "./library-card";
 import { LibraryRequests } from "./library-requests";
@@ -81,10 +80,11 @@ export const LibraryCatalog: FC<{ initialPage?: ILibraryPage | null }> = ({ init
 
       <LibraryRequests />
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <label className="relative flex-1">
+      {/* Search on its own line, full width: next to eleven type chips it got squeezed to nothing */}
+      <div className="flex flex-col gap-3">
+        <label className="relative block">
           <span className="sr-only">{t("library.searchPlaceholder")}</span>
-          <LuSearch aria-hidden className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-neutral-400" />
+          <LuSearch aria-hidden className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-neutral-400" />
           <input
             type="search"
             value={search}
@@ -92,14 +92,34 @@ export const LibraryCatalog: FC<{ initialPage?: ILibraryPage | null }> = ({ init
               setSearch(event.target.value);
               startFromFirstPage();
             }}
+            onKeyDown={(event) => {
+              if (event.key === "Escape" && search) {
+                event.preventDefault();
+                setSearch("");
+              }
+            }}
             maxLength={100}
             placeholder={t("library.searchPlaceholder")}
-            className="w-full rounded-2xl border border-neutral-200 bg-white py-2.5 pr-4 pl-11 outline-none focus:border-emerald-400 dark:border-neutral-700 dark:bg-neutral-900"
+            className="h-12 w-full rounded-2xl border border-neutral-200 bg-white pr-12 pl-12 text-base shadow-sm outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-400/15 dark:border-neutral-700 dark:bg-neutral-900 [&::-webkit-search-cancel-button]:hidden"
           />
+          {search && (
+            <button
+              type="button"
+              onClick={() => {
+                setSearch("");
+                startFromFirstPage();
+              }}
+              aria-label={t("library.clearSearch")}
+              className="absolute top-1/2 right-3 flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-800 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+            >
+              <LuX aria-hidden />
+            </button>
+          )}
         </label>
+
         {/* Ten types and "all": one swipeable row on a phone, wrapped lines on wider screens */}
         <div
-          className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+          className="-mx-3 flex gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
           role="group"
           aria-label={t("materials.typeLabel")}
         >
@@ -123,6 +143,13 @@ export const LibraryCatalog: FC<{ initialPage?: ILibraryPage | null }> = ({ init
             </button>
           ))}
         </div>
+
+        {/* How many a search or filter found, so an empty grid isn't the only answer */}
+        {isFiltered && libraryPageData && (
+          <p className="text-sm text-neutral-500" aria-live="polite">
+            {t("library.found", { count: libraryPageData.total })}
+          </p>
+        )}
       </div>
 
       {libraryPageIsPending ? (

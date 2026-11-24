@@ -5,7 +5,7 @@ import * as Accordion from "@radix-ui/react-accordion";
 import { LayoutGroup } from "framer-motion";
 import { LuFolderPlus, LuSearch, LuSearchX, LuX } from "react-icons/lu";
 import { Skeleton } from "@/shared/radix-ui";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { IMaterialResponse } from "@/entities/material";
 import { IDictionaryResponse } from "@/entities/dictionary";

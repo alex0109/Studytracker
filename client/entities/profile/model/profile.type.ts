@@ -17,7 +17,8 @@ export interface IProfile {
   maxReviewsPerDay: number | null;
   dailyReminderHour: number | null;
   streakReminderHour: number | null;
-  streakFreezesPerMonth: number | null;
+  // Suggest a translation while a word is typed into a dictionary (Plus)
+  autoTranslate: boolean;
   defaults: ILearningDefaults;
 }
 
@@ -25,7 +26,6 @@ export interface ILearningDefaults {
   desiredRetention: number;
   dailyReminderHour: number;
   streakReminderHour: number;
-  streakFreezesPerMonth: number;
   minRetention: number;
   maxRetention: number;
 }
@@ -45,7 +45,7 @@ export interface IProfileUpdate {
   maxReviewsPerDay?: number;
   dailyReminderHour?: number;
   streakReminderHour?: number;
-  streakFreezesPerMonth?: number;
+  autoTranslate?: boolean;
 }
 
 // Explain in the language of the question, the way it worked before the setting

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useNoteUpdate } from "../../hooks/useNoteUpdate";
 
 const TextEditor = dynamic(
-  () => import("@/shared/ui/ContentEditor/content-editor"),
+  () => import("@/shared/ui/ContentEditor"),
   {
     ssr: false,
   },

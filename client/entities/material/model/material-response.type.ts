@@ -1,8 +1,8 @@
-import { ITagResponse } from "@/entities/tag";
+import { ITagResponse } from "@/entities/tag/@x/material";
 import { MaterialStatusEnum } from "./material-status.type";
 import { MaterialTypeEnum } from "./material-type.type";
 
-import { INoteResponse } from "@/entities/note/model";
+import { INoteResponse } from "@/entities/note/@x/material";
 import { RichTextDocument } from "@/shared/types";
 
 export interface IMaterialResponse {

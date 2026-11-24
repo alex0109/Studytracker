@@ -1,7 +1,7 @@
 // SHARED-UI
 
 import { FC, ReactNode } from "react";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 interface ContainerColumnProps {
   children: ReactNode;

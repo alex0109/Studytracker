@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useStatisticsDifficultyBreakdown } from "../hooks";
-import { QuestionDifficultyEnum } from "@/entities/question/model/question-difficulty";
+import { QuestionDifficultyEnum } from "@/entities/question/@x/statistics";
 import { AccuracyRing } from "./AccuracyRing";
 import { Card, CardSkeleton } from "./primitives";
 import { difficultyKey, normalizeDifficulty, useFormatDuration } from "./tokens";

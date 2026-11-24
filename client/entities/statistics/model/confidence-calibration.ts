@@ -1,4 +1,4 @@
-import { IConfidenceLevel } from "@/entities/attempt/model/confidence-level";
+import { IConfidenceLevel } from "@/entities/attempt/@x/statistics";
 
 export interface IConfidenceCalibration {
   confidenceLevel: IConfidenceLevel;

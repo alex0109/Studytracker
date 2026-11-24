@@ -1,4 +1,4 @@
-import type { IFlashcardProgress } from "@/entities/flashcard/model";
+import type { IFlashcardProgress } from "@/entities/flashcard/@x/dictionary";
 import { PartOfSpeechEnum } from "./part-of-speech.type";
 
 export interface IDictionaryEntryResponse {

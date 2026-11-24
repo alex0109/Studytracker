@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IMaterialResponse } from "@/entities/material/model";
+import { IMaterialResponse } from "@/entities/material/@x/share";
 
 export const importSharedMaterial = async (
   token: string | undefined,

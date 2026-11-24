@@ -7,8 +7,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { LuLoaderCircle, LuUsers } from "react-icons/lu";
 import { Button, toast } from "@/shared/radix-ui";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys } from "@/entities/ai";
 import { billingKeys, joinDuo, previewDuoInvite } from "@/entities/billing";
@@ -51,8 +51,8 @@ export const DuoJoin: FC = () => {
   const gone = !invite || status(preview.error) === 404 || status(preview.error) === 400;
 
   return (
-    <section className="flex w-full max-w-lg flex-col gap-4 rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-900">
-      <span className="flex size-11 items-center justify-center rounded-xl bg-violet-100 text-xl text-violet-700 dark:bg-violet-950 dark:text-violet-300">
+    <section className="flex w-full max-w-lg flex-col items-center gap-4 rounded-3xl border border-neutral-200 bg-white p-6 text-center shadow-sm sm:p-8 dark:border-neutral-700 dark:bg-neutral-900 dark:shadow-none">
+      <span className="flex size-12 items-center justify-center rounded-2xl bg-violet-100 text-2xl text-violet-700 dark:bg-violet-950 dark:text-violet-300">
         <LuUsers aria-hidden />
       </span>
 
@@ -66,13 +66,13 @@ export const DuoJoin: FC = () => {
         <p className="text-neutral-700 dark:text-neutral-200">{t("duo.join.own")}</p>
       ) : (
         <>
-          <h2 className="text-xl font-semibold">
+          <h2 className="text-xl font-semibold text-balance">
             {preview.data.ownerEmail
               ? t("duo.join.invited", { email: preview.data.ownerEmail })
               : t("duo.join.invitedNoEmail")}
           </h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-300">{t("duo.join.text")}</p>
-          <Button size="lg" onClick={() => join.mutate()} disabled={join.isPending} className="self-start">
+          <p className="text-sm text-pretty text-neutral-600 dark:text-neutral-300">{t("duo.join.text")}</p>
+          <Button size="lg" onClick={() => join.mutate()} disabled={join.isPending} className="w-full sm:w-auto">
             {join.isPending && <LuLoaderCircle aria-hidden className="animate-spin" />}
             {t("duo.join.accept")}
           </Button>

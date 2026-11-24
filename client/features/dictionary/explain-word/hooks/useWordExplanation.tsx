@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys, explainWord, getAiErrorMessage, IWordExplanation } from "@/entities/ai";
 
@@ -33,7 +33,7 @@ export const useWordExplanation = (entryId: string, enabled: boolean) => {
   const knownError = query.error ? getAiErrorMessage(query.error, t) : null;
 
   useEffect(() => {
-    if (query.error && !knownError) {
+    if (query.error && knownError === null) {
       logExceptionError(query.error, { section: `ai/dictionaries/entries/${entryId}/explanation`, userID: user?.id });
     }
   }, [query.error, knownError, entryId, user?.id]);
@@ -41,7 +41,7 @@ export const useWordExplanation = (entryId: string, enabled: boolean) => {
   return {
     explanation: query.data,
     explanationIsPending: query.isFetching,
-    explanationError: query.error ? (knownError ?? t("dictionary.explain.error")) : null,
+    explanationError: query.error ? knownError || (knownError === "" ? null : t("dictionary.explain.error")) : null,
     explainAgain: () => query.refetch(),
   };
 };

@@ -1,11 +1,9 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { getLimitErrorMessage } from "@/shared/lib/limits";
-import { createTag, ITagCreate } from "@/entities/tag";
-import { tagKeys } from "@/entities/tag/lib/tag-query-keys";
+import { useSession } from "@/shared/context";
+import { logExceptionError, getLimitErrorMessage } from "@/shared/lib";
+import { createTag, ITagCreate, tagKeys } from "@/entities/tag";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 

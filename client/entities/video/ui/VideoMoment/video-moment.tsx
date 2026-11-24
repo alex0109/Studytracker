@@ -3,8 +3,7 @@
 import { FC } from "react";
 import { LuPlay } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
-import { cn } from "@/shared/lib";
-import { formatPlayTime } from "@/shared/lib/play-time";
+import { cn, formatPlayTime } from "@/shared/lib";
 import { seekMaterialVideo } from "../../lib";
 
 interface VideoMomentProps {

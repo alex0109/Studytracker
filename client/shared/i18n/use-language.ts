@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import moment from "moment";
 import {
   DEFAULT_LANGUAGE,
   isLanguage,
@@ -24,7 +23,6 @@ export const useLanguage = () => {
   const setLanguage = async (next: Language) => {
     document.cookie = `${LANGUAGE_COOKIE}=${next}; path=/; max-age=${YEAR_SECONDS}; samesite=lax`;
     document.documentElement.lang = next;
-    moment.locale(next === "en-GB" ? "en-gb" : next);
     if (!i18n.hasResourceBundle(next, "translation")) {
       i18n.addResourceBundle(next, "translation", await loadMessages(next));
     }

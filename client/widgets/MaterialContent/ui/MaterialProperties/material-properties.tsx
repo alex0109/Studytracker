@@ -5,10 +5,7 @@ import { IconType } from "react-icons";
 import { LuBookMarked, LuCalendarClock, LuCircleDashed, LuShapes } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
 import { MaterialStatusEnum, MaterialTypeEnum } from "@/entities/material";
-import { ITagResponse } from "@/entities/tag";
 import { MaterialStatus, MaterialType } from "@/features/material/update-material";
-import { MaterialTags } from "@/widgets/MaterialTags";
-import { DeadlineProperty } from "@/widgets/Deadlines";
 
 const Property: FC<{ icon: IconType; label: string; children: ReactNode }> = ({ icon: Icon, label, children }) => (
   <div className="flex min-h-9 items-center gap-3">
@@ -24,11 +21,13 @@ interface MaterialPropertiesProps {
   id: string;
   type: MaterialTypeEnum;
   status: MaterialStatusEnum;
-  tags?: ITagResponse[];
+  // The subjects and the deadline, put in by the page
+  subjects: ReactNode;
+  deadline: ReactNode;
 }
 
 // Everything about a material that is set rather than written, named and in one place
-export const MaterialProperties: FC<MaterialPropertiesProps> = ({ id, type, status, tags }) => {
+export const MaterialProperties: FC<MaterialPropertiesProps> = ({ id, type, status, subjects, deadline }) => {
   const { t } = useTranslation();
 
   return (
@@ -40,10 +39,10 @@ export const MaterialProperties: FC<MaterialPropertiesProps> = ({ id, type, stat
         <MaterialStatus id={id} materialStatus={status} showLabel={false} />
       </Property>
       <Property icon={LuBookMarked} label={t("tags.label")}>
-        <MaterialTags materialId={id} materialTags={tags} compact />
+        {subjects}
       </Property>
       <Property icon={LuCalendarClock} label={t("deadline.title")}>
-        <DeadlineProperty materialId={id} />
+        {deadline}
       </Property>
     </dl>
   );

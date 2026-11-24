@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { fetchAllLibraryItems } from "@/entities/library/api/server";
-import { SITE_URL } from "@/shared/config/site";
+import { SITE_URL } from "@/shared/config";
 
 // New library materials reach search engines within the hour
 export const revalidate = 3600;

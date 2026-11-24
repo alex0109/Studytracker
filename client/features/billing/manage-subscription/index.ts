@@ -1,1 +1,1 @@
-export { ManageSubscriptionButton, useSubscriptionPortal } from "./manage-subscription-button";
+export { ManageSubscriptionButtons, useSubscriptionPortal } from "./manage-subscription-button";

@@ -2,8 +2,8 @@ import axios from "axios";
 import type {
   IFlashcardSessionCreate,
   IFlashcardSessionResponse,
-} from "@/entities/flashcard";
-import type { IResultRequest } from "@/entities/attempt";
+} from "@/entities/flashcard/@x/review";
+import type { IResultRequest } from "@/entities/attempt/@x/review";
 import {
   IQuestionReviewSession,
   IReviewAnswerResult,

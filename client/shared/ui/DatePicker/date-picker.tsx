@@ -5,7 +5,7 @@ import { FC, ReactNode, useState } from "react";
 import { Popover } from "radix-ui";
 import { useTranslation } from "react-i18next";
 import { menuSurface } from "../Field/select";
-import { addDaysIso, addMonthsIso, todayIso } from "@/shared/lib/dates";
+import { addDaysIso, addMonthsIso, todayIso } from "@/shared/lib";
 import { DateCalendar } from "./date-calendar";
 
 interface DatePickerProps {

@@ -4,7 +4,7 @@ import { useMaterialUpdate } from "../../hooks/useMaterialUpdate";
 import { RichTextDocument } from "@/shared/types";
 
 const TextEditor = dynamic(
-  () => import("@/shared/ui/ContentEditor/content-editor"),
+  () => import("@/shared/ui/ContentEditor"),
   {
     ssr: false,
   },

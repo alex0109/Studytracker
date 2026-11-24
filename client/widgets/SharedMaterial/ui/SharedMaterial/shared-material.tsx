@@ -12,9 +12,9 @@ import {
   LuNotebookPen,
 } from "react-icons/lu";
 import { useSharedMaterialPreview } from "@/entities/share";
-import { useMaterialImport } from "@/features/material/import-material";
-import { useSession } from "@/shared/context/session.provider";
-import { routes } from "@/shared/config/routes";
+import { useSharedMaterialImport } from "@/features/material/import-material";
+import { useSession } from "@/shared/context";
+import { routes } from "@/shared/config";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { BlockColumn, Spinner, Subtitle, Title } from "@/shared/ui";
 import { useTranslation } from "@/shared/i18n";
@@ -30,7 +30,7 @@ export const SharedMaterial: FC<SharedMaterialProps> = ({ shareToken }) => {
   const { previewData, previewIsPending, previewError } =
     useSharedMaterialPreview(shareToken);
   const { importMaterial, importMaterialIsPending } =
-    useMaterialImport(shareToken);
+    useSharedMaterialImport(shareToken);
 
   const onImport = () => {
     importMaterial(undefined, {

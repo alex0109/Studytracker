@@ -1,14 +1,10 @@
-import React, { FC, useRef } from "react";
-import { NoteTypeEnum } from "@/entities/note/model";
-import { useNoteExact } from "@/entities/note/hooks";
+import { FC, ReactNode, useRef } from "react";
+import { NoteTypeEnum, useNoteExact, noteInterface, NoteInterfaceEnum } from "@/entities/note";
 import { Skeleton } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
-import { NoteDrawing, NoteText } from "@/features/note/update-note";
-import { NoteTitle } from "@/features/note/update-note/ui/NoteTitle/title";
+import { NoteDrawing, NoteText, NoteTitle } from "@/features/note/update-note";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
-import { noteInterface, NoteInterfaceEnum } from "@/entities/note/lib";
-import { useActiveSectionContext } from "@/shared/context/active-section.provider";
-import { QuestionsContent } from "@/widgets/QuestionsContent";
+import { useActiveSectionContext } from "@/shared/context";
 import { SummaryNote } from "../SummaryNote/summary-note";
 import { EssayNote } from "../EssayNote/essay-note";
 import { AddFromSelection } from "@/features/dictionary/add-from-selection";
@@ -17,19 +13,20 @@ import { IDictionaryResponse } from "@/entities/dictionary";
 interface NotesContentProps {
   materialId: string;
   noteId: string;
-  assessmentId: string;
   title: string;
   type: NoteTypeEnum;
   onOpenDictionary?: (dictionary: IDictionaryResponse) => void;
+  // The questions of the note, put in by the page
+  questions: ReactNode;
 }
 
 export const NotesContent: FC<NotesContentProps> = ({
   materialId,
   noteId,
-  assessmentId,
   title,
   type,
   onOpenDictionary,
+  questions,
 }) => {
   const { t } = useTranslation();
   const { activeSection } = useActiveSectionContext();
@@ -50,11 +47,7 @@ export const NotesContent: FC<NotesContentProps> = ({
         <SwitchInterface switchInterface={noteInterface} />
       )}
       {activeSection === NoteInterfaceEnum.Questions ? (
-        <QuestionsContent
-          materialId={materialId}
-          noteId={noteId}
-          assessmentId={assessmentId}
-        />
+        questions
       ) : (
         <div className="min-h-125 max-w-full min-w-0 w-full">
           {/* Editors read their content once, so they wait for the loaded one:

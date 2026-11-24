@@ -1,8 +1,8 @@
 import { isAxiosError } from "axios";
 import { notFound } from "next/navigation";
-import { getUser } from "@/entities/auth/model/get-current-user.supabase";
+import { getUser } from "@/entities/auth";
 import { getAttemptQuestions } from "@/entities/attempt";
-import { Attempt } from "@/widgets/Attempt/ui";
+import { Attempt } from "@/widgets/Attempt";
 
 const AttemptPage = async ({
   params,

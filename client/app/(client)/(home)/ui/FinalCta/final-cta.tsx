@@ -3,8 +3,8 @@
 import { FC } from "react";
 import Link from "next/link";
 import { LuArrowRight } from "react-icons/lu";
-import { useSession } from "@/shared/context/session.provider";
-import { routes } from "@/shared/config/routes";
+import { useSession } from "@/shared/context";
+import { routes } from "@/shared/config";
 import { useTranslation } from "@/shared/i18n";
 import { Reveal } from "../Reveal";
 import { BrandEmblem } from "../BrandEmblem";

@@ -5,7 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { LuSend } from "react-icons/lu";
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { useFeedbackSend } from "../../hooks/useFeedbackSend";
 import { FeedbackCategory, IFeedbackCreate } from "../../model/feedback.type";
 

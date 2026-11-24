@@ -3,7 +3,7 @@
 import { FC, useState, useTransition } from "react";
 import { LuLogOut } from "react-icons/lu";
 import { signOut } from "@/entities/auth";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { ConfirmModal } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";

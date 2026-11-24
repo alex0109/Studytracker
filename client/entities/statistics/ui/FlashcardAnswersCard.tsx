@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Layers } from "lucide-react";
+import { LuLayers } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import { useStatisticsFlashcardAnswers } from "../hooks";
 import { IFlashcardAnswersDay } from "../model/flashcard-answers";
@@ -69,7 +69,7 @@ export function FlashcardAnswersCard() {
     return (
       <CardEmpty
         className="h-52 md:col-span-2"
-        icon={<Layers className="h-8 w-8" aria-hidden />}
+        icon={<LuLayers className="h-8 w-8" aria-hidden />}
         text={t("statistics.flashcards.empty")}
       />
     );

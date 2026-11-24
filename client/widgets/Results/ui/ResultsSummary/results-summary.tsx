@@ -3,10 +3,9 @@
 import { FC, ReactNode } from "react";
 import type { TFunction } from "i18next";
 import { useTranslation } from "@/shared/i18n";
-import moment from "moment";
 import { LuCircleCheck, LuCircleX, LuClock, LuTarget } from "react-icons/lu";
 import { IAttempt } from "@/entities/attempt";
-import { cn } from "@/shared/lib";
+import { cn, formatDateTime } from "@/shared/lib";
 
 interface ResultsSummaryProps {
   attempt: IAttempt;
@@ -46,7 +45,7 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
   attempt,
   questionsLength,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const score = Math.round(attempt.score);
   const scoreColor =
     score >= 80
@@ -88,9 +87,9 @@ export const ResultsSummary: FC<ResultsSummaryProps> = ({
         />
       </div>
       <p className="text-center text-sm text-neutral-500">
-        {moment(attempt.startedAt).format("D MMM YYYY, HH:mm")}
+        {formatDateTime(attempt.startedAt, i18n.language)}
         {attempt.finishedAt &&
-          ` – ${moment(attempt.finishedAt).format("HH:mm")}`}
+          ` – ${formatDateTime(attempt.finishedAt, i18n.language, { hour: "2-digit", minute: "2-digit" })}`}
       </p>
     </div>
   );

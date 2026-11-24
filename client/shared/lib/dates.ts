@@ -37,14 +37,16 @@ export const endOfMonthIso = (iso: string) => {
   return toIsoDate(new Date(date.getFullYear(), date.getMonth() + 1, 0));
 };
 
-// The days of a month laid out in full weeks, so it also shows the edges of the months around it
-export const monthGridIso = (iso: string) => {
-  const first = startOfWeekIso(startOfMonthIso(iso));
-  const last = addDaysIso(startOfWeekIso(endOfMonthIso(iso)), 6);
+// Every day from one to the other, both included
+export const daysBetweenIso = (from: string, to: string) => {
   const days: string[] = [];
-  for (let day = first; day <= last; day = addDaysIso(day, 1)) days.push(day);
+  for (let day = from; day <= to; day = addDaysIso(day, 1)) days.push(day);
   return days;
 };
+
+// The days of a month laid out in full weeks, so it also shows the edges of the months around it
+export const monthGridIso = (iso: string) =>
+  daysBetweenIso(startOfWeekIso(startOfMonthIso(iso)), addDaysIso(startOfWeekIso(endOfMonthIso(iso)), 6));
 
 // Short names of the weekdays from Monday, in the language of the page
 export const weekdayNames = (language: string, width: "narrow" | "short" = "short") => {
@@ -58,3 +60,30 @@ export const formatIsoDate = (iso: string, language: string, options: Intl.DateT
 
 export const formatFullDate = (iso: string, language: string) =>
   formatIsoDate(iso, language, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+const HOUR = 60 * 60 * 1000;
+const DAY = 24 * HOUR;
+
+// "in 3 hours", "in 2 days": when something comes back, with the language's own plural rules
+export const formatTimeUntil = (when: Date | string, language: string, now = Date.now()) => {
+  const format = new Intl.RelativeTimeFormat(language, { numeric: "auto" });
+  const diff = new Date(when).getTime() - now;
+
+  return diff < DAY
+    ? format.format(Math.max(1, Math.round(diff / HOUR)), "hour")
+    : format.format(Math.round(diff / DAY), "day");
+};
+
+// A moment with its time, "5 Nov 2026, 14:30" by default, in the page's language
+export const formatDateTime = (
+  when: Date | string,
+  language: string,
+  options: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" },
+) => new Date(when).toLocaleString(language, options);
+
+// A day of a moment, "5 November 2026" by default, in the page's language
+export const formatDate = (
+  when: Date | string,
+  language: string,
+  options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" },
+) => new Date(when).toLocaleDateString(language, options);

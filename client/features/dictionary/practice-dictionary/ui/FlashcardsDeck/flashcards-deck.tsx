@@ -5,6 +5,7 @@ import { useTranslation } from "@/shared/i18n";
 import { FC, useEffect, useRef, useState } from "react";
 import { LuUndo2 } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
+import { cn } from "@/shared/lib";
 import { useLatest } from "@/shared/hooks";
 import { IFlashcardSessionResponse } from "@/entities/flashcard";
 import { IDictionaryEntryResponse } from "@/entities/dictionary";
@@ -18,8 +19,12 @@ import { useFlashcardReviewSync } from "../../hooks/useFlashcardReviewSync";
 import { SwipeableCard } from "../SwipeableCard/swipeable-card";
 import { FlashcardsSummary } from "../FlashcardsSummary/flashcards-summary";
 import { WordQuiz } from "../WordQuiz/word-quiz";
+import { LetterChallenge } from "../LetterChallenge/letter-challenge";
+import { canMakeLetterPuzzle } from "../../lib/letter-puzzle";
 import { FlashcardsProgress } from "./flashcards-progress";
 import { AnswerButtons } from "./answer-buttons";
+import { DirectionSwitch } from "./direction-switch";
+import { isReversed, useCardDirection } from "../../lib/card-direction";
 
 interface FlashcardsDeckProps {
   session: IFlashcardSessionResponse;
@@ -30,6 +35,8 @@ interface FlashcardsDeckProps {
   // Off where answers count for the schedule: taking back a wrong answer until it is right
   // would make every word look known
   canUndo?: boolean;
+  // After the quiz of a word answered "don't know" or "not sure", its letters are put in order
+  letterChallenge?: boolean;
 }
 
 const KEY_ANSWERS: Record<string, FlashcardAnswerEnum> = {
@@ -45,6 +52,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   onRestart,
   continueLabel,
   canUndo = true,
+  letterChallenge = false,
 }) => {
   const { t } = useTranslation();
   const queue = session.cards;
@@ -54,7 +62,10 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   // A word answered "don't know" or "not sure" is checked with a small quiz before the next one
   const [quizEntry, setQuizEntry] = useState<IDictionaryEntryResponse | null>(null);
+  // Then, where it's on, the same word is put together from its letters
+  const [spellEntry, setSpellEntry] = useState<IDictionaryEntryResponse | null>(null);
 
+  const { direction, setDirection } = useCardDirection();
   const cardRef = useRef<ISwipeableCardHandle>(null);
   // Set when each card shows up, see the effect on index below
   const shownAt = useRef(0);
@@ -93,7 +104,17 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   };
 
   const handleQuizDone = () => {
+    const entry = quizEntry;
     setQuizEntry(null);
+    if (letterChallenge && entry && canMakeLetterPuzzle(entry.term)) {
+      setSpellEntry(entry);
+      return;
+    }
+    setIndex((prev) => prev + 1);
+  };
+
+  const handleSpellDone = () => {
+    setSpellEntry(null);
     setIndex((prev) => prev + 1);
   };
 
@@ -126,8 +147,8 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   }, [isFinished, finishRef]);
 
   useEffect(() => {
-    // The quiz has keys of its own
-    if (!current || quizEntry) return;
+    // The quiz and the letters have keys of their own
+    if (!current || quizEntry || spellEntry) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
@@ -152,7 +173,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [current, quizEntry]);
+  }, [current, quizEntry, spellEntry]);
 
   if (isFinished) {
     return (
@@ -180,7 +201,15 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
         counts={counts}
       />
 
-      <div className="relative w-full max-w-[460px] h-[340px] md:h-[380px]">
+      <DirectionSwitch value={direction} onChange={setDirection} />
+
+      {/* A swiped card needs a fixed stage; a quiz or a long word to spell grows it instead of scrolling */}
+      <div
+        className={cn(
+          "relative w-full max-w-[460px]",
+          quizEntry || spellEntry ? "min-h-[340px] md:min-h-[380px]" : "h-[340px] md:h-[380px]",
+        )}
+      >
         {remaining > 2 && (
           <div className="absolute inset-0 translate-y-6 scale-90 rounded-2xl border-3 border-white dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-sm opacity-50" />
         )}
@@ -189,11 +218,14 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
         )}
         {quizEntry ? (
           <WordQuiz key={quizEntry.id} entry={quizEntry} onDone={handleQuizDone} />
+        ) : spellEntry ? (
+          <LetterChallenge key={spellEntry.id} entry={spellEntry} onDone={handleSpellDone} />
         ) : (
           <SwipeableCard
             key={current.id}
             ref={cardRef}
             entry={current}
+            reversed={isReversed(direction, current.id)}
             isFlipped={isFlipped}
             onFlip={() => setIsFlipped((prev) => !prev)}
             onAnswer={handleAnswer}
@@ -202,17 +234,17 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
       </div>
 
       {/* Only the right choice in the quiz lets the next word come */}
-      {!quizEntry && <AnswerButtons onAnswer={(answer) => cardRef.current?.swipe(answer)} />}
+      {!quizEntry && !spellEntry && <AnswerButtons onAnswer={(answer) => cardRef.current?.swipe(answer)} />}
 
       <div className="flex w-full max-w-[460px] justify-between items-center gap-3">
         <p className="text-xs text-neutral-400">
-          {quizEntry ? t("flashcards.quiz.keysHint") : t("flashcards.keysHint")}
+          {quizEntry ? t("flashcards.quiz.keysHint") : spellEntry ? t("flashcards.spell.keysHint") : t("flashcards.keysHint")}
         </p>
         {canUndo && (
           <Button
             variant="ghost"
             size="sm"
-            disabled={index === 0 || !!quizEntry}
+            disabled={index === 0 || !!quizEntry || !!spellEntry}
             onClick={(e) => {
               e.currentTarget.blur();
               handleUndo();

@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { LuBellRing } from "react-icons/lu";
 import { useNotificationSettings } from "@/entities/notification";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { useReminderSettingsUpdate } from "../hooks/useReminderSettingsUpdate";

@@ -4,6 +4,9 @@ import {
   BillingPlanName,
   IBillingPlans,
   IBillingStatus,
+  ICreditHistory,
+  ICreditPricing,
+  ICreditWallet,
   IDuoInvite,
   IDuoInvitePreview,
   IDuoStatus,
@@ -28,8 +31,9 @@ export const createCheckout = async (
 ): Promise<{ url: string }> =>
   (await axios.post(`${base()}/checkout`, { plan, interval, language }, auth(token))).data;
 
-export const createPortal = async (token: string | undefined, language: string): Promise<{ url: string }> =>
-  (await axios.post(`${base()}/portal`, { language }, auth(token))).data;
+// changePlan opens Stripe's portal straight on choosing another plan
+export const createPortal = async (token: string | undefined, language: string, changePlan = false): Promise<{ url: string }> =>
+  (await axios.post(`${base()}/portal`, { language, changePlan }, auth(token))).data;
 
 export const getDuoStatus = async (token: string | undefined): Promise<IDuoStatus> =>
   (await axios.get(`${base()}/duo`, auth(token))).data;
@@ -56,3 +60,21 @@ export const joinDuo = async (token: string | undefined, invite: string) => {
 export const leaveDuo = async (token: string | undefined) => {
   await axios.post(`${base()}/duo/leave`, null, auth(token));
 };
+
+const credits = () => `${process.env.NEXT_PUBLIC_API_HTTP}/credits`;
+
+// Public: packs and what each feature costs in credits
+export const getCreditPricing = async (): Promise<ICreditPricing> => (await axios.get(`${credits()}/pricing`)).data;
+
+export const getCreditWallet = async (token: string | undefined): Promise<ICreditWallet> =>
+  (await axios.get(`${credits()}`, auth(token))).data;
+
+export const getCreditHistory = async (token: string | undefined, page: number, pageSize = 10): Promise<ICreditHistory> =>
+  (await axios.get(`${credits()}/history`, { ...auth(token), params: { page, pageSize } })).data;
+
+export const setCreditAutoUse = async (token: string | undefined, autoUseForStudy: boolean): Promise<ICreditWallet> =>
+  (await axios.put(`${credits()}/settings`, { autoUseForStudy }, auth(token))).data;
+
+// The server picks the pack's credits and price; the browser only follows the link
+export const createCreditCheckout = async (token: string | undefined, packId: string, language: string): Promise<{ url: string }> =>
+  (await axios.post(`${credits()}/checkout`, { packId, language }, auth(token))).data;

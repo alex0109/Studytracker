@@ -15,6 +15,11 @@ import {
   LuShare2,
   LuShieldCheck,
   LuSparkles,
+  LuBell,
+  LuCrown,
+  LuHeadphones,
+  LuPuzzle,
+  LuYoutube,
 } from "react-icons/lu";
 import { MaterialDemo } from "../../(home)/ui/HowItWorks/demos/material-demo";
 import { QuestionsDemo } from "../../(home)/ui/HowItWorks/demos/questions-demo";
@@ -29,9 +34,14 @@ import { DeadlineDemo } from "../../(home)/ui/Features/demos/deadline-demo";
 import { LibraryDemo } from "../../(home)/ui/Features/demos/library-demo";
 import { ShareDemo } from "../../(home)/ui/Features/demos/share-demo";
 import { AiDemo } from "../../(home)/ui/Features/demos/ai-demo";
+import { PodcastDemo } from "../../(home)/ui/Features/demos/podcast-demo";
+import { VideoDemo } from "../../(home)/ui/Features/demos/video-demo";
+import { PuzzleDemo } from "../../(home)/ui/Features/demos/puzzle-demo";
+import { RemindersDemo } from "../../(home)/ui/Features/demos/reminders-demo";
+import { PlansDemo } from "../../(home)/ui/Features/demos/plans-demo";
 import { NoteTypesDemo } from "./note-types-demo";
 
-export type GuideChapterId = "basics" | "check" | "words" | "daily" | "together";
+export type GuideChapterId = "basics" | "check" | "words" | "media" | "daily" | "together";
 
 export type GuideSectionId =
   | "start"
@@ -42,12 +52,17 @@ export type GuideSectionId =
   | "score"
   | "words"
   | "lookup"
+  | "practice"
+  | "video"
+  | "podcast"
   | "today"
   | "deadlines"
   | "statistics"
   | "library"
   | "share"
-  | "ai";
+  | "ai"
+  | "plans"
+  | "reminders";
 
 // Texts are translation keys under "guide.sections.<id>"
 export interface IGuideSection {
@@ -77,15 +92,20 @@ export const guideSections: IGuideSection[] = [
   { id: "score", chapter: "check", icon: LuGauge, tone: tones.amber, Demo: ScoreDemo },
   { id: "words", chapter: "words", icon: LuBookA, tone: tones.emerald, Demo: FlashcardsDemo },
   { id: "lookup", chapter: "words", icon: LuLanguages, tone: tones.sky, Demo: LookupDemo },
+  { id: "practice", chapter: "words", icon: LuPuzzle, tone: tones.emerald, Demo: PuzzleDemo },
+  { id: "video", chapter: "media", icon: LuYoutube, tone: tones.rose, Demo: VideoDemo },
+  { id: "podcast", chapter: "media", icon: LuHeadphones, tone: tones.violet, Demo: PodcastDemo },
   { id: "today", chapter: "daily", icon: LuCalendarCheck, tone: tones.emerald, Demo: TodayDemo },
   { id: "deadlines", chapter: "daily", icon: LuCalendarClock, tone: tones.rose, Demo: DeadlineDemo },
   { id: "statistics", chapter: "daily", icon: LuChartSpline, tone: tones.indigo, Demo: StatisticsDemo },
+  { id: "reminders", chapter: "daily", icon: LuBell, tone: tones.amber, Demo: RemindersDemo },
   { id: "library", chapter: "together", icon: LuLibrary, tone: tones.amber, Demo: LibraryDemo },
   { id: "share", chapter: "together", icon: LuShare2, tone: tones.indigo, Demo: ShareDemo },
   { id: "ai", chapter: "together", icon: LuSparkles, tone: tones.fuchsia, Demo: AiDemo },
+  { id: "plans", chapter: "together", icon: LuCrown, tone: tones.amber, Demo: PlansDemo },
 ];
 
-export const guideChapters: GuideChapterId[] = ["basics", "check", "words", "daily", "together"];
+export const guideChapters: GuideChapterId[] = ["basics", "check", "words", "media", "daily", "together"];
 
 // Extra parts of the page that are not feature sections
 export const GUIDE_EXTRA_IDS = ["hood", "tips", "faq"] as const;

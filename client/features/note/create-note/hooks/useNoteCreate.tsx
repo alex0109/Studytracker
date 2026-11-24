@@ -1,14 +1,11 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { getLimitErrorMessage } from "@/shared/lib/limits";
+import { useSession } from "@/shared/context";
+import { logExceptionError, getLimitErrorMessage } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
-import { createNote } from "@/entities/note/api/createNote";
-import { INoteCreate } from "@/entities/note/model";
-import { notesKeys } from "@/entities/note/lib";
+import { createNote, INoteCreate, notesKeys } from "@/entities/note";
 import { materialKeys } from "@/entities/material";
 
 export const useNoteCreate = (materialId: string) => {

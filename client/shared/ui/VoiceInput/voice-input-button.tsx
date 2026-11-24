@@ -4,14 +4,8 @@
 import { FC, ReactNode, useState } from "react";
 import { LuCheck, LuChevronDown, LuMic, LuSquare } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/shared/radix-ui/DropdownMenu/dropdown-menu";
-import { toast } from "@/shared/radix-ui";
-import { cn } from "@/shared/lib/cn";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, toast } from "@/shared/radix-ui";
+import { cn } from "@/shared/lib";
 import { useSpeechRecognition } from "./use-speech-recognition";
 import { useVoiceLanguage, VOICE_LANGUAGES } from "./use-voice-language";
 

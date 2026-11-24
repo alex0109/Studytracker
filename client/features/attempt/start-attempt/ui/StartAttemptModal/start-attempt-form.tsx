@@ -4,12 +4,11 @@ import { FC, FormEvent, useState } from "react";
 import { LuPlay } from "react-icons/lu";
 import { EXAM_DIFFICULTIES, ExamDifficulty, IAssessment, IAssessmentSettings } from "@/entities/assessment";
 import { Button } from "@/shared/radix-ui";
-import { Spinner } from "@/shared/ui";
+import { NumberChoice, Spinner } from "@/shared/ui";
+import { CUSTOM, isWholeInRange, useNumberSetting } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
 import { DifficultyCounts, sumOf } from "../../lib/count-by-difficulty";
-import { CUSTOM, isWholeInRange, useNumberSetting } from "../../hooks/useNumberSetting";
 import { DifficultyToggles } from "./difficulty-toggles";
-import { NumberChoice } from "./number-choice";
 
 const COUNT_PRESETS = [10, 20, 30];
 const MINUTE_PRESETS = [10, 20, 30, 60];

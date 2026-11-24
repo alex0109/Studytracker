@@ -2,22 +2,22 @@
 
 import { FC } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { LuLoaderCircle, LuSettings2 } from "react-icons/lu";
+import { LuArrowLeftRight, LuLoaderCircle, LuSettings2 } from "react-icons/lu";
 import { Button, toast } from "@/shared/radix-ui";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { createPortal } from "@/entities/billing";
 import { useLeavingPage } from "@/shared/lib/use-leaving-page";
 
-// Stripe's own page: card, invoices, switching between Plus and Duo, cancelling
+// Stripe's own page: card, invoices, cancelling; with changePlan it opens on switching between Plus and Duo
 export const useSubscriptionPortal = () => {
   const { t, i18n } = useTranslation();
   const { token, user } = useSession();
   const { leaving, leave } = useLeavingPage();
 
   const portal = useMutation({
-    mutationFn: () => createPortal(token, i18n.language),
+    mutationFn: (changePlan: boolean) => createPortal(token, i18n.language, changePlan),
     onSuccess: ({ url }) => {
       if (url.startsWith("https://")) leave(url, true);
     },
@@ -27,17 +27,36 @@ export const useSubscriptionPortal = () => {
     },
   });
 
-  return { openPortal: () => portal.mutate(), portalPending: portal.isPending || !!leaving };
+  return {
+    openPortal: (changePlan = false) => portal.mutate(changePlan),
+    portalPending: portal.isPending || !!leaving,
+    // Which of the two buttons is waiting
+    pendingChangePlan: portal.variables === true,
+  };
 };
 
-export const ManageSubscriptionButton: FC = () => {
+interface ManageSubscriptionButtonsProps {
+  // A plan that ends with its period is renewed in the portal before it can be switched
+  canChangePlan: boolean;
+}
+
+export const ManageSubscriptionButtons: FC<ManageSubscriptionButtonsProps> = ({ canChangePlan }) => {
   const { t } = useTranslation();
-  const { openPortal, portalPending } = useSubscriptionPortal();
+  const { openPortal, portalPending, pendingChangePlan } = useSubscriptionPortal();
+  const spinner = <LuLoaderCircle aria-hidden className="animate-spin" />;
 
   return (
-    <Button variant="outline" size="lg" onClick={openPortal} disabled={portalPending}>
-      {portalPending ? <LuLoaderCircle aria-hidden className="animate-spin" /> : <LuSettings2 aria-hidden />}
-      {t("billing.manage")}
-    </Button>
+    <>
+      {canChangePlan && (
+        <Button size="lg" onClick={() => openPortal(true)} disabled={portalPending}>
+          {portalPending && pendingChangePlan ? spinner : <LuArrowLeftRight aria-hidden />}
+          {t("billing.changePlan")}
+        </Button>
+      )}
+      <Button variant="outline" size="lg" onClick={() => openPortal()} disabled={portalPending}>
+        {portalPending && !pendingChangePlan ? spinner : <LuSettings2 aria-hidden />}
+        {t("billing.manage")}
+      </Button>
+    </>
   );
 };

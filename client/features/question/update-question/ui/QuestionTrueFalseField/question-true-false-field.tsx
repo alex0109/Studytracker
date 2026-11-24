@@ -1,9 +1,8 @@
 "use client";
 
 import { useTranslation } from "@/shared/i18n";
-import { isTrueFalseName } from "@/entities/question";
+import { isTrueFalseName, IOption } from "@/entities/question";
 import { FC } from "react";
-import { IOption } from "@/entities/question";
 import { SaveStatus } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import { useQuestionUpdate } from "../../hooks/useQuestionUpdate";

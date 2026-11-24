@@ -20,12 +20,12 @@ import {
   LuUserRound,
   LuUsers,
 } from "react-icons/lu";
-import { OPERATOR } from "@/shared/config/site";
+import { OPERATOR } from "@/shared/config";
 import { getServerT } from "@/shared/i18n/server";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 import { fetchBillingPlans } from "@/entities/billing/api/server";
-import { formatPrice } from "@/entities/billing/lib";
-import type { IBillingPlans, IBillingPrice } from "@/entities/billing/model";
+import { formatPrice } from "@/entities/billing";
+import type { IBillingPlans, IBillingPrice } from "@/entities/billing";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const { t } = await getServerT();

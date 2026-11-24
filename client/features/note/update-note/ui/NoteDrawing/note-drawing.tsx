@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IDrawingContent } from "@/entities/note/model";
+import { IDrawingContent } from "@/entities/note";
 import { DrawingBoard } from "./drawing-board";
 import { useNoteUpdate } from "../../hooks/useNoteUpdate";
 

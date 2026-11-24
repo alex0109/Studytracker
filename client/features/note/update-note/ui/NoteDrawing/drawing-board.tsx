@@ -5,7 +5,7 @@ import { Point, ILocalStroke, ITool } from "../../model";
 import { DEFAULT_SIZES, DEFAULT_TOOL, MARKER_COLORS, PAPER, PEN_COLORS } from "../../consts";
 import { toDrawingContent } from "../../lib/to-drawing-content";
 import { fromDrawingContent } from "../../lib/from-drawing-content";
-import { IDrawingContent } from "@/entities/note/model";
+import { IDrawingContent } from "@/entities/note";
 import { useLatest } from "@/shared/hooks";
 
 const SAVE_DELAY_MS = 800;

@@ -1,4 +1,4 @@
-import { Auth } from "@/widgets/Auth/ui/Auth/auth";
+import { Auth } from "@/widgets/Auth";
 
 const SignUpPage = async () => {
   return <Auth mode="signup" />;
