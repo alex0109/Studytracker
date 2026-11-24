@@ -929,6 +929,8 @@
     "noteCreated": "Note has been created!",
     "noteCreateError": "Error occurred while creating note",
     "noteUpdateError": "Error occurred while updating note",
+    "noteDeleted": "Note has been deleted!",
+    "noteDeleteError": "Error occurred while deleting note",
     "summaryError": "Error occurred while generating the summary",
     "questionUpdateError": "Error occurred while updating question",
     "questionDeleted": "Question has been deleted",
@@ -1307,6 +1309,17 @@
           "about": "German B2 after the integration course (telc). A semi-formal work e-mail in about 30 minutes, to a colleague, a manager or a customer, with several points to cover. The result is B2 or B1."
         }
       }
+    },
+    "delete": {
+      "title": {
+        "text": "Delete the note?",
+        "drawing": "Delete the drawing?",
+        "summary": "Delete the summary?",
+        "essay": "Delete the essay?",
+        "pdfAnnotation": "Delete the note?"
+      },
+      "warning": "“{{title}}” will be deleted for good, together with its questions and their progress.",
+      "warningUntitled": "It will be deleted for good, together with its questions and their progress."
     }
   },
   "dictionary": {

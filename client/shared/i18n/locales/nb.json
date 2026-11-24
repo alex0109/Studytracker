@@ -929,6 +929,8 @@
     "noteCreated": "Notatet er opprettet!",
     "noteCreateError": "Kunne ikke opprette notatet",
     "noteUpdateError": "Kunne ikke oppdatere notatet",
+    "noteDeleted": "Slettet!",
+    "noteDeleteError": "Kunne ikke slette",
     "summaryError": "Kunne ikke generere sammendraget",
     "questionUpdateError": "Kunne ikke oppdatere spørsmålet",
     "questionDeleted": "Spørsmålet er slettet",
@@ -1307,6 +1309,17 @@
           "about": "Tysk B2 etter integreringskurset (telc). En halvformell e-post i en arbeidssituasjon på ca. 30 minutter, til en kollega, en leder eller en kunde, med flere punkter du må skrive om. Resultatet er B2 eller B1."
         }
       }
+    },
+    "delete": {
+      "title": {
+        "text": "Slette notatet?",
+        "drawing": "Slette tegningen?",
+        "summary": "Slette sammendraget?",
+        "essay": "Slette essayet?",
+        "pdfAnnotation": "Slette notatet?"
+      },
+      "warning": "«{{title}}» slettes for godt, sammen med spørsmålene og fremgangen deres.",
+      "warningUntitled": "Dette slettes for godt, sammen med spørsmålene og fremgangen deres."
     }
   },
   "dictionary": {
