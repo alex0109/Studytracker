@@ -23,6 +23,7 @@ const OpenContent: FC<{ view: IMaterialsView }> = ({ view }) => {
         title={note.title}
         type={note.type}
         onOpenDictionary={openDictionary}
+        onDeleted={() => openMaterial(material.id)}
         questions={<QuestionsContent materialId={material.id} noteId={note.id} assessmentId={material.assessmentId} />}
       />
     ) : null;
