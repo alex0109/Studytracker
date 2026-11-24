@@ -1,4 +1,4 @@
-import { switchInterfaceType } from "@/shared/ui/SwitchInterface/switch-interface.type";
+import { switchInterfaceType } from "@/shared/ui/SwitchInterface";
 import { LuBookCheck, LuNotebookPen, LuBookMarked } from "react-icons/lu";
 import { MaterialInterfaceEnum } from "./material-interface-enum";
 

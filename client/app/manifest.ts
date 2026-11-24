@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_NAME } from "@/shared/config/site";
+import { SITE_NAME } from "@/shared/config";
 
 // Lets the site be installed from the browser and gives it a proper name and colours
 export default function manifest(): MetadataRoute.Manifest {

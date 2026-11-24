@@ -1,10 +1,10 @@
 // SHARED-UI
 import { ComponentProps, FC, ReactNode } from "react";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 // One look for every text field, select and textarea in dialogs and forms
 export const fieldControl =
-  "w-full min-w-0 rounded-xl border border-neutral-200 bg-white px-3.5 text-[15px] text-neutral-900 outline-none transition " +
+  "w-full min-w-0 rounded-xl border border-neutral-200 bg-white px-3.5 text-base text-neutral-900 sm:text-[15px] outline-none transition " +
   "placeholder:text-neutral-400 hover:border-neutral-300 focus-visible:border-neutral-400 focus-visible:ring-4 focus-visible:ring-neutral-900/5 " +
   "disabled:cursor-not-allowed disabled:opacity-60 aria-invalid:border-red-400 aria-invalid:focus-visible:ring-red-500/10 " +
   "dark:border-neutral-700 dark:bg-neutral-800/60 dark:text-neutral-100 dark:placeholder:text-neutral-500 " +
@@ -49,7 +49,7 @@ export const Field: FC<FieldProps> = ({ label, required, hint, error, aside, cla
 );
 
 export const FieldInput = ({ className, ...props }: ComponentProps<"input">) => (
-  <input className={cn(fieldControl, "h-10", className)} {...props} />
+  <input className={cn(fieldControl, "h-11 sm:h-10", className)} {...props} />
 );
 
 export const FieldTextArea = ({ className, ...props }: ComponentProps<"textarea">) => (
@@ -93,7 +93,7 @@ export const ChoiceGroup = <T extends string | number | boolean | null>({
           disabled={option.disabled}
           onClick={() => onChange(option.value)}
           className={cn(
-            "min-w-0 flex-1 truncate rounded-lg px-2 py-1.5 text-sm font-medium transition",
+            "min-w-0 flex-1 truncate rounded-lg px-2 py-1.5 text-sm font-medium transition max-sm:min-h-11 max-sm:text-base",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-40",
             option.value === value
               ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-600 dark:text-white"

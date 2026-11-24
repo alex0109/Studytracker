@@ -5,7 +5,7 @@ import { FC, ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { LuX } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 const SIZES = {
   sm: "sm:max-w-sm",

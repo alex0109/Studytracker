@@ -5,3 +5,4 @@ export { generateSummary } from "./generateSummary";
 export { explainMistakes } from "./explainMistakes";
 export { reviewEssay } from "./reviewEssay";
 export { explainWord } from "./explainWord";
+export { translateWord, type IWordTranslation, type WordTranslationSkip } from "./translateWord";

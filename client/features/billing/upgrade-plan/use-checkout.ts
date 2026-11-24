@@ -3,11 +3,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { toast } from "@/shared/radix-ui";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError, trackEvent } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { BillingIntervalName, BillingPlanName, createCheckout } from "@/entities/billing";
-import { trackEvent } from "@/shared/lib";
 import { useLeavingPage } from "@/shared/lib/use-leaving-page";
 
 // Opens the provider's checkout; the plan changes when its webhook arrives

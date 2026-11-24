@@ -4,7 +4,7 @@ import { FC } from "react";
 import { LuCheck, LuDownload } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
-import { useRequireAuth } from "@/shared/hooks/use-require-auth";
+import { useRequireAuth } from "@/shared/hooks";
 import { Spinner } from "@/shared/ui";
 import { useLibraryImport } from "../hooks/useLibraryImport";
 

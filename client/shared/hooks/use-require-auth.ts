@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 
 // For what guests can see but not do: instead of the action they go to sign in, and come back to
 // the same page afterwards

@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dictionaryKeys, getWordQuiz, IWordQuiz } from "@/entities/dictionary";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 
 // A new set of choices every time a word is forgotten: nothing is kept once the quiz is gone
 export const useWordQuiz = (entryId: string) => {

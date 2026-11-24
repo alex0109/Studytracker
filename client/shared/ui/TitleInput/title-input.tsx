@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, useLayoutEffect, useRef } from "react";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 interface TitleInputProps {
   value: string;

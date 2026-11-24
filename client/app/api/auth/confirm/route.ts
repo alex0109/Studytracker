@@ -1,7 +1,7 @@
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { createClientOnServer } from "@/entities/auth/api/server";
-import { getSafeRedirect } from "@/shared/lib/safe-redirect";
+import { getSafeRedirect } from "@/shared/lib";
 
 const EMAIL_TYPES: EmailOtpType[] = ["email", "signup", "magiclink"];
 

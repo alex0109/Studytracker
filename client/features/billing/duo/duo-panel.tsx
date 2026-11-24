@@ -5,8 +5,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LuCheck, LuCopy, LuLink, LuLoaderCircle, LuLogOut, LuUserMinus } from "react-icons/lu";
 import { Button, toast } from "@/shared/radix-ui";
 import { ConfirmModal } from "@/shared/ui";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError, formatDate } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys } from "@/entities/ai";
 import {
@@ -18,8 +18,6 @@ import {
   removeDuoMember,
 } from "@/entities/billing";
 
-const formatDate = (value: string, language: string) =>
-  new Date(value).toLocaleDateString(language, { day: "numeric", month: "long", year: "numeric" });
 
 // Who shares the Duo. The payer makes a link and sees who joined; the member sees whose Duo it is
 export const DuoPanel: FC<{ duo: IDuoStatus }> = ({ duo }) => {

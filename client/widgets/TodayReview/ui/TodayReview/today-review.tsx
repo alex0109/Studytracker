@@ -3,7 +3,7 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { LuBookA, LuCircleCheckBig, LuClock, LuListChecks, LuPlay, LuSprout } from "react-icons/lu";
+import { LuArrowRight, LuBookA, LuChartSpline, LuCircleCheckBig, LuClock, LuListChecks, LuPlay, LuSprout } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { Spinner } from "@/shared/ui";
@@ -105,9 +105,14 @@ export const TodayReview: FC = () => {
                 <>
                   <h2 className="text-xl font-semibold">{t("today.empty.title")}</h2>
                   <p className="max-w-md text-sm text-neutral-500">{t("today.empty.text")}</p>
-                  <Link href="/materials" className="text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400">
-                    {t("nav.materials")} →
-                  </Link>
+                  <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+                    <Link href="/statistics" className="text-sm font-medium text-violet-700 hover:underline dark:text-violet-300">
+                      {t("today.done.statsButton")} →
+                    </Link>
+                    <Link href="/materials" className="text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400">
+                      {t("nav.materials")} →
+                    </Link>
+                  </div>
                 </>
               )}
             </div>
@@ -160,7 +165,7 @@ export const TodayReview: FC = () => {
                 </div>
               )}
 
-                            {todayData.overdueWords + todayData.overdueQuestions > 0 && (
+              {todayData.overdueWords + todayData.overdueQuestions > 0 && (
                 <p className="text-sm text-amber-700 dark:text-amber-400">
                   {t("today.overdue", { count: todayData.overdueWords + todayData.overdueQuestions })}
                 </p>
@@ -210,6 +215,7 @@ export const TodayReview: FC = () => {
             onRestart={() => (hasQuestions ? goQuestions() : setPhase("done"))}
             continueLabel={hasQuestions ? t("today.startQuestions") : t("today.question.finish")}
             canUndo={false}
+            letterChallenge
           />
         </Fade>
       )}
@@ -234,7 +240,22 @@ export const TodayReview: FC = () => {
             </motion.span>
             <h2 className="text-xl font-semibold">{t("today.done.title")}</h2>
             <p className="max-w-md text-sm text-neutral-500">{t("today.done.text")}</p>
-            <Button variant="outline" onClick={() => setPhase("summary")}>
+
+            {/* The natural next step after a session: see what it changed */}
+            <div className="mt-3 flex w-full flex-col items-center gap-3 rounded-2xl bg-gradient-to-br from-violet-50 to-sky-50 p-5 dark:from-violet-950/40 dark:to-sky-950/30">
+              <span className="flex size-11 items-center justify-center rounded-2xl bg-white text-xl text-violet-600 shadow-sm dark:bg-neutral-900 dark:text-violet-300">
+                <LuChartSpline aria-hidden />
+              </span>
+              <p className="font-semibold text-neutral-900 dark:text-neutral-100">{t("today.done.statsTitle")}</p>
+              <p className="max-w-sm text-sm text-neutral-600 dark:text-neutral-300">{t("today.done.statsText")}</p>
+              <Button asChild size="lg" className="w-full bg-violet-600 text-white hover:bg-violet-700 sm:w-auto">
+                <Link href="/statistics">
+                  {t("today.done.statsButton")} <LuArrowRight aria-hidden />
+                </Link>
+              </Button>
+            </div>
+
+            <Button variant="ghost" onClick={() => setPhase("summary")}>
               {t("today.done.back")}
             </Button>
           </div>

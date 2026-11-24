@@ -1,6 +1,6 @@
 import { createClientOnServer } from "@/entities/auth/api/server";
 import { NextResponse } from "next/server";
-import { getSafeRedirect } from "@/shared/lib/safe-redirect";
+import { getSafeRedirect } from "@/shared/lib";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);

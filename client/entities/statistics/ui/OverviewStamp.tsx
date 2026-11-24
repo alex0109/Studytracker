@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, CircleHelp, ListChecks, Timer } from "lucide-react";
+import { LuBookOpen, LuCircleHelp, LuListChecks, LuTimer } from "react-icons/lu";
 import { useStatisticsOverview } from "../hooks";
 import { AccuracyRing } from "./AccuracyRing";
 import { AnimatedNumber, Card, CardSkeleton } from "./primitives";
@@ -32,22 +32,22 @@ export function OverviewStamp() {
     {
       label: t("statistics.overview.materials"),
       value: <AnimatedNumber value={totalMaterials} />,
-      icon: BookOpen,
+      icon: LuBookOpen,
     },
     {
       label: t("statistics.overview.questions"),
       value: <AnimatedNumber value={totalQuestions} />,
-      icon: CircleHelp,
+      icon: LuCircleHelp,
     },
     {
       label: t("statistics.overview.attempts"),
       value: <AnimatedNumber value={totalFinishedAttempts} />,
-      icon: ListChecks,
+      icon: LuListChecks,
     },
     {
       label: t("statistics.overview.avgPerQuestion"),
       value: formatDuration(averageTimePerQuestion),
-      icon: Timer,
+      icon: LuTimer,
     },
   ];
 

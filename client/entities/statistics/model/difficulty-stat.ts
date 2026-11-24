@@ -1,4 +1,4 @@
-import { QuestionDifficultyEnum } from "@/entities/question/model/question-difficulty";
+import { QuestionDifficultyEnum } from "@/entities/question/@x/statistics";
 
 export interface IDifficultyStat {
   difficulty: QuestionDifficultyEnum;

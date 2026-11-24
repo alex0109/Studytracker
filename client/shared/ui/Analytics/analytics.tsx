@@ -16,7 +16,7 @@ import {
   OPEN_CONSENT_EVENT,
   readConsent,
   writeConsent,
-} from "@/shared/lib/analytics";
+} from "@/shared/lib";
 
 // Where the visitor came from, without query strings; our own pages lose their share tokens
 const cleanReferrer = (origin: string) => {

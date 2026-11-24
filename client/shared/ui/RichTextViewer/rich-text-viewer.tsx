@@ -8,7 +8,7 @@ import Underline from "@tiptap/extension-underline";
 import Highlight from "@tiptap/extension-highlight";
 import Image from "@tiptap/extension-image";
 import { RichTextDocument } from "@/shared/types";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 import { readingClasses } from "./reading-classes";
 
 // Same rule as the editor: other people's text keeps only web and mail links

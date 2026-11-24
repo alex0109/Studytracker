@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getServerT } from "@/shared/i18n/server";
-import { OG_LOCALES, SITE_NAME } from "@/shared/config/site";
+import { OG_LOCALES, SITE_NAME } from "@/shared/config";
 import { pickSampleWordIds } from "../(home)/lib/sample-words";
 import { SampleWordsProvider } from "../(home)/lib/sample-entries";
 import { GuideView } from "./ui/guide-view";

@@ -10,3 +10,12 @@ export {
   essayScoreLevel,
 } from "./essay-rules";
 export type { EssayScoreLevel } from "./essay-rules";
+export {
+  ESSAY_EXAMS,
+  ESSAY_EXAM_GROUPS,
+  EXAM_TOPICS,
+  essayFormatCode,
+  essayFormatMinWords,
+  parseEssayFormat,
+} from "./essay-exams";
+export type { EssayExam, EssayKind, EssayLevel, IEssayFormat, IExamTopic } from "./essay-exams";

@@ -2,14 +2,12 @@
 
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { getLimitErrorMessage } from "@/shared/lib/limits";
+import { useSession } from "@/shared/context";
+import { logExceptionError, getLimitErrorMessage, trackEvent } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { ArticleImportErrorCode, importMaterial, materialKeys } from "@/entities/material";
 import { aiKeys } from "@/entities/ai";
-import { trackEvent } from "@/shared/lib/analytics";
 
 const CODES: ArticleImportErrorCode[] = [
   "InvalidUrl",

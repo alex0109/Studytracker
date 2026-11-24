@@ -2,12 +2,11 @@
 
 import { useTranslation } from "@/shared/i18n";
 
-import { Spinner } from "@/shared/ui";
+import { Spinner, Subtitle, Title } from "@/shared/ui";
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { LuArrowLeft, LuRepeat, LuArrowRight } from "react-icons/lu";
 import { Button } from "@/shared/radix-ui";
-import { Subtitle, Title } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 import { EntryTerm, IDictionaryEntryResponse } from "@/entities/dictionary";
 import { FlashcardAnswerEnum } from "../../model";

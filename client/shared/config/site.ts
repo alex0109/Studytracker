@@ -1,4 +1,4 @@
-import type { Language } from "@/shared/i18n/config";
+import type { Language } from "@/shared/i18n";
 
 export const SITE_NAME = "Studytracker";
 

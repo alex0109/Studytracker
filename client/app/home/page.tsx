@@ -14,7 +14,7 @@ import { Suspense } from "react";
 import { Navigation } from "@/widgets/Navigation";
 import { AccountDeletedNotice } from "@/features/account/delete-account";
 import { getServerT } from "@/shared/i18n/server";
-import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config/site";
+import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config";
 import { pickSampleWordIds } from "../(client)/(home)/lib/sample-words";
 import { SampleWordsProvider } from "../(client)/(home)/lib/sample-entries";
 

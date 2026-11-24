@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { getLibraryItem, getLibraryPage, getMyLibraryRequests } from "../api";
 import { libraryKeys } from "../lib";
 import { ILibraryItem, ILibraryPage, ILibraryPageParams, ILibraryRequest } from "../model";

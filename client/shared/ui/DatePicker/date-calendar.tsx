@@ -4,18 +4,7 @@
 import { FC, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/shared/lib/cn";
-import {
-  addDaysIso,
-  addMonthsIso,
-  formatFullDate,
-  formatIsoDate,
-  monthGridIso,
-  startOfMonthIso,
-  startOfWeekIso,
-  todayIso,
-  weekdayNames,
-} from "@/shared/lib/dates";
+import { cn, addDaysIso, addMonthsIso, formatFullDate, formatIsoDate, monthGridIso, startOfMonthIso, startOfWeekIso, todayIso, weekdayNames } from "@/shared/lib";
 
 interface DateCalendarProps {
   value: string | null;

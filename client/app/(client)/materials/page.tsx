@@ -1,7 +1,5 @@
-import { MaterialsSideBar } from "@/widgets/MaterialsSideBar";
+import { MaterialsWorkspace } from "./materials-workspace";
 
-const Materials = () => {
-  return <MaterialsSideBar />;
-};
+const Materials = () => <MaterialsWorkspace />;
 
 export default Materials;

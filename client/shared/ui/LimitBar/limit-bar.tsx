@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 interface LimitBarProps {
   label: string;

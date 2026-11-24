@@ -1,9 +1,8 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { getLimitErrorMessage } from "@/shared/lib/limits";
+import { useSession } from "@/shared/context";
+import { logExceptionError, getLimitErrorMessage } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { materialKeys } from "@/entities/material";

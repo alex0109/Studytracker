@@ -3,10 +3,9 @@
 import { FC, FormEvent, useEffect, useId, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { LuBookPlus, LuCheck, LuSparkles, LuX } from "react-icons/lu";
-import { Button } from "@/shared/radix-ui";
+import { Button, toast } from "@/shared/radix-ui";
 import { flashRange } from "@/shared/lib";
-import { useMediaQuery } from "@/shared/hooks/use-media-query";
-import { toast } from "@/shared/radix-ui";
+import { useMediaQuery } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
 import type { TextSelectionInfo } from "@/shared/ui";
 import { SelectMenu } from "@/shared/ui";

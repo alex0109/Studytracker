@@ -1,5 +1,5 @@
 import React, { FC, memo, RefObject, useRef } from "react";
-import { strokeFill, strokePath, strokeStyle } from "@/entities/note/lib/stroke-path";
+import { strokeFill, strokePath, strokeStyle } from "@/entities/note";
 import { useTranslation } from "@/shared/i18n";
 import { ILocalStroke, ITool, Point } from "../../model";
 

@@ -6,7 +6,7 @@ import {
   ILibraryRequest,
   ILibraryRequestCreate,
 } from "../model";
-import { IMaterialResponse } from "@/entities/material/model";
+import { IMaterialResponse } from "@/entities/material/@x/library";
 
 // The catalog and its materials are open to guests: no token, no header
 const auth = (token: string | undefined) =>

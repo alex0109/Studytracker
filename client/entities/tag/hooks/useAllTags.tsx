@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { tagKeys } from "../lib/tag-query-keys";
 import { getAllTags } from "../api";
 import { ITagResponse } from "../model";

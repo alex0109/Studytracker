@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Gauge } from "lucide-react";
+import { LuGauge } from "react-icons/lu";
 import { useStatisticsConfidenceCalibration } from "../hooks";
 import { Card, CardEmpty, CardSkeleton, TooltipShell } from "./primitives";
 import {
@@ -77,7 +77,7 @@ export function ConfidenceCalibrationBars() {
     return (
       <CardEmpty
         className="h-56"
-        icon={<Gauge className="h-8 w-8" aria-hidden />}
+        icon={<LuGauge className="h-8 w-8" aria-hidden />}
         text={t("statistics.calibration.empty")}
       />
     );

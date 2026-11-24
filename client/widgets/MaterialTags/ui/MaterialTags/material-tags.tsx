@@ -3,7 +3,7 @@
 import { FC } from "react";
 import { useTranslation } from "@/shared/i18n";
 import { ITagResponse, TagsList } from "@/entities/tag";
-import { Subtitle } from "@/shared";
+import { Subtitle } from "@/shared/ui";
 import { getTextColor } from "@/shared/lib/get-text-color";
 import { ManageTagsList } from "../ManageTagsList/manage-tags-list";
 

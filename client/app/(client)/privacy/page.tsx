@@ -12,7 +12,7 @@ import {
   LuShieldCheck,
   LuSparkles,
 } from "react-icons/lu";
-import { OPERATOR } from "@/shared/config/site";
+import { OPERATOR } from "@/shared/config";
 import { getServerT } from "@/shared/i18n/server";
 
 export const generateMetadata = async (): Promise<Metadata> => {

@@ -1,10 +1,10 @@
 import { FC, useId } from "react";
-import { useActiveSectionContext } from "@/shared/context/active-section.provider";
+import { useActiveSectionContext } from "@/shared/context";
 import { Button, Separator } from "@/shared/radix-ui";
 import { LayoutGroup, motion } from "framer-motion";
 import type { switchInterfaceType } from "./switch-interface.type";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 type SectionName = "Material" | "Questions" | "Attempts" | "Note" | "Words" | "Flashcards";
 
@@ -46,9 +46,13 @@ export const SwitchInterface: FC<SwitchInterfaceProps> = ({
                   aria-pressed={isActive}
                   className={cn(
                     "relative w-full min-w-0 px-2 text-sm hover:bg-transparent has-[>svg]:px-2 sm:w-auto sm:px-3 sm:text-lg sm:has-[>svg]:px-3",
-                    isActive
-                      ? "text-neutral-950 dark:text-white"
-                      : "text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200",
+                    item.tone === "emerald"
+                      ? isActive
+                        ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:text-emerald-200 dark:hover:bg-emerald-950/60"
+                        : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-300 dark:hover:bg-emerald-950/50"
+                      : isActive
+                        ? "text-neutral-950 dark:text-white"
+                        : "text-neutral-500 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200",
                   )}
                   variant="ghost"
                   onClick={() => {

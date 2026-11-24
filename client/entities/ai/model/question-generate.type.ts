@@ -1,4 +1,4 @@
-import type { QuestionTypeEnum } from "@/entities/question/model/question-type.type";
+import type { QuestionTypeEnum } from "@/entities/question/@x/ai";
 
 export interface IQuestionGenerate {
   // Questions come from this note, or from the material content when empty

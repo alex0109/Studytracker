@@ -2,13 +2,11 @@
 
 import { FC, ReactNode } from "react";
 import { useTranslation } from "@/shared/i18n";
-import { isTrueFalseName } from "@/entities/question";
+import { isTrueFalseName, IOption, QuestionTypeEnum } from "@/entities/question";
 import { motion } from "framer-motion";
 import { LuCheck, LuLightbulb, LuSparkles, LuThumbsUp, LuX } from "react-icons/lu";
 import { AcceptAnswerButton } from "@/features/attempt/accept-answer";
-import { IResultResponse } from "@/entities/attempt";
-import { HesitationMark } from "@/entities/attempt/ui/HesitationMark/hesitation-mark";
-import { IOption, QuestionTypeEnum } from "@/entities/question";
+import { IResultResponse, HesitationMark } from "@/entities/attempt";
 import { cn } from "@/shared/lib";
 
 interface ResultQuestionProps {

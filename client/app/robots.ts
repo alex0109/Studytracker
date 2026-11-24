@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/shared/config/site";
+import { SITE_URL } from "@/shared/config";
 
 // The landing page and the library are for search engines. Personal pages need an account, and
 // shared materials are private links: none of them belong in results

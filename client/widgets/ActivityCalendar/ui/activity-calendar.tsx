@@ -2,58 +2,16 @@
 
 import { FC, KeyboardEvent, PointerEvent, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
-import { LuChevronLeft, LuChevronRight, LuSkull } from "react-icons/lu";
-import { useStudyCalendar } from "@/entities/statistics";
-import type { ICalendarDeadline } from "@/entities/statistics/model/study-calendar";
-import { useMediaQuery } from "@/shared/hooks/use-media-query";
+import { LuSkull } from "react-icons/lu";
+import { ICalendarDeadline, useStudyCalendar } from "@/entities/statistics";
+import { useMediaQuery } from "@/shared/hooks";
 import { useTranslation } from "@/shared/i18n";
-import { cn } from "@/shared/lib";
-import {
-  addDaysIso,
-  addMonthsIso,
-  formatFullDate,
-  formatIsoDate,
-  monthGridIso,
-  startOfMonthIso,
-  startOfWeekIso,
-  todayIso,
-  weekdayNames,
-} from "@/shared/lib/dates";
-
-type CalendarView = "week" | "month" | "year";
-type DayStatus = "none" | "studied" | "streak";
-
-const VIEWS: CalendarView[] = ["week", "month", "year"];
-
-const STATUS_STYLES: Record<DayStatus, string> = {
-  none: "bg-neutral-200 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300",
-  studied: "bg-emerald-500 text-white",
-  streak: "bg-orange-500 text-white",
-};
-
-// Fixed tracks: a long weekday name in any language can't push the squares out of line under it.
-// A little larger on phones, where the date is written inside and a finger has to hit it
-const MONTH_COLUMNS = "grid-cols-[repeat(7,2rem)] gap-1.5 md:grid-cols-[repeat(7,1.75rem)]";
-
-const rangeOf = (view: CalendarView, anchor: string) => {
-  if (view === "week") {
-    const from = startOfWeekIso(anchor);
-    return { from, to: addDaysIso(from, 6) };
-  }
-  if (view === "month") {
-    const days = monthGridIso(anchor);
-    return { from: days[0], to: days[days.length - 1] };
-  }
-  // Whole weeks, so the January column starts on Monday like every other
-  const year = anchor.slice(0, 4);
-  return { from: startOfWeekIso(`${year}-01-01`), to: `${year}-12-31` };
-};
-
-const daysBetween = (from: string, to: string) => {
-  const days: string[] = [];
-  for (let day = from; day <= to; day = addDaysIso(day, 1)) days.push(day);
-  return days;
-};
+import { cn, addDaysIso, daysBetweenIso, formatFullDate, formatIsoDate, todayIso, weekdayNames } from "@/shared/lib";
+import { CalendarView, DayStatus, rangeOf, STATUS_STYLES, stepAnchor } from "../lib/calendar";
+import { CalendarHeader } from "./calendar-header";
+import { MonthView, RenderDay, WeekView, YearView } from "./calendar-views";
+import { CalendarLegend } from "./calendar-legend";
+import { DayDetails } from "./day-details";
 
 // A calendar in the spirit of a contribution graph: one small square a day, green when there was
 // study, orange for the running streak, a skull on a deadline. Week, month or year
@@ -91,9 +49,7 @@ const Calendar: FC = () => {
   const move = (step: 1 | -1) => {
     setDirection(step);
     setTapped(null);
-    setAnchor((prev) =>
-      view === "week" ? addDaysIso(prev, 7 * step) : view === "month" ? addMonthsIso(prev, step) : addMonthsIso(prev, 12 * step),
-    );
+    setAnchor((prev) => stepAnchor(view, prev, step));
   };
 
   const goToday = () => {
@@ -115,7 +71,7 @@ const Calendar: FC = () => {
 
   // The edges of neighbouring months and years are on the grid but not in the count
   const period = view === "month" ? anchor.slice(0, 7) : view === "year" ? anchor.slice(0, 4) : "";
-  const studiedCount = daysBetween(from, to).filter((day) => day.startsWith(period) && studied.has(day)).length;
+  const studiedCount = daysBetweenIso(from, to).filter((day) => day.startsWith(period) && studied.has(day)).length;
 
   const showTooltip = (element: HTMLElement) => {
     const rect = element.getBoundingClientRect();
@@ -144,7 +100,7 @@ const Calendar: FC = () => {
     target.focus();
   };
 
-  const square = (day: string, className: string, showDate: boolean) => {
+  const renderDay: RenderDay = (day, className, showDate) => {
     const status = statusOf(day);
     const hasDeadline = deadlines.has(day);
     const isFuture = day > today;
@@ -181,154 +137,11 @@ const Calendar: FC = () => {
     );
   };
 
-  const weekdays = weekdayNames(language, isDesktop ? "short" : "narrow");
-
-  const weekView = (
-    <div className="mx-auto grid w-full max-w-md grid-cols-7 gap-2">
-      {daysBetween(from, to).map((day, index) => (
-        <div key={day} className="flex flex-col items-center gap-1.5">
-          <span className="text-xs text-neutral-500 capitalize">{weekdays[index]}</span>
-          {square(day, "size-8 text-xs", !isDesktop)}
-          <span className="hidden text-xs text-neutral-500 tabular-nums md:block">
-            {formatIsoDate(day, language, { day: "numeric", month: "short" })}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-
-  const monthGrid = (month: string, compact: boolean) => (
-    <div className={cn("grid", compact ? "max-w-32 grid-cols-7 gap-[3px]" : MONTH_COLUMNS)}>
-      {monthGridIso(month).map((day) =>
-        day.slice(0, 7) === month.slice(0, 7) ? (
-          square(day, cn("aspect-square w-full", compact ? "text-[0.6rem]" : "text-xs"), !isDesktop)
-        ) : (
-          <span key={day} aria-hidden />
-        ),
-      )}
-    </div>
-  );
-
-  const monthView = (
-    <div className="mx-auto flex w-max flex-col gap-2">
-      <div className={cn("grid", MONTH_COLUMNS)}>
-        {weekdays.map((name, index) => (
-          <span key={index} className="text-center text-[0.7rem] whitespace-nowrap text-neutral-500 capitalize">
-            {name}
-          </span>
-        ))}
-      </div>
-      {monthGrid(startOfMonthIso(anchor), false)}
-    </div>
-  );
-
-  // The long strip of weeks reads on a wide screen; a phone gets months it can write dates in
-  const months = Array.from({ length: 12 }, (_, index) => `${anchor.slice(0, 4)}-${String(index + 1).padStart(2, "0")}-01`);
-  const yearDays = daysBetween(from, to);
-
-  const yearView = isDesktop ? (
-    <div className="overflow-x-auto pb-1">
-      <div className="mx-auto w-max">
-        <div className="relative mb-1.5 ml-8 h-4 text-xs text-neutral-500">
-          {months.map((month) => {
-            const column = Math.floor(yearDays.indexOf(month) / 7);
-            return (
-              <button
-                key={month}
-                type="button"
-                onClick={() => openMonth(month)}
-                style={{ left: `calc(${column} * (var(--square) + 3px))`, ["--square" as string]: "0.75rem" }}
-                className="absolute capitalize transition-colors hover:text-neutral-900 dark:hover:text-neutral-100"
-              >
-                {formatIsoDate(month, language, { month: "short" })}
-              </button>
-            );
-          })}
-        </div>
-        <div className="flex gap-2">
-          <div aria-hidden className="grid w-6 grid-rows-7 gap-[3px] text-[0.65rem] leading-3 text-neutral-500">
-            {weekdays.map((name, index) => (
-              <span key={index} className={cn("capitalize", index % 2 === 1 && "invisible")}>
-                {name}
-              </span>
-            ))}
-          </div>
-          <div className="grid grid-flow-col grid-rows-7 gap-[3px]">
-            {yearDays.map((day) =>
-              day.startsWith(anchor.slice(0, 4)) ? square(day, "size-3", false) : <span key={day} aria-hidden className="size-3" />,
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-      {months.map((month) => (
-        <div key={month} className="flex flex-col gap-1.5">
-          <button
-            type="button"
-            onClick={() => openMonth(month)}
-            className="self-start text-xs font-semibold text-neutral-600 capitalize dark:text-neutral-300"
-          >
-            {formatIsoDate(month, language, { month: "long" })}
-          </button>
-          {monthGrid(month, true)}
-        </div>
-      ))}
-    </div>
-  );
-
-  const hoveredDeadlines = hovered ? (deadlines.get(hovered.day) ?? []) : [];
-  const tappedDeadlines = tapped ? (deadlines.get(tapped) ?? []) : [];
-  const arrow =
-    "flex size-9 items-center justify-center rounded-full border border-neutral-200 text-neutral-600 transition hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800";
+  const viewProps = { renderDay, weekdays: weekdayNames(language, isDesktop ? "short" : "narrow"), isDesktop, language };
 
   return (
     <section className="flex w-full max-w-5xl flex-col gap-5 rounded-3xl border border-neutral-200 bg-white p-4 shadow-sm sm:p-6 dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <button type="button" aria-label={t("calendar.previous")} onClick={() => move(-1)} className={arrow}>
-            <LuChevronLeft aria-hidden className="size-4" />
-          </button>
-          <button type="button" aria-label={t("calendar.next")} onClick={() => move(1)} className={arrow}>
-            <LuChevronRight aria-hidden className="size-4" />
-          </button>
-          <h2 aria-live="polite" className="ml-1 text-lg! font-semibold! capitalize">
-            {title}
-          </h2>
-          <button
-            type="button"
-            onClick={goToday}
-            className="ml-1 rounded-full px-3 py-1.5 text-xs font-medium text-neutral-600 transition hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
-          >
-            {t("calendar.today")}
-          </button>
-        </div>
-
-        <div role="group" aria-label={t("calendar.viewLabel")} className="flex rounded-xl bg-neutral-100 p-1 dark:bg-neutral-800">
-          {VIEWS.map((item) => (
-            <button
-              key={item}
-              type="button"
-              aria-pressed={view === item}
-              onClick={() => setView(item)}
-              className={cn(
-                "relative rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
-                view === item ? "text-neutral-900 dark:text-white" : "text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100",
-              )}
-            >
-              {view === item && (
-                <motion.span
-                  layoutId="calendar-view"
-                  className="absolute inset-0 rounded-lg bg-white shadow-sm dark:bg-neutral-600"
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                />
-              )}
-              <span className="relative">{t(`calendar.view.${item}`)}</span>
-            </button>
-          ))}
-        </div>
-      </header>
+      <CalendarHeader title={title} view={view} onViewChange={setView} onMove={move} onToday={goToday} />
 
       <div
         ref={gridRef}
@@ -345,58 +158,45 @@ const Calendar: FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
         >
-          {view === "week" ? weekView : view === "month" ? monthView : yearView}
+          {view === "week" ? (
+            <WeekView from={from} to={to} {...viewProps} />
+          ) : view === "month" ? (
+            <MonthView anchor={anchor} {...viewProps} />
+          ) : (
+            <YearView anchor={anchor} from={from} to={to} onOpenMonth={openMonth} {...viewProps} />
+          )}
         </motion.div>
       </div>
 
       {/* Phones have no hover: a tap tells the same as the tooltip does on a desktop */}
       {!isDesktop && tapped && (
         <p className="rounded-2xl bg-neutral-100 p-3 text-sm dark:bg-neutral-800">
-          <span className="font-medium first-letter:uppercase">{formatFullDate(tapped, language)}</span>
-          <span className="block text-neutral-500">{t(`calendar.status.${statusOf(tapped)}`)}</span>
-          {tappedDeadlines.map((item) => (
-            <span key={item.materialId} className="mt-1 flex items-center gap-1.5">
-              <LuSkull aria-hidden className="size-3.5 shrink-0" /> {item.title}
-            </span>
-          ))}
+          <DayDetails
+            day={tapped}
+            status={statusOf(tapped)}
+            deadlines={deadlines.get(tapped) ?? []}
+            statusClassName="text-neutral-500"
+            iconClassName="size-3.5"
+          />
         </p>
       )}
 
-      <footer className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-neutral-100 pt-4 text-xs text-neutral-600 dark:border-neutral-800 dark:text-neutral-300">
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          {(["none", "studied", "streak"] as const).map((status) => (
-            <li key={status} className="flex items-center gap-1.5">
-              <span aria-hidden className={cn("size-3.5 rounded-[22%]", STATUS_STYLES[status])} />
-              {t(`calendar.legend.${status}`)}
-            </li>
-          ))}
-          <li className="flex items-center gap-1.5">
-            <span aria-hidden className={cn("flex size-3.5 items-center justify-center rounded-[22%]", STATUS_STYLES.none)}>
-              <LuSkull className="size-2.5" />
-            </span>
-            {t("calendar.legend.deadline")}
-          </li>
-        </ul>
-        <span className="tabular-nums text-neutral-500">{t("calendar.daysStudied", { count: studiedCount })}</span>
-      </footer>
+      <CalendarLegend studiedCount={studiedCount} />
 
       {/* One tooltip for all the squares, gliding between them: hundreds of separate ones would be slow */}
       {hovered && (
         <div
           role="tooltip"
-          style={{
-            left: `clamp(7rem, ${hovered.x}px, calc(100vw - 7rem))`,
-            top: hovered.y - 8,
-          }}
+          style={{ left: `clamp(7rem, ${hovered.x}px, calc(100vw - 7rem))`, top: hovered.y - 8 }}
           className="pointer-events-none fixed z-50 w-max max-w-56 -translate-x-1/2 -translate-y-full rounded-xl bg-neutral-900 px-3 py-2 text-xs text-white shadow-lg transition-[left,top] duration-100 motion-reduce:transition-none dark:bg-neutral-100 dark:text-neutral-900"
         >
-          <span className="block font-medium first-letter:uppercase">{formatFullDate(hovered.day, language)}</span>
-          <span className="block opacity-70">{t(`calendar.status.${statusOf(hovered.day)}`)}</span>
-          {hoveredDeadlines.map((item) => (
-            <span key={item.materialId} className="mt-1 flex items-center gap-1.5">
-              <LuSkull aria-hidden className="size-3 shrink-0" /> {item.title}
-            </span>
-          ))}
+          <DayDetails
+            day={hovered.day}
+            status={statusOf(hovered.day)}
+            deadlines={deadlines.get(hovered.day) ?? []}
+            statusClassName="opacity-70"
+            iconClassName="size-3"
+          />
         </div>
       )}
     </section>

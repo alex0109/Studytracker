@@ -7,7 +7,7 @@ import { LearningForm, ProfileForm } from "@/features/profile";
 import { ExportAccountButton } from "@/features/account/export-account";
 import { DeleteAccountButton } from "@/features/account/delete-account";
 import { SignOutButton } from "@/features/account/sign-out";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { AccountSection } from "./account-section";
 
 export const AccountSettings: FC = () => {

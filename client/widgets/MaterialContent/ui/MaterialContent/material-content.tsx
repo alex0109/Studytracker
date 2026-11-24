@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/shared/i18n";
-import { FC, useRef, useState } from "react";
+import { FC, ReactNode, useRef, useState } from "react";
 import {
   MaterialStatusEnum,
   MaterialTypeEnum,
@@ -10,12 +10,8 @@ import {
   useMaterialExact,
 } from "@/entities/material";
 import { MaterialTextContent, MaterialTitle } from "@/features/material/update-material";
-import { ITagResponse } from "@/entities/tag";
 import { Skeleton } from "@/shared/radix-ui";
-import { useActiveSectionContext } from "@/shared/context/active-section.provider";
-import { QuestionsContent } from "@/widgets/QuestionsContent";
-import { DeadlinePlanCard } from "@/widgets/Deadlines";
-import { AttemptsContent } from "@/widgets/AttemptsContent";
+import { useActiveSectionContext } from "@/shared/context";
 import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { LuDownload, LuLibrary } from "react-icons/lu";
 import { AddFromSelection } from "@/features/dictionary/add-from-selection";
@@ -25,12 +21,18 @@ import { MaterialProperties } from "../MaterialProperties/material-properties";
 import { MaterialPodcast } from "../MaterialPodcast/material-podcast";
 import { MaterialVideo } from "../MaterialVideo/material-video";
 
+// Blocks of other widgets, put in by the page: a widget doesn't build another one itself
+export interface IMaterialContentSlots {
+  questions: ReactNode;
+  attempts: ReactNode;
+  deadlinePlan: ReactNode;
+  subjects: ReactNode;
+  deadline: ReactNode;
+}
+
 interface MaterialContentType {
   id: string;
-  noteId?: string;
-  assessmentId: string;
   link: string | undefined;
-  tags?: ITagResponse[];
   status: MaterialStatusEnum;
   title: string;
   type: MaterialTypeEnum;
@@ -40,14 +42,12 @@ interface MaterialContentType {
   importedAt?: Date;
   // Opens a dictionary of this material, e.g. after a word was added from the text
   onOpenDictionary?: (dictionary: IDictionaryResponse) => void;
+  slots: IMaterialContentSlots;
 }
 
 export const MaterialContent: FC<MaterialContentType> = ({
   id,
-  noteId,
-  assessmentId,
   link,
-  tags,
   status,
   title,
   type,
@@ -56,6 +56,7 @@ export const MaterialContent: FC<MaterialContentType> = ({
   isFromLibrary,
   importedAt,
   onOpenDictionary,
+  slots,
 }) => {
   const { t, i18n } = useTranslation();
   const { activeSection } = useActiveSectionContext();
@@ -94,8 +95,8 @@ export const MaterialContent: FC<MaterialContentType> = ({
           />
         </div>
 
-        <MaterialProperties id={id} type={type} status={status} tags={tags} />
-        <DeadlinePlanCard materialId={id} compact />
+        <MaterialProperties id={id} type={type} status={status} subjects={slots.subjects} deadline={slots.deadline} />
+        {slots.deadlinePlan}
         {/* Stays open while switching tabs, so listening goes on next to the questions */}
         {podcastOpen && <MaterialPodcast materialId={id} title={title} />}
         {/* Above the tabs too: a question's moment plays the video without leaving the questions */}
@@ -103,9 +104,9 @@ export const MaterialContent: FC<MaterialContentType> = ({
       </header>
       <SwitchInterface switchInterface={materialInterface} />
       {activeSection === MaterialInterfaceEnum.Questions ? (
-        <QuestionsContent materialId={id} assessmentId={assessmentId} />
+        slots.questions
       ) : activeSection === MaterialInterfaceEnum.Attempts ? (
-        <AttemptsContent materialId={id} noteId={noteId} />
+        slots.attempts
       ) : (
         <div className="flex flex-col justify-center items-start gap-3 bg-transparent min-h-[500px] rounded-2xl p-0 sm:p-5">
           {/* The editor reads its text once, so it waits for the loaded one: an empty start

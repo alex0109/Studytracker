@@ -1,8 +1,8 @@
 "use client";
 
-import { FC } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
-import { LuChevronDown } from "react-icons/lu";
+import { LuChevronDown, LuLoaderCircle, LuSparkles } from "react-icons/lu";
 import { Field, FieldInput, FieldSelect, FieldTextArea } from "@/shared/ui";
 import { IDictionaryEntryForm, PartOfSpeechEnum } from "../../model";
 import { partOfSpeechOptions } from "../../lib";
@@ -13,19 +13,68 @@ interface DictionaryEntryFormProps {
   id: string;
   defaultValues?: IDictionaryEntryForm;
   onSubmit: (values: IDictionaryEntryForm) => void;
+  // Auto-translation: suggests a translation while the word is typed; null when there is none
+  suggestTranslation?: (term: string, signal: AbortSignal) => Promise<string | null>;
+  // Shown under the translation field, e.g. that auto-translation is part of Plus
+  translationHint?: ReactNode;
 }
+
+// Typing pauses this long before a word is sent for translation
+const SUGGEST_DELAY_MS = 700;
 
 // What a word needs first is on top, the rest waits under "More details": nine equal fields
 // in a grid made the word itself hard to find
-export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultValues, onSubmit }) => {
+export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultValues, onSubmit, suggestTranslation, translationHint }) => {
   const { t } = useTranslation();
   const {
     register,
     control,
     formState: { errors },
     handleSubmit,
+    setValue,
+    getValues,
   } = useForm<IDictionaryEntryForm>({ defaultValues });
   const isNoun = useWatch({ control, name: "partOfSpeech" }) === PartOfSpeechEnum.Noun;
+  const term = useWatch({ control, name: "term" }) ?? "";
+  const translation = useWatch({ control, name: "translation" }) ?? "";
+
+  // The last suggestion put into the field: replaced while the word changes, never what the user typed
+  const suggested = useRef("");
+  // The same value for rendering: refs aren't read while rendering
+  const [shownSuggestion, setShownSuggestion] = useState("");
+  const [suggesting, setSuggesting] = useState(false);
+  const isSuggested = !!shownSuggestion && translation === shownSuggestion;
+
+  useEffect(() => {
+    const word = term.trim();
+    const current = getValues("translation") ?? "";
+    // Only an empty field or one still holding a suggestion is filled
+    if (!suggestTranslation || !word || (current && current !== suggested.current)) return;
+
+    const controller = new AbortController();
+    const timer = setTimeout(async () => {
+      setSuggesting(true);
+      const result = await suggestTranslation(word, controller.signal);
+      setSuggesting(false);
+      if (controller.signal.aborted || !result) return;
+
+      const now = getValues("translation") ?? "";
+      if (now && now !== suggested.current) return;
+      suggested.current = result;
+      setShownSuggestion(result);
+      setValue("translation", result, { shouldValidate: true });
+    }, SUGGEST_DELAY_MS);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [term, suggestTranslation, getValues, setValue]);
+
+  const translationField = register("translation", {
+    required: t("common.required"),
+    validate: (value?: string) => !!value?.trim() || t("common.required"),
+  });
 
   // "Article" is no longer offered, but a word saved with it still shows it
   const partsOfSpeech =
@@ -48,7 +97,28 @@ export const DictionaryEntryForm: FC<DictionaryEntryFormProps> = ({ id, defaultV
           <FieldInput maxLength={200} aria-invalid={!!errors.term} {...register("term", required)} />
         </Field>
         <Field label={t("dictionary.form.translation")} required error={errors.translation?.message}>
-          <FieldInput maxLength={200} aria-invalid={!!errors.translation} {...register("translation", required)} />
+          <div className="relative">
+            <FieldInput
+              maxLength={200}
+              aria-invalid={!!errors.translation}
+              {...translationField}
+              // A suggestion is selected on focus: typing replaces it, Delete clears it, leaving keeps it
+              onFocus={(event) => {
+                if (isSuggested) event.currentTarget.select();
+              }}
+              className={isSuggested ? "pr-9" : undefined}
+            />
+            {(suggesting || isSuggested) && (
+              <span
+                className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-violet-500"
+                title={t("dictionary.form.autoTranslated")}
+              >
+                {suggesting ? <LuLoaderCircle aria-hidden className="animate-spin" /> : <LuSparkles aria-hidden />}
+              </span>
+            )}
+          </div>
+          {isSuggested && <span className="text-xs text-violet-600 dark:text-violet-400">{t("dictionary.form.autoTranslated")}</span>}
+          {translationHint}
         </Field>
         <Field label={t("dictionary.form.transcription")}>
           <FieldInput

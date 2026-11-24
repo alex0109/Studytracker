@@ -1,13 +1,11 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
-import { IResultRequest } from "@/entities/attempt/model";
-import { submitAnswer } from "@/entities/attempt/api";
-import { attemptKeys } from "@/entities/attempt/lib/attempt-query-keys";
+import { IResultRequest, submitAnswer, attemptKeys } from "@/entities/attempt";
 
 export const useAttemptSubmitAnswer = (attemptId: string) => {
   const { t } = useTranslation();

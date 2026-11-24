@@ -4,13 +4,12 @@ import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { Controller, useForm } from "react-hook-form";
 import { Modal, Field, FieldInput, FieldSelect, Spinner } from "@/shared/ui";
-import { IMaterialCreate } from "@/entities/material";
+import { IMaterialCreate, MATERIAL_TYPES, MATERIAL_STATUSES } from "@/entities/material";
 import { useMaterialCreate } from "../../hooks/useMaterialCreate";
 import { useMaterialImport } from "../../hooks/useMaterialImport";
 import { Button } from "@/shared/radix-ui";
 import { LuFilePlus, LuLink, LuPencil, LuPlus } from "react-icons/lu";
 import { useTranslation } from "@/shared/i18n";
-import { MATERIAL_TYPES, MATERIAL_STATUSES } from "@/entities/material";
 import { cn } from "@/shared/lib";
 import { ImportFromUrl } from "./import-from-url";
 

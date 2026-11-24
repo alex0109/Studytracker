@@ -4,8 +4,7 @@ import { FC, useState } from "react";
 import { RichTextDocument } from "@/shared/types";
 import { NoteText } from "@/features/note/update-note";
 import { GenerateSummaryButton } from "@/features/note/generate-summary";
-import { useNoteExact } from "@/entities/note/hooks/useNoteExact";
-import { hasTextContent } from "@/entities/note/lib";
+import { useNoteExact, hasTextContent } from "@/entities/note";
 import { useTranslation } from "@/shared/i18n";
 
 interface SummaryNoteProps {

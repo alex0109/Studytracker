@@ -2,8 +2,8 @@
 "use client";
 
 import { FC, useRef, useState } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/radix-ui/Tooltip/tooltip";
-import { cn } from "@/shared/lib/cn";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/radix-ui";
+import { cn } from "@/shared/lib";
 
 interface TruncatedTextProps {
   text: string;

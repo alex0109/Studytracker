@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Tags } from "lucide-react";
+import { LuTags } from "react-icons/lu";
 import { useStatisticsTagPerformance } from "../hooks";
 import { Card, CardEmpty, CardSkeleton } from "./primitives";
 import { accuracyTone } from "./tokens";
@@ -21,7 +21,7 @@ export function TagPerformanceList() {
     return (
       <CardEmpty
         className="h-56 md:col-span-2"
-        icon={<Tags className="h-8 w-8" aria-hidden />}
+        icon={<LuTags className="h-8 w-8" aria-hidden />}
         text={t("statistics.tags.empty")}
       />
     );

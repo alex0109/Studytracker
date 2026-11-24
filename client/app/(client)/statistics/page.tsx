@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { BlockColumn } from "@/shared/ui/BlockColumn";
 import { Title } from "@/shared/ui/Title";
-import { StatisticsDashboard } from "@/entities/statistics/ui";
+import { StatisticsDashboard } from "@/entities/statistics";
 import { StudyDigest } from "@/widgets/StudyDigest";
 import { getServerT } from "@/shared/i18n/server";
 

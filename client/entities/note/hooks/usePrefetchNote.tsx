@@ -1,7 +1,7 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { getNote } from "../api/getNote";
 import { notesKeys } from "../lib";
 

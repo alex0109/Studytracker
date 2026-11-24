@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;

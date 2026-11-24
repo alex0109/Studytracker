@@ -1,4 +1,4 @@
-import { PartOfSpeechEnum } from "@/entities/dictionary/model/part-of-speech.type";
+import { PartOfSpeechEnum } from "@/entities/dictionary";
 
 // Page languages; a sample is never in one of them, or it would be "translated" into itself
 type PageLanguage = "uk" | "en-GB" | "nb";

@@ -3,8 +3,7 @@
 import { FC, useState } from "react";
 import { LuCheck, LuEye, LuEyeOff, LuX } from "react-icons/lu";
 import { ILibrarySnapshot } from "@/entities/library";
-import { QuestionTypeEnum } from "@/entities/question/model";
-import { isTrueFalseName, questionTypeKeys } from "@/entities/question";
+import { QuestionTypeEnum, isTrueFalseName, questionTypeKeys } from "@/entities/question";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 

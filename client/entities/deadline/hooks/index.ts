@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { deadlineKeys } from "../lib";
 import { getDeadlinePlan, getDeadlines } from "../api";
 

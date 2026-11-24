@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Flame, Snowflake } from "lucide-react";
+import { LuFlame, LuSnowflake } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import { useStatisticsStudyStreak } from "../hooks";
 import { AnimatedNumber, Card, CardSkeleton } from "./primitives";
@@ -40,7 +40,7 @@ export function StudyStreakStrip() {
                 : "bg-neutral-100 text-neutral-400 dark:bg-neutral-800 dark:text-neutral-500"
             }`}
           >
-            <Flame className="h-6 w-6" aria-hidden />
+            <LuFlame className="h-6 w-6" aria-hidden />
           </div>
           <div>
             <p>
@@ -62,7 +62,7 @@ export function StudyStreakStrip() {
             </p>
             {freezesPerMonth > 0 && (
               <p className="mt-0.5 flex items-center gap-1 text-xs text-sky-600 dark:text-sky-400">
-                <Snowflake className="h-3.5 w-3.5" aria-hidden />
+                <LuSnowflake className="h-3.5 w-3.5" aria-hidden />
                 {t("statistics.streak.freezes", { count: freezesLeft })}
               </p>
             )}
@@ -89,7 +89,7 @@ export function StudyStreakStrip() {
                 transition={{ type: "spring", stiffness: 300, damping: 18, delay: 0.3 + i * 0.03 }}
                 className="flex h-3.5 w-3.5 items-center justify-center text-sky-500"
               >
-                <Snowflake className="h-3.5 w-3.5" aria-hidden />
+                <LuSnowflake className="h-3.5 w-3.5" aria-hidden />
               </motion.span>
             ) : (
             <motion.span

@@ -1,7 +1,7 @@
 "use client";
 
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
+import { useSession } from "@/shared/context";
 import { statisticsKeys } from "../lib/statistics-query-keys";
 import { getStudyCalendar } from "../api";
 

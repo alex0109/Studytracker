@@ -1,11 +1,10 @@
 "use client";
 
 import { deadlineKeys } from "@/entities/deadline";
-import { attemptKeys } from "@/entities/attempt";
+import { attemptKeys, finishAttempt } from "@/entities/attempt";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
-import { finishAttempt } from "@/entities/attempt";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { statisticsKeys } from "@/entities/statistics";
 import { notificationKeys } from "@/entities/notification";
 

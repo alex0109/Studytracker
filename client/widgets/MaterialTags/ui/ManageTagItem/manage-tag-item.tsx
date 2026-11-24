@@ -1,4 +1,4 @@
-import { Check, Plus, X } from "lucide-react";
+import { LuCheck, LuPlus, LuX } from "react-icons/lu";
 import { FC, useState } from "react";
 import { getTextColor } from "@/shared/lib/get-text-color";
 import { DeleteTagButton } from "@/features/tag/delete-tag";
@@ -41,11 +41,11 @@ export const ManageTagItem: FC<SyncTagProps> = ({
       >
         <span className="transition-transform duration-200">
           {!selected ? (
-            <Plus size={16} />
+            <LuPlus size={16} />
           ) : hover ? (
-            <X size={16} className="text-red-600" />
+            <LuX size={16} className="text-red-600" />
           ) : (
-            <Check size={16} className="text-green-600" />
+            <LuCheck size={16} className="text-green-600" />
           )}
         </span>
         <span>{name}</span>

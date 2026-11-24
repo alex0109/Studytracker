@@ -2,8 +2,8 @@
 
 import { FC, ReactNode, RefObject, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useMediaQuery } from "@/shared/hooks/use-media-query";
-import { sentenceOfRange, wordCount } from "@/shared/lib/text-selection";
+import { useMediaQuery } from "@/shared/hooks";
+import { sentenceOfRange, wordCount } from "@/shared/lib";
 
 export interface TextSelectionInfo {
   text: string;

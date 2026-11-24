@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IDictionaryEntryResponse } from "@/entities/dictionary/model";
+import type { IDictionaryEntryResponse } from "@/entities/dictionary/@x/ai";
 import { IDictionaryEntriesGenerate } from "../model";
 
 export const generateDictionaryEntries = async (

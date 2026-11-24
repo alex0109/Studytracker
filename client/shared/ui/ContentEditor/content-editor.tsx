@@ -38,7 +38,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/radix-ui";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 import { VoiceInputButton } from "../VoiceInput";
 
 // Links in notes come from users and from shared materials: only web and mail links are kept,
@@ -260,7 +260,10 @@ const ContentEditor: FC<ContentEditorType> = ({
 
   const setLink = () => {
     const previousUrl = editor.getAttributes("link").href as string | undefined;
-    const input = window.prompt(t("editor.linkPrompt"), previousUrl || "https://");
+    const input = window.prompt(
+      t("editor.linkPrompt"),
+      previousUrl || "https://",
+    );
 
     if (input === null) return;
 
@@ -311,30 +314,121 @@ const ContentEditor: FC<ContentEditorType> = ({
 
   const mod = /Mac|iPhone|iPad/.test(navigator.userAgent) ? "⌘" : "Ctrl";
   const level = active?.headings.findIndex(Boolean) ?? -1;
-  const styleLabel = level >= 0 ? t("editor.heading", { level: level + 1 }) : t("editor.paragraph");
+  const styleLabel =
+    level >= 0
+      ? t("editor.heading", { level: level + 1 })
+      : t("editor.paragraph");
 
   // Grouped by what they change: history, letters, blocks, inserts
   const groups: Tool[][] = [
     [
-      { key: "undo", icon: LuUndo2, label: t("editor.undo"), keys: `${mod}+Z`, disabled: !active?.canUndo, run: () => editor.chain().focus().undo().run() },
-      { key: "redo", icon: LuRedo2, label: t("editor.redo"), keys: `${mod}+Shift+Z`, disabled: !active?.canRedo, run: () => editor.chain().focus().redo().run() },
+      {
+        key: "undo",
+        icon: LuUndo2,
+        label: t("editor.undo"),
+        keys: `${mod}+Z`,
+        disabled: !active?.canUndo,
+        run: () => editor.chain().focus().undo().run(),
+      },
+      {
+        key: "redo",
+        icon: LuRedo2,
+        label: t("editor.redo"),
+        keys: `${mod}+Shift+Z`,
+        disabled: !active?.canRedo,
+        run: () => editor.chain().focus().redo().run(),
+      },
     ],
     [
-      { key: "bold", icon: LuBold, label: t("editor.bold"), keys: `${mod}+B`, active: active?.bold, run: () => editor.chain().focus().toggleBold().run() },
-      { key: "italic", icon: LuItalic, label: t("editor.italic"), keys: `${mod}+I`, active: active?.italic, run: () => editor.chain().focus().toggleItalic().run() },
-      { key: "underline", icon: LuUnderline, label: t("editor.underline"), keys: `${mod}+U`, active: active?.underline, run: () => editor.chain().focus().toggleUnderline().run() },
-      { key: "strike", icon: LuStrikethrough, label: t("editor.strike"), keys: `${mod}+Shift+S`, active: active?.strike, run: () => editor.chain().focus().toggleStrike().run() },
-      { key: "highlight", icon: LuHighlighter, label: t("editor.highlight"), keys: `${mod}+Shift+H`, active: active?.highlight, run: () => editor.chain().focus().toggleHighlight().run() },
+      {
+        key: "bold",
+        icon: LuBold,
+        label: t("editor.bold"),
+        keys: `${mod}+B`,
+        active: active?.bold,
+        run: () => editor.chain().focus().toggleBold().run(),
+      },
+      {
+        key: "italic",
+        icon: LuItalic,
+        label: t("editor.italic"),
+        keys: `${mod}+I`,
+        active: active?.italic,
+        run: () => editor.chain().focus().toggleItalic().run(),
+      },
+      {
+        key: "underline",
+        icon: LuUnderline,
+        label: t("editor.underline"),
+        keys: `${mod}+U`,
+        active: active?.underline,
+        run: () => editor.chain().focus().toggleUnderline().run(),
+      },
+      {
+        key: "strike",
+        icon: LuStrikethrough,
+        label: t("editor.strike"),
+        keys: `${mod}+Shift+S`,
+        active: active?.strike,
+        run: () => editor.chain().focus().toggleStrike().run(),
+      },
+      {
+        key: "highlight",
+        icon: LuHighlighter,
+        label: t("editor.highlight"),
+        keys: `${mod}+Shift+H`,
+        active: active?.highlight,
+        run: () => editor.chain().focus().toggleHighlight().run(),
+      },
     ],
     [
-      { key: "bullets", icon: LuList, label: t("editor.bulletList"), keys: `${mod}+Shift+8`, active: active?.bulletList, run: () => editor.chain().focus().toggleBulletList().run() },
-      { key: "numbers", icon: LuListOrdered, label: t("editor.orderedList"), keys: `${mod}+Shift+7`, active: active?.orderedList, run: () => editor.chain().focus().toggleOrderedList().run() },
-      { key: "quote", icon: LuQuote, label: t("editor.quote"), keys: `${mod}+Shift+B`, active: active?.blockquote, run: () => editor.chain().focus().toggleBlockquote().run() },
-      { key: "code", icon: LuCode, label: t("editor.code"), keys: `${mod}+E`, active: active?.code, run: () => editor.chain().focus().toggleCode().run() },
+      {
+        key: "bullets",
+        icon: LuList,
+        label: t("editor.bulletList"),
+        keys: `${mod}+Shift+8`,
+        active: active?.bulletList,
+        run: () => editor.chain().focus().toggleBulletList().run(),
+      },
+      {
+        key: "numbers",
+        icon: LuListOrdered,
+        label: t("editor.orderedList"),
+        keys: `${mod}+Shift+7`,
+        active: active?.orderedList,
+        run: () => editor.chain().focus().toggleOrderedList().run(),
+      },
+      {
+        key: "quote",
+        icon: LuQuote,
+        label: t("editor.quote"),
+        keys: `${mod}+Shift+B`,
+        active: active?.blockquote,
+        run: () => editor.chain().focus().toggleBlockquote().run(),
+      },
+      {
+        key: "code",
+        icon: LuCode,
+        label: t("editor.code"),
+        keys: `${mod}+E`,
+        active: active?.code,
+        run: () => editor.chain().focus().toggleCode().run(),
+      },
     ],
     [
-      { key: "link", icon: LuLink, label: t("editor.link"), active: active?.link, run: setLink },
-      { key: "image", icon: LuImage, label: t("editor.image"), run: addImageFromFile },
+      {
+        key: "link",
+        icon: LuLink,
+        label: t("editor.link"),
+        active: active?.link,
+        run: setLink,
+      },
+      {
+        key: "image",
+        icon: LuImage,
+        label: t("editor.image"),
+        run: addImageFromFile,
+      },
     ],
   ];
 
@@ -351,14 +445,20 @@ const ContentEditor: FC<ContentEditorType> = ({
         "flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-neutral-600 transition",
         "hover:bg-neutral-100 hover:text-neutral-900 disabled:cursor-default disabled:opacity-35 disabled:hover:bg-transparent",
         "dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white",
-        tool.active && "bg-neutral-900 text-white hover:bg-neutral-800 hover:text-white dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 dark:hover:text-neutral-900",
+        tool.active &&
+          "bg-neutral-900 text-white hover:bg-neutral-800 hover:text-white dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 dark:hover:text-neutral-900",
       )}
     >
       <tool.icon className="size-4" />
     </button>
   );
 
-  const divider = <span aria-hidden className="mx-1 h-5 w-px shrink-0 bg-neutral-200 dark:bg-neutral-700" />;
+  const divider = (
+    <span
+      aria-hidden
+      className="mx-1 h-5 w-px shrink-0 bg-neutral-200 dark:bg-neutral-700"
+    />
+  );
 
   return (
     // One card: the toolbar stays under the menu bar while a long note scrolls
@@ -379,21 +479,35 @@ const ContentEditor: FC<ContentEditorType> = ({
             <LuChevronDown aria-hidden className="size-3.5 opacity-60" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="min-w-44">
-            <DropdownMenuItem onSelect={() => editor.chain().focus().setParagraph().run()}>
+            <DropdownMenuItem
+              onSelect={() => editor.chain().focus().setParagraph().run()}
+            >
               {t("editor.paragraph")}
               {level < 0 && <LuCheck aria-hidden className="ml-auto" />}
             </DropdownMenuItem>
             {MENU_LEVELS.map((menuLevel) => (
               <DropdownMenuItem
                 key={menuLevel}
-                onSelect={() => editor.chain().focus().toggleHeading({ level: menuLevel }).run()}
+                onSelect={() =>
+                  editor
+                    .chain()
+                    .focus()
+                    .toggleHeading({ level: menuLevel })
+                    .run()
+                }
                 className={cn(
                   "font-semibold",
-                  menuLevel === 1 ? "text-lg" : menuLevel === 2 ? "text-base" : "text-sm",
+                  menuLevel === 1
+                    ? "text-lg"
+                    : menuLevel === 2
+                      ? "text-base"
+                      : "text-sm",
                 )}
               >
                 {t("editor.heading", { level: menuLevel })}
-                {level === menuLevel - 1 && <LuCheck aria-hidden className="ml-auto" />}
+                {level === menuLevel - 1 && (
+                  <LuCheck aria-hidden className="ml-auto" />
+                )}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -409,7 +523,10 @@ const ContentEditor: FC<ContentEditorType> = ({
       </div>
 
       {spokenInterim && (
-        <p aria-live="polite" className="truncate border-b border-neutral-100 px-4 py-1.5 text-xs text-neutral-500 italic dark:border-neutral-800">
+        <p
+          aria-live="polite"
+          className="truncate border-b border-neutral-100 px-4 py-1.5 text-xs text-neutral-500 italic dark:border-neutral-800"
+        >
           {spokenInterim}
         </p>
       )}
@@ -419,16 +536,21 @@ const ContentEditor: FC<ContentEditorType> = ({
         {active?.isEmpty && (
           <p
             aria-hidden
-            className="pointer-events-none absolute top-5 left-5 text-neutral-400 sm:top-6 sm:left-8 sm:text-base dark:text-neutral-500"
+            className="pointer-events-none absolute top-7 left-5 text-neutral-400 sm:top-8 sm:left-8 sm:text-base dark:text-neutral-500"
           >
             {t("editor.placeholder")}
           </p>
         )}
-        <EditorContent editor={editor} className="min-w-0 break-words text-neutral-900 dark:text-neutral-100" />
+        <EditorContent
+          editor={editor}
+          className="min-w-0 break-words text-neutral-900 dark:text-neutral-100"
+        />
       </div>
 
       <div className="flex items-center justify-end gap-3 rounded-b-2xl border-t border-neutral-100 px-4 py-2 text-xs text-neutral-400 dark:border-neutral-800">
-        <span className="tabular-nums">{t("editor.words", { count: active?.words ?? 0 })}</span>
+        <span className="tabular-nums">
+          {t("editor.words", { count: active?.words ?? 0 })}
+        </span>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { LuSearch } from "react-icons/lu";
 import { useQuestionAll } from "@/entities/question";
 import { usePendingNavigation } from "@/shared/lib/use-pending-navigation";
-import { QuestionCreateModal } from "@/features/question/create-question/ui";
+import { QuestionCreateModal } from "@/features/question/create-question";
 import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { StartAttemptModal } from "@/features/attempt/start-attempt";
 import { useTranslation } from "@/shared/i18n";

@@ -12,6 +12,8 @@ export interface INoteResponse {
   drawingContent?: IDrawingContent;
   // Essays only
   essayTask?: string | null;
+  // The exam it is written for, like "Ielts/B2/Letter"; null is a general essay
+  essayFormat?: string | null;
   essayReview?: IEssayReview | null;
   order: number;
   createdAt: Date;

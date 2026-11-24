@@ -38,3 +38,12 @@ export const markAllNotificationsRead = async (
 ): Promise<void> => {
   await axios.post(`${base()}/read-all`, {}, auth(token));
 };
+
+// Removed from the feed for good; the same reminder isn't sent again for its day
+export const dismissNotification = async (token: string | undefined, notificationId: string): Promise<void> => {
+  await axios.delete(`${base()}/${notificationId}`, auth(token));
+};
+
+export const dismissAllNotifications = async (token: string | undefined): Promise<void> => {
+  await axios.delete(base(), auth(token));
+};

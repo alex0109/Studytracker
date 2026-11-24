@@ -4,9 +4,9 @@
 import { FC, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { OPERATOR } from "@/shared/config/site";
+import { OPERATOR } from "@/shared/config";
 import { useTranslation } from "@/shared/i18n";
-import { GA_MEASUREMENT_ID, OPEN_CONSENT_EVENT } from "@/shared/lib/analytics";
+import { GA_MEASUREMENT_ID, OPEN_CONSENT_EVENT } from "@/shared/lib";
 
 const linkClass = "text-sm text-neutral-400 transition-colors hover:text-white";
 

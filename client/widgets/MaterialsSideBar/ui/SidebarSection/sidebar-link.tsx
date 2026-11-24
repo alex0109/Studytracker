@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { IconType } from "react-icons";
 import { TruncatedText } from "@/shared/ui";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib";
 
 interface SidebarLinkProps {
   icon?: IconType;

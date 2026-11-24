@@ -5,7 +5,7 @@ import { LuSparkles } from "react-icons/lu";
 import { ChoiceGroup, Field, FieldSelect, Modal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { useMaterialAll } from "@/entities/material";
-import { NoteTypeEnum } from "@/entities/note/model";
+import { NoteTypeEnum } from "@/entities/note";
 import {
   AiFeatureEnum,
   AiUsageHint,

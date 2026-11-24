@@ -3,7 +3,7 @@ import { LibraryCatalog } from "@/widgets/Library";
 import { LIBRARY_PAGE_SIZE } from "@/entities/library";
 import { fetchLibraryPage } from "@/entities/library/api/server";
 import { getServerT } from "@/shared/i18n/server";
-import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config/site";
+import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config";
 
 type LibraryPageProps = { searchParams: Promise<{ page?: string }> };
 

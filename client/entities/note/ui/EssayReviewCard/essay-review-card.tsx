@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   LuArrowRight,
   LuCircleCheck,
+  LuGraduationCap,
   LuInfo,
   LuLightbulb,
   LuSparkles,
@@ -13,7 +14,7 @@ import {
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { IEssayReview } from "../../model";
-import { essayScoreLevel, EssayScoreLevel } from "../../lib";
+import { ESSAY_EXAMS, essayScoreLevel, EssayScoreLevel, parseEssayFormat } from "../../lib";
 
 // Colours of the scale bands, light and dark
 const LEVEL_STYLES: Record<EssayScoreLevel, { text: string; bar: string; soft: string }> = {
@@ -86,6 +87,16 @@ export const EssayReviewCard: FC<EssayReviewCardProps> = ({ review, className })
   const [showAll, setShowAll] = useState(false);
 
   const level = essayScoreLevel(review.score);
+  // An exam check also gives the result on that exam's scale
+  const format = parseEssayFormat(review.format);
+  const exam = format ? ESSAY_EXAMS[format.exam] : null;
+  const examResult = review.examResult
+    ? format?.exam === "Ielts"
+      ? t("notes.essay.result.band", { band: review.examResult })
+      : review.examResult.startsWith("below_")
+        ? t("notes.essay.result.below", { level: review.examResult.slice("below_".length) })
+        : review.examResult
+    : null;
   const corrections = showAll ? review.corrections : review.corrections.slice(0, SHOWN_CORRECTIONS);
   const checkedAt = new Date(review.checkedAt).toLocaleString(i18n.language, {
     day: "numeric",
@@ -116,6 +127,23 @@ export const EssayReviewCard: FC<EssayReviewCardProps> = ({ review, className })
         </div>
       </header>
 
+      {exam && examResult && format && (
+        <div className="flex items-center gap-4 rounded-2xl border border-orange-200 bg-orange-50 p-4 dark:border-orange-900/60 dark:bg-orange-950/30">
+          <span aria-hidden className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-orange-500 text-xl text-white">
+            <LuGraduationCap />
+          </span>
+          <div className="flex min-w-0 flex-1 flex-col">
+            <p className="text-sm text-orange-900/80 dark:text-orange-200/80">
+              {t(format.exam === "Ielts" ? "notes.essay.result.examBand" : "notes.essay.result.examLevel", {
+                exam: exam.short,
+                level: format.level,
+              })}
+            </p>
+            <p className="text-2xl font-semibold text-orange-900 dark:text-orange-100">{examResult}</p>
+          </div>
+        </div>
+      )}
+
       {review.isTextTruncated && (
         <p className="flex items-start gap-2 rounded-2xl bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
           <LuInfo className="mt-0.5 shrink-0" aria-hidden />
@@ -134,8 +162,15 @@ export const EssayReviewCard: FC<EssayReviewCardProps> = ({ review, className })
             >
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-medium">{t(`notes.essay.criteria.${criterion.criterion}`)}</span>
-                <span className={cn("text-lg font-semibold tabular-nums", LEVEL_STYLES[criterionLevel].text)}>
-                  {criterion.score}
+                <span className="flex items-baseline gap-2">
+                  {criterion.band != null && (
+                    <span className="rounded-full bg-white/80 px-2 py-0.5 text-xs font-semibold text-orange-800 dark:bg-neutral-900 dark:text-orange-300">
+                      {t("notes.essay.result.band", { band: criterion.band })}
+                    </span>
+                  )}
+                  <span className={cn("text-lg font-semibold tabular-nums", LEVEL_STYLES[criterionLevel].text)}>
+                    {criterion.score}
+                  </span>
                 </span>
               </div>
               <div
@@ -250,6 +285,7 @@ export const EssayReviewCard: FC<EssayReviewCardProps> = ({ review, className })
       <p className="flex items-start gap-2 border-t border-neutral-100 pt-4 text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
         <LuSparkles aria-hidden className="mt-0.5 shrink-0 text-violet-500" />
         {t("notes.essay.result.disclaimer")}
+        {exam && ` ${t("notes.essay.result.examDisclaimer", { exam: exam.name })}`}
       </p>
     </section>
   );

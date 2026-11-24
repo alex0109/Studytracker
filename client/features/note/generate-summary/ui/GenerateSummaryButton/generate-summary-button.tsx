@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { LuSparkles } from "react-icons/lu";
 import { ConfirmModal, Spinner } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
-import { INoteResponse } from "@/entities/note/model";
+import { INoteResponse } from "@/entities/note";
 import {
   AiFeatureEnum,
   AiUsageHint,

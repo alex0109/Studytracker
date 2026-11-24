@@ -5,7 +5,7 @@ import { useTranslation } from "@/shared/i18n";
 import { FC, useState } from "react";
 import { Spinner } from "@/shared/ui";
 import { motion } from "framer-motion";
-import { LuPlay, LuShuffle } from "react-icons/lu";
+import { LuDices, LuPlay, LuShuffle } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import {
   FlashcardSessionModeEnum,
@@ -14,6 +14,7 @@ import {
 } from "@/entities/flashcard";
 import { DEFAULT_SESSION_SIZE, MAX_SESSION_SIZE } from "../../consts";
 import { EmptyFlashcards } from "../EmptyFlashcards/empty-flashcards";
+import { RandomCardsModal } from "./random-cards-modal";
 
 interface FlashcardsStartProps {
   dictionaryId: string;
@@ -29,6 +30,7 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
   const { t } = useTranslation();
   // The spinner goes on the button that was pressed
   const [pressed, setPressed] = useState<FlashcardSessionModeEnum>();
+  const [randomOpen, setRandomOpen] = useState(false);
   const start = (body: Parameters<typeof onStart>[0]) => {
     setPressed(body.mode);
     onStart(body);
@@ -107,10 +109,10 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
           : t("flashcards.start.nothing")}
       </p>
 
-      <div className="flex md:flex-row flex-col gap-3 w-full max-w-[460px]">
+      <div className="flex w-full max-w-[460px] flex-col gap-3">
         <Button
           size="lg"
-          className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
           disabled={isPending || reviewCount === 0}
           onClick={() =>
             start({
@@ -121,16 +123,29 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
         >
           {isPending && pressed === FlashcardSessionModeEnum.Due ? <Spinner /> : <LuPlay />} {t("flashcards.start.reviewButton", { count: reviewCount })}
         </Button>
-        <Button
-          size="lg"
-          variant="outline"
-          className="flex-1"
-          disabled={isPending}
-          onClick={() => start({ mode: FlashcardSessionModeEnum.All })}
-        >
-          {isPending && pressed === FlashcardSessionModeEnum.All ? <Spinner /> : <LuShuffle />} {t("flashcards.start.allButton", { count: allCount })}
-        </Button>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button
+            size="lg"
+            variant="outline"
+            className="w-full sm:w-auto sm:flex-1"
+            disabled={isPending}
+            onClick={() => start({ mode: FlashcardSessionModeEnum.All })}
+          >
+            {isPending && pressed === FlashcardSessionModeEnum.All && !randomOpen ? <Spinner /> : <LuShuffle />} {t("flashcards.start.allButton", { count: allCount })}
+          </Button>
+          <Button size="lg" variant="outline" className="w-full sm:w-auto sm:flex-1" disabled={isPending} onClick={() => setRandomOpen(true)}>
+            <LuDices /> {t("flashcards.start.randomButton")}
+          </Button>
+        </div>
       </div>
+
+      <RandomCardsModal
+        open={randomOpen}
+        onClose={() => setRandomOpen(false)}
+        total={flashcardStatsData.total}
+        isPending={isPending && pressed === FlashcardSessionModeEnum.All}
+        onStart={(count) => start({ mode: FlashcardSessionModeEnum.All, limit: count })}
+      />
     </motion.div>
   );
 };

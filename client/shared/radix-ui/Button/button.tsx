@@ -2,10 +2,10 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:cursor-pointer motion-safe:active:scale-[0.97]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all max-sm:text-base max-sm:[&_svg:not([class*='size-'])]:size-5 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:cursor-pointer motion-safe:active:scale-[0.97]",
   {
     variants: {
       variant: {
@@ -21,12 +21,14 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-2xl px-6 has-[>svg]:px-4",
-        icon: "size-9",
-        "icon-sm": "size-8",
-        "icon-lg": "size-10",
+        // Phones get thumb-sized targets; from sm up the sizes stay compact. The min-height keeps them
+        // that tall in a column, where flex-1 would otherwise shrink a button to its text
+        default: "h-9 px-4 py-2 has-[>svg]:px-3 max-sm:h-12 max-sm:min-h-12 max-sm:px-5",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 max-sm:h-11 max-sm:min-h-11 max-sm:rounded-xl max-sm:px-4",
+        lg: "h-10 rounded-2xl px-6 has-[>svg]:px-4 max-sm:h-13 max-sm:min-h-13 max-sm:px-6",
+        icon: "size-9 max-sm:size-12 max-sm:min-h-12",
+        "icon-sm": "size-8 max-sm:size-11 max-sm:min-h-11",
+        "icon-lg": "size-10 max-sm:size-13 max-sm:min-h-13",
       },
     },
     defaultVariants: {

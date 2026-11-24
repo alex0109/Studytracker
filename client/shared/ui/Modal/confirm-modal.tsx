@@ -4,8 +4,8 @@
 import { FC, ReactNode } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/shared/radix-ui/Button/button";
-import { cn } from "@/shared/lib/cn";
+import { Button } from "@/shared/radix-ui";
+import { cn } from "@/shared/lib";
 import { Spinner } from "../IsPendingLoader";
 import { Modal } from "./modal";
 

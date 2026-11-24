@@ -1,8 +1,8 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "@/shared/context/session.provider";
-import { logExceptionError } from "@/shared/lib/exeption.sentry";
+import { useSession } from "@/shared/context";
+import { logExceptionError } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { aiKeys, getAiErrorMessage } from "@/entities/ai";
@@ -16,8 +16,8 @@ export const usePodcastGenerate = (materialId: string) => {
   const onError = (section: string) => (error: unknown) => {
     // Quota, AI or voices down, too little text: tell why, this is not a bug to report
     const aiMessage = getAiErrorMessage(error, t);
-    if (aiMessage) {
-      toast({ title: `⚠️${aiMessage}`, variant: "error" });
+    if (aiMessage !== null) {
+      if (aiMessage) toast({ title: `⚠️${aiMessage}`, variant: "error" });
       return;
     }
     logExceptionError(error, { section, userID: user?.id });

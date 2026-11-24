@@ -5,7 +5,7 @@ import type { ILibraryItem } from "@/entities/library";
 import { fetchLibraryItem } from "@/entities/library/api/server";
 import { excerpt, richTextToPlainText } from "@/shared/lib/rich-text";
 import { getServerT } from "@/shared/i18n/server";
-import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config/site";
+import { OG_LOCALES, SITE_NAME, SITE_URL } from "@/shared/config";
 
 type LibraryItemPageProps = { params: Promise<{ id: string }> };
 

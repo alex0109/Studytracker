@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { IQuestionResponse } from "@/entities/question";
+import type { IQuestionResponse } from "@/entities/question/@x/ai";
 import { IQuestionGenerate } from "../model";
 
 export const generateQuestions = async (

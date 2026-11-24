@@ -1,4 +1,4 @@
-import { QuestionDifficultyEnum } from "@/entities/question/model/question-difficulty";
+import { QuestionDifficultyEnum } from "@/entities/question/@x/statistics";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/shared/theme";
 

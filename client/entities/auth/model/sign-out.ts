@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClientOnServer } from "../api/server";
-import { getSafeRedirect } from "@/shared/lib/safe-redirect";
+import { getSafeRedirect } from "@/shared/lib";
 
 // After an account deletion the user lands on the home page with a note instead of the sign in form
 export const signOut = async (redirectTo?: string) => {
