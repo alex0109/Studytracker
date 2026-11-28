@@ -9,7 +9,6 @@ import { useSession } from "@/shared/context";
 import { useTranslation } from "@/shared/i18n";
 import { cn } from "@/shared/lib";
 import { PreferencesControls } from "@/features/preferences";
-import { SignOutButton } from "@/features/account/sign-out";
 import { AccountLink } from "../AccountLink/account-link";
 import { LogoLink } from "../LogoLink/logo-link";
 import { ProfileSync } from "@/features/profile";
@@ -77,13 +76,6 @@ export const Navigation: FC = () => {
           })}
         </ul>
 
-        {user && (
-          <SignOutButton
-            variant="icon"
-            className="hidden md:col-start-3 md:flex md:justify-self-end"
-          />
-        )}
-
         <div className="ml-auto flex items-center gap-2 md:hidden">
           <PreferencesControls />
           <button
@@ -126,10 +118,7 @@ export const Navigation: FC = () => {
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-800">
                       <LuUserRound aria-hidden />
                     </span>
-                    <span className="flex min-w-0 flex-col text-left">
-                      <span className="text-neutral-900 dark:text-neutral-100">{t("nav.account")}</span>
-                      <span className="truncate text-xs font-normal text-neutral-500">{user.email}</span>
-                    </span>
+                    <span className="text-neutral-900 dark:text-neutral-100">{t("nav.account")}</span>
                   </Link>
                 </li>
               )}
@@ -154,30 +143,11 @@ export const Navigation: FC = () => {
                 </li>
               ))}
 
-              {user && (
-                <li className="w-full text-center border-t border-neutral-200 dark:border-neutral-700 mt-2 pt-2">
-                  <SignOutButton variant="row" />
-                </li>
-              )}
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Only who is signed in; the account itself opens from the icon next to the language.
-          Above the menu bar, so its edge doesn't cover the top of the pill */}
-      {user && (
-        <div
-          className="z-50 fixed top-[4.2rem] left-1/2 -translate-x-1/2 bg-white
-          dark:bg-neutral-900 rounded-full border-[0.5px] border-neutral-600 w-[22rem]
-          h-10 hidden md:flex lg:w-[26rem] justify-center items-start px-4 pt-2
-          animate-in fade-in slide-in-from-top-8 duration-500 motion-reduce:animate-none"
-        >
-          <p className="max-w-[24rem] truncate text-center text-sm text-neutral-900 dark:text-neutral-300">
-            {user.email}
-          </p>
-        </div>
-      )}
     </header>
   );
 };

@@ -12,6 +12,7 @@ import {
   getAiErrorMessage,
   IDictionaryEntriesGenerate,
 } from "@/entities/ai";
+import { reviewKeys } from "@/entities/review";
 
 export const useDictionaryEntriesGenerate = (dictionaryId: string) => {
   const { t } = useTranslation();
@@ -22,6 +23,8 @@ export const useDictionaryEntriesGenerate = (dictionaryId: string) => {
     mutationFn: (body: IDictionaryEntriesGenerate) =>
       generateDictionaryEntries(token, dictionaryId, body),
     onSuccess: (entries) => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({
         queryKey: dictionaryKeys.detail(dictionaryId),
       });

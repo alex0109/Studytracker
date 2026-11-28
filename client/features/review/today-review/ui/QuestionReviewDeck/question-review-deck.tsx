@@ -49,7 +49,6 @@ export const QuestionReviewDeck: FC<QuestionReviewDeckProps> = ({ session, onDon
             question={question}
             index={index + 1}
             total={total}
-            isLast={index + 1 >= total}
             onNext={onNext}
           />
         )}

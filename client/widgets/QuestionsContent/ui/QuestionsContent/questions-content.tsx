@@ -9,7 +9,7 @@ import { QuestionCreateModal } from "@/features/question/create-question";
 import { GenerateQuestionsModal } from "@/features/question/generate-questions";
 import { StartAttemptModal } from "@/features/attempt/start-attempt";
 import { useTranslation } from "@/shared/i18n";
-import { QuestionsToolbar } from "../QuestionsToolbar/questions-toolbar";
+import { QuestionsActions, QuestionsStart } from "../QuestionsToolbar/questions-toolbar";
 import { QuestionCard } from "../QuestionCard/question-card";
 import { EmptyQuestions } from "./empty-questions";
 import LoadingQuestions from "./loading-questions";
@@ -56,14 +56,15 @@ export const QuestionsContent: FC<QuestionsType> = ({ materialId, noteId, assess
 
   return (
     <div className="flex w-full flex-col gap-4 py-4">
-      <QuestionsToolbar
-        count={questions.length}
-        canStart={canStart}
-        isStarting={isNavigating}
-        onAdd={() => setCreateOpen(true)}
-        onGenerate={() => setGenerateOpen(true)}
-        onStart={() => setStartOpen(true)}
-      />
+      {/* With nothing to answer yet the way in is adding questions, so the big button waits for them */}
+      {questions.length > 0 && (
+        <QuestionsStart
+          count={questions.length}
+          canStart={canStart}
+          isStarting={isNavigating}
+          onStart={() => setStartOpen(true)}
+        />
+      )}
 
       {questions.length >= SEARCH_FROM && (
         <div className="relative">
@@ -78,6 +79,9 @@ export const QuestionsContent: FC<QuestionsType> = ({ materialId, noteId, assess
           />
         </div>
       )}
+
+      {/* Right under the search, above the list they add to */}
+      <QuestionsActions onAdd={() => setCreateOpen(true)} onGenerate={() => setGenerateOpen(true)} />
 
       {questionsIsPending ? (
         <LoadingQuestions />
@@ -99,6 +103,7 @@ export const QuestionsContent: FC<QuestionsType> = ({ materialId, noteId, assess
           ))}
         </ul>
       )}
+
 
       <QuestionCreateModal materialId={materialId} noteId={noteId} open={createOpen} setOpen={setCreateOpen} />
       <StartAttemptModal

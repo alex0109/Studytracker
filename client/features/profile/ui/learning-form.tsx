@@ -184,7 +184,9 @@ export const LearningForm: FC = () => {
 
   const shownRetention = retention ?? defaults.desiredRetention;
   const percent = Math.round(shownRetention * 100);
-  const autoTranslate = profileData.autoTranslate;
+  // Free has no auto-translate: the switch shows it off and can't be turned on until the plan includes it
+  const autoTranslateLocked = isFree;
+  const autoTranslate = profileData.autoTranslate && !autoTranslateLocked;
 
   return (
     <div className="flex flex-col gap-4">
@@ -273,10 +275,11 @@ export const LearningForm: FC = () => {
             role="switch"
             aria-checked={autoTranslate}
             aria-label={t("learning.autoTranslate.title")}
-            disabled={updateProfileIsPending && savingField === "autoTranslate"}
+            disabled={autoTranslateLocked || (updateProfileIsPending && savingField === "autoTranslate")}
+            title={autoTranslateLocked ? t("learning.autoTranslate.plus") : undefined}
             onClick={() => save("autoTranslate", { autoTranslate: !autoTranslate })}
             className={cn(
-              "relative mt-0.5 h-7 w-12 shrink-0 rounded-full transition-colors disabled:opacity-50",
+              "relative mt-0.5 h-7 w-12 shrink-0 rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-50",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2",
               autoTranslate ? "bg-emerald-600" : "bg-neutral-300 dark:bg-neutral-700",
             )}

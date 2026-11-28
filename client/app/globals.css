@@ -62,6 +62,25 @@
   }
 }
 
+/* A bell that shakes now and then, then rests */
+@keyframes wiggle {
+  0%, 60%, 100% {
+    transform: rotate(0deg);
+  }
+  65% {
+    transform: rotate(-14deg);
+  }
+  72% {
+    transform: rotate(12deg);
+  }
+  79% {
+    transform: rotate(-8deg);
+  }
+  86% {
+    transform: rotate(4deg);
+  }
+}
+
 h1 {
   font-size: 2rem;
   font-weight: 700;

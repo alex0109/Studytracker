@@ -3,19 +3,13 @@
 import { useTranslation } from "@/shared/i18n";
 
 import { FC, useState } from "react";
-import {
-  dictionaryInterface,
-  DictionaryInterfaceEnum,
-  useDictionaryExact,
-} from "@/entities/dictionary";
+import { useDictionaryExact } from "@/entities/dictionary";
 import {
   DictionaryDescription,
   DictionaryTitle,
 } from "@/features/dictionary/update-dictionary";
 import { DictionaryDeleteModal } from "@/features/dictionary/delete-dictionary";
 import { FlashcardsPractice } from "@/features/dictionary/practice-dictionary";
-import { useActiveSectionContext } from "@/shared/context";
-import { SwitchInterface } from "@/shared/ui/SwitchInterface";
 import { Subtitle } from "@/shared/ui";
 import { Button } from "@/shared/radix-ui";
 import { LuTrash2 } from "react-icons/lu";
@@ -35,8 +29,9 @@ export const DictionaryContent: FC<DictionaryContentProps> = ({
   onDeleted,
 }) => {
   const { t } = useTranslation();
-  const { activeSection } = useActiveSectionContext();
   const [open, setOpen] = useState(false);
+  // While cards are answered the words step aside; they come back when the session ends
+  const [practicing, setPracticing] = useState(false);
 
   const { exactDictionaryData, exactDictionaryIsPending } =
     useDictionaryExact(dictionaryId);
@@ -90,15 +85,17 @@ export const DictionaryContent: FC<DictionaryContentProps> = ({
           />
         </div>
       </header>
-      <SwitchInterface switchInterface={dictionaryInterface} />
-      {activeSection === DictionaryInterfaceEnum.Flashcards ? (
-        <FlashcardsPractice key={dictionaryId} dictionaryId={dictionaryId} />
-      ) : (
-        <DictionaryWords
-          dictionaryId={dictionaryId}
-          materialId={materialId}
-          entries={entries}
-        />
+      {/* One section: practice on top, then the words it practises */}
+      <FlashcardsPractice key={dictionaryId} dictionaryId={dictionaryId} onPracticingChange={setPracticing} />
+      {!practicing && (
+        <>
+          {entries.length > 0 && <hr className="my-4 border-neutral-200 dark:border-neutral-800" />}
+          <DictionaryWords
+            dictionaryId={dictionaryId}
+            materialId={materialId}
+            entries={entries}
+          />
+        </>
       )}
       <DictionaryDeleteModal
         materialId={materialId}

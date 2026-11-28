@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { LuLightbulb, LuMapPin, LuMousePointerClick, LuSparkle } from "react-icons/lu";
+import { LuLightbulb, LuMapPin, LuMousePointerClick, LuSparkle, LuStar } from "react-icons/lu";
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { Reveal } from "../../(home)/ui/Reveal";
@@ -27,7 +27,14 @@ export const GuideSection: FC<GuideSectionProps> = ({ section, index }) => {
   return (
     <section id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-28">
       <Reveal>
-        <div className="grid items-start gap-6 rounded-[2rem] border border-white bg-white/60 p-5 backdrop-blur md:p-8 xl:grid-cols-2 xl:gap-10 dark:border-neutral-800 dark:bg-neutral-900/60">
+        <div
+          className={cn(
+            "grid items-start gap-6 rounded-[2rem] border bg-white/60 p-5 backdrop-blur md:p-8 xl:grid-cols-2 xl:gap-10 dark:bg-neutral-900/60",
+            section.featured
+              ? "border-violet-200 shadow-xl shadow-violet-500/10 ring-4 ring-violet-100/70 dark:border-violet-900 dark:ring-violet-950/60"
+              : "border-white dark:border-neutral-800",
+          )}
+        >
           <div className={cn("flex min-w-0 flex-col gap-5", !isEven && "xl:order-2")}>
             <div className="flex items-center gap-3">
               <span className={cn("flex size-11 shrink-0 items-center justify-center rounded-2xl text-lg", section.tone)}>
@@ -36,6 +43,11 @@ export const GuideSection: FC<GuideSectionProps> = ({ section, index }) => {
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-400">
                 {String(index + 1).padStart(2, "0")} · {t(`guide.sections.${section.id}.eyebrow`)}
               </span>
+              {section.featured && (
+                <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-linear-to-r from-violet-600 to-sky-600 px-2.5 py-1 text-xs font-semibold text-white">
+                  <LuStar aria-hidden /> {t("guide.labels.featured")}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">

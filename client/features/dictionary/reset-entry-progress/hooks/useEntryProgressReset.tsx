@@ -7,6 +7,7 @@ import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { flashcardKeys, resetEntryProgress } from "@/entities/flashcard";
 import { dictionaryKeys } from "@/entities/dictionary";
+import { reviewKeys } from "@/entities/review";
 
 export const useEntryProgressReset = (dictionaryId: string) => {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ export const useEntryProgressReset = (dictionaryId: string) => {
   const resetProgressMutation = useMutation({
     mutationFn: (entryId: string) => resetEntryProgress(token, entryId),
     onSuccess: () => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({
         queryKey: dictionaryKeys.detail(dictionaryId),
       });

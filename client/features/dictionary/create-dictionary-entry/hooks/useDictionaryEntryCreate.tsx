@@ -10,6 +10,7 @@ import {
   dictionaryKeys,
   IDictionaryEntryCreate,
 } from "@/entities/dictionary";
+import { reviewKeys } from "@/entities/review";
 
 export const useDictionaryEntryCreate = (dictionaryId: string) => {
   const { t } = useTranslation();
@@ -20,6 +21,8 @@ export const useDictionaryEntryCreate = (dictionaryId: string) => {
     mutationFn: (body: IDictionaryEntryCreate) =>
       createDictionaryEntry(token, dictionaryId, body),
     onSuccess: () => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({
         queryKey: dictionaryKeys.detail(dictionaryId),
       });

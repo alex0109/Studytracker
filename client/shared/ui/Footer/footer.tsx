@@ -45,7 +45,6 @@ export const Footer: FC = () => {
           <FooterLink href="/materials">{t("nav.materials")}</FooterLink>
           <FooterLink href="/library">{t("nav.library")}</FooterLink>
           <FooterLink href="/statistics">{t("nav.statistics")}</FooterLink>
-          <FooterLink href="/calendar">{t("nav.calendar")}</FooterLink>
         </Column>
 
         <Column title={t("footer.help")}>

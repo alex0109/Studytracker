@@ -5,6 +5,7 @@ import {
   ILibraryPageParams,
   ILibraryRequest,
   ILibraryRequestCreate,
+  ILibraryStart,
 } from "../model";
 import { IMaterialResponse } from "@/entities/material/@x/library";
 
@@ -40,6 +41,13 @@ export const importLibraryItem = async (
   itemId: string,
 ): Promise<IMaterialResponse> => {
   const res = await axios.post(`${process.env.NEXT_PUBLIC_API_HTTP}/library/${itemId}/import`, null, auth(token));
+
+  return res.data;
+};
+
+// The material to learn from: the copy the user already has, or a new one
+export const startLibraryItem = async (token: string | undefined, itemId: string): Promise<ILibraryStart> => {
+  const res = await axios.post(`${process.env.NEXT_PUBLIC_API_HTTP}/library/${itemId}/start`, null, auth(token));
 
   return res.data;
 };

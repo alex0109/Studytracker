@@ -42,6 +42,13 @@ export interface ILibraryItemSummary {
   isImported: boolean;
 }
 
+// Where "Start learning" leads: a material among the user's own
+export interface ILibraryStart {
+  materialId: string;
+  // Made just now; otherwise the copy (or the author's original) was already there
+  isNew: boolean;
+}
+
 // Frozen content of a library material: shown as it was sent, never edited
 export interface ILibrarySnapshot {
   title: string;

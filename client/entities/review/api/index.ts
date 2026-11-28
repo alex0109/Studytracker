@@ -7,6 +7,7 @@ import type { IResultRequest } from "@/entities/attempt/@x/review";
 import {
   IQuestionReviewSession,
   IReviewAnswerResult,
+  IReviewDaySummary,
   IReviewToday,
 } from "../model";
 
@@ -18,6 +19,11 @@ const auth = (token: string | undefined) => ({
 export const getReviewToday = async (
   token: string | undefined,
 ): Promise<IReviewToday> => (await axios.get(`${base()}/today`, auth(token))).data;
+
+// How today went, next to the last day before it with reviews
+export const getReviewDaySummary = async (
+  token: string | undefined,
+): Promise<IReviewDaySummary> => (await axios.get(`${base()}/today/summary`, auth(token))).data;
 
 // Words from every dictionary; answers then go through the usual flashcard session endpoints
 export const startTodayWords = async (

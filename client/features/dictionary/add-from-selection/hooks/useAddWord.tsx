@@ -15,6 +15,7 @@ import {
   updateDictionaryEntry,
 } from "@/entities/dictionary";
 import { aiKeys, getAiErrorMessage } from "@/entities/ai";
+import { reviewKeys } from "@/entities/review";
 
 // Id of the word that already has this term, from the 409 answer
 export const existingEntryIdOf = (error: unknown): string | null =>
@@ -66,6 +67,8 @@ export const useAddWord = (materialId: string) => {
       createDictionaryEntry(token, dictionaryId, body),
     onSuccess: (_, { dictionaryId }) => {
       refresh(dictionaryId);
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       trackEvent("add_word_from_text");
     },
     onError: report("dictionaries/entries (from reading)"),

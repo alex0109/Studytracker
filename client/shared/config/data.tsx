@@ -1,7 +1,6 @@
 import {
   LuBookOpen,
   LuCalendarCheck,
-  LuCalendarDays,
   LuChartColumn,
   LuCompass,
   LuGauge,
@@ -23,7 +22,7 @@ export const authorizedLinks = [
   { name: "materials", hash: "/materials", icon: LuBookOpen },
   { name: "library", hash: "/library", icon: LuLibrary },
   { name: "statistics", hash: "/statistics", icon: LuChartColumn },
-  { name: "calendar", hash: "/calendar", icon: LuCalendarDays },
+  // "Plan" on screen: what the user pays for and what it includes
   { name: "limits", hash: "/limits", icon: LuGauge },
   { name: "guide", hash: "/guide", icon: LuCompass },
 ] as const;

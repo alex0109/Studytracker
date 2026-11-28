@@ -1,0 +1,93 @@
+/* The laurel logo of the guide, while a big page loads: the brand gradient through the logo's shape,
+   a light sweeping across it and a soft glow breathing behind. Quicker than on the guide, so it reads as waiting */
+.emblem {
+  --emblem-from: #059669;
+  --emblem-via: #0284c7;
+  --emblem-to: #7c3aed;
+  mask: url("/brand/studytracker-logo.svg") center / contain no-repeat;
+  -webkit-mask: url("/brand/studytracker-logo.svg") center / contain no-repeat;
+  background-image:
+    linear-gradient(115deg, transparent 40%, rgb(255 255 255 / 0.75) 50%, transparent 60%),
+    linear-gradient(135deg, var(--emblem-from) 0%, var(--emblem-via) 50%, var(--emblem-to) 100%);
+  background-size: 250% 100%, 100% 100%;
+  background-position: 120% 0, 0 0;
+  background-repeat: no-repeat;
+}
+
+.glow {
+  background: radial-gradient(closest-side, rgb(56 189 248 / 0.35), rgb(167 139 250 / 0.2), transparent);
+}
+
+/* The name in deep black with a sheen running through it, like light over lacquer */
+.word {
+  --ink: #0a0a0a;
+  --sheen: #737373;
+  background-image: linear-gradient(100deg, var(--ink) 0%, var(--ink) 38%, var(--sheen) 50%, var(--ink) 62%, var(--ink) 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.25));
+}
+
+/* Black would vanish on the dark page: there the ink turns to near white and the sheen to pure light */
+:global(.dark) .emblem {
+  --emblem-from: #34d399;
+  --emblem-via: #38bdf8;
+  --emblem-to: #a78bfa;
+}
+
+:global(.dark) .word {
+  --ink: #e5e5e5;
+  --sheen: #ffffff;
+  filter: drop-shadow(0 0 12px rgb(255 255 255 / 0.25));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .emblem {
+    animation: sweep 2.6s ease-in-out infinite;
+  }
+
+  .glow {
+    animation: breathe 2.6s ease-in-out infinite;
+  }
+
+  .word {
+    animation: sheen 2.6s ease-in-out infinite;
+  }
+}
+
+@keyframes sweep {
+  0%,
+  20% {
+    background-position: 120% 0, 0 0;
+  }
+  70%,
+  100% {
+    background-position: -120% 0, 0 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes sheen {
+  0%,
+  25% {
+    background-position: 100% 0;
+  }
+  75%,
+  100% {
+    background-position: 0% 0;
+  }
+}

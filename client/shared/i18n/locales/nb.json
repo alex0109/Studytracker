@@ -9,7 +9,7 @@
     "titles": {
       "auth": "Logg inn",
       "error": "Feil",
-      "limits": "Grenser",
+      "limits": "Abonnement",
       "materials": "Materialer",
       "share": "Delt materiale",
       "statistics": "Statistikk",
@@ -24,7 +24,7 @@
     "auth": "Logg inn",
     "materials": "Materialer",
     "statistics": "Statistikk",
-    "limits": "Grenser",
+    "limits": "Abonnement",
     "signOut": "Logg ut",
     "signOutConfirm": "Er du sikker?",
     "openMenu": "Åpne meny",
@@ -473,7 +473,7 @@
     "actions": {
       "add": "Legg til spørsmål",
       "generate": "Generer",
-      "start": "Start selvforsvar"
+      "start": "Start"
     },
     "empty": {
       "title": "Ingen spørsmål ennå",
@@ -521,7 +521,6 @@
     },
     "statementLabel": "Påstand",
     "editor": {
-      "title": "Spørsmål",
       "add": "Legg til",
       "search": "Finn et spørsmål eller svar",
       "nothingFound": "Fant ingenting",
@@ -534,7 +533,11 @@
       "explanationPlaceholder": "Hvorfor svaret er slik: vises når du svarer feil",
       "options": "Alternativer · marker de riktige",
       "undoHint": "Hent tilbake svaret slik det var før endringene",
-      "undo": "Tilbake"
+      "undo": "Tilbake",
+      "count_one": "{{count}} spørsmål",
+      "count_other": "{{count}} spørsmål",
+      "edit": "Rediger spørsmålet",
+      "close": "Lukk redigeringen"
     }
   },
   "attempt": {
@@ -637,10 +640,6 @@
     "tapToFlip": "Trykk for å se oversettelsen",
     "keysHint": "Sveip kortet eller bruk ← ↓ →, mellomrom for å snu",
     "undo": "Angre",
-    "empty": {
-      "title": "Ingen ord å øve på ennå",
-      "text": "Legg til ord i fanen Ord, eller hent tilbake arkiverte ord."
-    },
     "start": {
       "due": "Klar nå",
       "new": "Nye",
@@ -708,7 +707,8 @@
       "term": "Ord",
       "translation": "Oversettelse",
       "mixed": "Blandet"
-    }
+    },
+    "backToWords": "Tilbake til ordene"
   },
   "feedback": {
     "title": "Si hva du synes",
@@ -825,7 +825,8 @@
       "expand": "Vis listen",
       "sheetText": "Velg et materiale, notat eller en ordliste",
       "breadcrumb": "Hvor du er",
-      "myMaterials": "Mine materialer"
+      "myMaterials": "Mine materialer",
+      "essays": "Essay"
     },
     "emptySection": {
       "hint": "Velg et materiale til venstre eller legg til et nytt.",
@@ -899,7 +900,42 @@
     "titleExample": "F.eks. Grunnleggende React",
     "createdOn": "Opprettet {{date}}",
     "moreActions": "Flere handlinger",
-    "delete": "Slett materialet"
+    "delete": "Slett materialet",
+    "create": {
+      "button": "Opprett",
+      "title": "Hva vil du lage?",
+      "text": "Velg hva du vil legge til i dette materialet.",
+      "nameText": "Gi det et navn. Det kan endres senere.",
+      "back": "Tilbake",
+      "summaryTaken": "Materialet har allerede et sammendrag",
+      "kinds": {
+        "text": {
+          "title": "Notat",
+          "text": "Tekst, stikkord, tanker",
+          "placeholder": "f.eks. Hovedbegreper"
+        },
+        "drawing": {
+          "title": "Tegning",
+          "text": "Skisser og håndskrift",
+          "placeholder": "f.eks. Skisse av prosessen"
+        },
+        "essay": {
+          "title": "Essay",
+          "text": "Tekst om et tema, sjekket av KI",
+          "placeholder": "f.eks. Brev til utleier"
+        },
+        "dictionary": {
+          "title": "Ordliste",
+          "text": "Ord og oversettelser å repetere",
+          "placeholder": "f.eks. Ord fra kapittel 3"
+        },
+        "summary": {
+          "title": "Sammendrag",
+          "text": "En kort gjenfortelling av hele materialet",
+          "placeholder": "f.eks. Det viktigste fra forelesningen"
+        }
+      }
+    }
   },
   "limits": {
     "reachedToast": "Grensen er nådd. Frigjør litt plass og prøv igjen",
@@ -1104,13 +1140,9 @@
     "Material": "Materiale",
     "Questions": "Spørsmål",
     "Attempts": "Forsøk",
-    "Note": "Notat",
-    "Words": "Ord",
-    "Flashcards": "Kort"
+    "Note": "Notat"
   },
   "notes": {
-    "add": "Legg til notat",
-    "addTitle": "Nytt notat",
     "types": {
       "text": "✍️ Tekst",
       "drawing": "🖌️ Tegning",
@@ -1141,8 +1173,6 @@
       "replaceText": "AI skriver et nytt sammendrag fra materialet, notatene og ordlistene. Den nåværende teksten i sammendraget blir erstattet.",
       "replace": "Erstatt"
     },
-    "titleExample": "F.eks. Hovedpoenger",
-    "typeLabel": "Notattype",
     "essay": {
       "taskLabel": "Oppgave",
       "taskPlaceholder": "Lim inn temaet eller ordlyden i oppgaven. F.eks.: «Bør høyere utdanning være gratis? Drøft begge syn og gi din egen mening.»",
@@ -1331,8 +1361,6 @@
       "translateInto": "Oversett til",
       "upTo": "Opptil"
     },
-    "add": "Legg til ordliste",
-    "addTitle": "Ny ordliste",
     "description": "Beskrivelse",
     "descriptionPlaceholder": "Beskrivelse...",
     "descriptionAdd": "Legg til en kort beskrivelse...",
@@ -1414,10 +1442,8 @@
       "error": "Kunne ikke lagre ordet, prøv igjen",
       "lookupError": "Kunne ikke slå opp ordet, prøv igjen"
     },
-    "addText": "Ord for ett materiale: et tema, en leksjon eller et kapittel.",
     "addWordText": "Bare ordet og oversettelsen er påkrevd, resten kan legges til senere.",
     "deleteTitle": "Slette ordboken?",
-    "titlePlaceholder": "F.eks. Reise",
     "archived": "arkivert",
     "explain": {
       "button": "Forklar ordet med eksempler",
@@ -1437,7 +1463,7 @@
     "seeResults": "Se resultater",
     "empty": {
       "material": "Ingen forsøk på dette materialet ennå",
-      "text": "Start selvforsvar i fanen Spørsmål: fullførte forsøk med poengsum dukker opp her."
+      "text": "Trykk «Start» i fanen Spørsmål: fullførte forsøk med poengsum dukker opp her."
     }
   },
   "statistics": {
@@ -1739,7 +1765,9 @@
     },
     "clearSearch": "Tøm søket",
     "found_one": "{{count}} materiale funnet",
-    "found_other": "{{count}} materialer funnet"
+    "found_other": "{{count}} materialer funnet",
+    "startLearning": "Begynn å lære",
+    "continueLearning": "Fortsett å lære"
   },
   "today": {
     "title": "I dag",
@@ -1749,8 +1777,6 @@
     "questions_one": "{{count}} spørsmål",
     "questions_other": "{{count}} spørsmål",
     "minutes": "~{{count}} min",
-    "newWords_one": "inkl. {{count}} nytt",
-    "newWords_other": "inkl. {{count}} nye",
     "overdue_one": "{{count}} hoppet over tidligere",
     "overdue_other": "{{count}} hoppet over tidligere",
     "start": "Start",
@@ -1761,15 +1787,26 @@
     "phaseQuestions": "Steg 2 · spørsmål",
     "empty": {
       "title": "Alt er gjort",
-      "text": "Ingenting skal repeteres i dag. Legg til et materiale eller øv på en ordliste for å så noe nytt."
+      "text": "Ingenting skal repeteres i dag. Nye ord og spørsmål dukker opp her etter at du har gått gjennom dem én gang i ordlisten eller materialet."
     },
     "done": {
       "title": "Ferdig for i dag",
       "text": "Alt som sto i kø er repetert. Svarene kommer tilbake akkurat når de begynner å blekne.",
       "back": "Tilbake til I dag",
-      "statsTitle": "Se hvordan du utvikler deg",
-      "statsText": "Rekke, treffsikkerhet og svake emner: statistikken viser hva som sitter, og hva du bør jobbe med.",
-      "statsButton": "Se statistikken"
+      "statsButton": "Se statistikken",
+      "ofTotal": "{{done}} av {{total}}",
+      "wordsKnown": "kunne med en gang",
+      "questionsRight": "riktige svar",
+      "accuracy": "Treffsikkerhet i dag",
+      "reviewsToday_one": "{{count}} repetisjon i dag",
+      "reviewsToday_other": "{{count}} repetisjoner i dag",
+      "firstDay": "Din første dag med repetisjoner. Neste gang ser du hvordan du ligger an.",
+      "compare": {
+        "better": "Bedre enn {{date}}",
+        "worse": "Litt lavere enn {{date}}",
+        "same": "Omtrent som {{date}}",
+        "numbers": "Treffsikkerhet {{today}} % mot {{previous}} % den dagen"
+      }
     },
     "question": {
       "of": "{{index}} av {{total}}",
@@ -1777,7 +1814,6 @@
       "incorrect": "Ikke helt",
       "correctAnswer": "Riktig svar",
       "next": "Neste",
-      "finish": "Fullfør",
       "check": "Sjekk",
       "again": "Kommer snart tilbake så du får det til",
       "nextReview": "Neste repetisjon {{when}}"
@@ -1791,6 +1827,12 @@
       "title": "Det var dagens grense",
       "text": "Du har tatt så mange repetisjoner som du satte for en dag. Resten venter til i morgen.",
       "settings": "Endre grensen"
+    },
+    "reminder": {
+      "title": "Du har noe å repetere i dag",
+      "text": "Neste: {{what}}, omtrent {{minutes}} min.",
+      "both": "{{words}} og {{questions}}",
+      "button": "Repeter nå"
     }
   },
   "account": {
@@ -2413,7 +2455,8 @@
     "labels": {
       "how": "Hvordan",
       "where": "Hvor",
-      "why": "Hvorfor"
+      "why": "Hvorfor",
+      "featured": "Viktigst"
     },
     "notes": {
       "text": "Formatert tekst",
@@ -2442,8 +2485,8 @@
         "eyebrow": "Grunnleggende",
         "title": "Fire typer notater",
         "lead": "Tekst, tegning, sammendrag og essay, for ulike måter å tenke på.",
-        "how": "I et åpent materiale trykker du «+» ved «Notater» og velger type. Alt lagres av seg selv så snart du tar en pause.",
-        "where": "Materiallisten → åpne et materiale → «Notater».",
+        "how": "Åpne et materiale og trykk «+ Opprett» rett under det: notat, tegning, essay, ordliste eller sammendrag. Alt lagres av seg selv så snart du tar en pause.",
+        "where": "Materiallisten → åpne et materiale → «+ Opprett».",
         "why": "Det du skriver med egne ord, huskes bedre, og hvert notat kan ha egne spørsmål.",
         "tips": [
           "KI skriver sammendraget ut fra hele materialet, notatene og ordlistene; ett per materiale.",
@@ -2453,15 +2496,16 @@
       },
       "essay": {
         "short": "Essay",
-        "eyebrow": "Grunnleggende · nytt",
+        "eyebrow": "Grunnleggende",
         "title": "Essay med en ærlig sjekk",
         "lead": "Skriv et essay til en oppgave, så gir KI poeng fra 0 til 100 på fire kriterier og viser konkrete rettelser.",
-        "how": "Lag et «Essay»-notat, lim inn ordlyden i oppgaven, skriv teksten (minst 30 ord) og trykk «Sjekk essayet».",
-        "where": "Materialets notater → «+» → «Essay».",
+        "how": "Åpne et materiale, trykk «+ Opprett» og velg «Essay». Velg et ferdig tema eller lim inn ditt eget, skriv teksten (minst 30 ord) og trykk «Sjekk essayet».",
+        "where": "Materiallisten → åpne et materiale → «+ Opprett» → «Essay».",
         "why": "Du ser mer enn et tall: nøyaktig hva som trekker ned, enten det er svar på oppgaven, logikk, ordforråd eller grammatikk.",
         "tips": [
+          "Blant temaene finnes formater fra ekte språkprøver i tysk, norsk og engelsk: da følger sjekken reglene deres.",
           "Bare kvaliteten på skrivingen vurderes; meningen din påvirker aldri poengene.",
-          "Det siste resultatet lagres med essayet og er der også etter en omlasting.",
+          "Feilene forklares på språket til nettstedet, mens rettelsene står på essayets språk.",
           "Rettet feilene? Trykk «Sjekk igjen» og sammenlign."
         ]
       },
@@ -2470,10 +2514,11 @@
         "eyebrow": "Test deg selv",
         "title": "Spørsmål som virkelig tester",
         "lead": "Tre typer dekker nesten alt: åpne, alternativer (ett eller flere riktige) og sant/usant.",
-        "how": "Legg til spørsmål selv eller be KI lage et utkast fra teksten i et materiale eller notat, og rediger det etter eget ønske.",
+        "how": "Under spørsmålslisten finner du «Legg til» og «Generer»: skriv et spørsmål selv eller be KI lage et utkast fra teksten. For å svare trykker du på den store «Start»-knappen øverst.",
         "where": "Et materiale eller notat → fanen «Spørsmål».",
         "why": "Å svare fra hukommelsen gir mer enn å lese på nytt: det er slik kunnskap fester seg.",
         "tips": [
+          "Svarene er skjult i listen, så du ikke kan kikke. Blyanten ved et spørsmål åpner det for redigering.",
           "Vær ærlig om vanskelighetsgraden: vanskelige spørsmål teller tre ganger så mye.",
           "Legg til en forklaring på spørsmålet; den hjelper når du svarer feil."
         ]
@@ -2483,8 +2528,8 @@
         "eyebrow": "Test deg selv",
         "title": "Selvforsvar i stedet for pugging",
         "lead": "En quiz fra materialets spørsmål: tilfeldig rekkefølge, stokkede alternativer og hvor sikker du er ved hvert svar.",
-        "how": "Trykk «Start selvforsvar», velg vanskelighetsgrad og antall spørsmål, og sett i gang.",
-        "where": "Et materiale → «Spørsmål» → «Start selvforsvar».",
+        "how": "Trykk på den store «Start»-knappen, velg vanskelighetsgrad og antall spørsmål, og sett i gang.",
+        "where": "Et materiale → «Spørsmål» → «Start».",
         "why": "Hvor sikker du er ved siden av svaret, viser hvor du tar feil selv når du føler deg trygg.",
         "tips": [
           "Etter et forsøk forklarer KI kort hver feil.",
@@ -2509,7 +2554,7 @@
         "eyebrow": "Ord",
         "title": "Ordlister og flashkort",
         "lead": "Ord med oversettelse, uttale, artikkel, eksempler og synonymer, og kort som kommer tilbake akkurat i tide.",
-        "how": "Lag en ordliste i et materiale, legg til ord selv eller med KI, og øv på dem med flashkort.",
+        "how": "Åpne et materiale, trykk «+ Opprett» og velg «Ordliste». Legg til ord selv eller med KI, og øv på dem med flashkort.",
         "where": "Et materiale → en ordliste → fanen «Kort».",
         "why": "Repetisjon med mellomrom viser et ord akkurat når du er i ferd med å glemme det.",
         "tips": [
@@ -2535,22 +2580,24 @@
         "short": "I dag",
         "eyebrow": "Hver dag",
         "title": "Daglig repetisjon",
-        "lead": "Én kø om dagen: spørsmålene og ordene fra alle materialene dine som skal repeteres.",
-        "how": "Åpne «I dag», trykk «Start» og gå gjennom alt som venter.",
+        "lead": "Én kø om dagen: ord og spørsmål du har gått gjennom minst én gang, og som skal repeteres igjen.",
+        "how": "Åpne «I dag» og trykk «Start»: spørsmålene følger rett etter ordene, og dagens resultat kommer til slutt uten ekstra knapper.",
         "where": "Navigasjonen → «I dag». Tallet ved siden av viser hvor mye som venter.",
         "why": "Noen minutter hver dag holder kunnskapen bedre enn en natt før eksamen.",
         "tips": [
+          "Kortene viser enten ordet eller oversettelsen først, så du ser om du kan det begge veier. Dette kan du endre over kortet.",
+          "Til slutt ser du dagens treffsikkerhet ved siden av forrige dag med repetisjoner.",
           "Rekka vokser når du repeterer hver dag, og to frysinger i måneden redder dager du hoppet over.",
           "E-postpåminnelser stiller du inn i kontoen."
         ]
       },
       "deadlines": {
-        "short": "Kalender",
+        "short": "Frister",
         "eyebrow": "Hver dag",
-        "title": "Frister og kalender",
+        "title": "Frister for materialer",
         "lead": "Gi materialet datoen for en eksamen eller innlevering og se hvor mye tid som er igjen.",
-        "how": "Sett en frist i materialet; kalenderen viser den sammen med dagene du studerte.",
-        "where": "Navigasjonen → «Kalender».",
+        "how": "Sett en frist i materialet: ved siden av ser du hvor mange dager som er igjen og hvor mye du bør repetere hver dag for å rekke det.",
+        "where": "Et materiale → «Frist».",
         "why": "Når datoen er synlig, er det lettere å spre repetisjonen i stedet for å presse alt inn den siste kvelden.",
         "tips": [
           "Noen dager før eksamen kan du ta selvforsvar med bare de vanskelige spørsmålene."
@@ -2573,7 +2620,7 @@
         "eyebrow": "Sammen",
         "title": "Et bibliotek med ferdige materialer",
         "lead": "Språk, programmering og mer: materialer med spørsmål og ordlister som du kan legge til med ett klikk.",
-        "how": "Åpne biblioteket, se gjennom et materiale og legg det til: du får din egen kopi.",
+        "how": "Åpne biblioteket og trykk «Begynn å lære» på et kort: materialet havner blant materialene dine og åpnes med en gang.",
         "where": "Navigasjonen → «Bibliotek». Det er åpent også uten innlogging.",
         "why": "Du trenger ikke begynne fra null: ta noe ferdig og øv med en gang.",
         "tips": [
@@ -2801,6 +2848,23 @@
           "q": "Hvilke språk snakker Studytracker?",
           "a": "Grensesnittet finnes på ukrainsk, engelsk og norsk. KI-forklaringer kan komme på ett av 11 språk, og du kan lære hva som helst."
         }
+      }
+    },
+    "focus": {
+      "title": "Tre verktøy som gjør mesteparten av jobben",
+      "text": "Spørsmål tester hva du kan, ordlister holder ordene i minnet, og essay lærer deg å skrive. Begynn med disse, resten av guiden er detaljene.",
+      "link": "Slik fungerer det",
+      "questions": {
+        "title": "Spørsmål",
+        "text": "Lag dem selv eller med KI, trykk så på den store «Start»-knappen og svar etter hukommelsen."
+      },
+      "words": {
+        "title": "Ordliste",
+        "text": "Ord med oversettelse og eksempler som kommer tilbake på kort akkurat når du begynner å glemme dem."
+      },
+      "essay": {
+        "title": "Essay",
+        "text": "Velg et tema, skriv teksten og få poeng på fire kriterier med konkrete rettelser."
       }
     }
   },

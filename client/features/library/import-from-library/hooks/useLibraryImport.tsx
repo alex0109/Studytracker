@@ -7,6 +7,7 @@ import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { materialKeys } from "@/entities/material";
 import { importLibraryItem, libraryKeys } from "@/entities/library";
+import { reviewKeys } from "@/entities/review";
 
 export const useLibraryImport = (itemId: string) => {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ export const useLibraryImport = (itemId: string) => {
   const mutation = useMutation({
     mutationFn: () => importLibraryItem(token, itemId),
     onSuccess: () => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({ queryKey: materialKeys.list() });
       // "Already in your materials" and the import count
       queryClient.invalidateQueries({ queryKey: libraryKeys.detail(itemId) });

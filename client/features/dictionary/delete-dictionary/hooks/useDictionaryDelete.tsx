@@ -6,6 +6,7 @@ import { logExceptionError } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { deleteDictionary, dictionaryKeys } from "@/entities/dictionary";
+import { reviewKeys } from "@/entities/review";
 
 export const useDictionaryDelete = (materialId: string, dictionaryId: string) => {
   const { t } = useTranslation();
@@ -15,6 +16,8 @@ export const useDictionaryDelete = (materialId: string, dictionaryId: string) =>
   const deleteDictionaryMutation = useMutation({
     mutationFn: () => deleteDictionary(token, dictionaryId),
     onSuccess: () => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({
         queryKey: dictionaryKeys.list(materialId),
       });

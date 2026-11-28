@@ -17,7 +17,6 @@ interface ReviewQuestionCardProps {
   question: IReviewQuestion;
   index: number;
   total: number;
-  isLast: boolean;
   onNext: (result: IReviewAnswerResult) => void;
 }
 
@@ -28,7 +27,6 @@ export const ReviewQuestionCard: FC<ReviewQuestionCardProps> = ({
   question,
   index,
   total,
-  isLast,
   onNext,
 }) => {
   const { t, i18n } = useTranslation();
@@ -217,7 +215,8 @@ export const ReviewQuestionCard: FC<ReviewQuestionCardProps> = ({
 
       {result && (
         <Button size="lg" onClick={() => onNext(result)} className="self-end">
-          {isLast ? t("today.question.finish") : t("today.question.next")} <LuArrowRight aria-hidden />
+          {/* The last one too: "Next" leads straight to how the day went, there is no extra step to finish */}
+          {t("today.question.next")} <LuArrowRight aria-hidden />
         </Button>
       )}
     </motion.section>

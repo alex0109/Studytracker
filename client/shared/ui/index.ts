@@ -19,3 +19,4 @@ export * from "./TruncatedText";
 export * from "./DatePicker";
 export * from "./VoiceInput";
 export * from "./NumberChoice";
+export * from "./BrandLoader";

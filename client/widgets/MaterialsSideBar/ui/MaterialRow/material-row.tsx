@@ -9,9 +9,11 @@ import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
 import { IMaterialResponse, usePrefetchMaterial } from "@/entities/material";
 import { IDictionaryResponse } from "@/entities/dictionary";
+import { NoteTypeEnum } from "@/entities/note";
 import { MATERIAL_TYPE_ICONS } from "../../lib/sidebar-icons";
 import { MaterialNotes } from "../MaterialNotes/material-notes";
 import { MaterialDictionaries } from "../MaterialDictionaries/material-dictionaries";
+import { CreateInMaterial } from "../CreateInMaterial/create-in-material";
 
 interface MaterialRowProps {
   material: IMaterialResponse;
@@ -126,6 +128,13 @@ export const MaterialRow: FC<MaterialRowProps> = ({
         >
           {wasOpened && (
             <div className="ml-6 mt-1 mb-2 flex flex-col gap-2 border-l border-neutral-200 pl-3 dark:border-neutral-800">
+              {/* One way to add anything, right under the material instead of a plus in every section */}
+              <CreateInMaterial
+                materialId={material.id}
+                hasSummary={notes.some((note) => note.type === NoteTypeEnum.summary)}
+                onCreatedNote={onOpenNote}
+                onCreatedDictionary={onOpenDictionary}
+              />
               <MaterialNotes
                 materialId={material.id}
                 notes={notes}

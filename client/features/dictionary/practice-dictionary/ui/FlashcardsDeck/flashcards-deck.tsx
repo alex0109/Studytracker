@@ -24,7 +24,8 @@ import { canMakeLetterPuzzle } from "../../lib/letter-puzzle";
 import { FlashcardsProgress } from "./flashcards-progress";
 import { AnswerButtons } from "./answer-buttons";
 import { DirectionSwitch } from "./direction-switch";
-import { isReversed, useCardDirection } from "../../lib/card-direction";
+import { CardDirectionScope, isReversed, useCardDirection } from "../../lib/card-direction";
+import { Spinner } from "@/shared/ui";
 
 interface FlashcardsDeckProps {
   session: IFlashcardSessionResponse;
@@ -37,6 +38,13 @@ interface FlashcardsDeckProps {
   canUndo?: boolean;
   // After the quiz of a word answered "don't know" or "not sure", its letters are put in order
   letterChallenge?: boolean;
+  // Where the "show first" choice is kept and what it is before one is made
+  directionScope?: CardDirectionScope;
+  // Set where the deck is one step of a longer flow: no summary to click through, the flow goes on
+  // by itself once every answer is saved
+  onFinished?: (counts: Record<FlashcardAnswerEnum, number>) => void;
+  // Told when the last card is answered and saved; the summary still shows
+  onComplete?: () => void;
 }
 
 const KEY_ANSWERS: Record<string, FlashcardAnswerEnum> = {
@@ -53,6 +61,9 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   continueLabel,
   canUndo = true,
   letterChallenge = false,
+  directionScope,
+  onFinished,
+  onComplete,
 }) => {
   const { t } = useTranslation();
   const queue = session.cards;
@@ -65,7 +76,7 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
   // Then, where it's on, the same word is put together from its letters
   const [spellEntry, setSpellEntry] = useState<IDictionaryEntryResponse | null>(null);
 
-  const { direction, setDirection } = useCardDirection();
+  const { direction, setDirection } = useCardDirection(directionScope);
   const cardRef = useRef<ISwipeableCardHandle>(null);
   // Set when each card shows up, see the effect on index below
   const shownAt = useRef(0);
@@ -141,10 +152,17 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
 
   // finish is a new function on every render, but the session ends only once
   const finishRef = useLatest(finish);
+  const onFinishedRef = useLatest(onFinished);
+  const onCompleteRef = useLatest(onComplete);
+  const countsRef = useLatest(counts);
 
   useEffect(() => {
-    if (isFinished) finishRef.current();
-  }, [isFinished, finishRef]);
+    if (!isFinished) return;
+    void finishRef.current().then(() => {
+      onCompleteRef.current?.();
+      onFinishedRef.current?.(countsRef.current);
+    });
+  }, [isFinished, finishRef, onFinishedRef, onCompleteRef, countsRef]);
 
   useEffect(() => {
     // The quiz and the letters have keys of their own
@@ -174,6 +192,14 @@ export const FlashcardsDeck: FC<FlashcardsDeckProps> = ({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [current, quizEntry, spellEntry]);
+
+  if (isFinished && onFinished) {
+    return (
+      <div className="flex min-h-60 items-center justify-center text-2xl text-neutral-400">
+        <Spinner />
+      </div>
+    );
+  }
 
   if (isFinished) {
     return (

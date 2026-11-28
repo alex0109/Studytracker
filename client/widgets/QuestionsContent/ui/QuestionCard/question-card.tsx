@@ -3,12 +3,12 @@
 import { FC } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { IconType } from "react-icons";
-import { LuChevronDown, LuCircleHelp, LuListChecks, LuNotebookPen, LuToggleLeft } from "react-icons/lu";
+import { LuCircleHelp, LuListChecks, LuNotebookPen, LuPencil, LuToggleLeft, LuX } from "react-icons/lu";
 import { cn } from "@/shared/lib";
 import { useTranslation } from "@/shared/i18n";
+import { Button } from "@/shared/radix-ui";
 import {
   IQuestionResponse,
-  isTrueFalseName,
   QuestionDifficultyEnum,
   QuestionReviewBadge,
   QuestionTypeEnum,
@@ -47,26 +47,14 @@ interface QuestionCardProps {
   showNoteMark?: boolean;
 }
 
-// Reads like a question when closed; opens into a small form where everything saves by itself
+// Shows the question, its type and difficulty, never the answer: the list is for practising too.
+// The pencil opens a small form where everything saves by itself
 export const QuestionCard: FC<QuestionCardProps> = ({ question, index, isOpen, onToggle, showNoteMark }) => {
   const { t } = useTranslation();
   const reduceMotion = useReducedMotion();
   const TypeIcon = TYPE_ICONS[question.questionType] ?? LuCircleHelp;
   const difficulty = toQuestionDifficulty(question.questionDifficulty);
   const isTrueFalse = question.questionType === QuestionTypeEnum.TrueFalse;
-
-  // What the right answer is, in one line, so a closed card is useful too
-  const answerPreview =
-    question.questionType === QuestionTypeEnum.Open
-      ? question.answer
-      : question.options
-          .filter((option) => option.isCorrect)
-          .map((option) =>
-            isTrueFalseName(option.name)
-              ? t(option.name === "True" ? "questions.true" : "questions.false")
-              : option.name,
-          )
-          .join(" · ");
 
   return (
     <li
@@ -77,57 +65,46 @@ export const QuestionCard: FC<QuestionCardProps> = ({ question, index, isOpen, o
           : "border-neutral-200 hover:shadow-sm dark:border-neutral-800",
       )}
     >
-      {/* The moment in the video is a button of its own, so it sits beside the toggle, not inside it */}
-      <div className="flex items-start">
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-expanded={isOpen}
-          aria-controls={`question-editor-${question.id}`}
-          className="flex min-w-0 flex-1 items-start gap-3 p-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-neutral-400/60 sm:p-4"
-        >
-          <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-neutral-100 font-mono text-xs text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
-            {index + 1}
-          </span>
-          <span className="flex min-w-0 flex-1 flex-col gap-1.5">
-            <span className="line-clamp-2 font-medium text-neutral-900 break-words dark:text-neutral-50">{question.title}</span>
-            {!isOpen && answerPreview && (
-              <span className="truncate text-sm text-emerald-700 dark:text-emerald-400">→ {answerPreview}</span>
-            )}
-            <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
-              <span className="inline-flex items-center gap-1">
-                <TypeIcon aria-hidden className="size-3.5" />
-                {t(`questions.types.${questionTypeKeys[question.questionType]}`)}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span className={cn("size-1.5 rounded-full", DIFFICULTY_DOTS[difficulty])} aria-hidden />
-                {t(`questions.difficulty.${difficulty}`)}
-              </span>
-              {showNoteMark && question.noteId && (
-                <span className="inline-flex items-center gap-1">
-                  <LuNotebookPen aria-hidden className="size-3.5" /> {t("questions.editor.fromNote")}
-                </span>
-              )}
-              <QuestionReviewBadge progress={question.progress} />
+      <div className="flex items-start gap-3 p-3 sm:p-4">
+        <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-neutral-100 font-mono text-xs text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
+          {index + 1}
+        </span>
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <p className="line-clamp-2 font-medium text-neutral-900 break-words dark:text-neutral-50">{question.title}</p>
+          <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-neutral-500 dark:text-neutral-400">
+            <span className="inline-flex items-center gap-1">
+              <TypeIcon aria-hidden className="size-3.5" />
+              {t(`questions.types.${questionTypeKeys[question.questionType]}`)}
             </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className={cn("size-1.5 rounded-full", DIFFICULTY_DOTS[difficulty])} aria-hidden />
+              {t(`questions.difficulty.${difficulty}`)}
+            </span>
+            {showNoteMark && question.noteId && (
+              <span className="inline-flex items-center gap-1">
+                <LuNotebookPen aria-hidden className="size-3.5" /> {t("questions.editor.fromNote")}
+              </span>
+            )}
+            <QuestionReviewBadge progress={question.progress} />
           </span>
-          {question.videoSeconds == null && (
-            <LuChevronDown
-              aria-hidden
-              className={cn("mt-1.5 size-4 shrink-0 text-neutral-400 transition-transform duration-200", isOpen && "rotate-180")}
-            />
+        </div>
+        <div className="flex shrink-0 items-center gap-1.5">
+          {question.videoSeconds != null && (
+            <VideoMoment materialId={question.materialId} seconds={question.videoSeconds} />
           )}
-        </button>
-        {question.videoSeconds != null && (
-          <div className="flex shrink-0 items-center gap-2 py-3 pr-3 sm:py-4 sm:pr-4">
-            <VideoMoment materialId={question.materialId} seconds={question.videoSeconds} className="mt-0.5" />
-            <LuChevronDown
-              aria-hidden
-              onClick={onToggle}
-              className={cn("size-4 cursor-pointer text-neutral-400 transition-transform duration-200", isOpen && "rotate-180")}
-            />
-          </div>
-        )}
+          <Button
+            variant={isOpen ? "secondary" : "ghost"}
+            size="icon-sm"
+            onClick={onToggle}
+            aria-expanded={isOpen}
+            aria-controls={`question-editor-${question.id}`}
+            aria-label={t(isOpen ? "questions.editor.close" : "questions.editor.edit")}
+            title={t(isOpen ? "questions.editor.close" : "questions.editor.edit")}
+            className="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white"
+          >
+            {isOpen ? <LuX /> : <LuPencil />}
+          </Button>
+        </div>
       </div>
 
       <AnimatePresence initial={false}>

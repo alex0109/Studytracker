@@ -6,6 +6,7 @@ import { useSession } from "@/shared/context";
 import { logExceptionError } from "@/shared/lib";
 import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
+import { reviewKeys } from "@/entities/review";
 
 export const useMaterialDelete = (id: string) => {
   const { t } = useTranslation();
@@ -24,6 +25,8 @@ export const useMaterialDelete = (id: string) => {
       return { previous };
     },
     onSuccess: () => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       // Its content and attempts are gone with it: drop them instead of refetching into a 404
       queryClient.removeQueries({ queryKey: materialKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: materialKeys.list() });

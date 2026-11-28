@@ -71,6 +71,8 @@ export interface IGuideSection {
   icon: IconType;
   tone: string;
   Demo: FC;
+  // One of the three tools the guide puts first: it stands out in the list and in the focus block on top
+  featured?: boolean;
 }
 
 const tones = {
@@ -86,11 +88,11 @@ const tones = {
 export const guideSections: IGuideSection[] = [
   { id: "start", chapter: "basics", icon: LuFileText, tone: tones.sky, Demo: MaterialDemo },
   { id: "notes", chapter: "basics", icon: LuNotebookPen, tone: tones.amber, Demo: NoteTypesDemo },
-  { id: "essay", chapter: "basics", icon: LuFeather, tone: tones.violet, Demo: EssayDemo },
-  { id: "questions", chapter: "check", icon: LuCircleHelp, tone: tones.sky, Demo: QuestionsDemo },
+  { id: "essay", chapter: "basics", icon: LuFeather, tone: tones.violet, Demo: EssayDemo, featured: true },
+  { id: "questions", chapter: "check", icon: LuCircleHelp, tone: tones.sky, Demo: QuestionsDemo, featured: true },
   { id: "defend", chapter: "check", icon: LuShieldCheck, tone: tones.emerald, Demo: DefendDemo },
   { id: "score", chapter: "check", icon: LuGauge, tone: tones.amber, Demo: ScoreDemo },
-  { id: "words", chapter: "words", icon: LuBookA, tone: tones.emerald, Demo: FlashcardsDemo },
+  { id: "words", chapter: "words", icon: LuBookA, tone: tones.emerald, Demo: FlashcardsDemo, featured: true },
   { id: "lookup", chapter: "words", icon: LuLanguages, tone: tones.sky, Demo: LookupDemo },
   { id: "practice", chapter: "words", icon: LuPuzzle, tone: tones.emerald, Demo: PuzzleDemo },
   { id: "video", chapter: "media", icon: LuYoutube, tone: tones.rose, Demo: VideoDemo },
@@ -104,6 +106,12 @@ export const guideSections: IGuideSection[] = [
   { id: "ai", chapter: "together", icon: LuSparkles, tone: tones.fuchsia, Demo: AiDemo },
   { id: "plans", chapter: "together", icon: LuCrown, tone: tones.amber, Demo: PlansDemo },
 ];
+
+// The focus block on top, in the order a new user meets them
+export const featuredSections = (["questions", "words", "essay"] as const).map((id) => ({
+  ...guideSections.find((section) => section.id === id)!,
+  id,
+}));
 
 export const guideChapters: GuideChapterId[] = ["basics", "check", "words", "media", "daily", "together"];
 

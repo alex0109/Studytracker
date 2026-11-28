@@ -3,9 +3,9 @@
 import { FC } from "react";
 import { LuBookA } from "react-icons/lu";
 import { IDictionaryResponse, useDictionaryAll } from "@/entities/dictionary";
-import { AddDictionaryModal } from "@/features/dictionary/create-dictionary";
 import { Skeleton } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
+import { useFoldedSections } from "../../lib/use-folded-sections";
 import { SidebarSection } from "../SidebarSection/sidebar-section";
 import { SidebarLink } from "../SidebarSection/sidebar-link";
 
@@ -24,12 +24,14 @@ export const MaterialDictionaries: FC<MaterialDictionariesProps> = ({
 }) => {
   const { t } = useTranslation();
   const { dictionariesData, dictionariesIsPending } = useDictionaryAll(materialId, enabled);
+  const { isFolded, toggle } = useFoldedSections();
 
   return (
     <SidebarSection
       label={t("materials.sidebar.dictionaries")}
       count={dictionariesData?.length}
-      action={<AddDictionaryModal materialId={materialId} variant="icon" />}
+      folded={isFolded("dictionaries")}
+      onToggleFold={() => toggle("dictionaries")}
     >
       {enabled && dictionariesIsPending ? (
         <Skeleton className="h-8 w-full" />

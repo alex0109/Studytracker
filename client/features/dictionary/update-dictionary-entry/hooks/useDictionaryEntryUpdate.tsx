@@ -10,6 +10,7 @@ import {
   IDictionaryEntryUpdate,
   updateDictionaryEntry,
 } from "@/entities/dictionary";
+import { reviewKeys } from "@/entities/review";
 
 export const useDictionaryEntryUpdate = (
   dictionaryId: string,
@@ -27,10 +28,12 @@ export const useDictionaryEntryUpdate = (
       entryId: string;
       dataToUpdate: IDictionaryEntryUpdate;
     }) => updateDictionaryEntry(token, entryId, dataToUpdate),
-    onSuccess: (_, { entryId }) => {
+    onSuccess: (_, { entryId, dataToUpdate }) => {
       queryClient.invalidateQueries({
         queryKey: dictionaryKeys.detail(dictionaryId),
       });
+      // Archiving takes a word out of "Today"; ordinary edits leave the queue as it is
+      if (dataToUpdate.isArchived !== undefined) queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({ queryKey: dictionaryKeys.entry(entryId) });
       queryClient.invalidateQueries({ queryKey: dictionaryKeys.lists() });
     },

@@ -6,7 +6,7 @@ import type { switchInterfaceType } from "./switch-interface.type";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/shared/lib";
 
-type SectionName = "Material" | "Questions" | "Attempts" | "Note" | "Words" | "Flashcards";
+type SectionName = "Material" | "Questions" | "Attempts" | "Note";
 
 interface SwitchInterfaceProps {
   switchInterface: switchInterfaceType[];

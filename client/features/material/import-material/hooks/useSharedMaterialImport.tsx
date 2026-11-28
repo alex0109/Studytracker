@@ -7,6 +7,7 @@ import { toast } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { materialKeys } from "@/entities/material";
 import { importSharedMaterial, shareKeys } from "@/entities/share";
+import { reviewKeys } from "@/entities/review";
 
 export const useSharedMaterialImport = (shareToken: string) => {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ export const useSharedMaterialImport = (shareToken: string) => {
   const importMutation = useMutation({
     mutationFn: () => importSharedMaterial(token, shareToken),
     onSuccess: () => {
+      // What "Today" waits for changed: its queue, the reminder and the count in the menu
+      queryClient.invalidateQueries({ queryKey: reviewKeys.all });
       queryClient.invalidateQueries({ queryKey: materialKeys.list() });
       queryClient.invalidateQueries({ queryKey: shareKeys.all });
 

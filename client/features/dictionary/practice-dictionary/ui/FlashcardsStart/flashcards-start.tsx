@@ -13,7 +13,6 @@ import {
   useFlashcardStats,
 } from "@/entities/flashcard";
 import { DEFAULT_SESSION_SIZE, MAX_SESSION_SIZE } from "../../consts";
-import { EmptyFlashcards } from "../EmptyFlashcards/empty-flashcards";
 import { RandomCardsModal } from "./random-cards-modal";
 
 interface FlashcardsStartProps {
@@ -52,8 +51,9 @@ export const FlashcardsStart: FC<FlashcardsStartProps> = ({
     );
   }
 
+  // No words yet: the list under it says how to add them
   if (!flashcardStatsData || flashcardStatsData.total === 0) {
-    return <EmptyFlashcards />;
+    return null;
   }
 
   const reviewCount = Math.min(

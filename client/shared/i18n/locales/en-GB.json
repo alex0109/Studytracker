@@ -9,7 +9,7 @@
     "titles": {
       "auth": "Sign in",
       "error": "Error",
-      "limits": "Limits",
+      "limits": "Plan",
       "materials": "Materials",
       "share": "Shared material",
       "statistics": "Statistics",
@@ -24,7 +24,7 @@
     "auth": "Sign in",
     "materials": "Materials",
     "statistics": "Statistics",
-    "limits": "Limits",
+    "limits": "Plan",
     "signOut": "Sign out",
     "signOutConfirm": "Are you sure?",
     "openMenu": "Open menu",
@@ -473,7 +473,7 @@
     "actions": {
       "add": "Add Question",
       "generate": "Generate it",
-      "start": "Start Self Defending"
+      "start": "Start"
     },
     "empty": {
       "title": "No questions yet",
@@ -521,7 +521,6 @@
     },
     "statementLabel": "Statement",
     "editor": {
-      "title": "Questions",
       "add": "Add",
       "search": "Find a question or answer",
       "nothingFound": "Nothing found",
@@ -534,7 +533,11 @@
       "explanationPlaceholder": "Why this is the answer: shown when you get it wrong",
       "options": "Options · mark the correct ones",
       "undoHint": "Bring back the answer as it was before your changes",
-      "undo": "Back"
+      "undo": "Back",
+      "count_one": "{{count}} question",
+      "count_other": "{{count}} questions",
+      "edit": "Edit question",
+      "close": "Close editing"
     }
   },
   "attempt": {
@@ -637,10 +640,6 @@
     "tapToFlip": "Tap to see translation",
     "keysHint": "Swipe the card or use ← ↓ → keys, Space to flip",
     "undo": "Undo",
-    "empty": {
-      "title": "No words to practise yet",
-      "text": "Add words in the Words tab or return archived ones."
-    },
     "start": {
       "due": "Due now",
       "new": "New",
@@ -708,7 +707,8 @@
       "term": "Word",
       "translation": "Translation",
       "mixed": "Mixed"
-    }
+    },
+    "backToWords": "Back to words"
   },
   "feedback": {
     "title": "Tell me what you think",
@@ -825,7 +825,8 @@
       "expand": "Expand the list",
       "sheetText": "Pick a material, note or dictionary",
       "breadcrumb": "Where you are",
-      "myMaterials": "My materials"
+      "myMaterials": "My materials",
+      "essays": "Essays"
     },
     "emptySection": {
       "hint": "Pick a material on the left or add a new one.",
@@ -899,7 +900,42 @@
     "titleExample": "E.g. React basics",
     "createdOn": "Created {{date}}",
     "moreActions": "More actions",
-    "delete": "Delete material"
+    "delete": "Delete material",
+    "create": {
+      "button": "Create",
+      "title": "What do you want to create?",
+      "text": "Pick what to add to this material.",
+      "nameText": "Give it a name. You can change it later.",
+      "back": "Back",
+      "summaryTaken": "This material already has a summary",
+      "kinds": {
+        "text": {
+          "title": "Note",
+          "text": "Text, outlines, thoughts",
+          "placeholder": "e.g. Key ideas"
+        },
+        "drawing": {
+          "title": "Drawing",
+          "text": "Diagrams and handwriting",
+          "placeholder": "e.g. Process diagram"
+        },
+        "essay": {
+          "title": "Essay",
+          "text": "Writing on a topic, checked by AI",
+          "placeholder": "e.g. Letter to the landlord"
+        },
+        "dictionary": {
+          "title": "Dictionary",
+          "text": "Words and translations to review",
+          "placeholder": "e.g. Words from chapter 3"
+        },
+        "summary": {
+          "title": "Summary",
+          "text": "A short retelling of the whole material",
+          "placeholder": "e.g. The main points of the lecture"
+        }
+      }
+    }
   },
   "limits": {
     "reachedToast": "Limit reached. Free up some space and try again",
@@ -1104,13 +1140,9 @@
     "Material": "Material",
     "Questions": "Questions",
     "Attempts": "Attempts",
-    "Note": "Note",
-    "Words": "Words",
-    "Flashcards": "Flashcards"
+    "Note": "Note"
   },
   "notes": {
-    "add": "Add Note",
-    "addTitle": "Add new note",
     "types": {
       "text": "✍️ Text",
       "drawing": "🖌️ Drawing",
@@ -1141,8 +1173,6 @@
       "replaceText": "AI writes a new summary from the material, its notes and dictionaries. The current text of this summary will be replaced.",
       "replace": "Replace"
     },
-    "titleExample": "E.g. Key ideas",
-    "typeLabel": "Note type",
     "essay": {
       "taskLabel": "Task",
       "taskPlaceholder": "Paste the topic or the wording of the task. E.g.: “Should university education be free? Discuss both views and give your own opinion.”",
@@ -1331,8 +1361,6 @@
       "translateInto": "Translate into",
       "upTo": "Up to"
     },
-    "add": "Add Dictionary",
-    "addTitle": "Add new dictionary",
     "description": "Description",
     "descriptionPlaceholder": "Description...",
     "descriptionAdd": "Add a short description...",
@@ -1414,10 +1442,8 @@
       "error": "Couldn't save the word, try again",
       "lookupError": "Couldn't look the word up, try again"
     },
-    "addText": "Words for one material: a topic, a lesson or a chapter.",
     "addWordText": "Only the word and its translation are required, the rest can come later.",
     "deleteTitle": "Delete the dictionary?",
-    "titlePlaceholder": "E.g. Travel",
     "archived": "archived",
     "explain": {
       "button": "Explain the word with examples",
@@ -1437,7 +1463,7 @@
     "seeResults": "See results",
     "empty": {
       "material": "No attempts on this material yet",
-      "text": "Start Self Defending in the Questions tab: your finished attempts with scores will appear here."
+      "text": "Press “Start” in the Questions tab: your finished attempts with scores will appear here."
     }
   },
   "statistics": {
@@ -1739,7 +1765,9 @@
     },
     "clearSearch": "Clear search",
     "found_one": "{{count}} material found",
-    "found_other": "{{count}} materials found"
+    "found_other": "{{count}} materials found",
+    "startLearning": "Start learning",
+    "continueLearning": "Continue learning"
   },
   "today": {
     "title": "Today",
@@ -1749,8 +1777,6 @@
     "questions_one": "{{count}} question",
     "questions_other": "{{count}} questions",
     "minutes": "~{{count}} min",
-    "newWords_one": "incl. {{count}} new",
-    "newWords_other": "incl. {{count}} new",
     "overdue_one": "{{count}} missed earlier",
     "overdue_other": "{{count}} missed earlier",
     "start": "Start",
@@ -1761,15 +1787,26 @@
     "phaseQuestions": "Step 2 · questions",
     "empty": {
       "title": "All caught up",
-      "text": "Nothing is due today. Add a material or practise a dictionary to plant something new."
+      "text": "Nothing is due today. New words and questions appear here after you go through them once in their dictionary or material."
     },
     "done": {
       "title": "Done for today",
       "text": "Everything due is reviewed. What you answered will come back right when it starts to fade.",
       "back": "Back to Today",
-      "statsTitle": "See how you're growing",
-      "statsText": "Your streak, accuracy and weakest topics: statistics show what has stuck and what to work on.",
-      "statsButton": "View statistics"
+      "statsButton": "View statistics",
+      "ofTotal": "{{done}} of {{total}}",
+      "wordsKnown": "known straight away",
+      "questionsRight": "answered right",
+      "accuracy": "Accuracy today",
+      "reviewsToday_one": "{{count}} review today",
+      "reviewsToday_other": "{{count}} reviews today",
+      "firstDay": "Your first day of reviews. Next time you'll see how you compare.",
+      "compare": {
+        "better": "Better than on {{date}}",
+        "worse": "A little lower than on {{date}}",
+        "same": "About the same as on {{date}}",
+        "numbers": "Accuracy {{today}}% against {{previous}}% that day"
+      }
     },
     "question": {
       "of": "{{index}} of {{total}}",
@@ -1777,7 +1814,6 @@
       "incorrect": "Not quite",
       "correctAnswer": "Correct answer",
       "next": "Next",
-      "finish": "Finish",
       "check": "Check",
       "again": "It comes back soon to fix it",
       "nextReview": "Next review {{when}}"
@@ -1791,6 +1827,12 @@
       "title": "That's your limit for today",
       "text": "You've done as many reviews as you set for a day. The rest will wait until tomorrow.",
       "settings": "Change the limit"
+    },
+    "reminder": {
+      "title": "You have reviews waiting today",
+      "text": "Up next: {{what}}, about {{minutes}} min.",
+      "both": "{{words}} and {{questions}}",
+      "button": "Review now"
     }
   },
   "account": {
@@ -2413,7 +2455,8 @@
     "labels": {
       "how": "How",
       "where": "Where",
-      "why": "Why"
+      "why": "Why",
+      "featured": "Key tool"
     },
     "notes": {
       "text": "Formatted text",
@@ -2442,8 +2485,8 @@
         "eyebrow": "Basics",
         "title": "Four kinds of notes",
         "lead": "Text, drawing, summary and essay, for different ways of thinking.",
-        "how": "In an open material, press “+” next to “Notes” and pick a type. Everything saves by itself as soon as you pause.",
-        "where": "Materials list → open a material → “Notes”.",
+        "how": "Open a material and press “+ Create” right under it: a note, drawing, essay, dictionary or summary. Everything saves by itself as soon as you pause.",
+        "where": "The materials list → open a material → “+ Create”.",
         "why": "What you write in your own words sticks better, and every note can have its own questions.",
         "tips": [
           "AI writes the summary from the whole material, its notes and dictionaries; one per material.",
@@ -2453,15 +2496,16 @@
       },
       "essay": {
         "short": "Essays",
-        "eyebrow": "Basics · new",
+        "eyebrow": "Basics",
         "title": "Essays with an honest check",
         "lead": "Write an essay for a task and AI scores it on four criteria from 0 to 100, with specific corrections.",
-        "how": "Create an “Essay” note, paste the wording of the task, write the text (30 words or more) and press “Check essay”.",
-        "where": "A material's notes → “+” → “Essay”.",
+        "how": "Open a material, press “+ Create” and pick “Essay”. Choose a ready topic or paste your own, write the text (30 words or more) and press “Check essay”.",
+        "where": "The materials list → open a material → “+ Create” → “Essay”.",
         "why": "You see more than a score: exactly what holds it back, be it task response, logic, vocabulary or grammar.",
         "tips": [
+          "Among the topics are formats of real German, Norwegian and English language exams: the check then follows their rules.",
           "Only the quality of the writing is judged; your opinion never affects the score.",
-          "The last result is kept with the essay and is still there after a reload.",
+          "Mistakes are explained in the site language, while corrections stay in the language of the essay.",
           "Fixed the mistakes? Press “Check again” and compare."
         ]
       },
@@ -2470,10 +2514,11 @@
         "eyebrow": "Testing yourself",
         "title": "Questions that really test you",
         "lead": "Three types cover almost everything: open, options (one or several correct) and true/false.",
-        "how": "Add questions yourself or ask AI to draft some from the text of a material or note, then edit them to suit you.",
+        "how": "Under the list of questions are “Add” and “Generate”: write a question yourself or ask AI to draft some from the text. To answer, press the big “Start” button at the top.",
         "where": "A material or note → the “Questions” tab.",
         "why": "Answering from memory does more than re-reading: it is what makes knowledge stick.",
         "tips": [
+          "Answers are hidden in the list, so you can't peek. The pencil next to a question opens it for editing.",
           "Be honest about difficulty: hard questions weigh three times as much.",
           "Add an explanation to a question; it helps when you get it wrong."
         ]
@@ -2483,8 +2528,8 @@
         "eyebrow": "Testing yourself",
         "title": "Self-defending instead of cramming",
         "lead": "A quiz from the material's questions: random order, shuffled options and your confidence next to every answer.",
-        "how": "Press “Start Self Defending”, choose the difficulty and the number of questions, and go.",
-        "where": "A material → “Questions” → “Start Self Defending”.",
+        "how": "Press the big “Start” button, choose the difficulty and how many questions, and off you go.",
+        "where": "A material → “Questions” → “Start”.",
         "why": "Confidence next to an answer shows where you are wrong even when you feel sure.",
         "tips": [
           "After an attempt AI briefly explains every mistake.",
@@ -2509,7 +2554,7 @@
         "eyebrow": "Words",
         "title": "Dictionaries and flashcards",
         "lead": "Words with translation, transcription, article, examples and synonyms, and cards that come back just in time.",
-        "how": "Create a dictionary in a material, add words yourself or with AI and practise them with flashcards.",
+        "how": "Open a material, press “+ Create” and pick “Dictionary”. Add words yourself or with AI and practise them with flashcards.",
         "where": "A material → a dictionary → the “Flashcards” tab.",
         "why": "Spaced repetition shows a word right when you are about to forget it.",
         "tips": [
@@ -2535,22 +2580,24 @@
         "short": "Today",
         "eyebrow": "Every day",
         "title": "Daily review",
-        "lead": "One queue a day: the questions and words from all your materials that are due.",
-        "how": "Open “Today”, press “Start” and go through everything that is waiting.",
+        "lead": "One queue a day: words and questions you have gone through at least once and that are due again.",
+        "how": "Open “Today” and press “Start”: questions follow the words straight away, and the day's result comes at the end with no extra buttons.",
         "where": "Navigation → “Today”. The number next to it shows how much is waiting.",
         "why": "A few minutes a day keep knowledge better than a night before the exam.",
         "tips": [
-          "Your streak grows when you review every day, and two freezes a month save missed days.",
+          "Cards show either the word or the translation first, so you see whether you know it both ways. You can change this above the card.",
+          "At the end you see the day's accuracy next to your previous day of reviews.",
+          "Your streak grows when you review every day, and two freezes a month save the days you miss.",
           "Email reminders are set up in your account."
         ]
       },
       "deadlines": {
-        "short": "Calendar",
+        "short": "Deadlines",
         "eyebrow": "Every day",
-        "title": "Deadlines and calendar",
+        "title": "Deadlines for materials",
         "lead": "Give a material the date of an exam or a hand-in and see how much time is left.",
-        "how": "Set a deadline in the material; the calendar shows it together with the days you studied.",
-        "where": "Navigation → “Calendar”.",
+        "how": "Set a deadline in the material: next to it you see how many days are left and how much to review each day to be ready.",
+        "where": "A material → “Deadline”.",
         "why": "With the date in sight, reviews are easier to spread out instead of squeezing them into the last evening.",
         "tips": [
           "A few days before the exam, run self-defending with only the hard questions."
@@ -2573,7 +2620,7 @@
         "eyebrow": "Together",
         "title": "A library of ready materials",
         "lead": "Languages, programming and more: materials with questions and dictionaries that you can add in one click.",
-        "how": "Open the library, look through a material and add it: you get your own copy.",
+        "how": "Open the library and press “Start learning” on a card: the material lands in your materials and opens straight away.",
         "where": "Navigation → “Library”. It is open even without signing in.",
         "why": "No need to start from scratch: take something ready and practise right away.",
         "tips": [
@@ -2801,6 +2848,23 @@
           "q": "Which languages does Studytracker speak?",
           "a": "The interface is in Ukrainian, English and Norwegian. AI explanations come in any of 11 languages, and you can learn anything."
         }
+      }
+    },
+    "focus": {
+      "title": "Three tools that do most of the work",
+      "text": "Questions test what you know, dictionaries keep words in your memory and essays teach you to write. Start with these; the rest of the guide is the detail.",
+      "link": "How it works",
+      "questions": {
+        "title": "Questions",
+        "text": "Write them yourself or with AI, then press the big “Start” button and answer from memory."
+      },
+      "words": {
+        "title": "Dictionary",
+        "text": "Words with translations and examples that come back on cards just as you start to forget them."
+      },
+      "essay": {
+        "title": "Essay",
+        "text": "Pick a topic, write the text and get a score on four criteria with specific corrections."
       }
     }
   },

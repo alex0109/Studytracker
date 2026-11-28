@@ -35,6 +35,25 @@ export interface IReviewToday {
   reviewsLeft?: number | null;
 }
 
+// The answers of one local day, from "Today" and finished attempts
+export interface IReviewDay {
+  // "yyyy-MM-dd" in the user's own calendar
+  date: string;
+  reviews: number;
+  // Answered "know" or right
+  remembered: number;
+  // 0-100
+  accuracy: number;
+  words: number;
+  questions: number;
+}
+
+export interface IReviewDaySummary {
+  today: IReviewDay;
+  // The last day before today with any reviews; none on the first day
+  previous?: IReviewDay | null;
+}
+
 export interface IReviewQuestion {
   id: string;
   materialId: string;

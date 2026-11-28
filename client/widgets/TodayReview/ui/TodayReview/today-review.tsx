@@ -3,18 +3,19 @@
 import { FC, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { LuArrowRight, LuBookA, LuChartSpline, LuCircleCheckBig, LuClock, LuListChecks, LuPlay, LuSprout } from "react-icons/lu";
+import { LuBookA, LuClock, LuListChecks, LuPlay, LuSprout } from "react-icons/lu";
 import { Button, Skeleton } from "@/shared/radix-ui";
 import { useTranslation } from "@/shared/i18n";
 import { Spinner } from "@/shared/ui";
 import { FlashcardSessionModeEnum, IFlashcardSessionResponse } from "@/entities/flashcard";
-import { IQuestionReviewSession, useReviewToday } from "@/entities/review";
-import { FlashcardsDeck } from "@/features/dictionary/practice-dictionary";
+import { IQuestionReviewSession, IReviewAnswerResult, useReviewToday } from "@/entities/review";
+import { FlashcardsDeck, TODAY_DIRECTION } from "@/features/dictionary/practice-dictionary";
 import {
   QuestionReviewDeck,
   useQuestionReviewStart,
   useTodayWordsStart,
 } from "@/features/review/today-review";
+import { TodayDone, WordCounts } from "./today-done";
 
 type Phase = "summary" | "words" | "questions" | "done";
 
@@ -31,13 +32,18 @@ const Fade: FC<{ id: string; children: React.ReactNode }> = ({ id, children }) =
   </motion.div>
 );
 
-// Everything due today in one go: words from all dictionaries first, then questions from all materials
+// Everything due today in one go: words from all dictionaries first, then questions from all materials.
+// Only what was studied before, and once a day: what is answered here waits for tomorrow, so a done queue stays done.
+// Each step leads into the next by itself, and the last one into how the day went
 export const TodayReview: FC = () => {
   const { t } = useTranslation();
   const { todayData, todayIsPending, todayError } = useReviewToday();
   const [phase, setPhase] = useState<Phase>("summary");
   const [wordsSession, setWordsSession] = useState<IFlashcardSessionResponse>();
   const [questionSession, setQuestionSession] = useState<IQuestionReviewSession>();
+  // What this run had, for the result at the end
+  const [wordCounts, setWordCounts] = useState<WordCounts>();
+  const [questionResults, setQuestionResults] = useState<IReviewAnswerResult[]>();
 
   const { startWords, startWordsIsPending } = useTodayWordsStart();
   const { startQuestions, startQuestionsIsPending } = useQuestionReviewStart();
@@ -68,7 +74,12 @@ export const TodayReview: FC = () => {
       },
     );
 
-  const start = () => (hasWords ? goWords() : goQuestions());
+  const start = () => {
+    setWordCounts(undefined);
+    setQuestionResults(undefined);
+    if (hasWords) goWords();
+    else goQuestions();
+  };
 
   if (todayIsPending) {
     return <Skeleton className="h-72 w-full max-w-2xl rounded-2xl" />;
@@ -124,11 +135,6 @@ export const TodayReview: FC = () => {
                     <LuBookA aria-hidden /> {t("today.startWords")}
                   </span>
                   <span className="text-3xl font-bold tabular-nums">{todayData.wordsInSession}</span>
-                  {todayData.newWords > 0 && todayData.wordsInSession > todayData.dueWords && (
-                    <span className="text-xs text-neutral-500">
-                      {t("today.newWords", { count: todayData.wordsInSession - Math.min(todayData.dueWords, todayData.wordsInSession) })}
-                    </span>
-                  )}
                 </div>
                 <div className="flex flex-col gap-1 rounded-xl bg-sky-50 p-4 dark:bg-sky-950/40">
                   <span className="flex items-center gap-1.5 text-sm text-sky-700 dark:text-sky-300">
@@ -194,7 +200,16 @@ export const TodayReview: FC = () => {
                   {startWordsIsPending || startQuestionsIsPending ? <Spinner /> : <LuPlay aria-hidden />} {t("today.start")}
                 </Button>
                 {hasWords && hasQuestions && (
-                  <Button size="lg" variant="outline" onClick={goQuestions} disabled={startQuestionsIsPending}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onClick={() => {
+                      setWordCounts(undefined);
+                      setQuestionResults(undefined);
+                      goQuestions();
+                    }}
+                    disabled={startQuestionsIsPending}
+                  >
                     {t("today.startQuestions")}
                   </Button>
                 )}
@@ -213,7 +228,12 @@ export const TodayReview: FC = () => {
             isRepeatPending={startWordsIsPending}
             onRepeat={(entryIds) => goWords(entryIds)}
             onRestart={() => (hasQuestions ? goQuestions() : setPhase("done"))}
-            continueLabel={hasQuestions ? t("today.startQuestions") : t("today.question.finish")}
+            onFinished={(counts) => {
+              setWordCounts(counts);
+              if (hasQuestions) goQuestions();
+              else setPhase("done");
+            }}
+            directionScope={TODAY_DIRECTION}
             canUndo={false}
             letterChallenge
           />
@@ -223,42 +243,19 @@ export const TodayReview: FC = () => {
       {phase === "questions" && questionSession && (
         <Fade id={`questions-${questionSession.id}`}>
           <p className="mb-2 text-sm font-medium text-neutral-500">{t("today.phaseQuestions")}</p>
-          <QuestionReviewDeck session={questionSession} onDone={() => setPhase("done")} />
+          <QuestionReviewDeck
+            session={questionSession}
+            onDone={(results) => {
+              setQuestionResults(results);
+              setPhase("done");
+            }}
+          />
         </Fade>
       )}
 
       {phase === "done" && (
         <Fade id="done">
-          <div className="flex w-full max-w-2xl flex-col items-center gap-3 rounded-2xl bg-white p-8 text-center dark:bg-neutral-900">
-            <motion.span
-              initial={{ scale: 0.3, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 12 }}
-              className="text-5xl text-emerald-500"
-            >
-              <LuCircleCheckBig aria-hidden />
-            </motion.span>
-            <h2 className="text-xl font-semibold">{t("today.done.title")}</h2>
-            <p className="max-w-md text-sm text-neutral-500">{t("today.done.text")}</p>
-
-            {/* The natural next step after a session: see what it changed */}
-            <div className="mt-3 flex w-full flex-col items-center gap-3 rounded-2xl bg-gradient-to-br from-violet-50 to-sky-50 p-5 dark:from-violet-950/40 dark:to-sky-950/30">
-              <span className="flex size-11 items-center justify-center rounded-2xl bg-white text-xl text-violet-600 shadow-sm dark:bg-neutral-900 dark:text-violet-300">
-                <LuChartSpline aria-hidden />
-              </span>
-              <p className="font-semibold text-neutral-900 dark:text-neutral-100">{t("today.done.statsTitle")}</p>
-              <p className="max-w-sm text-sm text-neutral-600 dark:text-neutral-300">{t("today.done.statsText")}</p>
-              <Button asChild size="lg" className="w-full bg-violet-600 text-white hover:bg-violet-700 sm:w-auto">
-                <Link href="/statistics">
-                  {t("today.done.statsButton")} <LuArrowRight aria-hidden />
-                </Link>
-              </Button>
-            </div>
-
-            <Button variant="ghost" onClick={() => setPhase("summary")}>
-              {t("today.done.back")}
-            </Button>
-          </div>
+          <TodayDone words={wordCounts} questions={questionResults} onBack={() => setPhase("summary")} />
         </Fade>
       )}
     </AnimatePresence>

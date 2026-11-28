@@ -9,6 +9,7 @@ import { QuestionsContent } from "@/widgets/QuestionsContent";
 import { AttemptsContent } from "@/widgets/AttemptsContent";
 import { MaterialTags } from "@/widgets/MaterialTags";
 import { DeadlinePlanCard, DeadlineProperty } from "@/widgets/Deadlines";
+import { TodayReminder } from "@/widgets/TodayReview";
 
 // The page puts the widgets together: the list, and next to it the open material, note or
 // dictionary with the blocks they show inside
@@ -64,4 +65,10 @@ const OpenContent: FC<{ view: IMaterialsView }> = ({ view }) => {
   );
 };
 
-export const MaterialsWorkspace: FC = () => <MaterialsSideBar renderContent={(view) => <OpenContent view={view} />} />;
+// What "Today" waits for sits above the list, as wide as it
+export const MaterialsWorkspace: FC = () => (
+  <>
+    <TodayReminder className="mt-3 lg:w-[94%] xl:w-[90%]" />
+    <MaterialsSideBar renderContent={(view) => <OpenContent view={view} />} />
+  </>
+);

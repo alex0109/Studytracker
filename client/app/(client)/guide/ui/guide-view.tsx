@@ -4,6 +4,7 @@ import { FC } from "react";
 import { FinalCta } from "../../(home)/ui/FinalCta";
 import { guideSections } from "./data";
 import { GuideHero } from "./guide-hero";
+import { GuideFocus } from "./guide-focus";
 import { GuideToc } from "./guide-toc";
 import { GuideSection } from "./guide-section";
 import { UnderTheHood } from "./under-the-hood";
@@ -13,6 +14,7 @@ import { GuideFaq } from "./guide-faq";
 export const GuideView: FC = () => (
   <div className="flex flex-col items-center gap-16 overflow-x-clip pb-24 md:gap-24">
     <GuideHero />
+    <GuideFocus />
 
     <div className="grid w-full max-w-7xl gap-10 px-4 lg:grid-cols-[220px_1fr] xl:gap-14">
       {/* Contents stay in view on wide screens while the guide scrolls */}
